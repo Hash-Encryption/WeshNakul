@@ -1,0 +1,86 @@
+{
+  "landing": {
+    "title": "Can’t agree on food?",
+    "subtitle": "Let the group settle it in 60 seconds.",
+    "createGroup": "Start a Group",
+    "enterCode": "Join with Code",
+    "badge": "No sign-up • Fast • Built for the squad"
+  },
+  "mode": {
+    "heading": "What’s the move tonight?",
+    "subtitle": "Pick how you're eating",
+    "delivery": "🏠 Delivery",
+    "dineIn": "🍽️ Going out",
+    "flexible": "🤷 Down for whatever",
+    "next": "Next"
+  },
+  "setup": {
+    "heading": "Set Up the Squad",
+    "subtitle": "Your name and area so we load the right spots",
+    "nicknameLabel": "What do we call you?",
+    "nicknamePlaceholder": "Your name or nickname",
+    "cityLabel": "City",
+    "cityPlaceholder": "Select City",
+    "areaLabel": "District (Optional)",
+    "areaPlaceholder": "Select or type district",
+    "canChangeLater": "Can be changed later",
+    "submit": "Create Room"
+  },
+  "lobby": {
+    "heading": "Squad is Ready! 🎉",
+    "subtitle": "Send the link and let everyone pick",
+    "roomCodeLabel": "Room Code",
+    "inviteLinkLabel": "Invite Link",
+    "copyLink": "Copy Link",
+    "shareWhatsApp": "Share to WhatsApp",
+    "startPicking": "Start Picking",
+    "maxMembersBadge": "Up to 10 people",
+    "maxMembersDesc": "Everyone can join and pick what they like",
+    "membersCount": "members",
+    "hostBadge": "Host",
+    "youBadge": "You",
+    "waitingOthers": "Waiting for the rest of the squad..."
+  },
+  "guest": {
+    "joinTitle": "Join the Group",
+    "joinSubtitle": "Enter your name and pick with the squad",
+    "nicknameLabel": "What do we call you?",
+    "nicknamePlaceholder": "Your name or nickname",
+    "submit": "Let’s Pick",
+    "roomDetails": "Squad Details",
+    "city": "City",
+    "eatingMode": "Eating Mode",
+    "participantsCount": "Current Squad"
+  },
+  "roomFull": {
+    "title": "Room is packed! Max 10 people reached.",
+    "subtitle": "You can't join because this squad has reached its 10-player capacity.",
+    "createNew": "Start a New Squad",
+    "goHome": "Back to Home"
+  },
+  "enterCodeModal": {
+    "title": "Join with Code",
+    "subtitle": "Enter the 4-character squad code",
+    "placeholder": "e.g. A7K2",
+    "submit": "Enter",
+    "cancel": "Cancel",
+    "errorNotFound": "Invalid code or room has expired"
+  },
+  "toast": {
+    "linkCopied": "Link copied!",
+    "codeCopied": "Room code copied!"
+  },
+  "whatsapp": {
+    "shareMessage": "Can't decide what to eat 😂 Hop in and pick with us: {url}"
+  },
+  "common": {
+    "back": "Back",
+    "loading": "Loading...",
+    "appName": "Wsh N6lob?",
+    "appTagline": "Saudi Group Food Decision Engine",
+    "close": "Close",
+    "errorGeneric": "Something went wrong, please try again",
+    "participant": "member",
+    "participants": "members"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "landing": {
+    "title": "محتارين وش تاكلون؟",
+    "subtitle": "خلّ القروب يقررها بدقيقة.",
+    "createGroup": "ابدأ قروب",
+    "enterCode": "ادخل برمز",
+    "badge": "بدون تسجيل • سريع • مناسب للقروبات"
+  },
+  "mode": {
+    "heading": "كيف تبغونها؟",
+    "subtitle": "اختاروا طريقة الليلة",
+    "delivery": "🏠 بنطلب",
+    "dineIn": "🍽️ بنطلع",
+    "flexible": "🤷 أي شيء",
+    "next": "التالي"
+  },
+  "setup": {
+    "heading": "سوّ القروب",
+    "subtitle": "اسمك وموقعكم عشان نجهز المطاعم",
+    "nicknameLabel": "وش نناديك؟",
+    "nicknamePlaceholder": "اسمك أو لقبك",
+    "cityLabel": "المدينة",
+    "cityPlaceholder": "اختر المدينة",
+    "areaLabel": "الحي (اختياري)",
+    "areaPlaceholder": "اختر أو اكتب الحي",
+    "canChangeLater": "يمكن تغييره لاحقًا",
+    "submit": "إنشاء القروب"
+  },
+  "lobby": {
+    "heading": "القروب جاهز 🎉",
+    "subtitle": "ارسل الرابط وخليهم يختارون",
+    "roomCodeLabel": "رمز القروب",
+    "inviteLinkLabel": "رابط الدعوة",
+    "copyLink": "نسخ الرابط",
+    "shareWhatsApp": "شارك في واتساب",
+    "startPicking": "ابدأ اختياراتي",
+    "maxMembersBadge": "حتى 10 أشخاص",
+    "maxMembersDesc": "يمكن للجميع الانضمام واختيار ما يفضلونه",
+    "membersCount": "أعضاء",
+    "hostBadge": "المؤسس",
+    "youBadge": "أنت",
+    "waitingOthers": "في انتظار باقي القروب..."
+  },
+  "guest": {
+    "joinTitle": "انضمام للقروب",
+    "joinSubtitle": "ادخل اسمك وشارك ربعك بالاختيار",
+    "nicknameLabel": "وش نناديك؟",
+    "nicknamePlaceholder": "اسمك أو لقبك",
+    "submit": "يلا نختار",
+    "roomDetails": "تفاصيل القروب",
+    "city": "المدينة",
+    "eatingMode": "الطريقة",
+    "participantsCount": "المشاركين حالياً"
+  },
+  "roomFull": {
+    "title": "عذرًا، القروب وصل حده (10 أشخاص)",
+    "subtitle": "ما تقدر تنضم لأن القروب اكتمل بعدد 10 أشخاص.",
+    "createNew": "سوّ قروب جديد",
+    "goHome": "العودة للرئيسية"
+  },
+  "enterCodeModal": {
+    "title": "ادخل برمز القروب",
+    "subtitle": "اكتب الرمز المكون من 4 خانات",
+    "placeholder": "مثلاً A7K2",
+    "submit": "دخول",
+    "cancel": "إلغاء",
+    "errorNotFound": "الرمز غير صحيح أو القروب منتهي"
+  },
+  "toast": {
+    "linkCopied": "تم نسخ الرابط!",
+    "codeCopied": "تم نسخ الرمز!"
+  },
+  "whatsapp": {
+    "shareMessage": "محتارين وش نطلب 😂 ادخل واختر معي: {url}"
+  },
+  "common": {
+    "back": "رجوع",
+    "loading": "لحظة...",
+    "appName": "وش نطلب؟",
+    "appTagline": "محرك قرارات الأكل للقروبات",
+    "close": "إغلاق",
+    "errorGeneric": "حدث خطأ ما، يرجى المحاولة ثانية",
+    "participant": "مشارك",
+    "participants": "مشاركين"
+  }
+}
