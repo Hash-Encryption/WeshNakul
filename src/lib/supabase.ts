@@ -585,3 +585,80 @@ export function subscribeToRoom(
     window.removeEventListener('storage', handleStorage);
   };
 }
+
+/**
+ * Reset room state, clearing food choices and restaurant swipes so squad can vote again.
+ */
+export async function resetRoomVoting(
+  roomId: string,
+  targetStage: RoomStage = 'voting'
+): Promise<void> {
+  const resetMeta = {
+    stage: targetStage,
+    winning_category: null,
+    consensus_type: null,
+    tied_categories: [],
+    winning_restaurant_id: null,
+    swiping_started_at: null,
+  };
+
+  if (supabase) {
+    // 1. Update room stage
+    await supabase.from('rooms').update(resetMeta).eq('id', roomId);
+
+    // 2. Reset food choices (un-submit and clear categories)
+    try {
+      await supabase
+        .from('food_choices')
+        .update({
+          selected_categories: [],
+          is_submitted: false,
+          submitted_at: null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('room_id', roomId);
+    } catch (e) {
+      console.warn('Could not reset food choices', e);
+    }
+
+    // Try delete on food choices if permitted
+    try {
+      await supabase.from('food_choices').delete().eq('room_id', roomId);
+    } catch {
+      // Ignored if delete policy not active
+    }
+
+    // 3. Delete restaurant swipes
+    try {
+      await supabase.from('restaurant_swipes').delete().eq('room_id', roomId);
+    } catch (e) {
+      console.warn('Could not delete restaurant swipes', e);
+    }
+  }
+
+  // Local mock fallback
+  const rooms = getMockRooms();
+  for (const code of Object.keys(rooms)) {
+    if (rooms[code].id === roomId) {
+      rooms[code] = {
+        ...rooms[code],
+        ...resetMeta,
+      };
+      saveMockRooms(rooms);
+      break;
+    }
+  }
+
+  const allChoices = getMockFoodChoices();
+  delete allChoices[roomId];
+  saveMockFoodChoices(allChoices);
+
+  const allSwipes = getMockRestaurantSwipes();
+  delete allSwipes[roomId];
+  saveMockRestaurantSwipes(allSwipes);
+
+  broadcastChannel?.postMessage({
+    type: 'ROOM_UPDATED',
+    roomId,
+  });
+}

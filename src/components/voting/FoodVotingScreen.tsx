@@ -29,6 +29,8 @@ export const FoodVotingScreen: React.FC = () => {
   useEffect(() => {
     if (myChoice?.selected_categories && myChoice.selected_categories.length > 0) {
       setSelectedIds(myChoice.selected_categories);
+    } else {
+      setSelectedIds([]);
     }
   }, [myChoice]);
 

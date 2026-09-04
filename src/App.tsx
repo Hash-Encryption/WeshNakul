@@ -29,6 +29,7 @@ export const App: React.FC = () => {
     loadRoom,
     leaveRoom,
     startVoting,
+    resetRoomVoting,
   } = useRoom();
 
   const { t } = useLocale();
@@ -46,6 +47,12 @@ export const App: React.FC = () => {
 
     // If active participant is in current room, show room screen
     if (currentRoom && currentParticipant) {
+      const isRoot = window.location.pathname === '/' || window.location.pathname === '';
+      const hasUrlCode = window.location.pathname.match(/\/r\/([A-Za-z0-9]{4})/i);
+      if (isRoot && !hasUrlCode && currentRoom.stage === 'matched') {
+        setStep('landing');
+        return;
+      }
       setStep('room');
       return;
     }
@@ -199,6 +206,8 @@ export const App: React.FC = () => {
           <MatchCelebrationScreen
             restaurant={winner}
             participants={participants}
+            onVoteAgain={() => resetRoomVoting('voting')}
+            onGoHome={handleLeave}
             onProceed={() => {
               // Prepares Phase 4 transition
             }}

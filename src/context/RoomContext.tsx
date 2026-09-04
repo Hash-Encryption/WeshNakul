@@ -7,7 +7,8 @@ import {
   subscribeToRoom,
   updateRoomStage,
   upsertFoodChoice,
-  getFoodChoices
+  getFoodChoices,
+  resetRoomVoting as apiResetRoomVoting
 } from '../lib/supabase';
 import { 
   getActiveRoomCode, 
@@ -35,6 +36,7 @@ interface RoomContextType {
   resolveConsensus: (winner: string, consensusType: ConsensusType) => Promise<void>;
   startTiebreaker: (tiedCategories: string[]) => Promise<void>;
   resetToLobby: () => Promise<void>;
+  resetRoomVoting: (targetStage?: import('../types/database').RoomStage) => Promise<void>;
   startSwiping: () => Promise<void>;
 }
 
@@ -85,6 +87,17 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(false);
         return false;
       }
+
+      // If user is at root '/' without /r/:code in URL and the room was already matched,
+      // clear the active room code so user can start fresh on the landing page!
+      const isRoot = window.location.pathname === '/' || window.location.pathname === '';
+      const hasUrlCode = window.location.pathname.match(/\/r\/([A-Za-z0-9]{4})/i);
+      if (isRoot && !hasUrlCode && room.stage === 'matched') {
+        setActiveRoomCode(null);
+        setIsLoading(false);
+        return false;
+      }
+
       setCurrentRoom(room);
       setParticipants(parts);
       setActiveRoomCode(room.code);
@@ -275,16 +288,22 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await refreshRoom();
   };
 
+  const resetRoomVoting = async (targetStage: import('../types/database').RoomStage = 'voting') => {
+    if (!currentRoom) return;
+    setIsLoading(true);
+    try {
+      await apiResetRoomVoting(currentRoom.id, targetStage);
+      await refreshRoom();
+    } catch (err) {
+      console.error('Error resetting room voting', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const resetToLobby = async () => {
     if (!currentRoom) return;
-    await updateRoomStage(currentRoom.id, 'lobby', {
-      winning_category: null,
-      consensus_type: null,
-      tied_categories: [],
-      winning_restaurant_id: null,
-      swiping_started_at: null,
-    });
-    await refreshRoom();
+    await resetRoomVoting('lobby');
   };
 
   const startSwiping = async () => {
@@ -322,6 +341,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         resolveConsensus,
         startTiebreaker,
         resetToLobby,
+        resetRoomVoting,
         startSwiping,
       }}
     >

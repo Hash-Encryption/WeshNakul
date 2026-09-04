@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { motion } from 'motion/react';
 import type { RestaurantItem } from '../../types/restaurant';
 import type { Participant } from '../../types/database';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { Header } from '../common/Header';
+import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart } from '../common/DecorativeSparkles';
 import { useLocale } from '../../context/LocaleContext';
 
@@ -12,6 +13,8 @@ interface MatchCelebrationScreenProps {
   restaurant: RestaurantItem;
   participants: Participant[];
   onProceed?: () => void;
+  onVoteAgain?: () => void;
+  onGoHome?: () => void;
   isUnanimous?: boolean;
 }
 
@@ -19,9 +22,12 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   restaurant,
   participants,
   onProceed,
+  onVoteAgain,
+  onGoHome,
   isUnanimous = true,
 }) => {
   const { locale, t } = useLocale();
+  const [showMenuModal, setShowMenuModal] = useState(false);
 
   useEffect(() => {
     try {
@@ -68,7 +74,13 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   return (
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-6 selection:bg-[#FFF0EE]">
       <div>
-        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={true} />
+        <Header
+          showBack={false}
+          showMenu={true}
+          onMenuClick={() => setShowMenuModal(true)}
+          participantCount={participants.length}
+          showCount={true}
+        />
 
         {/* Heading with playful sparkles */}
         <div className="text-center mt-2 mb-4 px-2 relative">
@@ -160,7 +172,7 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
       </div>
 
       {/* Action Buttons */}
-      <div className="max-w-md w-full mx-auto flex flex-col gap-3">
+      <div className="max-w-md w-full mx-auto flex flex-col gap-2.5 pb-6">
         {/* Primary Phase 4 CTA */}
         <button
           type="button"
@@ -179,7 +191,76 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
         >
           <span>{t('match.share_whatsapp_cta')}</span>
         </a>
+
+        {/* Vote Again CTA */}
+        {onVoteAgain && (
+          <button
+            type="button"
+            onClick={onVoteAgain}
+            className="w-full py-3 px-6 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none"
+          >
+            <span>{t('match.vote_again_cta')}</span>
+          </button>
+        )}
+
+        {/* Return to Home / New Group CTA */}
+        {onGoHome && (
+          <button
+            type="button"
+            onClick={onGoHome}
+            className="w-full py-2.5 px-6 rounded-2xl bg-white text-[#7A6E67] hover:text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all select-none"
+          >
+            <span>{t('match.go_home_cta')}</span>
+          </button>
+        )}
       </div>
+
+      {/* Menu / Options Modal */}
+      {showMenuModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="w-full max-w-xs bg-white rounded-3xl p-5 shadow-2xl border-2 border-[#241B18] text-center">
+            <h4 className="text-lg font-bold text-[#241B18] mb-4 font-alexandria">
+              {t('match.menu_title')}
+            </h4>
+            <div className="flex flex-col gap-2.5">
+              {onVoteAgain && (
+                <TactileButton
+                  onClick={() => {
+                    setShowMenuModal(false);
+                    onVoteAgain();
+                  }}
+                  variant="primary"
+                  size="sm"
+                  fullWidth
+                >
+                  {t('match.vote_again_cta')}
+                </TactileButton>
+              )}
+              {onGoHome && (
+                <TactileButton
+                  onClick={() => {
+                    setShowMenuModal(false);
+                    onGoHome();
+                  }}
+                  variant="ghost"
+                  size="sm"
+                  fullWidth
+                  className="text-brand-red hover:bg-brand-redSoft"
+                >
+                  {t('match.go_home_cta')}
+                </TactileButton>
+              )}
+              <button
+                type="button"
+                onClick={() => setShowMenuModal(false)}
+                className="py-2 text-xs font-semibold text-[#7A6E67]"
+              >
+                {t('common.close')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
