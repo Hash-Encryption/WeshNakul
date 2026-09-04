@@ -17,6 +17,10 @@ export function runRestaurantSwiperTests() {
   const shawarmaJeddahDeck = getDeckForRoom('shawarma', 'jeddah');
   assert(shawarmaJeddahDeck.length >= 5 && shawarmaJeddahDeck.length <= 7, 'Shawarma deck must be between 5 and 7');
 
+  const friedChickenDeck = getDeckForRoom('fried_chicken', 'riyadh');
+  assert(friedChickenDeck.length >= 5 && friedChickenDeck.length <= 7, 'Fried chicken deck must be between 5 and 7');
+  assert(friedChickenDeck.some((r) => r.id === 'rest_chicken_01'), 'Raising Cane\'s should be in fried chicken deck');
+
   // 2. Unknown category falls back to overall top rated and has >= 5 items
   const unknownCategoryDeck = getDeckForRoom('non_existent_category', 'riyadh');
   assert(unknownCategoryDeck.length >= 5 && unknownCategoryDeck.length <= 7, 'Unknown category fallback must have 5-7 items');

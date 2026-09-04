@@ -251,6 +251,81 @@ export const RESTAURANT_CATALOG: RestaurantItem[] = [
     rating: 4.5
   },
 
+  // FRIED CHICKEN
+  {
+    id: 'rest_chicken_01',
+    nameAr: 'ريزينج كينز',
+    nameEn: "Raising Cane's",
+    categoryId: 'fried_chicken',
+    cities: ['riyadh', 'jeddah', 'dammam_khobar'],
+    districts: ['al-nakheel', 'al-zahra'],
+    priceTier: '$$',
+    signatureDishAr: 'ذا بوكس كومبو مع صوص كينز وخبز تكساس 🍗🍞',
+    signatureDishEn: "The Box Combo with Cane's Sauce & Texas Toast 🍗🍞",
+    vibeTagsAr: ['تندرز عالمي', 'صوص أسطوري', 'شبابي'],
+    vibeTagsEn: ['World Class Tenders', 'Legendary Sauce', 'Crispy'],
+    imageUrl: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800&auto=format&fit=crop&q=80',
+    rating: 4.8
+  },
+  {
+    id: 'rest_chicken_02',
+    nameAr: 'ديفز هوت تشيكن',
+    nameEn: "Dave's Hot Chicken",
+    categoryId: 'fried_chicken',
+    cities: ['riyadh'],
+    districts: ['al-olaya', 'al-yasmin'],
+    priceTier: '$$',
+    signatureDishAr: 'ناشفيل هوت تندرز مع سلايدر وبطاطس متبلة 🍗🔥',
+    signatureDishEn: 'Nashville Hot Tenders with Slider & Fries 🍗🔥',
+    vibeTagsAr: ['حار نار', 'ترند', 'قرمشة عالية'],
+    vibeTagsEn: ['Nashville Hot', 'Trending', 'High Crunch'],
+    imageUrl: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80',
+    rating: 4.7
+  },
+  {
+    id: 'rest_chicken_03',
+    nameAr: 'بيردي',
+    nameEn: 'Birdie',
+    categoryId: 'fried_chicken',
+    cities: ['riyadh'],
+    districts: ['al-malqa'],
+    priceTier: '$$',
+    signatureDishAr: 'ساندوتش كرسبي مابل مع ستربس مقرمشة 🍗🍁',
+    signatureDishEn: 'Crispy Maple Chicken Sandwich & Strips 🍗🍁',
+    vibeTagsAr: ['طازج يومياً', 'كرسبي خفيف', 'صوصات خاصة'],
+    vibeTagsEn: ['Fresh Daily', 'Light Crunch', 'Craft Sauces'],
+    imageUrl: 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=800&auto=format&fit=crop&q=80',
+    rating: 4.6
+  },
+  {
+    id: 'rest_chicken_04',
+    nameAr: 'تشكن',
+    nameEn: 'CHKN',
+    categoryId: 'fried_chicken',
+    cities: ['riyadh', 'jeddah'],
+    priceTier: '$$',
+    signatureDishAr: 'قطع تندرز مقرمشة مع صوص رانش وهوني مسترد 🍗🍯',
+    signatureDishEn: 'Crispy Tenders with Ranch & Honey Mustard 🍗🍯',
+    vibeTagsAr: ['مقرمش ولذيذ', 'سريع', 'بوكسات مشاركة'],
+    vibeTagsEn: ['Crispy & Juicy', 'Fast', 'Share Boxes'],
+    imageUrl: 'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=800&auto=format&fit=crop&q=80',
+    rating: 4.5
+  },
+  {
+    id: 'rest_chicken_05',
+    nameAr: 'بوبايز',
+    nameEn: 'Popeyes',
+    categoryId: 'fried_chicken',
+    cities: ['riyadh', 'jeddah', 'dammam_khobar'],
+    priceTier: '$',
+    signatureDishAr: 'ساندوتش دجاج لويزيانا الحار مع بسكويت بالزبدة 🍗🧈',
+    signatureDishEn: 'Spicy Louisiana Chicken Sandwich & Biscuit 🍗🧈',
+    vibeTagsAr: ['نكهة لويزيانا', 'قرمشة لا تقاوم', 'أسطوري'],
+    vibeTagsEn: ['Louisiana Flavor', 'Crunchy', 'Iconic'],
+    imageUrl: 'https://images.unsplash.com/photo-1527477321007-448bf6582ddb?w=800&auto=format&fit=crop&q=80',
+    rating: 4.6
+  },
+
   // BROAST
   {
     id: 'rest_broast_01',
@@ -408,13 +483,17 @@ export function getDeckForRoom(categoryId: string, city: string, district?: stri
   const normalizedCity = (city || 'riyadh').toLowerCase();
   const normalizedDistrict = district ? district.toLowerCase().trim() : '';
 
+  const isChicken = normalizedCategory === 'fried_chicken' || normalizedCategory === 'broast';
+  const matchesCategory = (r: RestaurantItem) =>
+    r.categoryId === normalizedCategory || (isChicken && (r.categoryId === 'fried_chicken' || r.categoryId === 'broast'));
+
   let deck: RestaurantItem[] = [];
 
   // 1. Category + District (if district provided)
   if (normalizedDistrict) {
     deck = RESTAURANT_CATALOG.filter(
       (r) =>
-        r.categoryId === normalizedCategory &&
+        matchesCategory(r) &&
         r.cities.includes(normalizedCity) &&
         r.districts?.some((d) => d.toLowerCase().includes(normalizedDistrict))
     );
@@ -424,7 +503,7 @@ export function getDeckForRoom(categoryId: string, city: string, district?: stri
   if (deck.length < 5) {
     const cityMatches = RESTAURANT_CATALOG.filter(
       (r) =>
-        r.categoryId === normalizedCategory &&
+        matchesCategory(r) &&
         r.cities.includes(normalizedCity) &&
         !deck.some((existing) => existing.id === r.id)
     );
@@ -435,7 +514,7 @@ export function getDeckForRoom(categoryId: string, city: string, district?: stri
   if (deck.length < 5) {
     const categoryMatches = RESTAURANT_CATALOG.filter(
       (r) =>
-        r.categoryId === normalizedCategory &&
+        matchesCategory(r) &&
         !deck.some((existing) => existing.id === r.id)
     );
     deck = [...deck, ...categoryMatches];

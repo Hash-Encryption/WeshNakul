@@ -9,7 +9,8 @@ export interface FoodCategoryDef {
 export const FOOD_CATEGORIES: FoodCategoryDef[] = [
   { id: 'burger', icon: '🍔', ar: 'برجر', en: 'Burger' },
   { id: 'shawarma', icon: '🌯', ar: 'شاورما', en: 'Shawarma' },
-  { id: 'broast', icon: '🍗', ar: 'بروستد', en: 'Broasted' },
+  { id: 'fried_chicken', icon: '🍗', ar: 'دجاج مقلي', en: 'Fried Chicken' },
+  { id: 'broast', icon: '🍟', ar: 'بروستد', en: 'Broasted' },
   { id: 'rice', icon: '🍚', ar: 'كبسة ورز', en: 'Rice & Kabsa' },
   { id: 'grill', icon: '🍢', ar: 'مشاوي', en: 'Grills' },
   { id: 'pizza', icon: '🍕', ar: 'بيتزا', en: 'Pizza' },
