@@ -22,6 +22,11 @@ export const FOOD_CATEGORIES: FoodCategoryDef[] = [
   { id: 'healthy', icon: '🥗', ar: 'صحي ودايت', en: 'Healthy' },
   { id: 'coffee', icon: '☕', ar: 'قهوة وحلا', en: 'Café & Sweets' },
   { id: 'dessert', icon: '🍦', ar: 'آيسكريم وحلى', en: 'Dessert' },
+  { id: 'indian', icon: '🍛', ar: 'هندي وبيرياني', en: 'Indian & Biryani' },
+  { id: 'fatayer', icon: '🥧', ar: 'فطاير ومعجنات', en: 'Fatayer & Manakish' },
+  { id: 'street_folk', icon: '🧆', ar: 'فلافل ومطبق وشعبيات', en: 'Falafel & Street Food' },
+  { id: 'mexican', icon: '🌮', ar: 'مكسيكي وتاكوز', en: 'Mexican & Tacos' },
+  { id: 'sandwiches', icon: '🥪', ar: 'ساندوتشات وبريسكت', en: 'Sandwiches & Deli' },
   { id: 'flexible', icon: '🎲', ar: 'أي شيء معاكم', en: 'Anything / Flexible', isWildcard: true }
 ];
 

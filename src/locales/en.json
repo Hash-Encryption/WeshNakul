@@ -124,6 +124,11 @@
     "healthy": "Healthy",
     "coffee": "Café & Sweets",
     "dessert": "Dessert",
+    "indian": "Indian & Biryani",
+    "fatayer": "Fatayer & Manakish",
+    "street_folk": "Falafel & Street Food",
+    "mexican": "Mexican & Tacos",
+    "sandwiches": "Sandwiches & Deli",
     "flexible": "Anything / Flexible"
   },
   "toast": {

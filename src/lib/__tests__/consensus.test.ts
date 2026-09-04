@@ -62,6 +62,16 @@ export function runConsensusTests() {
   ]);
   assert(res5.status === 'NO_CONSENSUS', 'Should be NO_CONSENSUS when all votes are scattered');
 
+  // 6. Consensus with new categories (street_folk, indian)
+  const res6 = calculateConsensus([
+    { participant_id: 'p1', selected_categories: ['street_folk', 'sandwiches'] },
+    { participant_id: 'p2', selected_categories: ['street_folk', 'fatayer'] },
+    { participant_id: 'p3', selected_categories: ['street_folk', 'mexican'] },
+  ]);
+  assert(res6.status === 'UNANIMOUS_MATCH', 'street_folk should win unanimous match');
+  assert(res6.winner === 'street_folk', 'Winner should be street_folk');
+  assert(res6.tally['street_folk'] === 3, 'street_folk should have 3 votes');
+
   console.log('✓ All consensus test cases passed successfully!');
 }
 

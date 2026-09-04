@@ -25,6 +25,13 @@ export function runRestaurantSwiperTests() {
   const unknownCategoryDeck = getDeckForRoom('non_existent_category', 'riyadh');
   assert(unknownCategoryDeck.length >= 5 && unknownCategoryDeck.length <= 7, 'Unknown category fallback must have 5-7 items');
 
+  // 2b. Newly registered categories without dedicated restaurant datasets fallback cleanly to top-rated staples (5-7 cards)
+  const streetFolkDeck = getDeckForRoom('street_folk', 'jeddah', 'al_rawdah');
+  assert(streetFolkDeck.length >= 5 && streetFolkDeck.length <= 7, 'street_folk deck must have 5-7 items via fallback');
+
+  const indianDeck = getDeckForRoom('indian', 'riyadh');
+  assert(indianDeck.length >= 5 && indianDeck.length <= 7, 'indian deck must have 5-7 items via fallback');
+
   // 3. District matching
   const districtDeck = getDeckForRoom('burger', 'riyadh', 'al-olaya');
   assert(districtDeck.length >= 5 && districtDeck.length <= 7, 'District deck must have 5-7 items');

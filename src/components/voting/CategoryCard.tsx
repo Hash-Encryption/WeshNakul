@@ -85,7 +85,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
       </span>
 
       {/* Title */}
-      <span className="font-alexandria font-bold text-xs sm:text-sm text-brand-ink leading-snug line-clamp-1 mt-1">
+      <span className="font-alexandria font-bold text-xs sm:text-sm text-brand-ink leading-tight line-clamp-2 min-h-[2rem] flex items-center justify-center text-center mt-1">
         {name}
       </span>
 

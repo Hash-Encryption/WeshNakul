@@ -94,7 +94,7 @@ export const FoodVotingScreen: React.FC = () => {
   const hasSelectedWildcard = selectedIds.includes('flexible');
 
   return (
-    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-6 selection:bg-brand-redSoft">
+    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-28 sm:pb-32 selection:bg-brand-redSoft">
       <Toast message={toastMessage} />
 
       <div>
