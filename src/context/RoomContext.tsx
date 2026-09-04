@@ -50,7 +50,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const sessionToken = getOrCreateSessionToken();
   const currentRoomRef = useRef<Room | null>(null);
   useEffect(() => {
     currentRoomRef.current = currentRoom;
@@ -64,7 +63,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (room) {
         setCurrentRoom(room);
         setParticipants(parts);
-        const me = parts.find((p) => p.session_token === sessionToken);
+        const roomToken = getOrCreateSessionToken(roomCode);
+        const legacyToken = getOrCreateSessionToken();
+        const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
         if (me) {
           setCurrentParticipant(me);
         }
@@ -75,7 +76,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       console.error('Error refreshing room', err);
     }
-  }, [sessionToken]);
+  }, []);
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
@@ -102,7 +103,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setParticipants(parts);
       setActiveRoomCode(room.code);
 
-      const me = parts.find((p) => p.session_token === sessionToken);
+      const roomToken = getOrCreateSessionToken(room.code);
+      const legacyToken = getOrCreateSessionToken();
+      const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
       if (me) {
         setCurrentParticipant(me);
       } else {
@@ -120,7 +123,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsLoading(false);
       return false;
     }
-  }, [sessionToken]);
+  }, []);
 
   // Session recovery on app mount
   useEffect(() => {
@@ -199,7 +202,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [currentRoom, participants, foodChoices, currentParticipant?.is_host]);
 
   const createNewRoom = async (input: CreateRoomInput) => {
-    setIsLoading(true);
     setError(null);
     try {
       const { room, participant } = await apiCreateRoom(input);
@@ -208,17 +210,14 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setParticipants([participant]);
       setFoodChoices([]);
       setActiveRoomCode(room.code);
-      setIsLoading(false);
       return { room, participant };
     } catch (err: any) {
       setError(err?.message || 'FAILED_TO_CREATE');
-      setIsLoading(false);
       throw err;
     }
   };
 
   const joinExistingRoom = async (code: string, nickname: string) => {
-    setIsLoading(true);
     setError(null);
     try {
       const res = await apiJoinRoom({ code, nickname });
@@ -230,13 +229,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setParticipants(parts);
         const choices = await getFoodChoices(res.room.id);
         setFoodChoices(choices);
-        setIsLoading(false);
         return { success: true };
       }
-      setIsLoading(false);
       return { success: false, isFull: res.isFull, error: res.error };
     } catch (err: any) {
-      setIsLoading(false);
       return { success: false, error: err?.message || 'JOIN_FAILED' };
     }
   };

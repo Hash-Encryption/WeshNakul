@@ -141,8 +141,8 @@ export async function getRoomByCode(code: string): Promise<{ room: Room | null; 
  * Create a new Room and host participant.
  */
 export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; participant: Participant }> {
-  const sessionToken = getOrCreateSessionToken();
   const code = generateRoomCode();
+  const sessionToken = getOrCreateSessionToken(code);
   const roomId = generateUUID();
   const participantId = generateUUID();
   const tokenCombo = getProceduralToken(0);
@@ -182,7 +182,18 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
     const { error: roomErr } = await supabase.from('rooms').insert([newRoom]);
     if (roomErr) throw roomErr;
 
-    const { error: partErr } = await supabase.from('participants').insert([hostParticipant]);
+    let { error: partErr } = await supabase.from('participants').insert([hostParticipant]);
+    // Resilient fallback: If database still has legacy unique constraint on session_token,
+    // generate a fresh UUID and retry insertion
+    if (partErr && (partErr.code === '23505' || partErr.message?.includes('session_token'))) {
+      const freshToken = generateUUID();
+      hostParticipant.session_token = freshToken;
+      try {
+        localStorage.setItem(`wesh_nakul_session_${code}`, freshToken);
+      } catch {}
+      const retry = await supabase.from('participants').insert([hostParticipant]);
+      partErr = retry.error;
+    }
     if (partErr) throw partErr;
 
     return { room: newRoom, participant: hostParticipant };
@@ -217,15 +228,18 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
   error?: string;
 }> {
   const normalizedCode = input.code.trim().toUpperCase();
-  const sessionToken = getOrCreateSessionToken();
+  const sessionToken = getOrCreateSessionToken(normalizedCode);
+  const legacyToken = getOrCreateSessionToken();
 
   const { room, participants } = await getRoomByCode(normalizedCode);
   if (!room) {
     return { success: false, error: 'ROOM_NOT_FOUND' };
   }
 
-  // Check if session token already joined
-  const existing = participants.find((p) => p.session_token === sessionToken);
+  // Check if session token already joined (check both scoped and legacy)
+  const existing = participants.find(
+    (p) => p.session_token === sessionToken || p.session_token === legacyToken
+  );
   if (existing) {
     return { success: true, room, participant: existing };
   }
@@ -250,7 +264,17 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
   };
 
   if (supabase) {
-    const { error } = await supabase.from('participants').insert([newParticipant]);
+    let { error } = await supabase.from('participants').insert([newParticipant]);
+    // Resilient fallback for legacy DB unique constraint on session_token
+    if (error && (error.code === '23505' || error.message?.includes('session_token'))) {
+      const freshToken = generateUUID();
+      newParticipant.session_token = freshToken;
+      try {
+        localStorage.setItem(`wesh_nakul_session_${normalizedCode}`, freshToken);
+      } catch {}
+      const retry = await supabase.from('participants').insert([newParticipant]);
+      error = retry.error;
+    }
     if (error) {
       return { success: false, error: error.message };
     }

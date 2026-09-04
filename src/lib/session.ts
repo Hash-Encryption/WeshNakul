@@ -21,10 +21,22 @@ export function generateUUID(): string {
 
 /**
  * Get or create anonymous session token.
- * Checks 'wesh_nakul_session' with fallback to 'wsh_session_token'.
+ * When roomCode is provided, scopes the token per room so users can participate
+ * in multiple rooms across visits without unique constraint conflicts.
  */
-export function getOrCreateSessionToken(): string {
+export function getOrCreateSessionToken(roomCode?: string): string {
   try {
+    if (roomCode) {
+      const roomKey = `${PRIMARY_SESSION_KEY}_${roomCode.trim().toUpperCase()}`;
+      const existing = localStorage.getItem(roomKey);
+      if (existing && existing.length > 8) {
+        return existing;
+      }
+      const newToken = generateUUID();
+      localStorage.setItem(roomKey, newToken);
+      return newToken;
+    }
+
     const primary = localStorage.getItem(PRIMARY_SESSION_KEY);
     if (primary && primary.length > 8) {
       return primary;
