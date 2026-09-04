@@ -227,7 +227,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#F7EFE6] flex items-center justify-center sm:py-6 selection:bg-brand-redSoft">
-      <main className="app-container flex flex-col justify-center sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-brand-border sm:shadow-2xl">
+      <main className="app-container flex flex-col justify-center sm:rounded-[36px] sm:overflow-y-auto sm:border sm:border-brand-border sm:shadow-2xl">
         {step === 'landing' && (
           <LandingHero
             onStartGroup={handleStartGroup}

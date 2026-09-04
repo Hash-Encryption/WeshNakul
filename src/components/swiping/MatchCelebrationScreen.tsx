@@ -72,7 +72,7 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(waShareText)}`;
 
   return (
-    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-6 selection:bg-[#FFF0EE]">
+    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-12 overflow-y-auto selection:bg-[#FFF0EE]">
       <div>
         <Header
           showBack={false}
@@ -101,10 +101,10 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           initial={{ opacity: 0, scale: 0.92, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 280, damping: 22 }}
-          className="max-w-md mx-auto bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] overflow-hidden mb-5 select-none"
+          className="max-w-md mx-auto bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] overflow-hidden mb-4 select-none"
         >
           {/* Cover Image */}
-          <div className="relative h-48 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden">
+          <div className="relative h-40 sm:h-44 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden">
             <img
               src={restaurant.imageUrl}
               alt={name}
@@ -120,28 +120,28 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
             </div>
           </div>
 
-          <div className="p-5 flex flex-col gap-3">
+          <div className="p-4 sm:p-5 flex flex-col gap-2.5">
             {/* Restaurant Title */}
-            <h2 className="text-2xl font-black text-[#241B18] font-alexandria tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-black text-[#241B18] font-alexandria tracking-tight">
               {name}
             </h2>
 
             {/* Signature Dish Callout */}
-            <div className="bg-[#FFF8F1] border-2 border-[#241B18] rounded-2xl p-3.5 shadow-[0px_2px_0px_#241B18] text-start">
-              <span className="text-[11px] font-bold text-[#7A6E67] block mb-0.5">
+            <div className="bg-[#FFF8F1] border-2 border-[#241B18] rounded-2xl p-3 shadow-[0px_2px_0px_#241B18] text-start">
+              <span className="text-[10px] font-bold text-[#7A6E67] block mb-0.5">
                 {t('swiping.signature_dish_label')}
               </span>
-              <p className="text-base font-extrabold text-[#241B18] font-alexandria leading-snug">
+              <p className="text-sm sm:text-base font-extrabold text-[#241B18] font-alexandria leading-snug">
                 {signatureDish}
               </p>
             </div>
 
             {/* Vibe Tags */}
-            <div className="flex flex-wrap gap-1.5 justify-center pt-1">
+            <div className="flex flex-wrap gap-1.5 justify-center pt-0.5">
               {vibeTags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2.5 py-1 rounded-full text-xs font-bold text-[#241B18]"
+                  className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2 py-0.5 rounded-full text-[11px] font-bold text-[#241B18]"
                 >
                   #{tag}
                 </span>
@@ -149,8 +149,8 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
             </div>
 
             {/* Matched Squad Tokens */}
-            <div className="border-t border-[#241B18]/15 pt-3.5 mt-1 flex flex-col items-center gap-2">
-              <span className="text-[11px] font-bold text-[#7A6E67] font-alexandria">
+            <div className="border-t border-[#241B18]/15 pt-3 mt-0.5 flex flex-col items-center gap-1.5">
+              <span className="text-[10px] font-bold text-[#7A6E67] font-alexandria">
                 {locale === 'ar' ? 'القروب المتفق عليه 🤝' : 'Squad in Agreement 🤝'}
               </span>
               <div className="flex items-center -space-x-2 rtl:space-x-reverse">
@@ -172,47 +172,49 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
       </div>
 
       {/* Action Buttons */}
-      <div className="max-w-md w-full mx-auto flex flex-col gap-2.5 pb-6">
-        {/* Primary Phase 4 CTA */}
-        <button
-          type="button"
-          onClick={onProceed}
-          className="w-full py-3.5 px-6 rounded-2xl bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-base sm:text-lg flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none"
-        >
-          <span>{t('match.order_prep_cta')}</span>
-        </button>
+      <div className="max-w-md w-full mx-auto flex flex-col gap-2.5 pt-2 pb-6">
+        {/* Vote Again CTA (Top Priority) */}
+        {onVoteAgain && (
+          <button
+            type="button"
+            onClick={onVoteAgain}
+            className="w-full py-3.5 px-6 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-base sm:text-lg flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none"
+          >
+            <span>{t('match.vote_again_cta')}</span>
+          </button>
+        )}
 
         {/* WhatsApp Share CTA */}
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full py-3.5 px-6 rounded-2xl bg-[#25D366] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-base sm:text-lg flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none text-center"
+          className="w-full py-3 px-6 rounded-2xl bg-[#25D366] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none text-center"
         >
           <span>{t('match.share_whatsapp_cta')}</span>
         </a>
 
-        {/* Vote Again CTA */}
-        {onVoteAgain && (
-          <button
-            type="button"
-            onClick={onVoteAgain}
-            className="w-full py-3 px-6 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none"
-          >
-            <span>{t('match.vote_again_cta')}</span>
-          </button>
-        )}
+        {/* Secondary Actions Row */}
+        <div className="flex items-center gap-2 w-full">
+          {onGoHome && (
+            <button
+              type="button"
+              onClick={onGoHome}
+              className="flex-1 py-2.5 px-3 rounded-2xl bg-white text-[#7A6E67] hover:text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all select-none"
+            >
+              <span>{t('match.go_home_cta')}</span>
+            </button>
+          )}
 
-        {/* Return to Home / New Group CTA */}
-        {onGoHome && (
+          {/* Primary Phase 4 CTA */}
           <button
             type="button"
-            onClick={onGoHome}
-            className="w-full py-2.5 px-6 rounded-2xl bg-white text-[#7A6E67] hover:text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all select-none"
+            onClick={onProceed}
+            className="flex-1 py-2.5 px-3 rounded-2xl bg-[#FFF0EE] text-[#F0443E] hover:bg-[#F0443E] hover:text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all select-none"
           >
-            <span>{t('match.go_home_cta')}</span>
+            <span>{t('match.order_prep_cta')}</span>
           </button>
-        )}
+        </div>
       </div>
 
       {/* Menu / Options Modal */}
