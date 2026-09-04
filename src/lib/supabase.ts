@@ -1,10 +1,11 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import type { Room, Participant, CreateRoomInput, JoinRoomInput } from '../types/database';
+import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, ConsensusType } from '../types/database';
+import type { RestaurantSwipe } from '../types/restaurant';
 import { getOrCreateSessionToken, generateUUID, generateRoomCode } from './session';
 import { getProceduralToken } from './tokenGenerator';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://apsfxnmzfllraoctbwyq.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_P2K0kEJqVuKxiGh-BxSRQg_xgtRoDrz';
 
 export const isSupabaseConfigured = Boolean(
   supabaseUrl && 
@@ -19,6 +20,8 @@ export const supabase: SupabaseClient | null = isSupabaseConfigured
 // Local BroadcastChannel and storage mock for instant zero-config multi-tab realtime
 const LOCAL_STORAGE_ROOMS = 'wsh_mock_rooms';
 const LOCAL_STORAGE_PARTICIPANTS = 'wsh_mock_participants';
+const LOCAL_STORAGE_FOOD_CHOICES = 'wsh_mock_food_choices';
+const LOCAL_STORAGE_RESTAURANT_SWIPES = 'wsh_mock_restaurant_swipes';
 
 const broadcastChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window
   ? new BroadcastChannel('wsh_room_sync')
@@ -58,6 +61,40 @@ function saveMockParticipants(participants: Record<string, Participant[]>) {
   }
 }
 
+function getMockFoodChoices(): Record<string, FoodChoice[]> {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_FOOD_CHOICES);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveMockFoodChoices(choices: Record<string, FoodChoice[]>) {
+  try {
+    localStorage.setItem(LOCAL_STORAGE_FOOD_CHOICES, JSON.stringify(choices));
+  } catch (e) {
+    console.error('Failed to save mock food choices', e);
+  }
+}
+
+function getMockRestaurantSwipes(): Record<string, RestaurantSwipe[]> {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_RESTAURANT_SWIPES);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveMockRestaurantSwipes(swipes: Record<string, RestaurantSwipe[]>) {
+  try {
+    localStorage.setItem(LOCAL_STORAGE_RESTAURANT_SWIPES, JSON.stringify(swipes));
+  } catch (e) {
+    console.error('Failed to save mock restaurant swipes', e);
+  }
+}
+
 /**
  * Fetch a room by its 4-character code.
  */
@@ -82,7 +119,11 @@ export async function getRoomByCode(code: string): Promise<{ room: Room | null; 
       .order('joined_at', { ascending: true });
 
     return {
-      room: roomData as Room,
+      room: {
+        ...roomData,
+        stage: roomData.stage || 'lobby',
+        tied_categories: roomData.tied_categories || [],
+      } as Room,
       participants: (partData || []) as Participant[],
     };
   }
@@ -110,12 +151,16 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
     id: roomId,
     code,
     status: 'lobby',
+    stage: 'lobby',
     eating_mode: input.eating_mode,
     city: input.city,
     neighborhood: input.neighborhood || null,
     language: input.language,
     host_participant_id: participantId,
     current_stage: 'lobby',
+    winning_category: null,
+    consensus_type: null,
+    tied_categories: [],
     created_at: new Date().toISOString(),
     expires_at: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
   };
@@ -228,7 +273,257 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
 }
 
 /**
- * Subscribe to realtime participant and room updates.
+ * Update the stage and consensus details of a room.
+ */
+export async function updateRoomStage(
+  roomId: string,
+  stage: RoomStage,
+  updates?: {
+    winning_category?: string | null;
+    consensus_type?: ConsensusType;
+    tied_categories?: string[];
+    winning_restaurant_id?: string | null;
+    swiping_started_at?: string | null;
+  }
+): Promise<void> {
+  const payload: Partial<Room> = {
+    stage,
+    current_stage: stage,
+    ...(updates?.winning_category !== undefined && { winning_category: updates.winning_category }),
+    ...(updates?.consensus_type !== undefined && { consensus_type: updates.consensus_type }),
+    ...(updates?.tied_categories !== undefined && { tied_categories: updates.tied_categories }),
+    ...(updates?.winning_restaurant_id !== undefined && { winning_restaurant_id: updates.winning_restaurant_id }),
+    ...(updates?.swiping_started_at !== undefined && { swiping_started_at: updates.swiping_started_at }),
+  };
+
+  if (supabase) {
+    const { error } = await supabase
+      .from('rooms')
+      .update(payload)
+      .eq('id', roomId);
+
+    if (error) throw error;
+    return;
+  }
+
+  // Local mock
+  const rooms = getMockRooms();
+  for (const code of Object.keys(rooms)) {
+    if (rooms[code].id === roomId) {
+      rooms[code] = {
+        ...rooms[code],
+        ...payload,
+      };
+      saveMockRooms(rooms);
+      broadcastChannel?.postMessage({
+        type: 'ROOM_UPDATED',
+        roomId,
+        code,
+      });
+      break;
+    }
+  }
+}
+
+/**
+ * Upsert participant's food choices for a room.
+ */
+export async function upsertFoodChoice(
+  roomId: string,
+  participantId: string,
+  selectedCategories: string[],
+  isSubmitted: boolean
+): Promise<FoodChoice> {
+  const now = new Date().toISOString();
+
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('food_choices')
+      .upsert(
+        {
+          room_id: roomId,
+          participant_id: participantId,
+          selected_categories: selectedCategories,
+          is_submitted: isSubmitted,
+          submitted_at: isSubmitted ? now : null,
+          updated_at: now,
+        },
+        { onConflict: 'room_id,participant_id' }
+      )
+      .select('*')
+      .single();
+
+    if (error) throw error;
+    return data as FoodChoice;
+  }
+
+  // Local mock
+  const allChoices = getMockFoodChoices();
+  const roomChoices = allChoices[roomId] || [];
+  const existingIdx = roomChoices.findIndex((c) => c.participant_id === participantId);
+
+  let updatedChoice: FoodChoice;
+  if (existingIdx >= 0) {
+    updatedChoice = {
+      ...roomChoices[existingIdx],
+      selected_categories: selectedCategories,
+      is_submitted: isSubmitted,
+      submitted_at: isSubmitted ? now : roomChoices[existingIdx].submitted_at,
+      updated_at: now,
+    };
+    roomChoices[existingIdx] = updatedChoice;
+  } else {
+    updatedChoice = {
+      id: generateUUID(),
+      room_id: roomId,
+      participant_id: participantId,
+      selected_categories: selectedCategories,
+      is_submitted: isSubmitted,
+      submitted_at: isSubmitted ? now : null,
+      created_at: now,
+      updated_at: now,
+    };
+    roomChoices.push(updatedChoice);
+  }
+
+  allChoices[roomId] = roomChoices;
+  saveMockFoodChoices(allChoices);
+
+  broadcastChannel?.postMessage({
+    type: 'ROOM_UPDATED',
+    roomId,
+  });
+
+  return updatedChoice;
+}
+
+/**
+ * Fetch all food choices for a room.
+ */
+export async function getFoodChoices(roomId: string): Promise<FoodChoice[]> {
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('food_choices')
+      .select('*')
+      .eq('room_id', roomId);
+
+    if (error) {
+      console.error('Error fetching food choices', error);
+      return [];
+    }
+
+    return (data || []) as FoodChoice[];
+  }
+
+  // Local mock
+  const allChoices = getMockFoodChoices();
+  return allChoices[roomId] || [];
+}
+
+/**
+ * Record a restaurant swipe.
+ */
+export async function insertRestaurantSwipe(
+  roomId: string,
+  participantId: string,
+  restaurantId: string,
+  liked: boolean
+): Promise<RestaurantSwipe> {
+  const now = new Date().toISOString();
+
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('restaurant_swipes')
+      .upsert(
+        {
+          room_id: roomId,
+          participant_id: participantId,
+          restaurant_id: restaurantId,
+          liked,
+          created_at: now,
+        },
+        { onConflict: 'room_id,participant_id,restaurant_id' }
+      )
+      .select('*')
+      .single();
+
+    if (error) throw error;
+    return {
+      id: data.id,
+      roomId: data.room_id,
+      participantId: data.participant_id,
+      restaurantId: data.restaurant_id,
+      liked: data.liked,
+      createdAt: data.created_at,
+    };
+  }
+
+  // Local mock
+  const allSwipes = getMockRestaurantSwipes();
+  const roomSwipes = allSwipes[roomId] || [];
+  const existingIdx = roomSwipes.findIndex(
+    (s) => s.participantId === participantId && s.restaurantId === restaurantId
+  );
+
+  const newSwipe: RestaurantSwipe = {
+    id: generateUUID(),
+    roomId,
+    participantId,
+    restaurantId,
+    liked,
+    createdAt: now,
+  };
+
+  if (existingIdx >= 0) {
+    roomSwipes[existingIdx] = newSwipe;
+  } else {
+    roomSwipes.push(newSwipe);
+  }
+
+  allSwipes[roomId] = roomSwipes;
+  saveMockRestaurantSwipes(allSwipes);
+
+  broadcastChannel?.postMessage({
+    type: 'ROOM_UPDATED',
+    roomId,
+    swipe: newSwipe,
+  });
+
+  return newSwipe;
+}
+
+/**
+ * Fetch all restaurant swipes for a room.
+ */
+export async function getRestaurantSwipes(roomId: string): Promise<RestaurantSwipe[]> {
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('restaurant_swipes')
+      .select('*')
+      .eq('room_id', roomId);
+
+    if (error) {
+      console.error('Error fetching restaurant swipes', error);
+      return [];
+    }
+
+    return (data || []).map((d: any) => ({
+      id: d.id,
+      roomId: d.room_id,
+      participantId: d.participant_id,
+      restaurantId: d.restaurant_id,
+      liked: d.liked,
+      createdAt: d.created_at,
+    }));
+  }
+
+  // Local mock
+  const allSwipes = getMockRestaurantSwipes();
+  return allSwipes[roomId] || [];
+}
+
+/**
+ * Subscribe to realtime participant, room, food choice, and restaurant swipe updates.
  */
 export function subscribeToRoom(
   roomId: string,
@@ -247,6 +542,16 @@ export function subscribeToRoom(
         { event: '*', schema: 'public', table: 'rooms', filter: `id=eq.${roomId}` },
         () => onUpdate()
       )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'food_choices', filter: `room_id=eq.${roomId}` },
+        () => onUpdate()
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'restaurant_swipes', filter: `room_id=eq.${roomId}` },
+        () => onUpdate()
+      )
       .subscribe();
 
     return () => {
@@ -256,13 +561,18 @@ export function subscribeToRoom(
 
   // BroadcastChannel and window storage listener for multi-tab realtime
   const handleMessage = (event: MessageEvent) => {
-    if (event.data?.type === 'ROOM_UPDATED' && event.data?.roomId === roomId) {
+    if (event.data?.type === 'ROOM_UPDATED' && (!event.data.roomId || event.data.roomId === roomId)) {
       onUpdate();
     }
   };
 
   const handleStorage = (event: StorageEvent) => {
-    if (event.key === LOCAL_STORAGE_PARTICIPANTS || event.key === LOCAL_STORAGE_ROOMS) {
+    if (
+      event.key === LOCAL_STORAGE_PARTICIPANTS || 
+      event.key === LOCAL_STORAGE_ROOMS || 
+      event.key === LOCAL_STORAGE_FOOD_CHOICES ||
+      event.key === LOCAL_STORAGE_RESTAURANT_SWIPES
+    ) {
       onUpdate();
     }
   };

@@ -66,9 +66,69 @@
     "cancel": "إلغاء",
     "errorNotFound": "الرمز غير صحيح أو القروب منتهي"
   },
+  "voting": {
+    "heading": "وش مشتهين اليوم؟ 🤤",
+    "subtitle": "اختر فئتين على الأقل للمشاركة في القرار",
+    "minSelectionHint": "اختر فئتين على الأقل ({count}/2)",
+    "selectionCount": "تم اختيار {count} فئات",
+    "submitPicks": "تثبيت خياراتي 🎯",
+    "submittedTitle": "تم تثبيت خياراتك بنجاح! 🔒",
+    "submittedSubtitle": "بانتظار باقي القروب للتصويت...",
+    "squadStatus": "حالة ربعك بالقروب",
+    "ready": "جاهز",
+    "picking": "يختار...",
+    "liveVotesTitle": "أصوات القروب المباشرة 📊",
+    "antiBiasNotice": "ثبّت خياراتك لرؤية تصويت باقي القروب 👀",
+    "wildcardNotice": "🎲 'أي شيء معاكم' يوزع صوتك تلقائياً على كل اختيار صوتوا له ربعك!",
+    "changePicks": "تعديل خياراتي"
+  },
+  "tiebreaker": {
+    "heading": "تعادل في الأصوات! ⚔️",
+    "unanimousTieSubtitle": "ما شاء الله! القروب اتفق على أكثر من فئة بنسبة 100%!",
+    "contendersSubtitle": "هذه الفئات حصدت أعلى الأصوات (60%+)",
+    "deadlockSubtitle": "الأصوات متفرقة، مطلوب حسم النتيجة!",
+    "tiedOptionsTitle": "الخيارات المتعادلة",
+    "hostActionHeading": "أدوات الحسم لمؤسس القروب 👑",
+    "hostDirectPick": "اختر الفائز مباشرة",
+    "spinWheel": "سحب قرعة عشوائية 🎲",
+    "spinning": "جاري السحب...",
+    "guestWaiting": "المؤسس يحسم التعادل حالياً... ⏳",
+    "spinWinnerAnnouncement": "القرعة اختارت: {winner} 🎉"
+  },
+  "consensus": {
+    "heading": "وصلنا لقرار! 🎉",
+    "subtitle": "القروب اتفق على وش نطلب اليوم",
+    "unanimousBadge": "إجماع تام 100% 🎯",
+    "majorityBadge": "تصويت الأغلبية ⭐",
+    "hostBadge": "اختيار المؤسس 👑",
+    "randomBadge": "قرعة عشوائية 🎲",
+    "votesCount": "{count} من أصل {total} صوتوا له ({percentage}%)",
+    "startOver": "إعادة التصويت من البداية 🔄",
+    "agreementMeter": "مقياس اتفاق القروب",
+    "squadAgreement": "نسبة الاتفاق",
+    "topContenders": "الخيارات المنافسة كانت"
+  },
+  "categories": {
+    "burger": "برجر",
+    "shawarma": "شاورما",
+    "broast": "بروستد",
+    "rice": "كبسة ورز",
+    "grill": "مشاوي",
+    "pizza": "بيتزا",
+    "sushi": "سوشي",
+    "italian": "إيطالي",
+    "asian": "آسيوي",
+    "seafood": "بحري",
+    "breakfast": "فطور ونواشف",
+    "healthy": "صحي ودايت",
+    "coffee": "قهوة وحلا",
+    "dessert": "آيسكريم وحلى",
+    "flexible": "أي شيء معاكم"
+  },
   "toast": {
     "linkCopied": "تم نسخ الرابط!",
-    "codeCopied": "تم نسخ الرمز!"
+    "codeCopied": "تم نسخ الرمز!",
+    "picksSubmitted": "تم تثبيت خياراتك!"
   },
   "whatsapp": {
     "shareMessage": "محتارين وش نطلب 😂 ادخل واختر معي: {url}"
@@ -78,9 +138,26 @@
     "loading": "لحظة...",
     "appName": "وش نطلب؟",
     "appTagline": "محرك قرارات الأكل للقروبات",
-    "close": "إغلاق",
+    "close": "إإغلاق",
     "errorGeneric": "حدث خطأ ما، يرجى المحاولة ثانية",
     "participant": "مشارك",
     "participants": "مشاركين"
+  },
+  "swiping": {
+    "title": "قلّب وافرز المطاعم",
+    "subtitle": "يمين توافق، يسار تمشي للي بعده",
+    "stamp_like": "يمشي 💚",
+    "stamp_pass": "تخطي 🙅‍♂️",
+    "signature_dish_label": "الطلب المعتمد عندهم:",
+    "hud_status": "{{completed}} من {{total}} خلصوا تقليب",
+    "waiting_title": "ما قصّرت، فرزت كل القائمة! 🫡",
+    "waiting_desc": "باقي ربعك يكمّلون.. ثواني ويبان الاتفاق."
+  },
+  "match": {
+    "header_unanimous": "خلاص اتفقنا بالإجماع! 🎉",
+    "header_majority": "أكثر مطعم اتفقتوا عليه! 🔥",
+    "tag_winner": "مطعم السرب المعتمد 👑",
+    "order_prep_cta": "وش بنطلب بالضبط؟ 📋",
+    "share_whatsapp_cta": "بشر الربع بالواتساب 💬"
   }
 }

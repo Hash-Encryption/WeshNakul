@@ -1,6 +1,7 @@
 import type { Locale } from '../types/database';
 
-const SESSION_TOKEN_KEY = 'wsh_session_token';
+const PRIMARY_SESSION_KEY = 'wesh_nakul_session';
+const LEGACY_SESSION_KEY = 'wsh_session_token';
 const ACTIVE_ROOM_KEY = 'wsh_active_room';
 const LOCALE_KEY = 'wsh_locale';
 
@@ -20,15 +21,21 @@ export function generateUUID(): string {
 
 /**
  * Get or create anonymous session token.
+ * Checks 'wesh_nakul_session' with fallback to 'wsh_session_token'.
  */
 export function getOrCreateSessionToken(): string {
   try {
-    const existing = localStorage.getItem(SESSION_TOKEN_KEY);
-    if (existing && existing.length > 8) {
-      return existing;
+    const primary = localStorage.getItem(PRIMARY_SESSION_KEY);
+    if (primary && primary.length > 8) {
+      return primary;
+    }
+    const legacy = localStorage.getItem(LEGACY_SESSION_KEY);
+    if (legacy && legacy.length > 8) {
+      localStorage.setItem(PRIMARY_SESSION_KEY, legacy);
+      return legacy;
     }
     const newToken = generateUUID();
-    localStorage.setItem(SESSION_TOKEN_KEY, newToken);
+    localStorage.setItem(PRIMARY_SESSION_KEY, newToken);
     return newToken;
   } catch {
     return generateUUID();

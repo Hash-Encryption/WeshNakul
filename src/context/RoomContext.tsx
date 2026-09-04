@@ -1,21 +1,27 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import type { Room, Participant, CreateRoomInput } from '../types/database';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import type { Room, Participant, CreateRoomInput, FoodChoice, ConsensusType } from '../types/database';
 import { 
   getRoomByCode, 
   createRoom as apiCreateRoom, 
   joinRoom as apiJoinRoom, 
-  subscribeToRoom 
+  subscribeToRoom,
+  updateRoomStage,
+  upsertFoodChoice,
+  getFoodChoices
 } from '../lib/supabase';
 import { 
   getActiveRoomCode, 
   setActiveRoomCode, 
   getOrCreateSessionToken 
 } from '../lib/session';
+import { calculateConsensus } from '../lib/consensus';
 
 interface RoomContextType {
   currentRoom: Room | null;
   currentParticipant: Participant | null;
   participants: Participant[];
+  foodChoices: FoodChoice[];
+  myChoice: FoodChoice | null;
   isLoading: boolean;
   error: string | null;
   createNewRoom: (input: CreateRoomInput) => Promise<{ room: Room; participant: Participant }>;
@@ -24,6 +30,12 @@ interface RoomContextType {
   refreshRoom: () => Promise<void>;
   leaveRoom: () => void;
   isHost: boolean;
+  startVoting: () => Promise<void>;
+  submitFoodChoices: (selectedCategories: string[]) => Promise<void>;
+  resolveConsensus: (winner: string, consensusType: ConsensusType) => Promise<void>;
+  startTiebreaker: (tiedCategories: string[]) => Promise<void>;
+  resetToLobby: () => Promise<void>;
+  startSwiping: () => Promise<void>;
 }
 
 const RoomContext = createContext<RoomContextType | null>(null);
@@ -32,15 +44,21 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
   const [currentParticipant, setCurrentParticipant] = useState<Participant | null>(null);
   const [participants, setParticipants] = useState<Participant[]>([]);
+  const [foodChoices, setFoodChoices] = useState<FoodChoice[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const sessionToken = getOrCreateSessionToken();
+  const currentRoomRef = useRef<Room | null>(null);
+  useEffect(() => {
+    currentRoomRef.current = currentRoom;
+  }, [currentRoom]);
 
   const refreshRoom = useCallback(async () => {
-    if (!currentRoom?.code) return;
+    const roomCode = currentRoomRef.current?.code;
+    if (!roomCode) return;
     try {
-      const { room, participants: parts } = await getRoomByCode(currentRoom.code);
+      const { room, participants: parts } = await getRoomByCode(roomCode);
       if (room) {
         setCurrentRoom(room);
         setParticipants(parts);
@@ -48,11 +66,14 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (me) {
           setCurrentParticipant(me);
         }
+
+        const choices = await getFoodChoices(room.id);
+        setFoodChoices(choices);
       }
     } catch (err) {
       console.error('Error refreshing room', err);
     }
-  }, [currentRoom?.code, sessionToken]);
+  }, [sessionToken]);
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
@@ -74,6 +95,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } else {
         setCurrentParticipant(null);
       }
+
+      const choices = await getFoodChoices(room.id);
+      setFoodChoices(choices);
+
       setIsLoading(false);
       return true;
     } catch (err) {
@@ -87,11 +112,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Session recovery on app mount
   useEffect(() => {
     const activeCode = getActiveRoomCode();
-    // Check URL search or path as well (e.g. /r/:code)
     const pathname = window.location.pathname;
     const match = pathname.match(/\/r\/([A-Za-z0-9]{4})/i);
     const codeFromUrl = match ? match[1].toUpperCase() : null;
-
     const targetCode = codeFromUrl || activeCode;
 
     if (targetCode) {
@@ -114,6 +137,54 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, [currentRoom?.id, refreshRoom]);
 
+  // Automatic Consensus Evaluation:
+  // When in voting stage and all active participants have submitted their choices
+  useEffect(() => {
+    if (!currentRoom || currentRoom.stage !== 'voting') return;
+    if (participants.length === 0) return;
+
+    const submittedChoices = foodChoices.filter((c) => c.is_submitted);
+    const allSubmitted = participants.length > 0 && 
+      participants.every((p) => submittedChoices.some((c) => c.participant_id === p.id));
+
+    if (allSubmitted && currentParticipant?.is_host) {
+      // Evaluate consensus
+      const mappedSubmissions = submittedChoices.map((s) => ({
+        participant_id: s.participant_id,
+        selected_categories: s.selected_categories,
+      }));
+
+      const result = calculateConsensus(mappedSubmissions);
+
+      if (result.status === 'UNANIMOUS_MATCH' && result.winner) {
+        updateRoomStage(currentRoom.id, 'consensus', {
+          winning_category: result.winner,
+          consensus_type: 'unanimous',
+          tied_categories: [],
+        });
+      } else if (result.status === 'UNANIMOUS_TIE' && result.tiedCategories) {
+        updateRoomStage(currentRoom.id, 'tiebreaker', {
+          tied_categories: result.tiedCategories,
+          consensus_type: null,
+          winning_category: null,
+        });
+      } else if (result.status === 'CONTENDERS_FOUND' && result.topCategories) {
+        updateRoomStage(currentRoom.id, 'tiebreaker', {
+          tied_categories: result.topCategories.map((c) => c.id),
+          consensus_type: null,
+          winning_category: null,
+        });
+      } else if (result.status === 'NO_CONSENSUS' && result.topCategories) {
+        // Deadlock resolution: Top contenders go to tiebreaker for host or squad resolution
+        updateRoomStage(currentRoom.id, 'tiebreaker', {
+          tied_categories: result.topCategories.map((c) => c.id),
+          consensus_type: null,
+          winning_category: null,
+        });
+      }
+    }
+  }, [currentRoom, participants, foodChoices, currentParticipant?.is_host]);
+
   const createNewRoom = async (input: CreateRoomInput) => {
     setIsLoading(true);
     setError(null);
@@ -122,6 +193,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setCurrentRoom(room);
       setCurrentParticipant(participant);
       setParticipants([participant]);
+      setFoodChoices([]);
       setActiveRoomCode(room.code);
       setIsLoading(false);
       return { room, participant };
@@ -141,9 +213,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCurrentRoom(res.room);
         setCurrentParticipant(res.participant);
         setActiveRoomCode(res.room.code);
-        // fetch latest participants list
         const { participants: parts } = await getRoomByCode(res.room.code);
         setParticipants(parts);
+        const choices = await getFoodChoices(res.room.id);
+        setFoodChoices(choices);
         setIsLoading(false);
         return { success: true };
       }
@@ -159,14 +232,74 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCurrentRoom(null);
     setCurrentParticipant(null);
     setParticipants([]);
+    setFoodChoices([]);
     setActiveRoomCode(null);
-    // clean url if needed
     if (window.location.pathname.startsWith('/r/')) {
       window.history.pushState({}, '', '/');
     }
   };
 
+  const startVoting = async () => {
+    if (!currentRoom) return;
+    await updateRoomStage(currentRoom.id, 'voting', {
+      winning_category: null,
+      consensus_type: null,
+      tied_categories: [],
+    });
+    await refreshRoom();
+  };
+
+  const submitFoodChoices = async (selectedCategories: string[]) => {
+    if (!currentRoom || !currentParticipant) return;
+    await upsertFoodChoice(currentRoom.id, currentParticipant.id, selectedCategories, true);
+    await refreshRoom();
+  };
+
+  const resolveConsensus = async (winner: string, consensusType: ConsensusType) => {
+    if (!currentRoom) return;
+    await updateRoomStage(currentRoom.id, 'consensus', {
+      winning_category: winner,
+      consensus_type: consensusType,
+      tied_categories: [],
+    });
+    await refreshRoom();
+  };
+
+  const startTiebreaker = async (tiedCategories: string[]) => {
+    if (!currentRoom) return;
+    await updateRoomStage(currentRoom.id, 'tiebreaker', {
+      tied_categories: tiedCategories,
+      consensus_type: null,
+      winning_category: null,
+    });
+    await refreshRoom();
+  };
+
+  const resetToLobby = async () => {
+    if (!currentRoom) return;
+    await updateRoomStage(currentRoom.id, 'lobby', {
+      winning_category: null,
+      consensus_type: null,
+      tied_categories: [],
+      winning_restaurant_id: null,
+      swiping_started_at: null,
+    });
+    await refreshRoom();
+  };
+
+  const startSwiping = async () => {
+    if (!currentRoom) return;
+    await updateRoomStage(currentRoom.id, 'swiping', {
+      swiping_started_at: new Date().toISOString(),
+      winning_restaurant_id: null,
+    });
+    await refreshRoom();
+  };
+
   const isHost = Boolean(currentParticipant?.is_host);
+  const myChoice = currentParticipant
+    ? foodChoices.find((c) => c.participant_id === currentParticipant.id) || null
+    : null;
 
   return (
     <RoomContext.Provider
@@ -174,6 +307,8 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         currentRoom,
         currentParticipant,
         participants,
+        foodChoices,
+        myChoice,
         isLoading,
         error,
         createNewRoom,
@@ -182,6 +317,12 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         refreshRoom,
         leaveRoom,
         isHost,
+        startVoting,
+        submitFoodChoices,
+        resolveConsensus,
+        startTiebreaker,
+        resetToLobby,
+        startSwiping,
       }}
     >
       {children}

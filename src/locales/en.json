@@ -66,9 +66,69 @@
     "cancel": "Cancel",
     "errorNotFound": "Invalid code or room has expired"
   },
+  "voting": {
+    "heading": "What are you craving? 🤤",
+    "subtitle": "Select at least 2 categories to participate in the vote",
+    "minSelectionHint": "Pick at least 2 categories ({count}/2)",
+    "selectionCount": "{count} categories selected",
+    "submitPicks": "Lock in my picks 🎯",
+    "submittedTitle": "Your picks are locked in! 🔒",
+    "submittedSubtitle": "Waiting for the rest of the squad...",
+    "squadStatus": "Squad Status",
+    "ready": "Ready",
+    "picking": "Picking...",
+    "liveVotesTitle": "Live Squad Votes 📊",
+    "antiBiasNotice": "Lock in your picks to reveal live squad votes 👀",
+    "wildcardNotice": "🎲 'Flexible' automatically counts your vote for every category chosen by the squad!",
+    "changePicks": "Change my picks"
+  },
+  "tiebreaker": {
+    "heading": "It's a Tie! ⚔️",
+    "unanimousTieSubtitle": "Squad reached 100% agreement on multiple categories!",
+    "contendersSubtitle": "These categories received the top votes (60%+)",
+    "deadlockSubtitle": "Votes are scattered, a decision is needed!",
+    "tiedOptionsTitle": "Tied Options",
+    "hostActionHeading": "Host Tiebreaker Controls 👑",
+    "hostDirectPick": "Pick Winner Directly",
+    "spinWheel": "Spin Random Wheel 🎲",
+    "spinning": "Rolling...",
+    "guestWaiting": "Host is deciding the tiebreaker... ⏳",
+    "spinWinnerAnnouncement": "The roll picked: {winner} 🎉"
+  },
+  "consensus": {
+    "heading": "Consensus Reached! 🎉",
+    "subtitle": "The squad settled what to eat tonight",
+    "unanimousBadge": "100% Unanimous 🎯",
+    "majorityBadge": "Majority Winner ⭐",
+    "hostBadge": "Host Decision 👑",
+    "randomBadge": "Random Roll 🎲",
+    "votesCount": "{count} of {total} voted for this ({percentage}%)",
+    "startOver": "Vote Again from Scratch 🔄",
+    "agreementMeter": "Squad Agreement Meter",
+    "squadAgreement": "Agreement Rate",
+    "topContenders": "Runner-up Contenders"
+  },
+  "categories": {
+    "burger": "Burger",
+    "shawarma": "Shawarma",
+    "broast": "Broasted",
+    "rice": "Rice & Kabsa",
+    "grill": "Grills",
+    "pizza": "Pizza",
+    "sushi": "Sushi",
+    "italian": "Italian",
+    "asian": "Asian",
+    "seafood": "Seafood",
+    "breakfast": "Breakfast",
+    "healthy": "Healthy",
+    "coffee": "Café & Sweets",
+    "dessert": "Dessert",
+    "flexible": "Anything / Flexible"
+  },
   "toast": {
     "linkCopied": "Link copied!",
-    "codeCopied": "Room code copied!"
+    "codeCopied": "Room code copied!",
+    "picksSubmitted": "Your picks have been submitted!"
   },
   "whatsapp": {
     "shareMessage": "Can't decide what to eat 😂 Hop in and pick with us: {url}"
@@ -82,5 +142,22 @@
     "errorGeneric": "Something went wrong, please try again",
     "participant": "member",
     "participants": "members"
+  },
+  "swiping": {
+    "title": "Swipe & Match",
+    "subtitle": "Swipe right to approve, left to pass",
+    "stamp_like": "MATCH 🔥",
+    "stamp_pass": "PASS ❌",
+    "signature_dish_label": "Signature Squad Pick:",
+    "hud_status": "{{completed}} of {{total}} done swiping",
+    "waiting_title": "You've cleared the deck! 🫡",
+    "waiting_desc": "Hang tight while the rest of the squad finishes."
+  },
+  "match": {
+    "header_unanimous": "UNANIMOUS SQUAD MATCH! 🎉",
+    "header_majority": "TOP SQUAD PICK! 🔥",
+    "tag_winner": "Winning Spot 👑",
+    "order_prep_cta": "View Order Items 📋",
+    "share_whatsapp_cta": "Announce on WhatsApp 💬"
   }
 }

@@ -9,8 +9,14 @@ import { RoomSetupScreen } from './components/wizard/RoomSetupScreen';
 import { RoomLobbyScreen } from './components/lobby/RoomLobbyScreen';
 import { GuestJoinScreen } from './components/guest/GuestJoinScreen';
 import { RoomFullView } from './components/guest/RoomFullView';
+import { FoodVotingScreen } from './components/voting/FoodVotingScreen';
+import { TiebreakerScreen } from './components/voting/TiebreakerScreen';
+import { ConsensusResultScreen } from './components/voting/ConsensusResultScreen';
+import { RestaurantSwipingScreen } from './components/swiping/RestaurantSwipingScreen';
+import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScreen';
+import { RESTAURANT_CATALOG } from './data/restaurants';
 
-type FlowStep = 'landing' | 'mode' | 'setup' | 'lobby' | 'guest-join' | 'room-full';
+type FlowStep = 'landing' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
 
 export const App: React.FC = () => {
   const {
@@ -22,6 +28,7 @@ export const App: React.FC = () => {
     joinExistingRoom,
     loadRoom,
     leaveRoom,
+    startVoting,
   } = useRoom();
 
   const { t } = useLocale();
@@ -37,9 +44,9 @@ export const App: React.FC = () => {
   useEffect(() => {
     if (isLoading) return;
 
-    // If active participant is in current room, show lobby
+    // If active participant is in current room, show room screen
     if (currentRoom && currentParticipant) {
-      setStep('lobby');
+      setStep('room');
       return;
     }
 
@@ -102,9 +109,8 @@ export const App: React.FC = () => {
         host_nickname: nickname,
       });
 
-      // Update URL to /r/:code without hard reload
       window.history.pushState({}, '', `/r/${room.code}`);
-      setStep('lobby');
+      setStep('room');
     } catch (err) {
       console.error('Failed to create room', err);
     } finally {
@@ -141,7 +147,7 @@ export const App: React.FC = () => {
     try {
       const res = await joinExistingRoom(currentRoom.code, nickname);
       if (res.success) {
-        setStep('lobby');
+        setStep('room');
       } else if (res.isFull) {
         setStep('room-full');
       } else {
@@ -173,6 +179,43 @@ export const App: React.FC = () => {
     );
   }
 
+  const renderRoomContent = () => {
+    if (!currentRoom || !currentParticipant) return null;
+
+    switch (currentRoom.stage) {
+      case 'voting':
+        return <FoodVotingScreen />;
+      case 'tiebreaker':
+        return <TiebreakerScreen />;
+      case 'consensus':
+        return <ConsensusResultScreen />;
+      case 'swiping':
+        return <RestaurantSwipingScreen />;
+      case 'matched': {
+        const winner =
+          RESTAURANT_CATALOG.find((r) => r.id === currentRoom.winning_restaurant_id) ||
+          RESTAURANT_CATALOG[0];
+        return (
+          <MatchCelebrationScreen
+            restaurant={winner}
+            participants={participants}
+            onProceed={() => {
+              // Prepares Phase 4 transition
+            }}
+          />
+        );
+      }
+      case 'lobby':
+      default:
+        return (
+          <RoomLobbyScreen
+            onStartPicking={startVoting}
+            onLeaveRoom={handleLeave}
+          />
+        );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#F7EFE6] flex items-center justify-center sm:py-6 selection:bg-brand-redSoft">
       <main className="app-container flex flex-col justify-center sm:rounded-[36px] sm:overflow-hidden sm:border sm:border-brand-border sm:shadow-2xl">
@@ -200,11 +243,7 @@ export const App: React.FC = () => {
           />
         )}
 
-        {step === 'lobby' && (
-          <RoomLobbyScreen
-            onLeaveRoom={handleLeave}
-          />
-        )}
+        {step === 'room' && renderRoomContent()}
 
         {step === 'guest-join' && currentRoom && (
           <GuestJoinScreen
@@ -236,4 +275,5 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
 export default App;

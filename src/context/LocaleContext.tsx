@@ -74,7 +74,9 @@ export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       let result = current;
       if (replacements) {
         for (const [rKey, rVal] of Object.entries(replacements)) {
-          result = result.replaceAll(`{${rKey}}`, String(rVal));
+          result = result
+            .replaceAll(`{{${rKey}}}`, String(rVal))
+            .replaceAll(`{${rKey}}`, String(rVal));
         }
       }
       return result;
