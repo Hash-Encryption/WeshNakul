@@ -209,6 +209,7 @@ export const App: React.FC = () => {
             restaurant={winner}
             participants={participants}
             onVoteAgain={() => resetRoomVoting('voting')}
+            onRestartVote={() => resetRoomVoting('voting')}
             onGoHome={handleLeave}
             onProceed={() => {
               // Prepares Phase 4 transition

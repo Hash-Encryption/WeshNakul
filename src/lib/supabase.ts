@@ -33,6 +33,10 @@ const ordersBroadcastChannel = typeof window !== 'undefined' && 'BroadcastChanne
   ? new BroadcastChannel('wesh_nakul_orders_fallback')
   : null;
 
+const revoteBroadcastChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window
+  ? new BroadcastChannel('wesh_nakul_revote_fallback')
+  : null;
+
 function getMockOrderItems(): Record<string, OrderItem[]> {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_ORDER_ITEMS);
@@ -1003,4 +1007,75 @@ export function subscribeToOrderItems(
     window.removeEventListener('storage', handleStorage);
   };
 }
+
+/**
+ * Broadcast a re-vote request from a participant.
+ */
+export async function broadcastRevoteRequest(
+  roomId: string,
+  participant: { id: string; name: string; active: boolean }
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`revote:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 500);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'revote_request',
+        payload: participant,
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastRevoteRequest failed', e);
+    }
+  }
+
+  revoteBroadcastChannel?.postMessage({
+    roomId,
+    participant,
+  });
+}
+
+/**
+ * Subscribe to realtime re-vote requests for a room.
+ */
+export function subscribeToRevoteRequests(
+  roomId: string,
+  callback: (participant: { id: string; name: string; active: boolean }) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`revote:${roomId}`)
+      .on('broadcast', { event: 'revote_request' }, (payload: any) => {
+        if (payload?.payload) {
+          callback(payload.payload);
+        }
+      })
+      .subscribe();
+  }
+
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data?.roomId === roomId && event.data?.participant) {
+      callback(event.data.participant);
+    }
+  };
+
+  revoteBroadcastChannel?.addEventListener('message', handleMessage);
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+    revoteBroadcastChannel?.removeEventListener('message', handleMessage);
+  };
+}
+
 

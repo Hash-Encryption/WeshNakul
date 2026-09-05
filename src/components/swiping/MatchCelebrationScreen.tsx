@@ -12,6 +12,35 @@ import { useRoom } from '../../context/RoomContext';
 import { DeliveryLauncher } from '../orders/DeliveryLauncher';
 import { OrderScratchpad } from '../orders/OrderScratchpad';
 
+import { broadcastRevoteRequest, subscribeToRevoteRequests } from '../../lib/supabase';
+
+const PILL_GRADIENTS = [
+  'from-[#FF6B6B] to-[#FF8E53]',
+  'from-[#4E65FF] to-[#92EFFD]',
+  'from-[#11998E] to-[#38EF7D]',
+  'from-[#F2994A] to-[#F2C94C]',
+  'from-[#EE0979] to-[#FF6A00]',
+  'from-[#8E2DE2] to-[#4A00E0]',
+];
+
+function getInitials(name: string): string {
+  const clean = name.trim();
+  if (!clean) return '؟';
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return (parts[0].slice(0, 1) + parts[1].slice(0, 1)).toUpperCase();
+  }
+  return clean.slice(0, 2).toUpperCase();
+}
+
+function getPillGradient(id: string): string {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+  }
+  return PILL_GRADIENTS[hash % PILL_GRADIENTS.length];
+}
+
 interface MatchCelebrationScreenProps {
   restaurant: RestaurantItem;
   participants: Participant[];
@@ -21,6 +50,7 @@ interface MatchCelebrationScreenProps {
   isHost?: boolean;
   onProceed?: () => void;
   onVoteAgain?: () => void;
+  onRestartVote?: () => void;
   onGoHome?: () => void;
   isUnanimous?: boolean;
 }
@@ -35,19 +65,69 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   isHost,
   onProceed: _onProceed,
   onVoteAgain,
+  onRestartVote,
   onGoHome,
   isUnanimous = true,
 }) => {
   const { locale, t } = useLocale();
-  const { currentRoom, currentParticipant, isHost: roomIsHost } = useRoom();
+  const { currentRoom, currentParticipant, isHost: roomIsHost, resetRoomVoting } = useRoom();
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [orders, setOrders] = useState<OrderItem[]>([]);
+  const [revoteVoters, setRevoteVoters] = useState<Array<{ id: string; name: string }>>([]);
 
   const activeRoomId = roomId || currentRoom?.id || '';
   const activeParticipantId = currentParticipantId || currentParticipant?.id || '';
   const activeParticipantName = currentParticipantName || currentParticipant?.nickname || '';
-  const activeIsHost = isHost ?? currentParticipant?.is_host ?? roomIsHost;
+  const activeIsHost = isHost ?? currentParticipant?.is_host ?? roomIsHost ?? false;
   const roomCode = currentRoom?.code || '';
+
+  useEffect(() => {
+    if (!activeRoomId) return;
+
+    const unsubscribe = subscribeToRevoteRequests(activeRoomId, (p) => {
+      setRevoteVoters((prev) => {
+        if (p.active) {
+          if (prev.some((v) => v.id === p.id)) return prev;
+          return [...prev, { id: p.id, name: p.name }];
+        } else {
+          return prev.filter((v) => v.id !== p.id);
+        }
+      });
+    });
+
+    return () => unsubscribe();
+  }, [activeRoomId]);
+
+  const handleHostRestartVote = () => {
+    if (onRestartVote) {
+      onRestartVote();
+    } else if (onVoteAgain) {
+      onVoteAgain();
+    } else {
+      resetRoomVoting('voting');
+    }
+  };
+
+  const isMyRevoteRequested = revoteVoters.some((v) => v.id === activeParticipantId);
+
+  const handleToggleRevoteRequest = () => {
+    const nextActive = !isMyRevoteRequested;
+
+    setRevoteVoters((prev) => {
+      if (nextActive) {
+        if (prev.some((v) => v.id === activeParticipantId)) return prev;
+        return [...prev, { id: activeParticipantId, name: activeParticipantName }];
+      } else {
+        return prev.filter((v) => v.id !== activeParticipantId);
+      }
+    });
+
+    broadcastRevoteRequest(activeRoomId, {
+      id: activeParticipantId,
+      name: activeParticipantName,
+      active: nextActive,
+    });
+  };
 
 
   useEffect(() => {
@@ -222,16 +302,57 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
 
       {/* Action Buttons */}
       <div className="max-w-md w-full mx-auto flex flex-col gap-2.5 pt-2 pb-6">
-        {/* Vote Again CTA (Top Priority) */}
-        {onVoteAgain && (
-          <button
-            type="button"
-            onClick={onVoteAgain}
-            className="w-full py-3.5 px-6 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-base sm:text-lg flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none"
-          >
-            <span>{t('match.vote_again_cta')}</span>
-          </button>
-        )}
+        {/* Re-Vote Section with Avatar Badges */}
+        <div className="w-full flex flex-col gap-1.5">
+          {revoteVoters.length > 0 && (
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <div className="flex items-center -space-x-1.5 rtl:space-x-reverse">
+                {revoteVoters.map((voter) => (
+                  <div
+                    key={voter.id}
+                    title={voter.name}
+                    className={`w-6 h-6 rounded-full bg-gradient-to-tr ${getPillGradient(voter.id)} border border-[#241B18] shadow-sm flex items-center justify-center text-[10px] font-black text-white font-alexandria select-none`}
+                  >
+                    {getInitials(voter.name)}
+                  </div>
+                ))}
+              </div>
+              <span className="text-[11px] font-black text-[#241B18] font-alexandria bg-[#FFF8F1] border border-[#241B18] px-2.5 py-0.5 rounded-full shadow-[0px_1.5px_0px_#241B18]">
+                {locale === 'ar'
+                  ? `(${revoteVoters.length}/${participants.length} طلبوا الإعادة)`
+                  : `(${revoteVoters.length}/${participants.length} requested re-vote)`}
+              </span>
+            </div>
+          )}
+
+          {activeIsHost ? (
+            /* Host Re-Vote CTA */
+            <button
+              type="button"
+              onClick={handleHostRestartVote}
+              className="w-full py-3.5 px-6 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-base sm:text-lg flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none"
+            >
+              <span>{t('revote.hostAction')}</span>
+            </button>
+          ) : (
+            /* Squad Member Re-Vote Request / Cancel CTA */
+            <button
+              type="button"
+              onClick={handleToggleRevoteRequest}
+              className={`w-full py-3.5 px-6 rounded-2xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-base sm:text-lg flex items-center justify-center gap-2 transition-all select-none ${
+                isMyRevoteRequested
+                  ? 'bg-[#FEE4E2] text-[#B42318] hover:bg-[#FECDCA]'
+                  : 'bg-[#FFD75A] text-[#241B18] hover:brightness-105'
+              }`}
+            >
+              <span>
+                {isMyRevoteRequested
+                  ? t('revote.participantCancel')
+                  : t('revote.participantRequest')}
+              </span>
+            </button>
+          )}
+        </div>
 
         {/* Go Home CTA */}
         {onGoHome && (
@@ -254,17 +375,32 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
               {t('match.menu_title')}
             </h4>
             <div className="flex flex-col gap-2.5">
-              {onVoteAgain && (
+              {activeIsHost ? (
                 <TactileButton
                   onClick={() => {
                     setShowMenuModal(false);
-                    onVoteAgain();
+                    handleHostRestartVote();
                   }}
                   variant="primary"
                   size="sm"
                   fullWidth
                 >
-                  {t('match.vote_again_cta')}
+                  {t('revote.hostAction')}
+                </TactileButton>
+              ) : (
+                <TactileButton
+                  onClick={() => {
+                    setShowMenuModal(false);
+                    handleToggleRevoteRequest();
+                  }}
+                  variant={isMyRevoteRequested ? 'ghost' : 'primary'}
+                  size="sm"
+                  fullWidth
+                  className={isMyRevoteRequested ? 'text-brand-red hover:bg-brand-redSoft' : ''}
+                >
+                  {isMyRevoteRequested
+                    ? t('revote.participantCancel')
+                    : t('revote.participantRequest')}
                 </TactileButton>
               )}
               {onGoHome && (

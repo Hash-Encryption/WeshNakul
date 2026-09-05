@@ -10,14 +10,19 @@ export interface RestaurantPlatforms {
 }
 
 export interface RestaurantLinks {
-  googleMaps: string;
-  hungerstationSearch: string;
-  jahezSearch: string;
-  keetaSearch: string;
+  googleMaps?: string;
+  hungerstation?: string;
+  hungerstationSearch?: string;
+  jahez?: string;
+  jahezSearch?: string;
+  keeta?: string;
+  keetaSearch?: string;
+  [key: string]: string | undefined;
 }
 
 export interface RestaurantItem {
   id: string;
+  name?: string;
   nameAr: string;
   nameEn: string;
   categories: string[];

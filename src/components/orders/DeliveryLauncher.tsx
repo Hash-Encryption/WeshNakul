@@ -42,50 +42,51 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
   const [copied, setCopied] = useState(false);
 
   const restaurantName = locale === 'ar' ? restaurant.nameAr : restaurant.nameEn;
-  const encodedName = encodeURIComponent(restaurant.nameAr || restaurant.nameEn);
-
-  const rawLinks = (restaurant.links || {}) as unknown as Record<string, string | undefined>;
+  const targetName = restaurant.name || restaurantName;
 
   const hungerstationUrl =
-    rawLinks.hungerstation ||
-    rawLinks.hungerstationSearch ||
-    `https://hungerstation.com/sa-ar/search?q=${encodedName}`;
+    restaurant.links?.hungerstation ||
+    restaurant.links?.hungerstationSearch ||
+    `https://www.google.com/search?q=${encodeURIComponent('هنقرستيشن ' + targetName)}`;
 
   const jahezUrl =
-    rawLinks.jahez ||
-    rawLinks.jahezSearch ||
-    `https://jahez.net/search?q=${encodedName}`;
+    restaurant.links?.jahez ||
+    restaurant.links?.jahezSearch ||
+    `https://www.google.com/search?q=${encodeURIComponent('جاهز ' + targetName)}`;
 
   const keetaUrl =
-    rawLinks.keeta ||
-    rawLinks.keetaSearch ||
-    `https://keeta.com/search?q=${encodedName}`;
+    restaurant.links?.keeta ||
+    restaurant.links?.keetaSearch ||
+    `https://www.google.com/search?q=${encodeURIComponent('كيتا ' + targetName)}`;
 
   const googleMapsUrl =
-    rawLinks.googleMaps ||
-    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      `${restaurant.nameAr || ''} ${restaurant.nameEn || ''}`.trim()
-    )}`;
+    restaurant.links?.googleMaps ||
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(targetName)}`;
 
-  const handleCopyWhatsApp = async () => {
+  const handleCopyWhatsApp = () => {
     const text = formatWhatsAppOrder(restaurantName, orders, roomCode);
-    try {
-      if (navigator?.clipboard?.writeText) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        throw new Error('Clipboard API not available');
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+
+    // 1. Launch WhatsApp immediately on user gesture to prevent popup blocking
+    window.open(waUrl, '_blank');
+
+    // 2. Perform clipboard write in the background
+    navigator.clipboard?.writeText(text).catch(() => {
+      try {
+        const fallbackArea = document.createElement('textarea');
+        fallbackArea.value = text;
+        fallbackArea.style.position = 'fixed';
+        fallbackArea.style.opacity = '0';
+        document.body.appendChild(fallbackArea);
+        fallbackArea.focus();
+        fallbackArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(fallbackArea);
+      } catch {
+        // ignore fallback error
       }
-    } catch {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-    }
+    });
+
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };

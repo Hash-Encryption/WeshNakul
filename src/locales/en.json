@@ -179,6 +179,12 @@
     "whatsappCopied": "Order copied to WhatsApp! 📋",
     "openIn": "Order via",
     "directions": "Directions on Maps 📍"
+  },
+  "revote": {
+    "hostAction": "Restart Vote for Squad 🔄",
+    "participantRequest": "Request Re-vote 🙋‍♂️",
+    "participantCancel": "Cancel Re-vote Request ✕",
+    "wantsRevote": "Want to re-vote:"
   }
 }
 

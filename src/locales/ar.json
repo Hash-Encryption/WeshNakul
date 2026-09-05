@@ -179,6 +179,12 @@
     "whatsappCopied": "تم نسخ الطلب للواتساب! 📋",
     "openIn": "اطلب عبر",
     "directions": "الموقع على الخريطة 📍"
+  },
+  "revote": {
+    "hostAction": "إعادة التصويت للقروب 🔄",
+    "participantRequest": "طلب إعادة التصويت 🙋‍♂️",
+    "participantCancel": "إلغاء طلب الإعادة ✕",
+    "wantsRevote": "يطلبون إعادة التصويت:"
   }
 }
 
