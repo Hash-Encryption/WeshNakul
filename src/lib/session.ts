@@ -70,6 +70,22 @@ export function setActiveRoomCode(code: string | null): void {
 }
 
 /**
+ * Clear room session and storage keys.
+ */
+export function clearRoomSession(code?: string): void {
+  try {
+    if (code) {
+      localStorage.removeItem(`${PRIMARY_SESSION_KEY}_${code.trim().toUpperCase()}`);
+    }
+    localStorage.removeItem(ACTIVE_ROOM_KEY);
+    localStorage.removeItem('wsh_room_code');
+    localStorage.removeItem('wsh_participant_id');
+  } catch (e) {
+    console.error('Failed to clear room session in localStorage', e);
+  }
+}
+
+/**
  * Get active room code from localStorage.
  */
 export function getActiveRoomCode(): string | null {

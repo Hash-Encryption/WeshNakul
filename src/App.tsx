@@ -16,6 +16,7 @@ import { RestaurantSwipingScreen } from './components/swiping/RestaurantSwipingS
 import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScreen';
 import { RESTAURANT_CATALOG } from './data/restaurants';
 import { getCachedRestaurant } from './lib/supabase';
+import { Toast } from './components/common/Toast';
 
 type FlowStep = 'landing' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
 
@@ -25,10 +26,13 @@ export const App: React.FC = () => {
     currentParticipant,
     participants,
     isLoading,
+    sessionNotice,
+    clearSessionNotice,
     createNewRoom,
     joinExistingRoom,
     loadRoom,
     leaveRoom,
+    destroyRoom,
     startVoting,
     resetRoomVoting,
   } = useRoom();
@@ -169,8 +173,12 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleLeave = () => {
-    leaveRoom();
+  const handleLeave = async () => {
+    if (currentParticipant?.is_host && currentRoom) {
+      await destroyRoom();
+    } else {
+      leaveRoom();
+    }
     setStep('landing');
   };
 
@@ -208,6 +216,10 @@ export const App: React.FC = () => {
           <MatchCelebrationScreen
             restaurant={winner}
             participants={participants}
+            roomId={currentRoom.id}
+            currentParticipantId={currentParticipant.id}
+            currentParticipantName={currentParticipant.nickname}
+            isHost={Boolean(currentParticipant.is_host)}
             onVoteAgain={() => resetRoomVoting('voting')}
             onRestartVote={() => resetRoomVoting('voting')}
             onGoHome={handleLeave}
@@ -283,6 +295,9 @@ export const App: React.FC = () => {
           isLoading={isSubmitting}
           error={codeModalError}
         />
+
+        {/* Global Session Toast (TTL Expiration, Host Room Deletion, Vote Reset) */}
+        <Toast message={sessionNotice} onClose={clearSessionNotice} />
       </main>
     </div>
   );

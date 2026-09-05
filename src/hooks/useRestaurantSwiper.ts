@@ -116,7 +116,10 @@ export function useRestaurantSwiper({
       : null;
 
     const handleBroadcast = (event: MessageEvent) => {
-      if (event.data?.type === 'ROOM_UPDATED' && (!event.data.roomId || event.data.roomId === roomId)) {
+      if (event.data?.type === 'ROOM_RESET' && (!event.data.roomId || event.data.roomId === roomId)) {
+        setAllSwipes([]);
+        setCurrentIndex(0);
+      } else if (event.data?.type === 'ROOM_UPDATED' && (!event.data.roomId || event.data.roomId === roomId)) {
         if (event.data.swipe) {
           const swipe = event.data.swipe as RestaurantSwipe;
           setAllSwipes((prev) => [...prev.filter((s) => s.id !== swipe.id), swipe]);

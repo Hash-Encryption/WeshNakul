@@ -8,14 +8,18 @@ import {
   updateRoomStage,
   upsertFoodChoice,
   getFoodChoices,
-  resetRoomVoting as apiResetRoomVoting
+  resetRoomVoting as apiResetRoomVoting,
+  deleteRoom as apiDeleteRoom,
+  isRoomExpired
 } from '../lib/supabase';
 import { 
   getActiveRoomCode, 
   setActiveRoomCode, 
-  getOrCreateSessionToken 
+  getOrCreateSessionToken,
+  clearRoomSession
 } from '../lib/session';
 import { calculateConsensus } from '../lib/consensus';
+import { useLocale } from './LocaleContext';
 
 interface RoomContextType {
   currentRoom: Room | null;
@@ -25,11 +29,14 @@ interface RoomContextType {
   myChoice: FoodChoice | null;
   isLoading: boolean;
   error: string | null;
+  sessionNotice: string | null;
+  clearSessionNotice: () => void;
   createNewRoom: (input: CreateRoomInput) => Promise<{ room: Room; participant: Participant }>;
   joinExistingRoom: (code: string, nickname: string) => Promise<{ success: boolean; isFull?: boolean; error?: string }>;
   loadRoom: (code: string) => Promise<boolean>;
   refreshRoom: () => Promise<void>;
   leaveRoom: () => void;
+  destroyRoom: () => Promise<void>;
   isHost: boolean;
   startVoting: () => Promise<void>;
   submitFoodChoices: (selectedCategories: string[]) => Promise<void>;
@@ -43,23 +50,61 @@ interface RoomContextType {
 const RoomContext = createContext<RoomContextType | null>(null);
 
 export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { t } = useLocale();
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
   const [currentParticipant, setCurrentParticipant] = useState<Participant | null>(null);
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [foodChoices, setFoodChoices] = useState<FoodChoice[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [sessionNotice, setSessionNotice] = useState<string | null>(null);
+
+  const clearSessionNotice = useCallback(() => {
+    setSessionNotice(null);
+  }, []);
 
   const currentRoomRef = useRef<Room | null>(null);
   useEffect(() => {
     currentRoomRef.current = currentRoom;
   }, [currentRoom]);
 
+  const currentParticipantRef = useRef<Participant | null>(null);
+  useEffect(() => {
+    currentParticipantRef.current = currentParticipant;
+  }, [currentParticipant]);
+
+  const leaveRoom = useCallback(() => {
+    const code = currentRoomRef.current?.code;
+    clearRoomSession(code);
+    setCurrentRoom(null);
+    setCurrentParticipant(null);
+    setParticipants([]);
+    setFoodChoices([]);
+    setActiveRoomCode(null);
+    if (window.location.pathname.startsWith('/r/')) {
+      window.history.pushState({}, '', '/');
+    }
+  }, []);
+
+  const destroyRoom = useCallback(async () => {
+    const room = currentRoomRef.current;
+    if (room?.id) {
+      await apiDeleteRoom(room.id);
+    }
+    leaveRoom();
+  }, [leaveRoom]);
+
   const refreshRoom = useCallback(async () => {
     const roomCode = currentRoomRef.current?.code;
     if (!roomCode) return;
     try {
-      const { room, participants: parts } = await getRoomByCode(roomCode);
+      const { room, participants: parts, isExpired } = await getRoomByCode(roomCode);
+      if (isExpired) {
+        clearRoomSession(roomCode);
+        setSessionNotice(t('session.expiredNotice'));
+        leaveRoom();
+        return;
+      }
       if (room) {
         setCurrentRoom(room);
         setParticipants(parts);
@@ -76,14 +121,21 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       console.error('Error refreshing room', err);
     }
-  }, []);
+  }, [leaveRoom, t]);
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
     setIsLoading(true);
     setError(null);
     try {
-      const { room, participants: parts } = await getRoomByCode(code);
+      const { room, participants: parts, isExpired } = await getRoomByCode(code);
+      if (isExpired) {
+        clearRoomSession(code);
+        setSessionNotice(t('session.expiredNotice'));
+        leaveRoom();
+        setIsLoading(false);
+        return false;
+      }
       if (!room) {
         setIsLoading(false);
         return false;
@@ -123,7 +175,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsLoading(false);
       return false;
     }
-  }, []);
+  }, [leaveRoom, t]);
 
   // Session recovery on app mount
   useEffect(() => {
@@ -144,14 +196,48 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     if (!currentRoom?.id) return;
 
-    const unsubscribe = subscribeToRoom(currentRoom.id, () => {
-      refreshRoom();
-    });
+    const unsubscribe = subscribeToRoom(
+      currentRoom.id,
+      () => {
+        refreshRoom();
+      },
+      () => {
+        // onRoomDeleted
+        const wasHost = currentParticipantRef.current?.is_host;
+        leaveRoom();
+        if (!wasHost) {
+          setSessionNotice(t('session.roomClosedByHost'));
+        }
+      },
+      () => {
+        // onRoomReset
+        setFoodChoices([]);
+        setSessionNotice(t('session.resetSuccess'));
+        refreshRoom();
+      }
+    );
 
     return () => {
       unsubscribe();
     };
-  }, [currentRoom?.id, refreshRoom]);
+  }, [currentRoom?.id, refreshRoom, leaveRoom, t]);
+
+  // Periodic 30-minute TTL check
+  useEffect(() => {
+    if (!currentRoom?.created_at) return;
+
+    const checkExpiry = () => {
+      if (isRoomExpired(currentRoom.created_at)) {
+        clearRoomSession(currentRoom.code);
+        setSessionNotice(t('session.expiredNotice'));
+        leaveRoom();
+      }
+    };
+
+    checkExpiry();
+    const interval = setInterval(checkExpiry, 15000);
+    return () => clearInterval(interval);
+  }, [currentRoom?.created_at, currentRoom?.code, leaveRoom, t]);
 
   // Automatic Consensus Evaluation:
   // When in voting stage and all active participants have submitted their choices
@@ -237,17 +323,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const leaveRoom = () => {
-    setCurrentRoom(null);
-    setCurrentParticipant(null);
-    setParticipants([]);
-    setFoodChoices([]);
-    setActiveRoomCode(null);
-    if (window.location.pathname.startsWith('/r/')) {
-      window.history.pushState({}, '', '/');
-    }
-  };
-
   const startVoting = async () => {
     if (!currentRoom) return;
     await updateRoomStage(currentRoom.id, 'voting', {
@@ -287,6 +362,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const resetRoomVoting = async (targetStage: import('../types/database').RoomStage = 'voting') => {
     if (!currentRoom) return;
     setIsLoading(true);
+    setFoodChoices([]);
     try {
       await apiResetRoomVoting(currentRoom.id, targetStage);
       await refreshRoom();
@@ -326,11 +402,14 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         myChoice,
         isLoading,
         error,
+        sessionNotice,
+        clearSessionNotice,
         createNewRoom,
         joinExistingRoom,
         loadRoom,
         refreshRoom,
         leaveRoom,
+        destroyRoom,
         isHost,
         startVoting,
         submitFoodChoices,

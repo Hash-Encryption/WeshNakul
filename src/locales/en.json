@@ -202,6 +202,11 @@
     "modalBody": "Are you sure you want to select \"{{restaurant}}\" as the final squad pick?",
     "modalConfirm": "Lock & Celebrate 🎉",
     "modalCancel": "Cancel"
+  },
+  "session": {
+    "expiredNotice": "Room session expired (30-minute limit reached) ⌛",
+    "roomClosedByHost": "Room was closed by the host 👋",
+    "resetSuccess": "Voting reset! Pick categories again 🔄"
   }
 }
 

@@ -6,7 +6,15 @@ interface ToastProps {
   onClose?: () => void;
 }
 
-export const Toast: React.FC<ToastProps> = ({ message }) => {
+export const Toast: React.FC<ToastProps> = ({ message, onClose }) => {
+  React.useEffect(() => {
+    if (!message || !onClose) return;
+    const timer = setTimeout(() => {
+      onClose();
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [message, onClose]);
+
   return (
     <AnimatePresence>
       {message && (
@@ -15,7 +23,8 @@ export const Toast: React.FC<ToastProps> = ({ message }) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 15, scale: 0.95 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-auto cursor-pointer"
+          onClick={onClose}
         >
           <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-brand-ink text-white shadow-xl text-sm font-bold border border-white/10 backdrop-blur-md">
             <span className="text-base text-brand-green">✓</span>

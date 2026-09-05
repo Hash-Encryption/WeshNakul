@@ -1,0 +1,67 @@
+import { isRoomExpired } from '../supabase';
+import { clearRoomSession, getOrCreateSessionToken, setActiveRoomCode, getActiveRoomCode } from '../session';
+import arDict from '../../locales/ar.json';
+import enDict from '../../locales/en.json';
+
+if (typeof globalThis.localStorage === 'undefined') {
+  const store = new Map<string, string>();
+  globalThis.localStorage = {
+    getItem: (key: string) => store.get(key) ?? null,
+    setItem: (key: string, value: string) => store.set(key, String(value)),
+    removeItem: (key: string) => store.delete(key),
+    clear: () => store.clear(),
+    key: (index: number) => Array.from(store.keys())[index] ?? null,
+    get length() { return store.size; },
+  } as Storage;
+}
+
+function assert(condition: boolean, msg: string) {
+  if (!condition) {
+    throw new Error(`Assertion failed: ${msg}`);
+  }
+}
+
+export function runExpirationTests() {
+  console.log('Running room expiration and cleanup tests...');
+
+  const now = Date.now();
+
+  // 1. Fresh room (created 5 minutes ago) -> NOT expired
+  const fiveMinAgo = new Date(now - 5 * 60 * 1000).toISOString();
+  assert(isRoomExpired(fiveMinAgo) === false, 'Fresh room (5 mins ago) is not expired');
+
+  // 2. Room created 29 minutes ago -> NOT expired
+  const twentyNineMinAgo = new Date(now - 29 * 60 * 1000).toISOString();
+  assert(isRoomExpired(twentyNineMinAgo) === false, 'Room (29 mins ago) is not expired');
+
+  // 3. Room created 30 minutes and 1 second ago -> EXPIRED
+  const thirtyMinOneSecAgo = new Date(now - (30 * 60 * 1000 + 1000)).toISOString();
+  assert(isRoomExpired(thirtyMinOneSecAgo) === true, 'Room (30m 1s ago) is expired');
+
+  // 4. Room created 2 hours ago -> EXPIRED
+  const twoHoursAgo = new Date(now - 2 * 60 * 60 * 1000).toISOString();
+  assert(isRoomExpired(twoHoursAgo) === true, 'Room (2h ago) is expired');
+
+  // 5. Verify session clearing
+  const testCode = 'EXP1';
+  getOrCreateSessionToken(testCode);
+  setActiveRoomCode(testCode);
+  assert(getActiveRoomCode() === testCode, 'Active room code is set');
+
+  clearRoomSession(testCode);
+  assert(getActiveRoomCode() === null, 'Active room code is cleared after clearRoomSession');
+  assert(localStorage.getItem(`wesh_nakul_session_${testCode}`) === null, 'Scoped session token removed');
+
+  // 6. Verify session localization keys
+  assert(Boolean(arDict.session && arDict.session.expiredNotice), 'ar.json contains session.expiredNotice');
+  assert(Boolean(arDict.session && arDict.session.roomClosedByHost), 'ar.json contains session.roomClosedByHost');
+  assert(Boolean(arDict.session && arDict.session.resetSuccess), 'ar.json contains session.resetSuccess');
+
+  assert(Boolean(enDict.session && enDict.session.expiredNotice), 'en.json contains session.expiredNotice');
+  assert(Boolean(enDict.session && enDict.session.roomClosedByHost), 'en.json contains session.roomClosedByHost');
+  assert(Boolean(enDict.session && enDict.session.resetSuccess), 'en.json contains session.resetSuccess');
+
+  console.log('✓ All room expiration and cleanup tests passed successfully!');
+}
+
+runExpirationTests();

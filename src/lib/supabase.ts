@@ -5,8 +5,8 @@ import { CITYWIDE_STAPLES } from '../data/fallbackStaples';
 import { getOrCreateSessionToken, generateUUID, generateRoomCode } from './session';
 import { getProceduralToken } from './tokenGenerator';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://apsfxnmzfllraoctbwyq.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_P2K0kEJqVuKxiGh-BxSRQg_xgtRoDrz';
+const supabaseUrl = import.meta.env?.VITE_SUPABASE_URL || 'https://apsfxnmzfllraoctbwyq.supabase.co';
+const supabaseAnonKey = import.meta.env?.VITE_SUPABASE_ANON_KEY || 'sb_publishable_P2K0kEJqVuKxiGh-BxSRQg_xgtRoDrz';
 
 export const isSupabaseConfigured = Boolean(
   supabaseUrl && 
@@ -128,9 +128,21 @@ function saveMockRestaurantSwipes(swipes: Record<string, RestaurantSwipe[]>) {
 }
 
 /**
+ * Check if room session has exceeded the 30-minute Time-To-Live (TTL).
+ */
+export function isRoomExpired(createdAt: string): boolean {
+  const createdTime = new Date(createdAt).getTime();
+  const now = Date.now();
+  const thirtyMinutesMs = 30 * 60 * 1000;
+  return now - createdTime > thirtyMinutesMs;
+}
+
+/**
  * Fetch a room by its 4-character code.
  */
-export async function getRoomByCode(code: string): Promise<{ room: Room | null; participants: Participant[] }> {
+export async function getRoomByCode(
+  code: string
+): Promise<{ room: Room | null; participants: Participant[]; isExpired?: boolean }> {
   const normalizedCode = code.trim().toUpperCase();
 
   if (supabase) {
@@ -142,6 +154,10 @@ export async function getRoomByCode(code: string): Promise<{ room: Room | null; 
 
     if (roomError || !roomData) {
       return { room: null, participants: [] };
+    }
+
+    if (isRoomExpired(roomData.created_at)) {
+      return { room: null, participants: [], isExpired: true };
     }
 
     const { data: partData } = await supabase
@@ -164,6 +180,10 @@ export async function getRoomByCode(code: string): Promise<{ room: Room | null; 
   const rooms = getMockRooms();
   const room = rooms[normalizedCode] || null;
   if (!room) return { room: null, participants: [] };
+
+  if (isRoomExpired(room.created_at)) {
+    return { room: null, participants: [], isExpired: true };
+  }
 
   const participants = getMockParticipants()[room.id] || [];
   return { room, participants };
@@ -583,7 +603,9 @@ export async function getRestaurantSwipes(roomId: string): Promise<RestaurantSwi
  */
 export function subscribeToRoom(
   roomId: string,
-  onUpdate: () => void
+  onUpdate: () => void,
+  onRoomDeleted?: () => void,
+  onRoomReset?: () => void
 ): () => void {
   if (supabase) {
     const channel = supabase
@@ -596,7 +618,13 @@ export function subscribeToRoom(
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'rooms', filter: `id=eq.${roomId}` },
-        () => onUpdate()
+        (payload: any) => {
+          if (payload.eventType === 'DELETE') {
+            onRoomDeleted?.();
+          } else {
+            onUpdate();
+          }
+        }
       )
       .on(
         'postgres_changes',
@@ -608,6 +636,12 @@ export function subscribeToRoom(
         { event: '*', schema: 'public', table: 'restaurant_swipes', filter: `room_id=eq.${roomId}` },
         () => onUpdate()
       )
+      .on('broadcast', { event: 'room_deleted' }, () => {
+        onRoomDeleted?.();
+      })
+      .on('broadcast', { event: 'room_reset' }, () => {
+        onRoomReset?.();
+      })
       .subscribe();
 
     return () => {
@@ -617,8 +651,14 @@ export function subscribeToRoom(
 
   // BroadcastChannel and window storage listener for multi-tab realtime
   const handleMessage = (event: MessageEvent) => {
-    if (event.data?.type === 'ROOM_UPDATED' && (!event.data.roomId || event.data.roomId === roomId)) {
-      onUpdate();
+    if (!event.data?.roomId || event.data.roomId === roomId) {
+      if (event.data?.type === 'ROOM_DELETED') {
+        onRoomDeleted?.();
+      } else if (event.data?.type === 'ROOM_RESET') {
+        onRoomReset?.();
+      } else if (event.data?.type === 'ROOM_UPDATED') {
+        onUpdate();
+      }
     }
   };
 
@@ -649,8 +689,10 @@ export async function resetRoomVoting(
   roomId: string,
   targetStage: RoomStage = 'voting'
 ): Promise<void> {
-  const resetMeta = {
+  const resetMeta: Partial<Room> = {
     stage: targetStage,
+    status: 'food_selection',
+    current_stage: 'voting',
     winning_category: null,
     consensus_type: null,
     tied_categories: [],
@@ -659,36 +701,56 @@ export async function resetRoomVoting(
   };
 
   if (supabase) {
-    // 1. Update room stage
-    await supabase.from('rooms').update(resetMeta).eq('id', roomId);
-
-    // 2. Reset food choices (un-submit and clear categories)
+    // 1. Try atomic RPC wipe
     try {
-      await supabase
-        .from('food_choices')
-        .update({
-          selected_categories: [],
-          is_submitted: false,
-          submitted_at: null,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('room_id', roomId);
+      await supabase.rpc('reset_room_state', { target_room_id: roomId });
     } catch (e) {
-      console.warn('Could not reset food choices', e);
+      console.warn('Could not run reset_room_state RPC, applying direct table updates', e);
     }
 
-    // Try delete on food choices if permitted
+    // 2. Direct table updates to guarantee reset across policies
+    try {
+      await supabase.from('rooms').update(resetMeta).eq('id', roomId);
+    } catch (e) {
+      console.warn('Could not update room state', e);
+    }
+
     try {
       await supabase.from('food_choices').delete().eq('room_id', roomId);
-    } catch {
-      // Ignored if delete policy not active
+    } catch (e) {
+      console.warn('Could not delete food choices', e);
     }
 
-    // 3. Delete restaurant swipes
     try {
       await supabase.from('restaurant_swipes').delete().eq('room_id', roomId);
     } catch (e) {
       console.warn('Could not delete restaurant swipes', e);
+    }
+
+    try {
+      await supabase.from('order_items').delete().eq('room_id', roomId);
+    } catch (e) {
+      console.warn('Could not delete order items', e);
+    }
+
+    // 3. Broadcast room_reset over supabase realtime
+    try {
+      const channel = supabase.channel(`room:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 300);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'room_reset',
+        payload: { roomId },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcast room_reset error', e);
     }
   }
 
@@ -713,8 +775,77 @@ export async function resetRoomVoting(
   delete allSwipes[roomId];
   saveMockRestaurantSwipes(allSwipes);
 
+  const allOrders = getMockOrderItems();
+  delete allOrders[roomId];
+  saveMockOrderItems(allOrders);
+
   broadcastChannel?.postMessage({
-    type: 'ROOM_UPDATED',
+    type: 'ROOM_RESET',
+    roomId,
+  });
+}
+
+/**
+ * Permanently delete a room and clean up all associated data.
+ */
+export async function deleteRoom(roomId: string): Promise<void> {
+  if (supabase) {
+    // 1. Broadcast room_deleted event before removing row
+    try {
+      const channel = supabase.channel(`room:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 300);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'room_deleted',
+        payload: { roomId },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcast room_deleted error', e);
+    }
+
+    // 2. Delete room from rooms table (cascades to all child tables)
+    try {
+      await supabase.from('rooms').delete().eq('id', roomId);
+    } catch (e) {
+      console.error('Failed to delete room in Supabase', e);
+    }
+  }
+
+  // Local mock fallback
+  const rooms = getMockRooms();
+  for (const code of Object.keys(rooms)) {
+    if (rooms[code].id === roomId) {
+      delete rooms[code];
+      saveMockRooms(rooms);
+      break;
+    }
+  }
+
+  const participants = getMockParticipants();
+  delete participants[roomId];
+  saveMockParticipants(participants);
+
+  const allChoices = getMockFoodChoices();
+  delete allChoices[roomId];
+  saveMockFoodChoices(allChoices);
+
+  const allSwipes = getMockRestaurantSwipes();
+  delete allSwipes[roomId];
+  saveMockRestaurantSwipes(allSwipes);
+
+  const allOrders = getMockOrderItems();
+  delete allOrders[roomId];
+  saveMockOrderItems(allOrders);
+
+  broadcastChannel?.postMessage({
+    type: 'ROOM_DELETED',
     roomId,
   });
 }
