@@ -201,7 +201,11 @@
     "modalTitle": "تأكيد الاختيار 🎯",
     "modalBody": "هل أنت متأكد من اعتماد \"{{restaurant}}\" كاختيار نهائي للقروب؟",
     "modalConfirm": "اعتمد واحتفل 🎉",
-    "modalCancel": "تراجع"
+    "modalCancel": "تراجع",
+    "rouletteWinnerBadge": "🎉 الفائز في الروليت!",
+    "rouletteConfirmWinner": "اعتماد {{restaurant}} واحتفل 🚀",
+    "rouletteSpinning": "العجلة تدور الآن... 🎡",
+    "rouletteSpinAgain": "لفة ثانية 🔄"
   },
   "session": {
     "expiredNotice": "انتهت صلاحية الغرفة (الحد الأقصى 30 دقيقة) ⌛",

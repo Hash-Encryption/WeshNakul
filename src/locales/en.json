@@ -201,7 +201,11 @@
     "modalTitle": "Confirm Squad Pick 🎯",
     "modalBody": "Are you sure you want to select \"{{restaurant}}\" as the final squad pick?",
     "modalConfirm": "Lock & Celebrate 🎉",
-    "modalCancel": "Cancel"
+    "modalCancel": "Cancel",
+    "rouletteWinnerBadge": "🎉 Roulette Winner!",
+    "rouletteConfirmWinner": "Lock {{restaurant}} & Celebrate 🚀",
+    "rouletteSpinning": "Wheel is spinning... 🎡",
+    "rouletteSpinAgain": "Spin Again 🔄"
   },
   "session": {
     "expiredNotice": "Room session expired (30-minute limit reached) ⌛",
