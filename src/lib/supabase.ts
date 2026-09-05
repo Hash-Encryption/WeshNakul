@@ -1,6 +1,7 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, ConsensusType } from '../types/database';
-import type { RestaurantSwipe } from '../types/restaurant';
+import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, ConsensusType, OrderItem } from '../types/database';
+import type { RestaurantItem, RestaurantSwipe } from '../types/restaurant';
+import { CITYWIDE_STAPLES } from '../data/fallbackStaples';
 import { getOrCreateSessionToken, generateUUID, generateRoomCode } from './session';
 import { getProceduralToken } from './tokenGenerator';
 
@@ -22,10 +23,33 @@ const LOCAL_STORAGE_ROOMS = 'wsh_mock_rooms';
 const LOCAL_STORAGE_PARTICIPANTS = 'wsh_mock_participants';
 const LOCAL_STORAGE_FOOD_CHOICES = 'wsh_mock_food_choices';
 const LOCAL_STORAGE_RESTAURANT_SWIPES = 'wsh_mock_restaurant_swipes';
+const LOCAL_STORAGE_ORDER_ITEMS = 'wsh_mock_order_items';
 
 const broadcastChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window
   ? new BroadcastChannel('wsh_room_sync')
   : null;
+
+const ordersBroadcastChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window
+  ? new BroadcastChannel('wesh_nakul_orders_fallback')
+  : null;
+
+function getMockOrderItems(): Record<string, OrderItem[]> {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_ORDER_ITEMS);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveMockOrderItems(items: Record<string, OrderItem[]>) {
+  try {
+    localStorage.setItem(LOCAL_STORAGE_ORDER_ITEMS, JSON.stringify(items));
+  } catch (e) {
+    console.error('Failed to save mock order items', e);
+  }
+}
+
 
 function getMockRooms(): Record<string, Room> {
   try {
@@ -686,3 +710,297 @@ export async function resetRoomVoting(
     roomId,
   });
 }
+
+// In-memory restaurant cache for instant lookups across stages
+const restaurantCache = new Map<string, RestaurantItem>();
+CITYWIDE_STAPLES.forEach((s) => restaurantCache.set(s.id, s));
+
+export function getCachedRestaurant(id: string): RestaurantItem | undefined {
+  return restaurantCache.get(id);
+}
+
+/**
+ * Deferred on-demand restaurant loader.
+ * Queries Supabase strictly during the restaurant swiping phase.
+ * Falls back to in-memory CITYWIDE_STAPLES if Supabase is offline or errors.
+ */
+export async function fetchDeckRestaurants(categoryId: string): Promise<RestaurantItem[]> {
+  try {
+    if (!supabase) {
+      const matched = CITYWIDE_STAPLES.filter((r) => r.categories.includes(categoryId));
+      return matched.length > 0 ? matched : CITYWIDE_STAPLES;
+    }
+
+    const { data, error } = await supabase
+      .from('restaurants')
+      .select('*')
+      .contains('categories', [categoryId]);
+
+    if (error || !data || data.length === 0) {
+      const matched = CITYWIDE_STAPLES.filter((r) => r.categories.includes(categoryId));
+      return matched.length > 0 ? matched : CITYWIDE_STAPLES;
+    }
+
+    const items: RestaurantItem[] = data.map((row: any) => ({
+      id: row.id,
+      nameAr: row.name_ar,
+      nameEn: row.name_en,
+      categories: row.categories || [],
+      isCityWide: row.is_city_wide,
+      branches: row.branches || [],
+      diningMode: row.dining_mode,
+      timeSlots: row.time_slots || [],
+      closingTimeAr: row.closing_time_ar,
+      isOpenLate: row.is_open_late,
+      is24Hours: row.is_24_hours,
+      avgPrepMinutes: row.avg_prep_minutes,
+      tier: row.tier,
+      priceTier: row.price_tier,
+      signatureDishAr: row.signature_dish_ar,
+      signatureDishEn: row.signature_dish_en,
+      vibeTagsAr: row.vibe_tags_ar || [],
+      vibeTagsEn: row.vibe_tags_en || [],
+      rating: Number(row.rating),
+      platforms: row.platforms,
+      links: row.links,
+    }));
+
+    items.forEach((item) => restaurantCache.set(item.id, item));
+    return items;
+  } catch {
+    const matched = CITYWIDE_STAPLES.filter((r) => r.categories.includes(categoryId));
+    return matched.length > 0 ? matched : CITYWIDE_STAPLES;
+  }
+}
+
+/**
+ * Fetch all order items for a room.
+ */
+export async function fetchOrderItems(roomId: string): Promise<OrderItem[]> {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('order_items')
+        .select('*')
+        .eq('room_id', roomId)
+        .order('created_at', { ascending: true });
+
+      if (!error && data) {
+        return data.map((d: any) => ({
+          id: d.id,
+          roomId: d.room_id,
+          participantId: d.participant_id,
+          participantName: d.participant_name,
+          itemName: d.item_name,
+          notes: d.notes || '',
+          createdAt: d.created_at,
+        }));
+      }
+    } catch (e) {
+      console.warn('Supabase fetchOrderItems failed, falling back to local storage', e);
+    }
+  }
+
+  const allItems = getMockOrderItems();
+  return allItems[roomId] || [];
+}
+
+/**
+ * Add a new order item for a participant in a room.
+ */
+export async function addOrderItem(
+  item: Omit<OrderItem, 'id' | 'createdAt'>
+): Promise<OrderItem | null> {
+  const now = new Date().toISOString();
+
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('order_items')
+        .insert([
+          {
+            room_id: item.roomId,
+            participant_id: item.participantId,
+            participant_name: item.participantName,
+            item_name: item.itemName,
+            notes: item.notes || '',
+          },
+        ])
+        .select('*')
+        .single();
+
+      if (!error && data) {
+        return {
+          id: data.id,
+          roomId: data.room_id,
+          participantId: data.participant_id,
+          participantName: data.participant_name,
+          itemName: data.item_name,
+          notes: data.notes || '',
+          createdAt: data.created_at,
+        };
+      }
+    } catch (e) {
+      console.warn('Supabase addOrderItem failed, falling back to local mock', e);
+    }
+  }
+
+  // Local fallback
+  const newItem: OrderItem = {
+    id: generateUUID(),
+    roomId: item.roomId,
+    participantId: item.participantId,
+    participantName: item.participantName,
+    itemName: item.itemName,
+    notes: item.notes || '',
+    createdAt: now,
+  };
+
+  const allItems = getMockOrderItems();
+  const roomItems = allItems[item.roomId] || [];
+  allItems[item.roomId] = [...roomItems, newItem];
+  saveMockOrderItems(allItems);
+
+  ordersBroadcastChannel?.postMessage({
+    type: 'ORDER_ITEM_INSERTED',
+    roomId: item.roomId,
+    item: newItem,
+  });
+
+  return newItem;
+}
+
+/**
+ * Delete an order item by its ID.
+ */
+export async function deleteOrderItem(itemId: string): Promise<boolean> {
+  if (supabase) {
+    try {
+      const { error } = await supabase
+        .from('order_items')
+        .delete()
+        .eq('id', itemId);
+
+      if (!error) {
+        return true;
+      }
+    } catch (e) {
+      console.warn('Supabase deleteOrderItem failed, falling back to local mock', e);
+    }
+  }
+
+  // Local fallback
+  const allItems = getMockOrderItems();
+  let deletedRoomId: string | null = null;
+  for (const rId of Object.keys(allItems)) {
+    const prevCount = allItems[rId].length;
+    allItems[rId] = allItems[rId].filter((i) => i.id !== itemId);
+    if (allItems[rId].length !== prevCount) {
+      deletedRoomId = rId;
+      break;
+    }
+  }
+
+  if (deletedRoomId) {
+    saveMockOrderItems(allItems);
+    ordersBroadcastChannel?.postMessage({
+      type: 'ORDER_ITEM_DELETED',
+      roomId: deletedRoomId,
+      itemId,
+    });
+  }
+
+  return true;
+}
+
+/**
+ * Subscribe to realtime order items updates for a room.
+ */
+export function subscribeToOrderItems(
+  roomId: string,
+  onInsert: (item: OrderItem) => void,
+  onDelete: (id: string) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`order_items:${roomId}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'order_items', filter: `room_id=eq.${roomId}` },
+        (payload: any) => {
+          const d = payload.new;
+          if (d) {
+            onInsert({
+              id: d.id,
+              roomId: d.room_id,
+              participantId: d.participant_id,
+              participantName: d.participant_name,
+              itemName: d.item_name,
+              notes: d.notes || '',
+              createdAt: d.created_at,
+            });
+          }
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'DELETE', schema: 'public', table: 'order_items' },
+        (payload: any) => {
+          const old = payload.old;
+          if (old?.id) {
+            onDelete(old.id);
+          }
+        }
+      )
+      .subscribe();
+  }
+
+  // BroadcastChannel and window storage listener for multi-tab offline/mock realtime
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data?.roomId === roomId) {
+      if (event.data.type === 'ORDER_ITEM_INSERTED' && event.data.item) {
+        // Ensure the newly received item is saved in localStorage so a newly opened tab loads it
+        const allItems = getMockOrderItems();
+        const roomItems = allItems[roomId] || [];
+        if (!roomItems.some((i) => i.id === event.data.item.id)) {
+          allItems[roomId] = [...roomItems, event.data.item];
+          saveMockOrderItems(allItems);
+        }
+        onInsert(event.data.item);
+      } else if (event.data.type === 'ORDER_ITEM_DELETED' && event.data.itemId) {
+        // Ensure the deleted item is removed from localStorage
+        const allItems = getMockOrderItems();
+        const roomItems = allItems[roomId] || [];
+        if (roomItems.some((i) => i.id === event.data.itemId)) {
+          allItems[roomId] = roomItems.filter((i) => i.id !== event.data.itemId);
+          saveMockOrderItems(allItems);
+        }
+        onDelete(event.data.itemId);
+      }
+    }
+  };
+
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === LOCAL_STORAGE_ORDER_ITEMS) {
+      const allItems = getMockOrderItems();
+      const roomItems = allItems[roomId] || [];
+      if (roomItems.length > 0) {
+        // storage updated
+      }
+    }
+  };
+
+  ordersBroadcastChannel?.addEventListener('message', handleMessage);
+  window.addEventListener('storage', handleStorage);
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+    ordersBroadcastChannel?.removeEventListener('message', handleMessage);
+    window.removeEventListener('storage', handleStorage);
+  };
+}
+

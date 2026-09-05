@@ -20,6 +20,7 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     deck,
     currentIndex,
     isDeckFinished,
+    isLoadingDeck,
     recordSwipe,
     allSwipes,
   } = useRestaurantSwiper({
@@ -30,6 +31,7 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     category: currentRoom?.winning_category || 'burger',
     city: currentRoom?.city || 'riyadh',
     district: currentRoom?.district || currentRoom?.neighborhood || undefined,
+    stage: currentRoom?.stage,
     onMatched: (_winner) => {
       // Handled in room state sync
     },
@@ -66,7 +68,19 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
 
         {/* Swiping Card Stage / Waiting Card */}
         <div className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center">
-          {isDeckFinished ? (
+          {isLoadingDeck && deck.length === 0 ? (
+            <div className="w-full h-[420px] bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] p-4 flex flex-col justify-between animate-pulse">
+              <div className="h-52 bg-[#FFF8F1] rounded-2xl border-2 border-[#241B18]/10" />
+              <div className="space-y-3 py-2">
+                <div className="h-6 bg-[#F2E8DF] rounded-md w-3/4" />
+                <div className="h-12 bg-[#FFF8F1] rounded-xl border border-[#241B18]/10" />
+                <div className="flex gap-2">
+                  <div className="h-6 bg-[#F2E8DF] rounded-full w-16" />
+                  <div className="h-6 bg-[#F2E8DF] rounded-full w-20" />
+                </div>
+              </div>
+            </div>
+          ) : isDeckFinished ? (
             <WaitingForSquadCard
               participants={participants}
               swipes={allSwipes}

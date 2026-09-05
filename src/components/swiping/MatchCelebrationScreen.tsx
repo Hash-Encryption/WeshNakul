@@ -2,32 +2,53 @@ import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { motion } from 'motion/react';
 import type { RestaurantItem } from '../../types/restaurant';
-import type { Participant } from '../../types/database';
+import type { Participant, OrderItem } from '../../types/database';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { Header } from '../common/Header';
 import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart } from '../common/DecorativeSparkles';
 import { useLocale } from '../../context/LocaleContext';
+import { useRoom } from '../../context/RoomContext';
+import { DeliveryLauncher } from '../orders/DeliveryLauncher';
+import { OrderScratchpad } from '../orders/OrderScratchpad';
 
 interface MatchCelebrationScreenProps {
   restaurant: RestaurantItem;
   participants: Participant[];
+  roomId?: string;
+  currentParticipantId?: string;
+  currentParticipantName?: string;
+  isHost?: boolean;
   onProceed?: () => void;
   onVoteAgain?: () => void;
   onGoHome?: () => void;
   isUnanimous?: boolean;
 }
 
+
 export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   restaurant,
   participants,
-  onProceed,
+  roomId,
+  currentParticipantId,
+  currentParticipantName,
+  isHost,
+  onProceed: _onProceed,
   onVoteAgain,
   onGoHome,
   isUnanimous = true,
 }) => {
   const { locale, t } = useLocale();
+  const { currentRoom, currentParticipant, isHost: roomIsHost } = useRoom();
   const [showMenuModal, setShowMenuModal] = useState(false);
+  const [orders, setOrders] = useState<OrderItem[]>([]);
+
+  const activeRoomId = roomId || currentRoom?.id || '';
+  const activeParticipantId = currentParticipantId || currentParticipant?.id || '';
+  const activeParticipantName = currentParticipantName || currentParticipant?.nickname || '';
+  const activeIsHost = isHost ?? currentParticipant?.is_host ?? roomIsHost;
+  const roomCode = currentRoom?.code || '';
+
 
   useEffect(() => {
     try {
@@ -64,12 +85,23 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   const signatureDish = locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn;
   const vibeTags = locale === 'ar' ? restaurant.vibeTagsAr : restaurant.vibeTagsEn;
 
-  // WhatsApp Share URL
-  const waShareText =
-    locale === 'ar'
-      ? `خلاص رسينا على بر! طلبنا اليوم من ${restaurant.nameAr} 🍔🔥`
-      : `We locked it in! Today's order is from ${restaurant.nameEn} 🍔🔥`;
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(waShareText)}`;
+  const cardImageUrl =
+    restaurant.imageUrl ||
+    (restaurant.categories && restaurant.categories[0] && {
+      burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80',
+      shawarma: 'https://images.unsplash.com/photo-1637806930600-37fa8892069d?w=800&auto=format&fit=crop&q=80',
+      broast: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80',
+      fried_chicken: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800&auto=format&fit=crop&q=80',
+      saudi_kabsa: 'https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=800&auto=format&fit=crop&q=80',
+      pizza: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80',
+      late_night: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80',
+      grills: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80',
+      dessert: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80',
+      street_folk: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?w=800&auto=format&fit=crop&q=80',
+      fatayer: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=800&auto=format&fit=crop&q=80',
+    }[restaurant.categories[0]]) ||
+    'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80';
+
 
   return (
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-12 overflow-y-auto selection:bg-[#FFF0EE]">
@@ -106,7 +138,7 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           {/* Cover Image */}
           <div className="relative h-40 sm:h-44 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden">
             <img
-              src={restaurant.imageUrl}
+              src={cardImageUrl}
               alt={name}
               className="w-full h-full object-cover"
               loading="eager"
@@ -169,6 +201,23 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
             </div>
           </div>
         </motion.div>
+
+        {/* Phase 4: Delivery App Launcher */}
+        <DeliveryLauncher
+          restaurant={restaurant}
+          orders={orders}
+          roomCode={roomCode}
+        />
+
+        {/* Phase 4: Squad Order Scratchpad */}
+        <OrderScratchpad
+          roomId={activeRoomId}
+          currentParticipantId={activeParticipantId}
+          currentParticipantName={activeParticipantName}
+          isHost={activeIsHost}
+          orders={orders}
+          onOrdersChange={setOrders}
+        />
       </div>
 
       {/* Action Buttons */}
@@ -184,38 +233,18 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           </button>
         )}
 
-        {/* WhatsApp Share CTA */}
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full py-3 px-6 rounded-2xl bg-[#25D366] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none text-center"
-        >
-          <span>{t('match.share_whatsapp_cta')}</span>
-        </a>
-
-        {/* Secondary Actions Row */}
-        <div className="flex items-center gap-2 w-full">
-          {onGoHome && (
-            <button
-              type="button"
-              onClick={onGoHome}
-              className="flex-1 py-2.5 px-3 rounded-2xl bg-white text-[#7A6E67] hover:text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all select-none"
-            >
-              <span>{t('match.go_home_cta')}</span>
-            </button>
-          )}
-
-          {/* Primary Phase 4 CTA */}
+        {/* Go Home CTA */}
+        {onGoHome && (
           <button
             type="button"
-            onClick={onProceed}
-            className="flex-1 py-2.5 px-3 rounded-2xl bg-[#FFF0EE] text-[#F0443E] hover:bg-[#F0443E] hover:text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all select-none"
+            onClick={onGoHome}
+            className="w-full py-2.5 px-3 rounded-2xl bg-white text-[#7A6E67] hover:text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all select-none"
           >
-            <span>{t('match.order_prep_cta')}</span>
+            <span>{t('match.go_home_cta')}</span>
           </button>
-        </div>
+        )}
       </div>
+
 
       {/* Menu / Options Modal */}
       {showMenuModal && (

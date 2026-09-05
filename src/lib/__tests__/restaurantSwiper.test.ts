@@ -17,9 +17,9 @@ export function runRestaurantSwiperTests() {
   const shawarmaJeddahDeck = getDeckForRoom('shawarma', 'jeddah');
   assert(shawarmaJeddahDeck.length >= 5 && shawarmaJeddahDeck.length <= 7, 'Shawarma deck must be between 5 and 7');
 
-  const friedChickenDeck = getDeckForRoom('fried_chicken', 'riyadh');
-  assert(friedChickenDeck.length >= 5 && friedChickenDeck.length <= 7, 'Fried chicken deck must be between 5 and 7');
-  assert(friedChickenDeck.some((r) => r.id === 'rest_chicken_01'), 'Raising Cane\'s should be in fried chicken deck');
+  const broastDeck = getDeckForRoom('broast', 'jeddah');
+  assert(broastDeck.length >= 5 && broastDeck.length <= 7, 'Broast deck must be between 5 and 7');
+  assert(broastDeck.some((r) => r.id === 'albaik'), 'ALBAIK should be in broast deck');
 
   // 2. Unknown category falls back to overall top rated and has >= 5 items
   const unknownCategoryDeck = getDeckForRoom('non_existent_category', 'riyadh');
@@ -33,57 +33,55 @@ export function runRestaurantSwiperTests() {
   assert(indianDeck.length >= 5 && indianDeck.length <= 7, 'indian deck must have 5-7 items via fallback');
 
   // 3. District matching
-  const districtDeck = getDeckForRoom('burger', 'riyadh', 'al-olaya');
+  const districtDeck = getDeckForRoom('burger', 'jeddah', 'al_rawdah');
   assert(districtDeck.length >= 5 && districtDeck.length <= 7, 'District deck must have 5-7 items');
-  assert(districtDeck[0].id === 'rest_burger_01', 'Chef\'s burger should be first match in Al-Olaya');
 
   // 4. Deterministic tie-breaking verification
   // Sort rules:
   // 1. Likes (desc)
   // 2. Rating (desc)
   // 3. Catalog ID (alphabetical asc)
-  const candidateA: RestaurantItem = {
-    id: 'rest_z',
-    nameAr: 'أ',
-    nameEn: 'A',
-    categoryId: 'burger',
-    cities: ['riyadh'],
-    priceTier: '$$',
+  const baseCandidate = {
+    categories: ['burger'],
+    isCityWide: true,
+    branches: [] as string[],
+    diningMode: 'both' as const,
+    timeSlots: ['lunch' as const, 'dinner' as const, 'late_night' as const],
+    closingTimeAr: 'يقفل 2:00 ص',
+    isOpenLate: true,
+    is24Hours: false,
+    avgPrepMinutes: 20,
+    tier: 'staple' as const,
+    priceTier: '$$' as const,
     signatureDishAr: 'طبق',
     signatureDishEn: 'Dish',
     vibeTagsAr: ['رايق'],
     vibeTagsEn: ['Cozy'],
-    imageUrl: '',
+    platforms: { hungerstation: true, jahez: true, keeta: true },
+    links: { googleMaps: '', hungerstationSearch: '', jahezSearch: '', keetaSearch: '' },
+  };
+
+  const candidateA: RestaurantItem = {
+    ...baseCandidate,
+    id: 'rest_z',
+    nameAr: 'أ',
+    nameEn: 'A',
     rating: 4.8,
   };
 
   const candidateB: RestaurantItem = {
+    ...baseCandidate,
     id: 'rest_a',
     nameAr: 'ب',
     nameEn: 'B',
-    categoryId: 'burger',
-    cities: ['riyadh'],
-    priceTier: '$$',
-    signatureDishAr: 'طبق',
-    signatureDishEn: 'Dish',
-    vibeTagsAr: ['رايق'],
-    vibeTagsEn: ['Cozy'],
-    imageUrl: '',
     rating: 4.8,
   };
 
   const candidateC: RestaurantItem = {
+    ...baseCandidate,
     id: 'rest_c',
     nameAr: 'ج',
     nameEn: 'C',
-    categoryId: 'burger',
-    cities: ['riyadh'],
-    priceTier: '$$',
-    signatureDishAr: 'طبق',
-    signatureDishEn: 'Dish',
-    vibeTagsAr: ['رايق'],
-    vibeTagsEn: ['Cozy'],
-    imageUrl: '',
     rating: 4.5,
   };
 

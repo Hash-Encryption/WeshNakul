@@ -15,6 +15,7 @@ import { ConsensusResultScreen } from './components/voting/ConsensusResultScreen
 import { RestaurantSwipingScreen } from './components/swiping/RestaurantSwipingScreen';
 import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScreen';
 import { RESTAURANT_CATALOG } from './data/restaurants';
+import { getCachedRestaurant } from './lib/supabase';
 
 type FlowStep = 'landing' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
 
@@ -200,6 +201,7 @@ export const App: React.FC = () => {
         return <RestaurantSwipingScreen />;
       case 'matched': {
         const winner =
+          getCachedRestaurant(currentRoom.winning_restaurant_id || '') ||
           RESTAURANT_CATALOG.find((r) => r.id === currentRoom.winning_restaurant_id) ||
           RESTAURANT_CATALOG[0];
         return (

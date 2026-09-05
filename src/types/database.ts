@@ -76,3 +76,14 @@ export interface JoinRoomInput {
   code: string;
   nickname: string;
 }
+
+export interface OrderItem {
+  id: string;
+  roomId: string;
+  participantId: string;
+  participantName: string;
+  itemName: string;
+  notes?: string;
+  createdAt: string;
+}
+

@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
-import { supabase, insertRestaurantSwipe, getRestaurantSwipes, updateRoomStage } from '../lib/supabase';
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { supabase, insertRestaurantSwipe, getRestaurantSwipes, updateRoomStage, fetchDeckRestaurants } from '../lib/supabase';
 import type { RestaurantItem, RestaurantSwipe } from '../types/restaurant';
 import { getDeckForRoom } from '../data/restaurants';
 
@@ -11,6 +11,7 @@ interface SwiperProps {
   category: string;
   city: string;
   district?: string;
+  stage?: string;
   onMatched: (winner: RestaurantItem) => void;
 }
 
@@ -22,15 +23,47 @@ export function useRestaurantSwiper({
   category,
   city,
   district,
+  stage = 'swiping',
   onMatched,
 }: SwiperProps) {
-  const deck = useMemo(
-    () => getDeckForRoom(category, city, district),
-    [category, city, district]
+  // Synchronous initial fallback deck (0ms overhead)
+  const [deck, setDeck] = useState<RestaurantItem[]>(() =>
+    getDeckForRoom(category, city, district)
   );
+  const [isLoadingDeck, setIsLoadingDeck] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [allSwipes, setAllSwipes] = useState<RestaurantSwipe[]>([]);
   const matchCommittedRef = useRef(false);
+
+  // Staged lifecycle: strictly defer Supabase query until stage === 'swiping'
+  useEffect(() => {
+    if (stage !== 'swiping' || !category) {
+      return;
+    }
+
+    let isMounted = true;
+    queueMicrotask(() => {
+      if (isMounted) setIsLoadingDeck(true);
+    });
+
+    fetchDeckRestaurants(category)
+      .then((fetchedPool) => {
+        if (!isMounted) return;
+        const computedDeck = getDeckForRoom(category, city, district, fetchedPool);
+        setDeck(computedDeck);
+        setIsLoadingDeck(false);
+      })
+      .catch((err) => {
+        console.warn('Failed to fetch restaurants pool, falling back to staples', err);
+        if (!isMounted) return;
+        setDeck(getDeckForRoom(category, city, district));
+        setIsLoadingDeck(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [stage, category, city, district]);
 
   // Load existing swipes and subscribe to realtime updates
   useEffect(() => {
@@ -191,6 +224,7 @@ export function useRestaurantSwiper({
     currentItem: deck[currentIndex] || null,
     currentIndex,
     isDeckFinished: currentIndex >= deck.length,
+    isLoadingDeck,
     recordSwipe,
     allSwipes,
   };

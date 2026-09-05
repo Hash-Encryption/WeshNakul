@@ -168,5 +168,17 @@
     "vote_again_cta": "Vote Again for Everything 🔄",
     "go_home_cta": "New Group / Home 🏠",
     "menu_title": "Room Options"
+  },
+  "scratchpad": {
+    "title": "Squad Orders 📝",
+    "subtitle": "Add your order so whoever places it has everything ready",
+    "placeholderItem": "Meal or sandwich name...",
+    "placeholderNotes": "Notes (e.g. extra garlic, no onions)",
+    "addButton": "Add ✍️",
+    "emptyState": "No orders yet. Be the first to add yours below! 👇",
+    "whatsappCopied": "Order copied to WhatsApp! 📋",
+    "openIn": "Order via",
+    "directions": "Directions on Maps 📍"
   }
 }
+

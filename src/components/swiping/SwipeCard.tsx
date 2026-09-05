@@ -57,6 +57,23 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
 
   const stackStyle = getStackStyle();
 
+  const cardImageUrl =
+    restaurant.imageUrl ||
+    (restaurant.categories && restaurant.categories[0] && {
+      burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80',
+      shawarma: 'https://images.unsplash.com/photo-1637806930600-37fa8892069d?w=800&auto=format&fit=crop&q=80',
+      broast: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80',
+      fried_chicken: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800&auto=format&fit=crop&q=80',
+      saudi_kabsa: 'https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=800&auto=format&fit=crop&q=80',
+      pizza: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80',
+      late_night: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80',
+      grills: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80',
+      dessert: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80',
+      street_folk: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?w=800&auto=format&fit=crop&q=80',
+      fatayer: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=800&auto=format&fit=crop&q=80',
+    }[restaurant.categories[0]]) ||
+    'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80';
+
   return (
     <motion.div
       style={isFront ? { x, rotate, zIndex: 20 } : stackStyle}
@@ -109,7 +126,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
       {/* Restaurant Cover Image */}
       <div className="relative h-52 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden">
         <img
-          src={restaurant.imageUrl}
+          src={cardImageUrl}
           alt={name}
           className="w-full h-full object-cover pointer-events-none"
           loading="eager"
