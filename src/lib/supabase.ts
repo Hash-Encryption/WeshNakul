@@ -37,6 +37,10 @@ const revoteBroadcastChannel = typeof window !== 'undefined' && 'BroadcastChanne
   ? new BroadcastChannel('wesh_nakul_revote_fallback')
   : null;
 
+const minigamesBroadcastChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window
+  ? new BroadcastChannel('wesh_nakul_minigames')
+  : null;
+
 function getMockOrderItems(): Record<string, OrderItem[]> {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_ORDER_ITEMS);
@@ -1077,5 +1081,282 @@ export function subscribeToRevoteRequests(
     revoteBroadcastChannel?.removeEventListener('message', handleMessage);
   };
 }
+
+/**
+ * Broadcast sudden death duel start
+ */
+export async function broadcastSuddenDeath(
+  roomId: string,
+  restaurants: RestaurantItem[]
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`minigames:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 500);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'sudden_death_start',
+        payload: { roomId, restaurants, startedAt: Date.now() },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastSuddenDeath failed', e);
+    }
+  }
+
+  minigamesBroadcastChannel?.postMessage({
+    type: 'SUDDEN_DEATH_START',
+    roomId,
+    restaurants,
+    startedAt: Date.now(),
+  });
+}
+
+export function subscribeToSuddenDeath(
+  roomId: string,
+  callback: (restaurants: RestaurantItem[], startedAt: number) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`minigames:${roomId}`)
+      .on('broadcast', { event: 'sudden_death_start' }, (payload: any) => {
+        if (payload?.payload?.restaurants) {
+          callback(payload.payload.restaurants, payload.payload.startedAt || Date.now());
+        }
+      })
+      .subscribe();
+  }
+
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data?.roomId === roomId && event.data?.type === 'SUDDEN_DEATH_START' && event.data?.restaurants) {
+      callback(event.data.restaurants, event.data.startedAt || Date.now());
+    }
+  };
+
+  minigamesBroadcastChannel?.addEventListener('message', handleMessage);
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+    minigamesBroadcastChannel?.removeEventListener('message', handleMessage);
+  };
+}
+
+export async function broadcastSuddenDeathVote(
+  roomId: string,
+  vote: { participantId: string; restaurantId: string }
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`minigames:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 500);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'sudden_death_vote',
+        payload: { roomId, ...vote },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastSuddenDeathVote failed', e);
+    }
+  }
+
+  minigamesBroadcastChannel?.postMessage({
+    type: 'SUDDEN_DEATH_VOTE',
+    roomId,
+    ...vote,
+  });
+}
+
+export function subscribeToSuddenDeathVote(
+  roomId: string,
+  callback: (vote: { participantId: string; restaurantId: string }) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`minigames:${roomId}`)
+      .on('broadcast', { event: 'sudden_death_vote' }, (payload: any) => {
+        if (payload?.payload?.participantId && payload?.payload?.restaurantId) {
+          callback({
+            participantId: payload.payload.participantId,
+            restaurantId: payload.payload.restaurantId,
+          });
+        }
+      })
+      .subscribe();
+  }
+
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data?.roomId === roomId && event.data?.type === 'SUDDEN_DEATH_VOTE') {
+      callback({
+        participantId: event.data.participantId,
+        restaurantId: event.data.restaurantId,
+      });
+    }
+  };
+
+  minigamesBroadcastChannel?.addEventListener('message', handleMessage);
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+    minigamesBroadcastChannel?.removeEventListener('message', handleMessage);
+  };
+}
+
+export async function broadcastRoulette(
+  roomId: string,
+  restaurants: RestaurantItem[]
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`minigames:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 500);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'roulette_open',
+        payload: { roomId, restaurants },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastRoulette failed', e);
+    }
+  }
+
+  minigamesBroadcastChannel?.postMessage({
+    type: 'ROULETTE_OPEN',
+    roomId,
+    restaurants,
+  });
+}
+
+export function subscribeToRoulette(
+  roomId: string,
+  callback: (restaurants: RestaurantItem[]) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`minigames:${roomId}`)
+      .on('broadcast', { event: 'roulette_open' }, (payload: any) => {
+        if (payload?.payload?.restaurants) {
+          callback(payload.payload.restaurants);
+        }
+      })
+      .subscribe();
+  }
+
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data?.roomId === roomId && event.data?.type === 'ROULETTE_OPEN' && event.data?.restaurants) {
+      callback(event.data.restaurants);
+    }
+  };
+
+  minigamesBroadcastChannel?.addEventListener('message', handleMessage);
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+    minigamesBroadcastChannel?.removeEventListener('message', handleMessage);
+  };
+}
+
+export async function broadcastRouletteSpin(
+  roomId: string,
+  spinData: { winnerId: string; targetAngle: number }
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`minigames:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 500);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'roulette_spin',
+        payload: { roomId, ...spinData },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastRouletteSpin failed', e);
+    }
+  }
+
+  minigamesBroadcastChannel?.postMessage({
+    type: 'ROULETTE_SPIN',
+    roomId,
+    ...spinData,
+  });
+}
+
+export function subscribeToRouletteSpin(
+  roomId: string,
+  callback: (spinData: { winnerId: string; targetAngle: number }) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`minigames:${roomId}`)
+      .on('broadcast', { event: 'roulette_spin' }, (payload: any) => {
+        if (payload?.payload?.winnerId) {
+          callback({
+            winnerId: payload.payload.winnerId,
+            targetAngle: payload.payload.targetAngle,
+          });
+        }
+      })
+      .subscribe();
+  }
+
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data?.roomId === roomId && event.data?.type === 'ROULETTE_SPIN') {
+      callback({
+        winnerId: event.data.winnerId,
+        targetAngle: event.data.targetAngle,
+      });
+    }
+  };
+
+  minigamesBroadcastChannel?.addEventListener('message', handleMessage);
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+    minigamesBroadcastChannel?.removeEventListener('message', handleMessage);
+  };
+}
+
 
 

@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
 import { useRestaurantSwiper } from '../../hooks/useRestaurantSwiper';
-import { SwipeCard } from './SwipeCard';
-import { TactileActionDock } from './TactileActionDock';
+import { SwipingDeck } from './SwipingDeck';
+import { LeaderboardView } from './LeaderboardView';
+import { ConfirmWinnerModal } from './ConfirmWinnerModal';
+import { SuddenDeathModal } from './SuddenDeathModal';
+import { RouletteModal } from './RouletteModal';
 import { SquadSwipingHUD } from './SquadSwipingHUD';
-import { WaitingForSquadCard } from './WaitingForSquadCard';
 import { Header } from '../common/Header';
+import { Toast } from '../common/Toast';
+import type { RestaurantItem } from '../../types/restaurant';
+import {
+  broadcastSuddenDeath,
+  subscribeToSuddenDeath,
+  broadcastRoulette,
+  subscribeToRoulette,
+} from '../../lib/supabase';
 
 interface RestaurantSwipingScreenProps {
   onMatched?: (winnerId: string) => void;
@@ -19,10 +29,15 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
   const {
     deck,
     currentIndex,
+    totalCards,
     isDeckFinished,
     isLoadingDeck,
     recordSwipe,
+    skipCard,
     allSwipes,
+    commitWinner,
+    showRoundTwoToast,
+    dismissRoundTwoToast,
   } = useRestaurantSwiper({
     roomId: currentRoom?.id || '',
     participantId: currentParticipant?.id || '',
@@ -31,86 +46,180 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     category: currentRoom?.winning_category || 'burger',
     city: currentRoom?.city || 'riyadh',
     district: currentRoom?.district || currentRoom?.neighborhood || undefined,
+    eatingMode: currentRoom?.eating_mode,
     stage: currentRoom?.stage,
     onMatched: (_winner) => {
       // Handled in room state sync
     },
   });
 
+  // Modal states
+  const [selectedWinner, setSelectedWinner] = useState<RestaurantItem | null>(null);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const [suddenDeathRestaurants, setSuddenDeathRestaurants] = useState<[RestaurantItem, RestaurantItem] | null>(null);
+  const [isSuddenDeathOpen, setIsSuddenDeathOpen] = useState(false);
+
+  const [rouletteRestaurants, setRouletteRestaurants] = useState<RestaurantItem[]>([]);
+  const [isRouletteOpen, setIsRouletteOpen] = useState(false);
+
+  // Auto-dismiss round two toast after 4 seconds
+  useEffect(() => {
+    if (showRoundTwoToast) {
+      const timer = setTimeout(() => {
+        dismissRoundTwoToast();
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showRoundTwoToast, dismissRoundTwoToast]);
+
+  // Subscribe to realtime sudden death triggers
+  useEffect(() => {
+    if (!currentRoom?.id) return;
+
+    const unsubscribe = subscribeToSuddenDeath(currentRoom.id, (spots) => {
+      if (spots && spots.length >= 2) {
+        setSuddenDeathRestaurants([spots[0], spots[1]]);
+        setIsSuddenDeathOpen(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentRoom?.id]);
+
+  // Subscribe to realtime roulette triggers
+  useEffect(() => {
+    if (!currentRoom?.id) return;
+
+    const unsubscribe = subscribeToRoulette(currentRoom.id, (spots) => {
+      if (spots && spots.length >= 2) {
+        setRouletteRestaurants(spots);
+        setIsRouletteOpen(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentRoom?.id]);
+
   if (!currentRoom || !currentParticipant) return null;
 
-  // Render cards in 3-tier visual stack
-  // Stack contains top card (stackIndex 0), second card (stackIndex 1), third card (stackIndex 2)
-  const visibleCards = deck.slice(currentIndex, currentIndex + 3);
+  // Host Action Handlers
+  const handleOpenConfirm = (restaurant: RestaurantItem) => {
+    setSelectedWinner(restaurant);
+    setIsConfirmOpen(true);
+  };
+
+  const handleConfirmWinner = async (restaurant: RestaurantItem) => {
+    setIsConfirmOpen(false);
+    await commitWinner(restaurant);
+  };
+
+  const handleTriggerSuddenDeath = (topTwo: [RestaurantItem, RestaurantItem]) => {
+    setSuddenDeathRestaurants(topTwo);
+    setIsSuddenDeathOpen(true);
+    broadcastSuddenDeath(currentRoom.id, topTwo);
+  };
+
+  const handleTriggerRoulette = (topSpots: RestaurantItem[]) => {
+    setRouletteRestaurants(topSpots);
+    setIsRouletteOpen(true);
+    broadcastRoulette(currentRoom.id, topSpots);
+  };
+
+  const handleTieBreakerWinner = (winner: RestaurantItem) => {
+    setIsSuddenDeathOpen(false);
+    setIsRouletteOpen(false);
+    handleOpenConfirm(winner);
+  };
 
   return (
-    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-3 pb-24 selection:bg-[#FFF0EE]">
+    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-3 pb-16 selection:bg-[#FFF0EE]">
       <div>
         {/* Top Header */}
         <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} />
 
-        {/* Live Squad Progress HUD */}
-        <SquadSwipingHUD
-          participants={participants}
-          swipes={allSwipes}
-          totalCards={deck.length}
-        />
+        {/* Live Squad Progress HUD (shown during swiping) */}
+        {!isDeckFinished && (
+          <SquadSwipingHUD
+            participants={participants}
+            swipes={allSwipes}
+            totalCards={totalCards}
+          />
+        )}
 
-        {/* Section Headline */}
-        <div className="text-center mt-1 mb-3 px-2">
-          <h2 className="text-xl sm:text-2xl font-black text-[#241B18] font-alexandria tracking-tight">
-            {t('swiping.title')}
-          </h2>
-          <p className="text-xs font-semibold text-[#7A6E67] font-alexandria">
-            {t('swiping.subtitle')}
-          </p>
-        </div>
+        {/* Section Headline (during swiping) */}
+        {!isDeckFinished && (
+          <div className="text-center mt-1 mb-3 px-2">
+            <h2 className="text-xl sm:text-2xl font-black text-[#241B18] font-alexandria tracking-tight">
+              {t('swiping.title')}
+            </h2>
+            <p className="text-xs font-semibold text-[#7A6E67] font-alexandria">
+              {t('swiping.subtitle')}
+            </p>
+          </div>
+        )}
 
-        {/* Swiping Card Stage / Waiting Card */}
-        <div className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center">
-          {isLoadingDeck && deck.length === 0 ? (
-            <div className="w-full h-[420px] bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] p-4 flex flex-col justify-between animate-pulse">
-              <div className="h-52 bg-[#FFF8F1] rounded-2xl border-2 border-[#241B18]/10" />
-              <div className="space-y-3 py-2">
-                <div className="h-6 bg-[#F2E8DF] rounded-md w-3/4" />
-                <div className="h-12 bg-[#FFF8F1] rounded-xl border border-[#241B18]/10" />
-                <div className="flex gap-2">
-                  <div className="h-6 bg-[#F2E8DF] rounded-full w-16" />
-                  <div className="h-6 bg-[#F2E8DF] rounded-full w-20" />
-                </div>
-              </div>
-            </div>
-          ) : isDeckFinished ? (
-            <WaitingForSquadCard
-              participants={participants}
-              swipes={allSwipes}
-              totalCards={deck.length}
-            />
-          ) : (
-            <div className="relative w-full h-[420px]">
-              {/* Render in reverse order so top card renders last on DOM */}
-              {visibleCards
-                .map((item, idx) => ({ item, idx }))
-                .reverse()
-                .map(({ item, idx }) => (
-                  <SwipeCard
-                    key={item.id}
-                    restaurant={item}
-                    isFront={idx === 0}
-                    stackIndex={idx}
-                    onSwipe={recordSwipe}
-                  />
-                ))}
-            </div>
-          )}
-        </div>
+        {/* Active Stage: Swiping Deck OR Shared Leaderboard */}
+        {isDeckFinished ? (
+          <LeaderboardView
+            restaurants={deck}
+            swipes={allSwipes}
+            participants={participants}
+            isHost={isHost}
+            totalCards={totalCards}
+            onConfirmPick={handleOpenConfirm}
+            onTriggerSuddenDeath={handleTriggerSuddenDeath}
+            onTriggerRoulette={handleTriggerRoulette}
+          />
+        ) : (
+          <SwipingDeck
+            deck={deck}
+            currentIndex={currentIndex}
+            totalCards={totalCards}
+            isLoading={isLoadingDeck}
+            onSwipe={recordSwipe}
+            onSkip={skipCard}
+          />
+        )}
       </div>
 
-      {/* Floating Action Dock (Pass, Super-Like, Like) */}
-      {!isDeckFinished && (
-        <TactileActionDock
-          onSwipe={recordSwipe}
-          disabled={isDeckFinished}
+      {/* Auto-Restack Round Two Notification Toast */}
+      <Toast message={showRoundTwoToast ? t('gameSwiper.roundTwoToast') : null} />
+
+      {/* Host Safety Confirmation Modal ("Make Sure") */}
+      <ConfirmWinnerModal
+        isOpen={isConfirmOpen}
+        restaurant={selectedWinner}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleConfirmWinner}
+      />
+
+      {/* Sudden Death Showdown Modal */}
+      {isSuddenDeathOpen && suddenDeathRestaurants && (
+        <SuddenDeathModal
+          key={`sd-${suddenDeathRestaurants[0]?.id}-${suddenDeathRestaurants[1]?.id}`}
+          isOpen={isSuddenDeathOpen}
+          roomId={currentRoom.id}
+          currentParticipantId={currentParticipant.id}
+          isHost={isHost}
+          restaurants={suddenDeathRestaurants}
+          totalParticipants={participants.length}
+          onSelectWinner={handleTieBreakerWinner}
+          onClose={() => setIsSuddenDeathOpen(false)}
+        />
+      )}
+
+      {/* Food Roulette Modal */}
+      {isRouletteOpen && rouletteRestaurants.length >= 2 && (
+        <RouletteModal
+          key={`roulette-${rouletteRestaurants.map((r) => r.id).join('-')}`}
+          isOpen={isRouletteOpen}
+          roomId={currentRoom.id}
+          isHost={isHost}
+          restaurants={rouletteRestaurants}
+          swipes={allSwipes}
+          onSelectWinner={handleTieBreakerWinner}
+          onClose={() => setIsRouletteOpen(false)}
         />
       )}
     </div>

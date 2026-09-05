@@ -185,6 +185,23 @@
     "participantRequest": "طلب إعادة التصويت 🙋‍♂️",
     "participantCancel": "إلغاء طلب الإعادة ✕",
     "wantsRevote": "يطلبون إعادة التصويت:"
+  },
+  "gameSwiper": {
+    "counter": "🍔 المطعم {{current}} من {{total}}",
+    "dislike": "ما ودي",
+    "skip": "بعدين ⏭️",
+    "like": "تم",
+    "roundTwoToast": "ما عجبك شي؟ لفة ثانية على السريع! 🔄",
+    "waitingForHost": "👑 بانتظار المضيف يعتمد الفائز...",
+    "hostConfirmBtn": "اعتماد الفائز 🏆",
+    "suddenDeathBtn": "رأس برأس ⚡",
+    "rouletteBtn": "روليت الحسم 🎲",
+    "suddenDeathTitle": "مواجهة حاسمة! ⚡",
+    "rouletteSpin": "لف العجلة! 🎯",
+    "modalTitle": "تأكيد الاختيار 🎯",
+    "modalBody": "هل أنت متأكد من اعتماد \"{{restaurant}}\" كاختيار نهائي للقروب؟",
+    "modalConfirm": "اعتمد واحتفل 🎉",
+    "modalCancel": "تراجع"
   }
 }
 

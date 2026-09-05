@@ -1,6 +1,7 @@
 import { CITYWIDE_STAPLES } from './fallbackStaples';
 import { JEDDAH_DISTRICTS } from './jeddahDistricts';
 import type { RestaurantItem, TimeSlot } from '../types/restaurant';
+import type { EatingMode } from '../types/database';
 
 export const RESTAURANT_CATALOG = CITYWIDE_STAPLES;
 
@@ -12,19 +13,38 @@ function getCurrentTimeSlot(): TimeSlot {
   return 'late_night';
 }
 
+export function isDineInEligible(restaurant: RestaurantItem): boolean {
+  if (restaurant.diningMode === 'delivery_only') return false;
+  const isCloudOrDeliveryOnly =
+    restaurant.vibeTagsAr?.some((t) => t.includes('سحابي') || t.includes('توصيل فقط') || t.includes('بدون جلسات')) ||
+    restaurant.vibeTagsEn?.some((t) => {
+      const lower = t.toLowerCase();
+      return lower.includes('cloud') || lower.includes('virtual') || lower.includes('delivery only') || lower.includes('no seating');
+    });
+  if (isCloudOrDeliveryOnly) return false;
+  return restaurant.diningMode === 'both' || restaurant.diningMode === 'dine_in_only';
+}
+
 export function getDeckForRoom(
   categoryId: string,
   _city?: string,
   userDistrict?: string,
-  catalogPool: RestaurantItem[] = CITYWIDE_STAPLES
+  catalogPool: RestaurantItem[] = CITYWIDE_STAPLES,
+  eatingMode?: EatingMode
 ): RestaurantItem[] {
+  let sourcePool = catalogPool;
+  if (eatingMode === 'dine_in') {
+    sourcePool = sourcePool.filter(isDineInEligible);
+  }
+
   const currentSlot = getCurrentTimeSlot();
   const isLateNightHour = currentSlot === 'late_night';
 
-  let pool = catalogPool.filter((r) => r.categories.includes(categoryId));
+  let pool = sourcePool.filter((r) => r.categories.includes(categoryId));
 
   if (pool.length < 5) {
-    const staples = CITYWIDE_STAPLES.filter((s) => !pool.some((p) => p.id === s.id));
+    const fallbackStaples = eatingMode === 'dine_in' ? CITYWIDE_STAPLES.filter(isDineInEligible) : CITYWIDE_STAPLES;
+    const staples = fallbackStaples.filter((s) => !pool.some((p) => p.id === s.id));
     pool = [...pool, ...staples];
   }
 

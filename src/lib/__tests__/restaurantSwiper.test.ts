@@ -132,6 +132,38 @@ export function runRestaurantSwiperTests() {
   });
   assert(sortedById[0].id === 'rest_a', 'Equal likes and rating should break tie by alphabetical ID (rest_a < rest_z)');
 
+  // 5. Dine-in ("طلعة") Cloud Kitchen Filter Check
+  const cloudKitchenItem: RestaurantItem = {
+    ...baseCandidate,
+    id: 'cloud_box',
+    nameAr: 'سحابي بوكس',
+    nameEn: 'Cloud Box',
+    categories: ['burger'],
+    diningMode: 'delivery_only',
+    vibeTagsAr: ['سحابي', 'توصيل فقط'],
+    vibeTagsEn: ['Cloud Kitchen', 'Delivery Only'],
+    rating: 4.9,
+  };
+  const dineInItem: RestaurantItem = {
+    ...baseCandidate,
+    id: 'dine_spot',
+    nameAr: 'مطعم محلي',
+    nameEn: 'Dine Spot',
+    categories: ['burger'],
+    diningMode: 'both',
+    vibeTagsAr: ['جلسات رايقة'],
+    vibeTagsEn: ['Dine-in Seating'],
+    rating: 4.7,
+  };
+
+  const customPool = [cloudKitchenItem, dineInItem];
+  const dineInDeck = getDeckForRoom('burger', 'riyadh', undefined, customPool, 'dine_in');
+  assert(!dineInDeck.some((r) => r.id === 'cloud_box'), 'Cloud kitchen must be excluded in dine_in mode');
+  assert(dineInDeck.some((r) => r.id === 'dine_spot'), 'Dine-in restaurant must be retained in dine_in mode');
+
+  const deliveryDeck = getDeckForRoom('burger', 'riyadh', undefined, customPool, 'delivery');
+  assert(deliveryDeck.some((r) => r.id === 'cloud_box'), 'Cloud kitchen should be allowed in delivery mode');
+
   console.log('All restaurant swiper tests passed successfully! ✅');
 }
 

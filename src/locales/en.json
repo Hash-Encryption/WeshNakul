@@ -185,6 +185,23 @@
     "participantRequest": "Request Re-vote 🙋‍♂️",
     "participantCancel": "Cancel Re-vote Request ✕",
     "wantsRevote": "Want to re-vote:"
+  },
+  "gameSwiper": {
+    "counter": "🍔 Restaurant {{current}} of {{total}}",
+    "dislike": "Pass",
+    "skip": "Later ⏭️",
+    "like": "Pick",
+    "roundTwoToast": "Didn't like anything? Quick round 2! 🔄",
+    "waitingForHost": "👑 Waiting for host to lock the pick...",
+    "hostConfirmBtn": "Confirm Winner 🏆",
+    "suddenDeathBtn": "Sudden Death ⚡",
+    "rouletteBtn": "Food Roulette 🎲",
+    "suddenDeathTitle": "Head-to-Head Showdown! ⚡",
+    "rouletteSpin": "Spin the Wheel! 🎯",
+    "modalTitle": "Confirm Squad Pick 🎯",
+    "modalBody": "Are you sure you want to select \"{{restaurant}}\" as the final squad pick?",
+    "modalConfirm": "Lock & Celebrate 🎉",
+    "modalCancel": "Cancel"
   }
 }
 

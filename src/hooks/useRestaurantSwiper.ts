@@ -1,7 +1,9 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase, insertRestaurantSwipe, getRestaurantSwipes, updateRoomStage, fetchDeckRestaurants } from '../lib/supabase';
 import type { RestaurantItem, RestaurantSwipe } from '../types/restaurant';
-import { getDeckForRoom } from '../data/restaurants';
+import type { EatingMode } from '../types/database';
+import { getDeckForRoom, isDineInEligible } from '../data/restaurants';
+import { CITYWIDE_STAPLES } from '../data/fallbackStaples';
 
 interface SwiperProps {
   roomId: string;
@@ -11,28 +13,32 @@ interface SwiperProps {
   category: string;
   city: string;
   district?: string;
+  eatingMode?: EatingMode;
   stage?: string;
-  onMatched: (winner: RestaurantItem) => void;
+  onMatched?: (winner: RestaurantItem) => void;
 }
 
 export function useRestaurantSwiper({
   roomId,
   participantId,
-  isHost,
-  totalParticipants,
+  isHost: _isHost,
+  totalParticipants: _totalParticipants,
   category,
   city,
   district,
+  eatingMode,
   stage = 'swiping',
   onMatched,
 }: SwiperProps) {
   // Synchronous initial fallback deck (0ms overhead)
   const [deck, setDeck] = useState<RestaurantItem[]>(() =>
-    getDeckForRoom(category, city, district)
+    getDeckForRoom(category, city, district, CITYWIDE_STAPLES, eatingMode)
   );
+  const [cachedPool, setCachedPool] = useState<RestaurantItem[]>(CITYWIDE_STAPLES);
   const [isLoadingDeck, setIsLoadingDeck] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [allSwipes, setAllSwipes] = useState<RestaurantSwipe[]>([]);
+  const [showRoundTwoToast, setShowRoundTwoToast] = useState(false);
   const matchCommittedRef = useRef(false);
 
   // Staged lifecycle: strictly defer Supabase query until stage === 'swiping'
@@ -49,21 +55,23 @@ export function useRestaurantSwiper({
     fetchDeckRestaurants(category)
       .then((fetchedPool) => {
         if (!isMounted) return;
-        const computedDeck = getDeckForRoom(category, city, district, fetchedPool);
+        const validPool = eatingMode === 'dine_in' ? fetchedPool.filter(isDineInEligible) : fetchedPool;
+        setCachedPool(validPool);
+        const computedDeck = getDeckForRoom(category, city, district, validPool, eatingMode);
         setDeck(computedDeck);
         setIsLoadingDeck(false);
       })
       .catch((err) => {
         console.warn('Failed to fetch restaurants pool, falling back to staples', err);
         if (!isMounted) return;
-        setDeck(getDeckForRoom(category, city, district));
+        setDeck(getDeckForRoom(category, city, district, CITYWIDE_STAPLES, eatingMode));
         setIsLoadingDeck(false);
       });
 
     return () => {
       isMounted = false;
     };
-  }, [stage, category, city, district]);
+  }, [stage, category, city, district, eatingMode]);
 
   // Load existing swipes and subscribe to realtime updates
   useEffect(() => {
@@ -141,7 +149,7 @@ export function useRestaurantSwiper({
     async (winner: RestaurantItem) => {
       if (matchCommittedRef.current) return;
       matchCommittedRef.current = true;
-      onMatched(winner);
+      onMatched?.(winner);
 
       await updateRoomStage(roomId, 'matched', {
         winning_restaurant_id: winner.id,
@@ -150,64 +158,41 @@ export function useRestaurantSwiper({
     [onMatched, roomId]
   );
 
-  // Evaluate consensus: Instant Unanimous or Deck Exhaustion Fallback
-  useEffect(() => {
-    if (deck.length === 0 || totalParticipants === 0 || matchCommittedRef.current) return;
-
-    // 1. Instant 100% Unanimous Match
-    for (const item of deck) {
-      const likes = allSwipes.filter((s) => s.restaurantId === item.id && s.liked);
-      if (likes.length >= totalParticipants) {
-        commitWinner(item);
-        return;
-      }
-    }
-
-    // 2. Deck Exhaustion Check
-    const uniqueSwipers = new Set(allSwipes.map((s) => s.participantId));
-    const allDone =
-      uniqueSwipers.size >= totalParticipants &&
-      Array.from(uniqueSwipers).every((pId) => {
-        return allSwipes.filter((s) => s.participantId === pId).length >= deck.length;
-      });
-
-    if (allDone) {
-      const resolveFallback = () => {
-        const counts: Record<string, number> = {};
-        deck.forEach((r) => (counts[r.id] = 0));
-        allSwipes.forEach((s) => {
-          if (s.liked && counts[s.restaurantId] !== undefined) {
-            counts[s.restaurantId]++;
-          }
-        });
-
-        // Deterministic sort: Likes (desc), then Rating (desc), then ID (asc)
-        const sorted = [...deck].sort((a, b) => {
-          const diffLikes = counts[b.id] - counts[a.id];
-          if (diffLikes !== 0) return diffLikes;
-          const diffRating = b.rating - a.rating;
-          if (diffRating !== 0) return diffRating;
-          return a.id.localeCompare(b.id);
-        });
-
-        commitWinner(sorted[0]);
-      };
-
-      if (isHost) {
-        resolveFallback();
-      } else {
-        // Failover: Non-host commits after 3 seconds if host client is unresponsive
-        const timer = setTimeout(resolveFallback, 3000);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [allSwipes, deck, totalParticipants, isHost, commitWinner]);
+  // Skip / Later action: move current card to the back of the deck without recording a vote
+  const skipCard = useCallback(() => {
+    if (currentIndex >= deck.length) return;
+    setDeck((prevDeck) => {
+      if (currentIndex >= prevDeck.length) return prevDeck;
+      const currentCard = prevDeck[currentIndex];
+      return [
+        ...prevDeck.slice(0, currentIndex),
+        ...prevDeck.slice(currentIndex + 1),
+        currentCard,
+      ];
+    });
+  }, [currentIndex, deck.length]);
 
   const recordSwipe = useCallback(
     async (liked: boolean) => {
       if (currentIndex >= deck.length) return;
       const item = deck[currentIndex];
-      setCurrentIndex((prev) => prev + 1);
+      const nextIndex = currentIndex + 1;
+
+      // Check auto-restack condition:
+      // If this is the last card in the deck and participant has 0 likes so far (and this swipe is NOT a like)
+      const myLikes = allSwipes.filter((s) => s.participantId === participantId && s.liked);
+      const totalLikesWillBe = myLikes.length + (liked ? 1 : 0);
+
+      if (nextIndex >= deck.length && totalLikesWillBe === 0) {
+        // Auto-restack loop triggered!
+        setShowRoundTwoToast(true);
+        // Refresh local deck from catalog pool and reset index to 0
+        const freshDeck = getDeckForRoom(category, city, district, cachedPool, eatingMode);
+        setDeck(freshDeck);
+        setCurrentIndex(0);
+      } else {
+        setCurrentIndex(nextIndex);
+      }
 
       try {
         const recorded = await insertRestaurantSwipe(roomId, participantId, item.id, liked);
@@ -216,16 +201,21 @@ export function useRestaurantSwiper({
         console.error('Failed to record swipe', err);
       }
     },
-    [currentIndex, deck, roomId, participantId]
+    [currentIndex, deck, allSwipes, participantId, category, city, district, cachedPool, eatingMode, roomId]
   );
 
   return {
     deck,
     currentItem: deck[currentIndex] || null,
     currentIndex,
+    totalCards: deck.length,
     isDeckFinished: currentIndex >= deck.length,
     isLoadingDeck,
     recordSwipe,
+    skipCard,
     allSwipes,
+    commitWinner,
+    showRoundTwoToast,
+    dismissRoundTwoToast: () => setShowRoundTwoToast(false),
   };
 }
