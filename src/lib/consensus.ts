@@ -27,7 +27,16 @@ export const FOOD_CATEGORIES: FoodCategoryDef[] = [
   { id: 'street_folk', icon: '🧆', ar: 'فلافل ومطبق وشعبيات', en: 'Falafel & Street Food' },
   { id: 'mexican', icon: '🌮', ar: 'مكسيكي وتاكوز', en: 'Mexican & Tacos' },
   { id: 'sandwiches', icon: '🥪', ar: 'ساندوتشات وبريسكت', en: 'Sandwiches & Deli' },
-  { id: 'flexible', icon: '🎲', ar: 'أي شيء معاكم', en: 'Anything / Flexible', isWildcard: true }
+  { id: 'flexible', icon: '🎲', ar: 'أي شيء معاكم', en: 'Anything / Flexible', isWildcard: true },
+];
+
+export const NEO_BRUTALIST_PALETTE = [
+  '#FBBF24', // Slice 0: Amber
+  '#FB923C', // Slice 1: Orange / Coral
+  '#34D399', // Slice 2: Mint
+  '#60A5FA', // Slice 3: Sky Blue
+  '#F472B6', // Slice 4: Pink
+  '#A78BFA', // Slice 5: Purple
 ];
 
 export interface ConsensusResult {

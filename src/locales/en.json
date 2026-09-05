@@ -211,6 +211,14 @@
     "expiredNotice": "Room session expired (30-minute limit reached) ⌛",
     "roomClosedByHost": "Room was closed by the host 👋",
     "resetSuccess": "Voting reset! Pick categories again 🔄"
+  },
+  "categoryRoulette": {
+    "title": "Category Tie-Breaker 🎲",
+    "subtitle": "It's a tie! The wheel will decide the winning category",
+    "spinBtn": "Spin the Wheel! 🎯",
+    "waitingHost": "Host is spinning the wheel... 👀",
+    "winnerBadge": "Winning Category! 🎉",
+    "proceed": "Proceed to Restaurants 🚀"
   }
 }
 

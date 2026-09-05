@@ -15,6 +15,7 @@ import {
   broadcastSuddenDeath,
   subscribeToSuddenDeath,
   broadcastRoulette,
+  broadcastRouletteClose,
   subscribeToRoulette,
 } from '../../lib/supabase';
 
@@ -91,12 +92,18 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
   useEffect(() => {
     if (!currentRoom?.id) return;
 
-    const unsubscribe = subscribeToRoulette(currentRoom.id, (spots) => {
-      if (spots && spots.length >= 2) {
-        setRouletteRestaurants(spots);
-        setIsRouletteOpen(true);
+    const unsubscribe = subscribeToRoulette(
+      currentRoom.id,
+      (spots) => {
+        if (spots && spots.length >= 2) {
+          setRouletteRestaurants(spots);
+          setIsRouletteOpen(true);
+        }
+      },
+      () => {
+        setIsRouletteOpen(false);
       }
-    });
+    );
 
     return () => unsubscribe();
   }, [currentRoom?.id]);
@@ -219,7 +226,12 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
           restaurants={rouletteRestaurants}
           swipes={allSwipes}
           onSelectWinner={handleTieBreakerWinner}
-          onClose={() => setIsRouletteOpen(false)}
+          onClose={() => {
+            setIsRouletteOpen(false);
+            if (isHost && currentRoom?.id) {
+              broadcastRouletteClose(currentRoom.id).catch(() => {});
+            }
+          }}
         />
       )}
     </div>

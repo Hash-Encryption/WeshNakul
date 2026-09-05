@@ -4,6 +4,8 @@ import confetti from 'canvas-confetti';
 import type { RestaurantItem, RestaurantSwipe } from '../../types/restaurant';
 import { useLocale } from '../../context/LocaleContext';
 import { broadcastRouletteSpin, subscribeToRouletteSpin } from '../../lib/supabase';
+import { NEO_BRUTALIST_PALETTE } from '../../lib/consensus';
+import { ArcadeWheel } from '../common/ArcadeWheel';
 
 interface RouletteModalProps {
   isOpen: boolean;
@@ -14,26 +16,6 @@ interface RouletteModalProps {
   onSelectWinner: (winner: RestaurantItem) => void;
   onClose: () => void;
 }
-
-// Neo-brutalist palette for the wheel slices
-const NEO_BRUTALIST_PALETTE = [
-  '#FBBF24', // Slice 0: Amber
-  '#FB923C', // Slice 1: Orange / Coral
-  '#34D399', // Slice 2: Mint
-  '#60A5FA', // Slice 3: Sky Blue
-  '#F472B6', // Slice 4: Pink (fallback)
-  '#A78BFA', // Slice 5: Purple (fallback)
-];
-
-// Pre-computed pegs around the 320x320 wheel circumference (radius 141)
-const PEGS = Array.from({ length: 16 }, (_, i) => {
-  const angle = i * 22.5;
-  const rad = (angle * Math.PI) / 180;
-  return {
-    x: 160 + 141 * Math.sin(rad),
-    y: 160 - 141 * Math.cos(rad),
-  };
-});
 
 function getRestaurantEmoji(restaurant: RestaurantItem): string {
   const cats = restaurant.categories || [];
@@ -120,7 +102,12 @@ export const RouletteModal: React.FC<RouletteModalProps> = ({
       const endAngle = currentAngle + angle;
       const midAngle = startAngle + angle / 2;
       currentAngle += angle;
+      const name = locale === 'ar' ? restaurant.nameAr : (restaurant.nameEn || restaurant.nameAr);
+      const emoji = getRestaurantEmoji(restaurant);
       return {
+        id: restaurant.id,
+        name,
+        emoji,
         restaurant,
         startAngle,
         endAngle,
@@ -130,7 +117,7 @@ export const RouletteModal: React.FC<RouletteModalProps> = ({
         color: NEO_BRUTALIST_PALETTE[idx % NEO_BRUTALIST_PALETTE.length],
       };
     });
-  }, [restaurants, swipes]);
+  }, [restaurants, swipes, locale]);
 
   const handleSpinComplete = useCallback((winnerRestaurant: RestaurantItem) => {
     if (spinCompletedRef.current) return;
@@ -274,160 +261,17 @@ export const RouletteModal: React.FC<RouletteModalProps> = ({
           </div>
 
           {/* Arcade Wheel Stage */}
-          <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center my-1">
-            <svg
-              viewBox="0 0 320 320"
-              className="w-full h-full select-none overflow-visible drop-shadow-[0px_6px_0px_#241B18]"
-            >
-              {/* Rotating Wheel Group (iOS Safari explicit pixel transform-origin) */}
-              <g
-                style={{
-                  transform: `rotate(${rotation}deg)`,
-                  transformOrigin: '160px 160px',
-                  transition: isSpinning
-                    ? 'transform 4500ms cubic-bezier(0.15, 0.9, 0.2, 1)'
-                    : 'none',
-                }}
-                onTransitionEnd={() => {
-                  if (winnerRef.current) {
-                    handleSpinComplete(winnerRef.current);
-                  }
-                }}
-              >
-                {/* Thick Arcade Outer Rim */}
-                <circle cx="160" cy="160" r="146" fill="#241B18" />
-
-                {/* Slices */}
-                {slices.map((slice) => {
-                  const startRad = (slice.startAngle * Math.PI) / 180;
-                  const endRad = (slice.endAngle * Math.PI) / 180;
-                  const x1 = 160 + 136 * Math.sin(startRad);
-                  const y1 = 160 - 136 * Math.cos(startRad);
-                  const x2 = 160 + 136 * Math.sin(endRad);
-                  const y2 = 160 - 136 * Math.cos(endRad);
-                  const largeArc = slice.angle > 180 ? 1 : 0;
-                  const pathData = `M 160 160 L ${x1} ${y1} A 136 136 0 ${largeArc} 1 ${x2} ${y2} Z`;
-
-                  return (
-                    <path
-                      key={`slice-${slice.restaurant.id}`}
-                      d={pathData}
-                      fill={slice.color}
-                      stroke="#241B18"
-                      strokeWidth="2.5"
-                    />
-                  );
-                })}
-
-                {/* Direct Inside-Slice Labels & Emojis */}
-                {slices.map((slice) => {
-                  const rawName = locale === 'ar' ? slice.restaurant.nameAr : slice.restaurant.nameEn;
-                  const displayName = rawName.length > 12 ? rawName.slice(0, 12).trim() + '...' : rawName;
-
-                  return (
-                    <g
-                      key={`label-${slice.restaurant.id}`}
-                      transform={`rotate(${slice.midAngle} 160 160)`}
-                    >
-                      {/* Food Emoji */}
-                      <text
-                        x="160"
-                        y="58"
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fontSize="18"
-                        className="select-none pointer-events-none"
-                      >
-                        {getRestaurantEmoji(slice.restaurant)}
-                      </text>
-                      {/* Truncated Restaurant Name */}
-                      <text
-                        x="160"
-                        y="80"
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill="#241B18"
-                        fontSize="11"
-                        fontWeight="900"
-                        fontFamily="Alexandria, system-ui, sans-serif"
-                        className="select-none pointer-events-none"
-                      >
-                        {displayName}
-                      </text>
-                    </g>
-                  );
-                })}
-
-                {/* Metallic Pegs on Rim (Rotate with wheel) */}
-                {PEGS.map((peg, i) => (
-                  <g key={`peg-${i}`}>
-                    <circle cx={peg.x} cy={peg.y} r="3.5" fill="#FFFDF8" stroke="#241B18" strokeWidth="1.2" />
-                    <circle cx={peg.x - 0.8} cy={peg.y - 0.8} r="1" fill="#FFFFFF" />
-                  </g>
-                ))}
-              </g>
-
-              {/* 3D Tactile Center Cap (Outside rotating group so dice stays upright) */}
-              <g className="pointer-events-none">
-                <circle cx="160" cy="160" r="30" fill="#241B18" />
-                <circle cx="160" cy="160" r="28" fill="#FFFDF8" stroke="#241B18" strokeWidth="3" />
-                <circle cx="160" cy="160" r="22" fill="#FFD75A" stroke="#241B18" strokeWidth="2" />
-                <text
-                  x="160"
-                  y="161"
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  fontSize="20"
-                  className="select-none pointer-events-none"
-                >
-                  🎲
-                </text>
-              </g>
-
-              {/* Top Arcade Indicator Needle (Outside rotating group with wobble animation) */}
-              <motion.g
-                animate={isSpinning ? { rotate: [0, -12, 10, -8, 5, -2, 0] } : { rotate: 0 }}
-                transition={
-                  isSpinning
-                    ? { repeat: Infinity, duration: 0.16, ease: 'linear' }
-                    : { type: 'spring', stiffness: 400, damping: 20 }
-                }
-                style={{ transformOrigin: '160px 8px' }}
-                className="pointer-events-none"
-              >
-                {/* Needle Drop Shadow */}
-                <polygon
-                  points="148,8 172,8 160,37"
-                  fill="#000000"
-                  opacity="0.25"
-                  transform="translate(0, 3)"
-                />
-                {/* Needle Body */}
-                <polygon
-                  points="148,8 172,8 160,36"
-                  fill="#EF4444"
-                  stroke="#241B18"
-                  strokeWidth="3"
-                  strokeLinejoin="round"
-                />
-                {/* Inner Accent Ridge */}
-                <polygon points="160,11 170,9 160,34" fill="#DC2626" />
-                <line
-                  x1="160"
-                  y1="10"
-                  x2="160"
-                  y2="34"
-                  stroke="#FEE2E2"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  opacity="0.7"
-                />
-                {/* Brass Pivot Rivet */}
-                <circle cx="160" cy="8" r="8" fill="#FBBF24" stroke="#241B18" strokeWidth="3" />
-                <circle cx="160" cy="8" r="3" fill="#241B18" />
-              </motion.g>
-            </svg>
-          </div>
+          <ArcadeWheel
+            slices={slices}
+            rotation={rotation}
+            isSpinning={isSpinning}
+            onTransitionEnd={() => {
+              if (winnerRef.current) {
+                handleSpinComplete(winnerRef.current);
+              }
+            }}
+            centerEmoji="🎲"
+          />
 
           {/* Post-Spin Winner Reveal Card OR Spin Controls */}
           <AnimatePresence mode="wait">
@@ -483,8 +327,9 @@ export const RouletteModal: React.FC<RouletteModalProps> = ({
                     </button>
                   </div>
                 ) : (
-                  <div className="py-2.5 px-4 rounded-xl bg-[#FFF8F1] border border-[#241B18]/20 text-xs font-black text-[#7A6E67] font-alexandria w-full">
-                    {t('gameSwiper.waitingForHost')}
+                  <div className="py-2.5 px-4 rounded-xl bg-[#FFF8F1] border border-[#241B18]/20 text-xs font-black text-[#7A6E67] font-alexandria w-full animate-pulse flex items-center justify-center gap-1.5">
+                    <span>👑</span>
+                    <span>{t('gameSwiper.waitingForHost')}</span>
                   </div>
                 )}
               </motion.div>
@@ -511,10 +356,9 @@ export const RouletteModal: React.FC<RouletteModalProps> = ({
                     </span>
                   </button>
                 ) : (
-                  <div className="py-3 px-4 rounded-2xl bg-[#FFF8F1] border-2 border-[#241B18]/20 text-xs font-black text-[#7A6E67] font-alexandria w-full">
-                    {isSpinning
-                      ? t('gameSwiper.rouletteSpinning')
-                      : t('gameSwiper.waitingForHost')}
+                  <div className="py-3 px-4 rounded-2xl bg-[#FFF8F1] border-2 border-[#241B18]/20 text-xs font-black text-[#7A6E67] font-alexandria w-full animate-pulse flex items-center justify-center gap-2">
+                    <span>👀</span>
+                    <span>{t('categoryRoulette.waitingHost')}</span>
                   </div>
                 )}
               </motion.div>

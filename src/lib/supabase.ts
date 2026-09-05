@@ -1359,13 +1359,13 @@ export async function broadcastRoulette(
 ): Promise<void> {
   if (supabase) {
     try {
-      const channel = supabase.channel(`minigames:${roomId}`);
+      const channel = supabase.channel(`roulette_modal:${roomId}`);
       if (channel.state !== 'joined') {
         await new Promise<void>((resolve) => {
           channel.subscribe((status: string) => {
             if (status === 'SUBSCRIBED') resolve();
           });
-          setTimeout(resolve, 500);
+          setTimeout(resolve, 300);
         });
       }
       await channel.send({
@@ -1385,26 +1385,57 @@ export async function broadcastRoulette(
   });
 }
 
+export async function broadcastRouletteClose(roomId: string): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`roulette_modal:${roomId}`);
+      if (channel.state !== 'joined') {
+        channel.subscribe();
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'roulette_close',
+        payload: { roomId },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastRouletteClose failed', e);
+    }
+  }
+
+  minigamesBroadcastChannel?.postMessage({
+    type: 'ROULETTE_CLOSE',
+    roomId,
+  });
+}
+
 export function subscribeToRoulette(
   roomId: string,
-  callback: (restaurants: RestaurantItem[]) => void
+  onOpen: (restaurants: RestaurantItem[]) => void,
+  onClose?: () => void
 ): () => void {
   let channel: any = null;
 
   if (supabase) {
     channel = supabase
-      .channel(`minigames:${roomId}`)
+      .channel(`roulette_modal:${roomId}`)
       .on('broadcast', { event: 'roulette_open' }, (payload: any) => {
         if (payload?.payload?.restaurants) {
-          callback(payload.payload.restaurants);
+          onOpen(payload.payload.restaurants);
         }
+      })
+      .on('broadcast', { event: 'roulette_close' }, () => {
+        onClose?.();
       })
       .subscribe();
   }
 
   const handleMessage = (event: MessageEvent) => {
-    if (event.data?.roomId === roomId && event.data?.type === 'ROULETTE_OPEN' && event.data?.restaurants) {
-      callback(event.data.restaurants);
+    if (event.data?.roomId === roomId) {
+      if (event.data?.type === 'ROULETTE_OPEN' && event.data?.restaurants) {
+        onOpen(event.data.restaurants);
+      } else if (event.data?.type === 'ROULETTE_CLOSE') {
+        onClose?.();
+      }
     }
   };
 
@@ -1424,13 +1455,13 @@ export async function broadcastRouletteSpin(
 ): Promise<void> {
   if (supabase) {
     try {
-      const channel = supabase.channel(`minigames:${roomId}`);
+      const channel = supabase.channel(`roulette_spin:${roomId}`);
       if (channel.state !== 'joined') {
         await new Promise<void>((resolve) => {
           channel.subscribe((status: string) => {
             if (status === 'SUBSCRIBED') resolve();
           });
-          setTimeout(resolve, 500);
+          setTimeout(resolve, 300);
         });
       }
       await channel.send({
@@ -1458,7 +1489,7 @@ export function subscribeToRouletteSpin(
 
   if (supabase) {
     channel = supabase
-      .channel(`minigames:${roomId}`)
+      .channel(`roulette_spin:${roomId}`)
       .on('broadcast', { event: 'roulette_spin' }, (payload: any) => {
         if (payload?.payload?.winnerId) {
           callback({
@@ -1472,6 +1503,77 @@ export function subscribeToRouletteSpin(
 
   const handleMessage = (event: MessageEvent) => {
     if (event.data?.roomId === roomId && event.data?.type === 'ROULETTE_SPIN') {
+      callback({
+        winnerId: event.data.winnerId,
+        targetAngle: event.data.targetAngle,
+      });
+    }
+  };
+
+  minigamesBroadcastChannel?.addEventListener('message', handleMessage);
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+    minigamesBroadcastChannel?.removeEventListener('message', handleMessage);
+  };
+}
+
+export async function broadcastCategoryRouletteSpin(
+  roomId: string,
+  spinData: { winnerId: string; targetAngle: number }
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`category_spin:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 300);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'category_spin',
+        payload: { roomId, ...spinData },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastCategoryRouletteSpin failed', e);
+    }
+  }
+
+  minigamesBroadcastChannel?.postMessage({
+    type: 'CATEGORY_ROULETTE_SPIN',
+    roomId,
+    ...spinData,
+  });
+}
+
+export function subscribeToCategoryRouletteSpin(
+  roomId: string,
+  callback: (spinData: { winnerId: string; targetAngle: number }) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`category_spin:${roomId}`)
+      .on('broadcast', { event: 'category_spin' }, (payload: any) => {
+        if (payload?.payload?.winnerId) {
+          callback({
+            winnerId: payload.payload.winnerId,
+            targetAngle: payload.payload.targetAngle,
+          });
+        }
+      })
+      .subscribe();
+  }
+
+  const handleMessage = (event: MessageEvent) => {
+    if (event.data?.roomId === roomId && event.data?.type === 'CATEGORY_ROULETTE_SPIN') {
       callback({
         winnerId: event.data.winnerId,
         targetAngle: event.data.targetAngle,
