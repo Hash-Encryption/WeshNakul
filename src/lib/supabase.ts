@@ -129,38 +129,50 @@ function saveMockRestaurantSwipes(swipes: Record<string, RestaurantSwipe[]>) {
 
 /**
  * Check if room session has exceeded the 30-minute Time-To-Live (TTL).
+ * Forces UTC parsing if Postgres ISO string lacks a timezone indicator (Z or offset).
  */
-export function isRoomExpired(createdAt?: string | null): boolean {
+export function isRoomExpired(createdAt: string | null | undefined): boolean {
   if (!createdAt) return false;
-  const createdTime = new Date(createdAt).getTime();
+
+  let raw = createdAt.trim();
+  // If Postgres ISO string lacks timezone indicator (Z or offset), force UTC
+  if (!raw.endsWith('Z') && !/[+-]\d{2}(:\d{2})?$/.test(raw)) {
+    raw += 'Z';
+  }
+
+  const createdTime = new Date(raw).getTime();
   if (isNaN(createdTime)) return false;
+
   const now = Date.now();
-  // Protect against client/server clock drift (future timestamps)
+  // Protect against clock skew
   if (createdTime > now) return false;
+
   const thirtyMinutesMs = 30 * 60 * 1000;
-  return now - createdTime > thirtyMinutesMs;
+  return (now - createdTime) > thirtyMinutesMs;
 }
 
 /**
- * Fetch a room by its 4-character code.
+ * Fetch a room by its 4-character code (case-insensitive).
  */
 export async function getRoomByCode(
   code: string
 ): Promise<{ room: Room | null; participants: Participant[]; isExpired?: boolean }> {
-  const normalizedCode = code.trim().toUpperCase();
+  const cleanCode = code.trim().toUpperCase();
 
   if (supabase) {
     const { data: roomData, error: roomError } = await supabase
       .from('rooms')
       .select('*')
-      .eq('code', normalizedCode)
-      .single();
+      .ilike('code', cleanCode)
+      .maybeSingle();
 
     if (roomError || !roomData) {
-      return { room: null, participants: [] };
+      console.warn('[getRoomByCode] Room not found:', cleanCode, roomError);
+      return { room: null, participants: [], isExpired: false };
     }
 
     if (isRoomExpired(roomData.created_at)) {
+      console.warn('[getRoomByCode] Room expired:', cleanCode, roomData.created_at);
       return { room: null, participants: [], isExpired: true };
     }
 
@@ -177,20 +189,21 @@ export async function getRoomByCode(
         tied_categories: roomData.tied_categories || [],
       } as Room,
       participants: (partData || []) as Participant[],
+      isExpired: false,
     };
   }
 
   // Local fallback
   const rooms = getMockRooms();
-  const room = rooms[normalizedCode] || null;
-  if (!room) return { room: null, participants: [] };
+  const room = rooms[cleanCode] || null;
+  if (!room) return { room: null, participants: [], isExpired: false };
 
   if (isRoomExpired(room.created_at)) {
     return { room: null, participants: [], isExpired: true };
   }
 
   const participants = getMockParticipants()[room.id] || [];
-  return { room, participants };
+  return { room, participants, isExpired: false };
 }
 
 /**

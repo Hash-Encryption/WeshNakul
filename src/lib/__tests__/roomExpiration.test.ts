@@ -30,6 +30,14 @@ export async function runExpirationTests() {
   const fiveMinAgo = new Date(now - 5 * 60 * 1000).toISOString();
   assert(isRoomExpired(fiveMinAgo) === false, 'Fresh room (5 mins ago) is not expired');
 
+  // 1b. Fresh room with un-suffixed Postgres UTC timestamp (no 'Z' or offset) -> NOT expired
+  const unsuffixedOneMinAgo = new Date(now - 60 * 1000).toISOString().replace('Z', '');
+  assert(isRoomExpired(unsuffixedOneMinAgo) === false, 'Fresh room without Z suffix is not expired');
+
+  // 1c. Fresh room with Postgres space-separated timestamp without Z -> NOT expired
+  const spaceSeparatedFresh = new Date(now - 2 * 60 * 1000).toISOString().replace('T', ' ').replace('Z', '');
+  assert(isRoomExpired(spaceSeparatedFresh) === false, 'Space-separated timestamp without Z is not expired');
+
   // 2. Room created 29 minutes ago -> NOT expired
   const twentyNineMinAgo = new Date(now - 29 * 60 * 1000).toISOString();
   assert(isRoomExpired(twentyNineMinAgo) === false, 'Room (29 mins ago) is not expired');
@@ -37,6 +45,10 @@ export async function runExpirationTests() {
   // 3. Room created 30 minutes and 1 second ago -> EXPIRED
   const thirtyMinOneSecAgo = new Date(now - (30 * 60 * 1000 + 1000)).toISOString();
   assert(isRoomExpired(thirtyMinOneSecAgo) === true, 'Room (30m 1s ago) is expired');
+
+  // 3b. Expired room without Z suffix -> EXPIRED
+  const unsuffixedExpired = new Date(now - (35 * 60 * 1000)).toISOString().replace('Z', '');
+  assert(isRoomExpired(unsuffixedExpired) === true, 'Unsuffixed expired room is expired');
 
   // 4. Room created 2 hours ago -> EXPIRED
   const twoHoursAgo = new Date(now - 2 * 60 * 60 * 1000).toISOString();
