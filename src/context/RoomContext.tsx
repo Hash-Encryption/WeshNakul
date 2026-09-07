@@ -10,7 +10,8 @@ import {
   getFoodChoices,
   resetRoomVoting as apiResetRoomVoting,
   deleteRoom as apiDeleteRoom,
-  isRoomExpired
+  isRoomExpired,
+  isSupabaseNetworkError
 } from '../lib/supabase';
 import { 
   getActiveRoomCode, 
@@ -31,6 +32,9 @@ interface RoomContextType {
   error: string | null;
   sessionNotice: string | null;
   clearSessionNotice: () => void;
+  reportError: (error: unknown) => void;
+  failureNotice: string | null;
+  clearFailureNotice: () => void;
   createNewRoom: (input: CreateRoomInput) => Promise<{ room: Room; participant: Participant }>;
   joinExistingRoom: (code: string, nickname: string) => Promise<{ success: boolean; isFull?: boolean; error?: string }>;
   loadRoom: (code: string) => Promise<boolean>;
@@ -58,6 +62,17 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [sessionNotice, setSessionNotice] = useState<string | null>(null);
+
+  const [failureNotice, setFailureNotice] = useState<string | null>(null);
+  const clearFailureNotice = useCallback(() => setFailureNotice(null), []);
+  const reportError = useCallback((err: unknown) => {
+    setFailureNotice(t(isSupabaseNetworkError(err) ? 'session.networkFailure' : 'common.errorGeneric'));
+  }, [t]);
+  useEffect(() => {
+    const onFailure = () => setFailureNotice(t('session.networkFailure'));
+    window.addEventListener('supabase-network-failure', onFailure);
+    return () => window.removeEventListener('supabase-network-failure', onFailure);
+  }, [t]);
 
   const clearSessionNotice = useCallback(() => {
     setSessionNotice(null);
@@ -124,8 +139,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     } catch (err) {
       console.error('Error refreshing room', err);
+      reportError(err);
     }
-  }, [leaveRoom, t]);
+  }, [leaveRoom, t, reportError]);
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
@@ -166,6 +182,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return false;
       }
 
+      const choices = await getFoodChoices(room.id);
       currentRoomRef.current = room;
       setCurrentRoom(room);
       setParticipants(parts);
@@ -182,18 +199,18 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCurrentParticipant(null);
       }
 
-      const choices = await getFoodChoices(room.id);
       setFoodChoices(choices);
 
       setIsLoading(false);
       return true;
     } catch (err) {
       console.error('Error loading room', err);
+      reportError(err);
       setError('FAILED_TO_LOAD');
       setIsLoading(false);
       return false;
     }
-  }, [leaveRoom, t]);
+  }, [leaveRoom, t, reportError]);
 
   // Session recovery on app mount
   useEffect(() => {
@@ -327,6 +344,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err: any) {
       console.error('[RoomContext createNewRoom] Failed to create room:', err);
       setError(err?.message || 'FAILED_TO_CREATE');
+      reportError(err);
       throw err;
     }
   };
@@ -336,12 +354,12 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const res = await apiJoinRoom({ code, nickname });
       if (res.success && res.room && res.participant) {
+        const { participants: parts } = await getRoomByCode(res.room.code);
+        const choices = await getFoodChoices(res.room.id);
         setCurrentRoom(res.room);
         setCurrentParticipant(res.participant);
         setActiveRoomCode(res.room.code);
-        const { participants: parts } = await getRoomByCode(res.room.code);
         setParticipants(parts);
-        const choices = await getFoodChoices(res.room.id);
         setFoodChoices(choices);
         return { success: true };
       }
@@ -352,7 +370,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return { success: false, isFull: res.isFull, error: res.error };
     } catch (err: any) {
-      setSessionNotice(t('session.invalidCode'));
+      reportError(err);
       return { success: false, error: err?.message || 'JOIN_FAILED' };
     }
   };
@@ -402,6 +420,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await refreshRoom();
     } catch (err) {
       console.error('Error resetting room voting', err);
+      reportError(err);
     } finally {
       setIsLoading(false);
     }
@@ -438,6 +457,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         error,
         sessionNotice,
         clearSessionNotice,
+        reportError,
+        failureNotice,
+        clearFailureNotice,
         createNewRoom,
         joinExistingRoom,
         loadRoom,

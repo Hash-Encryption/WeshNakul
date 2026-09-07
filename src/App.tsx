@@ -29,6 +29,9 @@ export const App: React.FC = () => {
     isLoading,
     sessionNotice,
     clearSessionNotice,
+    failureNotice,
+    clearFailureNotice,
+    reportError,
     createNewRoom,
     joinExistingRoom,
     loadRoom,
@@ -127,6 +130,7 @@ export const App: React.FC = () => {
       setStep('room');
     } catch (err) {
       console.error('Failed to create room', err);
+      setStep('landing');
     } finally {
       setIsSubmitting(false);
     }
@@ -151,7 +155,6 @@ export const App: React.FC = () => {
       }
       const found = await loadRoom(cleanCode);
       if (!found) {
-        setCodeModalError(t('session.invalidCode'));
         setIsSubmitting(false);
         return;
       }
@@ -159,7 +162,7 @@ export const App: React.FC = () => {
       window.history.pushState({}, '', `/r/${cleanCode}`);
     } catch (err) {
       console.error('Failed to join by code', err);
-      setCodeModalError(t('session.invalidCode'));
+      reportError(err);
     } finally {
       setIsSubmitting(false);
     }
@@ -311,7 +314,7 @@ export const App: React.FC = () => {
         />
 
         {/* Global Session Toast (TTL Expiration, Host Room Deletion, Vote Reset) */}
-        <Toast message={sessionNotice} onClose={clearSessionNotice} />
+        <Toast message={failureNotice || sessionNotice} onClose={failureNotice ? clearFailureNotice : clearSessionNotice} warning={Boolean(failureNotice)} />
       </main>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { OrderItem } from '../../types/database';
 import { fetchOrderItems, addOrderItem, deleteOrderItem, subscribeToOrderItems } from '../../lib/supabase';
 import { extractInitial } from '../../lib/tokenGenerator';
+import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
 
 interface OrderScratchpadProps {
@@ -24,6 +25,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
   className = '',
 }) => {
   const { t } = useLocale();
+  const { reportError } = useRoom();
 
   const [internalItems, setInternalItems] = useState<OrderItem[]>([]);
   const [itemName, setItemName] = useState('');
@@ -71,7 +73,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
           notifyChange(loaded);
         }
       }
-    });
+    }).catch(reportError);
 
     const unsubscribe = subscribeToOrderItems(
       roomId,
@@ -89,7 +91,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
       isMounted = false;
       unsubscribe();
     };
-  }, [roomId, controlledOrders, notifyChange, updateItems]);
+  }, [roomId, controlledOrders, notifyChange, updateItems, reportError]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,16 +114,21 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
         setNotes('');
         setShowNotes(false);
       }
+    } catch (error) {
+      reportError(error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async (itemId: string) => {
-    updateItems((prev) => prev.filter((it) => it.id !== itemId));
-    await deleteOrderItem(itemId);
+    try {
+      await deleteOrderItem(itemId);
+      updateItems((prev) => prev.filter((it) => it.id !== itemId));
+    } catch (error) {
+      reportError(error);
+    }
   };
-
 
   return (
     <div

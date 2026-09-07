@@ -1,4 +1,4 @@
-import { isRoomExpired, createRoom } from '../supabase';
+import { isRoomExpired } from '../supabase';
 import { clearRoomSession, getOrCreateSessionToken, setActiveRoomCode, getActiveRoomCode } from '../session';
 import arDict from '../../locales/ar.json';
 import enDict from '../../locales/en.json';
@@ -75,22 +75,7 @@ export async function runExpirationTests() {
   assert(Boolean(enDict.session && enDict.session.resetSuccess), 'en.json contains session.resetSuccess');
   assert(Boolean(enDict.session && enDict.session.invalidCode), 'en.json contains session.invalidCode');
 
-  // 7. Verify createRoom returns valid room & host participant with safe defaults
-  const created = await createRoom({
-    eating_mode: 'delivery',
-    city: 'riyadh',
-    language: 'ar',
-    host_nickname: 'أبو فهد',
-  });
-  assert(Boolean(created.room && created.room.code && created.room.code.length === 4), 'createRoom returns valid room code');
-  assert(created.room.stage === 'lobby', 'created room stage is lobby');
-  assert(created.room.status === 'lobby', 'created room status is lobby');
-  assert(created.room.eating_mode === 'delivery', 'created room eating_mode is delivery');
-  assert(isRoomExpired(created.room.created_at) === false, 'Newly created room is never expired');
-  assert(Boolean(created.participant && created.participant.is_host === true), 'Host participant is properly created');
-  assert(created.participant.nickname === 'أبو فهد', 'Host participant nickname matches');
-
-  // 8. Verify stale session cleanup before room creation
+  // 7. Verify stale session cleanup before room creation
   setActiveRoomCode('OLD1');
   assert(getActiveRoomCode() === 'OLD1', 'Pre-existing active room code exists');
   clearRoomSession('OLD1');

@@ -208,6 +208,7 @@
     "rouletteSpinAgain": "Spin Again 🔄"
   },
   "session": {
+    "networkFailure": "Cannot connect to game servers. Check your internet connection or network settings 🌐",
     "expiredNotice": "Room session expired (30-minute limit reached) ⌛",
     "roomClosedByHost": "Room was closed by the host 👋",
     "resetSuccess": "Voting reset! Pick categories again 🔄",
