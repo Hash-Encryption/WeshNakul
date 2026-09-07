@@ -62,7 +62,7 @@ export const EnterCodeModal: React.FC<EnterCodeModalProps> = ({
                   maxLength={4}
                   value={code}
                   onChange={(e) => {
-                    setCode(e.target.value.toUpperCase());
+                    setCode(e.target.value.trim().toUpperCase());
                     setLocalError(null);
                   }}
                   placeholder={t('enterCodeModal.placeholder')}

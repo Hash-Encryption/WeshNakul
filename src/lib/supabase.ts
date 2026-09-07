@@ -158,35 +158,59 @@ export async function getRoomByCode(
   code: string
 ): Promise<{ room: Room | null; participants: Participant[]; isExpired?: boolean }> {
   const cleanCode = code.trim().toUpperCase();
+  console.log('[getRoomByCode] Searching Supabase for code:', cleanCode);
 
   if (supabase) {
-    const { data: roomData, error: roomError } = await supabase
+    let { data: room, error } = await supabase
       .from('rooms')
       .select('*')
-      .ilike('code', cleanCode)
+      .eq('code', cleanCode)
       .maybeSingle();
 
-    if (roomError || !roomData) {
-      console.warn('[getRoomByCode] Room not found:', cleanCode, roomError);
+    if (!room && !error) {
+      const retry = await supabase
+        .from('rooms')
+        .select('*')
+        .ilike('code', cleanCode)
+        .maybeSingle();
+      if (retry.data) {
+        room = retry.data;
+        error = retry.error;
+      }
+    }
+
+    console.log('[getRoomByCode] Result:', { room, error });
+
+    if (error) {
+      console.error('[getRoomByCode] Supabase error:', error);
       return { room: null, participants: [], isExpired: false };
     }
 
-    if (isRoomExpired(roomData.created_at)) {
-      console.warn('[getRoomByCode] Room expired:', cleanCode, roomData.created_at);
+    if (!room) {
+      console.warn('[getRoomByCode] Room not found:', cleanCode);
+      return { room: null, participants: [], isExpired: false };
+    }
+
+    if (isRoomExpired(room.created_at)) {
+      console.warn('[getRoomByCode] Room expired:', cleanCode, room.created_at);
       return { room: null, participants: [], isExpired: true };
     }
 
-    const { data: partData } = await supabase
+    const { data: partData, error: partError } = await supabase
       .from('participants')
       .select('*')
-      .eq('room_id', roomData.id)
+      .eq('room_id', room.id)
       .order('joined_at', { ascending: true });
+
+    if (partError) {
+      console.error('[getRoomByCode] Supabase error fetching participants:', partError);
+    }
 
     return {
       room: {
-        ...roomData,
-        stage: roomData.stage || roomData.current_stage || roomData.status || 'lobby',
-        tied_categories: roomData.tied_categories || [],
+        ...room,
+        stage: room.stage || room.current_stage || room.status || 'lobby',
+        tied_categories: room.tied_categories || [],
       } as Room,
       participants: (partData || []) as Participant[],
       isExpired: false,
@@ -271,9 +295,14 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
       expires_at: newRoom.expires_at,
     };
 
-    let { error: roomErr } = await supabase.from('rooms').insert([roomPayload]);
+    let { data: insertedData, error: roomErr } = await supabase
+      .from('rooms')
+      .insert([roomPayload])
+      .select('id, code')
+      .maybeSingle();
 
     if (roomErr) {
+      console.error('[createRoom] Insert FAILED:', roomErr);
       console.error('[createRoom] Failed to insert room in Supabase:', {
         payload: roomPayload,
         error: {
@@ -312,8 +341,14 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
           expires_at: roomPayload.expires_at,
         };
 
-        const retry = await supabase.from('rooms').insert([baselinePayload]);
+        const retry = await supabase
+          .from('rooms')
+          .insert([baselinePayload])
+          .select('id, code')
+          .maybeSingle();
+
         if (retry.error) {
+          console.error('[createRoom] Insert FAILED:', retry.error);
           console.error('[createRoom] Retry inserting room with baseline payload failed:', {
             payload: baselinePayload,
             error: {
@@ -325,6 +360,7 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
           });
           roomErr = retry.error;
         } else {
+          insertedData = retry.data;
           roomErr = null;
         }
       }
@@ -357,6 +393,11 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
 
       throw roomErr;
     }
+
+    console.log('[createRoom] Room successfully inserted into Supabase:', {
+      id: insertedData?.id || roomId,
+      code: insertedData?.code || code,
+    });
 
     const partPayload = {
       id: participantId,
