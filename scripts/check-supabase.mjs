@@ -55,6 +55,24 @@ try {
   const created = await api.createRoom(input);
   assert.equal(created.participant.is_host,true);
   assert.equal(created.room.code.length,4);
+  // Phase 1 regression: joining, capacity and existing-session behavior remain intact.
+  let participants = Array.from({length:10},(_,i)=>({id:'p'+i,session_token:'other-session-'+i}));
+  let inserted = null;
+  globalThis.fetch = async (url,init) => {
+    if (String(url).includes('/participants')) {
+      if (init?.method === 'POST') { inserted=JSON.parse(init.body)[0]; return reply(null); }
+      return reply(participants);
+    }
+    return reply(room);
+  };
+  const full = await api.joinRoom({code:' abcd ',nickname:'Guest'});
+  assert.equal(full.isFull,true); assert.equal(inserted,null);
+  participants=[];
+  const joined=await api.joinRoom({code:' abcd ',nickname:' Guest '});
+  assert.equal(joined.success,true); assert.equal(inserted.nickname,'Guest'); assert.equal(inserted.is_host,false);
+  participants=[inserted]; inserted=null;
+  assert.equal((await api.joinRoom({code:'ABCD',nickname:'Guest'})).success,true);
+  assert.equal(inserted,null);
   originalLog('PASS: configuration cleanup, failure propagation, query/network distinction, no local rooms, preflight, and successful creation.');
 } finally {
   globalThis.fetch = originalFetch;

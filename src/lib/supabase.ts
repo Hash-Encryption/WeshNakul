@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, ConsensusType, OrderItem } from '../types/database';
 import type { RestaurantItem, RestaurantSwipe } from '../types/restaurant';
-import { CITYWIDE_STAPLES } from '../data/fallbackStaples';
+import { fetchRestaurantPool } from './restaurantRepository';
 import { getOrCreateSessionToken, generateUUID, generateRoomCode } from './session';
 import { getProceduralToken } from './tokenGenerator';
 
@@ -547,68 +547,11 @@ export async function deleteRoom(roomId: string): Promise<void> {
   }
 }
 
-// In-memory restaurant cache for instant lookups across stages
-const restaurantCache = new Map<string, RestaurantItem>();
-CITYWIDE_STAPLES.forEach((s) => restaurantCache.set(s.id, s));
-
-export function getCachedRestaurant(id: string): RestaurantItem | undefined {
-  return restaurantCache.get(id);
-}
-
-/**
- * Deferred on-demand restaurant loader.
- * Queries Supabase strictly during the restaurant swiping phase.
- * Falls back to in-memory CITYWIDE_STAPLES if Supabase is offline or errors.
- */
+/** Compatibility export: existing callers keep their API and fallback behavior. */
+export { getCachedRestaurant } from './restaurantRepository';
 export async function fetchDeckRestaurants(categoryId: string): Promise<RestaurantItem[]> {
-  try {
-    if (!supabase) {
-      const matched = CITYWIDE_STAPLES.filter((r) => r.categories.includes(categoryId));
-      return matched.length > 0 ? matched : CITYWIDE_STAPLES;
-    }
-
-    const { data, error } = await supabase
-      .from('restaurants')
-      .select('*')
-      .contains('categories', [categoryId]);
-
-    if (error || !data || data.length === 0) {
-      const matched = CITYWIDE_STAPLES.filter((r) => r.categories.includes(categoryId));
-      return matched.length > 0 ? matched : CITYWIDE_STAPLES;
-    }
-
-    const items: RestaurantItem[] = data.map((row: any) => ({
-      id: row.id,
-      nameAr: row.name_ar,
-      nameEn: row.name_en,
-      categories: row.categories || [],
-      isCityWide: row.is_city_wide,
-      branches: row.branches || [],
-      diningMode: row.dining_mode,
-      timeSlots: row.time_slots || [],
-      closingTimeAr: row.closing_time_ar,
-      isOpenLate: row.is_open_late,
-      is24Hours: row.is_24_hours,
-      avgPrepMinutes: row.avg_prep_minutes,
-      tier: row.tier,
-      priceTier: row.price_tier,
-      signatureDishAr: row.signature_dish_ar,
-      signatureDishEn: row.signature_dish_en,
-      vibeTagsAr: row.vibe_tags_ar || [],
-      vibeTagsEn: row.vibe_tags_en || [],
-      rating: Number(row.rating),
-      platforms: row.platforms,
-      links: row.links,
-    }));
-
-    items.forEach((item) => restaurantCache.set(item.id, item));
-    return items;
-  } catch {
-    const matched = CITYWIDE_STAPLES.filter((r) => r.categories.includes(categoryId));
-    return matched.length > 0 ? matched : CITYWIDE_STAPLES;
-  }
+  return fetchRestaurantPool(supabase, categoryId);
 }
-
 /**
  * Fetch all order items for a room.
  */

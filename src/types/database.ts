@@ -87,3 +87,4 @@ export interface OrderItem {
   createdAt: string;
 }
 
+export type { LegacyRestaurantRow, RestaurantBrandRow, RestaurantBranchRow, DeliveryPlatformListingRow, RestaurantBestSellerRow, RestaurantSourceRow, RestaurantTrendSignalRow } from './restaurantIntelligence';
