@@ -151,6 +151,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return false;
       }
       if (!room) {
+        setSessionNotice(t('session.invalidCode'));
         setIsLoading(false);
         return false;
       }
@@ -344,8 +345,14 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setFoodChoices(choices);
         return { success: true };
       }
+      if (res.error === 'ROOM_EXPIRED') {
+        setSessionNotice(t('session.expiredNotice'));
+      } else if (res.error === 'ROOM_NOT_FOUND') {
+        setSessionNotice(t('session.invalidCode'));
+      }
       return { success: false, isFull: res.isFull, error: res.error };
     } catch (err: any) {
+      setSessionNotice(t('session.invalidCode'));
       return { success: false, error: err?.message || 'JOIN_FAILED' };
     }
   };

@@ -210,7 +210,8 @@
   "session": {
     "expiredNotice": "Room session expired (30-minute limit reached) ⌛",
     "roomClosedByHost": "Room was closed by the host 👋",
-    "resetSuccess": "Voting reset! Pick categories again 🔄"
+    "resetSuccess": "Voting reset! Pick categories again 🔄",
+    "invalidCode": "Invalid room code"
   },
   "categoryRoulette": {
     "title": "Category Tie-Breaker 🎲",

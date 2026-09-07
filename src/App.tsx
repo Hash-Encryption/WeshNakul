@@ -15,7 +15,7 @@ import { ConsensusResultScreen } from './components/voting/ConsensusResultScreen
 import { RestaurantSwipingScreen } from './components/swiping/RestaurantSwipingScreen';
 import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScreen';
 import { RESTAURANT_CATALOG } from './data/restaurants';
-import { getCachedRestaurant } from './lib/supabase';
+import { getCachedRestaurant, getRoomByCode } from './lib/supabase';
 import { clearRoomSession } from './lib/session';
 import { Toast } from './components/common/Toast';
 
@@ -137,17 +137,29 @@ export const App: React.FC = () => {
     setIsSubmitting(true);
     setCodeModalError(null);
     try {
-      const found = await loadRoom(code);
+      const cleanCode = code.trim().toUpperCase();
+      const { room, isExpired } = await getRoomByCode(cleanCode);
+      if (isExpired) {
+        setCodeModalError(t('session.expiredNotice'));
+        setIsSubmitting(false);
+        return;
+      }
+      if (!room) {
+        setCodeModalError(t('session.invalidCode'));
+        setIsSubmitting(false);
+        return;
+      }
+      const found = await loadRoom(cleanCode);
       if (!found) {
-        setCodeModalError(t('enterCodeModal.errorNotFound'));
+        setCodeModalError(t('session.invalidCode'));
         setIsSubmitting(false);
         return;
       }
       setIsCodeModalOpen(false);
-      window.history.pushState({}, '', `/r/${code}`);
+      window.history.pushState({}, '', `/r/${cleanCode}`);
     } catch (err) {
       console.error('Failed to join by code', err);
-      setCodeModalError(t('enterCodeModal.errorNotFound'));
+      setCodeModalError(t('session.invalidCode'));
     } finally {
       setIsSubmitting(false);
     }

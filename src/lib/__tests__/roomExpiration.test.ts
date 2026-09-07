@@ -68,10 +68,12 @@ export async function runExpirationTests() {
   assert(Boolean(arDict.session && arDict.session.expiredNotice), 'ar.json contains session.expiredNotice');
   assert(Boolean(arDict.session && arDict.session.roomClosedByHost), 'ar.json contains session.roomClosedByHost');
   assert(Boolean(arDict.session && arDict.session.resetSuccess), 'ar.json contains session.resetSuccess');
+  assert(Boolean(arDict.session && arDict.session.invalidCode), 'ar.json contains session.invalidCode');
 
   assert(Boolean(enDict.session && enDict.session.expiredNotice), 'en.json contains session.expiredNotice');
   assert(Boolean(enDict.session && enDict.session.roomClosedByHost), 'en.json contains session.roomClosedByHost');
   assert(Boolean(enDict.session && enDict.session.resetSuccess), 'en.json contains session.resetSuccess');
+  assert(Boolean(enDict.session && enDict.session.invalidCode), 'en.json contains session.invalidCode');
 
   // 7. Verify createRoom returns valid room & host participant with safe defaults
   const created = await createRoom({

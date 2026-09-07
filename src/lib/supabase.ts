@@ -465,7 +465,10 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
   const sessionToken = getOrCreateSessionToken(normalizedCode);
   const legacyToken = getOrCreateSessionToken();
 
-  const { room, participants } = await getRoomByCode(normalizedCode);
+  const { room, participants, isExpired } = await getRoomByCode(normalizedCode);
+  if (isExpired) {
+    return { success: false, error: 'ROOM_EXPIRED' };
+  }
   if (!room) {
     return { success: false, error: 'ROOM_NOT_FOUND' };
   }
