@@ -16,6 +16,7 @@ import { RestaurantSwipingScreen } from './components/swiping/RestaurantSwipingS
 import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScreen';
 import { RESTAURANT_CATALOG } from './data/restaurants';
 import { getCachedRestaurant } from './lib/supabase';
+import { clearRoomSession } from './lib/session';
 import { Toast } from './components/common/Toast';
 
 type FlowStep = 'landing' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
@@ -113,6 +114,7 @@ export const App: React.FC = () => {
   }) => {
     setIsSubmitting(true);
     try {
+      clearRoomSession();
       const { room } = await createNewRoom({
         eating_mode: selectedEatingMode,
         city,

@@ -130,9 +130,13 @@ function saveMockRestaurantSwipes(swipes: Record<string, RestaurantSwipe[]>) {
 /**
  * Check if room session has exceeded the 30-minute Time-To-Live (TTL).
  */
-export function isRoomExpired(createdAt: string): boolean {
+export function isRoomExpired(createdAt?: string | null): boolean {
+  if (!createdAt) return false;
   const createdTime = new Date(createdAt).getTime();
+  if (isNaN(createdTime)) return false;
   const now = Date.now();
+  // Protect against client/server clock drift (future timestamps)
+  if (createdTime > now) return false;
   const thirtyMinutesMs = 30 * 60 * 1000;
   return now - createdTime > thirtyMinutesMs;
 }
@@ -169,7 +173,7 @@ export async function getRoomByCode(
     return {
       room: {
         ...roomData,
-        stage: roomData.stage || 'lobby',
+        stage: roomData.stage || roomData.current_stage || roomData.status || 'lobby',
         tied_categories: roomData.tied_categories || [],
       } as Room,
       participants: (partData || []) as Participant[],
@@ -199,15 +203,20 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
   const participantId = generateUUID();
   const tokenCombo = getProceduralToken(0);
 
+  const safeEatingMode = input.eating_mode || 'delivery';
+  const safeCity = input.city || 'riyadh';
+  const safeLanguage = input.language || 'ar';
+  const safeNickname = input.host_nickname?.trim() || 'المضيف';
+
   const newRoom: Room = {
     id: roomId,
     code,
     status: 'lobby',
     stage: 'lobby',
-    eating_mode: input.eating_mode,
-    city: input.city,
+    eating_mode: safeEatingMode,
+    city: safeCity,
     neighborhood: input.neighborhood || null,
-    language: input.language,
+    language: safeLanguage,
     host_participant_id: participantId,
     current_stage: 'lobby',
     winning_category: null,
@@ -221,7 +230,7 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
     id: participantId,
     room_id: roomId,
     session_token: sessionToken,
-    nickname: input.host_nickname.trim(),
+    nickname: safeNickname,
     player_color: tokenCombo.color,
     player_shape: tokenCombo.shape,
     is_host: true,
@@ -231,22 +240,182 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
   };
 
   if (supabase) {
-    const { error: roomErr } = await supabase.from('rooms').insert([newRoom]);
-    if (roomErr) throw roomErr;
+    const roomPayload: any = {
+      id: roomId,
+      code,
+      status: 'lobby',
+      current_stage: 'lobby',
+      stage: 'lobby',
+      eating_mode: safeEatingMode,
+      city: safeCity,
+      neighborhood: input.neighborhood || null,
+      language: safeLanguage,
+      host_participant_id: participantId,
+      winning_category: null,
+      consensus_type: null,
+      tied_categories: [],
+      created_at: newRoom.created_at,
+      expires_at: newRoom.expires_at,
+    };
 
-    let { error: partErr } = await supabase.from('participants').insert([hostParticipant]);
-    // Resilient fallback: If database still has legacy unique constraint on session_token,
-    // generate a fresh UUID and retry insertion
-    if (partErr && (partErr.code === '23505' || partErr.message?.includes('session_token'))) {
-      const freshToken = generateUUID();
-      hostParticipant.session_token = freshToken;
-      try {
-        localStorage.setItem(`wesh_nakul_session_${code}`, freshToken);
-      } catch {}
-      const retry = await supabase.from('participants').insert([hostParticipant]);
-      partErr = retry.error;
+    let { error: roomErr } = await supabase.from('rooms').insert([roomPayload]);
+
+    if (roomErr) {
+      console.error('[createRoom] Failed to insert room in Supabase:', {
+        payload: roomPayload,
+        error: {
+          message: roomErr.message,
+          details: roomErr.details,
+          hint: roomErr.hint,
+          code: roomErr.code,
+        },
+      });
+
+      // If error is due to unknown/uncached columns (e.g. stage, tied_categories, winning_category),
+      // retry with safe baseline schema matching 20260902_initial_schema.sql
+      const isColumnError =
+        roomErr.code === '42703' || // undefined_column
+        roomErr.code === 'PGRST204' || // schema cache missing column
+        roomErr.message?.toLowerCase().includes('column') ||
+        roomErr.message?.toLowerCase().includes('schema cache');
+
+      const isFkError =
+        roomErr.code === '23503' ||
+        roomErr.message?.toLowerCase().includes('foreign key');
+
+      if (isColumnError || isFkError) {
+        console.warn('[createRoom] Retrying with initial schema baseline payload (status & current_stage)...');
+        const baselinePayload: any = {
+          id: roomId,
+          code,
+          status: 'lobby',
+          current_stage: 'lobby',
+          eating_mode: safeEatingMode,
+          city: safeCity,
+          neighborhood: input.neighborhood || null,
+          language: safeLanguage,
+          host_participant_id: isFkError ? null : participantId,
+          created_at: roomPayload.created_at,
+          expires_at: roomPayload.expires_at,
+        };
+
+        const retry = await supabase.from('rooms').insert([baselinePayload]);
+        if (retry.error) {
+          console.error('[createRoom] Retry inserting room with baseline payload failed:', {
+            payload: baselinePayload,
+            error: {
+              message: retry.error.message,
+              details: retry.error.details,
+              hint: retry.error.hint,
+              code: retry.error.code,
+            },
+          });
+          roomErr = retry.error;
+        } else {
+          roomErr = null;
+        }
+      }
     }
-    if (partErr) throw partErr;
+
+    if (roomErr) {
+      const isNetworkError =
+        roomErr.message?.toLowerCase().includes('fetch failed') ||
+        roomErr.message?.toLowerCase().includes('failed to fetch') ||
+        roomErr.message?.toLowerCase().includes('network');
+
+      if (isNetworkError) {
+        console.warn('[createRoom] Supabase network fetch failed, using local storage fallback');
+        const rooms = getMockRooms();
+        rooms[code] = newRoom;
+        saveMockRooms(rooms);
+
+        const participants = getMockParticipants();
+        participants[roomId] = [hostParticipant];
+        saveMockParticipants(participants);
+
+        broadcastChannel?.postMessage({
+          type: 'ROOM_UPDATED',
+          roomId,
+          code,
+        });
+
+        return { room: newRoom, participant: hostParticipant };
+      }
+
+      throw roomErr;
+    }
+
+    const partPayload = {
+      id: participantId,
+      room_id: roomId,
+      session_token: sessionToken,
+      nickname: safeNickname,
+      player_color: tokenCombo.color,
+      player_shape: tokenCombo.shape,
+      is_host: true,
+      status: 'active',
+      joined_at: hostParticipant.joined_at,
+      last_seen_at: hostParticipant.last_seen_at,
+    };
+
+    let { error: partErr } = await supabase.from('participants').insert([partPayload]);
+
+    if (partErr) {
+      console.error('[createRoom] Failed to insert host participant in Supabase:', {
+        payload: partPayload,
+        error: {
+          message: partErr.message,
+          details: partErr.details,
+          hint: partErr.hint,
+          code: partErr.code,
+        },
+      });
+
+      // Resilient fallback: If database still has legacy unique constraint on session_token,
+      // generate a fresh UUID and retry insertion
+      if (partErr.code === '23505' || partErr.message?.includes('session_token')) {
+        console.warn('[createRoom] Retrying host participant insert with fresh session token...');
+        const freshToken = generateUUID();
+        hostParticipant.session_token = freshToken;
+        partPayload.session_token = freshToken;
+        try {
+          localStorage.setItem(`wesh_nakul_session_${code}`, freshToken);
+        } catch {}
+        const retry = await supabase.from('participants').insert([partPayload]);
+        if (retry.error) {
+          console.error('[createRoom] Retry inserting host participant failed:', {
+            payload: partPayload,
+            error: {
+              message: retry.error.message,
+              details: retry.error.details,
+              hint: retry.error.hint,
+              code: retry.error.code,
+            },
+          });
+          partErr = retry.error;
+        } else {
+          partErr = null;
+        }
+      }
+    }
+
+    if (partErr) {
+      const isNetworkError =
+        partErr.message?.toLowerCase().includes('fetch failed') ||
+        partErr.message?.toLowerCase().includes('failed to fetch') ||
+        partErr.message?.toLowerCase().includes('network');
+
+      if (isNetworkError) {
+        console.warn('[createRoom] Supabase network fetch failed for participant, using local storage fallback');
+        const participants = getMockParticipants();
+        participants[roomId] = [hostParticipant];
+        saveMockParticipants(participants);
+
+        return { room: newRoom, participant: hostParticipant };
+      }
+
+      throw partErr;
+    }
 
     return { room: newRoom, participant: hostParticipant };
   }

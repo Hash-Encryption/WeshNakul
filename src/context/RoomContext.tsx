@@ -76,6 +76,8 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const leaveRoom = useCallback(() => {
     const code = currentRoomRef.current?.code;
     clearRoomSession(code);
+    currentRoomRef.current = null;
+    currentParticipantRef.current = null;
     setCurrentRoom(null);
     setCurrentParticipant(null);
     setParticipants([]);
@@ -106,12 +108,14 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
       if (room) {
+        currentRoomRef.current = room;
         setCurrentRoom(room);
         setParticipants(parts);
         const roomToken = getOrCreateSessionToken(roomCode);
         const legacyToken = getOrCreateSessionToken();
         const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
         if (me) {
+          currentParticipantRef.current = me;
           setCurrentParticipant(me);
         }
 
@@ -125,12 +129,22 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
+    const normalizedCode = code.trim().toUpperCase();
     setIsLoading(true);
     setError(null);
     try {
-      const { room, participants: parts, isExpired } = await getRoomByCode(code);
+      // Guard against eviction loop: If room is already active in memory and fresh, keep it
+      if (
+        currentRoomRef.current?.code === normalizedCode &&
+        !isRoomExpired(currentRoomRef.current.created_at)
+      ) {
+        setIsLoading(false);
+        return true;
+      }
+
+      const { room, participants: parts, isExpired } = await getRoomByCode(normalizedCode);
       if (isExpired) {
-        clearRoomSession(code);
+        clearRoomSession(normalizedCode);
         setSessionNotice(t('session.expiredNotice'));
         leaveRoom();
         setIsLoading(false);
@@ -151,6 +165,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return false;
       }
 
+      currentRoomRef.current = room;
       setCurrentRoom(room);
       setParticipants(parts);
       setActiveRoomCode(room.code);
@@ -159,8 +174,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const legacyToken = getOrCreateSessionToken();
       const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
       if (me) {
+        currentParticipantRef.current = me;
         setCurrentParticipant(me);
       } else {
+        currentParticipantRef.current = null;
         setCurrentParticipant(null);
       }
 
@@ -289,8 +306,17 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const createNewRoom = async (input: CreateRoomInput) => {
     setError(null);
+    // Explicitly clear previous room tokens from localStorage BEFORE invoking createRoom
+    const prevCode = currentRoomRef.current?.code || getActiveRoomCode();
+    if (prevCode) {
+      clearRoomSession(prevCode);
+    }
+    clearRoomSession();
+
     try {
       const { room, participant } = await apiCreateRoom(input);
+      currentRoomRef.current = room;
+      currentParticipantRef.current = participant;
       setCurrentRoom(room);
       setCurrentParticipant(participant);
       setParticipants([participant]);
@@ -298,6 +324,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setActiveRoomCode(room.code);
       return { room, participant };
     } catch (err: any) {
+      console.error('[RoomContext createNewRoom] Failed to create room:', err);
       setError(err?.message || 'FAILED_TO_CREATE');
       throw err;
     }
