@@ -5,6 +5,7 @@ import { useLocale } from '../../context/LocaleContext';
 import { Header } from '../common/Header';
 import { TactileButton } from '../common/TactileButton';
 import { SparkleRays } from '../common/DecorativeSparkles';
+import { getHostCoordinates, type Coordinates } from '../../lib/useGeolocation';
 
 interface RoomSetupScreenProps {
   eatingMode: EatingMode;
@@ -13,6 +14,8 @@ interface RoomSetupScreenProps {
     nickname: string;
     city: string;
     neighborhood?: string;
+    latitude?: number;
+    longitude?: number;
   }) => Promise<void>;
   isLoading?: boolean;
 }
@@ -28,6 +31,22 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
   const [selectedCityId, setSelectedCityId] = useState(SAUDI_CITIES[0].id);
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
+  const [isLocating, setIsLocating] = useState(false);
+
+  const handleLocateMe = async () => {
+    setIsLocating(true);
+    try {
+      const coords = await getHostCoordinates();
+      if (coords) {
+        setCoordinates(coords);
+      }
+    } catch (err) {
+      console.warn('Geolocation capture failed:', err);
+    } finally {
+      setIsLocating(false);
+    }
+  };
 
   const currentCity = SAUDI_CITIES.find((c) => c.id === selectedCityId) || SAUDI_CITIES[0];
   const cityName = locale === 'ar' ? currentCity.nameAr : currentCity.nameEn;
@@ -43,6 +62,8 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
       nickname: nickname.trim(),
       city: cityName,
       neighborhood: selectedDistrict.trim() || undefined,
+      latitude: coordinates?.lat,
+      longitude: coordinates?.lng,
     });
   };
 
@@ -88,6 +109,50 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
               <p className="text-xs text-brand-red font-semibold mt-1.5 px-1">
                 {error}
               </p>
+            )}
+          </div>
+
+          {/* Location Quick Capture */}
+          <div>
+            {!coordinates ? (
+              <button
+                type="button"
+                onClick={handleLocateMe}
+                disabled={isLocating}
+                aria-label={locale === 'ar' ? 'تحديد موقعي الحالي' : 'Use My Current Location'}
+                className="w-full min-h-[46px] py-2.5 px-4 rounded-2xl bg-white border border-brand-border/90 hover:border-brand-red/40 hover:bg-brand-redSoft/30 text-brand-ink font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
+              >
+                {isLocating ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-brand-red border-t-transparent rounded-full animate-spin" />
+                    <span className="text-xs text-brand-gray font-medium">
+                      {locale === 'ar' ? 'جاري تحديد الموقع...' : 'Detecting location...'}
+                    </span>
+                  </>
+                ) : (
+                  <span className="flex items-center gap-1.5 text-xs sm:text-sm text-brand-ink font-bold">
+                    {locale === 'ar' ? '📍 تحديد موقعي الحالي' : '📍 Use My Current Location'}
+                  </span>
+                )}
+              </button>
+            ) : (
+              <div className="w-full min-h-[46px] py-2 px-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-between shadow-xs">
+                <span className="flex items-center gap-2">
+                  <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-black">
+                    ✓
+                  </span>
+                  <span className="text-emerald-900 font-bold">
+                    {locale === 'ar' ? '✓ تم تحديد الموقع' : '✓ Location captured'}
+                  </span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setCoordinates(null)}
+                  className="text-[11px] text-emerald-700/80 hover:text-emerald-950 underline px-1 py-0.5 cursor-pointer font-semibold"
+                >
+                  {locale === 'ar' ? 'إلغاء' : 'Clear'}
+                </button>
+              </div>
             )}
           </div>
 

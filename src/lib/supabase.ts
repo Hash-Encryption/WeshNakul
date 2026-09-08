@@ -184,6 +184,8 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
     winning_category: null,
     consensus_type: null,
     tied_categories: [],
+    latitude: input.latitude ?? null,
+    longitude: input.longitude ?? null,
     created_at: new Date().toISOString(),
     expires_at: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
   };
@@ -215,6 +217,8 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
     winning_category: null,
     consensus_type: null,
     tied_categories: [],
+    latitude: input.latitude ?? null,
+    longitude: input.longitude ?? null,
     created_at: newRoom.created_at,
     expires_at: newRoom.expires_at,
   };

@@ -36,6 +36,8 @@ export interface Room {
   tied_categories?: string[];
   winning_restaurant_id?: string | null;
   swiping_started_at?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
   created_at: string;
   expires_at: string;
 }
@@ -70,6 +72,8 @@ export interface CreateRoomInput {
   neighborhood?: string;
   language: Locale;
   host_nickname: string;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 export interface JoinRoomInput {

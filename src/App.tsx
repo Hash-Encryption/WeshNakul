@@ -110,10 +110,14 @@ export const App: React.FC = () => {
     nickname,
     city,
     neighborhood,
+    latitude,
+    longitude,
   }: {
     nickname: string;
     city: string;
     neighborhood?: string;
+    latitude?: number;
+    longitude?: number;
   }) => {
     setIsSubmitting(true);
     try {
@@ -124,6 +128,8 @@ export const App: React.FC = () => {
         neighborhood,
         language: 'ar',
         host_nickname: nickname,
+        latitude,
+        longitude,
       });
 
       window.history.pushState({}, '', `/r/${room.code}`);
