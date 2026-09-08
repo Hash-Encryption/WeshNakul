@@ -1,4 +1,4 @@
-import type { DiningMode, RestaurantItem, RestaurantLinks, RestaurantPlatforms, PriceTier, TierType, TimeSlot } from './restaurant';
+import type { DiningMode, RestaurantLinks, RestaurantPlatforms, PriceTier, TierType, TimeSlot } from './restaurant';
 
 export type Confidence = 'high' | 'medium' | 'low' | 'unknown';
 export type EditorialRole = 'staple' | 'popular' | 'discovery';
@@ -82,14 +82,4 @@ export interface RestaurantIntelligence {
   deliveryListings: DeliveryPlatformListingRow[];
   sources: RestaurantSourceRow[];
   trendSignals: RestaurantTrendSignalRow[];
-}
-/** Phase 1 leaves legacy presentation/selection fields untouched. No branch is selected yet. */
-export interface DeckRestaurant extends RestaurantItem {
-  intelligence: RestaurantIntelligence;
-  intelligenceStatus: 'available' | 'legacy_schema' | 'unavailable' | 'fallback';
-  editorialRole: EditorialRole | null;
-  trendStatus: TrendStatus;
-  selectedBranch: RestaurantBranchRow | null;
-  branchRating: number | null;
-  reviewCount: number | null;
 }

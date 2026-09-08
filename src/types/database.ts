@@ -36,8 +36,6 @@ export interface Room {
   tied_categories?: string[];
   winning_restaurant_id?: string | null;
   swiping_started_at?: string | null;
-  latitude?: number | null;
-  longitude?: number | null;
   created_at: string;
   expires_at: string;
 }

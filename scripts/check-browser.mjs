@@ -1,8 +1,11 @@
 import { createServer } from 'vite';
 const mock = `
+import { CITYWIDE_STAPLES } from '/src/data/fallbackStaples.ts';
 export const supabase = null;
 export const state = { swipes: [], commits: [], fetches: 0 };
-export async function fetchDeckRestaurants() { state.fetches++; return (await import('/src/data/fallbackStaples.ts')).CITYWIDE_STAPLES; }
+export async function fetchDeckRestaurants(_roomId,_participantId,_sessionToken,afterDeckId) {
+ state.fetches++; return {deckId:afterDeckId?'deck-1':'deck-0',generation:afterDeckId?1:0,restaurants:CITYWIDE_STAPLES};
+}
 export async function getRestaurantSwipes() { return [...state.swipes]; }
 export async function insertRestaurantSwipe(roomId, participantId, restaurantId, liked) {
  const swipe = {id:participantId+restaurantId,roomId,participantId,restaurantId,liked,createdAt:new Date().toISOString()};
@@ -27,7 +30,8 @@ const mount=async(stage='swiping')=>{
  if(root)await act(async()=>root.unmount());
  state.swipes=[];state.commits=[];state.fetches=0;
  root=createRoot(document.getElementById('root'));
- await act(async()=>{root.render(React.createElement(Harness,{roomId:'fixture-room',participantId:'fixture-player',isHost:true,totalParticipants:1,category:'burger',city:'jeddah',stage}));});
+ await act(async()=>{root.render(React.createElement(Harness,{roomId:'fixture-room',participantId:'fixture-player',sessionToken:'fixture-session',isHost:true,totalParticipants:1,category:'burger',stage}));});
+ await act(async()=>{await new Promise(resolve=>setTimeout(resolve,50));});
 };
 try {
  await mount('lobby'); assert(state.fetches===0,'must defer fetch outside swiping');
@@ -57,7 +61,7 @@ try {
   assert(document.querySelectorAll('a[href]').length>=3,'launcher links render without direct URLs');
   await act(async()=>root.unmount());
  }
- document.getElementById('result').textContent='PASS: '+checks+' browser checks (real React lifecycle; mocked Supabase): deferred load, Yes/No/Later, replay, winner, Arabic/English/RTL and launcher.';
+ document.getElementById('result').textContent='PASS: '+checks+' browser checks (real React lifecycle; mocked Supabase): authoritative load, Yes/No/Later, replay, winner, Arabic/English/RTL and launcher.';
 } catch(error) {document.getElementById('result').textContent='FAIL: '+error.stack;}
 `;
 const server=await createServer({server:{host:'127.0.0.1',port:5187,strictPort:true},plugins:[{

@@ -44,6 +44,24 @@ export interface RestaurantItem {
   platforms: RestaurantPlatforms;
   links: RestaurantLinks;
   imageUrl?: string;
+  selectedBranch?: {
+    id: string;
+    nameAr: string | null;
+    nameEn: string | null;
+    district: string | null;
+    addressAr: string | null;
+    addressEn: string | null;
+    googleMapsUrl: string | null;
+    distanceKm: number | null;
+    rating: number | null;
+    reviewCount: number | null;
+  } | null;
+}
+
+export interface RestaurantDeck {
+  deckId: string;
+  generation: number;
+  restaurants: RestaurantItem[];
 }
 
 export interface RestaurantSwipe {

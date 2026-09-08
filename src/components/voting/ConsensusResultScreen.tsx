@@ -6,20 +6,12 @@ import { Header } from '../common/Header';
 import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart, DoodleSquiggle } from '../common/DecorativeSparkles';
 import { getCategoryById, calculateConsensus, FOOD_CATEGORIES } from '../../lib/consensus';
-import { fetchDeckRestaurants } from '../../lib/supabase';
 
 export const ConsensusResultScreen: React.FC = () => {
   const { currentRoom, isHost, resetToLobby, startSwiping, participants, foodChoices } = useRoom();
   const { t, locale } = useLocale();
 
   const winnerId = currentRoom?.winning_category || 'burger';
-
-  // Silent background pre-fetch of restaurant deck for zero-latency swiping transition
-  useEffect(() => {
-    if (winnerId) {
-      fetchDeckRestaurants(winnerId).catch(() => {});
-    }
-  }, [winnerId]);
 
   useEffect(() => {
     try {

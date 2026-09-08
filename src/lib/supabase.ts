@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, ConsensusType, OrderItem } from '../types/database';
 import type { RestaurantItem, RestaurantSwipe } from '../types/restaurant';
-import { fetchRestaurantPool } from './restaurantRepository';
+import { cacheDeckRestaurants } from './restaurantRepository';
 import { getOrCreateSessionToken, generateUUID, generateRoomCode } from './session';
 import { getProceduralToken } from './tokenGenerator';
 
@@ -106,14 +106,14 @@ export async function getRoomByCode(
 
   let { data: room, error } = await supabase
     .from('rooms')
-    .select('*')
+    .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,created_at,expires_at')
     .eq('code', cleanCode)
     .maybeSingle();
 
   if (!room && !error) {
     const retry = await supabase
       .from('rooms')
-      .select('*')
+      .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,created_at,expires_at')
       .ilike('code', cleanCode)
       .maybeSingle();
     room = retry.data;
@@ -184,8 +184,6 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
     winning_category: null,
     consensus_type: null,
     tied_categories: [],
-    latitude: input.latitude ?? null,
-    longitude: input.longitude ?? null,
     created_at: new Date().toISOString(),
     expires_at: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
   };
@@ -217,8 +215,6 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
     winning_category: null,
     consensus_type: null,
     tied_categories: [],
-    latitude: input.latitude ?? null,
-    longitude: input.longitude ?? null,
     created_at: newRoom.created_at,
     expires_at: newRoom.expires_at,
   };
@@ -252,6 +248,18 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
   const { error: partErr } = await supabase.from('participants').insert([partPayload]);
 
   if (partErr) throw partErr;
+
+  if (input.latitude != null || input.longitude != null) {
+    if (input.latitude == null || input.longitude == null) throw new Error('Latitude and longitude must be provided together');
+    const { error: locationError } = await supabase.rpc('set_room_location', {
+      p_room_id: roomId,
+      p_participant_id: participantId,
+      p_session_token: sessionToken,
+      p_latitude: input.latitude,
+      p_longitude: input.longitude,
+    });
+    if (locationError) throw locationError;
+  }
 
   return { room: newRoom, participant: hostParticipant };
 }
@@ -551,10 +559,24 @@ export async function deleteRoom(roomId: string): Promise<void> {
   }
 }
 
-/** Compatibility export: existing callers keep their API and fallback behavior. */
 export { getCachedRestaurant } from './restaurantRepository';
-export async function fetchDeckRestaurants(categoryId: string): Promise<RestaurantItem[]> {
-  return fetchRestaurantPool(supabase, categoryId);
+export async function fetchDeckRestaurants(
+  roomId: string,
+  participantId: string,
+  sessionToken: string,
+  afterDeckId?: string,
+): Promise<import('../types/restaurant').RestaurantDeck> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('get_or_create_restaurant_deck', {
+    p_room_id: roomId,
+    p_participant_id: participantId,
+    p_session_token: sessionToken,
+    p_after_deck_id: afterDeckId ?? null,
+  });
+  if (error) throw error;
+  const deck = data as import('../types/restaurant').RestaurantDeck;
+  cacheDeckRestaurants(deck.restaurants);
+  return deck;
 }
 /**
  * Fetch all order items for a room.
@@ -1036,4 +1058,3 @@ export function subscribeToCategoryRouletteSpin(
     }
   };
 }
-

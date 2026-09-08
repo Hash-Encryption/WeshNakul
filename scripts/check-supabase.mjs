@@ -55,6 +55,24 @@ try {
   const created = await api.createRoom(input);
   assert.equal(created.participant.is_host,true);
   assert.equal(created.room.code.length,4);
+  let locationPayload = null;
+  globalThis.fetch = async (url,init) => {
+    if (String(url).includes('/rpc/set_room_location')) { locationPayload=JSON.parse(init.body); return reply(null); }
+    return reply(String(url).includes('/rooms') ? JSON.parse(init.body)[0] : null);
+  };
+  const located = await api.createRoom({...input,latitude:21.6,longitude:39.2});
+  assert.equal('latitude' in located.room,false);
+  assert.equal(locationPayload.p_latitude,21.6); assert.equal(locationPayload.p_longitude,39.2);
+  let deckPayload = null;
+  const deck = {deckId:'deck-id',generation:0,restaurants:[]};
+  globalThis.fetch = async (url,init) => {
+    deckPayload=JSON.parse(init.body);
+    return String(url).includes('/rpc/get_or_create_restaurant_deck') ? reply(deck) : reply(null);
+  };
+  assert.deepEqual(await api.fetchDeckRestaurants('room-id','participant-id','session-token'),deck);
+  assert.deepEqual(Object.keys(deckPayload).sort(),['p_after_deck_id','p_participant_id','p_room_id','p_session_token']);
+  globalThis.fetch = network;
+  await assert.rejects(() => api.fetchDeckRestaurants('room-id','participant-id','session-token'), error => api.isSupabaseNetworkError(error));
   // Phase 1 regression: joining, capacity and existing-session behavior remain intact.
   let participants = Array.from({length:10},(_,i)=>({id:'p'+i,session_token:'other-session-'+i}));
   let inserted = null;

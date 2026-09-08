@@ -25,7 +25,7 @@ interface RestaurantSwipingScreenProps {
 
 export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () => {
   const { currentRoom, currentParticipant, participants, isHost } = useRoom();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   const {
     deck,
@@ -33,6 +33,7 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     totalCards,
     isDeckFinished,
     isLoadingDeck,
+    deckError,
     recordSwipe,
     skipCard,
     allSwipes,
@@ -42,12 +43,10 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
   } = useRestaurantSwiper({
     roomId: currentRoom?.id || '',
     participantId: currentParticipant?.id || '',
+    sessionToken: currentParticipant?.session_token || '',
     isHost,
     totalParticipants: participants.length,
     category: currentRoom?.winning_category || 'burger',
-    city: currentRoom?.city || 'riyadh',
-    district: currentRoom?.district || currentRoom?.neighborhood || undefined,
-    eatingMode: currentRoom?.eating_mode,
     stage: currentRoom?.stage,
     onMatched: (_winner) => {
       // Handled in room state sync
@@ -109,6 +108,24 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
   }, [currentRoom?.id]);
 
   if (!currentRoom || !currentParticipant) return null;
+
+  if (deckError) {
+    return (
+      <div className="relative flex min-h-[92dvh] w-full flex-col px-4">
+        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} />
+        <div role="alert" className="m-auto max-w-sm rounded-2xl border-2 border-[#241B18] bg-white p-5 text-center font-alexandria font-bold text-[#241B18] shadow-[0_4px_0_#241B18]">
+          <p>{deckError === 'NO_ELIGIBLE_RESTAURANTS'
+            ? (locale === 'ar' ? 'ما لقينا خيارات موثوقة كفاية لهذي الفئة حالياً.' : 'We could not find enough trusted options for this category yet.')
+            : (locale === 'ar' ? 'تعذر تحميل خيارات المطاعم. حاول مرة ثانية.' : 'Restaurant options could not be loaded. Please try again.')}</p>
+          {deckError !== 'NO_ELIGIBLE_RESTAURANTS' && (
+            <button type="button" onClick={() => window.location.reload()} className="mt-4 rounded-xl border-2 border-[#241B18] bg-[#FFD75A] px-4 py-2 text-sm shadow-[0_3px_0_#241B18] active:translate-y-0.5 active:shadow-none">
+              {locale === 'ar' ? 'إعادة المحاولة' : 'Try again'}
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   // Host Action Handlers
   const handleOpenConfirm = (restaurant: RestaurantItem) => {

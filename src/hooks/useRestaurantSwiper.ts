@@ -1,19 +1,14 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase, insertRestaurantSwipe, getRestaurantSwipes, updateRoomStage, fetchDeckRestaurants } from '../lib/supabase';
 import type { RestaurantItem, RestaurantSwipe } from '../types/restaurant';
-import type { EatingMode } from '../types/database';
-import { getDeckForRoom, isDineInEligible } from '../data/restaurants';
-import { CITYWIDE_STAPLES } from '../data/fallbackStaples';
 
 interface SwiperProps {
   roomId: string;
   participantId: string;
+  sessionToken: string;
   isHost: boolean;
   totalParticipants: number;
   category: string;
-  city: string;
-  district?: string;
-  eatingMode?: EatingMode;
   stage?: string;
   onMatched?: (winner: RestaurantItem) => void;
 }
@@ -21,21 +16,17 @@ interface SwiperProps {
 export function useRestaurantSwiper({
   roomId,
   participantId,
+  sessionToken,
   isHost: _isHost,
   totalParticipants: _totalParticipants,
   category,
-  city,
-  district,
-  eatingMode,
   stage = 'swiping',
   onMatched,
 }: SwiperProps) {
-  // Synchronous initial fallback deck (0ms overhead)
-  const [deck, setDeck] = useState<RestaurantItem[]>(() =>
-    getDeckForRoom(category, city, district, CITYWIDE_STAPLES, eatingMode)
-  );
-  const [cachedPool, setCachedPool] = useState<RestaurantItem[]>(CITYWIDE_STAPLES);
-  const [isLoadingDeck, setIsLoadingDeck] = useState<boolean>(false);
+  const [deck, setDeck] = useState<RestaurantItem[]>([]);
+  const [deckId, setDeckId] = useState<string | null>(null);
+  const [isLoadingDeck, setIsLoadingDeck] = useState<boolean>(true);
+  const [deckError, setDeckError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [allSwipes, setAllSwipes] = useState<RestaurantSwipe[]>([]);
   const [showRoundTwoToast, setShowRoundTwoToast] = useState(false);
@@ -43,7 +34,7 @@ export function useRestaurantSwiper({
 
   // Staged lifecycle: strictly defer Supabase query until stage === 'swiping'
   useEffect(() => {
-    if (stage !== 'swiping' || !category) {
+    if (stage !== 'swiping' || !category || !roomId || !participantId || !sessionToken) {
       return;
     }
 
@@ -52,26 +43,26 @@ export function useRestaurantSwiper({
       if (isMounted) setIsLoadingDeck(true);
     });
 
-    fetchDeckRestaurants(category)
-      .then((fetchedPool) => {
+    fetchDeckRestaurants(roomId, participantId, sessionToken)
+      .then((response) => {
         if (!isMounted) return;
-        const validPool = eatingMode === 'dine_in' ? fetchedPool.filter(isDineInEligible) : fetchedPool;
-        setCachedPool(validPool);
-        const computedDeck = getDeckForRoom(category, city, district, validPool, eatingMode);
-        setDeck(computedDeck);
+        setDeck(response.restaurants);
+        setDeckId(response.deckId);
+        setDeckError(response.restaurants.length ? null : 'NO_ELIGIBLE_RESTAURANTS');
         setIsLoadingDeck(false);
       })
       .catch((err) => {
-        console.warn('Failed to fetch restaurants pool, falling back to staples', err);
+        console.error('Failed to fetch authoritative restaurant deck', err);
         if (!isMounted) return;
-        setDeck(getDeckForRoom(category, city, district, CITYWIDE_STAPLES, eatingMode));
+        setDeck([]);
+        setDeckError('DECK_UNAVAILABLE');
         setIsLoadingDeck(false);
       });
 
     return () => {
       isMounted = false;
     };
-  }, [stage, category, city, district, eatingMode]);
+  }, [stage, category, roomId, participantId, sessionToken]);
 
   // Load existing swipes and subscribe to realtime updates
   useEffect(() => {
@@ -186,25 +177,31 @@ export function useRestaurantSwiper({
       const myLikes = allSwipes.filter((s) => s.participantId === participantId && s.liked);
       const totalLikesWillBe = myLikes.length + (liked ? 1 : 0);
 
-      if (nextIndex >= deck.length && totalLikesWillBe === 0) {
-        // Auto-restack loop triggered!
-        setShowRoundTwoToast(true);
-        // Refresh local deck from catalog pool and reset index to 0
-        const freshDeck = getDeckForRoom(category, city, district, cachedPool, eatingMode);
-        setDeck(freshDeck);
-        setCurrentIndex(0);
-      } else {
-        setCurrentIndex(nextIndex);
-      }
-
       try {
         const recorded = await insertRestaurantSwipe(roomId, participantId, item.id, liked);
         setAllSwipes((prev) => [...prev.filter((s) => s.id !== recorded.id), recorded]);
+        if (nextIndex >= deck.length && totalLikesWillBe === 0 && deckId) {
+          setIsLoadingDeck(true);
+          const nextDeck = await fetchDeckRestaurants(roomId, participantId, sessionToken, deckId);
+          if (nextDeck.restaurants.length) {
+            setDeck(nextDeck.restaurants);
+            setDeckId(nextDeck.deckId);
+            setCurrentIndex(0);
+            setShowRoundTwoToast(true);
+          } else {
+            setCurrentIndex(nextIndex);
+          }
+          setIsLoadingDeck(false);
+        } else {
+          setCurrentIndex(nextIndex);
+        }
       } catch (err) {
         console.error('Failed to record swipe', err);
+        setDeckError('DECK_UNAVAILABLE');
+        setIsLoadingDeck(false);
       }
     },
-    [currentIndex, deck, allSwipes, participantId, category, city, district, cachedPool, eatingMode, roomId]
+    [currentIndex, deck, allSwipes, participantId, roomId, sessionToken, deckId]
   );
 
   return {
@@ -212,8 +209,9 @@ export function useRestaurantSwiper({
     currentItem: deck[currentIndex] || null,
     currentIndex,
     totalCards: deck.length,
-    isDeckFinished: currentIndex >= deck.length,
+    isDeckFinished: deck.length > 0 && currentIndex >= deck.length,
     isLoadingDeck,
+    deckError,
     recordSwipe,
     skipCard,
     allSwipes,
