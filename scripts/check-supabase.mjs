@@ -32,12 +32,12 @@ try {
   assert(logs.some(([label, detail]) => label === '[Supabase Network Failure]' && detail.hint.includes('SSL inspection')));
   assert([...store.keys()].every(key => !key.startsWith('wsh_mock_')));
   // The room insert succeeds, but host insertion fails: creation must still reject.
-  globalThis.fetch = async url => String(url).includes('/participants') ? network() : reply({id:'room-id',code:'ABCD'});
+  globalThis.fetch = async url => (String(url).includes('/participants') || String(url).includes('/rpc/get_room_participants')) ? network() : reply({id:'room-id',code:'ABCD'});
   await assert.rejects(() => api.createRoom(input), error => api.isSupabaseNetworkError(error));
   // Participant read and guest insert failures cannot be mistaken for missing rooms.
-  globalThis.fetch = async url => String(url).includes('/participants') ? network() : reply(room);
+  globalThis.fetch = async url => (String(url).includes('/participants') || String(url).includes('/rpc/get_room_participants')) ? network() : reply(room);
   await assert.rejects(() => api.getRoomByCode('ABCD'), error => api.isSupabaseNetworkError(error));
-  globalThis.fetch = async (url,init) => String(url).includes('/participants') ? (init?.method === 'POST' ? network() : reply([])) : reply(room);
+  globalThis.fetch = async (url,init) => (String(url).includes('/participants') || String(url).includes('/rpc/get_room_participants')) ? (init?.method === 'POST' ? network() : reply([])) : reply(room);
   await assert.rejects(() => api.joinRoom({code:'ABCD',nickname:'Guest'}), error => api.isSupabaseNetworkError(error));
   let calls = 0;
   globalThis.fetch = async () => ++calls === 1 ? reply(null) : network();
@@ -77,6 +77,7 @@ try {
   let participants = Array.from({length:10},(_,i)=>({id:'p'+i,session_token:'other-session-'+i}));
   let inserted = null;
   globalThis.fetch = async (url,init) => {
+    if (String(url).includes('/rpc/get_room_participants')) return reply(participants);
     if (String(url).includes('/participants')) {
       if (init?.method === 'POST') { inserted=JSON.parse(init.body)[0]; return reply(null); }
       return reply(participants);

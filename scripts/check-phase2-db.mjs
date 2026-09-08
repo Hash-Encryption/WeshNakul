@@ -80,6 +80,12 @@ try {
   assert.deepEqual(await query(`SELECT latitude,longitude FROM private.room_locations WHERE room_id='${roomId}'`), [{latitude:21.56,longitude:39.16}]); checks++;
   await db.exec('SET ROLE anon');
   await rejects('SELECT * FROM private.room_locations', '42501'); checks++;
+  await rejects('SELECT session_token FROM public.participants', '42501'); checks++;
+  assert.equal((await query(`SELECT nickname FROM public.participants WHERE room_id='${roomId}'`))[0].nickname, 'Host'); checks++;
+  const safeParticipants = (await query(`SELECT public.get_room_participants('${roomId}','wrong-token',NULL) participants`))[0].participants;
+  assert.equal(safeParticipants[0].session_token, ''); checks++;
+  const ownParticipants = (await query(`SELECT public.get_room_participants('${roomId}','${token}',NULL) participants`))[0].participants;
+  assert.equal(ownParticipants[0].session_token, token); checks++;
 
   const call = (after = 'NULL') => query(`SELECT public.get_or_create_restaurant_deck('${roomId}','${hostId}','${token}',${after}) AS deck`);
   const concurrent = await Promise.all(Array.from({length: 5}, () => call()));

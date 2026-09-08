@@ -134,11 +134,11 @@ export async function getRoomByCode(
     return { room: null, participants: [], isExpired: true };
   }
 
-  const { data: partData, error: partError } = await supabase
-    .from('participants')
-    .select('*')
-    .eq('room_id', room.id)
-    .order('joined_at', { ascending: true });
+  const { data: partData, error: partError } = await supabase.rpc('get_room_participants', {
+    p_room_id: room.id,
+    p_session_token: getOrCreateSessionToken(cleanCode),
+    p_legacy_session_token: getOrCreateSessionToken(),
+  });
 
   if (partError) throw partError;
 
