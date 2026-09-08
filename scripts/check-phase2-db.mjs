@@ -75,6 +75,7 @@ try {
   `);
 
   await db.exec(migration('20260909000100_private_restaurant_decks.sql'));
+  await db.exec(migration('20260909000200_private_participant_sessions.sql'));
 
   assert.equal((await query("SELECT count(*)::int n FROM information_schema.columns WHERE table_schema='public' AND table_name='rooms' AND column_name IN ('latitude','longitude')"))[0].n, 0); checks++;
   assert.deepEqual(await query(`SELECT latitude,longitude FROM private.room_locations WHERE room_id='${roomId}'`), [{latitude:21.56,longitude:39.16}]); checks++;
