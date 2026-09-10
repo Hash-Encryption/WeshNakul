@@ -19,10 +19,22 @@
     "subtitle": "Your name and area so we load the right spots",
     "nicknameLabel": "What do we call you?",
     "nicknamePlaceholder": "Your name or nickname",
+    "nicknameRequired": "Enter your name or nickname",
+    "useCurrentLocation": "Use My Current Location",
+    "locationSupport": "Find nearby branches and better matches",
+    "detectingLocation": "Finding your location…",
+    "locationDetected": "Location detected",
+    "locationDetectedHelper": "Using your location for better matches",
+    "chooseAreaInstead": "Choose an area instead",
+    "retryLocation": "Try location again",
+    "locationError": "Couldn’t get your location. Choose an area or try again.",
+    "manualDivider": "or choose an area",
     "cityLabel": "City",
     "cityPlaceholder": "Select City",
     "areaLabel": "District (Optional)",
-    "areaPlaceholder": "Select or type district",
+    "areaPlaceholder": "Select district",
+    "anyArea": "Any area in {{city}}",
+    "districtGpsHelper": "Optional — your current location is active",
     "canChangeLater": "Can be changed later",
     "submit": "Create Room"
   },
@@ -223,4 +235,3 @@
     "proceed": "Proceed to Restaurants 🚀"
   }
 }
-

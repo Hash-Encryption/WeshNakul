@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
+import {
+  Buildings,
+  CaretDown,
+  CheckCircle,
+  MapPin,
+  NavigationArrow,
+  Sparkle,
+  UserCircle,
+} from '@phosphor-icons/react';
 import type { EatingMode } from '../../types/database';
 import { SAUDI_CITIES } from '../../lib/cities';
+import { getHostCoordinates } from '../../lib/useGeolocation';
+import {
+  getRoomLocationInput,
+  initialRoomSetupLocation,
+  roomSetupLocationReducer,
+} from '../../lib/roomSetupLocation';
 import { useLocale } from '../../context/LocaleContext';
 import { Header } from '../common/Header';
 import { TactileButton } from '../common/TactileButton';
-import { SparkleRays } from '../common/DecorativeSparkles';
-import { getHostCoordinates, type Coordinates } from '../../lib/useGeolocation';
 
 interface RoomSetupScreenProps {
   eatingMode: EatingMode;
@@ -26,69 +39,62 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
   isLoading = false,
 }) => {
   const { locale, t } = useLocale();
-
   const [nickname, setNickname] = useState('');
-  const [selectedCityId, setSelectedCityId] = useState(SAUDI_CITIES[0].id);
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
-  const [isLocating, setIsLocating] = useState(false);
+  const [nicknameError, setNicknameError] = useState(false);
+  const [location, dispatchLocation] = useReducer(
+    roomSetupLocationReducer,
+    initialRoomSetupLocation,
+  );
+
+  const currentCity = SAUDI_CITIES.find((city) => city.id === location.cityId) || SAUDI_CITIES[0];
+  const cityName = locale === 'ar' ? currentCity.nameAr : currentCity.nameEn;
+  const gpsActive = location.status === 'success';
 
   const handleLocateMe = async () => {
-    setIsLocating(true);
+    dispatchLocation({ type: 'locate' });
     try {
-      const coords = await getHostCoordinates();
-      if (coords) {
-        setCoordinates(coords);
-      }
-    } catch (err) {
-      console.warn('Geolocation capture failed:', err);
-    } finally {
-      setIsLocating(false);
+      dispatchLocation({ type: 'located', coordinates: await getHostCoordinates() });
+    } catch {
+      dispatchLocation({ type: 'locationFailed' });
     }
   };
 
-  const currentCity = SAUDI_CITIES.find((c) => c.id === selectedCityId) || SAUDI_CITIES[0];
-  const cityName = locale === 'ar' ? currentCity.nameAr : currentCity.nameEn;
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     if (!nickname.trim()) {
-      setError(t('guest.nicknameLabel'));
+      setNicknameError(true);
       return;
     }
-    setError(null);
+
+    setNicknameError(false);
     await onCreateRoom({
       nickname: nickname.trim(),
-      city: cityName,
-      neighborhood: selectedDistrict.trim() || undefined,
-      latitude: coordinates?.lat,
-      longitude: coordinates?.lng,
+      city: currentCity.id,
+      ...getRoomLocationInput(location),
     });
   };
 
   return (
-    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-6">
-      <div>
-        {/* Header */}
-        <Header onBack={onBack} participantCount={1} showCount={true} />
+    <form
+      onSubmit={handleSubmit}
+      className="relative flex min-h-[100dvh] w-full flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+    >
+      <Header onBack={onBack} participantCount={1} showCount />
 
-        {/* Heading and Subtitle */}
-        <div className="text-center mt-3 mb-6 px-2">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-ink mb-1.5 font-alexandria tracking-tight">
+      <div className="mx-auto flex w-full max-w-sm flex-1 flex-col">
+        <div className="mb-4 mt-2 px-2 text-center">
+          <h2 className="mb-1.5 font-alexandria text-3xl font-extrabold tracking-tight text-brand-ink sm:text-4xl">
             {t('setup.heading')}
           </h2>
-          <p className="text-brand-gray text-xs sm:text-sm font-medium">
+          <p className="text-sm font-medium leading-5 text-brand-gray">
             {t('setup.subtitle')}
           </p>
         </div>
 
-        {/* Form Container */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 max-w-sm mx-auto">
-          {/* 1. Nickname Card */}
-          <div className="bg-white rounded-3xl p-4 border border-brand-border shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-brand-red text-base">👤</span>
+        <div className="flex flex-col gap-3">
+          <div className="rounded-2xl bg-white p-3.5 shadow-tactile-card">
+            <div className="mb-2 flex items-center gap-2">
+              <UserCircle aria-hidden size={22} weight="fill" className="shrink-0 text-brand-red" />
               <label htmlFor="nickname-input" className="text-sm font-bold text-brand-ink">
                 {t('setup.nicknameLabel')}
               </label>
@@ -97,101 +103,118 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
               id="nickname-input"
               type="text"
               value={nickname}
-              onChange={(e) => {
-                setNickname(e.target.value);
-                setError(null);
+              onChange={(event) => {
+                setNickname(event.target.value);
+                setNicknameError(false);
               }}
+              aria-invalid={nicknameError}
+              aria-describedby={nicknameError ? 'nickname-error' : undefined}
               placeholder={t('setup.nicknamePlaceholder')}
               maxLength={25}
-              className="w-full py-3 px-4 rounded-2xl border border-brand-border/80 bg-brand-cream/40 focus:bg-white focus:border-brand-red focus:outline-none text-base font-semibold text-brand-ink placeholder:text-brand-gray/50 transition-all"
+              autoComplete="nickname"
+              className="min-h-12 w-full rounded-xl bg-brand-cream/50 px-4 py-3 text-base font-semibold text-brand-ink outline-none ring-1 ring-inset ring-brand-border transition focus:bg-white focus:ring-2 focus:ring-brand-red placeholder:text-brand-gray"
             />
-            {error && (
-              <p className="text-xs text-brand-red font-semibold mt-1.5 px-1">
-                {error}
+            {nicknameError && (
+              <p id="nickname-error" role="alert" className="mt-2 px-1 text-xs font-semibold text-brand-red">
+                {t('setup.nicknameRequired')}
               </p>
             )}
           </div>
 
-          {/* Location Quick Capture */}
-          <div>
-            {!coordinates ? (
+          {gpsActive ? (
+            <div className="rounded-2xl bg-emerald-50 p-3.5 shadow-tactile-card ring-1 ring-inset ring-emerald-300">
+              <div className="flex items-start gap-3">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                  <MapPin aria-hidden size={25} weight="fill" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 font-alexandria text-base font-extrabold text-emerald-950">
+                    <span>{t('setup.locationDetected')}</span>
+                    <CheckCircle aria-hidden size={20} weight="fill" />
+                  </div>
+                  <p className="mt-0.5 text-xs font-medium leading-5 text-emerald-800">
+                    {t('setup.locationDetectedHelper')}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => dispatchLocation({ type: 'clearLocation' })}
+                    className="mt-2 min-h-11 rounded-xl px-3 text-xs font-bold text-brand-red underline decoration-brand-red/30 underline-offset-4 transition hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
+                  >
+                    {t('setup.chooseAreaInstead')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
               <button
                 type="button"
                 onClick={handleLocateMe}
-                disabled={isLocating}
-                aria-label={locale === 'ar' ? 'تحديد موقعي الحالي' : 'Use My Current Location'}
-                className="w-full min-h-[46px] py-2.5 px-4 rounded-2xl bg-white border border-brand-border/90 hover:border-brand-red/40 hover:bg-brand-redSoft/30 text-brand-ink font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
+                disabled={location.status === 'locating'}
+                aria-describedby={location.status === 'error' ? 'location-error' : 'location-helper'}
+                className="flex min-h-[72px] w-full items-center gap-3 rounded-2xl bg-brand-redSoft/70 p-3.5 text-start shadow-tactile-card ring-1 ring-inset ring-brand-red/30 transition hover:bg-brand-redSoft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red active:scale-[0.99] disabled:cursor-wait disabled:opacity-70"
               >
-                {isLocating ? (
-                  <>
-                    <span className="w-4 h-4 border-2 border-brand-red border-t-transparent rounded-full animate-spin" />
-                    <span className="text-xs text-brand-gray font-medium">
-                      {locale === 'ar' ? 'جاري تحديد الموقع...' : 'Detecting location...'}
-                    </span>
-                  </>
-                ) : (
-                  <span className="flex items-center gap-1.5 text-xs sm:text-sm text-brand-ink font-bold">
-                    {locale === 'ar' ? '📍 تحديد موقعي الحالي' : '📍 Use My Current Location'}
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-red text-white shadow-sm">
+                  {location.status === 'locating' ? (
+                    <span aria-hidden className="size-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  ) : (
+                    <NavigationArrow aria-hidden size={24} weight="fill" />
+                  )}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-alexandria text-base font-extrabold text-brand-ink">
+                    {location.status === 'locating'
+                      ? t('setup.detectingLocation')
+                      : location.status === 'error'
+                        ? t('setup.retryLocation')
+                        : t('setup.useCurrentLocation')}
                   </span>
-                )}
-              </button>
-            ) : (
-              <div className="w-full min-h-[46px] py-2 px-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-between shadow-xs">
-                <span className="flex items-center gap-2">
-                  <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-black">
-                    ✓
-                  </span>
-                  <span className="text-emerald-900 font-bold">
-                    {locale === 'ar' ? '✓ تم تحديد الموقع' : '✓ Location captured'}
+                  <span id="location-helper" className="mt-0.5 block text-xs font-medium leading-5 text-brand-gray">
+                    {t('setup.locationSupport')}
                   </span>
                 </span>
-                <button
-                  type="button"
-                  onClick={() => setCoordinates(null)}
-                  className="text-[11px] text-emerald-700/80 hover:text-emerald-950 underline px-1 py-0.5 cursor-pointer font-semibold"
-                >
-                  {locale === 'ar' ? 'إلغاء' : 'Clear'}
-                </button>
-              </div>
-            )}
+              </button>
+              {location.status === 'error' && (
+                <p id="location-error" role="alert" className="mt-2 px-2 text-xs font-semibold leading-5 text-brand-red">
+                  {t('setup.locationError')}
+                </p>
+              )}
+            </div>
+          )}
+
+          <div className="flex items-center gap-3 px-1 text-xs font-bold text-brand-gray" aria-hidden>
+            <span className="h-px flex-1 bg-brand-border" />
+            <span>{t('setup.manualDivider')}</span>
+            <span className="h-px flex-1 bg-brand-border" />
           </div>
 
-          {/* 2. City Card */}
-          <div className="bg-white rounded-3xl p-4 border border-brand-border shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-brand-red text-base">📍</span>
+          <div className="rounded-2xl bg-white px-4 py-2.5 shadow-tactile-card">
+            <div className="flex min-h-11 items-center gap-3">
+              <MapPin aria-hidden size={22} weight="fill" className="shrink-0 text-brand-red" />
               <label htmlFor="city-select" className="text-sm font-bold text-brand-ink">
                 {t('setup.cityLabel')}
               </label>
-            </div>
-            <div className="relative">
-              <select
-                id="city-select"
-                value={selectedCityId}
-                onChange={(e) => {
-                  setSelectedCityId(e.target.value);
-                  setSelectedDistrict('');
-                }}
-                className="w-full py-3 px-4 rounded-2xl border border-brand-border/80 bg-brand-cream/40 focus:bg-white focus:border-brand-red focus:outline-none text-base font-semibold text-brand-ink appearance-none cursor-pointer transition-all"
-              >
-                {SAUDI_CITIES.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {locale === 'ar' ? c.nameAr : c.nameEn}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 end-4 flex items-center pointer-events-none text-brand-ink">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
+              <div className="relative ms-auto min-w-0">
+                <select
+                  id="city-select"
+                  value={location.cityId}
+                  onChange={(event) => dispatchLocation({ type: 'selectCity', cityId: event.target.value })}
+                  className="min-h-11 w-full appearance-none rounded-xl bg-transparent py-2 pe-8 ps-3 text-end text-sm font-extrabold text-brand-ink outline-none transition focus-visible:ring-2 focus-visible:ring-brand-red"
+                >
+                  {SAUDI_CITIES.map((city) => (
+                    <option key={city.id} value={city.id}>
+                      {locale === 'ar' ? city.nameAr : city.nameEn}
+                    </option>
+                  ))}
+                </select>
+                <CaretDown aria-hidden size={16} weight="bold" className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 text-brand-ink" />
               </div>
             </div>
           </div>
 
-          {/* 3. District Card */}
-          <div className="bg-white rounded-3xl p-4 border border-brand-border shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-brand-red text-base">🏢</span>
+          <div className={`rounded-2xl p-3.5 shadow-tactile-card transition-colors ${gpsActive ? 'bg-stone-50' : 'bg-white'}`}>
+            <div className="mb-2 flex items-center gap-2">
+              <Buildings aria-hidden size={22} weight="fill" className={gpsActive ? 'text-brand-gray' : 'text-brand-red'} />
               <label htmlFor="district-select" className="text-sm font-bold text-brand-ink">
                 {t('setup.areaLabel')}
               </label>
@@ -199,52 +222,45 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
             <div className="relative">
               <select
                 id="district-select"
-                value={selectedDistrict}
-                onChange={(e) => setSelectedDistrict(e.target.value)}
-                className="w-full py-3 px-4 rounded-2xl border border-brand-border/80 bg-brand-cream/40 focus:bg-white focus:border-brand-red focus:outline-none text-base font-semibold text-brand-ink appearance-none cursor-pointer transition-all"
+                value={location.district}
+                onChange={(event) => dispatchLocation({ type: 'selectDistrict', district: event.target.value })}
+                className="min-h-12 w-full appearance-none rounded-xl bg-brand-cream/50 px-4 py-3 pe-11 text-base font-semibold text-brand-ink outline-none ring-1 ring-inset ring-brand-border transition focus:bg-white focus:ring-2 focus:ring-brand-red"
               >
-                <option value="">{t('setup.areaPlaceholder')}</option>
-                {currentCity.districts.map((d, i) => {
-                  const dName = locale === 'ar' ? d.nameAr : d.nameEn;
-                  return (
-                    <option key={i} value={dName}>
-                      {dName}
-                    </option>
-                  );
-                })}
+                <option value="">{t('setup.anyArea', { city: cityName })}</option>
+                {currentCity.districts.map((district) => (
+                  <option key={district.nameEn} value={district.nameEn}>
+                    {locale === 'ar' ? district.nameAr : district.nameEn}
+                  </option>
+                ))}
               </select>
-              <div className="absolute inset-y-0 end-4 flex items-center pointer-events-none text-brand-ink">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
+              <CaretDown aria-hidden size={18} weight="bold" className="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 text-brand-ink" />
             </div>
+            {gpsActive && (
+              <p className="mt-2 text-xs font-medium leading-5 text-brand-gray">
+                {t('setup.districtGpsHelper')}
+              </p>
+            )}
           </div>
 
-          {/* Helper Pill */}
-          <div className="flex items-center justify-center gap-1.5 py-2 px-4 rounded-full bg-brand-yellow/15 border border-brand-yellow/30 text-xs font-bold text-brand-ink/80 text-center">
-            <span>✨</span>
+          <div className="flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-yellow/15 px-4 py-2 text-center text-xs font-bold text-brand-ink/80 ring-1 ring-inset ring-brand-yellow/40">
+            <Sparkle aria-hidden size={17} weight="fill" className="text-brand-yellowPressed" />
             <span>{t('setup.canChangeLater')}</span>
           </div>
-        </form>
-      </div>
+        </div>
 
-      {/* Bottom Sticky Action */}
-      <div className="relative max-w-sm w-full mx-auto mt-6 pt-2">
-        <SparkleRays className="absolute top-0 start-1 transform rotate-45 scale-75" color="#FFD75A" />
-        <SparkleRays className="absolute bottom-2 end-1 transform -rotate-45 scale-75" color="#FFD75A" />
-
-        <TactileButton
-          onClick={handleSubmit}
-          variant="primary"
-          fullWidth
-          size="lg"
-          isLoading={isLoading}
-          disabled={!nickname.trim()}
-        >
-          {t('setup.submit')}
-        </TactileButton>
+        <div className="mt-auto pt-3">
+          <TactileButton
+            type="submit"
+            variant="primary"
+            fullWidth
+            size="lg"
+            isLoading={isLoading}
+            disabled={!nickname.trim()}
+          >
+            {t('setup.submit')}
+          </TactileButton>
+        </div>
       </div>
-    </div>
+    </form>
   );
 };

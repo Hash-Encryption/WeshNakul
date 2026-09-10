@@ -19,10 +19,22 @@
     "subtitle": "اسمك وموقعكم عشان نجهز المطاعم",
     "nicknameLabel": "وش نناديك؟",
     "nicknamePlaceholder": "اسمك أو لقبك",
+    "nicknameRequired": "اكتب اسمك أو لقبك",
+    "useCurrentLocation": "استخدم موقعي الحالي",
+    "locationSupport": "نجيب لك أقرب الفروع والخيارات الأنسب",
+    "detectingLocation": "جارٍ تحديد موقعك…",
+    "locationDetected": "تم تحديد موقعك",
+    "locationDetectedHelper": "بنستخدم موقعك لاقتراحات أقرب",
+    "chooseAreaInstead": "اختر حيًا بدل ذلك",
+    "retryLocation": "حاول تحديد الموقع مرة أخرى",
+    "locationError": "تعذر تحديد موقعك. اختر منطقة أو حاول مرة أخرى.",
+    "manualDivider": "أو اختر المنطقة",
     "cityLabel": "المدينة",
     "cityPlaceholder": "اختر المدينة",
     "areaLabel": "الحي (اختياري)",
-    "areaPlaceholder": "اختر أو اكتب الحي",
+    "areaPlaceholder": "اختر الحي",
+    "anyArea": "أي مكان في {{city}}",
+    "districtGpsHelper": "اختياري — موقعك الحالي مفعّل",
     "canChangeLater": "يمكن تغييره لاحقًا",
     "submit": "إنشاء القروب"
   },
@@ -223,4 +235,3 @@
     "proceed": "انتقل لاختيار المطاعم 🚀"
   }
 }
-

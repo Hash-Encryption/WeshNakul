@@ -3,10 +3,10 @@
   lng: number;
 }
 
-export function getHostCoordinates(): Promise<Coordinates | null> {
-  return new Promise((resolve) => {
+export function getHostCoordinates(): Promise<Coordinates> {
+  return new Promise((resolve, reject) => {
     if (typeof navigator === 'undefined' || !navigator.geolocation) {
-      resolve(null);
+      reject(new Error('geolocation_unsupported'));
       return;
     }
 
@@ -18,8 +18,12 @@ export function getHostCoordinates(): Promise<Coordinates | null> {
         });
       },
       (error) => {
-        console.warn("Location permission denied or unavailable:", error.message);
-        resolve(null);
+        const reason = error.code === 1
+          ? 'geolocation_permission_denied'
+          : error.code === 3
+            ? 'geolocation_timeout'
+            : 'geolocation_unavailable';
+        reject(new Error(reason));
       },
       { enableHighAccuracy: true, timeout: 6000, maximumAge: 60000 }
     );

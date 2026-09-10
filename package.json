@@ -9,7 +9,7 @@
     "lint": "oxlint",
     "test:supabase": "node scripts/check-supabase.mjs",
     "preview": "vite preview",
-    "test": "node scripts/check-restaurants.mjs && node scripts/check-supabase.mjs",
+    "test": "node scripts/check-restaurants.mjs && node scripts/check-supabase.mjs && node scripts/check-room-setup.mjs",
     "test:db": "node scripts/check-restaurant-db.mjs && node scripts/check-phase2-db.mjs",
     "test:browser": "node scripts/check-browser.mjs"
   },
