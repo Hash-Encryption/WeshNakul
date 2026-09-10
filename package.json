@@ -10,7 +10,7 @@
     "test:supabase": "node scripts/check-supabase.mjs",
     "preview": "vite preview",
     "test": "node scripts/check-restaurants.mjs && node scripts/check-supabase.mjs && node scripts/check-room-setup.mjs && node scripts/check-geography.mjs",
-    "test:db": "node scripts/check-restaurant-db.mjs && node scripts/check-phase2-db.mjs",
+    "test:db": "node scripts/check-restaurant-db.mjs && node scripts/check-phase2-db.mjs && node scripts/check-burger-db.mjs",
     "test:browser": "node scripts/check-browser.mjs"
   },
   "dependencies": {

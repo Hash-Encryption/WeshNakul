@@ -18,7 +18,7 @@ export interface LegacyRestaurantRow {
   time_slots: TimeSlot[]; closing_time_ar: string; is_open_late: boolean; is_24_hours: boolean;
   avg_prep_minutes: number; tier: TierType; price_tier: PriceTier;
   signature_dish_ar: string; signature_dish_en: string; vibe_tags_ar: string[]; vibe_tags_en: string[];
-  rating: number | string; platforms: RestaurantPlatforms; links: RestaurantLinks; created_at: string;
+  rating: number | string | null; platforms: RestaurantPlatforms; links: RestaurantLinks; created_at: string;
 }
 export interface RestaurantBrandRow extends LegacyRestaurantRow, Timestamps {
   city: string | null; primary_category: string | null; secondary_categories: string[]; subcategories: string[];
@@ -46,6 +46,7 @@ export interface RestaurantBranchRow extends Timestamps {
   latitude: number | null; longitude: number | null; maps_business_name: string | null; google_place_id: string | null;
   maps_lookup_status: 'verified' | 'ambiguous' | 'not_found' | 'secondary_only' | 'unknown';
   google_maps_url: string | null; google_rating: number | null; google_review_count: number | null; rating_source: RatingSource;
+  google_price_level: string | null; google_price_range_display: string | null;
   opening_hours: { weekday_text?: string[]; periods?: { open: { day: number; time: string }; close?: { day: number; time: string } }[] } | null;
   hours_last_verified_at: string | null; maps_last_verified_at: string | null; place_last_synced_at: string | null;
   is_24_hours: boolean | null; late_night: boolean | null; dine_in: boolean | null; takeaway: boolean | null;
