@@ -1,0 +1,1749 @@
+[
+  {
+    "brand_name": "Section-B",
+    "branch_name": "S Square",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJXYv7rVPawxURq9tp8iVXvQU",
+      "google_maps_url": "https://maps.google.com/?cid=413582561280383915&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "google_business_name": "Section B",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "3362 Hira St, Ash Shati, 7750, Jeddah 23514, Saudi Arabia",
+      "district_normalized": "al_shati",
+      "latitude": 21.6060577,
+      "longitude": 39.1188028,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.3,
+      "review_count": 13778,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Physically distinct flagship location at S Square on Hira Street in Ash Shati."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=413582561280383915&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Section B",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Section-B",
+    "branch_name": "Tahlia",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJIf4HeczFwxUR7--yVh3sdTQ",
+      "google_maps_url": "https://maps.google.com/?cid=3780187073000173551&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Section-B",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Fayfa Avenue, طريق الامير سلطان، الروضة، جدة 23431, Saudi Arabia",
+      "district_normalized": "al_rawdah",
+      "latitude": 21.5498501,
+      "longitude": 39.1435337,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 6171,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Physically distinct branch located at Fayfa Avenue on Prince Sultan Rd / Tahlia corridor, 6.4km south of S Square."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=3780187073000173551&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Section-B",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Section-B",
+    "branch_name": "Hiraa",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJYRlUaADbwxURxSYPglOTQqw",
+      "google_maps_url": "https://maps.google.com/?cid=12412645509860107973&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Section B",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Hira St, Ash Shati, Jeddah 23513, Saudi Arabia",
+      "district_normalized": "al_shati",
+      "latitude": 21.604826499999998,
+      "longitude": 39.1162703,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.7,
+      "review_count": 2043,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Original Hiraa / Behind Hilton location in Ash Shati, distinct from S Square."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=12412645509860107973&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Section B",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Section-B",
+    "branch_name": "Obhur",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJcSxas8PZwxURGFMKn_l_xSM",
+      "google_maps_url": "https://maps.google.com/?cid=2577607071831315224&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Section-B",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Prince Abdullah AlFiasal St, Obhur Al-Shamaliyah, Jeddah 23811, Saudi Arabia",
+      "district_normalized": "abhur_al_janoubiyah",
+      "latitude": 21.717133999999998,
+      "longitude": 39.0829822,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.4,
+      "review_count": 1486,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Obhur branch on Prince Abdullah Al Faisal St in Abhur Al Janoubiyah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=2577607071831315224&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Section-B",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Section-B",
+    "branch_name": "Al Faisaliyyah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJe8h28QDRwxURjt3oMZeDt6w",
+      "google_maps_url": "https://maps.google.com/?cid=12445560780662300046&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Section-B - BOH | سكشن-بي - بي أو أيتش",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Street, Al Sourouri, Al Faisaliyyah, Jeddah 23447, Saudi Arabia",
+      "district_normalized": "al_faisaliyyah",
+      "latitude": 21.5811982,
+      "longitude": 39.192406299999995,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 3.9,
+      "review_count": 434,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "BOH pickup/delivery kitchen in Al Faisaliyyah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=12445560780662300046&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Section-B - BOH | سكشن-بي - بي أو أيتش",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Section-B",
+    "branch_name": "Al Murjan",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJBYiGaiTZwxURV7u8ZZ838Jg",
+      "google_maps_url": "https://maps.google.com/?cid=11020369445921798999&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Section-B - BOH |",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Al Murjan, Jeddah 23714, Saudi Arabia",
+      "district_normalized": "al_murjan",
+      "latitude": 21.6924144,
+      "longitude": 39.1055389,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 3.8,
+      "review_count": 281,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "manual_review",
+      "reason": "Candidate listed in older directory, verified physical listing on Google Places."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=11020369445921798999&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Section-B - BOH |",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "The California Burger",
+    "branch_name": "Khalidiyyah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJb-U82bDawxURLQMsTI8xk1U",
+      "google_maps_url": "https://maps.google.com/?cid=6166326806328378157&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "The California Burger",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "شارع الامير سعود الفيصل، حي الخالدية مجمع المطاعم امام، بوبا للتامين، Al Khalidiyyah, Jeddah 23421, Saudi Arabia",
+      "district_normalized": "al_khalidiyyah",
+      "latitude": 21.5587573,
+      "longitude": 39.139679799999996,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.7,
+      "review_count": 9259,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Confirmed physical branch on Prince Saud Al Faisal St."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=6166326806328378157&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for The California Burger",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "The California Burger",
+    "branch_name": "Muhammadiyyah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJaRQT16TZwxURsne__gycq6M",
+      "google_maps_url": "https://maps.google.com/?cid=11793691628827277234&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "The California Burger",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Prince Sultan Branch Road, حي, طريق الامير سلطان، المحمدية، جدة 23625, Saudi Arabia",
+      "district_normalized": "al_mohammadiyyah",
+      "latitude": 21.6669148,
+      "longitude": 39.1219788,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 8482,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Confirmed physical branch on Prince Sultan Branch Rd."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=11793691628827277234&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for The California Burger",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "The California Burger",
+    "branch_name": "Al Marwah / Hira Street",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJV4JrDtfWwxURcb-1hYI-7-Q",
+      "google_maps_url": "https://maps.google.com/?cid=16496472690391367537&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "google_business_name": "The California Burger",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "شارع حراء ،، امام ماندرين افينيو، Hira St, Al Marwah, Jeddah 23544, Saudi Arabia",
+      "district_normalized": "al_marwah",
+      "latitude": 21.622451599999998,
+      "longitude": 39.1991904,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 4057,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Confirmed physical branch opposite Mandarin Avenue in Al Marwah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=16496472690391367537&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for The California Burger",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Century Burger",
+    "branch_name": "Muhammadiyyah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJK3j3HNvZwxURw2BfjRFcnDo",
+      "google_maps_url": "https://maps.google.com/?cid=4223351781022720195&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Century Burger | سنشري برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "8099 Prince Sultan Rd, فرعي، Jeddah 23623, Saudi Arabia",
+      "district_normalized": "al_mohammadiyyah",
+      "latitude": 21.6414789,
+      "longitude": 39.130245099999996,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.3,
+      "review_count": 6554,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Official storefront on Prince Sultan Branch Rd."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=4223351781022720195&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Century Burger | سنشري برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Century Burger",
+    "branch_name": "Rawdah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJL9fpbrLawxURkzvsBWdEPV4",
+      "google_maps_url": "https://maps.google.com/?cid=6790659022416264083&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Century Burger | سنشري برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Prince Sultan Rd, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+      "district_normalized": "al_rawdah",
+      "latitude": 21.55499,
+      "longitude": 39.1432296,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.5,
+      "review_count": 20072,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Flagship branch in Al Rawdah on Prince Sultan Rd."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=6790659022416264083&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Century Burger | سنشري برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Century Burger",
+    "branch_name": "Red Sea Mall",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJ97vtaM3bwxUR3mbHQZ9pzTA",
+      "google_maps_url": "https://maps.google.com/?cid=3516583016770528990&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Century Burger | سنشري برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "King Abdul Aziz Rd, Ash Shati, Jeddah 23612, Saudi Arabia",
+      "district_normalized": "al_shati",
+      "latitude": 21.6278698,
+      "longitude": 39.1112101,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.1,
+      "review_count": 694,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Restaurant-specific food court unit in Red Sea Mall."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=3516583016770528990&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Century Burger | سنشري برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Century Burger",
+    "branch_name": "Obhur Plaza",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJ1WB-XoRjwRURlMetn79Bz8Q",
+      "google_maps_url": "https://maps.google.com/?cid=14181626042886506388&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Century Burger | سنشري برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+      "district_normalized": "abhur_al_shamaliyah",
+      "latitude": 21.762760500000002,
+      "longitude": 39.1142786,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.1,
+      "review_count": 686,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Storefront at Obhur Plaza on Aabir Al Qarath St in North Obhur."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=14181626042886506388&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Century Burger | سنشري برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Century Burger",
+    "branch_name": "King Abdulaziz International Airport",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJXw7KLmbXwxURRPeNM_tNTsU",
+      "google_maps_url": "https://maps.google.com/?cid=14217386814952306500&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Century Burger | سنشري برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Prince Majid Rd, King Abdulaziz International Airport, Jeddah 23635, Saudi Arabia",
+      "district_normalized": null,
+      "latitude": 21.6620427,
+      "longitude": 39.1733833,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4,
+      "review_count": 490,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Restaurant-specific branch inside King Abdulaziz International Airport terminal; district null outside municipal catalog."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=14217386814952306500&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Century Burger | سنشري برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 9,
+      "total_fields": 10,
+      "percentage": 90
+    },
+    "remaining_mandatory_gaps": [
+      "district_normalized"
+    ]
+  },
+  {
+    "brand_name": "Century Burger",
+    "branch_name": "Jeddah Park",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJTYhSq_LRwxURKXuDXjsVkc4",
+      "google_maps_url": "https://maps.google.com/?cid=14884701588169128745&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Century Burger",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Aziziyah, Jeddah 23334, Saudi Arabia",
+      "district_normalized": null,
+      "latitude": 21.557722899999998,
+      "longitude": 39.1850956,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 5907,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Restaurant-specific unit in Jeddah Park complex; district null outside municipal catalog."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=14884701588169128745&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Century Burger",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 9,
+      "total_fields": 10,
+      "percentage": 90
+    },
+    "remaining_mandatory_gaps": [
+      "district_normalized"
+    ]
+  },
+  {
+    "brand_name": "Century Burger",
+    "branch_name": "Al Fayha",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJMRcGBwDPwxUR_EBJHsXuiJg",
+      "google_maps_url": "https://maps.google.com/?cid=10991297420981780732&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Century Burger | سنشري برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "JAFB4374، 4374 JAFA4354، 4354, 6782 عبدالله سليمان الفرعي, حي الفيحاء, جدة 22246, Saudi Arabia",
+      "district_normalized": "al_faiha",
+      "latitude": 21.489196699999997,
+      "longitude": 39.225325,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.5,
+      "review_count": 2795,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "South Jeddah branch on Abdullah Suleiman Branch St in Al Fayha."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=10991297420981780732&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Century Burger | سنشري برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Chef's Homemade Burger Gourmet",
+    "branch_name": "Sari Road",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJAaO4eTTbwxURzAzORGCvlIo",
+      "google_maps_url": "https://maps.google.com/?cid=9985799101793307852&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Chef's Burger",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Sari Br Rd, ST، Jeddah 23424, Saudi Arabia",
+      "district_normalized": "al_zahra",
+      "latitude": 21.5731048,
+      "longitude": 39.137084099999996,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 9926,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Storefront on Sari Road in Al Zahra corridor."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=9985799101793307852&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Chef's Burger",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Chef's Homemade Burger Gourmet",
+    "branch_name": "Prince Sultan Road",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJnz7V_3bZwxURGti6VJjD8uA",
+      "google_maps_url": "https://maps.google.com/?cid=16209233067883812890&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "شيفز برجر | Chef's Burger",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23623, Saudi Arabia",
+      "district_normalized": "al_mohammadiyyah",
+      "latitude": 21.646264,
+      "longitude": 39.128461,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.3,
+      "review_count": 11644,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Storefront on Prince Sultan Road in Al Muhammadiyyah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=16209233067883812890&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for شيفز برجر | Chef's Burger",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Chef's Homemade Burger Gourmet",
+    "branch_name": "Al Ruwais",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJo1uDjmrPwxURbkRN9JTjs4U",
+      "google_maps_url": "https://maps.google.com/?cid=9634294256768992366&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Chef's Burger",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "King Abdullah Branch Rd, Al-Ruwais, Jeddah 23214, Saudi Arabia",
+      "district_normalized": "al_ruwais",
+      "latitude": 21.5109116,
+      "longitude": 39.181598900000004,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.5,
+      "review_count": 5496,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Storefront on King Abdullah Rd in Al Ruwais."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=9634294256768992366&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Chef's Burger",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Obhur",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJX5D-EwBjwRURQt-yfrn_xtQ",
+      "google_maps_url": "https://maps.google.com/?cid=15332223153589116738&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Sign",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+      "district_normalized": "abhur_al_shamaliyah",
+      "latitude": 21.7553408,
+      "longitude": 39.1210114,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.7,
+      "review_count": 2806,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "North Obhur branch on Aber Al Qarat St."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=15332223153589116738&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Sign",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Al Thaghr / Abdullah Suleiman",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJXXQ5GQDNwxURjJlLXQDlKoE",
+      "google_maps_url": "https://maps.google.com/?cid=9307503369642547596&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Sign",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "5229 Abdullah Sulayman St, Ath Thaghr District، Jeddah 22338, Saudi Arabia",
+      "district_normalized": "al_thaghr",
+      "latitude": 21.482924099999998,
+      "longitude": 39.2387763,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.7,
+      "review_count": 3550,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Al Thaghr branch on Abdullah Sulayman St near KAU."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=9307503369642547596&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Sign",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Al Zahra",
+    "google_identity": {
+      "status": "secondary_only",
+      "google_place_id": null,
+      "google_maps_url": null,
+      "google_business_name": null,
+      "identity_confidence": "unknown"
+    },
+    "location": {
+      "formatted_address": "Ahmed Al Attas, Al Zahra, Jeddah",
+      "district_normalized": "al_zahra",
+      "latitude": null,
+      "longitude": null,
+      "coordinate_source": "unknown",
+      "coordinate_confidence": "unknown"
+    },
+    "google_reputation": {
+      "rating": null,
+      "review_count": null,
+      "source": "unknown",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "unknown",
+      "source": "official",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Official locator branch on Ahmed Al Attas in Al Zahra; unverified on Google Places."
+    },
+    "evidence": {
+      "primary_source_url": null,
+      "secondary_source_urls": [],
+      "match_reason": "Storefront absent from Google Places search; preserved from official first-party locator.",
+      "conflicts": [
+        "Branch listed on official restaurant locator but has no distinct Google Places storefront in al_zahra."
+      ]
+    },
+    "mandatory_completion": {
+      "completed_fields": 3,
+      "total_fields": 10,
+      "percentage": 30
+    },
+    "remaining_mandatory_gaps": [
+      "google_place_id",
+      "google_maps_url",
+      "latitude",
+      "longitude",
+      "google_rating",
+      "google_review_count",
+      "exact_google_identity_verified"
+    ]
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Corniche",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJWRksoQ7bwxURKWwHjz8iutQ",
+      "google_maps_url": "https://maps.google.com/?cid=15328601938086816809&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Sign",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Al Kurnaysh Br Rd, Ash Shati, Jeddah 23510, Saudi Arabia",
+      "district_normalized": "al_shati",
+      "latitude": 21.5928661,
+      "longitude": 39.1058653,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.3,
+      "review_count": 289,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Jeddah Corniche branch in Ash Shati."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=15328601938086816809&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Sign",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Al Balad",
+    "google_identity": {
+      "status": "secondary_only",
+      "google_place_id": null,
+      "google_maps_url": null,
+      "google_business_name": null,
+      "identity_confidence": "unknown"
+    },
+    "location": {
+      "formatted_address": "Bab Jadeed, Al Balad, Jeddah",
+      "district_normalized": "al_balad",
+      "latitude": null,
+      "longitude": null,
+      "coordinate_source": "unknown",
+      "coordinate_confidence": "unknown"
+    },
+    "google_reputation": {
+      "rating": null,
+      "review_count": null,
+      "source": "unknown",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "unknown",
+      "source": "official",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Official locator branch in historic Bab Jadeed, Al Balad; unverified on Google Places."
+    },
+    "evidence": {
+      "primary_source_url": null,
+      "secondary_source_urls": [],
+      "match_reason": "Storefront absent from Google Places search; preserved from official first-party locator.",
+      "conflicts": [
+        "Branch listed on official restaurant locator but has no distinct Google Places storefront in al_balad."
+      ]
+    },
+    "mandatory_completion": {
+      "completed_fields": 3,
+      "total_fields": 10,
+      "percentage": 30
+    },
+    "remaining_mandatory_gaps": [
+      "google_place_id",
+      "google_maps_url",
+      "latitude",
+      "longitude",
+      "google_rating",
+      "google_review_count",
+      "exact_google_identity_verified"
+    ]
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Al Hamdaniyah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJeWOe2kx9wRUR6mhEV5ZRBls",
+      "google_maps_url": "https://maps.google.com/?cid=6559019613462751466&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Sign",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Q54W+QQ5, Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+      "district_normalized": "al_hamdaniyah",
+      "latitude": 21.7580092,
+      "longitude": 39.1972303,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.8,
+      "review_count": 5717,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "North-east Jeddah branch in Al Hamdaniyah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=6559019613462751466&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Sign",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Al Bawadi",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJMcIDdTXRwxUR13YaNc6VY7I",
+      "google_maps_url": "https://maps.google.com/?cid=12854282474332255959&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Sign",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "J559+3H8, King Fahad Rd, Al Bawadi, Jeddah 23531, Saudi Arabia",
+      "district_normalized": "al_bawadi",
+      "latitude": 21.607802799999998,
+      "longitude": 39.1689496,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 17269,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Branch on King Fahd Rd in Al Bawadi."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=12854282474332255959&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Sign",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Sign Burger",
+    "branch_name": "Al Muhammadiyyah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJA-s4bTXZwxUR-oILNZt2NPc",
+      "google_maps_url": "https://maps.google.com/?cid=17812992835139109626&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Sign",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Near Royal Pavillion Traffic Light North, Prince Sultan Branch Rd, Al Mohammadiyyah, Jeddah 23624, Saudi Arabia",
+      "district_normalized": "al_mohammadiyyah",
+      "latitude": 21.658871599999998,
+      "longitude": 39.1235101,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 15232,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Branch on Prince Sultan Branch Rd in Al Muhammadiyyah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=17812992835139109626&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Sign",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Nora Burger",
+    "branch_name": "Rawdah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJzUvkcADbwxURdhzQI192mCs",
+      "google_maps_url": "https://maps.google.com/?cid=3141390891085732982&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Nora Smash Burger - نورا سماش برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Imam Malik, Ar Rawdah, Jeddah 23436, Saudi Arabia",
+      "district_normalized": "al_rawdah",
+      "latitude": 21.572762400000002,
+      "longitude": 39.154182999999996,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.1,
+      "review_count": 2174,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Rawdah branch on Imam Malik St."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=3141390891085732982&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Nora Smash Burger - نورا سماش برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Nora Burger",
+    "branch_name": "Abhur",
+    "google_identity": {
+      "status": "secondary_only",
+      "google_place_id": null,
+      "google_maps_url": "https://maps.app.goo.gl/kRAnnGDQM2RnyjGK8",
+      "google_business_name": null,
+      "identity_confidence": "low"
+    },
+    "location": {
+      "formatted_address": "King Abdulaziz Branch Rd, Abhur Al Janoubiyah, Jeddah",
+      "district_normalized": "abhur_al_janoubiyah",
+      "latitude": null,
+      "longitude": null,
+      "coordinate_source": "official_branch_link",
+      "coordinate_confidence": "unknown"
+    },
+    "google_reputation": {
+      "rating": null,
+      "review_count": null,
+      "source": "unknown",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "open",
+      "source": "official",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Official branch link points toward King Abdulaziz Branch Rd, but pin redirects to Al Mohammadiyyah rather than a distinct Abhur storefront."
+    },
+    "evidence": {
+      "primary_source_url": null,
+      "secondary_source_urls": [
+        "https://maps.app.goo.gl/kRAnnGDQM2RnyjGK8"
+      ],
+      "match_reason": "Official branch link exists but conflicts with independent storefront identity.",
+      "conflicts": [
+        "Official branch link redirects to an Al Mohammadiyyah pin rather than a distinct Abhur storefront."
+      ]
+    },
+    "mandatory_completion": {
+      "completed_fields": 4,
+      "total_fields": 10,
+      "percentage": 40
+    },
+    "remaining_mandatory_gaps": [
+      "google_place_id",
+      "latitude",
+      "longitude",
+      "google_rating",
+      "google_review_count",
+      "exact_google_identity_verified"
+    ]
+  },
+  {
+    "brand_name": "WBJ",
+    "branch_name": "Al Zahra",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJdXODDQDbwxURMprErPxcdZA",
+      "google_maps_url": "https://maps.google.com/?cid=10409328354036849202&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "WBJ",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "6398 Prince Sultan Rd, Al Zahra, Jeddah 23521, Saudi Arabia",
+      "district_normalized": "al_zahra",
+      "latitude": 21.593411399999997,
+      "longitude": 39.1435025,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.5,
+      "review_count": 6067,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "WBJ branch on Prince Sultan Rd in Al Zahra."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=10409328354036849202&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for WBJ",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "WBJ",
+    "branch_name": "Abhur",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJh6NBPABjwRUR2J7qkihn5ZA",
+      "google_maps_url": "https://maps.google.com/?cid=10440864735089565400&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "WBJ restaurant",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "JFUC6567, 6567, 2281 طريق الملك عبدالعزيز، أبحر الجنوبية، جدة 23734, Saudi Arabia",
+      "district_normalized": "abhur_al_janoubiyah",
+      "latitude": 21.750930399999998,
+      "longitude": 39.134722,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.8,
+      "review_count": 1901,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "WBJ branch on King Abdulaziz Rd in Abhur Al Janoubiyah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=10440864735089565400&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for WBJ restaurant",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "WBJ",
+    "branch_name": "Al Hamdaniyah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJ5YGoIwB9wRURBfdRIt_DL-k",
+      "google_maps_url": "https://maps.google.com/?cid=16802864097863530245&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "WBJ",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "JGAA7123، 7123، 4161 شارع الحمدانية الفرعي، حي الحمدانية، Jeddah 23761, Saudi Arabia",
+      "district_normalized": "al_hamdaniyah",
+      "latitude": 21.7582831,
+      "longitude": 39.1981764,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.9,
+      "review_count": 1115,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "WBJ branch on Al Hamdaniyah Branch St."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=16802864097863530245&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for WBJ",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Lou Burger",
+    "branch_name": "Al Andalus",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJz5WXPQDFwxURrnvjQpZYHiU",
+      "google_maps_url": "https://maps.google.com/?cid=2674672631095196590&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Lou Burger لو برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "G4XX+2VC، عبدالله المطري، Al Andalus, Jeddah 23322, Saudi Arabia",
+      "district_normalized": "al_andalus",
+      "latitude": 21.547442999999998,
+      "longitude": 39.1495432,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.7,
+      "review_count": 4164,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Flagship storefront at Al Khayat Centre in Al Andalus."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=2674672631095196590&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Lou Burger لو برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Lou Burger",
+    "branch_name": "Al Shera'a",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJ_Q7U0epjwRURHCXYMCGpfeo",
+      "google_maps_url": "https://maps.google.com/?cid=16896847336982455580&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Lou Burger لو برجر",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "JHYH4500, حي, 7014 الامير مشعل ابن ماجد ابن عبدالله, الشراع، جدة 23816, Saudi Arabia",
+      "district_normalized": "al_sheraa",
+      "latitude": 21.763929500000003,
+      "longitude": 39.109079,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.7,
+      "review_count": 222,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "manual_review",
+      "reason": "Physical storefront verified on Prince Mishaal Ibn Majid in Al Sheraa."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=16896847336982455580&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Lou Burger لو برجر",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "PPLR",
+    "branch_name": "Rawdah",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJ44H7RgDbwxURnuuuzb7m5iY",
+      "google_maps_url": "https://maps.google.com/?cid=2803181525253680030&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "PPLR",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "عبدالصمد خوجة، Ar Rawdah, Jeddah 23435, Saudi Arabia",
+      "district_normalized": "al_rawdah",
+      "latitude": 21.5732069,
+      "longitude": 39.1481774,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 525,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Physical storefront on Abdulsamad Khoja in Al Rawdah."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=2803181525253680030&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for PPLR",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Smash Me",
+    "branch_name": "Al Naeem",
+    "google_identity": {
+      "status": "verified",
+      "google_place_id": "ChIJpTCKfADbwxUR2FepmjWNfRM",
+      "google_maps_url": "https://maps.google.com/?cid=1404433920177035224&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "google_business_name": "Smash Me",
+      "identity_confidence": "high"
+    },
+    "location": {
+      "formatted_address": "Prince Sultan Branch Rd, Al Naeem, Jeddah 23526, Saudi Arabia",
+      "district_normalized": "al_naeem",
+      "latitude": 21.615326,
+      "longitude": 39.13984,
+      "coordinate_source": "google_places",
+      "coordinate_confidence": "high"
+    },
+    "google_reputation": {
+      "rating": 4.6,
+      "review_count": 649,
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "OPERATIONAL",
+      "source": "google_places",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "First Jeddah branch on Prince Sultan Branch Rd in Al Naeem."
+    },
+    "evidence": {
+      "primary_source_url": "https://maps.google.com/?cid=1404433920177035224&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "secondary_source_urls": [],
+      "match_reason": "Authoritative Google Places match for Smash Me",
+      "conflicts": []
+    },
+    "mandatory_completion": {
+      "completed_fields": 10,
+      "total_fields": 10,
+      "percentage": 100
+    },
+    "remaining_mandatory_gaps": []
+  },
+  {
+    "brand_name": "Smash Me",
+    "branch_name": "Rawdah",
+    "google_identity": {
+      "status": "secondary_only",
+      "google_place_id": null,
+      "google_maps_url": null,
+      "google_business_name": null,
+      "identity_confidence": "unknown"
+    },
+    "location": {
+      "formatted_address": "Qassem Zeinah, Al Rawdah, Jeddah",
+      "district_normalized": "al_rawdah",
+      "latitude": null,
+      "longitude": null,
+      "coordinate_source": "unknown",
+      "coordinate_confidence": "unknown"
+    },
+    "google_reputation": {
+      "rating": null,
+      "review_count": null,
+      "source": "unknown",
+      "retrieved_at": "2026-09-10"
+    },
+    "business_status": {
+      "status": "open",
+      "source": "official",
+      "retrieved_at": "2026-09-10"
+    },
+    "branch_reconciliation": {
+      "action": "keep",
+      "reason": "Second Jeddah location on Qassem Zeinah St in Al Rawdah; unverified on Google Places."
+    },
+    "evidence": {
+      "primary_source_url": null,
+      "secondary_source_urls": [],
+      "match_reason": "Storefront absent from Google Places search; preserved from official first-party locator.",
+      "conflicts": [
+        "Branch listed on official restaurant locator but has no distinct Google Places storefront in al_rawdah."
+      ]
+    },
+    "mandatory_completion": {
+      "completed_fields": 3,
+      "total_fields": 10,
+      "percentage": 30
+    },
+    "remaining_mandatory_gaps": [
+      "google_place_id",
+      "google_maps_url",
+      "latitude",
+      "longitude",
+      "google_rating",
+      "google_review_count",
+      "exact_google_identity_verified"
+    ]
+  }
+]
