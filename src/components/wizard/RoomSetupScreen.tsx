@@ -228,7 +228,7 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
               >
                 <option value="">{t('setup.anyArea', { city: cityName })}</option>
                 {currentCity.districts.map((district) => (
-                  <option key={district.nameEn} value={district.nameEn}>
+                  <option key={district.id ?? district.nameEn} value={district.id ?? district.nameEn}>
                     {locale === 'ar' ? district.nameAr : district.nameEn}
                   </option>
                 ))}

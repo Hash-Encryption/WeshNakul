@@ -1,8 +1,11 @@
+import { JEDDAH_DISTRICT_LIST } from '../data/jeddahDistricts';
+
 export interface CityData {
   id: string;
   nameAr: string;
   nameEn: string;
   districts: {
+    id?: string;
     nameAr: string;
     nameEn: string;
   }[];
@@ -13,18 +16,7 @@ export const SAUDI_CITIES: CityData[] = [
     id: 'jeddah',
     nameAr: 'جدة',
     nameEn: 'Jeddah',
-    districts: [
-      { nameAr: 'الزهراء', nameEn: 'Al-Zahra' },
-      { nameAr: 'الروضة', nameEn: 'Al-Rawdah' },
-      { nameAr: 'الحمراء', nameEn: 'Al-Hamra' },
-      { nameAr: 'السلامة', nameEn: 'Al-Salamah' },
-      { nameAr: 'الشاطئ', nameEn: 'Al-Shati' },
-      { nameAr: 'النعيم', nameEn: 'Al-Naeem' },
-      { nameAr: 'الخالدية', nameEn: 'Al-Khalidiyyah' },
-      { nameAr: 'الصفا', nameEn: 'Al-Safa' },
-      { nameAr: 'أبحر الشمالية', nameEn: 'North Obhur' },
-      { nameAr: 'السامر', nameEn: 'Al-Samer' },
-    ],
+    districts: JEDDAH_DISTRICT_LIST.map(({ id, nameAr, nameEn }) => ({ id, nameAr, nameEn })),
   },
   {
     id: 'riyadh',

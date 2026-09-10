@@ -76,6 +76,14 @@ try {
 
   await db.exec(migration('20260909000100_private_restaurant_decks.sql'));
   await db.exec(migration('20260909000200_private_participant_sessions.sql'));
+  await db.exec(migration('20260910000100_jeddah_geography_intelligence.sql'));
+
+  assert.equal((await query('SELECT count(*)::int n FROM private.district_geography'))[0].n, 26); checks++;
+  assert.deepEqual(await query(`SELECT private.normalize_district('Ar Rawdah') rawdah, private.normalize_district('المحمدية') mohammadiyyah, private.normalize_district('Obhur') north_obhur, private.normalize_district('South Obhur') south_obhur, private.normalize_district('Al Something Else') unknown`), [{rawdah:'al_rawdah',mohammadiyyah:'al_mohammadiyyah',north_obhur:'abhur_al_shamaliyah',south_obhur:'abhur_al_janoubiyah',unknown:null}]); checks++;
+  assert.equal((await query(`SELECT count(*)::int n FROM private.district_geography district CROSS JOIN LATERAL unnest(district.neighbors) neighbor(id) LEFT JOIN private.district_geography target ON target.district_id=neighbor.id WHERE target.district_id IS NULL OR neighbor.id=district.district_id OR NOT district.district_id=ANY(target.neighbors)`))[0].n, 0); checks++;
+  assert.deepEqual(await query(`SELECT private.district_tier('al_rawdah','al_rawdah') exact, private.district_tier('al_rawdah','al_salamah') direct, private.district_tier('al_rawdah','al_naeem') second_ring, private.district_tier('al_rawdah','al_samer') macrozone, private.district_tier('al_rawdah','al_balad') citywide`), [{exact:0,direct:1,second_ring:2,macrozone:3,citywide:4}]); checks++;
+  const geographyWeights = (await query(`SELECT private.district_weight(0) exact, private.district_weight(1) direct, private.district_weight(2) second_ring, private.district_weight(3) macrozone, private.district_weight(4) citywide`))[0];
+  assert(geographyWeights.exact > geographyWeights.direct && geographyWeights.direct > geographyWeights.second_ring && geographyWeights.second_ring > geographyWeights.macrozone && geographyWeights.macrozone > geographyWeights.citywide); checks++;
 
   assert.equal((await query("SELECT count(*)::int n FROM information_schema.columns WHERE table_schema='public' AND table_name='rooms' AND column_name IN ('latitude','longitude')"))[0].n, 0); checks++;
   assert.deepEqual(await query(`SELECT latitude,longitude FROM private.room_locations WHERE room_id='${roomId}'`), [{latitude:21.56,longitude:39.16}]); checks++;
@@ -96,6 +104,7 @@ try {
   assert.equal(new Set(first.restaurants.map(item => item.id)).size, first.restaurants.length); checks++;
   assert(first.restaurants.every(item => item.categories.includes('burger'))); checks++;
   assert(!JSON.stringify(first).match(/candidate_score|overall_score|weight|seed|probability|diversity/i)); checks++;
+  assert(!JSON.stringify(first).match(/latitude|longitude/i)); checks++;
   const near = first.restaurants.find(item => item.id === burgerIds[0]);
   if (near) assert.equal(near.selectedBranch.nameEn, 'Near branch');
   checks++;
@@ -133,6 +142,20 @@ try {
   const indian = (await query(`SELECT public.get_or_create_restaurant_deck('${noGpsRoom}','${noGpsHost}','no-gps-secret',NULL) deck`))[0].deck;
   assert.equal(indian.restaurants.length, 1); checks++;
   assert(indian.restaurants.every(item => item.categories.includes('indian'))); checks++;
+  await db.exec('RESET ROLE');
+
+  const citywideRoom = '10000000-0000-4000-8000-000000000004';
+  const citywideHost = '20000000-0000-4000-8000-000000000004';
+  await db.exec(`
+    INSERT INTO rooms(id,code,status,eating_mode,city,neighborhood,language,host_participant_id,current_stage,stage,winning_category,swiping_started_at)
+    VALUES ('${citywideRoom}','D004','restaurant_selection','dine_in','jeddah',NULL,'en','${citywideHost}','swiping','swiping','indian','${started}');
+    INSERT INTO participants(id,room_id,session_token,nickname,player_color,player_shape,is_host)
+    VALUES ('${citywideHost}','${citywideRoom}','citywide-secret','Host','#55B96A','circle',true);
+  `);
+  await db.exec('SET ROLE anon');
+  const citywide = (await query(`SELECT public.get_or_create_restaurant_deck('${citywideRoom}','${citywideHost}','citywide-secret',NULL) deck`))[0].deck;
+  assert.equal(citywide.restaurants.length, 1); checks++;
+  assert(citywide.restaurants.every(item => item.categories.includes('indian'))); checks++;
   await db.exec('RESET ROLE');
 
   const geoRoom = '10000000-0000-4000-8000-000000000003';
