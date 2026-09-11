@@ -72,3 +72,5 @@ export interface RestaurantSwipe {
   liked: boolean;
   createdAt: string;
 }
+
+export type RestaurantVote = 'YES' | 'NO' | 'LATER';

@@ -6,7 +6,7 @@ import { TactileButton } from '../common/TactileButton';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { Toast } from '../common/Toast';
 import { CategoryCard } from './CategoryCard';
-import { FOOD_CATEGORIES, calculateConsensus } from '../../lib/consensus';
+import { FOOD_CATEGORIES } from '../../lib/consensus';
 import { SparkleRays } from '../common/DecorativeSparkles';
 
 export const FoodVotingScreen: React.FC = () => {
@@ -14,7 +14,6 @@ export const FoodVotingScreen: React.FC = () => {
     currentRoom,
     currentParticipant,
     participants,
-    foodChoices,
     myChoice,
     submitFoodChoices,
   } = useRoom();
@@ -23,6 +22,7 @@ export const FoodVotingScreen: React.FC = () => {
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Initialize selection from existing saved choice if any
@@ -36,7 +36,7 @@ export const FoodVotingScreen: React.FC = () => {
 
   if (!currentRoom || !currentParticipant) return null;
 
-  const isSubmitted = Boolean(myChoice?.is_submitted);
+  const isSubmitted = Boolean(myChoice?.is_submitted) && !isEditing;
   const canSubmit = selectedIds.length >= 2;
 
   const toggleCategory = (id: string) => {
@@ -53,6 +53,7 @@ export const FoodVotingScreen: React.FC = () => {
     setIsSubmitting(true);
     try {
       await submitFoodChoices(selectedIds);
+      setIsEditing(false);
       setToastMessage(t('toast.picksSubmitted'));
       setTimeout(() => setToastMessage(null), 2500);
     } catch (err) {
@@ -63,27 +64,14 @@ export const FoodVotingScreen: React.FC = () => {
   };
 
   const handleEditPicks = async () => {
-    // Un-submit to allow adjusting picks
-    try {
-      await submitFoodChoices(selectedIds);
-    } catch (err) {
-      console.error('Error switching to edit', err);
-    }
+    setIsEditing(true);
   };
 
-  // Calculate live tallies for anti-bias unlocked state
-  const submittedSubmissions = foodChoices
-    .filter((c) => c.is_submitted)
-    .map((c) => ({
-      participant_id: c.participant_id,
-      selected_categories: c.selected_categories,
-    }));
-
-  const consensusData = calculateConsensus(submittedSubmissions);
-  const totalSubmitted = consensusData.totalSubmitted;
+  const categorySummary=currentRoom.category_summary;
+  const totalSubmitted=categorySummary?.submittedCount||0;
 
   // Sorted list of base categories with direct/wildcard votes
-  const activeTallies = Object.entries(consensusData.tally)
+  const activeTallies = Object.entries(categorySummary?.tally||{})
     .map(([id, count]) => ({
       id,
       count,
@@ -126,12 +114,12 @@ export const FoodVotingScreen: React.FC = () => {
         <div className="max-w-md mx-auto bg-white rounded-2xl p-3 border-2 border-brand-ink shadow-[0_3px_0_#241B18] mb-4">
           <div className="flex items-center justify-between mb-2 px-1">
             <span className="text-[11px] font-bold text-brand-ink uppercase tracking-wider">
-              {t('voting.squadStatus')} ({submittedSubmissions.length}/{participants.length})
+              {t('voting.squadStatus')} ({totalSubmitted}/{categorySummary?.eligibleParticipantCount||participants.length})
             </span>
             <div className="flex items-center gap-1 text-[11px] font-bold text-brand-green">
               <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
               <span>
-                {submittedSubmissions.length === participants.length
+                {totalSubmitted === (categorySummary?.eligibleParticipantCount||participants.length)
                   ? t('voting.ready')
                   : t('voting.picking')}
               </span>
@@ -140,8 +128,7 @@ export const FoodVotingScreen: React.FC = () => {
 
           <div className="flex items-center gap-3 overflow-x-auto py-1 scrollbar-none">
             {participants.map((p) => {
-              const choice = foodChoices.find((c) => c.participant_id === p.id);
-              const pSubmitted = Boolean(choice?.is_submitted);
+              const pSubmitted = Boolean(categorySummary?.submittedParticipantIds?.includes(p.id));
               const isMe = p.id === currentParticipant.id;
 
               return (
@@ -187,7 +174,7 @@ export const FoodVotingScreen: React.FC = () => {
         <div className="max-w-md mx-auto grid grid-cols-3 gap-2.5 mb-6">
           {FOOD_CATEGORIES.map((cat) => {
             const isSelected = selectedIds.includes(cat.id);
-            const count = consensusData.tally[cat.id] || 0;
+            const count = categorySummary?.tally?.[cat.id] || 0;
             const percentage = totalSubmitted > 0 ? count / totalSubmitted : 0;
 
             return (

@@ -6,7 +6,6 @@ import { SwipingDeck } from './SwipingDeck';
 import { LeaderboardView } from './LeaderboardView';
 import { ConfirmWinnerModal } from './ConfirmWinnerModal';
 import { SuddenDeathModal } from './SuddenDeathModal';
-import { RouletteModal } from './RouletteModal';
 import { SquadSwipingHUD } from './SquadSwipingHUD';
 import { Header } from '../common/Header';
 import { Toast } from '../common/Toast';
@@ -14,9 +13,7 @@ import type { RestaurantItem } from '../../types/restaurant';
 import {
   broadcastSuddenDeath,
   subscribeToSuddenDeath,
-  broadcastRoulette,
-  broadcastRouletteClose,
-  subscribeToRoulette,
+  resolveRestaurantTie,
 } from '../../lib/supabase';
 
 interface RestaurantSwipingScreenProps {
@@ -24,7 +21,7 @@ interface RestaurantSwipingScreenProps {
 }
 
 export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () => {
-  const { currentRoom, currentParticipant, participants, isHost } = useRoom();
+  const { currentRoom, currentParticipant, participants, isHost, refreshRoom } = useRoom();
   const { t, locale } = useLocale();
 
   const {
@@ -34,20 +31,19 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     isDeckFinished,
     isLoadingDeck,
     deckError,
-    recordSwipe,
-    skipCard,
-    allSwipes,
-    commitWinner,
+    recordVote,
+    summary,
     showRoundTwoToast,
     dismissRoundTwoToast,
   } = useRestaurantSwiper({
     roomId: currentRoom?.id || '',
     participantId: currentParticipant?.id || '',
     sessionToken: currentParticipant?.session_token || '',
-    isHost,
-    totalParticipants: participants.length,
+    version: currentRoom?.version || 0,
     category: currentRoom?.winning_category || 'burger',
     stage: currentRoom?.stage,
+    summary: currentRoom?.restaurant_summary,
+    onRefresh: refreshRoom,
     onMatched: (_winner) => {
       // Handled in room state sync
     },
@@ -60,8 +56,6 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
   const [suddenDeathRestaurants, setSuddenDeathRestaurants] = useState<[RestaurantItem, RestaurantItem] | null>(null);
   const [isSuddenDeathOpen, setIsSuddenDeathOpen] = useState(false);
 
-  const [rouletteRestaurants, setRouletteRestaurants] = useState<RestaurantItem[]>([]);
-  const [isRouletteOpen, setIsRouletteOpen] = useState(false);
 
   // Auto-dismiss round two toast after 4 seconds
   useEffect(() => {
@@ -83,26 +77,6 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
         setIsSuddenDeathOpen(true);
       }
     });
-
-    return () => unsubscribe();
-  }, [currentRoom?.id]);
-
-  // Subscribe to realtime roulette triggers
-  useEffect(() => {
-    if (!currentRoom?.id) return;
-
-    const unsubscribe = subscribeToRoulette(
-      currentRoom.id,
-      (spots) => {
-        if (spots && spots.length >= 2) {
-          setRouletteRestaurants(spots);
-          setIsRouletteOpen(true);
-        }
-      },
-      () => {
-        setIsRouletteOpen(false);
-      }
-    );
 
     return () => unsubscribe();
   }, [currentRoom?.id]);
@@ -135,7 +109,8 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
 
   const handleConfirmWinner = async (restaurant: RestaurantItem) => {
     setIsConfirmOpen(false);
-    await commitWinner(restaurant);
+    await resolveRestaurantTie(currentRoom.id,currentParticipant.session_token,currentRoom.version,'host_pick',restaurant.id);
+    await refreshRoom();
   };
 
   const handleTriggerSuddenDeath = (topTwo: [RestaurantItem, RestaurantItem]) => {
@@ -144,15 +119,13 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     broadcastSuddenDeath(currentRoom.id, topTwo);
   };
 
-  const handleTriggerRoulette = (topSpots: RestaurantItem[]) => {
-    setRouletteRestaurants(topSpots);
-    setIsRouletteOpen(true);
-    broadcastRoulette(currentRoom.id, topSpots);
+  const handleTriggerRoulette = async (_topSpots: RestaurantItem[]) => {
+    await resolveRestaurantTie(currentRoom.id,currentParticipant.session_token,currentRoom.version,'choose_for_us');
+    await refreshRoom();
   };
 
   const handleTieBreakerWinner = (winner: RestaurantItem) => {
     setIsSuddenDeathOpen(false);
-    setIsRouletteOpen(false);
     handleOpenConfirm(winner);
   };
 
@@ -166,8 +139,7 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
         {!isDeckFinished && (
           <SquadSwipingHUD
             participants={participants}
-            swipes={allSwipes}
-            totalCards={totalCards}
+            summary={summary}
           />
         )}
 
@@ -187,10 +159,9 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
         {isDeckFinished ? (
           <LeaderboardView
             restaurants={deck}
-            swipes={allSwipes}
+            summary={summary}
             participants={participants}
             isHost={isHost}
-            totalCards={totalCards}
             onConfirmPick={handleOpenConfirm}
             onTriggerSuddenDeath={handleTriggerSuddenDeath}
             onTriggerRoulette={handleTriggerRoulette}
@@ -201,8 +172,8 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
             currentIndex={currentIndex}
             totalCards={totalCards}
             isLoading={isLoadingDeck}
-            onSwipe={recordSwipe}
-            onSkip={skipCard}
+            onSwipe={(liked)=>recordVote(liked?'YES':'NO')}
+            onSkip={()=>recordVote('LATER')}
           />
         )}
       </div>
@@ -233,24 +204,6 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
         />
       )}
 
-      {/* Food Roulette Modal */}
-      {isRouletteOpen && rouletteRestaurants.length >= 2 && (
-        <RouletteModal
-          key={`roulette-${rouletteRestaurants.map((r) => r.id).join('-')}`}
-          isOpen={isRouletteOpen}
-          roomId={currentRoom.id}
-          isHost={isHost}
-          restaurants={rouletteRestaurants}
-          swipes={allSwipes}
-          onSelectWinner={handleTieBreakerWinner}
-          onClose={() => {
-            setIsRouletteOpen(false);
-            if (isHost && currentRoom?.id) {
-              broadcastRouletteClose(currentRoom.id).catch(() => {});
-            }
-          }}
-        />
-      )}
     </div>
   );
 };

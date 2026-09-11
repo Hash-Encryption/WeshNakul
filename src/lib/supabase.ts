@@ -1,9 +1,8 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, ConsensusType, OrderItem } from '../types/database';
-import type { RestaurantItem, RestaurantSwipe } from '../types/restaurant';
+import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState } from '../types/database';
+import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import { cacheDeckRestaurants } from './restaurantRepository';
-import { getOrCreateSessionToken, generateUUID, generateRoomCode } from './session';
-import { getProceduralToken } from './tokenGenerator';
+import { getOrCreateSessionToken, generateRoomCode } from './session';
 
 const rawUrl = import.meta.env?.VITE_SUPABASE_URL || '';
 const rawKey = import.meta.env?.VITE_SUPABASE_ANON_KEY || '';
@@ -106,14 +105,14 @@ export async function getRoomByCode(
 
   let { data: room, error } = await supabase
     .from('rooms')
-    .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,created_at,expires_at')
+    .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
     .eq('code', cleanCode)
     .maybeSingle();
 
   if (!room && !error) {
     const retry = await supabase
       .from('rooms')
-      .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,created_at,expires_at')
+      .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
       .ilike('code', cleanCode)
       .maybeSingle();
     room = retry.data;
@@ -161,107 +160,18 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
 
   const code = generateRoomCode();
   const sessionToken = getOrCreateSessionToken(code);
-  const roomId = generateUUID();
-  const participantId = generateUUID();
-  const tokenCombo = getProceduralToken(0);
-
   const safeEatingMode = input.eating_mode || 'delivery';
   const safeCity = input.city || 'riyadh';
   const safeLanguage = input.language || 'ar';
   const safeNickname = input.host_nickname?.trim() || 'المضيف';
 
-  const newRoom: Room = {
-    id: roomId,
-    code,
-    status: 'lobby',
-    stage: 'lobby',
-    eating_mode: safeEatingMode,
-    city: safeCity,
-    neighborhood: input.neighborhood || null,
-    language: safeLanguage,
-    host_participant_id: participantId,
-    current_stage: 'lobby',
-    winning_category: null,
-    consensus_type: null,
-    tied_categories: [],
-    created_at: new Date().toISOString(),
-    expires_at: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
-  };
-
-  const hostParticipant: Participant = {
-    id: participantId,
-    room_id: roomId,
-    session_token: sessionToken,
-    nickname: safeNickname,
-    player_color: tokenCombo.color,
-    player_shape: tokenCombo.shape,
-    is_host: true,
-    status: 'active',
-    joined_at: new Date().toISOString(),
-    last_seen_at: new Date().toISOString(),
-  };
-
-  const roomPayload: any = {
-    id: roomId,
-    code,
-    status: 'lobby',
-    current_stage: 'lobby',
-    stage: 'lobby',
-    eating_mode: safeEatingMode,
-    city: safeCity,
-    neighborhood: input.neighborhood || null,
-    language: safeLanguage,
-    host_participant_id: participantId,
-    winning_category: null,
-    consensus_type: null,
-    tied_categories: [],
-    created_at: newRoom.created_at,
-    expires_at: newRoom.expires_at,
-  };
-
-  const { data: insertedData, error: roomErr } = await supabase
-    .from('rooms')
-    .insert([roomPayload])
-    .select('id, code')
-    .maybeSingle();
-
-  if (roomErr) throw roomErr;
-
-  console.log('[createRoom] Room successfully inserted into Supabase:', {
-    id: insertedData?.id || roomId,
-    code: insertedData?.code || code,
+  const { data, error } = await supabase.rpc('create_room_authorized', {
+    p_code: code, p_session_token: sessionToken, p_eating_mode: safeEatingMode,
+    p_city: safeCity, p_neighborhood: input.neighborhood || null, p_language: safeLanguage,
+    p_nickname: safeNickname, p_latitude: input.latitude ?? null, p_longitude: input.longitude ?? null,
   });
-
-  const partPayload = {
-    id: participantId,
-    room_id: roomId,
-    session_token: sessionToken,
-    nickname: safeNickname,
-    player_color: tokenCombo.color,
-    player_shape: tokenCombo.shape,
-    is_host: true,
-    status: 'active',
-    joined_at: hostParticipant.joined_at,
-    last_seen_at: hostParticipant.last_seen_at,
-  };
-
-  const { error: partErr } = await supabase.from('participants').insert([partPayload]);
-
-  if (partErr) throw partErr;
-
-  if (input.latitude != null || input.longitude != null) {
-    if (input.latitude == null || input.longitude == null) throw new Error('Latitude and longitude must be provided together');
-    const { error: locationError } = await supabase.rpc('set_room_location', {
-      p_room_id: roomId,
-      p_participant_id: participantId,
-      p_session_token: sessionToken,
-      p_latitude: input.latitude,
-      p_longitude: input.longitude,
-    });
-    if (locationError) throw locationError;
-  }
-
-  return { room: newRoom, participant: hostParticipant };
+  if (error) throw error;
+  return data as { room: Room; participant: Participant };
 }
 
 /**
@@ -278,9 +188,7 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
 
   const normalizedCode = input.code.trim().toUpperCase();
   const sessionToken = getOrCreateSessionToken(normalizedCode);
-  const legacyToken = getOrCreateSessionToken();
-
-  const { room, participants, isExpired } = await getRoomByCode(normalizedCode);
+  const { room, isExpired } = await getRoomByCode(normalizedCode);
   if (isExpired) {
     return { success: false, error: 'ROOM_EXPIRED' };
   }
@@ -288,182 +196,49 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
     return { success: false, error: 'ROOM_NOT_FOUND' };
   }
 
-  // Check if session token already joined (check both scoped and legacy)
-  const existing = participants.find(
-    (p) => p.session_token === sessionToken || p.session_token === legacyToken
-  );
-  if (existing) {
-    return { success: true, room, participant: existing };
+  const { data, error } = await supabase.rpc('join_room_authorized', {
+    p_code: normalizedCode, p_session_token: sessionToken, p_nickname: input.nickname.trim(),
+  });
+  if (error) {
+    if (error.message?.includes('WSH_ROOM_FULL')) return { success: false, isFull: true, room };
+    if (error.message?.includes('WSH_ROOM_EXPIRED')) return { success: false, error: 'ROOM_EXPIRED' };
+    throw error;
   }
-
-  // Check 10-player capacity guard
-  if (participants.length >= 10) {
-    return { success: false, isFull: true, room };
-  }
-
-  const tokenCombo = getProceduralToken(participants.length);
-  const newParticipant: Participant = {
-    id: generateUUID(),
-    room_id: room.id,
-    session_token: sessionToken,
-    nickname: input.nickname.trim(),
-    player_color: tokenCombo.color,
-    player_shape: tokenCombo.shape,
-    is_host: false,
-    status: 'active',
-    joined_at: new Date().toISOString(),
-    last_seen_at: new Date().toISOString(),
-  };
-
-  const { error } = await supabase.from('participants').insert([newParticipant]);
-  if (error) throw error;
-  return { success: true, room, participant: newParticipant };
+  const result = data as { room: Room; participant: Participant };
+  return { success: true, ...result };
 }
 
-/**
- * Update the stage and consensus details of a room.
- */
-export async function updateRoomStage(
-  roomId: string,
-  stage: RoomStage,
-  updates?: {
-    winning_category?: string | null;
-    consensus_type?: ConsensusType;
-    tied_categories?: string[];
-    winning_restaurant_id?: string | null;
-    swiping_started_at?: string | null;
-  }
-): Promise<void> {
+async function decisionRpc(name: string, args: Record<string, unknown>): Promise<RoomDecisionState> {
   if (!supabase) throw new Error('Supabase is not configured');
-
-  const payload: Partial<Room> = {
-    stage,
-    current_stage: stage,
-    ...(updates?.winning_category !== undefined && { winning_category: updates.winning_category }),
-    ...(updates?.consensus_type !== undefined && { consensus_type: updates.consensus_type }),
-    ...(updates?.tied_categories !== undefined && { tied_categories: updates.tied_categories }),
-    ...(updates?.winning_restaurant_id !== undefined && { winning_restaurant_id: updates.winning_restaurant_id }),
-    ...(updates?.swiping_started_at !== undefined && { swiping_started_at: updates.swiping_started_at }),
-  };
-
-  const { error } = await supabase
-    .from('rooms')
-    .update(payload)
-    .eq('id', roomId);
-
+  const { data, error } = await supabase.rpc(name, args);
   if (error) throw error;
-  return;
+  return data as RoomDecisionState;
 }
 
-/**
- * Upsert participant's food choices for a room.
- */
-export async function upsertFoodChoice(
-  roomId: string,
-  participantId: string,
-  selectedCategories: string[],
-  isSubmitted: boolean
-): Promise<FoodChoice> {
-  if (!supabase) throw new Error('Supabase is not configured');
+export const getRoomDecisionState = (roomId: string, sessionToken: string) =>
+  decisionRpc('get_room_decision_state', { p_room_id: roomId, p_session_token: sessionToken });
 
-  const now = new Date().toISOString();
+export const startCategoryVoting = (roomId: string, sessionToken: string, version: number) =>
+  decisionRpc('start_category_voting', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version });
 
-  const { data, error } = await supabase
-    .from('food_choices')
-    .upsert(
-      {
-        room_id: roomId,
-        participant_id: participantId,
-        selected_categories: selectedCategories,
-        is_submitted: isSubmitted,
-        submitted_at: isSubmitted ? now : null,
-        updated_at: now,
-      },
-      { onConflict: 'room_id,participant_id' }
-    )
-    .select('*')
-    .single();
+export const submitCategorySelection = (roomId: string, sessionToken: string, version: number, categories: string[]) =>
+  decisionRpc('submit_category_selection', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_categories: categories });
 
-  if (error) throw error;
-  return data as FoodChoice;
-}
+export const resolveCategoryTie = (roomId: string, sessionToken: string, version: number, method: 'host_pick' | 'choose_for_us', category?: string) =>
+  decisionRpc('resolve_category_tie', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_method: method, p_category: category ?? null });
 
-/**
- * Fetch all food choices for a room.
- */
-export async function getFoodChoices(roomId: string): Promise<FoodChoice[]> {
-  if (!supabase) throw new Error('Supabase is not configured');
+export const beginRestaurantVoting = (roomId: string, sessionToken: string, version: number) =>
+  decisionRpc('begin_restaurant_voting', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version });
 
-  const { data, error } = await supabase
-    .from('food_choices')
-    .select('*')
-    .eq('room_id', roomId);
+export const submitRestaurantVote = (roomId: string, sessionToken: string, version: number, deckId: string, restaurantId: string, vote: RestaurantVote) =>
+  decisionRpc('submit_restaurant_vote', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_deck_id: deckId, p_restaurant_id: restaurantId, p_vote: vote });
 
-  if (error) throw error;
+export const resolveRestaurantTie = (roomId: string, sessionToken: string, version: number, method: 'host_pick' | 'choose_for_us', restaurantId?: string) =>
+  decisionRpc('resolve_restaurant_tie', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_method: method, p_restaurant_id: restaurantId ?? null });
 
-  return (data || []) as FoodChoice[];
-}
-
-/**
- * Record a restaurant swipe.
- */
-export async function insertRestaurantSwipe(
-  roomId: string,
-  participantId: string,
-  restaurantId: string,
-  liked: boolean
-): Promise<RestaurantSwipe> {
-  if (!supabase) throw new Error('Supabase is not configured');
-
-  const now = new Date().toISOString();
-
-  const { data, error } = await supabase
-    .from('restaurant_swipes')
-    .upsert(
-      {
-        room_id: roomId,
-        participant_id: participantId,
-        restaurant_id: restaurantId,
-        liked,
-        created_at: now,
-      },
-      { onConflict: 'room_id,participant_id,restaurant_id' }
-    )
-    .select('*')
-    .single();
-
-  if (error) throw error;
-  return {
-    id: data.id,
-    roomId: data.room_id,
-    participantId: data.participant_id,
-    restaurantId: data.restaurant_id,
-    liked: data.liked,
-    createdAt: data.created_at,
-  };
-}
-
-/**
- * Fetch all restaurant swipes for a room.
- */
-export async function getRestaurantSwipes(roomId: string): Promise<RestaurantSwipe[]> {
-  if (!supabase) throw new Error('Supabase is not configured');
-
-  const { data, error } = await supabase
-    .from('restaurant_swipes')
-    .select('*')
-    .eq('room_id', roomId);
-
-  if (error) throw error;
-
-  return (data || []).map((d: any) => ({
-    id: d.id,
-    roomId: d.room_id,
-    participantId: d.participant_id,
-    restaurantId: d.restaurant_id,
-    liked: d.liked,
-    createdAt: d.created_at,
-  }));
+export async function getFoodChoices(roomId: string, sessionToken: string): Promise<FoodChoice[]> {
+  const state = await getRoomDecisionState(roomId, sessionToken);
+  return state.myCategorySelection ? [state.myCategorySelection] : [];
 }
 
 /**
@@ -495,16 +270,6 @@ export function subscribeToRoom(
         }
       }
     )
-    .on(
-      'postgres_changes',
-      { event: '*', schema: 'public', table: 'food_choices', filter: `room_id=eq.${roomId}` },
-      () => onUpdate()
-    )
-    .on(
-      'postgres_changes',
-      { event: '*', schema: 'public', table: 'restaurant_swipes', filter: `room_id=eq.${roomId}` },
-      () => onUpdate()
-    )
     .on('broadcast', { event: 'room_deleted' }, () => {
       onRoomDeleted?.();
     })
@@ -523,19 +288,15 @@ export function subscribeToRoom(
  */
 export async function resetRoomVoting(
   roomId: string,
+  sessionToken: string,
+  version: number,
   targetStage: RoomStage = 'voting'
 ): Promise<void> {
   if (!supabase) throw new Error('Supabase is not configured');
-  const { error } = await supabase.from('rooms').update({
-    stage: targetStage, status: targetStage === 'lobby' ? 'lobby' : 'food_selection',
-    current_stage: targetStage, winning_category: null, consensus_type: null,
-    tied_categories: [], winning_restaurant_id: null, swiping_started_at: null,
-  }).eq('id', roomId);
+  const { error } = await supabase.rpc('reset_room_state_authorized', {
+    p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_target_stage: targetStage,
+  });
   if (error) throw error;
-  for (const table of ['food_choices', 'restaurant_swipes', 'order_items']) {
-    const { error } = await supabase.from(table).delete().eq('room_id', roomId);
-    if (error) throw error;
-  }
   const channel = supabase.channel(`room:${roomId}`);
   try {
     await channel.send({ type: 'broadcast', event: 'room_reset', payload: { roomId } });
@@ -547,9 +308,9 @@ export async function resetRoomVoting(
 /**
  * Permanently delete a room and clean up all associated data.
  */
-export async function deleteRoom(roomId: string): Promise<void> {
+export async function deleteRoom(roomId: string, sessionToken: string): Promise<void> {
   if (!supabase) throw new Error('Supabase is not configured');
-  const { error } = await supabase.from('rooms').delete().eq('id', roomId);
+  const { error } = await supabase.rpc('delete_room_authorized', { p_room_id: roomId, p_session_token: sessionToken });
   if (error) throw error;
   const channel = supabase.channel(`room:${roomId}`);
   try {

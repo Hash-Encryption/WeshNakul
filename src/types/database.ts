@@ -36,8 +36,61 @@ export interface Room {
   tied_categories?: string[];
   winning_restaurant_id?: string | null;
   swiping_started_at?: string | null;
+  version: number;
+  category_summary?: CategorySummary;
+  restaurant_state?: 'idle' | 'voting' | 'tie' | 'no_match' | 'decided';
+  restaurant_summary?: RestaurantSummary;
+  winning_deck_id?: string | null;
+  winning_branch_id?: string | null;
+  winning_resolution_method?: 'normal_consensus' | 'choose_for_us' | 'host_pick' | null;
+  finalized_at?: string | null;
   created_at: string;
   expires_at: string;
+}
+
+export interface CategorySummary {
+  status: 'pending' | 'tie' | 'decided';
+  eligibleParticipantCount: number;
+  submittedCount: number;
+  submittedParticipantIds: string[];
+  tally: Record<string, number>;
+  winner: string | null;
+  tiedCategories: string[];
+}
+
+export interface RestaurantCardSummary {
+  position: number;
+  restaurantId: string;
+  yesCount: number;
+  noCount: number;
+  laterCount: number;
+}
+
+export interface ParticipantProgress {
+  participantId: string;
+  decidedCount: number;
+  laterCount: number;
+  complete: boolean;
+}
+
+export interface RestaurantSummary {
+  status: 'voting' | 'tie' | 'no_match' | 'decided';
+  deckId: string;
+  generation: number;
+  eligibleParticipantCount: number;
+  completedParticipantCount: number;
+  cards: RestaurantCardSummary[];
+  participantProgress: ParticipantProgress[];
+  tiedRestaurantIds: string[];
+  winnerRestaurantId?: string | null;
+  resolutionMethod?: 'normal_consensus' | 'choose_for_us' | 'host_pick';
+}
+
+export interface RoomDecisionState {
+  room: Room;
+  myCategorySelection: FoodChoice | null;
+  myVotes: Record<string, 'YES' | 'NO' | 'LATER'>;
+  deck?: import('./restaurant').RestaurantDeck;
 }
 
 export interface Participant {

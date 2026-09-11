@@ -1,26 +1,21 @@
 import React from 'react';
-import type { Participant } from '../../types/database';
-import type { RestaurantSwipe } from '../../types/restaurant';
+import type { Participant, RestaurantSummary } from '../../types/database';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { useLocale } from '../../context/LocaleContext';
 
 interface SquadSwipingHUDProps {
   participants: Participant[];
-  swipes: RestaurantSwipe[];
-  totalCards: number;
+  summary?: RestaurantSummary;
 }
 
 export const SquadSwipingHUD: React.FC<SquadSwipingHUDProps> = ({
   participants,
-  swipes,
-  totalCards,
+  summary,
 }) => {
   const { t } = useLocale();
 
   const isParticipantDone = (participantId: string) => {
-    if (totalCards === 0) return false;
-    const count = swipes.filter((s) => s.participantId === participantId).length;
-    return count >= totalCards;
+    return Boolean(summary?.participantProgress.find((item) => item.participantId === participantId)?.complete);
   };
 
   const completedCount = participants.filter((p) => isParticipantDone(p.id)).length;

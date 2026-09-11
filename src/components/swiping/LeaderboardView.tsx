@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react';
 import { motion } from 'motion/react';
-import type { RestaurantItem, RestaurantSwipe } from '../../types/restaurant';
-import type { Participant } from '../../types/database';
+import type { RestaurantItem } from '../../types/restaurant';
+import type { Participant, RestaurantSummary } from '../../types/database';
 import { useLocale } from '../../context/LocaleContext';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 
 interface LeaderboardViewProps {
   restaurants: RestaurantItem[];
-  swipes: RestaurantSwipe[];
+  summary?: RestaurantSummary;
   participants: Participant[];
   isHost: boolean;
-  totalCards: number;
   onConfirmPick: (restaurant: RestaurantItem) => void;
   onTriggerSuddenDeath: (topTwo: [RestaurantItem, RestaurantItem]) => void;
   onTriggerRoulette: (topSpots: RestaurantItem[]) => void;
@@ -18,10 +17,9 @@ interface LeaderboardViewProps {
 
 export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
   restaurants,
-  swipes,
+  summary,
   participants,
   isHost,
-  totalCards,
   onConfirmPick,
   onTriggerSuddenDeath,
   onTriggerRoulette,
@@ -30,9 +28,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
   // Track who is finished swiping
   const isParticipantDone = (participantId: string) => {
-    if (totalCards === 0) return false;
-    const count = swipes.filter((s) => s.participantId === participantId).length;
-    return count >= totalCards;
+    return Boolean(summary?.participantProgress.find((item) => item.participantId === participantId)?.complete);
   };
 
   const completedCount = participants.filter((p) => isParticipantDone(p.id)).length;
@@ -40,16 +36,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
   // Rank restaurants: Likes (desc), then Rating (desc), then ID (asc)
   const rankedRestaurants = useMemo(() => {
-    const counts: Record<string, number> = {};
-    restaurants.forEach((r) => {
-      counts[r.id] = 0;
-    });
-
-    swipes.forEach((s) => {
-      if (s.liked && counts[s.restaurantId] !== undefined) {
-        counts[s.restaurantId]++;
-      }
-    });
+    const counts=Object.fromEntries((summary?.cards||[]).map(card=>[card.restaurantId,card.yesCount]));
 
     return [...restaurants]
       .map((restaurant) => ({
@@ -64,11 +51,11 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
         if (diffRating !== 0) return diffRating;
         return a.restaurant.id.localeCompare(b.restaurant.id);
       });
-  }, [restaurants, swipes, totalParticipants]);
+  }, [restaurants, summary?.cards, totalParticipants]);
 
   const topSpot = rankedRestaurants[0]?.restaurant;
   const runnerUp = rankedRestaurants[1]?.restaurant;
-  const canRunTieBreaker = rankedRestaurants.length >= 2;
+  const canRunTieBreaker = summary?.status === 'tie' && (summary.tiedRestaurantIds?.length || 0) >= 2;
 
   const getPodiumBadge = (index: number) => {
     switch (index) {
@@ -138,7 +125,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       </div>
 
       {/* Host Action Quick Deck for Top Spot */}
-      {isHost && topSpot && (
+      {isHost && topSpot && canRunTieBreaker && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -178,7 +165,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
               <button
                 type="button"
-                onClick={() => onTriggerRoulette(rankedRestaurants.slice(0, 3).map((r) => r.restaurant))}
+                onClick={() => onTriggerRoulette(rankedRestaurants.filter(({restaurant})=>summary?.tiedRestaurantIds.includes(restaurant.id)).map((r) => r.restaurant))}
                 className="flex-1 py-2.5 px-3 rounded-xl bg-white text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:bg-[#FFF8F1] transition-all font-alexandria font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>🎲</span>
@@ -243,7 +230,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
                     <span>❤️</span>
                     <span>{likes}</span>
                   </div>
-                  {isHost && (
+                  {isHost && summary?.status === 'tie' && summary.tiedRestaurantIds.includes(restaurant.id) && (
                     <button
                       type="button"
                       onClick={() => onConfirmPick(restaurant)}

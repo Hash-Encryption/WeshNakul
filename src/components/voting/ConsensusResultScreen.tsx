@@ -5,10 +5,10 @@ import { useLocale } from '../../context/LocaleContext';
 import { Header } from '../common/Header';
 import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart, DoodleSquiggle } from '../common/DecorativeSparkles';
-import { getCategoryById, calculateConsensus, FOOD_CATEGORIES } from '../../lib/consensus';
+import { getCategoryById, FOOD_CATEGORIES } from '../../lib/consensus';
 
 export const ConsensusResultScreen: React.FC = () => {
-  const { currentRoom, isHost, resetToLobby, startSwiping, participants, foodChoices } = useRoom();
+  const { currentRoom, isHost, resetToLobby, startSwiping, participants } = useRoom();
   const { t, locale } = useLocale();
 
   const winnerId = currentRoom?.winning_category || 'burger';
@@ -37,21 +37,13 @@ export const ConsensusResultScreen: React.FC = () => {
       : winnerCategory.en
     : winnerId;
 
-  // Calculate vote breakdown
-  const submittedSubmissions = foodChoices
-    .filter((c) => c.is_submitted)
-    .map((c) => ({
-      participant_id: c.participant_id,
-      selected_categories: c.selected_categories,
-    }));
-
-  const consensusData = calculateConsensus(submittedSubmissions);
-  const totalVoters = consensusData.totalSubmitted || participants.length || 1;
-  const winnerVoteCount = consensusData.tally[winnerId] || totalVoters;
+  const tally = currentRoom.category_summary?.tally || {};
+  const totalVoters = currentRoom.category_summary?.eligibleParticipantCount || participants.length || 1;
+  const winnerVoteCount = tally[winnerId] || 0;
   const agreementPercentage = Math.round((winnerVoteCount / totalVoters) * 100);
 
   // Runner-up contenders
-  const runnerUps = Object.entries(consensusData.tally)
+  const runnerUps = Object.entries(tally)
     .filter(([id]) => id !== winnerId)
     .map(([id, count]) => ({
       id,

@@ -5,8 +5,10 @@ import {
   createRoom as apiCreateRoom, 
   joinRoom as apiJoinRoom, 
   subscribeToRoom,
-  updateRoomStage,
-  upsertFoodChoice,
+  startCategoryVoting,
+  submitCategorySelection,
+  resolveCategoryTie,
+  beginRestaurantVoting,
   getFoodChoices,
   resetRoomVoting as apiResetRoomVoting,
   deleteRoom as apiDeleteRoom,
@@ -19,7 +21,6 @@ import {
   getOrCreateSessionToken,
   clearRoomSession
 } from '../lib/session';
-import { calculateConsensus } from '../lib/consensus';
 import { useLocale } from './LocaleContext';
 
 interface RoomContextType {
@@ -45,7 +46,6 @@ interface RoomContextType {
   startVoting: () => Promise<void>;
   submitFoodChoices: (selectedCategories: string[]) => Promise<void>;
   resolveConsensus: (winner: string, consensusType: ConsensusType) => Promise<void>;
-  startTiebreaker: (tiedCategories: string[]) => Promise<void>;
   resetToLobby: () => Promise<void>;
   resetRoomVoting: (targetStage?: import('../types/database').RoomStage) => Promise<void>;
   startSwiping: () => Promise<void>;
@@ -106,7 +106,8 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const destroyRoom = useCallback(async () => {
     const room = currentRoomRef.current;
     if (room?.id) {
-      await apiDeleteRoom(room.id);
+      const participant = currentParticipantRef.current;
+      if (participant) await apiDeleteRoom(room.id, participant.session_token);
     }
     leaveRoom();
   }, [leaveRoom]);
@@ -134,7 +135,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setCurrentParticipant(me);
         }
 
-        const choices = await getFoodChoices(room.id);
+        const choices = me ? await getFoodChoices(room.id, me.session_token) : [];
         setFoodChoices(choices);
       }
     } catch (err) {
@@ -182,7 +183,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return false;
       }
 
-      const choices = await getFoodChoices(room.id);
       currentRoomRef.current = room;
       setCurrentRoom(room);
       setParticipants(parts);
@@ -191,6 +191,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const roomToken = getOrCreateSessionToken(room.code);
       const legacyToken = getOrCreateSessionToken();
       const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
+      const choices = me ? await getFoodChoices(room.id, me.session_token) : [];
       if (me) {
         currentParticipantRef.current = me;
         setCurrentParticipant(me);
@@ -274,54 +275,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => clearInterval(interval);
   }, [currentRoom?.created_at, currentRoom?.code, leaveRoom, t]);
 
-  // Automatic Consensus Evaluation:
-  // When in voting stage and all active participants have submitted their choices
-  useEffect(() => {
-    if (!currentRoom || currentRoom.stage !== 'voting') return;
-    if (participants.length === 0) return;
-
-    const submittedChoices = foodChoices.filter((c) => c.is_submitted);
-    const allSubmitted = participants.length > 0 && 
-      participants.every((p) => submittedChoices.some((c) => c.participant_id === p.id));
-
-    if (allSubmitted && currentParticipant?.is_host) {
-      // Evaluate consensus
-      const mappedSubmissions = submittedChoices.map((s) => ({
-        participant_id: s.participant_id,
-        selected_categories: s.selected_categories,
-      }));
-
-      const result = calculateConsensus(mappedSubmissions);
-
-      if (result.status === 'UNANIMOUS_MATCH' && result.winner) {
-        updateRoomStage(currentRoom.id, 'consensus', {
-          winning_category: result.winner,
-          consensus_type: 'unanimous',
-          tied_categories: [],
-        });
-      } else if (result.status === 'UNANIMOUS_TIE' && result.tiedCategories) {
-        updateRoomStage(currentRoom.id, 'tiebreaker', {
-          tied_categories: result.tiedCategories,
-          consensus_type: null,
-          winning_category: null,
-        });
-      } else if (result.status === 'CONTENDERS_FOUND' && result.topCategories) {
-        updateRoomStage(currentRoom.id, 'tiebreaker', {
-          tied_categories: result.topCategories.map((c) => c.id),
-          consensus_type: null,
-          winning_category: null,
-        });
-      } else if (result.status === 'NO_CONSENSUS' && result.topCategories) {
-        // Deadlock resolution: Top contenders go to tiebreaker for host or squad resolution
-        updateRoomStage(currentRoom.id, 'tiebreaker', {
-          tied_categories: result.topCategories.map((c) => c.id),
-          consensus_type: null,
-          winning_category: null,
-        });
-      }
-    }
-  }, [currentRoom, participants, foodChoices, currentParticipant?.is_host]);
-
   const createNewRoom = async (input: CreateRoomInput) => {
     setError(null);
     // Explicitly clear previous room tokens from localStorage BEFORE invoking createRoom
@@ -355,7 +308,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const res = await apiJoinRoom({ code, nickname });
       if (res.success && res.room && res.participant) {
         const { participants: parts } = await getRoomByCode(res.room.code);
-        const choices = await getFoodChoices(res.room.id);
+        const choices = await getFoodChoices(res.room.id, res.participant.session_token);
         setCurrentRoom(res.room);
         setCurrentParticipant(res.participant);
         setActiveRoomCode(res.room.code);
@@ -376,38 +329,21 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const startVoting = async () => {
-    if (!currentRoom) return;
-    await updateRoomStage(currentRoom.id, 'voting', {
-      winning_category: null,
-      consensus_type: null,
-      tied_categories: [],
-    });
+    if (!currentRoom || !currentParticipant) return;
+    await startCategoryVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
     await refreshRoom();
   };
 
   const submitFoodChoices = async (selectedCategories: string[]) => {
     if (!currentRoom || !currentParticipant) return;
-    await upsertFoodChoice(currentRoom.id, currentParticipant.id, selectedCategories, true);
+    await submitCategorySelection(currentRoom.id, currentParticipant.session_token, currentRoom.version, selectedCategories);
     await refreshRoom();
   };
 
   const resolveConsensus = async (winner: string, consensusType: ConsensusType) => {
-    if (!currentRoom) return;
-    await updateRoomStage(currentRoom.id, 'consensus', {
-      winning_category: winner,
-      consensus_type: consensusType,
-      tied_categories: [],
-    });
-    await refreshRoom();
-  };
-
-  const startTiebreaker = async (tiedCategories: string[]) => {
-    if (!currentRoom) return;
-    await updateRoomStage(currentRoom.id, 'tiebreaker', {
-      tied_categories: tiedCategories,
-      consensus_type: null,
-      winning_category: null,
-    });
+    if (!currentRoom || !currentParticipant) return;
+    await resolveCategoryTie(currentRoom.id, currentParticipant.session_token, currentRoom.version,
+      consensusType === 'host_picked' ? 'host_pick' : 'choose_for_us', winner);
     await refreshRoom();
   };
 
@@ -416,7 +352,8 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     setFoodChoices([]);
     try {
-      await apiResetRoomVoting(currentRoom.id, targetStage);
+      if (!currentParticipant) return;
+      await apiResetRoomVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version, targetStage);
       await refreshRoom();
     } catch (err) {
       console.error('Error resetting room voting', err);
@@ -432,11 +369,8 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const startSwiping = async () => {
-    if (!currentRoom) return;
-    await updateRoomStage(currentRoom.id, 'swiping', {
-      swiping_started_at: new Date().toISOString(),
-      winning_restaurant_id: null,
-    });
+    if (!currentRoom || !currentParticipant) return;
+    await beginRestaurantVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
     await refreshRoom();
   };
 
@@ -470,7 +404,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         startVoting,
         submitFoodChoices,
         resolveConsensus,
-        startTiebreaker,
         resetToLobby,
         resetRoomVoting,
         startSwiping,
