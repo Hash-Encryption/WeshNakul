@@ -16,18 +16,22 @@ interface SwiperProps {
 }
 
 export function useRestaurantSwiper({roomId,participantId,sessionToken,version,category,stage='swiping',summary,onRefresh,onMatched}:SwiperProps) {
-  const [deck,setDeck]=useState<RestaurantItem[]>([]),[deckId,setDeckId]=useState<string|null>(null);
+  const [traversal,setTraversal]=useState<{deck:RestaurantItem[];deckId:string|null;currentIndex:number}>({deck:[],deckId:null,currentIndex:0});
+  const {deck,deckId,currentIndex}=traversal;
   const [isLoadingDeck,setIsLoadingDeck]=useState(true),[deckError,setDeckError]=useState<string|null>(null);
-  const [currentIndex,setCurrentIndex]=useState(0),[myVotes,setMyVotes]=useState<Record<string,RestaurantVote>>({});
+  const [myVotes,setMyVotes]=useState<Record<string,RestaurantVote>>({});
   const [showRoundTwoToast,setShowRoundTwoToast]=useState(false);
 
   useEffect(()=>{
     if(stage!=='swiping'||!category||!roomId||!participantId||!sessionToken)return;
     let active=true;
     Promise.all([fetchDeckRestaurants(roomId,participantId,sessionToken),getRoomDecisionState(roomId,sessionToken)])
-      .then(([nextDeck,state])=>{if(!active)return;setDeck(nextDeck.restaurants);setDeckId(nextDeck.deckId);setMyVotes(state.myVotes||{});
-        const pending=nextDeck.restaurants.findIndex(item=>!['YES','NO'].includes(state.myVotes?.[item.id]||''));
-        setCurrentIndex(pending<0?nextDeck.restaurants.length:pending);setDeckError(nextDeck.restaurants.length?null:'NO_ELIGIBLE_RESTAURANTS');setIsLoadingDeck(false);})
+      .then(([nextDeck,state])=>{if(!active)return;setMyVotes(state.myVotes||{});setTraversal(current=>{
+        const sameDeck=current.deckId===nextDeck.deckId,fresh=new Map(nextDeck.restaurants.map(item=>[item.id,item]));
+        const ordered=sameDeck?[...current.deck.map(item=>fresh.get(item.id)).filter((item):item is RestaurantItem=>Boolean(item)),...nextDeck.restaurants.filter(item=>!current.deck.some(existing=>existing.id===item.id))]:nextDeck.restaurants;
+        const start=sameDeck?current.currentIndex:0,pending=ordered.findIndex((item,index)=>index>=start&&!['YES','NO'].includes(state.myVotes?.[item.id]||''));
+        return{deck:ordered,deckId:nextDeck.deckId,currentIndex:pending<0?ordered.length:pending};});
+        setDeckError(nextDeck.restaurants.length?null:'NO_ELIGIBLE_RESTAURANTS');setIsLoadingDeck(false);})
       .catch(error=>{console.error('Failed to load authoritative decision state',error);if(active){setDeckError('DECK_UNAVAILABLE');setIsLoadingDeck(false);}});
     return()=>{active=false};
   },[stage,category,roomId,participantId,sessionToken,version,summary?.deckId]);
@@ -41,8 +45,9 @@ export function useRestaurantSwiper({roomId,participantId,sessionToken,version,c
       if(state.room.stage==='matched'){onMatched?.(item);await onRefresh();return;}
       const nextDeckId=state.room.restaurant_summary?.deckId;
       if(nextDeckId&&nextDeckId!==deckId){setShowRoundTwoToast(true);setIsLoadingDeck(true);}
-      else if(vote==='LATER')setDeck(previous=>[...previous.slice(0,currentIndex),...previous.slice(currentIndex+1),item]);
-      else setCurrentIndex(index=>index+1);
+      else setTraversal(current=>current.deckId!==deckId||current.deck[current.currentIndex]?.id!==item.id?current:{...current,
+        deck:vote==='LATER'?[...current.deck.slice(0,current.currentIndex),...current.deck.slice(current.currentIndex+1),item]:current.deck,
+        currentIndex:vote==='LATER'?current.currentIndex:current.currentIndex+1});
       await onRefresh();
     }catch(error){console.error('Failed to record authoritative vote',error);await onRefresh();
       if((error as {code?:string})?.code!=='PT409')setDeckError('DECK_UNAVAILABLE');}

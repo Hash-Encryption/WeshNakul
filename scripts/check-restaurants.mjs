@@ -18,6 +18,8 @@ try {
   const authoritative = {...item, id:'server-deck-item', selectedBranch:null};
   cacheDeckRestaurants([authoritative]);
   assert.equal(getCachedRestaurant(authoritative.id), authoritative); checks++;
+  const reloadedRepository = await server.ssrLoadModule('/src/lib/restaurantRepository.ts?reload=1');
+  assert.deepEqual(reloadedRepository.getCachedRestaurant(authoritative.id), authoritative); checks++;
 
   // Real React SSR rendering; no claims about browser layout or backend persistence.
   const { LocaleProvider } = await server.ssrLoadModule('/src/context/LocaleContext.tsx');

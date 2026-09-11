@@ -124,6 +124,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
       if (room) {
+        if (room.version < (currentRoomRef.current?.version ?? -1)) return;
         currentRoomRef.current = room;
         setCurrentRoom(room);
         setParticipants(parts);
