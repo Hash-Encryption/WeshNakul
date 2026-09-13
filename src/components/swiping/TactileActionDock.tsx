@@ -1,16 +1,14 @@
 import React from 'react';
-import confetti from 'canvas-confetti';
 import { useLocale } from '../../context/LocaleContext';
+import type { RestaurantVote } from '../../types/restaurant';
 
 interface TactileActionDockProps {
-  onSwipe: (liked: boolean) => void;
-  onSkip: () => void;
+  onVote: (vote: RestaurantVote) => void;
   disabled: boolean;
 }
 
 export const TactileActionDock: React.FC<TactileActionDockProps> = ({
-  onSwipe,
-  onSkip,
+  onVote,
   disabled,
 }) => {
   const { t } = useLocale();
@@ -19,37 +17,24 @@ export const TactileActionDock: React.FC<TactileActionDockProps> = ({
     e.stopPropagation();
     if (disabled) return;
 
-    try {
-      confetti({
-        particleCount: 35,
-        spread: 60,
-        origin: { y: 0.85 },
-        colors: ['#55B96A', '#FFD75A', '#FFF8F1', '#241B18'],
-        ticks: 180,
-        gravity: 1.2,
-      });
-    } catch {
-      // safe fallback
-    }
-
-    onSwipe(true);
+    onVote('YES');
   };
 
   const handlePass = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (disabled) return;
-    onSwipe(false);
+    onVote('NO');
   };
 
   const handleSkip = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (disabled) return;
-    onSkip();
+    onVote('LATER');
   };
 
   return (
     <div
-      className="fixed bottom-5 inset-x-0 flex justify-center items-center gap-3 sm:gap-4 z-30 pointer-events-auto px-4 max-w-sm mx-auto select-none"
+      className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] inset-x-0 flex justify-center items-center gap-3 sm:gap-4 z-30 pointer-events-auto px-4 max-w-sm mx-auto select-none"
     >
       {/* Pass Button - Red */}
       <button

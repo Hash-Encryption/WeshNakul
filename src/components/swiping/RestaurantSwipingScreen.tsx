@@ -9,6 +9,7 @@ import { SuddenDeathModal } from './SuddenDeathModal';
 import { SquadSwipingHUD } from './SquadSwipingHUD';
 import { Header } from '../common/Header';
 import { Toast } from '../common/Toast';
+import { RestaurantRouletteOverlay } from './RestaurantRouletteOverlay';
 import type { RestaurantItem } from '../../types/restaurant';
 import {
   broadcastSuddenDeath,
@@ -21,7 +22,7 @@ interface RestaurantSwipingScreenProps {
 }
 
 export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () => {
-  const { currentRoom, currentParticipant, participants, isHost, refreshRoom } = useRoom();
+  const { currentRoom, currentParticipant, participants, isHost, refreshRoom, decisionSpin, startRestaurantRoulette } = useRoom();
   const { t, locale } = useLocale();
 
   const {
@@ -120,8 +121,8 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
   };
 
   const handleTriggerRoulette = async (_topSpots: RestaurantItem[]) => {
-    await resolveRestaurantTie(currentRoom.id,currentParticipant.session_token,currentRoom.version,'choose_for_us');
-    await refreshRoom();
+    try { await startRestaurantRoulette(); }
+    catch (error) { console.error('Error resolving restaurant tie', error); }
   };
 
   const handleTieBreakerWinner = (winner: RestaurantItem) => {
@@ -172,8 +173,7 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
             currentIndex={currentIndex}
             totalCards={totalCards}
             isLoading={isLoadingDeck}
-            onSwipe={(liked)=>recordVote(liked?'YES':'NO')}
-            onSkip={()=>recordVote('LATER')}
+            onVote={recordVote}
           />
         )}
       </div>
@@ -202,6 +202,10 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
           onSelectWinner={handleTieBreakerWinner}
           onClose={() => setIsSuddenDeathOpen(false)}
         />
+      )}
+
+      {decisionSpin?.kind === 'restaurant' && (
+        <RestaurantRouletteOverlay spin={decisionSpin} restaurants={deck} />
       )}
 
     </div>

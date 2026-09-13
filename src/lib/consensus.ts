@@ -48,3 +48,16 @@ export function getCategoryName(id: string, locale: 'ar' | 'en' = 'ar'): string 
   if (!cat) return id;
   return locale === 'ar' ? cat.ar : cat.en;
 }
+
+export function normalizeCategorySelection(ids: string[]): string[] {
+  const unique = [...new Set(ids)];
+  return unique.includes('flexible') ? ['flexible'] : unique;
+}
+
+export function toggleCategorySelection(ids: string[], id: string): string[] {
+  if (id === 'flexible') return ids.includes(id) ? [] : ['flexible'];
+  const realCategories = ids.filter((item) => item !== 'flexible');
+  return realCategories.includes(id)
+    ? realCategories.filter((item) => item !== id)
+    : [...realCategories, id];
+}

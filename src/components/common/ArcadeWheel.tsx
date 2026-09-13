@@ -19,6 +19,8 @@ interface ArcadeWheelProps {
   isSpinning: boolean;
   onTransitionEnd?: () => void;
   centerEmoji?: string;
+  durationMs?: number;
+  reducedMotion?: boolean;
 }
 
 // Pre-computed 16 pegs around the 320x320 wheel circumference (radius 141)
@@ -37,6 +39,8 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
   isSpinning,
   onTransitionEnd,
   centerEmoji = '🎲',
+  durationMs = 4500,
+  reducedMotion = false,
 }) => {
   return (
     <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center my-1 select-none">
@@ -49,8 +53,8 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
           style={{
             transform: `rotate(${rotation}deg)`,
             transformOrigin: '160px 160px',
-            transition: isSpinning
-              ? 'transform 4500ms cubic-bezier(0.15, 0.9, 0.2, 1)'
+            transition: isSpinning && !reducedMotion
+              ? `transform ${durationMs}ms cubic-bezier(0.15, 0.9, 0.2, 1)`
               : 'none',
           }}
           onTransitionEnd={onTransitionEnd}
@@ -144,7 +148,7 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
 
         {/* Top Arcade Indicator Needle (Outside rotating group with wobble animation) */}
         <motion.g
-          animate={isSpinning ? { rotate: [0, -12, 10, -8, 5, -2, 0] } : { rotate: 0 }}
+          animate={isSpinning && !reducedMotion ? { rotate: [0, -12, 10, -8, 5, -2, 0] } : { rotate: 0 }}
           transition={
             isSpinning
               ? { repeat: Infinity, duration: 0.16, ease: 'linear' }

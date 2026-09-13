@@ -6,7 +6,7 @@ import { TactileButton } from '../common/TactileButton';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { Toast } from '../common/Toast';
 import { CategoryCard } from './CategoryCard';
-import { FOOD_CATEGORIES } from '../../lib/consensus';
+import { FOOD_CATEGORIES, normalizeCategorySelection, toggleCategorySelection } from '../../lib/consensus';
 import { SparkleRays } from '../common/DecorativeSparkles';
 
 export const FoodVotingScreen: React.FC = () => {
@@ -28,7 +28,7 @@ export const FoodVotingScreen: React.FC = () => {
   // Initialize selection from existing saved choice if any
   useEffect(() => {
     if (myChoice?.selected_categories && myChoice.selected_categories.length > 0) {
-      setSelectedIds(myChoice.selected_categories);
+      setSelectedIds(normalizeCategorySelection(myChoice.selected_categories));
     } else {
       setSelectedIds([]);
     }
@@ -37,22 +37,18 @@ export const FoodVotingScreen: React.FC = () => {
   if (!currentRoom || !currentParticipant) return null;
 
   const isSubmitted = Boolean(myChoice?.is_submitted) && !isEditing;
-  const canSubmit = selectedIds.length >= 2;
+  const hasSelectedWildcard = selectedIds.includes('flexible');
+  const canSubmit = hasSelectedWildcard || selectedIds.length >= 2;
 
   const toggleCategory = (id: string) => {
-    setSelectedIds((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      }
-      return [...prev, id];
-    });
+    setSelectedIds((prev) => toggleCategorySelection(prev, id));
   };
 
   const handleSubmit = async () => {
     if (!canSubmit || isSubmitting) return;
     setIsSubmitting(true);
     try {
-      await submitFoodChoices(selectedIds);
+      await submitFoodChoices(normalizeCategorySelection(selectedIds));
       setIsEditing(false);
       setToastMessage(t('toast.picksSubmitted'));
       setTimeout(() => setToastMessage(null), 2500);
@@ -80,8 +76,6 @@ export const FoodVotingScreen: React.FC = () => {
     }))
     .filter((item) => item.def && item.count > 0)
     .sort((a, b) => b.count - a.count);
-
-  const hasSelectedWildcard = selectedIds.includes('flexible');
 
   return (
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-28 sm:pb-32 selection:bg-brand-redSoft">

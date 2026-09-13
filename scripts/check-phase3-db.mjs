@@ -18,7 +18,7 @@ try {
     '20260908000300_room_host_coordinates.sql'
   ]) await db.exec(migration(file).replace('create extension if not exists "pgcrypto";',''));
   await db.exec('ALTER TABLE participants DROP CONSTRAINT IF EXISTS participants_session_token_key; ALTER TABLE participants ADD CONSTRAINT participants_room_session_unique UNIQUE(room_id,session_token);');
-  for(const file of ['20260909000100_private_restaurant_decks.sql','20260909000200_private_participant_sessions.sql','20260910000100_jeddah_geography_intelligence.sql','20260911000100_jeddah_burger_google_verified_catalog.sql','20260911000200_remove_legacy_public_room_coordinates.sql','20260911000300_phase3_authoritative_consensus.sql']) await db.exec(migration(file));
+  for(const file of ['20260909000100_private_restaurant_decks.sql','20260909000200_private_participant_sessions.sql','20260910000100_jeddah_geography_intelligence.sql','20260911000100_jeddah_burger_google_verified_catalog.sql','20260911000200_remove_legacy_public_room_coordinates.sql','20260911000300_phase3_authoritative_consensus.sql','20260912000100_allow_voting_stage_joins.sql']) await db.exec(migration(file));
 
   const esc=value=>String(value).replaceAll("'","''"),state=rows=>rows[0].state;
   const rpc=async(sql)=>state(await query(`SELECT ${sql} state`));
@@ -69,6 +69,14 @@ try {
   c=await settleRace([()=>category(raceRoom,missingToken,c.room.version,['burger']),()=>category(raceRoom,submittedToken,c.room.version,['burger'])]);
   if(c.room.stage==='voting')c=await category(raceRoom,missingToken,c.room.version,['burger']);
   check(['consensus','tiebreaker'].includes(c.room.stage),'concurrent completion creates one category outcome');
+
+  // Joining remains open while category voting is pending, then closes at consensus.
+  const asyncHost='async-host-token-00001',asyncGuest='async-guest-token-0001';let aj=await create('P310',asyncHost),asyncRoom=aj.room.id;
+  aj=await start(asyncRoom,asyncHost,aj.room.version);const joined=await joinRoom('P310',asyncGuest,'Guest');
+  check(joined.room.stage==='voting'&&joined.room.category_summary.eligibleParticipantCount===2,'guest joins while host category voting is open');
+  aj=await category(asyncRoom,asyncHost,joined.room.version,['burger']);check(aj.room.stage==='voting','host submission waits for later guest');
+  aj=await category(asyncRoom,asyncGuest,aj.room.version,['burger']);check(aj.room.stage==='consensus','late guest independently completes category consensus');
+  await rejects(`SELECT public.join_room_authorized('P310','too-late-token-00001','Late')`,'PT409');
 
   // Duplicate final category submissions cannot advance a room twice.
   const duplicateCategoryToken='duplicate-category-001';let dc=await create('P306',duplicateCategoryToken),dcRoom=dc.room.id;

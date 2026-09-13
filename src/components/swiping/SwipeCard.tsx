@@ -1,22 +1,23 @@
 import React from 'react';
-import { motion, useMotionValue, useTransform } from 'motion/react';
-import type { RestaurantItem } from '../../types/restaurant';
+import { motion, useMotionValue, useReducedMotion, useTransform } from 'motion/react';
+import type { RestaurantItem, RestaurantVote } from '../../types/restaurant';
 import { useLocale } from '../../context/LocaleContext';
 
 interface SwipeCardProps {
   restaurant: RestaurantItem;
   isFront: boolean;
-  onSwipe: (liked: boolean) => void;
+  onVote: (vote: RestaurantVote) => void;
   stackIndex?: number; // 0 for front, 1 for second, 2 for third
 }
 
-export const SwipeCard: React.FC<SwipeCardProps> = ({
+export const SwipeCard = React.memo(function SwipeCard({
   restaurant,
   isFront,
-  onSwipe,
+  onVote,
   stackIndex = 0,
-}) => {
+}: SwipeCardProps) {
   const { locale, t } = useLocale();
+  const reduceMotion = useReducedMotion();
 
   // Screen-absolute x drag position
   const x = useMotionValue(0);
@@ -88,14 +89,19 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
 
         // Swiping right = Like (يمشي), Swiping left = Pass (تخطي)
         if (offset >= 120 || (offset > 40 && velocity > 450)) {
-          onSwipe(true);
+          onVote('YES');
         } else if (offset <= -120 || (offset < -40 && velocity < -450)) {
-          onSwipe(false);
+          onVote('NO');
         }
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-none ${
-        isFront ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'
+      variants={{exit:(vote:RestaurantVote)=>reduceMotion?{opacity:0,transition:{duration:.12}}:{
+        x:vote==='YES'?520:vote==='NO'?-520:0,y:vote==='LATER'?80:0,rotate:vote==='YES'?18:vote==='NO'?-18:0,
+        scale:vote==='LATER'?.92:1,opacity:0,transition:{duration:.22,ease:[.2,.8,.2,1]},
+      }}}
+      exit="exit"
+      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-pan-y ${
+        isFront ? 'cursor-grab active:cursor-grabbing will-change-transform' : 'pointer-events-none'
       }`}
     >
       {/* Visual Stamps for interactive front card */}
@@ -129,7 +135,8 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
           src={cardImageUrl}
           alt={name}
           className="w-full h-full object-cover pointer-events-none"
-          loading="eager"
+          loading={isFront || stackIndex === 1 ? 'eager' : 'lazy'}
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
       </div>
@@ -176,4 +183,4 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
       </div>
     </motion.div>
   );
-};
+});

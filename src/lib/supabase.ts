@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState } from '../types/database';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
+import type { DecisionSpin } from '../types/roulette';
 import { cacheDeckRestaurants } from './restaurantRepository';
 import { getOrCreateSessionToken, generateRoomCode } from './session';
 
@@ -710,13 +711,10 @@ export function subscribeToRoulette(
   };
 }
 
-export async function broadcastRouletteSpin(
-  roomId: string,
-  spinData: { winnerId: string; targetAngle: number }
-): Promise<void> {
+export async function broadcastDecisionSpin(roomId: string, spin: DecisionSpin): Promise<void> {
   if (supabase) {
     try {
-      const channel = supabase.channel(`roulette_spin:${roomId}`);
+      const channel = supabase.channel(`decision_spin:${roomId}`);
       if (channel.state !== 'joined') {
         await new Promise<void>((resolve) => {
           channel.subscribe((status: string) => {
@@ -727,91 +725,30 @@ export async function broadcastRouletteSpin(
       }
       await channel.send({
         type: 'broadcast',
-        event: 'roulette_spin',
-        payload: { roomId, ...spinData },
+        event: 'decision_spin',
+        payload: { roomId, ...spin },
       });
     } catch (e) {
-      console.warn('Supabase broadcastRouletteSpin failed', e);
+      console.warn('Supabase broadcastDecisionSpin failed', e);
     }
   }
-
 }
 
-export function subscribeToRouletteSpin(
+export function subscribeToDecisionSpin(
   roomId: string,
-  callback: (spinData: { winnerId: string; targetAngle: number }) => void
+  callback: (spin: DecisionSpin) => void
 ): () => void {
   let channel: any = null;
 
   if (supabase) {
     channel = supabase
-      .channel(`roulette_spin:${roomId}`)
-      .on('broadcast', { event: 'roulette_spin' }, (payload: any) => {
-        if (payload?.payload?.winnerId) {
-          callback({
-            winnerId: payload.payload.winnerId,
-            targetAngle: payload.payload.targetAngle,
-          });
-        }
+      .channel(`decision_spin:${roomId}`)
+      .on('broadcast', { event: 'decision_spin' }, (payload: any) => {
+        const spin = payload?.payload as DecisionSpin | undefined;
+        if (spin?.spinId && spin.kind && Array.isArray(spin.candidateIds)) callback(spin);
       })
       .subscribe(reportRealtimeStatus);
   }
-
-
-  return () => {
-    if (supabase && channel) {
-      supabase.removeChannel(channel);
-    }
-  };
-}
-
-export async function broadcastCategoryRouletteSpin(
-  roomId: string,
-  spinData: { winnerId: string; targetAngle: number }
-): Promise<void> {
-  if (supabase) {
-    try {
-      const channel = supabase.channel(`category_spin:${roomId}`);
-      if (channel.state !== 'joined') {
-        await new Promise<void>((resolve) => {
-          channel.subscribe((status: string) => {
-            if (status === 'SUBSCRIBED') resolve();
-          });
-          setTimeout(resolve, 300);
-        });
-      }
-      await channel.send({
-        type: 'broadcast',
-        event: 'category_spin',
-        payload: { roomId, ...spinData },
-      });
-    } catch (e) {
-      console.warn('Supabase broadcastCategoryRouletteSpin failed', e);
-    }
-  }
-
-}
-
-export function subscribeToCategoryRouletteSpin(
-  roomId: string,
-  callback: (spinData: { winnerId: string; targetAngle: number }) => void
-): () => void {
-  let channel: any = null;
-
-  if (supabase) {
-    channel = supabase
-      .channel(`category_spin:${roomId}`)
-      .on('broadcast', { event: 'category_spin' }, (payload: any) => {
-        if (payload?.payload?.winnerId) {
-          callback({
-            winnerId: payload.payload.winnerId,
-            targetAngle: payload.payload.targetAngle,
-          });
-        }
-      })
-      .subscribe(reportRealtimeStatus);
-  }
-
 
   return () => {
     if (supabase && channel) {

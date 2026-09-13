@@ -1,5 +1,6 @@
-import React from 'react';
-import type { RestaurantItem } from '../../types/restaurant';
+import React, { useCallback, useState } from 'react';
+import { AnimatePresence } from 'motion/react';
+import type { RestaurantItem, RestaurantVote } from '../../types/restaurant';
 import { SwipeCard } from './SwipeCard';
 import { TactileActionDock } from './TactileActionDock';
 import { useLocale } from '../../context/LocaleContext';
@@ -9,8 +10,7 @@ interface SwipingDeckProps {
   currentIndex: number;
   totalCards: number;
   isLoading: boolean;
-  onSwipe: (liked: boolean) => void;
-  onSkip: () => void;
+  onVote: (vote: RestaurantVote) => void;
 }
 
 export const SwipingDeck: React.FC<SwipingDeckProps> = ({
@@ -18,10 +18,11 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
   currentIndex,
   totalCards,
   isLoading,
-  onSwipe,
-  onSkip,
+  onVote,
 }) => {
   const { t } = useLocale();
+  const [exitVote, setExitVote] = useState<RestaurantVote>('LATER');
+  const vote = useCallback((nextVote: RestaurantVote) => { setExitVote(nextVote); onVote(nextVote); }, [onVote]);
 
   const progressPercentage = totalCards > 0
     ? Math.min(100, Math.round((currentIndex / totalCards) * 100))
@@ -63,6 +64,7 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
           </div>
         ) : (
           <div className="relative w-full h-[420px]">
+            <AnimatePresence initial={false} custom={exitVote}>
             {visibleCards
               .map((item, idx) => ({ item, idx }))
               .reverse()
@@ -72,17 +74,17 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
                   restaurant={item}
                   isFront={idx === 0}
                   stackIndex={idx}
-                  onSwipe={onSwipe}
+                  onVote={vote}
                 />
               ))}
+            </AnimatePresence>
           </div>
         )}
       </div>
 
       {/* 4. Tactile 3-Button Controller (Pass, Skip, Pick) */}
       <TactileActionDock
-        onSwipe={onSwipe}
-        onSkip={onSkip}
+        onVote={vote}
         disabled={currentIndex >= totalCards}
       />
     </div>
