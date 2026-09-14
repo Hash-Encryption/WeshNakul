@@ -217,7 +217,12 @@
     "rouletteWinnerBadge": "🎉 الفائز في الروليت!",
     "rouletteConfirmWinner": "اعتماد {{restaurant}} واحتفل 🚀",
     "rouletteSpinning": "العجلة تدور الآن... 🎡",
-    "rouletteSpinAgain": "لفة ثانية 🔄"
+    "rouletteSpinAgain": "لفة ثانية 🔄",
+    "tiedShowdownTitle": "تعادل بين المطاعم المتصدرة! ⚔️",
+    "tiedShowdownSubtitle": "لم يُحسم الفائز بعد. اختر طريقة الحسم:",
+    "tiedBadge": "⚔️ متعادل",
+    "suddenDeathTieNotice": "تعادل في المواجهة! لم يُحسم الفائز ⚔️",
+    "everyoneWildcardNotice": "الكل منفتح على أي شيء! 🎲 اختاروا بالقرعة"
   },
   "session": {
     "networkFailure": "تعذر الاتصال بخوادم اللعبة. تحقق من اتصال الإنترنت أو إعدادات الشبكة 🌐",

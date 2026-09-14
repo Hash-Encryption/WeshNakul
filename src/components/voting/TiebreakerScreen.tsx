@@ -57,7 +57,7 @@ export const TiebreakerScreen: React.FC = () => {
   return <div className="relative flex min-h-[92dvh] w-full flex-col justify-between px-4 pb-8">
     <div><Header showBack={false} showMenu={false} participantCount={participants.length} showCount />
       <div className="mb-3 mt-2 text-center"><h2 className="font-alexandria text-2xl font-extrabold text-brand-ink">{t('categoryRoulette.title')}</h2>
-        <p className="text-sm font-medium text-brand-gray">{t('categoryRoulette.subtitle')}</p></div>
+        <p className="text-sm font-medium text-brand-gray">{currentRoom?.category_summary?.allWildcard ? t('gameSwiper.everyoneWildcardNotice') : t('categoryRoulette.subtitle')}</p></div>
       <div className="mb-4 flex flex-wrap justify-center gap-2">{contenders.map((category) => <span key={category!.id} className="rounded-full border-2 border-brand-ink bg-white px-3 py-1 text-xs font-black">{category!.icon} {locale === 'ar' ? category!.ar : category!.en}</span>)}</div>
       <div className="flex justify-center"><ArcadeWheel slices={slices} rotation={rotation} isSpinning={Boolean(spin && !revealed)} durationMs={duration} reducedMotion={Boolean(reduceMotion)} /></div>
       <div aria-live="polite" className="mx-auto mt-4 min-h-24 w-full max-w-sm text-center"><AnimatePresence mode="wait">

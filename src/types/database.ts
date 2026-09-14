@@ -42,7 +42,7 @@ export interface Room {
   restaurant_summary?: RestaurantSummary;
   winning_deck_id?: string | null;
   winning_branch_id?: string | null;
-  winning_resolution_method?: 'normal_consensus' | 'choose_for_us' | 'host_pick' | null;
+  winning_resolution_method?: 'normal_consensus' | 'choose_for_us' | 'host_pick' | 'sudden_death' | null;
   finalized_at?: string | null;
   created_at: string;
   expires_at: string;
@@ -56,6 +56,7 @@ export interface CategorySummary {
   tally: Record<string, number>;
   winner: string | null;
   tiedCategories: string[];
+  allWildcard?: boolean;
 }
 
 export interface RestaurantCardSummary {
@@ -83,7 +84,7 @@ export interface RestaurantSummary {
   participantProgress: ParticipantProgress[];
   tiedRestaurantIds: string[];
   winnerRestaurantId?: string | null;
-  resolutionMethod?: 'normal_consensus' | 'choose_for_us' | 'host_pick';
+  resolutionMethod?: 'normal_consensus' | 'choose_for_us' | 'host_pick' | 'sudden_death';
 }
 
 export interface RoomDecisionState {

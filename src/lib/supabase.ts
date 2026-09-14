@@ -234,7 +234,7 @@ export const beginRestaurantVoting = (roomId: string, sessionToken: string, vers
 export const submitRestaurantVote = (roomId: string, sessionToken: string, version: number, deckId: string, restaurantId: string, vote: RestaurantVote) =>
   decisionRpc('submit_restaurant_vote', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_deck_id: deckId, p_restaurant_id: restaurantId, p_vote: vote });
 
-export const resolveRestaurantTie = (roomId: string, sessionToken: string, version: number, method: 'host_pick' | 'choose_for_us', restaurantId?: string) =>
+export const resolveRestaurantTie = (roomId: string, sessionToken: string, version: number, method: 'host_pick' | 'choose_for_us' | 'sudden_death', restaurantId?: string) =>
   decisionRpc('resolve_restaurant_tie', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_method: method, p_restaurant_id: restaurantId ?? null });
 
 export async function getFoodChoices(roomId: string, sessionToken: string): Promise<FoodChoice[]> {

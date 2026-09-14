@@ -11,7 +11,7 @@ interface SuddenDeathModalProps {
   isHost: boolean;
   restaurants: [RestaurantItem, RestaurantItem] | null;
   totalParticipants: number;
-  onSelectWinner: (winner: RestaurantItem) => void;
+  onSelectWinner: (winner: RestaurantItem, method: 'sudden_death') => void;
   onClose: () => void;
 }
 
@@ -69,30 +69,30 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
 
     if (timerRef.current) clearInterval(timerRef.current);
 
-    if (isHost) {
-      const [r1, r2] = restaurants;
-      const votes1 = Object.values(votes).filter((id) => id === r1.id).length;
-      const votes2 = Object.values(votes).filter((id) => id === r2.id).length;
+    const [r1, r2] = restaurants;
+    const votes1 = Object.values(votes).filter((id) => id === r1.id).length;
+    const votes2 = Object.values(votes).filter((id) => id === r2.id).length;
 
-      let winner = r1;
-      if (votes2 > votes1) {
-        winner = r2;
-      } else if (votes1 === votes2) {
-        winner = r1.rating >= r2.rating ? r1 : r2;
-      }
-
+    if (votes1 === votes2) {
       const timeout = setTimeout(() => {
-        onSelectWinner(winner);
+        onClose();
+      }, 2500);
+      return () => clearTimeout(timeout);
+    } else if (isHost) {
+      const winner = votes1 > votes2 ? r1 : r2;
+      const timeout = setTimeout(() => {
+        onSelectWinner(winner, 'sudden_death');
       }, 1200);
       return () => clearTimeout(timeout);
     }
-  }, [isOpen, restaurants, isFinished, isHost, onSelectWinner, votes]);
+  }, [isOpen, restaurants, isFinished, isHost, onSelectWinner, votes, onClose]);
 
   if (!isOpen || !restaurants) return null;
 
   const [r1, r2] = restaurants;
   const votes1 = Object.values(votes).filter((id) => id === r1.id).length;
   const votes2 = Object.values(votes).filter((id) => id === r2.id).length;
+  const isTieResult = Boolean(isFinished && votes1 === votes2);
   const totalVotesCast = votes1 + votes2;
   const pct1 = totalVotesCast === 0 ? 50 : Math.round((votes1 / totalVotesCast) * 100);
   const pct2 = totalVotesCast === 0 ? 50 : 100 - pct1;
@@ -235,9 +235,15 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
           {/* Status Hint */}
           <div className="text-center pt-1">
             {isFinished ? (
-              <p className="text-xs font-black text-[#55B96A] font-alexandria animate-bounce">
-                {isHost ? '🎉 جاري اعتماد الفائز...' : t('gameSwiper.waitingForHost')}
-              </p>
+              isTieResult ? (
+                <p className="text-xs font-black text-[#F0443E] font-alexandria animate-pulse">
+                  {t('gameSwiper.suddenDeathTieNotice')}
+                </p>
+              ) : (
+                <p className="text-xs font-black text-[#55B96A] font-alexandria animate-bounce">
+                  {isHost ? (locale === 'ar' ? '🎉 جاري اعتماد الفائز...' : '🎉 Locking in winner...') : t('gameSwiper.waitingForHost')}
+                </p>
+              )
             ) : myVote ? (
               <p className="text-xs font-bold text-[#7A6E67] font-alexandria">
                 {locale === 'ar' ? 'تم تسجيل صوتك! بانتظار الباقين...' : 'Vote locked in! Waiting for squad...'}
@@ -249,13 +255,15 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
             )}
           </div>
 
-          {isHost && !isFinished && (
+          {(isHost || isTieResult) && (
             <button
               type="button"
               onClick={onClose}
-              className="mt-1 text-xs font-bold text-[#7A6E67] hover:text-[#241B18] underline"
+              className="mt-1 text-xs font-bold text-[#7A6E67] hover:text-[#241B18] underline cursor-pointer"
             >
-              {t('common.close')}
+              {isTieResult
+                ? (locale === 'ar' ? 'العودة للنتائج ↩️' : 'Back to Results ↩️')
+                : t('common.close')}
             </button>
           )}
         </motion.div>

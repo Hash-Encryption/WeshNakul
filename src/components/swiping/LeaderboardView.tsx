@@ -53,11 +53,21 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       });
   }, [restaurants, summary?.cards, totalParticipants]);
 
-  const topSpot = rankedRestaurants[0]?.restaurant;
-  const runnerUp = rankedRestaurants[1]?.restaurant;
-  const canRunTieBreaker = summary?.status === 'tie' && (summary.tiedRestaurantIds?.length || 0) >= 2;
+  const isTie = summary?.status === 'tie' && (summary.tiedRestaurantIds?.length || 0) >= 2;
+  const tiedIds = useMemo(() => new Set(summary?.tiedRestaurantIds || []), [summary?.tiedRestaurantIds]);
+  const tiedRestaurants = useMemo(
+    () => rankedRestaurants.filter(({ restaurant }) => tiedIds.has(restaurant.id)).map((r) => r.restaurant),
+    [rankedRestaurants, tiedIds]
+  );
 
-  const getPodiumBadge = (index: number) => {
+  const getPodiumBadge = (index: number, restaurantId: string) => {
+    if (isTie && tiedIds.has(restaurantId)) {
+      return (
+        <span className="px-2 py-0.5 rounded-full bg-[#FFEFEF] border border-[#F0443E] text-[#F0443E] font-black text-[10px] whitespace-nowrap shadow-xs">
+          {t('gameSwiper.tiedBadge')}
+        </span>
+      );
+    }
     switch (index) {
       case 0:
         return <span className="text-xl sm:text-2xl" title="First Place">🥇</span>;
@@ -124,53 +134,48 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
         </p>
       </div>
 
-      {/* Host Action Quick Deck for Top Spot */}
-      {isHost && topSpot && canRunTieBreaker && (
+      {/* Tiebreaker Showdown Controls */}
+      {isTie && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#FFF8F1] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl p-4 flex flex-col gap-3"
+          className="bg-[#FFF8F1] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl p-4 flex flex-col gap-3 text-center"
         >
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-xs font-black text-[#241B18] font-alexandria flex items-center gap-1">
-              <span>👑</span>
-              <span>{locale === 'ar' ? 'خيارات المضيف للحسم:' : 'Host Lockout Controls:'}</span>
-            </span>
-            <span className="bg-[#FFD75A] border border-[#241B18] text-[#241B18] text-[11px] font-black px-2 py-0.5 rounded-full">
-              {locale === 'ar' ? 'المتصدر 🥇' : '#1 Pick 🥇'}
-            </span>
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-2xl">⚔️</span>
+            <h4 className="text-base font-black text-[#241B18] font-alexandria">
+              {t('gameSwiper.tiedShowdownTitle')}
+            </h4>
+            <p className="text-xs font-bold text-[#7A6E67] font-alexandria">
+              {t('gameSwiper.tiedShowdownSubtitle')}
+            </p>
           </div>
 
-          {/* Primary Action Button */}
-          <button
-            type="button"
-            onClick={() => onConfirmPick(topSpot)}
-            className="w-full py-3.5 px-4 rounded-2xl bg-[#55B96A] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none hover:brightness-105 transition-all font-alexandria font-black text-base flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <span>{t('gameSwiper.hostConfirmBtn')}</span>
-            <span className="truncate text-sm opacity-90">({locale === 'ar' ? topSpot.nameAr : topSpot.nameEn})</span>
-          </button>
-
-          {/* Tie-Breaker Buttons */}
-          {canRunTieBreaker && (
-            <div className="flex items-center gap-2 pt-1">
+          {isHost ? (
+            <div className="flex flex-col sm:flex-row items-center gap-2 pt-1">
               <button
                 type="button"
-                onClick={() => onTriggerSuddenDeath([topSpot, runnerUp!])}
-                className="flex-1 py-2.5 px-3 rounded-xl bg-white text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:bg-[#FFF0EE] transition-all font-alexandria font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                onClick={() => onTriggerRoulette(tiedRestaurants)}
+                className="w-full sm:flex-1 py-3 px-3 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 transition-all font-alexandria font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <span>⚡</span>
-                <span>{t('gameSwiper.suddenDeathBtn')}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => onTriggerRoulette(rankedRestaurants.filter(({restaurant})=>summary?.tiedRestaurantIds.includes(restaurant.id)).map((r) => r.restaurant))}
-                className="flex-1 py-2.5 px-3 rounded-xl bg-white text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:bg-[#FFF8F1] transition-all font-alexandria font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <span>🎲</span>
+                <span className="text-base">🎲</span>
                 <span>{t('gameSwiper.rouletteBtn')}</span>
               </button>
+
+              {tiedRestaurants.length >= 2 && (
+                <button
+                  type="button"
+                  onClick={() => onTriggerSuddenDeath([tiedRestaurants[0], tiedRestaurants[1]])}
+                  className="w-full sm:flex-1 py-3 px-3 rounded-2xl bg-white text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:bg-[#FFF0EE] transition-all font-alexandria font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <span className="text-base">⚡</span>
+                  <span>{t('gameSwiper.suddenDeathBtn')}</span>
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-[#241B18]/15 bg-white p-2.5 text-center text-xs font-bold text-[#7A6E67]">
+              {t('gameSwiper.waitingForHost')}
             </div>
           )}
         </motion.div>
@@ -181,7 +186,8 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
         {rankedRestaurants.map(({ restaurant, likes, percentage }, index) => {
           const name = locale === 'ar' ? restaurant.nameAr : restaurant.nameEn;
           const signature = locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn;
-          const isWinnerCandidate = index === 0;
+          const isTied = isTie && tiedIds.has(restaurant.id);
+          const isWinnerCandidate = !isTie && index === 0;
 
           return (
             <motion.div
@@ -190,7 +196,9 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
               className={`rounded-2xl border-2 border-[#241B18] p-3 transition-all ${
-                isWinnerCandidate
+                isTied
+                  ? 'bg-[#FFF9F5] shadow-[0px_3px_0px_#241B18]'
+                  : isWinnerCandidate
                   ? 'bg-[#FFFDF9] shadow-[0px_4px_0px_#241B18]'
                   : 'bg-white shadow-[0px_2px_0px_#241B18]'
               }`}
@@ -198,8 +206,8 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
               <div className="flex items-center justify-between gap-3">
                 {/* Left: Podium Icon + Thumbnail */}
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="shrink-0 flex items-center justify-center w-7">
-                    {getPodiumBadge(index)}
+                  <div className="shrink-0 flex items-center justify-center min-w-7">
+                    {getPodiumBadge(index, restaurant.id)}
                   </div>
 
                   {restaurant.imageUrl ? (
@@ -230,13 +238,14 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
                     <span>❤️</span>
                     <span>{likes}</span>
                   </div>
-                  {isHost && summary?.status === 'tie' && summary.tiedRestaurantIds.includes(restaurant.id) && (
+                  {isHost && isTie && tiedIds.has(restaurant.id) && (
                     <button
                       type="button"
                       onClick={() => onConfirmPick(restaurant)}
-                      className="text-[10px] font-black text-[#55B96A] hover:underline"
+                      className="text-[10px] font-black text-[#55B96A] bg-[#E8F8EE] border border-[#55B96A] px-2 py-0.5 rounded-md hover:brightness-95 active:scale-95 transition-all flex items-center gap-1"
                     >
-                      {locale === 'ar' ? 'اعتماد 🏆' : 'Pick 🏆'}
+                      <span>👑</span>
+                      <span>{locale === 'ar' ? 'اعتماد 🏆' : 'Pick 🏆'}</span>
                     </button>
                   )}
                 </div>

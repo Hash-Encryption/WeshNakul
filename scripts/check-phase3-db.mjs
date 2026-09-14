@@ -18,7 +18,7 @@ try {
     '20260908000300_room_host_coordinates.sql'
   ]) await db.exec(migration(file).replace('create extension if not exists "pgcrypto";',''));
   await db.exec('ALTER TABLE participants DROP CONSTRAINT IF EXISTS participants_session_token_key; ALTER TABLE participants ADD CONSTRAINT participants_room_session_unique UNIQUE(room_id,session_token);');
-  for(const file of ['20260909000100_private_restaurant_decks.sql','20260909000200_private_participant_sessions.sql','20260910000100_jeddah_geography_intelligence.sql','20260911000100_jeddah_burger_google_verified_catalog.sql','20260911000200_remove_legacy_public_room_coordinates.sql','20260911000300_phase3_authoritative_consensus.sql','20260912000100_allow_voting_stage_joins.sql']) await db.exec(migration(file));
+  for(const file of ['20260909000100_private_restaurant_decks.sql','20260909000200_private_participant_sessions.sql','20260910000100_jeddah_geography_intelligence.sql','20260911000100_jeddah_burger_google_verified_catalog.sql','20260911000200_remove_legacy_public_room_coordinates.sql','20260911000300_phase3_authoritative_consensus.sql','20260912000100_allow_voting_stage_joins.sql','20260913000100_decision_game_and_tie_corrections.sql']) await db.exec(migration(file));
 
   const esc=value=>String(value).replaceAll("'","''"),state=rows=>rows[0].state;
   const rpc=async(sql)=>state(await query(`SELECT ${sql} state`));
@@ -131,7 +131,7 @@ try {
   check(r.room.restaurant_state==='tie'&&r.room.restaurant_summary.tiedRestaurantIds.length===2,'equal top restaurant support creates explicit tie');
   await rejects(`SELECT public.resolve_restaurant_tie('${rr}','${rg}',${r.room.version},'host_pick','${esc(rd.restaurants[0].id)}')`,'42501');
   await rejects(`SELECT public.resolve_restaurant_tie('${rr}','${rh}',${r.room.version},'host_pick','not-in-tie')`,'22023');
-  await rejects(`SELECT public.resolve_restaurant_tie('${rr}','${rh}',${r.room.version},'host_pick','${esc(deck.restaurants[0].id)}')`,'22023');
+  await rejects(`SELECT public.resolve_restaurant_tie('${rr}','${rh}',${r.room.version},'host_pick','${esc(rd.restaurants[2].id)}')`,'22023');
   r=await settleRace([
     ()=>tie(rr,rh,r.room.version,'host_pick',rd.restaurants[0].id),
     ()=>tie(rr,rh,r.room.version,'choose_for_us')
