@@ -103,8 +103,8 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
     if (isIOS || isAndroid) {
       e.preventDefault();
       const fallbackUrl = isIOS
-        ? 'https://apps.apple.com/sa/app/keeta/id6444061803'
-        : 'https://play.google.com/store/apps/details?id=com.keeta.consumer';
+        ? 'https://apps.apple.com/sa/app/keeta-food-delivery/id1662451643'
+        : 'https://play.google.com/store/apps/details?id=com.sankuai.sailor.afooddelivery';
 
       const startTime = Date.now();
       let fallbackTimer: ReturnType<typeof setTimeout> | null = setTimeout(() => {
