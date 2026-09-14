@@ -13,17 +13,50 @@ interface SwiperProps {
   summary?: RestaurantSummary;
   onRefresh: () => Promise<void>;
   onMatched?: (winner: RestaurantItem) => void;
+  onAuthoritativeState?: (state: import('../types/database').RoomDecisionState) => void;
 }
 
-export function useRestaurantSwiper({roomId,participantId,sessionToken,version,category,stage='swiping',summary,onRefresh,onMatched}:SwiperProps) {
-  const [traversal,setTraversal]=useState<{deck:RestaurantItem[];deckId:string|null;currentIndex:number}>({deck:[],deckId:null,currentIndex:0});
-  const {deck,deckId,currentIndex}=traversal;
-  const [isLoadingDeck,setIsLoadingDeck]=useState(true),[deckError,setDeckError]=useState<string|null>(null);
-  const [myVotes,setMyVotes]=useState<Record<string,RestaurantVote>>({});
-  const [showRoundTwoToast,setShowRoundTwoToast]=useState(false);
-  const versionRef=useRef(version),queueRef=useRef<Promise<void>>(Promise.resolve()),pendingItemsRef=useRef(new Set<string>());
+export function useRestaurantSwiper({
+  roomId,
+  participantId,
+  sessionToken,
+  version,
+  category,
+  stage = 'swiping',
+  summary,
+  onRefresh,
+  onMatched,
+  onAuthoritativeState,
+}: SwiperProps) {
+  const [traversal, setTraversal] = useState<{ deck: RestaurantItem[]; deckId: string | null; currentIndex: number }>({
+    deck: [],
+    deckId: null,
+    currentIndex: 0,
+  });
+  const { deck, deckId, currentIndex } = traversal;
+  const [isLoadingDeck, setIsLoadingDeck] = useState(true);
+  const [deckError, setDeckError] = useState<string | null>(null);
+  const [myVotes, setMyVotes] = useState<Record<string, RestaurantVote>>({});
+  const [showRoundTwoToast, setShowRoundTwoToast] = useState(false);
+  const versionRef = useRef(version);
+  const queueRef = useRef<Promise<void>>(Promise.resolve());
+  const pendingItemsRef = useRef(new Set<string>());
 
-  useEffect(()=>{versionRef.current=Math.max(versionRef.current,version)},[version]);
+  useEffect(() => {
+    versionRef.current = Math.max(versionRef.current, version);
+  }, [version]);
+
+  // Preload upcoming restaurant images for zero-lag card advancement
+  useEffect(() => {
+    if (!deck || deck.length === 0 || typeof Image === 'undefined') return;
+    const toPreload = [deck[currentIndex], deck[currentIndex + 1], deck[currentIndex + 2]];
+    toPreload.forEach((item) => {
+      if (item?.imageUrl) {
+        const img = new Image();
+        img.src = item.imageUrl;
+      }
+    });
+  }, [deck, currentIndex]);
 
   useEffect(()=>{
     if(stage!=='swiping'||!category||!roomId||!participantId||!sessionToken)return;
@@ -49,38 +82,76 @@ export function useRestaurantSwiper({roomId,participantId,sessionToken,version,c
     setTraversal(current=>current.deckId!==deckId||current.deck[current.currentIndex]?.id!==item.id?current:{...current,
         deck:vote==='LATER'?[...current.deck.slice(0,current.currentIndex),...current.deck.slice(current.currentIndex+1),item]:current.deck,
         currentIndex:vote==='LATER'?current.currentIndex:current.currentIndex+1});
-    const submit=async()=>{const accept=async(state:Awaited<ReturnType<typeof submitRestaurantVote>>)=>{
-      versionRef.current=Math.max(versionRef.current,state.room.version);
-      setMyVotes(state.myVotes||{});
-      if(state.room.stage==='matched')onMatched?.(item);
-      const nextDeckId=state.room.restaurant_summary?.deckId;
-      if(nextDeckId&&nextDeckId!==deckId){setShowRoundTwoToast(true);setIsLoadingDeck(true);}
-      await onRefresh();
-    };try{await accept(await submitRestaurantVote(roomId,sessionToken,versionRef.current,deckId,item.id,vote));
-    }catch(error){let failure=error;
-      if((failure as {code?:string})?.code==='PT409')try{
-        const canonical=await getRoomDecisionState(roomId,sessionToken);versionRef.current=Math.max(versionRef.current,canonical.room.version);
-        if(canonical.room.stage==='swiping'&&canonical.room.restaurant_summary?.deckId===deckId){
-          await accept(await submitRestaurantVote(roomId,sessionToken,versionRef.current,deckId,item.id,vote));return;
+    const submit = async () => {
+      const accept = async (state: Awaited<ReturnType<typeof submitRestaurantVote>>) => {
+        versionRef.current = Math.max(versionRef.current, state.room.version);
+        setMyVotes(state.myVotes || {});
+        if (state.room.stage === 'matched') onMatched?.(item);
+        const nextDeckId = state.room.restaurant_summary?.deckId;
+        if (nextDeckId && nextDeckId !== deckId) {
+          setShowRoundTwoToast(true);
+          setIsLoadingDeck(true);
         }
-      }catch(retryError){failure=retryError}
-      const isStale=(failure as {code?:string})?.code==='PT409';
-      if(!isStale)console.error('Failed to record authoritative vote',failure);
-      setTraversal(current=>{
-        const index=current.deck.findIndex(card=>card.id===item.id);
-        if(index<0)return current;
-        const remaining=current.deck.filter(card=>card.id!==item.id),insertAt=Math.min(currentIndex,remaining.length);
-        return{...current,deck:[...remaining.slice(0,insertAt),item,...remaining.slice(insertAt)],currentIndex:insertAt};
-      });
-      setMyVotes(current=>{const next={...current};if(previousVote)next[item.id]=previousVote;else delete next[item.id];return next});
-      try{const canonical=await getRoomDecisionState(roomId,sessionToken);versionRef.current=Math.max(versionRef.current,canonical.room.version);setMyVotes(canonical.myVotes||{});}catch{/* refresh reports the original error */}
-      await onRefresh();
-      if(!isStale)setDeckError('DECK_UNAVAILABLE');
-    }finally{pendingItemsRef.current.delete(item.id)}};
-    const queued=queueRef.current.then(submit,submit);
-    queueRef.current=queued.catch(()=>{});
+        if (onAuthoritativeState) {
+          onAuthoritativeState(state);
+        } else {
+          await onRefresh();
+        }
+      };
+      try {
+        await accept(await submitRestaurantVote(roomId, sessionToken, versionRef.current, deckId, item.id, vote));
+      } catch (error) {
+        let failure = error;
+        if ((failure as { code?: string })?.code === 'PT409')
+          try {
+            const canonical = await getRoomDecisionState(roomId, sessionToken);
+            versionRef.current = Math.max(versionRef.current, canonical.room.version);
+            if (canonical.room.stage === 'swiping' && canonical.room.restaurant_summary?.deckId === deckId) {
+              await accept(await submitRestaurantVote(roomId, sessionToken, versionRef.current, deckId, item.id, vote));
+              return;
+            }
+          } catch (retryError) {
+            failure = retryError;
+          }
+        const isStale = (failure as { code?: string })?.code === 'PT409';
+        if (!isStale) console.error('Failed to record authoritative vote', failure);
+        setTraversal((current) => {
+          const index = current.deck.findIndex((card) => card.id === item.id);
+          if (index < 0) return current;
+          const remaining = current.deck.filter((card) => card.id !== item.id);
+          const insertAt = Math.min(currentIndex, remaining.length);
+          return {
+            ...current,
+            deck: [...remaining.slice(0, insertAt), item, ...remaining.slice(insertAt)],
+            currentIndex: insertAt,
+          };
+        });
+        setMyVotes((current) => {
+          const next = { ...current };
+          if (previousVote) next[item.id] = previousVote;
+          else delete next[item.id];
+          return next;
+        });
+        try {
+          const canonical = await getRoomDecisionState(roomId, sessionToken);
+          versionRef.current = Math.max(versionRef.current, canonical.room.version);
+          setMyVotes(canonical.myVotes || {});
+          if (onAuthoritativeState) onAuthoritativeState(canonical);
+        } catch {
+          /* refresh reports the original error */
+        }
+        if (!onAuthoritativeState) {
+          await onRefresh();
+        }
+        if (!isStale) setDeckError('DECK_UNAVAILABLE');
+      } finally {
+        pendingItemsRef.current.delete(item.id);
+      }
+    };
+    const queued = queueRef.current.then(submit, submit);
+    queueRef.current = queued.catch(() => {});
     return queued;
-  },[deckId,currentIndex,deck,myVotes,roomId,sessionToken,onMatched,onRefresh]);
+  }, [deckId, currentIndex, deck, myVotes, roomId, sessionToken, onMatched, onRefresh, onAuthoritativeState]);
 
   const isDeckFinished=deck.length>0&&deck.every(item=>['YES','NO'].includes(myVotes[item.id]||''));
   return {deck,currentIndex,totalCards:deck.length,isDeckFinished,isLoadingDeck,deckError,recordVote,

@@ -53,7 +53,7 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
           style={{
             transform: `rotate(${rotation}deg)`,
             transformOrigin: '160px 160px',
-            transition: isSpinning && !reducedMotion
+            transition: durationMs && durationMs > 0 && isSpinning && !reducedMotion
               ? `transform ${durationMs}ms cubic-bezier(0.15, 0.9, 0.2, 1)`
               : 'none',
           }}

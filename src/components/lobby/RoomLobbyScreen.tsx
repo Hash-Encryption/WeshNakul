@@ -22,8 +22,24 @@ export const RoomLobbyScreen: React.FC<RoomLobbyScreenProps> = ({
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showMenuModal, setShowMenuModal] = useState(false);
+  const [isStarting, setIsStarting] = useState(false);
 
   if (!currentRoom) return null;
+
+  const handleStartPicking = async () => {
+    if (isStarting) return;
+    if (onStartPicking) {
+      setIsStarting(true);
+      navigator.vibrate?.(10);
+      try {
+        await onStartPicking();
+      } catch {
+        setIsStarting(false);
+      }
+    } else {
+      triggerConfetti();
+    }
+  };
 
   // Build the full invite URL based on the current origin
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://washn6tab.com';
@@ -245,7 +261,9 @@ export const RoomLobbyScreen: React.FC<RoomLobbyScreenProps> = ({
           <div className="relative inline-block w-full">
             <SparkleRays className="absolute -top-3 end-6 transform rotate-12 scale-75" color="#FFD75A" />
             <TactileButton
-              onClick={onStartPicking || triggerConfetti}
+              onClick={handleStartPicking}
+              isLoading={isStarting}
+              disabled={isStarting}
               variant="primary"
               fullWidth
               size="lg"

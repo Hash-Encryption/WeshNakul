@@ -27,6 +27,7 @@ import {
 import { useLocale } from './LocaleContext';
 import { normalizeCategorySelection } from '../lib/consensus';
 import type { DecisionSpin } from '../types/roulette';
+import { perf } from '../lib/perf';
 
 interface RoomContextType {
   currentRoom: Room | null;
@@ -44,7 +45,8 @@ interface RoomContextType {
   createNewRoom: (input: CreateRoomInput) => Promise<{ room: Room; participant: Participant }>;
   joinExistingRoom: (code: string, nickname: string) => Promise<{ success: boolean; isFull?: boolean; error?: string }>;
   loadRoom: (code: string) => Promise<boolean>;
-  refreshRoom: () => Promise<void>;
+  refreshRoom: (options?: { fetchParticipants?: boolean; fetchChoices?: boolean }) => Promise<void>;
+  applyAuthoritativeRoomState: (state: import('../types/database').RoomDecisionState) => void;
   leaveRoom: (preserveToken?: boolean) => void;
   destroyRoom: () => Promise<void>;
   isHost: boolean;
@@ -102,6 +104,45 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     currentParticipantRef.current = currentParticipant;
   }, [currentParticipant]);
 
+  const pendingResolvedRoomRef = useRef<Room | null>(null);
+
+  const applyAuthoritativeRoomState = useCallback((state: import('../types/database').RoomDecisionState) => {
+    if (!state?.room) return;
+    const room = state.room;
+    if (room.version < (currentRoomRef.current?.version ?? -1)) return;
+
+    // Check if a decision spin is active and uncompleted
+    const spin = decisionSpinRef.current;
+    const spinResolvedRoom = spin?.kind === 'category'
+      ? room.stage === 'consensus' && room.winning_category
+      : room.stage === 'matched' && room.winning_restaurant_id;
+
+    if (spin && !spin.cancelled && spinResolvedRoom) {
+      pendingResolvedRoomRef.current = room;
+      if (!spin.winnerId) {
+        const winnerId = spin.kind === 'category' ? room.winning_category! : room.winning_restaurant_id!;
+        const revealAt = spin.revealAt || spin.plannedRevealAt;
+        applyDecisionSpin({ ...spin, winnerId, revealAt, completeAt: revealAt + 1200 });
+      }
+      return;
+    }
+
+    currentRoomRef.current = room;
+    setCurrentRoom(room);
+
+    if (state.myCategorySelection) {
+      setFoodChoices((prev) => {
+        const idx = prev.findIndex((c) => c.participant_id === state.myCategorySelection!.participant_id);
+        if (idx >= 0) {
+          const next = [...prev];
+          next[idx] = state.myCategorySelection!;
+          return next;
+        }
+        return [...prev, state.myCategorySelection!];
+      });
+    }
+  }, [applyDecisionSpin]);
+
   const leaveRoom = useCallback((preserveToken = true) => {
     const code = currentRoomRef.current?.code;
     if (preserveToken) {
@@ -111,6 +152,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     currentRoomRef.current = null;
     currentParticipantRef.current = null;
+    pendingResolvedRoomRef.current = null;
     setCurrentRoom(null);
     setCurrentParticipant(null);
     setParticipants([]);
@@ -130,49 +172,77 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     leaveRoom(false);
   }, [leaveRoom]);
 
-  const refreshRoom = useCallback(async () => {
+  const inFlightRefreshRef = useRef<Promise<void> | null>(null);
+  const queuedRefreshRef = useRef<boolean>(false);
+
+  const refreshRoom = useCallback(async (options?: { fetchParticipants?: boolean; fetchChoices?: boolean }) => {
     const roomCode = currentRoomRef.current?.code;
     if (!roomCode) return;
-    try {
-      const { room, participants: parts, isExpired } = await getRoomByCode(roomCode);
-      if (isExpired) {
-        clearRoomSession(roomCode);
-        setSessionNotice(t('session.expiredNotice'));
-        leaveRoom(false);
-        return;
-      }
-      if (room) {
-        const spin = decisionSpinRef.current;
-        const spinResolvedRoom = spin?.kind === 'category'
-          ? room.stage === 'consensus' && room.winning_category
-          : room.stage === 'matched' && room.winning_restaurant_id;
-        if (spin && !spin.cancelled && spinResolvedRoom) {
-          if (!spin.winnerId) {
-            const winnerId = spin.kind === 'category' ? room.winning_category! : room.winning_restaurant_id!;
-            const revealAt = Math.max(spin.revealAt || spin.plannedRevealAt, Date.now() + 700);
-            applyDecisionSpin({ ...spin, winnerId, revealAt, completeAt: revealAt + 650 });
-          }
+
+    if (inFlightRefreshRef.current) {
+      perf.increment('coalesced_refreshes');
+      queuedRefreshRef.current = true;
+      return inFlightRefreshRef.current;
+    }
+
+    const endPerf = perf.start('refreshRoom');
+    const performRefresh = async () => {
+      try {
+        const { room, participants: parts, isExpired } = await getRoomByCode(roomCode);
+        if (isExpired) {
+          clearRoomSession(roomCode);
+          setSessionNotice(t('session.expiredNotice'));
+          leaveRoom(false);
           return;
         }
-        if (room.version < (currentRoomRef.current?.version ?? -1)) return;
-        currentRoomRef.current = room;
-        setCurrentRoom(room);
-        setParticipants(parts);
-        const roomToken = getOrCreateSessionToken(roomCode);
-        const legacyToken = getOrCreateSessionToken();
-        const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
-        if (me) {
-          currentParticipantRef.current = me;
-          setCurrentParticipant(me);
-        }
+        if (room) {
+          const spin = decisionSpinRef.current;
+          const spinResolvedRoom = spin?.kind === 'category'
+            ? room.stage === 'consensus' && room.winning_category
+            : room.stage === 'matched' && room.winning_restaurant_id;
+          if (spin && !spin.cancelled && spinResolvedRoom) {
+            pendingResolvedRoomRef.current = room;
+            if (!spin.winnerId) {
+              const winnerId = spin.kind === 'category' ? room.winning_category! : room.winning_restaurant_id!;
+              const revealAt = spin.revealAt || spin.plannedRevealAt;
+              applyDecisionSpin({ ...spin, winnerId, revealAt, completeAt: revealAt + 1200 });
+            }
+            return;
+          }
+          if (room.version < (currentRoomRef.current?.version ?? -1)) return;
+          currentRoomRef.current = room;
+          setCurrentRoom(room);
+          if (options?.fetchParticipants !== false) {
+            setParticipants(parts);
+          }
+          const roomToken = getOrCreateSessionToken(roomCode);
+          const legacyToken = getOrCreateSessionToken();
+          const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
+          if (me) {
+            currentParticipantRef.current = me;
+            setCurrentParticipant(me);
+          }
 
-        const choices = me ? await getFoodChoices(room.id, me.session_token) : [];
-        setFoodChoices(choices);
+          if (options?.fetchChoices !== false && room.stage === 'voting') {
+            const choices = me ? await getFoodChoices(room.id, me.session_token) : [];
+            setFoodChoices(choices);
+          }
+        }
+      } catch (err) {
+        console.error('Error refreshing room', err);
+        reportError(err);
+      } finally {
+        endPerf();
+        inFlightRefreshRef.current = null;
+        if (queuedRefreshRef.current) {
+          queuedRefreshRef.current = false;
+          void refreshRoom(options);
+        }
       }
-    } catch (err) {
-      console.error('Error refreshing room', err);
-      reportError(err);
-    }
+    };
+
+    inFlightRefreshRef.current = performRefresh();
+    return inFlightRefreshRef.current;
   }, [leaveRoom, t, reportError, applyDecisionSpin]);
 
   // Load a room by code
@@ -265,8 +335,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const unsubscribe = subscribeToRoom(
       currentRoom.id,
-      () => {
-        refreshRoom();
+      (payload) => {
+        // Rooms change: if incoming payload has a version and it's already <= our current version, ignore!
+        if (payload?.new?.version !== undefined && payload.new.version <= (currentRoomRef.current?.version ?? -1)) {
+          perf.increment('skipped_stale_realtime_events');
+          return;
+        }
+        refreshRoom({ fetchParticipants: false });
       },
       () => {
         // onRoomDeleted
@@ -281,6 +356,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setFoodChoices([]);
         setSessionNotice(t('session.resetSuccess'));
         refreshRoom();
+      },
+      () => {
+        // onParticipantsUpdate (joins / leaves)
+        refreshRoom({ fetchParticipants: true });
       }
     );
 
@@ -293,7 +372,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!currentRoom?.id) return;
     return subscribeToDecisionSpin(currentRoom.id, (spin) => {
       if (spin.cancelled) {
-        if (decisionSpinRef.current?.spinId === spin.spinId) applyDecisionSpin(null);
+        if (decisionSpinRef.current?.spinId === spin.spinId) {
+          applyDecisionSpin(null);
+          pendingResolvedRoomRef.current = null;
+        }
         return;
       }
       const room = currentRoomRef.current;
@@ -301,25 +383,34 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ? room?.tied_categories || []
         : room?.restaurant_summary?.tiedRestaurantIds || [];
       const duration = spin.plannedRevealAt - spin.startedAt;
-      if (spin.startedAt < Date.now() - 5000 || spin.startedAt > Date.now() + 2000 || duration < 2500 || duration > 4000) return;
+      if (spin.startedAt < Date.now() - 5000 || spin.startedAt > Date.now() + 2000 || duration < 2500 || duration > 4500) return;
       if (new Set(spin.candidateIds).size !== spin.candidateIds.length) return;
       if (spin.candidateIds.length !== authoritativeIds.length || spin.candidateIds.some((id) => !authoritativeIds.includes(id))) return;
       if (spin.winnerId && !spin.candidateIds.includes(spin.winnerId)) return;
       if (spin.winnerId) {
         if (decisionSpinRef.current?.spinId !== spin.spinId) return;
-        // A result broadcast is only a refresh cue; the database supplies the winner.
-        refreshRoom();
+        const existing = decisionSpinRef.current;
+        const revealAt = spin.revealAt || existing.revealAt || existing.plannedRevealAt;
+        const completeAt = spin.completeAt || existing.completeAt || (revealAt + 1200);
+        applyDecisionSpin({ ...existing, winnerId: spin.winnerId, revealAt, completeAt });
         return;
       }
       applyDecisionSpin(spin);
     });
-  }, [currentRoom?.id, applyDecisionSpin, refreshRoom]);
+  }, [currentRoom?.id, applyDecisionSpin]);
 
   useEffect(() => {
     if (!decisionSpin?.winnerId || !decisionSpin.completeAt) return;
     const timer = window.setTimeout(() => {
       applyDecisionSpin(null);
-      refreshRoom();
+      if (pendingResolvedRoomRef.current) {
+        const resolved = pendingResolvedRoomRef.current;
+        pendingResolvedRoomRef.current = null;
+        currentRoomRef.current = resolved;
+        setCurrentRoom(resolved);
+      } else {
+        refreshRoom();
+      }
     }, Math.max(0, decisionSpin.completeAt - Date.now()));
     return () => window.clearTimeout(timer);
   }, [decisionSpin, applyDecisionSpin, refreshRoom]);
@@ -396,21 +487,46 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const startVoting = async () => {
     if (!currentRoom || !currentParticipant) return;
-    await startCategoryVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
-    await refreshRoom();
+    const endPerf = perf.start('startVoting');
+    try {
+      const state = await startCategoryVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
+      applyAuthoritativeRoomState(state);
+    } finally {
+      endPerf();
+    }
   };
 
   const submitFoodChoices = async (selectedCategories: string[]) => {
     if (!currentRoom || !currentParticipant) return;
-    await submitCategorySelection(currentRoom.id, currentParticipant.session_token, currentRoom.version, normalizeCategorySelection(selectedCategories));
-    await refreshRoom();
+    const endPerf = perf.start('submitFoodChoices');
+    try {
+      const state = await submitCategorySelection(
+        currentRoom.id,
+        currentParticipant.session_token,
+        currentRoom.version,
+        normalizeCategorySelection(selectedCategories)
+      );
+      applyAuthoritativeRoomState(state);
+    } finally {
+      endPerf();
+    }
   };
 
   const resolveConsensus = async (winner: string, consensusType: ConsensusType) => {
     if (!currentRoom || !currentParticipant) return;
-    await resolveCategoryTie(currentRoom.id, currentParticipant.session_token, currentRoom.version,
-      consensusType === 'host_picked' ? 'host_pick' : 'choose_for_us', winner);
-    await refreshRoom();
+    const endPerf = perf.start('resolveConsensus');
+    try {
+      const state = await resolveCategoryTie(
+        currentRoom.id,
+        currentParticipant.session_token,
+        currentRoom.version,
+        consensusType === 'host_picked' ? 'host_pick' : 'choose_for_us',
+        winner
+      );
+      applyAuthoritativeRoomState(state);
+    } finally {
+      endPerf();
+    }
   };
 
   const startDecisionSpin = async (kind: DecisionSpin['kind']) => {
@@ -420,27 +536,33 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       : currentRoom.restaurant_summary?.tiedRestaurantIds || [];
     if (candidateIds.length < 2) return;
     const startedAt = Date.now() + 120;
+    const plannedRevealAt = startedAt + 3200;
     const spin: DecisionSpin = {
       spinId: crypto.randomUUID(),
       kind,
       candidateIds,
       startedAt,
-      plannedRevealAt: startedAt + 3000,
+      plannedRevealAt,
     };
     applyDecisionSpin(spin);
     await broadcastDecisionSpin(currentRoom.id, spin);
+    const endPerf = perf.start('resolveTieRPC');
     try {
       const state = kind === 'category'
         ? await resolveCategoryTie(currentRoom.id, currentParticipant.session_token, currentRoom.version, 'choose_for_us')
         : await resolveRestaurantTie(currentRoom.id, currentParticipant.session_token, currentRoom.version, 'choose_for_us');
+      endPerf();
       const winnerId = kind === 'category' ? state.room.winning_category : state.room.winning_restaurant_id;
       if (!winnerId || !candidateIds.includes(winnerId)) throw new Error('Authoritative roulette winner is invalid');
       const revealAt = Math.max(spin.plannedRevealAt, Date.now() + 800);
-      const result = { ...spin, winnerId, revealAt, completeAt: revealAt + 650 };
+      const result: DecisionSpin = { ...spin, winnerId, revealAt, completeAt: revealAt + 1200 };
       applyDecisionSpin(result);
+      pendingResolvedRoomRef.current = state.room;
       await broadcastDecisionSpin(currentRoom.id, result);
     } catch (error) {
+      endPerf();
       applyDecisionSpin(null);
+      pendingResolvedRoomRef.current = null;
       await broadcastDecisionSpin(currentRoom.id, { ...spin, cancelled: true });
       await refreshRoom();
       throw error;
@@ -452,7 +574,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const resetRoomVoting = async (targetStage: import('../types/database').RoomStage = 'voting') => {
     if (!currentRoom) return;
-    setIsLoading(true);
     setFoodChoices([]);
     try {
       if (!currentParticipant) return;
@@ -461,8 +582,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       console.error('Error resetting room voting', err);
       reportError(err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -473,8 +592,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const startSwiping = async () => {
     if (!currentRoom || !currentParticipant) return;
-    await beginRestaurantVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
-    await refreshRoom();
+    const endPerf = perf.start('startSwiping');
+    try {
+      const state = await beginRestaurantVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
+      applyAuthoritativeRoomState(state);
+    } finally {
+      endPerf();
+    }
   };
 
   const isHost = Boolean(currentParticipant?.is_host);
@@ -501,6 +625,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         joinExistingRoom,
         loadRoom,
         refreshRoom,
+        applyAuthoritativeRoomState,
         leaveRoom,
         destroyRoom,
         isHost,

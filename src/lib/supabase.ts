@@ -247,9 +247,10 @@ export async function getFoodChoices(roomId: string, sessionToken: string): Prom
  */
 export function subscribeToRoom(
   roomId: string,
-  onUpdate: () => void,
+  onUpdate: (payload?: any) => void,
   onRoomDeleted?: () => void,
-  onRoomReset?: () => void
+  onRoomReset?: () => void,
+  onParticipantsUpdate?: () => void
 ): () => void {
   if (!supabase) throw new Error('Supabase is not configured');
 
@@ -258,7 +259,13 @@ export function subscribeToRoom(
     .on(
       'postgres_changes',
       { event: '*', schema: 'public', table: 'participants', filter: `room_id=eq.${roomId}` },
-      () => onUpdate()
+      () => {
+        if (onParticipantsUpdate) {
+          onParticipantsUpdate();
+        } else {
+          onUpdate();
+        }
+      }
     )
     .on(
       'postgres_changes',
@@ -267,7 +274,7 @@ export function subscribeToRoom(
         if (payload.eventType === 'DELETE') {
           onRoomDeleted?.();
         } else {
-          onUpdate();
+          onUpdate(payload);
         }
       }
     )

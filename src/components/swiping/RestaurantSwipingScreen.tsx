@@ -30,6 +30,7 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     participants,
     isHost,
     refreshRoom,
+    applyAuthoritativeRoomState,
     decisionSpin,
     startRestaurantRoulette,
     resetRoomVoting,
@@ -57,6 +58,7 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     stage: currentRoom?.stage,
     summary: currentRoom?.restaurant_summary,
     onRefresh: refreshRoom,
+    onAuthoritativeState: applyAuthoritativeRoomState,
     onMatched: (_winner) => {
       // Handled in room state sync
     },

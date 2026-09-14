@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
@@ -10,6 +10,19 @@ import { getCategoryById, FOOD_CATEGORIES } from '../../lib/consensus';
 export const ConsensusResultScreen: React.FC = () => {
   const { currentRoom, isHost, resetToLobby, startSwiping, participants } = useRoom();
   const { t, locale } = useLocale();
+  const [isStarting, setIsStarting] = useState(false);
+
+  const handleStartPicking = async () => {
+    if (isStarting) return;
+    setIsStarting(true);
+    navigator.vibrate?.(10);
+    try {
+      await startSwiping();
+    } catch (err) {
+      console.error('Failed to start restaurant picking:', err);
+      setIsStarting(false);
+    }
+  };
 
   const winnerId = currentRoom?.winning_category || 'burger';
 
@@ -190,7 +203,9 @@ export const ConsensusResultScreen: React.FC = () => {
         {isHost ? (
           <>
             <TactileButton
-              onClick={startSwiping}
+              onClick={handleStartPicking}
+              disabled={isStarting}
+              isLoading={isStarting}
               variant="primary"
               fullWidth
               size="lg"
