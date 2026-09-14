@@ -169,7 +169,13 @@
     "signature_dish_label": "Signature Squad Pick:",
     "hud_status": "{{completed}} of {{total}} done swiping",
     "waiting_title": "You've cleared the deck! 🫡",
-    "waiting_desc": "Hang tight while the rest of the squad finishes."
+    "waiting_desc": "Hang tight while the rest of the squad finishes.",
+    "no_restaurants_title": "We couldn't find enough trusted options for this category yet",
+    "no_restaurants_subtitle": "Try another category and we'll keep going 👀",
+    "choose_another_category": "Choose another category",
+    "back_to_home": "Back to Home",
+    "waiting_host_choose": "Waiting for the host to choose another category…",
+    "leave_room": "Leave room"
   },
   "match": {
     "header_unanimous": "UNANIMOUS SQUAD MATCH! 🎉",

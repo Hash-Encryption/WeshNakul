@@ -45,7 +45,7 @@ interface RoomContextType {
   joinExistingRoom: (code: string, nickname: string) => Promise<{ success: boolean; isFull?: boolean; error?: string }>;
   loadRoom: (code: string) => Promise<boolean>;
   refreshRoom: () => Promise<void>;
-  leaveRoom: () => void;
+  leaveRoom: (preserveToken?: boolean) => void;
   destroyRoom: () => Promise<void>;
   isHost: boolean;
   startVoting: () => Promise<void>;
@@ -102,9 +102,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     currentParticipantRef.current = currentParticipant;
   }, [currentParticipant]);
 
-  const leaveRoom = useCallback(() => {
+  const leaveRoom = useCallback((preserveToken = true) => {
     const code = currentRoomRef.current?.code;
-    clearRoomSession(code);
+    if (preserveToken) {
+      setActiveRoomCode(null);
+    } else {
+      clearRoomSession(code);
+    }
     currentRoomRef.current = null;
     currentParticipantRef.current = null;
     setCurrentRoom(null);
@@ -123,7 +127,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const participant = currentParticipantRef.current;
       if (participant) await apiDeleteRoom(room.id, participant.session_token);
     }
-    leaveRoom();
+    leaveRoom(false);
   }, [leaveRoom]);
 
   const refreshRoom = useCallback(async () => {
@@ -134,7 +138,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (isExpired) {
         clearRoomSession(roomCode);
         setSessionNotice(t('session.expiredNotice'));
-        leaveRoom();
+        leaveRoom(false);
         return;
       }
       if (room) {
@@ -190,7 +194,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (isExpired) {
         clearRoomSession(normalizedCode);
         setSessionNotice(t('session.expiredNotice'));
-        leaveRoom();
+        leaveRoom(false);
         setIsLoading(false);
         return false;
       }
@@ -328,7 +332,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (isRoomExpired(currentRoom.created_at)) {
         clearRoomSession(currentRoom.code);
         setSessionNotice(t('session.expiredNotice'));
-        leaveRoom();
+        leaveRoom(false);
       }
     };
 

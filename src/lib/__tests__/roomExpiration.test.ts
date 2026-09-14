@@ -82,7 +82,48 @@ export async function runExpirationTests() {
   clearRoomSession();
   assert(getActiveRoomCode() === null, 'Active room code cleared before new room creation');
 
-  console.log('✓ All room expiration, cleanup, and room creation tests passed successfully!');
+  // 8. Verify client-only leave vs refresh idempotency
+  const leaveCode = 'LEAV';
+  const participantToken = getOrCreateSessionToken(leaveCode);
+  setActiveRoomCode(leaveCode);
+  assert(getActiveRoomCode() === leaveCode, 'Active room code is set for leave test');
+  assert(localStorage.getItem(`wesh_nakul_session_${leaveCode}`) === participantToken, 'Scoped token stored');
+
+  // Client-only leave: clears active room code without deleting scoped participant token
+  setActiveRoomCode(null);
+  assert(getActiveRoomCode() === null, 'Active room code is cleared on client-only leave');
+  assert(localStorage.getItem(`wesh_nakul_session_${leaveCode}`) === participantToken, 'Scoped participant token is preserved for idempotent re-entry');
+
+  // Refresh at root '/' remains on root because active room code is null
+  assert(getActiveRoomCode() === null, 'Root page refresh stays at root');
+
+  // User later re-opens /r/LEAV via link: scoped token is reused idempotently
+  const reenteredToken = getOrCreateSessionToken(leaveCode);
+  assert(reenteredToken === participantToken, 'Re-opening room link retrieves existing scoped participant token');
+
+  // Hard clear / destroy: token is purged
+  clearRoomSession(leaveCode);
+  assert(localStorage.getItem(`wesh_nakul_session_${leaveCode}`) === null, 'Scoped token removed on hard room clear');
+
+  // 9. Verify empty deck recovery localization keys
+  const emptyDeckKeys = [
+    'no_restaurants_title',
+    'no_restaurants_subtitle',
+    'choose_another_category',
+    'back_to_home',
+    'waiting_host_choose',
+    'leave_room'
+  ];
+  for (const key of emptyDeckKeys) {
+    assert(Boolean(arDict.swiping && arDict.swiping[key]), `ar.json has swiping.${key}`);
+    assert(Boolean(enDict.swiping && enDict.swiping[key]), `en.json has swiping.${key}`);
+  }
+  assert(arDict.swiping.choose_another_category.includes('اختيار فئة ثانية'), 'Arabic choose another category text');
+  assert(arDict.swiping.back_to_home.includes('العودة للرئيسية'), 'Arabic back to home text');
+  assert(arDict.swiping.waiting_host_choose.includes('بانتظار المضيف يختار فئة ثانية'), 'Arabic waiting host text');
+  assert(arDict.swiping.leave_room.includes('مغادرة الغرفة'), 'Arabic leave room text');
+
+  console.log('✓ All room expiration, cleanup, room creation, and empty-deck recovery tests passed successfully!');
 }
 
 runExpirationTests();

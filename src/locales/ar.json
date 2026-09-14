@@ -169,7 +169,13 @@
     "signature_dish_label": "الطلب المعتمد عندهم:",
     "hud_status": "{{completed}} من {{total}} خلصوا تقليب",
     "waiting_title": "ما قصّرت، فرزت كل القائمة! 🫡",
-    "waiting_desc": "باقي ربعك يكمّلون.. ثواني ويبان الاتفاق."
+    "waiting_desc": "باقي ربعك يكمّلون.. ثواني ويبان الاتفاق.",
+    "no_restaurants_title": "ما لقينا خيارات موثوقة كفاية لهذي الفئة حالياً",
+    "no_restaurants_subtitle": "جرب فئة ثانية وبنكمل معكم 👀",
+    "choose_another_category": "اختيار فئة ثانية",
+    "back_to_home": "العودة للرئيسية",
+    "waiting_host_choose": "بانتظار المضيف يختار فئة ثانية…",
+    "leave_room": "مغادرة الغرفة"
   },
   "match": {
     "header_unanimous": "خلاص اتفقنا بالإجماع! 🎉",

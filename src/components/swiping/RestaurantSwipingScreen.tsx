@@ -9,6 +9,7 @@ import { SuddenDeathModal } from './SuddenDeathModal';
 import { SquadSwipingHUD } from './SquadSwipingHUD';
 import { Header } from '../common/Header';
 import { Toast } from '../common/Toast';
+import { TactileButton } from '../common/TactileButton';
 import { RestaurantRouletteOverlay } from './RestaurantRouletteOverlay';
 import { DecisionMachineLoading } from '../common/DecisionMachineLoading';
 import type { RestaurantItem } from '../../types/restaurant';
@@ -23,7 +24,17 @@ interface RestaurantSwipingScreenProps {
 }
 
 export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () => {
-  const { currentRoom, currentParticipant, participants, isHost, refreshRoom, decisionSpin, startRestaurantRoulette } = useRoom();
+  const {
+    currentRoom,
+    currentParticipant,
+    participants,
+    isHost,
+    refreshRoom,
+    decisionSpin,
+    startRestaurantRoulette,
+    resetRoomVoting,
+    leaveRoom,
+  } = useRoom();
   const { t, locale } = useLocale();
 
   const {
@@ -57,7 +68,19 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
 
   const [suddenDeathRestaurants, setSuddenDeathRestaurants] = useState<[RestaurantItem, RestaurantItem] | null>(null);
   const [isSuddenDeathOpen, setIsSuddenDeathOpen] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
 
+  const handleChooseAnotherCategory = async () => {
+    if (isResetting) return;
+    setIsResetting(true);
+    try {
+      await resetRoomVoting('voting');
+    } catch (error) {
+      console.error('Error resetting category voting', error);
+    } finally {
+      setIsResetting(false);
+    }
+  };
 
   // Auto-dismiss round two toast after 4 seconds
   useEffect(() => {
@@ -86,17 +109,77 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
   if (!currentRoom || !currentParticipant) return null;
 
   if (deckError) {
+    const isNoRestaurants = deckError === 'NO_ELIGIBLE_RESTAURANTS';
+
     return (
       <div className="relative flex min-h-[92dvh] w-full flex-col px-4">
         <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} />
-        <div role="alert" className="m-auto max-w-sm rounded-2xl border-2 border-[#241B18] bg-white p-5 text-center font-alexandria font-bold text-[#241B18] shadow-[0_4px_0_#241B18]">
-          <p>{deckError === 'NO_ELIGIBLE_RESTAURANTS'
-            ? (locale === 'ar' ? 'ما لقينا خيارات موثوقة كفاية لهذي الفئة حالياً.' : 'We could not find enough trusted options for this category yet.')
-            : (locale === 'ar' ? 'تعذر تحميل خيارات المطاعم. حاول مرة ثانية.' : 'Restaurant options could not be loaded. Please try again.')}</p>
-          {deckError !== 'NO_ELIGIBLE_RESTAURANTS' && (
-            <button type="button" onClick={() => window.location.reload()} className="mt-4 rounded-xl border-2 border-[#241B18] bg-[#FFD75A] px-4 py-2 text-sm shadow-[0_3px_0_#241B18] active:translate-y-0.5 active:shadow-none">
+        <div role="alert" className="m-auto w-full max-w-sm rounded-2xl border-2 border-[#241B18] bg-white p-6 text-center font-alexandria shadow-[0_4px_0_#241B18]">
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF8F1] border border-[#241B18]/10 text-2xl">
+            {isNoRestaurants ? '🍽️' : '⚠️'}
+          </div>
+
+          <h2 className="text-lg font-black text-[#241B18] mb-1.5 leading-snug">
+            {isNoRestaurants
+              ? t('swiping.no_restaurants_title')
+              : (locale === 'ar' ? 'تعذر تحميل خيارات المطاعم' : 'Failed to load restaurant options')}
+          </h2>
+
+          <p className="text-sm font-medium text-[#7A6E67] mb-6 leading-relaxed">
+            {isNoRestaurants
+              ? t('swiping.no_restaurants_subtitle')
+              : (locale === 'ar' ? 'حدث خطأ في الاتصال. حاول مرة ثانية.' : 'A connection error occurred. Please try again.')}
+          </p>
+
+          {isNoRestaurants ? (
+            isHost ? (
+              <div className="flex flex-col gap-2.5 w-full">
+                <TactileButton
+                  variant="primary"
+                  fullWidth
+                  size="md"
+                  isLoading={isResetting}
+                  onClick={handleChooseAnotherCategory}
+                >
+                  {t('swiping.choose_another_category')}
+                </TactileButton>
+                <TactileButton
+                  variant="ghost"
+                  fullWidth
+                  size="sm"
+                  disabled={isResetting}
+                  onClick={() => leaveRoom()}
+                  className="text-[#7A6E67] hover:text-[#241B18]"
+                >
+                  {t('swiping.back_to_home')}
+                </TactileButton>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3 w-full items-center">
+                <div className="flex items-center justify-center gap-2 rounded-xl bg-[#FFF8F1] border border-[#241B18]/15 px-4 py-3 text-sm font-semibold text-[#241B18] w-full">
+                  <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#FFD75A] border border-[#241B18]/20 animate-pulse flex-shrink-0" />
+                  <span>{t('swiping.waiting_host_choose')}</span>
+                </div>
+                <TactileButton
+                  variant="ghost"
+                  fullWidth
+                  size="sm"
+                  onClick={() => leaveRoom()}
+                  className="text-[#7A6E67] hover:text-[#241B18]"
+                >
+                  {t('swiping.leave_room')}
+                </TactileButton>
+              </div>
+            )
+          ) : (
+            <TactileButton
+              variant="yellow"
+              fullWidth
+              size="md"
+              onClick={() => window.location.reload()}
+            >
               {locale === 'ar' ? 'إعادة المحاولة' : 'Try again'}
-            </button>
+            </TactileButton>
           )}
         </div>
       </div>
