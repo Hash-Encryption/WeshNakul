@@ -8,6 +8,7 @@ import { Toast } from '../common/Toast';
 import { CategoryCard } from './CategoryCard';
 import { FOOD_CATEGORIES, normalizeCategorySelection, toggleCategorySelection } from '../../lib/consensus';
 import { SparkleRays } from '../common/DecorativeSparkles';
+import { DecisionMachineLoading } from '../common/DecisionMachineLoading';
 
 export const FoodVotingScreen: React.FC = () => {
   const {
@@ -76,6 +77,27 @@ export const FoodVotingScreen: React.FC = () => {
     }))
     .filter((item) => item.def && item.count > 0)
     .sort((a, b) => b.count - a.count);
+
+  if (isSubmitted) {
+    return (
+      <div className="relative flex flex-col items-center justify-between min-h-[92dvh] w-full px-2 pb-8 selection:bg-brand-redSoft">
+        <Toast message={toastMessage} />
+        <DecisionMachineLoading
+          participants={participants}
+          currentStep={totalSubmitted === participants.length ? 3 : 2}
+        />
+        <div className="w-full max-w-sm mx-auto px-4 mt-2">
+          <button
+            type="button"
+            onClick={handleEditPicks}
+            className="w-full py-2.5 rounded-xl border-2 border-[#241B18] bg-white text-[#241B18] font-alexandria font-black text-xs shadow-[0_2px_0_#241B18] hover:bg-[#FFF8F1] active:translate-y-0.5 active:shadow-none transition-all cursor-pointer text-center"
+          >
+            ✏️ {t('voting.changePicks')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-28 sm:pb-32 selection:bg-brand-redSoft">

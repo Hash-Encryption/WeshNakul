@@ -18,6 +18,7 @@ import { RESTAURANT_CATALOG } from './data/restaurants';
 import { getCachedRestaurant, getRoomByCode } from './lib/supabase';
 import { clearRoomSession } from './lib/session';
 import { Toast } from './components/common/Toast';
+import { DecisionMachineLoading } from './components/common/DecisionMachineLoading';
 
 type FlowStep = 'landing' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
 
@@ -207,13 +208,10 @@ export const App: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="app-container flex flex-col items-center justify-center min-h-[100dvh]">
-        <div className="w-12 h-12 rounded-2xl bg-brand-redSoft flex items-center justify-center text-brand-red text-2xl animate-bounce">
-          🍕
-        </div>
-        <p className="text-xs font-bold text-brand-gray mt-3">
-          {t('common.loading')}
-        </p>
+      <div className="min-h-screen bg-[#F7EFE6] flex items-center justify-center sm:py-6 selection:bg-brand-redSoft">
+        <main className="app-container flex flex-col justify-center sm:rounded-[36px] sm:overflow-y-auto sm:border sm:border-brand-border sm:shadow-2xl">
+          <DecisionMachineLoading participants={participants} currentStep={1} />
+        </main>
       </div>
     );
   }

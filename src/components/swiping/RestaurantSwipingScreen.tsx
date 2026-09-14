@@ -10,6 +10,7 @@ import { SquadSwipingHUD } from './SquadSwipingHUD';
 import { Header } from '../common/Header';
 import { Toast } from '../common/Toast';
 import { RestaurantRouletteOverlay } from './RestaurantRouletteOverlay';
+import { DecisionMachineLoading } from '../common/DecisionMachineLoading';
 import type { RestaurantItem } from '../../types/restaurant';
 import {
   broadcastSuddenDeath,
@@ -125,9 +126,15 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
     catch (error) { console.error('Error resolving restaurant tie', error); }
   };
 
-  const handleTieBreakerWinner = (winner: RestaurantItem) => {
+  const handleTieBreakerWinner = async (winner: RestaurantItem, method: 'sudden_death' = 'sudden_death') => {
     setIsSuddenDeathOpen(false);
-    handleOpenConfirm(winner);
+    try {
+      await resolveRestaurantTie(currentRoom.id, currentParticipant.session_token, currentRoom.version, method, winner.id);
+      await refreshRoom();
+    } catch (error) {
+      console.error('Error resolving sudden death tie', error);
+      await refreshRoom();
+    }
   };
 
   return (
@@ -166,6 +173,13 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
             onConfirmPick={handleOpenConfirm}
             onTriggerSuddenDeath={handleTriggerSuddenDeath}
             onTriggerRoulette={handleTriggerRoulette}
+          />
+        ) : isLoadingDeck && deck.length === 0 ? (
+          <DecisionMachineLoading
+            participants={participants}
+            currentStep={2}
+            title={locale === 'ar' ? 'نجهّز قائمة المطاعم' : 'Preparing Restaurant Deck'}
+            subtitle={locale === 'ar' ? 'الخوارزمية تبحث عن أفضل الخيارات المطابقة' : 'Algorithm is finding the best matching restaurants'}
           />
         ) : (
           <SwipingDeck
