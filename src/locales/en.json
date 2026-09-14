@@ -185,7 +185,10 @@
     "share_whatsapp_cta": "Announce on WhatsApp 💬",
     "vote_again_cta": "Vote Again for Everything 🔄",
     "go_home_cta": "New Group / Home 🏠",
-    "menu_title": "Room Options"
+    "menu_title": "Room Options",
+    "open_in_maps": "Open in Google Maps",
+    "delivery_apps": "Delivery Apps",
+    "restaurant_name_copied": "Restaurant name copied"
   },
   "scratchpad": {
     "title": "Squad Orders 📝",

@@ -185,7 +185,10 @@
     "share_whatsapp_cta": "بشر الربع بالواتساب 💬",
     "vote_again_cta": "تصويت جديد للقروب 🔄",
     "go_home_cta": "سوّ قروب جديد / الرئيسية 🏠",
-    "menu_title": "خيارات القروب"
+    "menu_title": "خيارات القروب",
+    "open_in_maps": "افتح في خرائط Google",
+    "delivery_apps": "تطبيقات التوصيل",
+    "restaurant_name_copied": "تم نسخ اسم المطعم"
   },
   "scratchpad": {
     "title": "طلبات القروب 📝",

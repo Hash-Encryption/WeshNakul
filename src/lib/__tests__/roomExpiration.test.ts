@@ -114,9 +114,11 @@ export async function runExpirationTests() {
     'waiting_host_choose',
     'leave_room'
   ];
+  const arSwiping = (arDict.swiping || {}) as Record<string, any>;
+  const enSwiping = (enDict.swiping || {}) as Record<string, any>;
   for (const key of emptyDeckKeys) {
-    assert(Boolean(arDict.swiping && arDict.swiping[key]), `ar.json has swiping.${key}`);
-    assert(Boolean(enDict.swiping && enDict.swiping[key]), `en.json has swiping.${key}`);
+    assert(Boolean(arSwiping[key]), `ar.json has swiping.${key}`);
+    assert(Boolean(enSwiping[key]), `en.json has swiping.${key}`);
   }
   assert(arDict.swiping.choose_another_category.includes('اختيار فئة ثانية'), 'Arabic choose another category text');
   assert(arDict.swiping.back_to_home.includes('العودة للرئيسية'), 'Arabic back to home text');
