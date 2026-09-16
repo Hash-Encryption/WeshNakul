@@ -382,19 +382,32 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const authoritativeIds = spin.kind === 'category'
         ? room?.tied_categories || []
         : room?.restaurant_summary?.tiedRestaurantIds || [];
-      const duration = spin.plannedRevealAt - spin.startedAt;
-      if (spin.startedAt < Date.now() - 5000 || spin.startedAt > Date.now() + 2000 || duration < 2500 || duration > 4500) return;
+
       if (new Set(spin.candidateIds).size !== spin.candidateIds.length) return;
-      if (spin.candidateIds.length !== authoritativeIds.length || spin.candidateIds.some((id) => !authoritativeIds.includes(id))) return;
+      // If room still has tied_categories, check candidate matching
+      if (authoritativeIds.length > 0) {
+        if (spin.candidateIds.length !== authoritativeIds.length || spin.candidateIds.some((id) => !authoritativeIds.includes(id))) return;
+      }
       if (spin.winnerId && !spin.candidateIds.includes(spin.winnerId)) return;
+
       if (spin.winnerId) {
-        if (decisionSpinRef.current?.spinId !== spin.spinId) return;
         const existing = decisionSpinRef.current;
-        const revealAt = spin.revealAt || existing.revealAt || existing.plannedRevealAt;
-        const completeAt = spin.completeAt || existing.completeAt || (revealAt + 1200);
-        applyDecisionSpin({ ...existing, winnerId: spin.winnerId, revealAt, completeAt });
+        // Accept winner broadcast even if initial cruising spin was missed
+        const revealAt = spin.revealAt || existing?.revealAt || Date.now() + 1800;
+        const completeAt = Math.max(revealAt + 1200, Date.now() + 2400);
+        applyDecisionSpin({
+          spinId: spin.spinId,
+          kind: spin.kind,
+          candidateIds: spin.candidateIds,
+          startedAt: existing?.startedAt || Date.now() - 500,
+          plannedRevealAt: existing?.plannedRevealAt || revealAt,
+          winnerId: spin.winnerId,
+          revealAt,
+          completeAt,
+        });
         return;
       }
+
       applyDecisionSpin(spin);
     });
   }, [currentRoom?.id, applyDecisionSpin]);

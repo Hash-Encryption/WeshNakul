@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import confetti from 'canvas-confetti';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
 import { Header } from '../common/Header';
@@ -93,6 +94,56 @@ export const FoodVotingScreen: React.FC = () => {
     );
   }
 
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://washn6tab.com';
+  const inviteUrl = `${origin}/r/${currentRoom.code}`;
+
+  const handleCopyLink = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(inviteUrl);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = inviteUrl;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      setToastMessage(t('toast.linkCopied'));
+      setTimeout(() => setToastMessage(null), 2000);
+      try {
+        confetti({
+          particleCount: 30,
+          spread: 50,
+          origin: { y: 0.2 },
+          colors: ['#F0443E', '#FFD75A', '#55B96A', '#73C8EA'],
+        });
+      } catch {
+        // safe fallback
+      }
+    } catch (e) {
+      console.error('Failed to copy link', e);
+      setToastMessage(t('toast.linkCopied'));
+      setTimeout(() => setToastMessage(null), 2000);
+    }
+  };
+
+  const handleShareWhatsApp = () => {
+    const rawMessage = t('whatsapp.shareMessage', { url: inviteUrl });
+    const encodedMessage = encodeURIComponent(rawMessage);
+    const whatsappNativeUrl = `whatsapp://send?text=${encodedMessage}`;
+    const whatsappWebUrl = `https://api.whatsapp.com/send?text=${encodedMessage}`;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.location.href = whatsappNativeUrl;
+      setTimeout(() => {
+        window.open(whatsappWebUrl, '_blank');
+      }, 1000);
+    } else {
+      window.open(whatsappWebUrl, '_blank');
+    }
+  };
+
   return (
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-28 sm:pb-32 selection:bg-brand-redSoft">
       <Toast message={toastMessage} />
@@ -106,8 +157,42 @@ export const FoodVotingScreen: React.FC = () => {
           showCount={true}
         />
 
+        {/* Compact Invite & Room Share Bar */}
+        <div className="max-w-md mx-auto mt-1 mb-3 px-3 py-2 flex items-center justify-between gap-2 bg-white rounded-2xl border-2 border-brand-ink shadow-[0_2px_0_#241B18]">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[11px] font-extrabold text-brand-muted uppercase tracking-wider">
+              {t('lobby.roomCodeLabel')}:
+            </span>
+            <span className="font-alexandria font-extrabold text-base text-brand-red bg-brand-cream px-2.5 py-0.5 rounded-xl border border-brand-ink/15 tracking-wider select-all">
+              {currentRoom.code}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={handleCopyLink}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-brand-cream border border-brand-ink/20 text-xs font-bold text-brand-ink shadow-sm hover:bg-brand-yellow/30 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
+              title={t('lobby.copyLinkBtn')}
+            >
+              <span>🔗</span>
+              <span className="text-[11px] font-bold">{locale === 'ar' ? 'نسخ الرابط' : 'Copy'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleShareWhatsApp}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-brand-whatsapp text-white border border-brand-ink/20 text-xs font-bold shadow-sm hover:brightness-105 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
+              title={t('lobby.shareWhatsAppBtn')}
+            >
+              <span>💬</span>
+              <span className="text-[11px] font-bold">{locale === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
+            </button>
+          </div>
+        </div>
+
         {/* Heading and Squad Instructions */}
-        <div className="text-center mt-2 mb-4 px-2">
+        <div className="text-center mt-1 mb-4 px-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-yellow/30 border border-brand-ink/10 text-xs font-bold text-brand-ink mb-2">
             <span>{t('voting.minSelectionHint', { count: selectedIds.length })}</span>
           </div>

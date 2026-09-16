@@ -34,7 +34,8 @@ try {
     '20260909000100_private_restaurant_decks.sql', '20260909000200_private_participant_sessions.sql',
     '20260910000100_jeddah_geography_intelligence.sql', '20260911000100_jeddah_burger_google_verified_catalog.sql',
     '20260911000200_remove_legacy_public_room_coordinates.sql', '20260911000300_phase3_authoritative_consensus.sql',
-    '20260912000100_allow_voting_stage_joins.sql', '20260913000100_decision_game_and_tie_corrections.sql'
+    '20260912000100_allow_voting_stage_joins.sql', '20260913000100_decision_game_and_tie_corrections.sql',
+    '20260916000100_global_fair_draw_and_immediate_flow.sql'
   ]) {
     await db.exec(migration(file));
   }

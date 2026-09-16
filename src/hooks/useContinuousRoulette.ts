@@ -25,17 +25,32 @@ export function useContinuousRoulette({
     onRevealedRef.current = onRevealed;
   }, [onRevealed]);
 
-  // Track the continuous rotation without resetting across re-renders
+  // Track continuous rotation and state machine without resetting across re-renders
   const rotationRef = useRef(0);
+  const lastTimeRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
+
+  // State machine for landing phase
+  const landingRef = useRef<{
+    active: boolean;
+    startTime: number;
+    startAngle: number;
+    targetAngle: number;
+    duration: number;
+  }>({
+    active: false,
+    startTime: 0,
+    startAngle: 0,
+    targetAngle: 0,
+    duration: 0,
+  });
 
   useEffect(() => {
     if (!spin) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rotationRef.current = 0;
-      setRotation(0);
-      setIsSpinning(false);
-      setRevealed(false);
+      lastTimeRef.current = null;
+      landingRef.current.active = false;
       revealedRef.current = false;
       return;
     }
@@ -47,7 +62,7 @@ export function useContinuousRoulette({
     if (reducedMotion) {
       if (spin.winnerId) {
         const slice = slices.find((s) => s.id === spin.winnerId);
-        const target = slice ? 2160 + ((360 - slice.midAngle) % 360) : 2160;
+        const target = slice ? (360 - slice.midAngle + 360) % 360 : 0;
         rotationRef.current = target;
         setRotation(target);
         setIsSpinning(false);
@@ -58,40 +73,59 @@ export function useContinuousRoulette({
       return;
     }
 
-    const baseRotations = 6 * 360; // 2160 degrees (6 full revolutions)
+    const CRUISING_SPEED_DEG_PER_MS = 0.72; // ~720 deg/second (2 revolutions per sec)
+    lastTimeRef.current = performance.now();
 
-    const animate = () => {
-      const now = Date.now();
-      const startedAt = spin.startedAt;
-      const revealAt = spin.revealAt || spin.plannedRevealAt;
-
-      if (now < startedAt) {
-        // Spin has not started yet (waiting out sync buffer)
-        rotationRef.current = 0;
-        setRotation(0);
-        rafRef.current = requestAnimationFrame(animate);
-        return;
-      }
+    const animate = (timestamp: number) => {
+      const now = timestamp;
+      const lastTime = lastTimeRef.current ?? now;
+      const deltaMs = Math.min(100, Math.max(0, now - lastTime));
+      lastTimeRef.current = now;
 
       const winnerSlice = spin.winnerId ? slices.find((s) => s.id === spin.winnerId) : null;
 
-      if (winnerSlice) {
-        const sliceOffset = (360 - winnerSlice.midAngle) % 360;
-        const targetAngle = baseRotations + sliceOffset;
-        const totalDuration = Math.max(800, revealAt - startedAt);
-        const elapsed = now - startedAt;
-        const p = Math.min(1, Math.max(0, elapsed / totalDuration));
+      if (!winnerSlice) {
+        // PHASE A: CRUISING
+        // Continuously spin at steady cruising speed. Never stop, never timeout without winner.
+        rotationRef.current += deltaMs * CRUISING_SPEED_DEG_PER_MS;
+        setRotation(rotationRef.current);
+      } else {
+        // PHASE B: LANDING
+        // Decelerate smoothly from current wheel angle to the authoritative winner slice.
+        if (!landingRef.current.active) {
+          const startAngle = rotationRef.current;
+          const targetRemainder = ((360 - winnerSlice.midAngle) % 360 + 360) % 360;
+          const minLandingDistance = 720; // 2 full revolutions of deceleration
+          const candidate = startAngle + minLandingDistance;
+          let currentRem = candidate % 360;
+          if (currentRem < 0) currentRem += 360;
+          let diff = targetRemainder - currentRem;
+          if (diff < 0) diff += 360;
+          const targetAngle = candidate + diff;
+          const duration = Math.max(1600, (targetAngle - startAngle) / 0.55);
 
-        // Smooth quartic ease-out for realistic deceleration
-        // E(p) = 1 - (1 - p)^3.5
+          landingRef.current = {
+            active: true,
+            startTime: now,
+            startAngle,
+            targetAngle,
+            duration,
+          };
+        }
+
+        const { startTime, startAngle, targetAngle, duration } = landingRef.current;
+        const elapsed = now - startTime;
+        const p = Math.min(1, Math.max(0, elapsed / duration));
+
+        // Smooth quartic ease-out for realistic mechanical deceleration
         const eased = 1 - Math.pow(1 - p, 3.5);
-        const currentAngle = targetAngle * eased;
+        const currentAngle = startAngle + (targetAngle - startAngle) * eased;
 
         rotationRef.current = currentAngle;
         setRotation(currentAngle);
 
         if (p >= 1) {
-          // Reached landing target
+          // Landed exactly on authoritative winner slice
           rotationRef.current = targetAngle;
           setRotation(targetAngle);
           setIsSpinning(false);
@@ -102,13 +136,6 @@ export function useContinuousRoulette({
           }
           return;
         }
-      } else {
-        // Winner has not resolved yet (in flight).
-        // Rotate continuously at a steady cruising speed so wheel never freezes or hitches.
-        const elapsed = now - startedAt;
-        const totalEstimated = Math.min(1800, elapsed * 0.72);
-        rotationRef.current = totalEstimated;
-        setRotation(totalEstimated);
       }
 
       rafRef.current = requestAnimationFrame(animate);
