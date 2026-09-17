@@ -31,6 +31,8 @@ try {
   ]) {
     await db.exec(migration(file));
   }
+  await db.exec(migration('20260917000100_harden_global_fair_draw.sql').replace('CREATE EXTENSION IF NOT EXISTS "pgcrypto";', '').replace(/DO \$\$[\s\S]*?END \$\$;/m, ''));
+  await db.exec(`CREATE OR REPLACE FUNCTION public.gen_random_bytes(p_len int) RETURNS bytea LANGUAGE sql VOLATILE AS $$ SELECT decode(substr(replace(gen_random_uuid()::text, '-', ''), 1, p_len * 2), 'hex') $$;`);
 
   // 1. Test 2-candidate array random selection over 2,000 iterations
   console.log('\n1. Testing 2-candidate tie [burger, shawarma] (2,000 iterations):');
