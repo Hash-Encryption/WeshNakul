@@ -31,9 +31,12 @@ try {
     toggleCategorySelection,
   } = await server.ssrLoadModule('/src/lib/consensus.ts');
 
-  // Check 1: FOOD_CATEGORIES preserves flexible as wildcard
-  assert.equal(FOOD_CATEGORIES.length, 21, 'FOOD_CATEGORIES has 20 categories + flexible wildcard');
+  // Check 1: FOOD_CATEGORIES preserves flexible as wildcard and excludes cleaned categories
+  assert.equal(FOOD_CATEGORIES.length, 17, 'FOOD_CATEGORIES has 16 categories + flexible wildcard');
   assert.ok(FOOD_CATEGORIES.some((c) => c.id === 'flexible' && c.isWildcard), 'flexible is in FOOD_CATEGORIES');
+  for (const removed of ['breakfast', 'healthy', 'coffee', 'dessert']) {
+    assert.ok(!FOOD_CATEGORIES.some((c) => c.id === removed), `${removed} must NOT be in active FOOD_CATEGORIES`);
+  }
   checks++;
 
   // Check 2: BREAKFAST_CATEGORIES does NOT include healthy (healthy is a preference/filter)

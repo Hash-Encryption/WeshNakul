@@ -76,6 +76,9 @@ try {
   // Apply the new Room Modes migration!
   await db.exec(migration('20260918000100_room_modes_preferences_and_suggestions.sql'));
 
+  // Apply the Clean Food Categories migration!
+  await db.exec(migration('20260919000100_clean_food_categories.sql'));
+
   // Verify the legacy row was safely reconciled to is_submitted = false
   const legacyRows = await query(`SELECT is_submitted FROM public.food_choices WHERE room_id = '00000000-0000-0000-0000-000000000001'`);
   check(legacyRows.length === 1 && legacyRows[0].is_submitted === false, 'legacy non-compliant submitted choice reconciled cleanly without failing check constraint');
@@ -108,6 +111,13 @@ try {
   check(Array.isArray(s.room.preferences) && s.room.preferences.length === 0, 'Default preferences empty');
   const initialDecision = await rpc(`public.get_room_decision_state('${roomId}','${hostToken}')`);
   check(Array.isArray(initialDecision.suggestions) && initialDecision.suggestions.length === 0, 'Default suggestions empty');
+
+  // Test 1b: Food mode category validation rejects removed categories
+  for (const removed of ['breakfast', 'healthy', 'coffee', 'dessert']) {
+    await rejects(`SELECT public.submit_category_selection('${roomId}','${hostToken}',${s.room.version},ARRAY['${removed}']::text[])`, '22023');
+    await rejects(`SELECT public.submit_category_selection('${roomId}','${hostToken}',${s.room.version},ARRAY['burger','${removed}']::text[])`, '22023');
+  }
+  check(true, 'Food mode strictly rejects breakfast, healthy, coffee, and dessert submissions');
 
   // Test 2: Guest joins and can toggle suggestion
   const _j1 = await joinRoom('MODE', guest1, 'Guest1');
@@ -212,6 +222,25 @@ try {
     b.room.tied_categories.includes('street_folk') && b.room.tied_categories.includes('sandwiches'),
     'Tied categories derived from breakfast universe'
   );
+
+  // Breakfast mode allows 'breakfast' concrete category
+  let bk2 = await create('BKF2', 'bkf2-host-token-0001');
+  const bk2Room = bk2.room.id;
+  bk2 = await switchMode(bk2Room, 'bkf2-host-token-0001', bk2.room.version, 'breakfast');
+  bk2 = await category(bk2Room, 'bkf2-host-token-0001', bk2.room.version, ['breakfast']);
+  check(bk2.room.stage === 'consensus' && bk2.room.winning_category === 'breakfast', 'Breakfast mode accepts breakfast category');
+
+  // Test 6: Food mode all-wildcard derivation excludes cleaned categories
+  let fw = await create('FWLD', 'fwld-host-token-0001');
+  const fwRoom = fw.room.id;
+  const jfw = await joinRoom('FWLD', 'fwld-guest-token-0001', 'GuestFW');
+  fw = await category(fwRoom, 'fwld-host-token-0001', jfw.room.version, ['flexible']);
+  fw = await category(fwRoom, 'fwld-guest-token-0001', fw.room.version, ['flexible']);
+  check(fw.room.stage === 'tiebreaker', 'Food mode all-wildcard enters tiebreaker');
+  check(Array.isArray(fw.room.tied_categories) && fw.room.tied_categories.length >= 2, 'Tied categories derived');
+  for (const removed of ['breakfast', 'healthy', 'coffee', 'dessert']) {
+    check(!fw.room.tied_categories.includes(removed), `Food all-wildcard tiebreaker excludes ${removed}`);
+  }
 
   await db.exec('RESET ROLE');
   console.log(`PASS: ${checks} Room Modes, Preferences, and Suggestions PostgreSQL checks.`);

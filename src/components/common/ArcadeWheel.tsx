@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 
 export interface ArcadeWheelSlice {
   id: string;
@@ -13,14 +12,16 @@ export interface ArcadeWheelSlice {
   angle: number;
 }
 
-interface ArcadeWheelProps {
+export interface ArcadeWheelProps {
   slices: ArcadeWheelSlice[];
-  rotation: number;
-  isSpinning: boolean;
-  onTransitionEnd?: () => void;
+  rotation?: number;
+  isSpinning?: boolean;
+  wheelRef?: React.RefObject<SVGGElement | null>;
+  needleRef?: React.RefObject<SVGGElement | null>;
   centerEmoji?: string;
   durationMs?: number;
   reducedMotion?: boolean;
+  onTransitionEnd?: () => void;
 }
 
 // Pre-computed 16 pegs around the 320x320 wheel circumference (radius 141)
@@ -35,27 +36,34 @@ const PEGS = Array.from({ length: 16 }, (_, i) => {
 
 export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
   slices,
-  rotation,
-  isSpinning,
-  onTransitionEnd,
+  rotation = 0,
+  isSpinning = false,
+  wheelRef,
+  needleRef,
   centerEmoji = '🎲',
-  durationMs = 4500,
-  reducedMotion = false,
+  onTransitionEnd,
 }) => {
+  const sliceCount = slices.length;
+  // Scale label and emoji size based on slice count for optimal readability
+  const labelFontSize = sliceCount <= 2 ? '14' : sliceCount <= 4 ? '12' : '11';
+  const emojiFontSize = sliceCount <= 2 ? '24' : sliceCount <= 4 ? '20' : '18';
+  const emojiY = sliceCount <= 2 ? '54' : '58';
+  const labelY = sliceCount <= 2 ? '78' : '80';
+
   return (
     <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center my-1 select-none">
       <svg
         viewBox="0 0 320 320"
         className="w-full h-full select-none overflow-visible drop-shadow-[0px_6px_0px_#241B18]"
       >
-        {/* Rotating Wheel Group with explicit iOS Safari pixel transformOrigin */}
+        {/* Rotating Wheel Group with direct DOM ref control */}
         <g
+          ref={wheelRef}
           style={{
             transform: `rotate(${rotation}deg)`,
             transformOrigin: '160px 160px',
-            transition: durationMs && durationMs > 0 && isSpinning && !reducedMotion
-              ? `transform ${durationMs}ms cubic-bezier(0.15, 0.9, 0.2, 1)`
-              : 'none',
+            transition: 'none',
+            willChange: isSpinning ? 'transform' : 'auto',
           }}
           onTransitionEnd={onTransitionEnd}
         >
@@ -86,18 +94,19 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
 
           {/* Inside-Slice Labels & Emojis */}
           {slices.map((slice) => {
+            const maxLen = sliceCount <= 2 ? 16 : 12;
             const displayName =
-              slice.name.length > 12 ? slice.name.slice(0, 12).trim() + '...' : slice.name;
+              slice.name.length > maxLen ? slice.name.slice(0, maxLen).trim() + '...' : slice.name;
 
             return (
               <g key={`label-${slice.id}`} transform={`rotate(${slice.midAngle} 160 160)`}>
                 {slice.emoji && (
                   <text
                     x="160"
-                    y="58"
+                    y={emojiY}
                     textAnchor="middle"
                     dominantBaseline="central"
-                    fontSize="18"
+                    fontSize={emojiFontSize}
                     className="select-none pointer-events-none"
                   >
                     {slice.emoji}
@@ -105,11 +114,11 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
                 )}
                 <text
                   x="160"
-                  y="80"
+                  y={labelY}
                   textAnchor="middle"
                   dominantBaseline="central"
                   fill="#241B18"
-                  fontSize="11"
+                  fontSize={labelFontSize}
                   fontWeight="900"
                   fontFamily="Alexandria, system-ui, sans-serif"
                   className="select-none pointer-events-none"
@@ -146,15 +155,14 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
           </text>
         </g>
 
-        {/* Top Arcade Indicator Needle (Outside rotating group with wobble animation) */}
-        <motion.g
-          animate={isSpinning && !reducedMotion ? { rotate: [0, -12, 10, -8, 5, -2, 0] } : { rotate: 0 }}
-          transition={
-            isSpinning
-              ? { repeat: Infinity, duration: 0.16, ease: 'linear' }
-              : { type: 'spring', stiffness: 400, damping: 20 }
-          }
-          style={{ transformOrigin: '160px 8px' }}
+        {/* Top Arcade Indicator Needle (Direct ref control for physical boundary kicks) */}
+        <g
+          ref={needleRef}
+          style={{
+            transform: 'rotate(0deg)',
+            transformOrigin: '160px 8px',
+            willChange: isSpinning ? 'transform' : 'auto',
+          }}
           className="pointer-events-none"
         >
           {/* Needle Drop Shadow */}
@@ -187,7 +195,7 @@ export const ArcadeWheel: React.FC<ArcadeWheelProps> = ({
           {/* Brass Pivot Rivet */}
           <circle cx="160" cy="8" r="8" fill="#FBBF24" stroke="#241B18" strokeWidth="3" />
           <circle cx="160" cy="8" r="3" fill="#241B18" />
-        </motion.g>
+        </g>
       </svg>
     </div>
   );
