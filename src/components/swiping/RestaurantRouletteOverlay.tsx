@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { ArcadeWheel, type ArcadeWheelSlice } from '../common/ArcadeWheel';
+import { TactileButton } from '../common/TactileButton';
 import { NEO_BRUTALIST_PALETTE } from '../../lib/consensus';
 import { useLocale } from '../../context/LocaleContext';
 import { useRoom } from '../../context/RoomContext';
@@ -11,8 +12,21 @@ import type { RestaurantItem } from '../../types/restaurant';
 
 export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restaurants: RestaurantItem[] }> = ({ spin, restaurants }) => {
   const { t, locale } = useLocale();
-  const { completeDecisionSpin } = useRoom();
+  const { completeDecisionSpin, retryDecisionSpin, isHost } = useRoom();
   const reduceMotion = useReducedMotion();
+  const [isSpinningLong, setIsSpinningLong] = useState(false);
+
+  useEffect(() => {
+    if (!spin || spin.winnerId || spin.error) {
+      setIsSpinningLong(false);
+      return;
+    }
+    const timer = window.setTimeout(() => {
+      setIsSpinningLong(true);
+    }, 4500);
+    return () => window.clearTimeout(timer);
+  }, [spin]);
+
   const candidates = useMemo(() => spin.candidateIds.map((id) => restaurants.find((item) => item.id === id)).filter(Boolean) as RestaurantItem[], [spin.candidateIds, restaurants]);
   const slices = useMemo<ArcadeWheelSlice[]>(() => candidates.map((restaurant, index) => ({
     id: restaurant.id,
@@ -58,8 +72,26 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
             <div className="text-xs font-black uppercase">{t('gameSwiper.rouletteWinnerBadge')}</div>
             <div className="font-alexandria text-xl font-black">{locale === 'ar' ? winner.nameAr : winner.nameEn}</div>
           </motion.div>
+        ) : spin.error && isHost ? (
+          <div className="flex flex-col items-center gap-2 w-full mt-2">
+            <div className="rounded-xl border-2 border-brand-red bg-rose-50 p-2 text-xs font-black text-brand-red w-full">
+              {locale === 'ar' ? 'تعذر حسم التعادل تلقائياً. يرجى المحاولة مرة أخرى.' : 'Resolution timed out. Please try again.'}
+            </div>
+            <TactileButton onClick={retryDecisionSpin} variant="yellow" fullWidth size="md" icon="🔄">
+              {locale === 'ar' ? 'حاول مرة أخرى' : 'Try Again'}
+            </TactileButton>
+          </div>
         ) : (
-          <p className="min-h-10 font-alexandria text-sm font-black text-brand-red">{t('gameSwiper.rouletteSpinning')}</p>
+          <p className="min-h-10 font-alexandria text-sm font-black text-brand-red flex items-center justify-center gap-1.5">
+            {isSpinningLong ? (
+              <>
+                <span className="inline-block animate-spin">⏳</span>
+                <span>{locale === 'ar' ? 'جاري الحسم...' : 'Still deciding...'}</span>
+              </>
+            ) : (
+              t('gameSwiper.rouletteSpinning')
+            )}
+          </p>
         )}
       </motion.div>
     </div>

@@ -26,8 +26,21 @@ export const TiebreakerScreen: React.FC = () => {
   const { t, locale } = useLocale();
   const reduceMotion = useReducedMotion();
   const [isStarting, setIsStarting] = useState(false);
+  const [isSpinningLong, setIsSpinningLong] = useState(false);
 
   const spin = decisionSpin?.kind === 'category' ? decisionSpin : null;
+
+  React.useEffect(() => {
+    if (!spin || spin.winnerId || spin.error) {
+      setIsSpinningLong(false);
+      return;
+    }
+    const timer = window.setTimeout(() => {
+      setIsSpinningLong(true);
+    }, 4500);
+    return () => window.clearTimeout(timer);
+  }, [spin]);
+
   const contenders = useMemo(
     () => (spin?.candidateIds || currentRoom?.tied_categories || []).map((id) => getCategoryById(id, currentRoom?.room_mode)).filter(Boolean),
     [spin?.candidateIds, currentRoom?.tied_categories, currentRoom?.room_mode]
@@ -127,7 +140,7 @@ export const TiebreakerScreen: React.FC = () => {
                   {locale === 'ar' ? winner.ar : winner.en}
                 </div>
               </motion.div>
-            ) : hasError ? (
+            ) : hasError && isHost ? (
               <motion.div
                 key="error"
                 initial={{ opacity: 0 }}
@@ -138,13 +151,17 @@ export const TiebreakerScreen: React.FC = () => {
               </motion.div>
             ) : spin ? (
               <motion.div
-                key="spinning"
+                key={isSpinningLong ? 'spinning-long' : 'spinning'}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="inline-flex items-center gap-2 rounded-full border-2 border-brand-ink/30 bg-white/80 px-3 py-1 text-xs font-black text-brand-ink shadow-sm"
               >
-                <span className="inline-block animate-spin">🎯</span>
-                <span>{t('gameSwiper.rouletteSpinning')}</span>
+                <span className="inline-block animate-spin">{isSpinningLong ? '⏳' : '🎯'}</span>
+                <span>
+                  {isSpinningLong
+                    ? (locale === 'ar' ? 'جاري الحسم...' : 'Still deciding...')
+                    : (!isHost ? (locale === 'ar' ? 'جاري اختيار الفائز للجميع...' : t('gameSwiper.rouletteSpinning')) : t('gameSwiper.rouletteSpinning'))}
+                </span>
               </motion.div>
             ) : null}
           </AnimatePresence>
@@ -178,16 +195,23 @@ export const TiebreakerScreen: React.FC = () => {
           <div className="flex flex-col items-center gap-2">
             <button
               type="button"
+              disabled={Boolean(spin)}
               onClick={() => toggleSuggestion('action:spin_again')}
-              className={`w-full rounded-2xl border-2 p-3 text-center text-xs font-black font-alexandria transition-all cursor-pointer ${
+              className={`w-full rounded-2xl border-2 p-3 text-center text-xs font-black font-alexandria transition-all ${
+                spin ? 'cursor-default opacity-80' : 'cursor-pointer'
+              } ${
                 suggestions.some((s) => s.target === 'action:spin_again' && s.participant_id === currentParticipant?.id)
                   ? 'bg-amber-100 text-brand-ink border-amber-400'
                   : 'bg-white border-brand-ink/20 text-brand-gray hover:bg-stone-50'
               }`}
             >
-              {t('categoryRoulette.waitingHost')} • {t('suggestions.spinAgain')} 🎯
+              {spin
+                ? (isSpinningLong
+                    ? (locale === 'ar' ? '⏳ جاري الحسم...' : '⏳ Still deciding...')
+                    : (locale === 'ar' ? '🎯 جاري اختيار الفائز للجميع...' : t('gameSwiper.rouletteSpinning')))
+                : `${t('categoryRoulette.waitingHost')} • ${t('suggestions.spinAgain')} 🎯`}
             </button>
-            <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />
+            {!spin && <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />}
           </div>
         )}
       </div>

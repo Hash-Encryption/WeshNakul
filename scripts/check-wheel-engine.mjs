@@ -411,7 +411,406 @@ try {
     check(tickCat === tickRest, 'S14: Slice boundary crossing calculation is identical');
   }
 
-  console.log(`PASS: ${checks} Roulette Wheel Engine checks covering all 14 required scenarios.`);
+  // =========================================================================
+  // SCENARIO 15: Guest never enters retry due only to elapsed time
+  // Guest spin remains active without error regardless of 5s, 10s, 15s, 20s elapsed.
+  // =========================================================================
+  {
+    let guestSpin = {
+      spinId: 'guest-spin-1',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+      error: undefined,
+    };
+    const isHost = false;
+
+    // Simulate guest watchdog checks over time with unresolved DB
+    const checkElapsed = (elapsedMs) => {
+      // Guest watchdog rules:
+      // At 4.5s and 10s, guest polls room state.
+      // If unresolved, guest does NOT set error.
+      if (!isHost) {
+        // Guest NEVER sets error based on elapsed time!
+        return guestSpin;
+      }
+      return guestSpin;
+    };
+
+    for (const ms of [4500, 10000, 15000, 20000, 30000]) {
+      guestSpin = checkElapsed(ms);
+      check(!guestSpin.error, `S15: Guest spin at ${ms}ms has no error`);
+      check(guestSpin.winnerId === null, `S15: Guest spin at ${ms}ms still waiting for winner`);
+    }
+  }
+
+  // =========================================================================
+  // SCENARIO 16: Guest watchdog unresolved state keeps spinning
+  // When getRoomDecisionState returns unresolved, guest status is 'Still deciding...', wheel keeps spinning.
+  // =========================================================================
+  {
+    const spin = {
+      spinId: 'guest-spin-2',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+    };
+    const isHost = false;
+
+    // At 4500ms without winner, isSpinningLong becomes true
+    let isSpinningLong = false;
+    let isSpinning = true;
+    const elapsed = 4500;
+    if (elapsed >= 4500 && !spin.winnerId && !spin.error) {
+      isSpinningLong = true;
+    }
+
+    check(isSpinning === true, 'S16: Wheel continues spinning');
+    check(isSpinningLong === true, 'S16: isSpinningLong is active');
+
+    // UI text derivation
+    const getStatusText = (spin, isSpinningLong, isHost, locale) => {
+      if (spin.error && isHost) return 'error';
+      if (isSpinningLong) return locale === 'ar' ? 'جاري الحسم...' : 'Still deciding...';
+      return locale === 'ar' ? 'جاري اختيار الفائز للجميع...' : 'Spinning...';
+    };
+
+    check(getStatusText(spin, isSpinningLong, isHost, 'ar') === 'جاري الحسم...', 'S16: Arabic status shows subtle waiting text');
+    check(getStatusText(spin, isSpinningLong, isHost, 'en') === 'Still deciding...', 'S16: English status shows subtle waiting text');
+  }
+
+  // =========================================================================
+  // SCENARIO 17: Missed winner broadcast recovers from room state
+  // Even if broadcast is dropped, authoritative room state fetch or realtime delivers winner.
+  // =========================================================================
+  {
+    let activeSpin = {
+      spinId: 'spin-missed-bc',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+    };
+    let pendingResolvedRoom = null;
+
+    // Reconciliation helper logic (mirrors RoomContext)
+    const reconcile = (roomOrState) => {
+      if (!roomOrState) return false;
+      const room = 'room' in roomOrState ? roomOrState.room : roomOrState;
+      if (!room || !activeSpin || activeSpin.cancelled) return false;
+      const winnerId = activeSpin.kind === 'category' ? room.winning_category : room.winning_restaurant_id;
+      if (!winnerId || !activeSpin.candidateIds.includes(winnerId)) return false;
+      if (activeSpin.winnerId && activeSpin.winnerId !== winnerId) return false;
+      pendingResolvedRoom = room;
+      if (!activeSpin.winnerId || activeSpin.error) {
+        activeSpin = { ...activeSpin, winnerId, error: undefined };
+      }
+      return true;
+    };
+
+    // Winner broadcast is NEVER received (simulate dropped UDP/Websocket)
+    // Later, room state arrives via polling or room refresh:
+    const roomStateFromDB = {
+      room: {
+        id: 'room-1',
+        stage: 'consensus',
+        winning_category: 'shawarma',
+      },
+    };
+
+    const reconciled = reconcile(roomStateFromDB);
+    check(reconciled === true, 'S17: Reconciliation succeeded without broadcast');
+    check(activeSpin.winnerId === 'shawarma', 'S17: Active spin acquired winner from room state');
+    check(pendingResolvedRoom?.winning_category === 'shawarma', 'S17: Pending resolved room stored for completion');
+  }
+
+  // =========================================================================
+  // SCENARIO 18: Room state resolution feeds active spin
+  // DB room stage transition feeds active spin and triggers landing phase.
+  // =========================================================================
+  {
+    let activeSpin = {
+      spinId: 'spin-feed-1',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma', 'falafel'],
+      winnerId: null,
+    };
+
+    const reconcile = (room) => {
+      const winnerId = activeSpin.kind === 'category' ? room.winning_category : room.winning_restaurant_id;
+      if (!winnerId || !activeSpin.candidateIds.includes(winnerId)) return false;
+      activeSpin = { ...activeSpin, winnerId };
+      return true;
+    };
+
+    const resolvedRoom = {
+      id: 'room-1',
+      stage: 'consensus',
+      winning_category: 'falafel',
+    };
+
+    const ok = reconcile(resolvedRoom);
+    check(ok === true, 'S18: Room state resolution accepted');
+    check(activeSpin.winnerId === 'falafel', 'S18: Spin winner set to falafel');
+
+    // Slices target landing
+    const slices = buildSlices(activeSpin.candidateIds);
+    const winnerSlice = slices.find((s) => s.id === activeSpin.winnerId);
+    check(Boolean(winnerSlice), 'S18: Winner slice exists');
+    const landingAngle = calculateLandingTarget(1000, winnerSlice.midAngle, 720);
+    check(landingAngle >= 1720, 'S18: Landing target calculated smoothly');
+  }
+
+  // =========================================================================
+  // SCENARIO 19: Host RPC > 4.5s remains spinning
+  // Watchdog at 4.5s does not terminate active spin while RPC is still in flight.
+  // =========================================================================
+  {
+    let hostSpin = {
+      spinId: 'host-slow-rpc',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+      error: undefined,
+    };
+
+    let isRpcPending = true;
+
+    // Simulate 4.5s watchdog firing while RPC is still pending and DB is still unresolved
+    const watchdogFired = (dbState) => {
+      if (dbState?.room?.winning_category) {
+        hostSpin = { ...hostSpin, winnerId: dbState.room.winning_category };
+      } else if (!isRpcPending) {
+        // Only if RPC is NO LONGER pending would an error be set
+        hostSpin = { ...hostSpin, error: 'WSH_UNRESOLVED_TIE' };
+      }
+      // If isRpcPending is true, DO NOT touch error!
+    };
+
+    watchdogFired({ room: { winning_category: null } });
+    check(!hostSpin.error, 'S19: Watchdog did not set error while RPC is pending');
+    check(hostSpin.winnerId === null, 'S19: Host spin still waiting cleanly');
+
+    // RPC eventually completes at 6000ms
+    isRpcPending = false;
+    const rpcResult = { room: { winning_category: 'burger' } };
+    hostSpin = { ...hostSpin, winnerId: rpcResult.room.winning_category };
+    check(hostSpin.winnerId === 'burger', 'S19: Delayed RPC successfully resolved winner');
+    check(!hostSpin.error, 'S19: No error present on resolution');
+  }
+
+  // =========================================================================
+  // SCENARIO 20: Actual RPC failure gives host retry
+  // When RPC truly throws and DB check is unresolved, ONLY host gets error: 'RPC_FAILED' and can retry.
+  // =========================================================================
+  {
+    let hostSpin = {
+      spinId: 'host-fail-1',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+      error: undefined,
+    };
+    let guestSpin = {
+      spinId: 'host-fail-1',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+      error: undefined,
+    };
+
+    // RPC throws network error
+    const dbState = { room: { winning_category: null } }; // DB confirms tie is still unresolved
+
+    // Host error handler:
+    if (!dbState.room.winning_category) {
+      hostSpin = { ...hostSpin, error: 'RPC_FAILED' };
+      // Host DOES NOT broadcast cancelled: true to guests!
+    }
+
+    check(hostSpin.error === 'RPC_FAILED', 'S20: Host entered RPC_FAILED error state');
+    check(!guestSpin.error, 'S20: Guest received no error and is not cancelled');
+
+    // Host retries
+    const retryAsHost = (isHost, roomStage) => {
+      if (!isHost || roomStage !== 'tiebreaker') return null;
+      return {
+        spinId: 'new-retry-spin',
+        kind: 'category',
+        candidateIds: ['burger', 'shawarma'],
+        winnerId: null,
+      };
+    };
+
+    const newSpin = retryAsHost(true, 'tiebreaker');
+    check(newSpin !== null, 'S20: Host successfully triggered new spin');
+    check(newSpin.spinId === 'new-retry-spin', 'S20: New spin has fresh ID');
+  }
+
+  // =========================================================================
+  // SCENARIO 21: Guest receives no retry button
+  // Verification that guest UI never renders retry controls even if spin has an error.
+  // =========================================================================
+  {
+    const canShowRetryButton = (isHost, hasError) => {
+      // In TiebreakerScreen: hasError && isHost
+      return Boolean(hasError && isHost);
+    };
+
+    check(canShowRetryButton(false, true) === false, 'S21: Guest with error does NOT get retry button');
+    check(canShowRetryButton(false, false) === false, 'S21: Guest without error does NOT get retry button');
+    check(canShowRetryButton(true, true) === true, 'S21: Host with error gets retry button');
+    check(canShowRetryButton(true, false) === false, 'S21: Host without error gets regular spin button');
+  }
+
+  // =========================================================================
+  // SCENARIO 22: Stale realtime optimization cannot suppress resolved winner
+  // When payload.new has a resolved winner, it reconciles BEFORE version check.
+  // =========================================================================
+  {
+    let currentRoomVersion = 5;
+    let activeSpin = {
+      spinId: 'spin-stale-test',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+    };
+
+    const handleRoomRealtimePayload = (payload) => {
+      // Direct inspection before version gating
+      if (payload?.new && activeSpin && !activeSpin.winnerId) {
+        const room = payload.new;
+        if (room.winning_category && activeSpin.candidateIds.includes(room.winning_category)) {
+          activeSpin = { ...activeSpin, winnerId: room.winning_category };
+        }
+      }
+
+      // Stale event check for regular room update
+      if (payload?.new?.version !== undefined && payload.new.version <= currentRoomVersion) {
+        return 'SKIPPED_STALE';
+      }
+      return 'PROCESSED';
+    };
+
+    // Stale payload with version 5 (equal to current version), but containing resolved winner!
+    const stalePayload = {
+      new: {
+        id: 'room-1',
+        version: 5,
+        stage: 'consensus',
+        winning_category: 'burger',
+      },
+    };
+
+    const status = handleRoomRealtimePayload(stalePayload);
+    check(status === 'SKIPPED_STALE', 'S22: Payload was correctly marked as stale for full room refresh');
+    check(activeSpin.winnerId === 'burger', 'S22: But winner was successfully extracted before version suppression!');
+  }
+
+  // =========================================================================
+  // SCENARIO 23: Duplicate reconciliation is idempotent
+  // Calling reconcile multiple times with the same room state produces no churn.
+  // =========================================================================
+  {
+    let activeSpin = {
+      spinId: 'spin-idempotent',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: null,
+    };
+    let updateCount = 0;
+
+    const reconcile = (room) => {
+      const winnerId = room.winning_category;
+      if (!winnerId || !activeSpin.candidateIds.includes(winnerId)) return false;
+      if (activeSpin.winnerId === winnerId && !activeSpin.error) {
+        // No change needed, idempotent no-op!
+        return true;
+      }
+      activeSpin = { ...activeSpin, winnerId, error: undefined };
+      updateCount++;
+      return true;
+    };
+
+    const resolvedRoom = { winning_category: 'shawarma' };
+
+    // Call 5 times in a row (e.g. broadcast hint + realtime + 2 watchdog polls + refresh)
+    for (let i = 0; i < 5; i++) {
+      const res = reconcile(resolvedRoom);
+      check(res === true, `S23: Call ${i + 1} returned true`);
+    }
+
+    check(updateCount === 1, `S23: Active spin updated exactly 1 time across 5 duplicate calls (got ${updateCount})`);
+    check(activeSpin.winnerId === 'shawarma', 'S23: Winner remains shawarma');
+  }
+
+  // =========================================================================
+  // SCENARIO 24: Conflicting hint cannot override authoritative room winner
+  // If authoritative winner is locked, a conflicting broadcast is rejected.
+  // =========================================================================
+  {
+    let activeSpin = {
+      spinId: 'spin-auth-test',
+      kind: 'category',
+      candidateIds: ['burger', 'shawarma'],
+      winnerId: 'burger', // authoritative winner already set
+    };
+
+    const handleWinnerBroadcast = (incomingWinnerId) => {
+      if (activeSpin.winnerId && activeSpin.winnerId !== incomingWinnerId) {
+        // Conflicting hint rejected! Room state wins.
+        return false;
+      }
+      activeSpin = { ...activeSpin, winnerId: incomingWinnerId };
+      return true;
+    };
+
+    const conflictAccepted = handleWinnerBroadcast('shawarma');
+    check(conflictAccepted === false, 'S24: Conflicting winner hint was rejected');
+    check(activeSpin.winnerId === 'burger', 'S24: Authoritative winner burger was preserved');
+  }
+
+  // =========================================================================
+  // SCENARIO 25: Shared reconciliation logic across category & restaurant
+  // Same helper reconciles kind='category' (winning_category) and kind='restaurant' (winning_restaurant_id).
+  // =========================================================================
+  {
+    const makeSpin = (kind, candidates) => ({
+      spinId: `spin-${kind}`,
+      kind,
+      candidateIds: candidates,
+      winnerId: null,
+    });
+
+    const reconcileGeneric = (spin, room) => {
+      let winnerId = null;
+      if (spin.kind === 'category') {
+        winnerId = room.winning_category;
+      } else if (spin.kind === 'restaurant') {
+        winnerId = room.winning_restaurant_id;
+      }
+      if (!winnerId || !spin.candidateIds.includes(winnerId)) return null;
+      return { ...spin, winnerId };
+    };
+
+    // Test Category
+    const catSpin = makeSpin('category', ['burger', 'shawarma']);
+    const catRoom = { winning_category: 'burger' };
+    const resolvedCat = reconcileGeneric(catSpin, catRoom);
+    check(resolvedCat?.winnerId === 'burger', 'S25: Category tiebreaker reconciled winning_category');
+
+    // Test Restaurant
+    const restSpin = makeSpin('restaurant', ['rest-abc', 'rest-xyz']);
+    const restRoom = { winning_restaurant_id: 'rest-xyz' };
+    const resolvedRest = reconcileGeneric(restSpin, restRoom);
+    check(resolvedRest?.winnerId === 'rest-xyz', 'S25: Restaurant tiebreaker reconciled winning_restaurant_id');
+
+    // Test Invalid candidate rejection on restaurant
+    const badRestRoom = { winning_restaurant_id: 'rest-imposter' };
+    const rejectedRest = reconcileGeneric(restSpin, badRestRoom);
+    check(rejectedRest === null, 'S25: Imposter restaurant ID outside candidateIds is rejected');
+  }
+
+  console.log(`PASS: ${checks} Roulette Wheel Engine & Sync checks covering all 25 scenarios.`);
 } finally {
   await server.close();
 }

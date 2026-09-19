@@ -154,6 +154,57 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const pendingResolvedRoomRef = useRef<Room | null>(null);
 
+  const reconcileDecisionSpinFromRoom = useCallback((roomOrState: Room | import('../types/database').RoomDecisionState | null | undefined): boolean => {
+    if (!roomOrState) return false;
+    const room: Room | undefined = 'room' in roomOrState ? (roomOrState as import('../types/database').RoomDecisionState).room : (roomOrState as Room);
+    if (!room) return false;
+
+    const spin = decisionSpinRef.current;
+    if (!spin || spin.cancelled) return false;
+
+    let winnerId: string | null = null;
+    if (spin.kind === 'category') {
+      if (room.winning_category) {
+        winnerId = room.winning_category;
+      }
+    } else if (spin.kind === 'restaurant') {
+      if (room.winning_restaurant_id) {
+        winnerId = room.winning_restaurant_id;
+      }
+    }
+
+    if (!winnerId) return false;
+
+    // Validate that winnerId is one of the candidate IDs in the spin
+    if (!spin.candidateIds.includes(winnerId)) {
+      console.warn('[reconcileDecisionSpinFromRoom] Winner not in candidates', { winnerId, candidates: spin.candidateIds });
+      return false;
+    }
+
+    // Never overwrite a different already-known authoritative winner
+    if (spin.winnerId && spin.winnerId !== winnerId) {
+      console.warn('[reconcileDecisionSpinFromRoom] Conflicting winner ignored, existing authoritative winner preserved', {
+        existing: spin.winnerId,
+        incoming: winnerId,
+      });
+      return false;
+    }
+
+    // Store pending resolved room so when animation finishes, room state seamlessly transitions
+    pendingResolvedRoomRef.current = room;
+
+    // If winner is not yet set or error was set, update spin with winnerId and clear any transient error
+    if (!spin.winnerId || spin.error) {
+      applyDecisionSpin({
+        ...spin,
+        winnerId,
+        error: undefined,
+      });
+    }
+
+    return true;
+  }, [applyDecisionSpin]);
+
   const applyAuthoritativeRoomState = useCallback((state: import('../types/database').RoomDecisionState) => {
     if (!state?.room) return;
     const room = state.room;
@@ -170,18 +221,8 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       prevRoomModeRef.current = room.room_mode;
     }
 
-    // Check if a decision spin is active and uncompleted
-    const spin = decisionSpinRef.current;
-    const spinResolvedRoom = spin?.kind === 'category'
-      ? room.stage === 'consensus' && room.winning_category
-      : room.stage === 'matched' && room.winning_restaurant_id;
-
-    if (spin && !spin.cancelled && spinResolvedRoom) {
-      pendingResolvedRoomRef.current = room;
-      if (!spin.winnerId) {
-        const winnerId = spin.kind === 'category' ? room.winning_category! : room.winning_restaurant_id!;
-        applyDecisionSpin({ ...spin, winnerId });
-      }
+    // Check if a decision spin is active and reconcile winner
+    if (reconcileDecisionSpinFromRoom(state)) {
       return;
     }
 
@@ -199,7 +240,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return [...prev, state.myCategorySelection!];
       });
     }
-  }, [applyDecisionSpin, triggerModeTransition]);
+  }, [reconcileDecisionSpinFromRoom, triggerModeTransition]);
 
   const leaveRoom = useCallback((preserveToken = true) => {
     const code = currentRoomRef.current?.code;
@@ -264,16 +305,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
             prevRoomModeRef.current = room.room_mode;
           }
 
-          const spin = decisionSpinRef.current;
-          const spinResolvedRoom = spin?.kind === 'category'
-            ? room.stage === 'consensus' && room.winning_category
-            : room.stage === 'matched' && room.winning_restaurant_id;
-          if (spin && !spin.cancelled && spinResolvedRoom) {
-            pendingResolvedRoomRef.current = room;
-            if (!spin.winnerId) {
-              const winnerId = spin.kind === 'category' ? room.winning_category! : room.winning_restaurant_id!;
-              applyDecisionSpin({ ...spin, winnerId });
-            }
+          if (reconcileDecisionSpinFromRoom(room)) {
             return;
           }
           if (room.version < (currentRoomRef.current?.version ?? -1)) return;
@@ -316,7 +348,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     inFlightRefreshRef.current = performRefresh();
     return inFlightRefreshRef.current;
-  }, [leaveRoom, t, reportError, applyDecisionSpin, triggerModeTransition]);
+  }, [leaveRoom, t, reportError, triggerModeTransition, reconcileDecisionSpinFromRoom]);
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
@@ -422,6 +454,12 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const unsubscribe = subscribeToRoom(
       currentRoom.id,
       (payload) => {
+        // Inspect payload.new directly for resolved winner state BEFORE version gating!
+        // This prevents stale-event optimization from suppressing authoritative winner delivery.
+        if (payload?.new && decisionSpinRef.current && !decisionSpinRef.current.winnerId) {
+          reconcileDecisionSpinFromRoom(payload.new);
+        }
+
         // Rooms change: if incoming payload has a version and it's already <= our current version, ignore!
         if (payload?.new?.version !== undefined && payload.new.version <= (currentRoomRef.current?.version ?? -1)) {
           perf.increment('skipped_stale_realtime_events');
@@ -452,7 +490,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => {
       unsubscribe();
     };
-  }, [currentRoom?.id, refreshRoom, leaveRoom, t]);
+  }, [currentRoom?.id, refreshRoom, leaveRoom, t, reconcileDecisionSpinFromRoom]);
 
   useEffect(() => {
     if (!currentRoom?.id) return;
@@ -484,6 +522,15 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (spin.winnerId && !spin.candidateIds.includes(spin.winnerId)) return;
 
       if (spin.winnerId) {
+        // WINNER HINT: Only apply if we don't already have an authoritative winner from room state
+        const current = decisionSpinRef.current;
+        if (current && current.winnerId && current.winnerId !== spin.winnerId) {
+          console.warn('[subscribeToDecisionSpin] Conflicting winner hint ignored, room state wins', {
+            existing: current.winnerId,
+            hint: spin.winnerId,
+          });
+          return;
+        }
         applyDecisionSpin({
           spinId: spin.spinId,
           kind: spin.kind,
@@ -493,7 +540,17 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
 
-      applyDecisionSpin(spin);
+      // SPIN START:
+      const current = decisionSpinRef.current;
+      if (current && !current.cancelled && current.spinId === spin.spinId) {
+        return;
+      }
+
+      applyDecisionSpin({
+        spinId: spin.spinId,
+        kind: spin.kind,
+        candidateIds: spin.candidateIds,
+      });
     });
   }, [currentRoom?.id, applyDecisionSpin]);
 
@@ -509,14 +566,44 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [applyDecisionSpin, refreshRoom]);
 
-  // Guest watchdog: if spinning for 4.5s without receiving winner broadcast, check authoritative state
+  // Guest authoritative watchdog: fetch room state at ~4.5s and ~10s if unresolved, never enter error
   useEffect(() => {
-    if (!decisionSpin || decisionSpin.winnerId || decisionSpin.error || currentParticipant?.is_host) return;
-    const timer = window.setTimeout(() => {
-      refreshRoom();
+    if (!decisionSpin || decisionSpin.winnerId || decisionSpin.error || currentParticipant?.is_host || !currentRoom?.id) return;
+
+    const guestToken = currentParticipant?.session_token;
+    const roomId = currentRoom.id;
+
+    const timer45 = window.setTimeout(async () => {
+      if (!decisionSpinRef.current || decisionSpinRef.current.winnerId) return;
+      try {
+        if (guestToken) {
+          const state = await getRoomDecisionState(roomId, guestToken);
+          if (reconcileDecisionSpinFromRoom(state)) return;
+        }
+      } catch (err) {
+        console.warn('Guest 4.5s watchdog check error', err);
+      }
+      void refreshRoom({ fetchParticipants: false });
     }, 4500);
-    return () => window.clearTimeout(timer);
-  }, [decisionSpin, currentParticipant?.is_host, refreshRoom]);
+
+    const timer10 = window.setTimeout(async () => {
+      if (!decisionSpinRef.current || decisionSpinRef.current.winnerId) return;
+      try {
+        if (guestToken) {
+          const state = await getRoomDecisionState(roomId, guestToken);
+          if (reconcileDecisionSpinFromRoom(state)) return;
+        }
+      } catch (err) {
+        console.warn('Guest 10s watchdog check error', err);
+      }
+      void refreshRoom({ fetchParticipants: false });
+    }, 10000);
+
+    return () => {
+      window.clearTimeout(timer45);
+      window.clearTimeout(timer10);
+    };
+  }, [decisionSpin, currentParticipant?.is_host, currentParticipant?.session_token, currentRoom?.id, reconcileDecisionSpinFromRoom, refreshRoom]);
 
   // Periodic 30-minute TTL check
   useEffect(() => {
@@ -722,7 +809,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     applyDecisionSpin(spin);
     await broadcastDecisionSpin(currentRoom.id, spin);
 
-    let isRpcPending = true;
     let rpcCompleted = false;
 
     // Watchdog at ~4.5s: perform ONE authoritative state fetch
@@ -730,27 +816,37 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (rpcCompleted || decisionSpinRef.current?.winnerId) return;
       try {
         const state = await getRoomDecisionState(currentRoom.id, currentParticipant.session_token);
-        const resolvedWinnerId = kind === 'category' ? state.room.winning_category : state.room.winning_restaurant_id;
-        if (resolvedWinnerId && candidateIds.includes(resolvedWinnerId)) {
-          pendingResolvedRoomRef.current = state.room;
-          const updatedSpin: DecisionSpin = { ...spin, winnerId: resolvedWinnerId };
-          applyDecisionSpin(updatedSpin);
-          await broadcastDecisionSpin(currentRoom.id, updatedSpin);
-        } else if (!isRpcPending) {
-          applyDecisionSpin({ ...spin, error: 'WSH_UNRESOLVED_TIE' });
+        if (reconcileDecisionSpinFromRoom(state)) {
+          const resolvedWinnerId = kind === 'category' ? state.room.winning_category : state.room.winning_restaurant_id;
+          if (resolvedWinnerId) {
+            await broadcastDecisionSpin(currentRoom.id, { ...spin, winnerId: resolvedWinnerId });
+          }
         }
+        // If state is unresolved and RPC is still pending, continue spinning without error!
       } catch (err) {
         console.warn('Roulette watchdog recovery check error', err);
       }
     }, 4500);
 
-    // Hard ceiling at 15s: if unresolved after 15s, enter error state
-    const hardCeilingTimer = window.setTimeout(() => {
+    // Hard ceiling at 20s: check authoritative state before setting host error
+    const hardCeilingTimer = window.setTimeout(async () => {
       if (rpcCompleted || decisionSpinRef.current?.winnerId) return;
+      try {
+        const state = await getRoomDecisionState(currentRoom.id, currentParticipant.session_token);
+        if (reconcileDecisionSpinFromRoom(state)) {
+          const resolvedWinnerId = kind === 'category' ? state.room.winning_category : state.room.winning_restaurant_id;
+          if (resolvedWinnerId) {
+            await broadcastDecisionSpin(currentRoom.id, { ...spin, winnerId: resolvedWinnerId });
+          }
+          return;
+        }
+      } catch (err) {
+        console.warn('Roulette ceiling recovery check error', err);
+      }
       if (decisionSpinRef.current && !decisionSpinRef.current.winnerId) {
         applyDecisionSpin({ ...decisionSpinRef.current, error: 'WSH_TIMEOUT' });
       }
-    }, 15000);
+    }, 20000);
 
     const endPerf = perf.start('resolveTieRPC');
     try {
@@ -758,7 +854,6 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ? await resolveCategoryTie(currentRoom.id, currentParticipant.session_token, currentRoom.version, 'choose_for_us')
         : await resolveRestaurantTie(currentRoom.id, currentParticipant.session_token, currentRoom.version, 'choose_for_us');
       endPerf();
-      isRpcPending = false;
       rpcCompleted = true;
       window.clearTimeout(watchdogTimer);
       window.clearTimeout(hardCeilingTimer);
@@ -766,25 +861,21 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const winnerId = kind === 'category' ? state.room.winning_category : state.room.winning_restaurant_id;
       if (!winnerId || !candidateIds.includes(winnerId)) throw new Error('Authoritative roulette winner is invalid');
 
-      const result: DecisionSpin = { ...spin, winnerId };
-      applyDecisionSpin(result);
-      pendingResolvedRoomRef.current = state.room;
-      await broadcastDecisionSpin(currentRoom.id, result);
+      reconcileDecisionSpinFromRoom(state);
+      await broadcastDecisionSpin(currentRoom.id, { ...spin, winnerId });
     } catch (error) {
       endPerf();
-      isRpcPending = false;
       window.clearTimeout(watchdogTimer);
       window.clearTimeout(hardCeilingTimer);
 
       // Check if state is actually resolved before declaring failure
       try {
         const state = await getRoomDecisionState(currentRoom.id, currentParticipant.session_token);
-        const winnerId = kind === 'category' ? state.room.winning_category : state.room.winning_restaurant_id;
-        if (winnerId && candidateIds.includes(winnerId)) {
-          pendingResolvedRoomRef.current = state.room;
-          const result: DecisionSpin = { ...spin, winnerId };
-          applyDecisionSpin(result);
-          await broadcastDecisionSpin(currentRoom.id, result);
+        if (reconcileDecisionSpinFromRoom(state)) {
+          const winnerId = kind === 'category' ? state.room.winning_category : state.room.winning_restaurant_id;
+          if (winnerId) {
+            await broadcastDecisionSpin(currentRoom.id, { ...spin, winnerId });
+          }
           return;
         }
       } catch {
@@ -792,18 +883,37 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       console.error('Error resolving tie RPC', error);
+      // ONLY HOST gets error state
       applyDecisionSpin({ ...spin, error: 'RPC_FAILED' });
       pendingResolvedRoomRef.current = null;
-      await broadcastDecisionSpin(currentRoom.id, { ...spin, cancelled: true });
+      // Do not broadcast cancelled: true to guests, so guests remain in waiting state while host sees retry
     }
-  }, [currentRoom, currentParticipant, applyDecisionSpin]);
+  }, [currentRoom, currentParticipant, applyDecisionSpin, reconcileDecisionSpinFromRoom]);
 
-  const retryDecisionSpin = useCallback(() => {
+  const retryDecisionSpin = useCallback(async () => {
+    const participant = currentParticipantRef.current;
+    const room = currentRoomRef.current;
+    if (!participant?.is_host || !room) return;
     const spin = decisionSpinRef.current;
     if (!spin) return;
+
+    // Verify room is still authoritative tiebreaker state
+    if (spin.kind === 'category') {
+      if (room.stage !== 'tiebreaker' || !room.tied_categories || room.tied_categories.length < 2) {
+        console.warn('[retryDecisionSpin] Room is no longer in category tiebreaker state', room.stage);
+        return;
+      }
+    } else if (spin.kind === 'restaurant') {
+      const tiedCount = room.restaurant_summary?.tiedRestaurantIds?.length || 0;
+      if (tiedCount < 2) {
+        console.warn('[retryDecisionSpin] Room is no longer in restaurant tie state');
+        return;
+      }
+    }
+
     const kind = spin.kind;
     applyDecisionSpin(null);
-    startDecisionSpin(kind);
+    await startDecisionSpin(kind);
   }, [applyDecisionSpin, startDecisionSpin]);
 
   const startCategoryRoulette = () => startDecisionSpin('category');
