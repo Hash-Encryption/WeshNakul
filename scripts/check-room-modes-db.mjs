@@ -79,6 +79,13 @@ try {
   // Apply the Clean Food Categories migration!
   await db.exec(migration('20260919000100_clean_food_categories.sql'));
 
+  // Apply the Repair Secure Fair Draw migration!
+  await db.exec(
+    migration('20260919000200_repair_secure_fair_draw.sql')
+      .replace('CREATE EXTENSION IF NOT EXISTS "pgcrypto";', '')
+      .replace(/DO \$\$[\s\S]*?END \$\$;/m, '')
+  );
+
   // Verify the legacy row was safely reconciled to is_submitted = false
   const legacyRows = await query(`SELECT is_submitted FROM public.food_choices WHERE room_id = '00000000-0000-0000-0000-000000000001'`);
   check(legacyRows.length === 1 && legacyRows[0].is_submitted === false, 'legacy non-compliant submitted choice reconciled cleanly without failing check constraint');

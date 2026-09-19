@@ -39,6 +39,12 @@ try {
     .replace(/DO \$\$[\s\S]*?END \$\$;/m, '');
   await db.exec(hardenSql);
 
+  // Load forward-only repair migration 20260919000200_repair_secure_fair_draw.sql
+  const repairSql = migration('20260919000200_repair_secure_fair_draw.sql')
+    .replace('CREATE EXTENSION IF NOT EXISTS "pgcrypto";', '')
+    .replace(/DO \$\$[\s\S]*?END \$\$;/m, '');
+  await db.exec(repairSql);
+
   // Provide explicit test-harness random byte source in PGlite using PostgreSQL's built-in cryptographic gen_random_uuid()
   await db.exec(`
     -- TEST HARNESS MOCK ONLY FOR PGLITE: Production PostgreSQL uses genuine pgcrypto.gen_random_bytes().
@@ -52,12 +58,14 @@ try {
   // 1. Crypto Source Verification
   // ==========================================
   console.log('\n1. Verifying Crypto Source & Integrity:');
-  const migrationFileContent = readFileSync('supabase/migrations/20260917000100_harden_global_fair_draw.sql', 'utf8');
-  assert.ok(migrationFileContent.includes('DROP FUNCTION IF EXISTS public.gen_random_bytes(int);'), 'Migration drops custom fallback');
-  assert.ok(migrationFileContent.includes('CREATE EXTENSION IF NOT EXISTS "pgcrypto";'), 'Migration requires genuine pgcrypto');
-  assert.ok(!migrationFileContent.includes('md5('), 'No md5 fallback in hardened migration');
-  assert.ok(!migrationFileContent.includes('random()'), 'No random() fallback in hardened migration');
-  assert.ok(!migrationFileContent.includes('fallback gen_random_bytes'), 'No fallback mentions');
+  for (const mFile of ['20260917000100_harden_global_fair_draw.sql', '20260919000200_repair_secure_fair_draw.sql']) {
+    const migrationFileContent = readFileSync(`supabase/migrations/${mFile}`, 'utf8');
+    assert.ok(migrationFileContent.includes('DROP FUNCTION IF EXISTS public.gen_random_bytes(int);'), `${mFile} drops custom fallback`);
+    assert.ok(migrationFileContent.includes('CREATE EXTENSION IF NOT EXISTS "pgcrypto";'), `${mFile} requires genuine pgcrypto`);
+    assert.ok(!migrationFileContent.includes('md5('), `No md5 fallback in ${mFile}`);
+    assert.ok(!migrationFileContent.includes('random()'), `No random() fallback in ${mFile}`);
+    assert.ok(!migrationFileContent.includes('fallback gen_random_bytes'), `No fallback mentions in ${mFile}`);
+  }
 
   // Verify function definitions in PostgreSQL catalog
   const funcProcs = await query(`
@@ -109,8 +117,16 @@ try {
   assert.equal(postPlaceholderRow.consecutive_win_count, 1, 'Draw against placeholder (NULL, 0) must produce streak = 1');
   console.log('✓ Draw against placeholder row (NULL, 0) sets streak to 1');
 
+  // Verify both 2-arg and explicit 3-arg calling forms work cleanly
+  const draw2Arg = (await query(`SELECT private.secure_fair_draw('category'::text, ARRAY['burger','shawarma']::text[]) as w`))[0].w;
+  assert.ok(['burger','shawarma'].includes(draw2Arg), '2-arg secure_fair_draw returns valid candidate');
+  const draw3Arg = (await query(`SELECT private.secure_fair_draw('category'::text, ARRAY['burger','shawarma']::text[], 1) as w`))[0].w;
+  assert.ok(['burger','shawarma'].includes(draw3Arg), '3-arg secure_fair_draw returns valid candidate');
+  console.log('✓ Both 2-arg and 3-arg secure_fair_draw calling forms work cleanly.');
+
   // ==========================================
   // 4. First-Use Concurrency Test
+
   // ==========================================
   console.log('\n4. Testing First-Use Concurrency on Unseeded Matchup:');
   for (let run = 1; run <= 5; run++) {
@@ -254,6 +270,49 @@ try {
   assert.equal(newRoomRes.room.category_summary.submittedCount, 0, 'submittedCount must be 0 initially');
   assert.equal(newRoomRes.room.category_summary.status, 'pending');
   console.log('✓ New room started directly in voting with eligibleParticipantCount = 1 and status = pending');
+
+  // ==========================================
+  // 11. Standalone Repair Migration Verification (Fresh DB)
+  // ==========================================
+  console.log('\n11. Testing Standalone Forward-Only Repair Migration on Clean Database:');
+  const freshDb = new PGlite();
+  await freshDb.exec('CREATE ROLE anon; CREATE ROLE authenticated; CREATE ROLE service_role BYPASSRLS; CREATE PUBLICATION supabase_realtime;');
+  for (const file of [
+    '20260902_initial_schema.sql', '002_food_consensus.sql', '003_restaurant_swipes.sql', '005_create_and_seed_restaurants.sql',
+    '006_squad_order_scratchpad.sql', '007_room_expiration_and_cleanup.sql', '20260908000100_restaurant_intelligence.sql',
+    '20260908000200_restaurant_legacy_provenance.sql', '20260908000300_room_host_coordinates.sql'
+  ]) {
+    await freshDb.exec(migration(file).replace('create extension if not exists "pgcrypto";', ''));
+  }
+  await freshDb.exec('ALTER TABLE participants DROP CONSTRAINT IF EXISTS participants_session_token_key; ALTER TABLE participants ADD CONSTRAINT participants_room_session_unique UNIQUE(room_id,session_token);');
+  for (const file of [
+    '20260909000100_private_restaurant_decks.sql', '20260909000200_private_participant_sessions.sql',
+    '20260910000100_jeddah_geography_intelligence.sql', '20260911000100_jeddah_burger_google_verified_catalog.sql',
+    '20260911000200_remove_legacy_public_room_coordinates.sql', '20260911000300_phase3_authoritative_consensus.sql',
+    '20260912000100_allow_voting_stage_joins.sql', '20260913000100_decision_game_and_tie_corrections.sql'
+    // NOTE: 20260916000100 and 20260917000100 are INTENTIONALLY SKIPPED here to simulate production state before repair!
+  ]) {
+    await freshDb.exec(migration(file));
+  }
+  // Apply the forward-only repair migration directly
+  const freshRepairSql = migration('20260919000200_repair_secure_fair_draw.sql')
+    .replace('CREATE EXTENSION IF NOT EXISTS "pgcrypto";', '')
+    .replace(/DO \$\$[\s\S]*?END \$\$;/m, '');
+  await freshDb.exec(freshRepairSql);
+  await freshDb.exec(`
+    CREATE OR REPLACE FUNCTION public.gen_random_bytes(p_len int) RETURNS bytea
+    LANGUAGE sql VOLATILE AS $$
+      SELECT decode(substr(replace(gen_random_uuid()::text, '-', ''), 1, p_len * 2), 'hex')
+    $$;
+  `);
+  // Test direct 2-arg and 3-arg draws
+  const freshDraw2 = (await freshDb.query(`SELECT private.secure_fair_draw('category'::text, ARRAY['burger','shawarma']::text[]) as w`)).rows[0].w;
+  assert.ok(['burger', 'shawarma'].includes(freshDraw2), 'Standalone repair provides working secure_fair_draw (2-arg)');
+  const freshDraw3 = (await freshDb.query(`SELECT private.secure_fair_draw('category'::text, ARRAY['burger','shawarma']::text[], 1) as w`)).rows[0].w;
+  assert.ok(['burger', 'shawarma'].includes(freshDraw3), 'Standalone repair provides working secure_fair_draw (3-arg)');
+  const freshHist = (await freshDb.query(`SELECT * FROM private.fair_draw_history WHERE canonical_candidate_key = 'burger|shawarma'`)).rows[0];
+  assert.equal(freshHist.consecutive_win_count, freshDraw2 === freshDraw3 ? 2 : 1);
+  console.log('✓ Standalone repair migration installs working fair-draw infrastructure without prior migrations.');
 
   console.log('\nPASS: All hardened fair draw, concurrency, crypto source, and anti-streak checks succeeded!');
 } catch (err) {
