@@ -5,10 +5,11 @@ import { useLocale } from '../../context/LocaleContext';
 import { Header } from '../common/Header';
 import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart, DoodleSquiggle } from '../common/DecorativeSparkles';
-import { getCategoryById, FOOD_CATEGORIES } from '../../lib/consensus';
+import { getCategoryById, getCategoriesForMode } from '../../lib/consensus';
+import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
 
 export const ConsensusResultScreen: React.FC = () => {
-  const { currentRoom, isHost, resetToLobby, startSwiping, participants } = useRoom();
+  const { currentRoom, currentParticipant, isHost, resetToLobby, startSwiping, participants, suggestions, toggleSuggestion } = useRoom();
   const { t, locale } = useLocale();
   const [isStarting, setIsStarting] = useState(false);
 
@@ -41,7 +42,9 @@ export const ConsensusResultScreen: React.FC = () => {
 
   if (!currentRoom) return null;
 
-  const winnerCategory = getCategoryById(winnerId);
+  const mode = currentRoom.room_mode || 'food';
+  const categories = getCategoriesForMode(mode);
+  const winnerCategory = getCategoryById(winnerId, mode);
   const consensusType = currentRoom.consensus_type || 'unanimous';
 
   const winnerName = winnerCategory
@@ -62,7 +65,7 @@ export const ConsensusResultScreen: React.FC = () => {
       id,
       count,
       percentage: Math.round((count / totalVoters) * 100),
-      def: FOOD_CATEGORIES.find((c) => c.id === id),
+      def: categories.find((c) => c.id === id),
     }))
     .filter((item) => item.def && item.count > 0)
     .sort((a, b) => b.count - a.count)
@@ -213,22 +216,40 @@ export const ConsensusResultScreen: React.FC = () => {
               {locale === 'ar' ? 'يلا نختار المطعم 🚀' : 'Pick Restaurant 🚀'}
             </TactileButton>
 
-            <TactileButton
-              onClick={resetToLobby}
-              variant="secondary"
-              fullWidth
-              size="sm"
-            >
-              {t('consensus.startOver')}
-            </TactileButton>
+            <div className="flex flex-col items-center gap-1.5">
+              <TactileButton
+                onClick={resetToLobby}
+                variant="secondary"
+                fullWidth
+                size="sm"
+              >
+                {t('consensus.startOver')}
+              </TactileButton>
+              <SocialSuggestionAvatars suggestions={suggestions} target="action:choose_another_category" className="justify-center" />
+            </div>
           </>
         ) : (
-          <div className="bg-white/80 border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] rounded-2xl p-3 text-center">
-            <p className="text-xs font-bold text-[#7A6E67] font-alexandria animate-pulse">
-              {locale === 'ar'
-                ? 'المؤسس بيفتح اختيار المطاعم الحين... ⏳'
-                : 'Host will start restaurant picking shortly... ⏳'}
-            </p>
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-full bg-white/80 border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] rounded-2xl p-3 text-center">
+              <p className="text-xs font-bold text-[#7A6E67] font-alexandria animate-pulse">
+                {locale === 'ar'
+                  ? 'المؤسس بيفتح اختيار المطاعم الحين... ⏳'
+                  : 'Host will start restaurant picking shortly... ⏳'}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => toggleSuggestion('action:choose_another_category')}
+              className={`w-full py-2.5 px-3 rounded-2xl border-2 text-xs font-black font-alexandria transition-all cursor-pointer ${
+                suggestions.some((s) => s.target === 'action:choose_another_category' && s.participant_id === currentParticipant?.id)
+                  ? 'bg-amber-100 text-brand-ink border-amber-400'
+                  : 'bg-white border-brand-ink/20 text-brand-gray hover:bg-stone-50'
+              }`}
+            >
+              {suggestions.some((s) => s.target === 'action:choose_another_category' && s.participant_id === currentParticipant?.id) ? '✓ ' : ''}
+              {t('suggestions.chooseAnotherCategory')} 🔄
+            </button>
+            <SocialSuggestionAvatars suggestions={suggestions} target="action:choose_another_category" className="justify-center" />
           </div>
         )}
       </div>

@@ -7,9 +7,11 @@ import { TactileButton } from '../common/TactileButton';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { Toast } from '../common/Toast';
 import { CategoryCard } from './CategoryCard';
-import { FOOD_CATEGORIES, normalizeCategorySelection, toggleCategorySelection } from '../../lib/consensus';
+import { getCategoriesForMode, normalizeCategorySelection, toggleCategorySelection } from '../../lib/consensus';
 import { SparkleRays } from '../common/DecorativeSparkles';
 import { DecisionMachineLoading } from '../common/DecisionMachineLoading';
+import { RoomModeSelector } from '../common/RoomModeSelector';
+import { RoomPreferencesBar } from '../common/RoomPreferencesBar';
 
 export const FoodVotingScreen: React.FC = () => {
   const {
@@ -27,30 +29,34 @@ export const FoodVotingScreen: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  const mode = currentRoom?.room_mode || 'food';
+  const categories = getCategoriesForMode(mode);
+  const wildcardId = mode === 'breakfast' ? 'any_breakfast' : 'flexible';
+
   // Initialize selection from existing saved choice if any
   useEffect(() => {
     if (myChoice?.selected_categories && myChoice.selected_categories.length > 0) {
-      setSelectedIds(normalizeCategorySelection(myChoice.selected_categories));
+      setSelectedIds(normalizeCategorySelection(myChoice.selected_categories, currentRoom?.room_mode));
     } else {
       setSelectedIds([]);
     }
-  }, [myChoice]);
+  }, [myChoice, currentRoom?.room_mode]);
 
   if (!currentRoom || !currentParticipant) return null;
 
   const isSubmitted = Boolean(myChoice?.is_submitted) && !isEditing;
-  const hasSelectedWildcard = selectedIds.includes('flexible');
+  const hasSelectedWildcard = selectedIds.includes(wildcardId);
   const canSubmit = hasSelectedWildcard || selectedIds.length >= 2;
 
   const toggleCategory = (id: string) => {
-    setSelectedIds((prev) => toggleCategorySelection(prev, id));
+    setSelectedIds((prev) => toggleCategorySelection(prev, id, currentRoom?.room_mode));
   };
 
   const handleSubmit = async () => {
     if (!canSubmit || isSubmitting) return;
     setIsSubmitting(true);
     try {
-      await submitFoodChoices(normalizeCategorySelection(selectedIds));
+      await submitFoodChoices(normalizeCategorySelection(selectedIds, currentRoom?.room_mode));
       setIsEditing(false);
       setToastMessage(t('toast.picksSubmitted'));
       setTimeout(() => setToastMessage(null), 2500);
@@ -74,7 +80,7 @@ export const FoodVotingScreen: React.FC = () => {
       id,
       count,
       percentage: totalSubmitted > 0 ? count / totalSubmitted : 0,
-      def: FOOD_CATEGORIES.find((c) => c.id === id)!,
+      def: categories.find((c) => c.id === id)!,
     }))
     .filter((item) => item.def && item.count > 0)
     .sort((a, b) => b.count - a.count);
@@ -191,6 +197,10 @@ export const FoodVotingScreen: React.FC = () => {
           </div>
         </div>
 
+        {/* Room Mode Selector & Preferences Bar */}
+        <RoomModeSelector className="mt-1 mb-2" />
+        <RoomPreferencesBar className="mb-3" />
+
         {/* Heading and Squad Instructions */}
         <div className="text-center mt-1 mb-4 px-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-yellow/30 border border-brand-ink/10 text-xs font-bold text-brand-ink mb-2">
@@ -198,10 +208,10 @@ export const FoodVotingScreen: React.FC = () => {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-ink mb-1 font-alexandria tracking-tight">
-            {t('voting.heading')}
+            {mode === 'breakfast' ? t('voting.breakfastHeading') : t('voting.heading')}
           </h2>
           <p className="text-brand-gray text-xs sm:text-sm font-medium">
-            {t('voting.subtitle')}
+            {mode === 'breakfast' ? t('voting.breakfastSubtitle') : t('voting.subtitle')}
           </p>
         </div>
 
@@ -261,13 +271,13 @@ export const FoodVotingScreen: React.FC = () => {
         {hasSelectedWildcard && (
           <div className="max-w-md mx-auto mb-4 p-3 rounded-2xl bg-brand-yellow/20 border-2 border-brand-ink shadow-[0_2px_0_#241B18] text-xs font-bold text-brand-ink flex items-start gap-2">
             <span className="text-lg">🎲</span>
-            <span>{t('voting.wildcardNotice')}</span>
+            <span>{mode === 'breakfast' ? t('voting.breakfastWildcardNotice') : t('voting.wildcardNotice')}</span>
           </div>
         )}
 
         {/* Category Selection Grid */}
         <div className="max-w-md mx-auto grid grid-cols-3 gap-2.5 mb-6">
-          {FOOD_CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const isSelected = selectedIds.includes(cat.id);
             const count = categorySummary?.tally?.[cat.id] || 0;
             const percentage = totalSubmitted > 0 ? count / totalSubmitted : 0;

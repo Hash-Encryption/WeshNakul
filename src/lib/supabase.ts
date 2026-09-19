@@ -1,5 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState } from '../types/database';
+import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState, RoomMode, RoomSuggestion } from '../types/database';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';
 import { cacheDeckRestaurants } from './restaurantRepository';
@@ -106,14 +106,14 @@ export async function getRoomByCode(
 
   let { data: room, error } = await supabase
     .from('rooms')
-    .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
+    .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
     .eq('code', cleanCode)
     .maybeSingle();
 
   if (!room && !error) {
     const retry = await supabase
       .from('rooms')
-      .select('id,code,status,stage,eating_mode,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
+      .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
       .ilike('code', cleanCode)
       .maybeSingle();
     room = retry.data;
@@ -145,6 +145,8 @@ export async function getRoomByCode(
   return {
     room: {
       ...room,
+      room_mode: (room.room_mode || 'food') as RoomMode,
+      preferences: room.preferences || [],
       stage: room.stage || room.current_stage || room.status || 'lobby',
       tied_categories: room.tied_categories || [],
     } as Room,
@@ -236,6 +238,15 @@ export const submitRestaurantVote = (roomId: string, sessionToken: string, versi
 
 export const resolveRestaurantTie = (roomId: string, sessionToken: string, version: number, method: 'host_pick' | 'choose_for_us' | 'sudden_death', restaurantId?: string) =>
   decisionRpc('resolve_restaurant_tie', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_method: method, p_restaurant_id: restaurantId ?? null });
+
+export const switchRoomMode = (roomId: string, sessionToken: string, version: number, newMode: RoomMode) =>
+  decisionRpc('switch_room_mode', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_new_mode: newMode });
+
+export const setRoomPreference = (roomId: string, sessionToken: string, version: number, preference: string, enabled: boolean) =>
+  decisionRpc('set_room_preference', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_preference: preference, p_enabled: enabled });
+
+export const toggleRoomSuggestion = (roomId: string, sessionToken: string, target: string) =>
+  decisionRpc('toggle_room_suggestion', { p_room_id: roomId, p_session_token: sessionToken, p_target: target });
 
 export async function getFoodChoices(roomId: string, sessionToken: string): Promise<FoodChoice[]> {
   const state = await getRoomDecisionState(roomId, sessionToken);
@@ -763,3 +774,51 @@ export function subscribeToDecisionSpin(
     }
   };
 }
+
+export async function broadcastSuggestions(roomId: string, suggestions: RoomSuggestion[]): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`suggestions:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 250);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'suggestions_updated',
+        payload: { roomId, suggestions },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastSuggestions failed', e);
+    }
+  }
+}
+
+export function subscribeToSuggestions(
+  roomId: string,
+  callback: (suggestions: RoomSuggestion[]) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`suggestions:${roomId}`)
+      .on('broadcast', { event: 'suggestions_updated' }, (payload: any) => {
+        if (Array.isArray(payload?.payload?.suggestions)) {
+          callback(payload.payload.suggestions);
+        }
+      })
+      .subscribe(reportRealtimeStatus);
+  }
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+  };
+}
+

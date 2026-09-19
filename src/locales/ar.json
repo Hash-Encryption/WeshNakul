@@ -92,6 +92,9 @@
     "liveVotesTitle": "أصوات القروب المباشرة 📊",
     "antiBiasNotice": "ثبّت خياراتك لرؤية تصويت باقي القروب 👀",
     "wildcardNotice": "🎲 'أي شيء معاكم' يوزع صوتك تلقائياً على كل اختيار صوتوا له ربعك!",
+    "breakfastHeading": "وش نفطر اليوم؟ 🍳",
+    "breakfastSubtitle": "صوّت لأصناف الفطور المفضلة",
+    "breakfastWildcardNotice": "🎲 اخترت أي فطور! موافق على كل خيارات الفطور المتاحة.",
     "changePicks": "تعديل خياراتي"
   },
   "tiebreaker": {
@@ -247,5 +250,50 @@
     "waitingHost": "المضيف يلف العجلة الآن... 👀",
     "winnerBadge": "الصنف الفائز! 🎉",
     "proceed": "انتقل لاختيار المطاعم 🚀"
+  },
+  "modes": {
+    "transitionNotice": "تم تغيير وضع الغرفة",
+    "clickToSwitch": "اضغط للتبديل إلى {{mode}}",
+    "clickToSuggest": "اضغط لاقتراح {{mode}}",
+    "food": {
+      "name": "أكل",
+      "title": "وضع الأكل",
+      "desc": "خيارات الغداء والعشاء المتنوعة"
+    },
+    "breakfast": {
+      "name": "فطور",
+      "title": "وضع الفطور",
+      "desc": "فول، فلافل، فطائر، وساندوتشات صباحية"
+    },
+    "cafes": {
+      "name": "كافيهات",
+      "title": "وضع الكافيهات",
+      "desc": "قهوة، حلى، وأجواء رايقة"
+    }
+  },
+  "preferences": {
+    "healthy": {
+      "name": "صحي",
+      "enabled": "مفعّل: تفضيل صحي",
+      "toggle": "تفعيل التفضيل الصحي",
+      "suggest": "اقتراح خيارات صحية"
+    },
+    "nearby": {
+      "name": "قريب",
+      "enabled": "مفعّل: تفضيل الأقرب",
+      "toggle": "تفعيل خيارات قريبة",
+      "suggest": "اقتراح خيارات قريبة"
+    }
+  },
+  "cafes": {
+    "emptyTitle": "كافيهات قريباً ☕",
+    "emptySubtitle": "قائمة الكافيهات قيد التجهيز في منطقتكم. ودكم نرجع لوضع الأكل أو الفطور؟",
+    "backToFood": "العودة للأكل 🍽️",
+    "suggestBackToFood": "اقتراح العودة للأكل 🍽️"
+  },
+  "suggestions": {
+    "spinAgain": "لفة ثانية",
+    "chooseAnotherCategory": "صنف آخر",
+    "tryAnotherRestaurant": "مطعم آخر"
   }
 }

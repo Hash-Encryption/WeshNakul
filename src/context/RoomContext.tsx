@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
-import type { Room, Participant, CreateRoomInput, FoodChoice, ConsensusType } from '../types/database';
+import type { Room, Participant, CreateRoomInput, FoodChoice, ConsensusType, RoomMode, RoomSuggestion } from '../types/database';
 import { 
   getRoomByCode, 
   createRoom as apiCreateRoom, 
@@ -17,6 +17,12 @@ import {
   isSupabaseNetworkError,
   broadcastDecisionSpin,
   subscribeToDecisionSpin,
+  switchRoomMode,
+  setRoomPreference,
+  toggleRoomSuggestion,
+  broadcastSuggestions,
+  subscribeToSuggestions,
+  getRoomDecisionState,
 } from '../lib/supabase';
 import { 
   getActiveRoomCode, 
@@ -59,6 +65,12 @@ interface RoomContextType {
   decisionSpin: DecisionSpin | null;
   startCategoryRoulette: () => Promise<void>;
   startRestaurantRoulette: () => Promise<void>;
+  modeTransition: { active: boolean; fromMode: RoomMode; toMode: RoomMode } | null;
+  clearModeTransition: () => void;
+  suggestions: RoomSuggestion[];
+  switchMode: (mode: RoomMode) => Promise<void>;
+  setPreference: (key: string, enabled: boolean) => Promise<void>;
+  toggleSuggestion: (target: string) => Promise<void>;
 }
 
 const RoomContext = createContext<RoomContextType | null>(null);
@@ -94,6 +106,40 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setSessionNotice(null);
   }, []);
 
+  const [modeTransition, setModeTransition] = useState<{ active: boolean; fromMode: RoomMode; toMode: RoomMode } | null>(null);
+  const modeTransitionTimerRef = useRef<number | null>(null);
+  const prevRoomModeRef = useRef<RoomMode | null>(null);
+
+  const clearModeTransition = useCallback(() => {
+    if (modeTransitionTimerRef.current) {
+      window.clearTimeout(modeTransitionTimerRef.current);
+      modeTransitionTimerRef.current = null;
+    }
+    setModeTransition(null);
+  }, []);
+
+  const triggerModeTransition = useCallback((fromMode: RoomMode, toMode: RoomMode) => {
+    if (fromMode === toMode) return;
+    if (modeTransitionTimerRef.current) {
+      window.clearTimeout(modeTransitionTimerRef.current);
+    }
+    setModeTransition({ active: true, fromMode, toMode });
+    modeTransitionTimerRef.current = window.setTimeout(() => {
+      setModeTransition(null);
+      modeTransitionTimerRef.current = null;
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (modeTransitionTimerRef.current) {
+        window.clearTimeout(modeTransitionTimerRef.current);
+      }
+    };
+  }, []);
+
+  const [suggestions, setSuggestions] = useState<RoomSuggestion[]>([]);
+
   const currentRoomRef = useRef<Room | null>(null);
   useEffect(() => {
     currentRoomRef.current = currentRoom;
@@ -110,6 +156,17 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!state?.room) return;
     const room = state.room;
     if (room.version < (currentRoomRef.current?.version ?? -1)) return;
+
+    if (state.suggestions) {
+      setSuggestions(state.suggestions);
+    }
+
+    if (room.room_mode && prevRoomModeRef.current && room.room_mode !== prevRoomModeRef.current) {
+      triggerModeTransition(prevRoomModeRef.current, room.room_mode);
+      prevRoomModeRef.current = room.room_mode;
+    } else if (room.room_mode && !prevRoomModeRef.current) {
+      prevRoomModeRef.current = room.room_mode;
+    }
 
     // Check if a decision spin is active and uncompleted
     const spin = decisionSpinRef.current;
@@ -141,7 +198,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return [...prev, state.myCategorySelection!];
       });
     }
-  }, [applyDecisionSpin]);
+  }, [applyDecisionSpin, triggerModeTransition]);
 
   const leaveRoom = useCallback((preserveToken = true) => {
     const code = currentRoomRef.current?.code;
@@ -157,11 +214,14 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCurrentParticipant(null);
     setParticipants([]);
     setFoodChoices([]);
+    setSuggestions([]);
+    clearModeTransition();
+    prevRoomModeRef.current = null;
     setActiveRoomCode(null);
     if (window.location.pathname.startsWith('/r/')) {
       window.history.pushState({}, '', '/');
     }
-  }, []);
+  }, [clearModeTransition]);
 
   const destroyRoom = useCallback(async () => {
     const room = currentRoomRef.current;
@@ -196,6 +256,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return;
         }
         if (room) {
+          if (room.room_mode && prevRoomModeRef.current && room.room_mode !== prevRoomModeRef.current) {
+            triggerModeTransition(prevRoomModeRef.current, room.room_mode);
+            prevRoomModeRef.current = room.room_mode;
+          } else if (room.room_mode && !prevRoomModeRef.current) {
+            prevRoomModeRef.current = room.room_mode;
+          }
+
           const spin = decisionSpinRef.current;
           const spinResolvedRoom = spin?.kind === 'category'
             ? room.stage === 'consensus' && room.winning_category
@@ -221,11 +288,17 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
           if (me) {
             currentParticipantRef.current = me;
             setCurrentParticipant(me);
-          }
-
-          if (options?.fetchChoices !== false && room.stage === 'voting') {
-            const choices = me ? await getFoodChoices(room.id, me.session_token) : [];
-            setFoodChoices(choices);
+            try {
+              const state = await getRoomDecisionState(room.id, me.session_token);
+              if (state.suggestions) {
+                setSuggestions(state.suggestions);
+              }
+              if (options?.fetchChoices !== false && room.stage === 'voting') {
+                setFoodChoices(state.myCategorySelection ? [state.myCategorySelection] : []);
+              }
+            } catch (e) {
+              console.warn('Error fetching room decision state on refresh', e);
+            }
           }
         }
       } catch (err) {
@@ -243,7 +316,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     inFlightRefreshRef.current = performRefresh();
     return inFlightRefreshRef.current;
-  }, [leaveRoom, t, reportError, applyDecisionSpin]);
+  }, [leaveRoom, t, reportError, applyDecisionSpin, triggerModeTransition]);
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
@@ -286,22 +359,35 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       currentRoomRef.current = room;
       setCurrentRoom(room);
+      prevRoomModeRef.current = room.room_mode || 'food';
       setParticipants(parts);
       setActiveRoomCode(room.code);
 
       const roomToken = getOrCreateSessionToken(room.code);
       const legacyToken = getOrCreateSessionToken();
       const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
-      const choices = me ? await getFoodChoices(room.id, me.session_token) : [];
       if (me) {
         currentParticipantRef.current = me;
         setCurrentParticipant(me);
+        try {
+          const state = await getRoomDecisionState(room.id, me.session_token);
+          if (state.suggestions) {
+            setSuggestions(state.suggestions);
+          }
+          if (room.stage === 'voting' && state.myCategorySelection) {
+            setFoodChoices([state.myCategorySelection]);
+          } else {
+            setFoodChoices([]);
+          }
+        } catch (e) {
+          console.warn('Error fetching room decision state on load', e);
+          setFoodChoices([]);
+        }
       } else {
         currentParticipantRef.current = null;
         setCurrentParticipant(null);
+        setFoodChoices([]);
       }
-
-      setFoodChoices(choices);
 
       setIsLoading(false);
       return true;
@@ -367,6 +453,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       unsubscribe();
     };
   }, [currentRoom?.id, refreshRoom, leaveRoom, t]);
+
+  useEffect(() => {
+    if (!currentRoom?.id) return;
+    return subscribeToSuggestions(currentRoom.id, (incomingSuggestions) => {
+      setSuggestions(incomingSuggestions);
+    });
+  }, [currentRoom?.id]);
 
   useEffect(() => {
     if (!currentRoom?.id) return;
@@ -517,7 +610,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         currentRoom.id,
         currentParticipant.session_token,
         currentRoom.version,
-        normalizeCategorySelection(selectedCategories)
+        normalizeCategorySelection(selectedCategories, currentRoom.room_mode || 'food')
       );
       applyAuthoritativeRoomState(state);
     } finally {
@@ -537,6 +630,79 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         winner
       );
       applyAuthoritativeRoomState(state);
+    } finally {
+      endPerf();
+    }
+  };
+
+  const switchMode = async (newMode: RoomMode) => {
+    if (!currentRoom || !currentParticipant?.is_host) return;
+    const oldMode = currentRoom.room_mode || 'food';
+    if (oldMode === newMode) return;
+
+    const endPerf = perf.start('switchMode');
+    try {
+      triggerModeTransition(oldMode, newMode);
+      prevRoomModeRef.current = newMode;
+      const state = await switchRoomMode(
+        currentRoom.id,
+        currentParticipant.session_token,
+        currentRoom.version,
+        newMode
+      );
+      setFoodChoices([]);
+      setSuggestions(state.suggestions || []);
+      applyAuthoritativeRoomState(state);
+      void broadcastSuggestions(currentRoom.id, state.suggestions || []);
+    } catch (err) {
+      console.error('Error switching room mode', err);
+      reportError(err);
+      await refreshRoom();
+      throw err;
+    } finally {
+      endPerf();
+    }
+  };
+
+  const setPreference = async (preference: string, enabled: boolean) => {
+    if (!currentRoom || !currentParticipant?.is_host) return;
+    const endPerf = perf.start('setPreference');
+    try {
+      const state = await setRoomPreference(
+        currentRoom.id,
+        currentParticipant.session_token,
+        currentRoom.version,
+        preference,
+        enabled
+      );
+      setSuggestions(state.suggestions || []);
+      applyAuthoritativeRoomState(state);
+      void broadcastSuggestions(currentRoom.id, state.suggestions || []);
+    } catch (err) {
+      console.error('Error setting room preference', err);
+      reportError(err);
+      await refreshRoom();
+      throw err;
+    } finally {
+      endPerf();
+    }
+  };
+
+  const toggleSuggestion = async (target: string) => {
+    if (!currentRoom || !currentParticipant || currentParticipant.is_host) return;
+    const endPerf = perf.start('toggleSuggestion');
+    try {
+      const state = await toggleRoomSuggestion(
+        currentRoom.id,
+        currentParticipant.session_token,
+        target
+      );
+      setSuggestions(state.suggestions || []);
+      void broadcastSuggestions(currentRoom.id, state.suggestions || []);
+    } catch (err) {
+      console.error('Error toggling room suggestion', err);
+      reportError(err);
+      throw err;
     } finally {
       endPerf();
     }
@@ -651,6 +817,12 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         decisionSpin,
         startCategoryRoulette,
         startRestaurantRoulette,
+        modeTransition,
+        clearModeTransition,
+        suggestions,
+        switchMode,
+        setPreference,
+        toggleSuggestion,
       }}
     >
       {children}

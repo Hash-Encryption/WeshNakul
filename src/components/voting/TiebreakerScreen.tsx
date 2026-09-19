@@ -8,20 +8,24 @@ import { TactileButton } from '../common/TactileButton';
 import { ArcadeWheel, type ArcadeWheelSlice } from '../common/ArcadeWheel';
 import { getCategoryById, NEO_BRUTALIST_PALETTE } from '../../lib/consensus';
 import { useContinuousRoulette } from '../../hooks/useContinuousRoulette';
+import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
 
 export const TiebreakerScreen: React.FC = () => {
-  const { currentRoom, isHost, participants, decisionSpin, startCategoryRoulette } = useRoom();
+  const { currentRoom, currentParticipant, isHost, participants, decisionSpin, startCategoryRoulette, suggestions, toggleSuggestion } = useRoom();
   const { t, locale } = useLocale();
   const reduceMotion = useReducedMotion();
   const [isStarting, setIsStarting] = useState(false);
   const spin = decisionSpin?.kind === 'category' ? decisionSpin : null;
-  const contenders = useMemo(() => (spin?.candidateIds || currentRoom?.tied_categories || []).map(getCategoryById).filter(Boolean), [spin?.candidateIds, currentRoom?.tied_categories]);
+  const contenders = useMemo(
+    () => (spin?.candidateIds || currentRoom?.tied_categories || []).map((id) => getCategoryById(id, currentRoom?.room_mode)).filter(Boolean),
+    [spin?.candidateIds, currentRoom?.tied_categories, currentRoom?.room_mode]
+  );
   const slices = useMemo<ArcadeWheelSlice[]>(() => contenders.map((category, index) => ({
     id: category!.id, name: locale === 'ar' ? category!.ar : category!.en, emoji: category!.icon, votes: 1,
     color: NEO_BRUTALIST_PALETTE[index % NEO_BRUTALIST_PALETTE.length], startAngle: index * 360 / contenders.length,
     endAngle: (index + 1) * 360 / contenders.length, midAngle: (index + .5) * 360 / contenders.length, angle: 360 / contenders.length,
   })), [contenders, locale]);
-  const winner = spin?.winnerId ? getCategoryById(spin.winnerId) : undefined;
+  const winner = spin?.winnerId ? getCategoryById(spin.winnerId, currentRoom?.room_mode) : undefined;
 
   const { rotation, isSpinning, revealed } = useContinuousRoulette({
     spin,
@@ -57,7 +61,30 @@ export const TiebreakerScreen: React.FC = () => {
         </motion.div> : spin ? <motion.p key="spinning" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-alexandria text-sm font-black text-brand-red">{t('gameSwiper.rouletteSpinning')}</motion.p> : null}
       </AnimatePresence></div>
     </div>
-    <div className="mx-auto w-full max-w-md">{isHost ? <TactileButton onClick={choose} disabled={isStarting || Boolean(spin) || slices.length < 2} isLoading={isStarting} variant="yellow" fullWidth size="lg" icon="🎯">{t('categoryRoulette.spinBtn')}</TactileButton>
-      : <div className="rounded-2xl border-2 border-brand-ink/20 bg-white p-3 text-center text-xs font-black text-brand-gray">{t('categoryRoulette.waitingHost')}</div>}</div>
+    <div className="mx-auto w-full max-w-md">
+      {isHost ? (
+        <div className="flex flex-col items-center gap-2">
+          <TactileButton onClick={choose} disabled={isStarting || Boolean(spin) || slices.length < 2} isLoading={isStarting} variant="yellow" fullWidth size="lg" icon="🎯">
+            {t('categoryRoulette.spinBtn')}
+          </TactileButton>
+          <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />
+        </div>
+      ) : (
+        <div className="flex flex-col items-center gap-2">
+          <button
+            type="button"
+            onClick={() => toggleSuggestion('action:spin_again')}
+            className={`w-full rounded-2xl border-2 p-3 text-center text-xs font-black font-alexandria transition-all cursor-pointer ${
+              suggestions.some((s) => s.target === 'action:spin_again' && s.participant_id === currentParticipant?.id)
+                ? 'bg-amber-100 text-brand-ink border-amber-400'
+                : 'bg-white border-brand-ink/20 text-brand-gray hover:bg-stone-50'
+            }`}
+          >
+            {t('categoryRoulette.waitingHost')} • {t('suggestions.spinAgain')} 🎯
+          </button>
+          <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />
+        </div>
+      )}
+    </div>
   </div>;
 };

@@ -11,6 +11,7 @@ import { useLocale } from '../../context/LocaleContext';
 import { useRoom } from '../../context/RoomContext';
 import { DeliveryLauncher } from '../orders/DeliveryLauncher';
 import { OrderScratchpad } from '../orders/OrderScratchpad';
+import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
 
 import { broadcastRevoteRequest, subscribeToRevoteRequests } from '../../lib/supabase';
 
@@ -70,7 +71,7 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   isUnanimous = true,
 }) => {
   const { locale, t } = useLocale();
-  const { currentRoom, currentParticipant, isHost: roomIsHost, resetRoomVoting } = useRoom();
+  const { currentRoom, currentParticipant, isHost: roomIsHost, resetRoomVoting, suggestions, toggleSuggestion } = useRoom();
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [revoteVoters, setRevoteVoters] = useState<Array<{ id: string; name: string }>>([]);
@@ -78,9 +79,10 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   const activeRoomId = roomId || currentRoom?.id || '';
   const activeParticipantId = currentParticipantId || currentParticipant?.id || '';
   const activeParticipantName = currentParticipantName || currentParticipant?.nickname || '';
-  const activeIsHost = isHost ?? currentParticipant?.is_host ?? roomIsHost ?? false;
+  const activeIsHost = isHost !== undefined ? isHost : roomIsHost;
   const roomCode = currentRoom?.code || '';
 
+  // Realtime subscription for squad revote requests
   useEffect(() => {
     if (!activeRoomId) return;
 
@@ -127,6 +129,8 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
       name: activeParticipantName,
       active: nextActive,
     });
+
+    void toggleSuggestion('action:try_another_restaurant');
   };
 
 
@@ -352,6 +356,12 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
               </span>
             </button>
           )}
+
+          <SocialSuggestionAvatars
+            suggestions={suggestions}
+            target="action:try_another_restaurant"
+            className="justify-center mt-1"
+          />
         </div>
 
         {/* Go Home CTA */}

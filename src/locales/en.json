@@ -92,6 +92,9 @@
     "liveVotesTitle": "Live Squad Votes 📊",
     "antiBiasNotice": "Lock in your picks to reveal live squad votes 👀",
     "wildcardNotice": "🎲 'Flexible' automatically counts your vote for every category chosen by the squad!",
+    "breakfastHeading": "What's for breakfast? 🍳",
+    "breakfastSubtitle": "Vote for your breakfast favorites",
+    "breakfastWildcardNotice": "🎲 'Any Breakfast' automatically counts your vote for all breakfast categories!",
     "changePicks": "Change my picks"
   },
   "tiebreaker": {
@@ -247,5 +250,50 @@
     "waitingHost": "Host is spinning the wheel... 👀",
     "winnerBadge": "Winning Category! 🎉",
     "proceed": "Proceed to Restaurants 🚀"
+  },
+  "modes": {
+    "transitionNotice": "Room Mode Changed",
+    "clickToSwitch": "Click to switch to {{mode}}",
+    "clickToSuggest": "Click to suggest {{mode}}",
+    "food": {
+      "name": "Food",
+      "title": "Food Mode",
+      "desc": "Diverse lunch and dinner picks"
+    },
+    "breakfast": {
+      "name": "Breakfast",
+      "title": "Breakfast Mode",
+      "desc": "Foul, falafel, pastries, and morning sandwiches"
+    },
+    "cafes": {
+      "name": "Cafes",
+      "title": "Cafes Mode",
+      "desc": "Coffee, desserts, and chill vibes"
+    }
+  },
+  "preferences": {
+    "healthy": {
+      "name": "Healthy",
+      "enabled": "Active: Healthy preference",
+      "toggle": "Toggle healthy preference",
+      "suggest": "Suggest healthy options"
+    },
+    "nearby": {
+      "name": "Nearby",
+      "enabled": "Active: Nearby preference",
+      "toggle": "Toggle nearby preference",
+      "suggest": "Suggest nearby options"
+    }
+  },
+  "cafes": {
+    "emptyTitle": "Cafes Coming Soon ☕",
+    "emptySubtitle": "The cafe catalog is currently being prepared for your area. Return to Food or Breakfast mode?",
+    "backToFood": "Back to Food 🍽️",
+    "suggestBackToFood": "Suggest Back to Food 🍽️"
+  },
+  "suggestions": {
+    "spinAgain": "Spin again",
+    "chooseAnotherCategory": "Another category",
+    "tryAnotherRestaurant": "Another restaurant"
   }
 }

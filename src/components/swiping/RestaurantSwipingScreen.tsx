@@ -18,12 +18,13 @@ import {
   subscribeToSuddenDeath,
   resolveRestaurantTie,
 } from '../../lib/supabase';
+import { CafeDeckScreen } from './CafeDeckScreen';
 
 interface RestaurantSwipingScreenProps {
   onMatched?: (winnerId: string) => void;
 }
 
-export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () => {
+const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () => {
   const {
     currentRoom,
     currentParticipant,
@@ -309,4 +310,14 @@ export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (
 
     </div>
   );
+};
+
+export const RestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = (props) => {
+  const { currentRoom } = useRoom();
+
+  if (currentRoom?.room_mode === 'cafes') {
+    return <CafeDeckScreen />;
+  }
+
+  return <FoodRestaurantSwipingScreen {...props} />;
 };

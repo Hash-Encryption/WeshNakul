@@ -30,6 +30,14 @@ export const FOOD_CATEGORIES: FoodCategoryDef[] = [
   { id: 'flexible', icon: '🎲', ar: 'أي شيء معاكم', en: 'Anything / Flexible', isWildcard: true },
 ];
 
+export const BREAKFAST_CATEGORIES: FoodCategoryDef[] = [
+  { id: 'street_folk', icon: '🧆', ar: 'فلافل ومطبق وشعبيات', en: 'Falafel & Street Food' },
+  { id: 'sandwiches', icon: '🥪', ar: 'ساندوتشات وفطور خفيف', en: 'Sandwiches & Deli' },
+  { id: 'fatayer', icon: '🥧', ar: 'فطاير ومعجنات', en: 'Fatayer & Manakish' },
+  { id: 'breakfast', icon: '🍳', ar: 'فطور ونواشف وشكشوكة', en: 'Breakfast & Shakshuka' },
+  { id: 'any_breakfast', icon: '🥐', ar: 'أي فطور معاكم', en: 'Any Breakfast', isWildcard: true },
+];
+
 export const NEO_BRUTALIST_PALETTE = [
   '#FBBF24', // Slice 0: Amber
   '#FB923C', // Slice 1: Orange / Coral
@@ -39,24 +47,34 @@ export const NEO_BRUTALIST_PALETTE = [
   '#A78BFA', // Slice 5: Purple
 ];
 
-export function getCategoryById(id: string): FoodCategoryDef | undefined {
-  return FOOD_CATEGORIES.find((cat) => cat.id === id);
+import type { RoomMode } from '../types/database';
+
+export function getCategoriesForMode(mode: RoomMode = 'food'): FoodCategoryDef[] {
+  if (mode === 'breakfast') return BREAKFAST_CATEGORIES;
+  if (mode === 'cafes') return [];
+  return FOOD_CATEGORIES;
 }
 
-export function getCategoryName(id: string, locale: 'ar' | 'en' = 'ar'): string {
-  const cat = getCategoryById(id);
+export function getCategoryById(id: string, mode: RoomMode = 'food'): FoodCategoryDef | undefined {
+  return getCategoriesForMode(mode).find((cat) => cat.id === id) || FOOD_CATEGORIES.find((cat) => cat.id === id);
+}
+
+export function getCategoryName(id: string, locale: 'ar' | 'en' = 'ar', mode: RoomMode = 'food'): string {
+  const cat = getCategoryById(id, mode);
   if (!cat) return id;
   return locale === 'ar' ? cat.ar : cat.en;
 }
 
-export function normalizeCategorySelection(ids: string[]): string[] {
+export function normalizeCategorySelection(ids: string[], mode: RoomMode = 'food'): string[] {
   const unique = [...new Set(ids)];
-  return unique.includes('flexible') ? ['flexible'] : unique;
+  const wildcard = mode === 'breakfast' ? 'any_breakfast' : 'flexible';
+  return unique.includes(wildcard) ? [wildcard] : unique;
 }
 
-export function toggleCategorySelection(ids: string[], id: string): string[] {
-  if (id === 'flexible') return ids.includes(id) ? [] : ['flexible'];
-  const realCategories = ids.filter((item) => item !== 'flexible');
+export function toggleCategorySelection(ids: string[], id: string, mode: RoomMode = 'food'): string[] {
+  const wildcard = mode === 'breakfast' ? 'any_breakfast' : 'flexible';
+  if (id === wildcard) return ids.includes(id) ? [] : [wildcard];
+  const realCategories = ids.filter((item) => item !== wildcard);
   return realCategories.includes(id)
     ? realCategories.filter((item) => item !== id)
     : [...realCategories, id];

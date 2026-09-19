@@ -19,12 +19,19 @@ export type PlayerColor =
   | '#F6A6AD'
   | '#E5D3B3';
 
+export type RoomMode = 'food' | 'breakfast' | 'cafes';
+
 export interface Room {
   id: string;
   code: string;
   status: RoomStatus;
   stage: RoomStage;
   eating_mode: EatingMode;
+  room_mode?: RoomMode;
+  preferences?: string[];
+  last_mode_changed_by_participant_id?: string | null;
+  last_mode_changed_by_nickname?: string | null;
+  last_mode_changed_at?: string | null;
   city: string;
   neighborhood?: string | null;
   district?: string | null;
@@ -87,10 +94,19 @@ export interface RestaurantSummary {
   resolutionMethod?: 'normal_consensus' | 'choose_for_us' | 'host_pick' | 'sudden_death';
 }
 
+export interface RoomSuggestion {
+  target: string;
+  participant_id: string;
+  nickname: string;
+  player_color: string;
+  player_shape: PlayerShape;
+}
+
 export interface RoomDecisionState {
   room: Room;
   myCategorySelection: FoodChoice | null;
   myVotes: Record<string, 'YES' | 'NO' | 'LATER'>;
+  suggestions?: RoomSuggestion[];
   deck?: import('./restaurant').RestaurantDeck;
 }
 
