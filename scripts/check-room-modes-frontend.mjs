@@ -39,13 +39,16 @@ try {
   }
   checks++;
 
-  // Check 2: BREAKFAST_CATEGORIES does NOT include healthy (healthy is a preference/filter)
-  assert.ok(!BREAKFAST_CATEGORIES.some((c) => c.id === 'healthy'), 'healthy must NOT be in BREAKFAST_CATEGORIES');
-  assert.ok(BREAKFAST_CATEGORIES.some((c) => c.id === 'any_breakfast' && c.isWildcard), 'any_breakfast is in BREAKFAST_CATEGORIES');
-  assert.ok(BREAKFAST_CATEGORIES.some((c) => c.id === 'sandwiches'), 'sandwiches is in BREAKFAST_CATEGORIES');
-  assert.ok(BREAKFAST_CATEGORIES.some((c) => c.id === 'street_folk'), 'street_folk is in BREAKFAST_CATEGORIES');
-  assert.ok(BREAKFAST_CATEGORIES.some((c) => c.id === 'fatayer'), 'fatayer is in BREAKFAST_CATEGORIES');
-  assert.ok(BREAKFAST_CATEGORIES.some((c) => c.id === 'breakfast'), 'breakfast is in BREAKFAST_CATEGORIES');
+  // Check 2: BREAKFAST_CATEGORIES contains strictly the 5 approved provisional categories
+  assert.equal(BREAKFAST_CATEGORIES.length, 5, 'BREAKFAST_CATEGORIES must contain exactly 4 concrete + 1 wildcard');
+  assert.deepEqual(
+    BREAKFAST_CATEGORIES.map((c) => c.id),
+    ['street_folk', 'sandwiches', 'fatayer', 'breakfast', 'any_breakfast'],
+    'BREAKFAST_CATEGORIES matches provisional taxonomy exactly'
+  );
+  for (const forbidden of ['healthy', 'bakery', 'juice', 'tea', 'coffee', 'dessert']) {
+    assert.ok(!BREAKFAST_CATEGORIES.some((c) => c.id === forbidden), `${forbidden} must NOT be in active BREAKFAST_CATEGORIES`);
+  }
   checks++;
 
   // Check 3: getCategoriesForMode routing

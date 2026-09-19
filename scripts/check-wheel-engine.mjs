@@ -40,7 +40,7 @@ try {
   // =========================================================================
   {
     const candidateIds = ['burger', 'shawarma'];
-    const slices = buildSlices(candidateIds);
+    const _slices = buildSlices(candidateIds);
     // Initial state: spin started with winnerId = null
     const spin = {
       spinId: 'spin-immediate-1',

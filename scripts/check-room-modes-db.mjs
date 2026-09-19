@@ -163,6 +163,11 @@ try {
   // Rejects mixed any_breakfast with concrete category
   await rejects(`SELECT public.submit_category_selection('${roomId}','${hostToken}',${s.room.version},ARRAY['any_breakfast','fatayer']::text[])`, '22023');
 
+  // Rejects unapproved breakfast categories (bakery, juice, tea)
+  await rejects(`SELECT public.submit_category_selection('${roomId}','${hostToken}',${s.room.version},ARRAY['bakery']::text[])`, '22023');
+  await rejects(`SELECT public.submit_category_selection('${roomId}','${hostToken}',${s.room.version},ARRAY['juice']::text[])`, '22023');
+  await rejects(`SELECT public.submit_category_selection('${roomId}','${hostToken}',${s.room.version},ARRAY['tea']::text[])`, '22023');
+
   // Allows breakfast concrete categories
   s = await category(roomId, hostToken, s.room.version, ['street_folk', 'sandwiches']);
   check(s.room.category_summary.tally.street_folk === 1, 'Street folk tallied in breakfast');
