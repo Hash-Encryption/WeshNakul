@@ -69,6 +69,7 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
         />
         {revealed && winner ? (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full rounded-2xl border-2 border-brand-ink bg-brand-yellow p-3 shadow-[0_3px_0_#241B18]">
+            <div className="text-xs font-black uppercase">{t('gameSwiper.rouletteWinnerBadge')}</div>
             <div className="font-alexandria text-xl font-black">
               {(locale === 'ar' ? winner.nameAr : winner.nameEn) || winner.nameAr || winner.nameEn || winner.id}
             </div>

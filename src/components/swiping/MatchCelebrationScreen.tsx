@@ -42,44 +42,6 @@ function getPillGradient(id: string): string {
   return PILL_GRADIENTS[hash % PILL_GRADIENTS.length];
 }
 
-const KNOWN_TAG_LABELS_EN: Record<string, string> = {
-  late_night: 'Late night',
-  quick_bite: 'Quick bite',
-  casual_hangout: 'Casual hangout',
-  delivery_strong: 'Delivery friendly',
-  dine_in_strong: 'Great for dine-in',
-  local_favorite: 'Local favorite',
-  hidden_gem: 'Hidden gem',
-  mainstream: 'Popular pick',
-  rising: 'Rising pick',
-  staple: 'Jeddah staple',
-};
-
-const KNOWN_TAG_LABELS_AR: Record<string, string> = {
-  late_night: 'سهرانين',
-  quick_bite: 'وجبة سريعة',
-  casual_hangout: 'جلسة رايقة',
-  delivery_strong: 'توصيل ممتاز',
-  dine_in_strong: 'جلسات رائعة',
-  local_favorite: 'محبوب أهل البلد',
-  hidden_gem: 'كنز مخفي',
-  mainstream: 'خيار مشهور',
-  rising: 'صاعد ومميز',
-  staple: 'من معالم جدة',
-};
-
-function formatVibeTag(tag: string, locale: 'ar' | 'en'): string {
-  const clean = tag.replace(/^#/, '').trim();
-  const dict = locale === 'ar' ? KNOWN_TAG_LABELS_AR : KNOWN_TAG_LABELS_EN;
-  if (dict[clean]) return dict[clean];
-  if (locale === 'ar') {
-    return clean.replace(/_/g, ' ');
-  }
-  return clean
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
 interface MatchCelebrationScreenProps {
   restaurant: RestaurantItem;
   participants: Participant[];
@@ -246,7 +208,7 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           <DoodleHeart className="absolute -top-2 start-4 transform -rotate-12" color="#55B96A" />
           <SparkleRays className="absolute -top-3 end-4 transform rotate-12 scale-90" color="#FFD75A" />
 
-          <span className="inline-block bg-[#FFD75A]/40 text-[#241B18] border border-[#241B18]/30 px-3 py-0.5 rounded-full text-xs font-bold font-alexandria mb-1.5">
+          <span className="inline-block bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] px-3 py-1 rounded-full text-xs font-black font-alexandria mb-2">
             {t('match.tag_winner')}
           </span>
 
@@ -318,9 +280,9 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
               {vibeTags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2.5 py-0.5 rounded-full text-[11px] font-bold text-[#241B18]"
+                  className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2 py-0.5 rounded-full text-[11px] font-bold text-[#241B18]"
                 >
-                  {formatVibeTag(tag, locale)}
+                  #{tag}
                 </span>
               ))}
             </div>
@@ -328,36 +290,21 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
             {/* Matched Squad Tokens */}
             <div className="border-t border-[#241B18]/15 pt-3 mt-0.5 flex flex-col items-center gap-1.5">
               <span className="text-[10px] font-bold text-[#7A6E67] font-alexandria">
-                {participants.length === 1 ? t('match.your_pick') : t('match.squad_agrees')}
+                {locale === 'ar' ? 'القروب المتفق عليه 🤝' : 'Squad in Agreement 🤝'}
               </span>
-              {participants.length === 1 ? (
-                <div className="flex items-center gap-2 mt-0.5">
-                  <ProceduralAvatar
-                    nickname={participants[0]?.nickname || ''}
-                    shape={participants[0]?.player_shape || 'circle'}
-                    color={participants[0]?.player_color || '#55B96A'}
-                    size="sm"
-                    showCrown={Boolean(participants[0]?.is_host)}
-                  />
-                  <span className="text-xs font-bold text-brand-ink font-alexandria">
-                    {participants[0]?.nickname}
-                  </span>
-                </div>
-              ) : (
-                <div className="flex items-center -space-x-2 rtl:space-x-reverse">
-                  {participants.map((p) => (
-                    <div key={p.id} title={p.nickname} className="relative transform hover:scale-110 transition-transform">
-                      <ProceduralAvatar
-                        nickname={p.nickname}
-                        shape={p.player_shape}
-                        color={p.player_color}
-                        size="sm"
-                        showCrown={p.is_host}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="flex items-center -space-x-2 rtl:space-x-reverse">
+                {participants.map((p) => (
+                  <div key={p.id} title={p.nickname} className="relative transform hover:scale-110 transition-transform">
+                    <ProceduralAvatar
+                      nickname={p.nickname}
+                      shape={p.player_shape}
+                      color={p.player_color}
+                      size="sm"
+                      showCrown={p.is_host}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
