@@ -19,7 +19,7 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
 }) => {
   const { t } = useLocale();
   const [selectedMode, setSelectedMode] = useState<RoomMode>(
-    initialMode === 'healthy' || initialMode === 'cafes' ? initialMode : 'food'
+    initialMode === 'breakfast' || initialMode === 'cafes' ? initialMode : 'food'
   );
 
   const handleProceed = () => {
@@ -29,7 +29,7 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
   };
 
   const isFood = selectedMode === 'food';
-  const isHealthy = selectedMode === 'healthy';
+  const isBreakfast = selectedMode === 'breakfast';
   const isCafes = selectedMode === 'cafes';
 
   return (
@@ -91,41 +91,41 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
             </span>
           </motion.button>
 
-          {/* SECONDARY ROW: HEALTHY + CAFES (Side-by-side) */}
+          {/* SECONDARY ROW: BREAKFAST + CAFES (Side-by-side) */}
           <div className="grid grid-cols-2 gap-3 sm:gap-3.5 w-full [direction:ltr]">
-            {/* HEALTHY (Left card) */}
+            {/* BREAKFAST (Left card) */}
             <motion.button
               whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedMode('healthy')}
+              onClick={() => setSelectedMode('breakfast')}
               type="button"
               className={`
                 relative flex flex-col items-center justify-center py-4 px-3 sm:py-5 sm:px-4 rounded-2xl sm:rounded-3xl
                 transition-all duration-200 cursor-pointer text-center w-full
                 ${
-                  isHealthy
+                  isBreakfast
                     ? 'bg-brand-redSoft border-2 border-brand-red shadow-[0_3px_0_#F0443E]'
                     : 'bg-white border-2 border-brand-border/70 hover:border-brand-border shadow-[0_2px_0_#E5D3B3]'
                 }
               `}
             >
               {/* Selected Checkmark Badge */}
-              {isHealthy && (
+              {isBreakfast && (
                 <div className="absolute top-2.5 start-2.5 w-5 h-5 rounded-full bg-brand-red text-white flex items-center justify-center text-[11px] font-bold shadow-sm">
                   ✓
                 </div>
               )}
 
-              {/* Fresh Salad Bowl Illustration */}
+              {/* Breakfast Morning Illustration: Egg + Croissant */}
               <div className="relative mb-2 flex items-center justify-center select-none py-0.5">
-                <div className="flex items-center justify-center gap-1.5 bg-[#EDF9F0] border border-emerald-300/60 rounded-2xl px-3.5 py-2 shadow-inner">
-                  <span className="text-3xl sm:text-4xl drop-shadow-sm">🥗</span>
-                  <span className="text-lg sm:text-xl transform -rotate-6">🥑</span>
+                <div className="flex items-center justify-center gap-1.5 bg-[#FFF9E5] border border-amber-300/60 rounded-2xl px-3.5 py-2 shadow-inner">
+                  <span className="text-3xl sm:text-4xl drop-shadow-sm">🍳</span>
+                  <span className="text-lg sm:text-xl transform -rotate-6">🥐</span>
                 </div>
               </div>
 
               {/* Title */}
               <span className="text-lg sm:text-xl font-bold font-alexandria text-brand-ink">
-                {t('startingMode.healthy')}
+                {t('startingMode.breakfast')}
               </span>
             </motion.button>
 
