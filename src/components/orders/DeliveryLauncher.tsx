@@ -147,7 +147,7 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
   };
 
   return (
-    <div className={`w-full max-w-md mx-auto flex flex-col gap-3 mb-4 ${className}`}>
+    <div className={`w-full max-w-md mx-auto flex flex-col gap-2.5 mb-3 ${className}`}>
       {/* Primary CTA: Google Maps */}
       <a
         href={googleMapsUrl}

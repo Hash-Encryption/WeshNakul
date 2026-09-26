@@ -152,10 +152,11 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
       </div>
 
       {/* Item Card List */}
-      <div className="flex flex-col gap-2.5 max-h-72 overflow-y-auto pr-0.5 mb-4">
+      <div className="flex flex-col gap-2.5 max-h-72 overflow-y-auto pr-0.5 mb-3.5">
         {items.length === 0 ? (
-          <div className="py-6 px-4 text-center rounded-2xl bg-[#FFF8F1] border-2 border-dashed border-[#241B18]/25 text-[#7A6E67] text-xs sm:text-sm font-bold font-alexandria">
-            {t('scratchpad.emptyState')}
+          <div className="py-5 px-4 text-center rounded-2xl bg-[#FFF8F1]/80 border border-dashed border-[#241B18]/25 text-[#7A6E67] text-xs sm:text-sm font-medium font-alexandria">
+            <span className="block text-2xl mb-1.5 select-none">📝</span>
+            <span>{t('scratchpad.emptyState')}</span>
           </div>
         ) : (
           items.map((item) => {
@@ -220,7 +221,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
       </div>
 
       {/* Order Entry Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 pt-2 border-t-2 border-[#241B18]/10">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 pt-2.5 border-t-2 border-[#241B18]/10">
         <div className="flex items-center gap-2">
           <input
             type="text"
@@ -228,7 +229,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
             onChange={(e) => setItemName(e.target.value)}
             placeholder={t('scratchpad.placeholderItem')}
             disabled={isSubmitting}
-            className="flex-1 h-12 px-3.5 rounded-2xl bg-[#FFF8F1] border-2 border-[#241B18] text-[#241B18] placeholder:text-[#7A6E67]/70 font-alexandria text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#FFD75A] shadow-[inset_0px_2px_4px_rgba(0,0,0,0.04)]"
+            className="flex-1 min-w-0 h-11 px-3 rounded-xl bg-[#FFF8F1] border-2 border-[#241B18] text-[#241B18] placeholder:text-[#7A6E67]/70 font-alexandria text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#FFD75A] shadow-[inset_0px_2px_4px_rgba(0,0,0,0.04)]"
           />
 
           {/* Toggle Notes Button */}
@@ -237,7 +238,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
             onClick={() => setShowNotes((prev) => !prev)}
             aria-label="Toggle notes input"
             title="ملاحظات خاصة"
-            className={`h-12 w-12 rounded-2xl border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none font-alexandria font-bold text-sm flex items-center justify-center transition-colors shrink-0 ${
+            className={`h-11 w-11 rounded-xl border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none font-alexandria font-bold text-sm flex items-center justify-center transition-colors shrink-0 ${
               showNotes || notes.trim().length > 0
                 ? 'bg-[#FFD75A] text-[#241B18]'
                 : 'bg-white text-[#7A6E67] hover:text-[#241B18]'
@@ -250,7 +251,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
           <button
             type="submit"
             disabled={!itemName.trim() || isSubmitting}
-            className="h-12 px-4 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 font-alexandria font-black text-xs sm:text-sm flex items-center justify-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed shrink-0 transition-all"
+            className="h-11 px-3.5 rounded-xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 font-alexandria font-black text-xs sm:text-sm flex items-center justify-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed shrink-0 transition-all"
           >
             <span>{t('scratchpad.addButton')}</span>
           </button>
@@ -258,7 +259,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
 
         {/* Expandable Notes Input */}
         {showNotes && (
-          <div className="pt-1">
+          <div className="pt-0.5">
             <input
               type="text"
               value={notes}

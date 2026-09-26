@@ -30,7 +30,9 @@ export const FoodVotingScreen: React.FC = () => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const mode = currentRoom?.room_mode || 'food';
-  const categories = getCategoriesForMode(mode);
+  const rawCategories = getCategoriesForMode(mode);
+  // Ensure wildcard card ("Anything / Flexible" / "Any Breakfast") is always the first card in the grid
+  const categories = [...rawCategories].sort((a, b) => (b.isWildcard ? 1 : 0) - (a.isWildcard ? 1 : 0));
   const wildcardId = mode === 'breakfast' ? 'any_breakfast' : 'flexible';
 
   // Initialize selection from existing saved choice if any

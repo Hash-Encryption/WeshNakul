@@ -31,7 +31,7 @@ export const BREAKFAST_CATEGORIES: FoodCategoryDef[] = [
   { id: 'sandwiches', icon: '🥪', ar: 'ساندوتشات وفطور خفيف', en: 'Sandwiches & Deli' },
   { id: 'fatayer', icon: '🥧', ar: 'فطاير ومعجنات', en: 'Fatayer & Manakish' },
   { id: 'breakfast', icon: '🍳', ar: 'فطور ونواشف وشكشوكة', en: 'Breakfast & Shakshuka' },
-  { id: 'any_breakfast', icon: '🥐', ar: 'أي فطور معاكم', en: 'Any Breakfast', isWildcard: true },
+  { id: 'any_breakfast', icon: '🎲', ar: 'أي فطور معاكم', en: 'Any Breakfast', isWildcard: true },
 ];
 
 export const NEO_BRUTALIST_PALETTE = [

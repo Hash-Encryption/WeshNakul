@@ -6,6 +6,14 @@
     "enterCode": "ادخل برمز",
     "badge": "بدون تسجيل • سريع • مناسب للقروبات"
   },
+  "startingMode": {
+    "heading": "وش جوكم اليوم؟",
+    "subtitle": "اختر نوع الوجبة أو الجلسة للقروب",
+    "food": "أكل",
+    "breakfast": "فطور",
+    "cafes": "كافيهات",
+    "next": "التالي"
+  },
   "mode": {
     "heading": "كيف تبغونها؟",
     "subtitle": "اختاروا طريقة الليلة",
@@ -95,7 +103,9 @@
     "breakfastHeading": "وش نفطر اليوم؟ 🍳",
     "breakfastSubtitle": "صوّت لأصناف الفطور المفضلة",
     "breakfastWildcardNotice": "🎲 اخترت أي فطور! موافق على كل خيارات الفطور المتاحة.",
-    "changePicks": "تعديل خياراتي"
+    "changePicks": "تعديل خياراتي",
+    "flexibleBadge": "مرن",
+    "wildcardSecondary": "أي شيء يجي منكم حلو"
   },
   "tiebreaker": {
     "heading": "تعادل في الأصوات! ⚔️",
@@ -191,7 +201,9 @@
     "menu_title": "خيارات القروب",
     "open_in_maps": "افتح في خرائط Google",
     "delivery_apps": "تطبيقات التوصيل",
-    "restaurant_name_copied": "تم نسخ اسم المطعم"
+    "restaurant_name_copied": "تم نسخ اسم المطعم",
+    "squad_agrees": "القروب اتفق 🤝",
+    "your_pick": "اختيارك 🤝"
   },
   "scratchpad": {
     "title": "طلبات القروب 📝",
@@ -205,7 +217,7 @@
     "directions": "الموقع على الخريطة 📍"
   },
   "revote": {
-    "hostAction": "إعادة التصويت للقروب 🔄",
+    "hostAction": "صوتوا من جديد",
     "participantRequest": "طلب إعادة التصويت 🙋‍♂️",
     "participantCancel": "إلغاء طلب الإعادة ✕",
     "wantsRevote": "يطلبون إعادة التصويت:"

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import type { EatingMode } from './types/database';
+import type { EatingMode, RoomMode } from './types/database';
 import { useRoom } from './context/RoomContext';
 import { useLocale } from './context/LocaleContext';
 import { LandingHero } from './components/landing/LandingHero';
 import { EnterCodeModal } from './components/landing/EnterCodeModal';
+import { StartingModeScreen } from './components/wizard/StartingModeScreen';
 import { EatingModeScreen } from './components/wizard/EatingModeScreen';
 import { RoomSetupScreen } from './components/wizard/RoomSetupScreen';
 import { RoomLobbyScreen } from './components/lobby/RoomLobbyScreen';
@@ -21,7 +22,7 @@ import { Toast } from './components/common/Toast';
 import { DecisionMachineLoading } from './components/common/DecisionMachineLoading';
 import { RoomModeTransition } from './components/common/RoomModeTransition';
 
-type FlowStep = 'landing' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
+type FlowStep = 'landing' | 'starting-mode' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
 
 export const App: React.FC = () => {
   const {
@@ -46,6 +47,7 @@ export const App: React.FC = () => {
   const { t } = useLocale();
 
   const [step, setStep] = useState<FlowStep>('landing');
+  const [selectedRoomMode, setSelectedRoomMode] = useState<RoomMode>('food');
   const [selectedEatingMode, setSelectedEatingMode] = useState<EatingMode>('delivery');
   const [isCodeModalOpen, setIsCodeModalOpen] = useState<boolean>(false);
   const [codeModalError, setCodeModalError] = useState<string | null>(null);
@@ -79,7 +81,7 @@ export const App: React.FC = () => {
     }
 
     // Default to landing if no active room
-    if (!currentRoom && step !== 'mode' && step !== 'setup') {
+    if (!currentRoom && step !== 'starting-mode' && step !== 'mode' && step !== 'setup') {
       setStep('landing');
     }
   }, [currentRoom, currentParticipant, participants.length, isLoading, step]);
@@ -96,8 +98,14 @@ export const App: React.FC = () => {
     handleUrlRouting();
   }, [loadRoom]);
 
-  // Host Wizard Step 1 -> Step 2
+  // Host Wizard Step 1: Landing -> Starting Mode
   const handleStartGroup = () => {
+    setStep('starting-mode');
+  };
+
+  // Host Wizard Step 2: Starting Mode -> Eating Mode
+  const handleStartingModeSelected = (mode: RoomMode) => {
+    setSelectedRoomMode(mode);
     setStep('mode');
   };
 
@@ -126,6 +134,7 @@ export const App: React.FC = () => {
       clearRoomSession();
       const { room } = await createNewRoom({
         eating_mode: selectedEatingMode,
+        room_mode: selectedRoomMode,
         city,
         neighborhood,
         language: 'ar',
@@ -272,11 +281,19 @@ export const App: React.FC = () => {
           />
         )}
 
+        {step === 'starting-mode' && (
+          <StartingModeScreen
+            initialMode={selectedRoomMode}
+            onNext={handleStartingModeSelected}
+            onBack={() => setStep('landing')}
+          />
+        )}
+
         {step === 'mode' && (
           <EatingModeScreen
             initialMode={selectedEatingMode}
             onNext={handleModeSelected}
-            onBack={() => setStep('landing')}
+            onBack={() => setStep('starting-mode')}
           />
         )}
 

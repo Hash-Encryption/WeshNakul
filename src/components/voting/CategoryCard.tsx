@@ -44,19 +44,19 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
         ${
           isSelected
             ? isWildcard
-              ? 'bg-brand-yellow shadow-none translate-y-0.5 ring-2 ring-brand-ink'
+              ? 'bg-amber-100 border-2 border-amber-400 shadow-none translate-y-0.5 ring-2 ring-brand-ink'
               : 'bg-brand-redSoft shadow-none translate-y-0.5 ring-2 ring-brand-red'
             : isWildcard
-            ? 'bg-amber-50/80 shadow-[0_4px_0_#241B18] hover:bg-amber-100/50'
-            : 'bg-white shadow-[0_4px_0_#241B18] hover:bg-brand-cream/60'
+            ? 'bg-amber-50/70 border-2 border-amber-400 shadow-[0_4px_0_#241B18] hover:bg-amber-100/60'
+            : 'bg-white border-2 border-brand-ink shadow-[0_4px_0_#241B18] hover:bg-brand-cream/60'
         }
       `}
     >
       {/* Top indicator badge */}
       <div className="w-full flex items-center justify-between pointer-events-none mb-1">
         {isWildcard ? (
-          <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-brand-yellowPressed text-brand-ink">
-            {locale === 'ar' ? 'جوكر' : 'Wildcard'}
+          <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-brand-yellow text-brand-ink border border-brand-ink/15 shadow-xs">
+            {locale === 'ar' ? 'مرن' : 'Flexible'}
           </span>
         ) : (
           <span />

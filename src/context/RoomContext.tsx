@@ -75,7 +75,7 @@ interface RoomContextType {
   toggleSuggestion: (target: string) => Promise<void>;
 }
 
-const RoomContext = createContext<RoomContextType | null>(null);
+export const RoomContext = createContext<RoomContextType | null>(null);
 
 export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { t } = useLocale();
@@ -633,14 +633,30 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     try {
       const { room, participant } = await apiCreateRoom(input);
-      currentRoomRef.current = room;
+      let finalRoom = room;
+
+      if (input.room_mode && input.room_mode !== 'food') {
+        try {
+          const state = await switchRoomMode(room.id, participant.session_token, room.version, input.room_mode);
+          if (state?.room) {
+            finalRoom = state.room;
+          }
+          if (state?.suggestions) {
+            setSuggestions(state.suggestions);
+          }
+        } catch (switchErr) {
+          console.warn('[RoomContext createNewRoom] Non-blocking starting mode switch warning:', switchErr);
+        }
+      }
+
+      currentRoomRef.current = finalRoom;
       currentParticipantRef.current = participant;
-      setCurrentRoom(room);
+      setCurrentRoom(finalRoom);
       setCurrentParticipant(participant);
       setParticipants([participant]);
       setFoodChoices([]);
-      setActiveRoomCode(room.code);
-      return { room, participant };
+      setActiveRoomCode(finalRoom.code);
+      return { room: finalRoom, participant };
     } catch (err: any) {
       console.error('[RoomContext createNewRoom] Failed to create room:', err);
       setError(err?.message || 'FAILED_TO_CREATE');

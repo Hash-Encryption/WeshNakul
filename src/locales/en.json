@@ -6,6 +6,14 @@
     "enterCode": "Join with Code",
     "badge": "No sign-up • Fast • Built for the squad"
   },
+  "startingMode": {
+    "heading": "What are we feeling?",
+    "subtitle": "Pick a mode to start the room",
+    "food": "Food",
+    "breakfast": "Breakfast",
+    "cafes": "Cafes",
+    "next": "Next"
+  },
   "mode": {
     "heading": "What’s the move tonight?",
     "subtitle": "Pick how you're eating",
@@ -95,7 +103,9 @@
     "breakfastHeading": "What's for breakfast? 🍳",
     "breakfastSubtitle": "Vote for your breakfast favorites",
     "breakfastWildcardNotice": "🎲 'Any Breakfast' automatically counts your vote for all breakfast categories!",
-    "changePicks": "Change my picks"
+    "changePicks": "Change my picks",
+    "flexibleBadge": "Flexible",
+    "wildcardSecondary": "I’m good with anything"
   },
   "tiebreaker": {
     "heading": "It's a Tie! ⚔️",
@@ -191,7 +201,9 @@
     "menu_title": "Room Options",
     "open_in_maps": "Open in Google Maps",
     "delivery_apps": "Delivery Apps",
-    "restaurant_name_copied": "Restaurant name copied"
+    "restaurant_name_copied": "Restaurant name copied",
+    "squad_agrees": "The squad agrees 🤝",
+    "your_pick": "Your pick 🤝"
   },
   "scratchpad": {
     "title": "Squad Orders 📝",
@@ -205,7 +217,7 @@
     "directions": "Directions on Maps 📍"
   },
   "revote": {
-    "hostAction": "Restart Vote for Squad 🔄",
+    "hostAction": "Vote Again",
     "participantRequest": "Request Re-vote 🙋‍♂️",
     "participantCancel": "Cancel Re-vote Request ✕",
     "wantsRevote": "Want to re-vote:"

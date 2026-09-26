@@ -136,6 +136,7 @@ export interface FoodChoice {
 
 export interface CreateRoomInput {
   eating_mode: EatingMode;
+  room_mode?: RoomMode;
   city: string;
   neighborhood?: string;
   language: Locale;
