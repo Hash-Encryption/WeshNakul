@@ -8,6 +8,7 @@ const MODE_ICONS: Record<RoomMode, string> = {
   food: '🍽️',
   breakfast: '🍳',
   cafes: '☕',
+  healthy: '🥗',
 };
 
 export const RoomModeTransition: React.FC = () => {

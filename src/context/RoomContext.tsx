@@ -635,7 +635,16 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { room, participant } = await apiCreateRoom(input);
       let finalRoom = room;
 
-      if (input.room_mode && input.room_mode !== 'food') {
+      if (input.room_mode === 'healthy') {
+        try {
+          const state = await setRoomPreference(room.id, participant.session_token, room.version, 'healthy', true);
+          if (state?.room) {
+            finalRoom = state.room;
+          }
+        } catch (prefErr) {
+          console.warn('[RoomContext createNewRoom] Non-blocking healthy preference switch warning:', prefErr);
+        }
+      } else if (input.room_mode && input.room_mode !== 'food') {
         try {
           const state = await switchRoomMode(room.id, participant.session_token, room.version, input.room_mode);
           if (state?.room) {

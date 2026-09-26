@@ -19,7 +19,7 @@ export type PlayerColor =
   | '#F6A6AD'
   | '#E5D3B3';
 
-export type RoomMode = 'food' | 'breakfast' | 'cafes';
+export type RoomMode = 'food' | 'breakfast' | 'cafes' | 'healthy';
 
 export interface Room {
   id: string;
