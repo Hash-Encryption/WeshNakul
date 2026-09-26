@@ -36,9 +36,12 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
   // Rank restaurants: Likes (desc), then Rating (desc), then ID (asc)
   const rankedRestaurants = useMemo(() => {
-    const counts=Object.fromEntries((summary?.cards||[]).map(card=>[card.restaurantId,card.yesCount]));
+    const counts = Object.fromEntries((summary?.cards || []).map((card) => [card.restaurantId, card.yesCount]));
+    const safeList = Array.isArray(restaurants)
+      ? restaurants.filter((r): r is RestaurantItem => Boolean(r && typeof r === 'object' && r.id))
+      : [];
 
-    return [...restaurants]
+    return safeList
       .map((restaurant) => ({
         restaurant,
         likes: counts[restaurant.id] || 0,
@@ -47,8 +50,12 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       .sort((a, b) => {
         const diffLikes = b.likes - a.likes;
         if (diffLikes !== 0) return diffLikes;
-        const diffRating = b.restaurant.rating - a.restaurant.rating;
-        if (diffRating !== 0) return diffRating;
+        const hasA = typeof a.restaurant.rating === 'number' && Number.isFinite(a.restaurant.rating);
+        const hasB = typeof b.restaurant.rating === 'number' && Number.isFinite(b.restaurant.rating);
+        if (hasA && hasB) {
+          const diffRating = (b.restaurant.rating as number) - (a.restaurant.rating as number);
+          if (diffRating !== 0) return diffRating;
+        }
         return a.restaurant.id.localeCompare(b.restaurant.id);
       });
   }, [restaurants, summary?.cards, totalParticipants]);
@@ -184,8 +191,17 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       {/* Ranked Restaurants List */}
       <div className="flex flex-col gap-2.5">
         {rankedRestaurants.map(({ restaurant, likes, percentage }, index) => {
-          const name = locale === 'ar' ? restaurant.nameAr : restaurant.nameEn;
-          const signature = locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn;
+          const name =
+            (locale === 'ar' ? restaurant.nameAr : restaurant.nameEn) ||
+            restaurant.nameAr ||
+            restaurant.nameEn ||
+            restaurant.name ||
+            (locale === 'ar' ? 'مطعم' : 'Restaurant');
+          const signature =
+            (locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn) ||
+            restaurant.signatureDishAr ||
+            restaurant.signatureDishEn ||
+            '';
           const isTied = isTie && tiedIds.has(restaurant.id);
           const isWinnerCandidate = !isTie && index === 0;
 

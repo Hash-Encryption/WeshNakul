@@ -10,6 +10,8 @@ interface SwipeCardProps {
   stackIndex?: number; // 0 for front, 1 for second, 2 for third
 }
 
+
+
 export const SwipeCard = React.memo(function SwipeCard({
   restaurant,
   isFront,
@@ -29,9 +31,38 @@ export const SwipeCard = React.memo(function SwipeCard({
   const likeOpacity = useTransform(x, [40, 120], [0, 1]);
   const passOpacity = useTransform(x, [-40, -120], [0, 1]);
 
-  const name = locale === 'ar' ? restaurant.nameAr : restaurant.nameEn;
-  const signatureDish = locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn;
-  const vibeTags = locale === 'ar' ? restaurant.vibeTagsAr : restaurant.vibeTagsEn;
+  if (!restaurant || !restaurant.id) {
+    return null;
+  }
+
+  const name =
+    (locale === 'ar' ? restaurant.nameAr : restaurant.nameEn) ||
+    restaurant.nameAr ||
+    restaurant.nameEn ||
+    restaurant.name ||
+    (locale === 'ar' ? 'مطعم' : 'Restaurant');
+
+  const signatureDish =
+    (locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn) ||
+    restaurant.signatureDishAr ||
+    restaurant.signatureDishEn ||
+    '';
+
+  const rawVibeTags = locale === 'ar' ? restaurant.vibeTagsAr : restaurant.vibeTagsEn;
+  const vibeTags = Array.isArray(rawVibeTags)
+    ? rawVibeTags
+    : Array.isArray(restaurant.vibeTagsAr)
+    ? restaurant.vibeTagsAr
+    : Array.isArray(restaurant.vibeTagsEn)
+    ? restaurant.vibeTagsEn
+    : [];
+
+  const hasRating =
+    restaurant.rating !== null &&
+    restaurant.rating !== undefined &&
+    !Number.isNaN(Number(restaurant.rating)) &&
+    Number(restaurant.rating) > 0;
+  const formattedRating = hasRating ? Number(restaurant.rating).toFixed(1) : null;
 
   // Stack styling for cards beneath the front card
   const getStackStyle = () => {
@@ -58,22 +89,7 @@ export const SwipeCard = React.memo(function SwipeCard({
 
   const stackStyle = getStackStyle();
 
-  const cardImageUrl =
-    restaurant.imageUrl ||
-    (restaurant.categories && restaurant.categories[0] && {
-      burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80',
-      shawarma: 'https://images.unsplash.com/photo-1637806930600-37fa8892069d?w=800&auto=format&fit=crop&q=80',
-      broast: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80',
-      fried_chicken: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800&auto=format&fit=crop&q=80',
-      saudi_kabsa: 'https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=800&auto=format&fit=crop&q=80',
-      pizza: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80',
-      late_night: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80',
-      grills: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80',
-      dessert: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80',
-      street_folk: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?w=800&auto=format&fit=crop&q=80',
-      fatayer: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=800&auto=format&fit=crop&q=80',
-    }[restaurant.categories[0]]) ||
-    'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80';
+
 
   return (
     <motion.div
@@ -95,10 +111,19 @@ export const SwipeCard = React.memo(function SwipeCard({
         }
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      variants={{exit:(vote:RestaurantVote)=>reduceMotion?{opacity:0,transition:{duration:.12}}:{
-        x:vote==='YES'?520:vote==='NO'?-520:0,y:vote==='LATER'?80:0,rotate:vote==='YES'?18:vote==='NO'?-18:0,
-        scale:vote==='LATER'?.92:1,opacity:0,transition:{duration:.22,ease:[.2,.8,.2,1]},
-      }}}
+      variants={{
+        exit: (vote: RestaurantVote) =>
+          reduceMotion
+            ? { opacity: 0, transition: { duration: 0.12 } }
+            : {
+                x: vote === 'YES' ? 520 : vote === 'NO' ? -520 : 0,
+                y: vote === 'LATER' ? 80 : 0,
+                rotate: vote === 'YES' ? 18 : vote === 'NO' ? -18 : 0,
+                scale: vote === 'LATER' ? 0.92 : 1,
+                opacity: 0,
+                transition: { duration: 0.22, ease: [0.2, 0.8, 0.2, 1] },
+              },
+      }}
       exit="exit"
       className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-pan-y ${
         isFront ? 'cursor-grab active:cursor-grabbing will-change-transform' : 'pointer-events-none'
@@ -129,16 +154,29 @@ export const SwipeCard = React.memo(function SwipeCard({
         </>
       )}
 
-      {/* Restaurant Cover Image */}
-      <div className="relative h-52 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden">
-        <img
-          src={cardImageUrl}
-          alt={name}
-          className="w-full h-full object-cover pointer-events-none"
-          loading={isFront || stackIndex === 1 ? 'eager' : 'lazy'}
-          decoding="async"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+      {/* Restaurant Cover Visual */}
+      <div className="relative h-52 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden flex items-center justify-center select-none">
+        {restaurant.imageUrl ? (
+          <>
+            <img
+              src={restaurant.imageUrl}
+              alt={name}
+              className="w-full h-full object-cover pointer-events-none"
+              loading={isFront || stackIndex === 1 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+          </>
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-[#FFF8F1] p-4 text-center select-none">
+            <div className="w-16 h-16 rounded-2xl bg-[#FFD75A] border-2 border-[#241B18] shadow-[0_3px_0_#241B18] flex items-center justify-center text-3xl">
+              <span>🍽️</span>
+            </div>
+            <span className="text-xs font-black text-[#7A6E67] tracking-wider uppercase font-alexandria">
+              {locale === 'ar' ? 'وش ناكل؟' : 'WeshNakul'}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Restaurant Content Body */}
@@ -149,37 +187,45 @@ export const SwipeCard = React.memo(function SwipeCard({
             {name}
           </h2>
           <div className="flex items-center gap-1.5 shrink-0">
-            <span className="bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] px-2 py-0.5 rounded-md text-xs font-black shadow-[0px_1px_0px_#241B18]">
-              {restaurant.priceTier}
-            </span>
-            <span className="bg-white text-[#241B18] border-2 border-[#241B18] px-2 py-0.5 rounded-md text-xs font-black shadow-[0px_1px_0px_#241B18] flex items-center gap-1">
-              <span>⭐</span>
-              <span>{restaurant.rating.toFixed(1)}</span>
-            </span>
+            {restaurant.priceTier && (
+              <span className="bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] px-2 py-0.5 rounded-md text-xs font-black shadow-[0px_1px_0px_#241B18]">
+                {restaurant.priceTier}
+              </span>
+            )}
+            {formattedRating && (
+              <span className="bg-white text-[#241B18] border-2 border-[#241B18] px-2 py-0.5 rounded-md text-xs font-black shadow-[0px_1px_0px_#241B18] flex items-center gap-1">
+                <span>⭐</span>
+                <span>{formattedRating}</span>
+              </span>
+            )}
           </div>
         </div>
 
         {/* Signature Dish Callout */}
-        <div className="bg-[#FFF8F1] border-2 border-[#241B18] rounded-xl p-3 text-sm font-bold shadow-[0px_2px_0px_#241B18]">
-          <span className="text-[11px] font-bold text-[#7A6E67] block mb-0.5">
-            {t('swiping.signature_dish_label')}
-          </span>
-          <p className="text-sm font-extrabold text-[#241B18] font-alexandria leading-snug">
-            {signatureDish}
-          </p>
-        </div>
+        {signatureDish ? (
+          <div className="bg-[#FFF8F1] border-2 border-[#241B18] rounded-xl p-3 text-sm font-bold shadow-[0px_2px_0px_#241B18]">
+            <span className="text-[11px] font-bold text-[#7A6E67] block mb-0.5">
+              {t('swiping.signature_dish_label')}
+            </span>
+            <p className="text-sm font-extrabold text-[#241B18] font-alexandria leading-snug">
+              {signatureDish}
+            </p>
+          </div>
+        ) : null}
 
         {/* Vibe Tags Pills */}
-        <div className="flex flex-wrap gap-1.5 pt-0.5">
-          {vibeTags.map((tag, idx) => (
-            <span
-              key={idx}
-              className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2.5 py-1 rounded-full text-xs font-bold text-[#241B18]"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
+        {vibeTags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-0.5">
+            {vibeTags.map((tag, idx) => (
+              <span
+                key={idx}
+                className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2.5 py-1 rounded-full text-xs font-bold text-[#241B18]"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </motion.div>
   );

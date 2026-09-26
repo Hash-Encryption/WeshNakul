@@ -42,6 +42,44 @@ function getPillGradient(id: string): string {
   return PILL_GRADIENTS[hash % PILL_GRADIENTS.length];
 }
 
+const KNOWN_TAG_LABELS_EN: Record<string, string> = {
+  late_night: 'Late night',
+  quick_bite: 'Quick bite',
+  casual_hangout: 'Casual hangout',
+  delivery_strong: 'Delivery friendly',
+  dine_in_strong: 'Great for dine-in',
+  local_favorite: 'Local favorite',
+  hidden_gem: 'Hidden gem',
+  mainstream: 'Popular pick',
+  rising: 'Rising pick',
+  staple: 'Jeddah staple',
+};
+
+const KNOWN_TAG_LABELS_AR: Record<string, string> = {
+  late_night: 'سهرانين',
+  quick_bite: 'وجبة سريعة',
+  casual_hangout: 'جلسة رايقة',
+  delivery_strong: 'توصيل ممتاز',
+  dine_in_strong: 'جلسات رائعة',
+  local_favorite: 'محبوب أهل البلد',
+  hidden_gem: 'كنز مخفي',
+  mainstream: 'خيار مشهور',
+  rising: 'صاعد ومميز',
+  staple: 'من معالم جدة',
+};
+
+function formatVibeTag(tag: string, locale: 'ar' | 'en'): string {
+  const clean = tag.replace(/^#/, '').trim();
+  const dict = locale === 'ar' ? KNOWN_TAG_LABELS_AR : KNOWN_TAG_LABELS_EN;
+  if (dict[clean]) return dict[clean];
+  if (locale === 'ar') {
+    return clean.replace(/_/g, ' ');
+  }
+  return clean
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
 interface MatchCelebrationScreenProps {
   restaurant: RestaurantItem;
   participants: Participant[];
@@ -165,27 +203,32 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
     }
   }, []);
 
-  const name = locale === 'ar' ? restaurant.nameAr : restaurant.nameEn;
-  const signatureDish = locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn;
-  const vibeTags = locale === 'ar' ? restaurant.vibeTagsAr : restaurant.vibeTagsEn;
+  const name =
+    (locale === 'ar' ? restaurant?.nameAr : restaurant?.nameEn) ||
+    restaurant?.nameAr ||
+    restaurant?.nameEn ||
+    restaurant?.name ||
+    (locale === 'ar' ? 'المطعم الفائز' : 'Winning Restaurant');
+  const signatureDish =
+    (locale === 'ar' ? restaurant?.signatureDishAr : restaurant?.signatureDishEn) ||
+    restaurant?.signatureDishAr ||
+    restaurant?.signatureDishEn ||
+    '';
+  const rawVibe = locale === 'ar' ? restaurant?.vibeTagsAr : restaurant?.vibeTagsEn;
+  const vibeTags = Array.isArray(rawVibe)
+    ? rawVibe
+    : Array.isArray(restaurant?.vibeTagsAr)
+    ? restaurant.vibeTagsAr
+    : Array.isArray(restaurant?.vibeTagsEn)
+    ? restaurant.vibeTagsEn
+    : [];
 
-  const cardImageUrl =
-    restaurant.imageUrl ||
-    (restaurant.categories && restaurant.categories[0] && {
-      burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80',
-      shawarma: 'https://images.unsplash.com/photo-1637806930600-37fa8892069d?w=800&auto=format&fit=crop&q=80',
-      broast: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&auto=format&fit=crop&q=80',
-      fried_chicken: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=800&auto=format&fit=crop&q=80',
-      saudi_kabsa: 'https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?w=800&auto=format&fit=crop&q=80',
-      pizza: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80',
-      late_night: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80',
-      grills: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80',
-      dessert: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80',
-      street_folk: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?w=800&auto=format&fit=crop&q=80',
-      fatayer: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=800&auto=format&fit=crop&q=80',
-    }[restaurant.categories[0]]) ||
-    'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80';
-
+  const hasRating =
+    restaurant?.rating !== null &&
+    restaurant?.rating !== undefined &&
+    !Number.isNaN(Number(restaurant.rating)) &&
+    Number(restaurant.rating) > 0;
+  const formattedRating = hasRating ? Number(restaurant.rating).toFixed(1) : null;
 
   return (
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-12 overflow-y-auto selection:bg-[#FFF0EE]">
@@ -203,7 +246,7 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           <DoodleHeart className="absolute -top-2 start-4 transform -rotate-12" color="#55B96A" />
           <SparkleRays className="absolute -top-3 end-4 transform rotate-12 scale-90" color="#FFD75A" />
 
-          <span className="inline-block bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] px-3 py-1 rounded-full text-xs font-black font-alexandria mb-2">
+          <span className="inline-block bg-[#FFD75A]/40 text-[#241B18] border border-[#241B18]/30 px-3 py-0.5 rounded-full text-xs font-bold font-alexandria mb-1.5">
             {t('match.tag_winner')}
           </span>
 
@@ -219,21 +262,39 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           transition={{ type: 'spring', stiffness: 280, damping: 22 }}
           className="max-w-md mx-auto bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] overflow-hidden mb-4 select-none"
         >
-          {/* Cover Image */}
-          <div className="relative h-40 sm:h-44 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden">
-            <img
-              src={cardImageUrl}
-              alt={name}
-              className="w-full h-full object-cover"
-              loading="eager"
-            />
-            <div className="absolute top-3 end-3 bg-white/90 backdrop-blur-sm border-2 border-[#241B18] px-2.5 py-1 rounded-xl shadow-[0px_2px_0px_#241B18] text-xs font-black text-[#241B18] flex items-center gap-1">
-              <span>⭐</span>
-              <span>{restaurant.rating.toFixed(1)}</span>
-            </div>
-            <div className="absolute top-3 start-3 bg-[#FFD75A] border-2 border-[#241B18] px-2.5 py-1 rounded-xl shadow-[0px_2px_0px_#241B18] text-xs font-black text-[#241B18]">
-              {restaurant.priceTier}
-            </div>
+          {/* Cover Visual */}
+          <div className="relative h-40 sm:h-44 w-full bg-[#FFF8F1] border-b-2 border-[#241B18] overflow-hidden flex items-center justify-center select-none">
+            {restaurant?.imageUrl ? (
+              <>
+                <img
+                  src={restaurant.imageUrl}
+                  alt={name}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+              </>
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-[#FFF8F1] p-4 text-center select-none">
+                <div className="w-14 h-14 rounded-2xl bg-[#FFD75A] border-2 border-[#241B18] shadow-[0_3px_0_#241B18] flex items-center justify-center text-2xl">
+                  <span>🍽️</span>
+                </div>
+                <span className="text-xs font-black text-[#7A6E67] tracking-wider uppercase font-alexandria">
+                  {locale === 'ar' ? 'وش ناكل؟' : 'WeshNakul'}
+                </span>
+              </div>
+            )}
+            {formattedRating && (
+              <div className="absolute top-3 end-3 bg-white/90 backdrop-blur-sm border-2 border-[#241B18] px-2.5 py-1 rounded-xl shadow-[0px_2px_0px_#241B18] text-xs font-black text-[#241B18] flex items-center gap-1">
+                <span>⭐</span>
+                <span>{formattedRating}</span>
+              </div>
+            )}
+            {restaurant?.priceTier && (
+              <div className="absolute top-3 start-3 bg-[#FFD75A] border-2 border-[#241B18] px-2.5 py-1 rounded-xl shadow-[0px_2px_0px_#241B18] text-xs font-black text-[#241B18]">
+                {restaurant.priceTier}
+              </div>
+            )}
           </div>
 
           <div className="p-4 sm:p-5 flex flex-col gap-2.5">
@@ -257,9 +318,9 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
               {vibeTags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2 py-0.5 rounded-full text-[11px] font-bold text-[#241B18]"
+                  className="bg-[#F2E8DF]/60 border border-[#241B18]/30 px-2.5 py-0.5 rounded-full text-[11px] font-bold text-[#241B18]"
                 >
-                  #{tag}
+                  {formatVibeTag(tag, locale)}
                 </span>
               ))}
             </div>
@@ -267,21 +328,36 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
             {/* Matched Squad Tokens */}
             <div className="border-t border-[#241B18]/15 pt-3 mt-0.5 flex flex-col items-center gap-1.5">
               <span className="text-[10px] font-bold text-[#7A6E67] font-alexandria">
-                {locale === 'ar' ? 'القروب المتفق عليه 🤝' : 'Squad in Agreement 🤝'}
+                {participants.length === 1 ? t('match.your_pick') : t('match.squad_agrees')}
               </span>
-              <div className="flex items-center -space-x-2 rtl:space-x-reverse">
-                {participants.map((p) => (
-                  <div key={p.id} title={p.nickname} className="relative transform hover:scale-110 transition-transform">
-                    <ProceduralAvatar
-                      nickname={p.nickname}
-                      shape={p.player_shape}
-                      color={p.player_color}
-                      size="sm"
-                      showCrown={p.is_host}
-                    />
-                  </div>
-                ))}
-              </div>
+              {participants.length === 1 ? (
+                <div className="flex items-center gap-2 mt-0.5">
+                  <ProceduralAvatar
+                    nickname={participants[0]?.nickname || ''}
+                    shape={participants[0]?.player_shape || 'circle'}
+                    color={participants[0]?.player_color || '#55B96A'}
+                    size="sm"
+                    showCrown={Boolean(participants[0]?.is_host)}
+                  />
+                  <span className="text-xs font-bold text-brand-ink font-alexandria">
+                    {participants[0]?.nickname}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-center -space-x-2 rtl:space-x-reverse">
+                  {participants.map((p) => (
+                    <div key={p.id} title={p.nickname} className="relative transform hover:scale-110 transition-transform">
+                      <ProceduralAvatar
+                        nickname={p.nickname}
+                        shape={p.player_shape}
+                        color={p.player_color}
+                        size="sm"
+                        showCrown={p.is_host}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </motion.div>

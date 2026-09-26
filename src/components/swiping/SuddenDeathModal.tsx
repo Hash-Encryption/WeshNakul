@@ -168,8 +168,8 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
                 {r1.imageUrl ? (
                   <img src={r1.imageUrl} alt={r1.nameAr} className="w-12 h-12 rounded-xl object-cover border border-[#241B18]/20 shrink-0" />
                 ) : (
-                  <div className="w-12 h-12 rounded-xl bg-[#55B96A]/20 border border-[#241B18]/20 flex items-center justify-center text-xl shrink-0">
-                    🍔
+                  <div className="w-12 h-12 rounded-xl bg-[#FFF8F1] border-2 border-[#241B18] flex items-center justify-center text-xl shrink-0 shadow-xs">
+                    🍽️
                   </div>
                 )}
                 <div className="min-w-0 truncate">
@@ -177,7 +177,9 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
                     {locale === 'ar' ? r1.nameAr : r1.nameEn}
                   </h4>
                   <p className="text-xs font-semibold text-[#7A6E67] font-alexandria truncate">
-                    ⭐ {r1.rating.toFixed(1)} • {r1.priceTier}
+                    {r1.rating != null && !Number.isNaN(Number(r1.rating)) ? `⭐ ${Number(r1.rating).toFixed(1)}` : ''}
+                    {r1.rating != null && r1.priceTier ? ' • ' : ''}
+                    {r1.priceTier || ''}
                   </p>
                 </div>
               </div>
@@ -210,8 +212,8 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
                 {r2.imageUrl ? (
                   <img src={r2.imageUrl} alt={r2.nameAr} className="w-12 h-12 rounded-xl object-cover border border-[#241B18]/20 shrink-0" />
                 ) : (
-                  <div className="w-12 h-12 rounded-xl bg-[#F0443E]/20 border border-[#241B18]/20 flex items-center justify-center text-xl shrink-0">
-                    🍕
+                  <div className="w-12 h-12 rounded-xl bg-[#FFF8F1] border-2 border-[#241B18] flex items-center justify-center text-xl shrink-0 shadow-xs">
+                    🍽️
                   </div>
                 )}
                 <div className="min-w-0 truncate">
@@ -219,7 +221,9 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
                     {locale === 'ar' ? r2.nameAr : r2.nameEn}
                   </h4>
                   <p className="text-xs font-semibold text-[#7A6E67] font-alexandria truncate">
-                    ⭐ {r2.rating.toFixed(1)} • {r2.priceTier}
+                    {r2.rating != null && !Number.isNaN(Number(r2.rating)) ? `⭐ ${Number(r2.rating).toFixed(1)}` : ''}
+                    {r2.rating != null && r2.priceTier ? ' • ' : ''}
+                    {r2.priceTier || ''}
                   </p>
                 </div>
               </div>

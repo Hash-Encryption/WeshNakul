@@ -4,6 +4,8 @@ import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';
 import { cacheDeckRestaurants } from './restaurantRepository';
 import { getOrCreateSessionToken, generateRoomCode } from './session';
+import { normalizeRestaurantDeck } from './restaurantNormalization';
+import { logDeckError } from './observability';
 
 const rawUrl = import.meta.env?.VITE_SUPABASE_URL || '';
 const rawKey = import.meta.env?.VITE_SUPABASE_ANON_KEY || '';
@@ -347,16 +349,39 @@ export async function fetchDeckRestaurants(
   afterDeckId?: string,
 ): Promise<import('../types/restaurant').RestaurantDeck> {
   if (!supabase) throw new Error('Supabase is not configured');
-  const { data, error } = await supabase.rpc('get_or_create_restaurant_deck', {
-    p_room_id: roomId,
-    p_participant_id: participantId,
-    p_session_token: sessionToken,
-    p_after_deck_id: afterDeckId ?? null,
-  });
-  if (error) throw error;
-  const deck = data as import('../types/restaurant').RestaurantDeck;
-  cacheDeckRestaurants(deck.restaurants);
-  return deck;
+  try {
+    const { data, error } = await supabase.rpc('get_or_create_restaurant_deck', {
+      p_room_id: roomId,
+      p_participant_id: participantId,
+      p_session_token: sessionToken,
+      p_after_deck_id: afterDeckId ?? null,
+    });
+    if (error) {
+      logDeckError({
+        roomId,
+        sessionToken,
+        eventPhase: 'deck_generation',
+        error,
+        message: 'RPC get_or_create_restaurant_deck failed',
+      });
+      throw error;
+    }
+    const normalized = normalizeRestaurantDeck(data, { roomId, afterDeckId });
+    if (!normalized) {
+      logDeckError({
+        roomId,
+        sessionToken,
+        eventPhase: 'deck_generation',
+        message: 'Failed to normalize deck payload from database RPC',
+      });
+      throw new Error('MALFORMED_DECK_PAYLOAD');
+    }
+    cacheDeckRestaurants(normalized.restaurants);
+    return normalized;
+  } catch (err) {
+    reportNetworkFailure(err);
+    throw err;
+  }
 }
 /**
  * Fetch all order items for a room.

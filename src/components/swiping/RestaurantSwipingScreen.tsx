@@ -19,6 +19,7 @@ import {
   resolveRestaurantTie,
 } from '../../lib/supabase';
 import { CafeDeckScreen } from './CafeDeckScreen';
+import { DeckErrorBoundary } from '../common/ErrorBoundary';
 
 interface RestaurantSwipingScreenProps {
   onMatched?: (winnerId: string) => void;
@@ -47,6 +48,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     isLoadingDeck,
     deckError,
     recordVote,
+    reloadDeck,
     summary,
     showRoundTwoToast,
     dismissRoundTwoToast,
@@ -179,7 +181,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
               variant="yellow"
               fullWidth
               size="md"
-              onClick={() => window.location.reload()}
+              onClick={reloadDeck}
             >
               {locale === 'ar' ? 'إعادة المحاولة' : 'Try again'}
             </TactileButton>
@@ -249,33 +251,35 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
           </div>
         )}
 
-        {/* Active Stage: Swiping Deck OR Shared Leaderboard */}
-        {isDeckFinished ? (
-          <LeaderboardView
-            restaurants={deck}
-            summary={summary}
-            participants={participants}
-            isHost={isHost}
-            onConfirmPick={handleOpenConfirm}
-            onTriggerSuddenDeath={handleTriggerSuddenDeath}
-            onTriggerRoulette={handleTriggerRoulette}
-          />
-        ) : isLoadingDeck && deck.length === 0 ? (
-          <DecisionMachineLoading
-            participants={participants}
-            currentStep={2}
-            title={locale === 'ar' ? 'نجهّز قائمة المطاعم' : 'Preparing Restaurant Deck'}
-            subtitle={locale === 'ar' ? 'الخوارزمية تبحث عن أفضل الخيارات المطابقة' : 'Algorithm is finding the best matching restaurants'}
-          />
-        ) : (
-          <SwipingDeck
-            deck={deck}
-            currentIndex={currentIndex}
-            totalCards={totalCards}
-            isLoading={isLoadingDeck}
-            onVote={recordVote}
-          />
-        )}
+        {/* Active Stage: Swiping Deck OR Shared Leaderboard with Localized Error Boundary */}
+        <DeckErrorBoundary onRetry={reloadDeck} onChooseAnotherCategory={handleChooseAnotherCategory} isHost={isHost}>
+          {isDeckFinished ? (
+            <LeaderboardView
+              restaurants={deck}
+              summary={summary}
+              participants={participants}
+              isHost={isHost}
+              onConfirmPick={handleOpenConfirm}
+              onTriggerSuddenDeath={handleTriggerSuddenDeath}
+              onTriggerRoulette={handleTriggerRoulette}
+            />
+          ) : isLoadingDeck && deck.length === 0 ? (
+            <DecisionMachineLoading
+              participants={participants}
+              currentStep={2}
+              title={locale === 'ar' ? 'نجهّز قائمة المطاعم' : 'Preparing Restaurant Deck'}
+              subtitle={locale === 'ar' ? 'الخوارزمية تبحث عن أفضل الخيارات المطابقة' : 'Algorithm is finding the best matching restaurants'}
+            />
+          ) : (
+            <SwipingDeck
+              deck={deck}
+              currentIndex={currentIndex}
+              totalCards={totalCards}
+              isLoading={isLoadingDeck}
+              onVote={recordVote}
+            />
+          )}
+        </DeckErrorBoundary>
       </div>
 
       {/* Auto-Restack Round Two Notification Toast */}

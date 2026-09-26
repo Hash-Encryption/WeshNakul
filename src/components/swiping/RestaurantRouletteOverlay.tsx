@@ -30,7 +30,7 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
   const candidates = useMemo(() => spin.candidateIds.map((id) => restaurants.find((item) => item.id === id)).filter(Boolean) as RestaurantItem[], [spin.candidateIds, restaurants]);
   const slices = useMemo<ArcadeWheelSlice[]>(() => candidates.map((restaurant, index) => ({
     id: restaurant.id,
-    name: locale === 'ar' ? restaurant.nameAr : restaurant.nameEn,
+    name: (locale === 'ar' ? restaurant.nameAr : restaurant.nameEn) || restaurant.nameAr || restaurant.nameEn || restaurant.id,
     emoji: '🍽️',
     votes: 1,
     color: NEO_BRUTALIST_PALETTE[index % NEO_BRUTALIST_PALETTE.length],
@@ -69,8 +69,9 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
         />
         {revealed && winner ? (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full rounded-2xl border-2 border-brand-ink bg-brand-yellow p-3 shadow-[0_3px_0_#241B18]">
-            <div className="text-xs font-black uppercase">{t('gameSwiper.rouletteWinnerBadge')}</div>
-            <div className="font-alexandria text-xl font-black">{locale === 'ar' ? winner.nameAr : winner.nameEn}</div>
+            <div className="font-alexandria text-xl font-black">
+              {(locale === 'ar' ? winner.nameAr : winner.nameEn) || winner.nameAr || winner.nameEn || winner.id}
+            </div>
           </motion.div>
         ) : spin.error && isHost ? (
           <div className="flex flex-col items-center gap-2 w-full mt-2">

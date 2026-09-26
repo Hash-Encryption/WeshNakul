@@ -71,7 +71,10 @@ export const ConfirmWinnerModal: React.FC<ConfirmWinnerModalProps> = ({
                 {restaurantName}
               </h4>
               <p className="text-xs font-semibold text-[#7A6E67] font-alexandria truncate mt-0.5">
-                {locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn}
+                {(locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn) ||
+                  restaurant.signatureDishAr ||
+                  restaurant.signatureDishEn ||
+                  ''}
               </p>
             </div>
           </div>
