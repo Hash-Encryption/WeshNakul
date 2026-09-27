@@ -1,0 +1,182 @@
+[
+  {
+    "district_id": "abhur_al_janoubiyah",
+    "name_en": "Abhur Al Janoubiyah",
+    "name_ar": "أبحر الجنوبية",
+    "macrozone": "north"
+  },
+  {
+    "district_id": "abhur_al_shamaliyah",
+    "name_en": "Abhur Al Shamaliyah",
+    "name_ar": "أبحر الشمالية",
+    "macrozone": "north"
+  },
+  {
+    "district_id": "al_andalus",
+    "name_en": "Al Andalus",
+    "name_ar": "الأندلس",
+    "macrozone": "south_central"
+  },
+  {
+    "district_id": "al_aziziyah",
+    "name_en": "Al Aziziyah",
+    "name_ar": "العزيزية",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_balad",
+    "name_en": "Al Balad",
+    "name_ar": "البلد",
+    "macrozone": "south"
+  },
+  {
+    "district_id": "al_basateen",
+    "name_en": "Al Basateen",
+    "name_ar": "البساتين",
+    "macrozone": "north_central"
+  },
+  {
+    "district_id": "al_bawadi",
+    "name_en": "Al Bawadi",
+    "name_ar": "البوادي",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_faiha",
+    "name_en": "Al Faiha",
+    "name_ar": "الفيحاء",
+    "macrozone": "south"
+  },
+  {
+    "district_id": "al_faisaliyyah",
+    "name_en": "Al Faisaliyyah",
+    "name_ar": "الفيصلية",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_hamdaniyah",
+    "name_en": "Al Hamdaniyah",
+    "name_ar": "الحمدانية",
+    "macrozone": "north"
+  },
+  {
+    "district_id": "al_hamra",
+    "name_en": "Al Hamra",
+    "name_ar": "الحمراء",
+    "macrozone": "south_central"
+  },
+  {
+    "district_id": "al_khalidiyyah",
+    "name_en": "Al Khalidiyyah",
+    "name_ar": "الخالدية",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_marwah",
+    "name_en": "Al Marwah",
+    "name_ar": "المروة",
+    "macrozone": "north_central"
+  },
+  {
+    "district_id": "al_mohammadiyyah",
+    "name_en": "Al Mohammadiyyah",
+    "name_ar": "المحمدية",
+    "macrozone": "north_central"
+  },
+  {
+    "district_id": "al_murjan",
+    "name_en": "Al Murjan",
+    "name_ar": "المرجان",
+    "macrozone": "north_central"
+  },
+  {
+    "district_id": "al_naeem",
+    "name_en": "Al Naeem",
+    "name_ar": "النعيم",
+    "macrozone": "north_central"
+  },
+  {
+    "district_id": "al_naseem",
+    "name_en": "Al Naseem",
+    "name_ar": "النسيم",
+    "macrozone": "south_central"
+  },
+  {
+    "district_id": "al_rawdah",
+    "name_en": "Al Rawdah",
+    "name_ar": "الروضة",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_rehab",
+    "name_en": "Al Rehab",
+    "name_ar": "الرحاب",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_ruwais",
+    "name_en": "Al Ruwais",
+    "name_ar": "الرويس",
+    "macrozone": "south_central"
+  },
+  {
+    "district_id": "al_safa",
+    "name_en": "Al Safa",
+    "name_ar": "الصفا",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_salamah",
+    "name_en": "Al Salamah",
+    "name_ar": "السلامة",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_samer",
+    "name_en": "Al Samer",
+    "name_ar": "السامر",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_sharafeyah",
+    "name_en": "Al Sharafeyah",
+    "name_ar": "الشرفية",
+    "macrozone": "south_central"
+  },
+  {
+    "district_id": "al_shati",
+    "name_en": "Al Shati",
+    "name_ar": "الشاطئ",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "al_sheraa",
+    "name_en": "Al Sheraa",
+    "name_ar": "الشراع",
+    "macrozone": "north"
+  },
+  {
+    "district_id": "al_thaghr",
+    "name_en": "Al Thaghr",
+    "name_ar": "الثغر",
+    "macrozone": "south"
+  },
+  {
+    "district_id": "al_zahra",
+    "name_en": "Al Zahra",
+    "name_ar": "الزهراء",
+    "macrozone": "central"
+  },
+  {
+    "district_id": "an_nuzhah",
+    "name_en": "An Nuzhah",
+    "name_ar": "النزهة",
+    "macrozone": "north_central"
+  },
+  {
+    "district_id": "ar_rabwah",
+    "name_en": "Ar Rabwah",
+    "name_ar": "الربوة",
+    "macrozone": "central"
+  }
+]

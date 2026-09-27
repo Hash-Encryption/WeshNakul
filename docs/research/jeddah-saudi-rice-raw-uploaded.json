@@ -1,0 +1,1878 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "saudi_rice",
+    "display_category": "Saudi / Rice / Kabsa",
+    "verified_date": "2026-09-26",
+    "brand_count": 16,
+    "status": "research_complete_import_requires_field_validation",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknown_is_better_than_wrong",
+      "delivery_service_area_is_not_a_physical_branch"
+    ]
+  },
+  "brands": [
+    {
+      "id": "raydan",
+      "canonical_name": "Raydan",
+      "arabic_name": "ريدان",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Hamdaniyah Al Majed",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Hamdaniyah Al Falah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Naseem",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_naseem",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Obhur",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Al Haramain / Abrq Al-Rughama",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Taysir",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_taysir",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_safa",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_samer",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Hira",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_hira",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Sanabel Express",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_sanabel",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Hay Al Riyadh",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_riyadh",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "al_romansiah",
+      "canonical_name": "Al Romansiah",
+      "arabic_name": "الرومانسية",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Bawadi",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_bawadi",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Hamdaniyah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_safa",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Sanabel",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_sanabel",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "al_saddah",
+      "canonical_name": "Al Saddah",
+      "arabic_name": "السدة",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Hira",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_hira",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Tahlia",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Palestine",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "almazaq_al_bukhari",
+      "canonical_name": "Almazaq Al Bukhari",
+      "arabic_name": "المذاق البخاري",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Naseem",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_naseem",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Rehab",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_safa",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_samer",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Hamdaniyah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Harazat",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_harazat",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "South Obhur",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Shati",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hashi_basha",
+      "canonical_name": "Hashi Basha",
+      "arabic_name": "حاشي باشا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Ajawid",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Naseem",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_naseem",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_safa",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_samer",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Muraikh",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "muraikh",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eleyk_al_bukhari",
+      "canonical_name": "Eleyk Al Bukhari",
+      "arabic_name": "إليك البخاري",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Faisaliyah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_faisaliyah",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Salamah / Sari",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Sanabel",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_sanabel",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Mada'en Al-Fahd",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kabset_elham",
+      "canonical_name": "Kabset Elham",
+      "arabic_name": "كبسة إلهام",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Al Batarji / Zahra",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sarmad",
+      "canonical_name": "Sarmad",
+      "arabic_name": "سرمد",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Al-Baghdadiyah Al-Sharqiyah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "labbani_fakher",
+      "canonical_name": "Labbani Fakher",
+      "arabic_name": "لباني فاخر",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Samer / Al Rayaan (district requires reconciliation)",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mandi_world",
+      "canonical_name": "Mandi World",
+      "arabic_name": "مندي ورلد",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_rawdah",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_safa",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Nahdah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_nahdah",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hashi_bin_hamoud",
+      "canonical_name": "Hashi Bin Hamoud",
+      "arabic_name": "حاشي بن حمود",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Jeddah verified location (district pending structured export)",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fnoon_al_shawaya",
+      "canonical_name": "Fnoon Al Shawaya",
+      "arabic_name": "فنون الشواية",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_samer",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Sharafiyah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_sharafiyah",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Hay Al Riyadh",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_riyadh",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Harazat",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_harazat",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ali_hanash",
+      "canonical_name": "Ali Hanash",
+      "arabic_name": "علي حنش",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Muraikh",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "muraikh",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ghamim",
+      "canonical_name": "Ghamim",
+      "arabic_name": "غميم",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Muraikh",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "muraikh",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        },
+        {
+          "branch_name": "Hamdaniyah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mandi_al_hejaz",
+      "canonical_name": "Mandi Al Hejaz",
+      "arabic_name": "مندي الحجاز",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Rawdah — Qassem Zeinah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "al_shadawi_ras_al_mandi",
+      "canonical_name": "Al Shadawi Ras Al Mandi",
+      "arabic_name": "الشدوي لرأس المندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "context_tags": [],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": [],
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "url": null
+        }
+      },
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Al-Balad / Historic Jeddah — Souq Bab Makkah",
+          "physical_existence": "verified_from_research_pass",
+          "city": "Jeddah",
+          "formatted_address": null,
+          "canonical_district": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "active_or_current_listing_verified",
+          "hours": null,
+          "phone": null,
+          "google_place_id": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "research_pass_2026-09-26"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review": [
+            "Populate exact branch-specific Maps URL/address/coordinates only from independently verified source before DB import."
+          ]
+        }
+      ]
+    }
+  ],
+  "manual_review": [
+    "Raydan: older Rawdah evidence conflicts with current official directory; do not add until current physical Maps verification.",
+    "Eleyk: reconcile Salamah/Sari naming and ensure no duplicate physical branch records.",
+    "Labbani Fakher: official source calls location Samer while structured geocoding evidence indicated Al Rayaan; canonical district must be reconciled.",
+    "Hashi Basha: additional Jeddah locations may exist; only listed verified candidates are included here.",
+    "Fnoon Al Shawaya: Bahrah excluded from Jeddah-city branch inventory.",
+    "Do not infer branches from HungerStation/Jahez/Keeta neighborhood/service-area listings.",
+    "Exact Maps URLs, coordinates, ratings, review counts, hours and phones remain null where not safely captured in the structured research record."
+  ]
+}

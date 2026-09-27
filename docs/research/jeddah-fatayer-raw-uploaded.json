@@ -1,0 +1,1646 @@
+{
+  "dataset_name": "WeshNakul Fatayer Jeddah Production Research",
+  "requirements_version": "WeshNakul Restaurant Discovery & Research Requirements V3",
+  "city": "Jeddah, Saudi Arabia",
+  "mode": "food",
+  "primary_category": "fatayer",
+  "verification_date": "2026-09-27",
+  "research_priority_note": "Final pass prioritized physical branch existence, canonical district, usable address, Google/branch verification and operating status. Delivery-platform enrichment was intentionally deprioritized per user instruction.",
+  "unknown_handling": "null / unknown / manual_review used where evidence was insufficient. No coordinates were invented.",
+  "maps_url_method": "Where a verified Google Place ID was available from current business data, the branch-specific Google Maps URL is deterministically generated using Google's Maps URL scheme and that Place ID.",
+  "brand_count": 15,
+  "brands": [
+    {
+      "canonical_name": "Shobak",
+      "arabic_name": "شوبك",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "staple",
+      "classification_evidence": "Large multi-branch Jeddah footprint, thousands of branch reviews, current official Jeddah listing and current 2026 branch-operation posts.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "manakish",
+        "savory pies"
+      ],
+      "price_positioning": "affordable_to_mid_range",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://linktr.ee/shobak.ksa",
+        "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+      ],
+      "branches": [
+        {
+          "branch_name": "Shobak Rawdah",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "8912 Hamad Al Jaser, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_place_id": "ChIJozyGDXfQwxURNxn9ozPFOGU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shobak+Rawdah%2C+8912+Hamad+Al+Jaser%2C+Ar+Rawdah%2C+Jeddah+23435%2C+Saudi+Arabia&query_place_id=ChIJozyGDXfQwxURNxn9ozPFOGU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 3336,
+          "hours": "Sun-Wed 05:30-01:00; Thu-Sat 05:30-02:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ]
+        },
+        {
+          "branch_name": "Shobak Hera",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "3894 Hira St, Al Marwah, Jeddah 23544, Saudi Arabia",
+          "google_place_id": "ChIJcQUnQdfWwxURPRs2p9KTIrQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shobak+Hera%2C+3894+Hira+St%2C+Al+Marwah%2C+Jeddah+23544%2C+Saudi+Arabia&query_place_id=ChIJcQUnQdfWwxURPRs2p9KTIrQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 3129,
+          "hours": "Sun-Wed 05:30-01:00; Thu-Sat 05:30-02:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ]
+        },
+        {
+          "branch_name": "Shobak Obhor",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al-Shamaliyah",
+          "formatted_address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+          "google_place_id": "ChIJNwDJJQdjwRURBcF9x1wloxA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shobak+Obhor%2C+Aabir+Al+Qarath+St%2C+Obhur+Al-Shamaliyah%2C+Jeddah+23815%2C+Saudi+Arabia&query_place_id=ChIJNwDJJQdjwRURBcF9x1wloxA",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 2127,
+          "hours": "Sun-Wed 05:30-01:00; Thu-Sat 05:30-02:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ]
+        },
+        {
+          "branch_name": "Shobak Hamdaniya",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamadaniyyah",
+          "formatted_address": "2974, Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+          "google_place_id": "ChIJHV8Li_J8wRURZMEMh56TV8s",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shobak+Hamdaniya%2C+2974%2C+Al+Hamadaniyyah%2C+Jeddah+23761%2C+Saudi+Arabia&query_place_id=ChIJHV8Li_J8wRURZMEMh56TV8s",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.9,
+          "google_review_count": 1517,
+          "hours": "Daily 05:30-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ]
+        },
+        {
+          "branch_name": "Shobak Red Sea Mall",
+          "city": "Jeddah",
+          "canonical_district": "Ash Shati",
+          "formatted_address": "7394 King Abdulaziz Branch Rd, Red Sea Mall, Ash Shati, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJd6zW_cPbwxURf82wh1gUmT0",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shobak+Red+Sea+Mall%2C+7394+King+Abdulaziz+Branch+Rd%2C+Red+Sea+Mall%2C+Ash+Shati%2C+Jeddah%2C+Saudi+Arabia&query_place_id=ChIJd6zW_cPbwxURf82wh1gUmT0",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 489,
+          "hours": "Daily 10:00-00:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/shobak.ksa"
+          ]
+        },
+        {
+          "branch_name": "Shobak Aziz Mall",
+          "city": "Jeddah",
+          "canonical_district": "Al Faisaliyyah",
+          "formatted_address": "Aziz Mall, Prince Majid Rd, Al Faisaliyyah, Jeddah 23447, Saudi Arabia",
+          "google_place_id": "ChIJOz09HwDRwxURKM6BX3QvDoc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shobak+Aziz+Mall%2C+Aziz+Mall%2C+Prince+Majid+Rd%2C+Al+Faisaliyyah%2C+Jeddah+23447%2C+Saudi+Arabia&query_place_id=ChIJOz09HwDRwxURKM6BX3QvDoc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 1020,
+          "hours": "Daily 14:30-03:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/shobak.ksa"
+          ]
+        },
+        {
+          "branch_name": "Shobak Andalus Mall",
+          "city": "Jeddah",
+          "canonical_district": "Al Fayha",
+          "formatted_address": "Al Andalus Mall, Prince Majid Rd, Al Fayha, Jeddah 22245, Saudi Arabia",
+          "google_place_id": "ChIJsa4bomzOwxUReIRKkT6n3ug",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shobak+Andalus+Mall%2C+Al+Andalus+Mall%2C+Prince+Majid+Rd%2C+Al+Fayha%2C+Jeddah+22245%2C+Saudi+Arabia&query_place_id=ChIJsa4bomzOwxUReIRKkT6n3ug",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 1721,
+          "hours": "Sun-Thu/Sat 08:00-01:00; Fri 13:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/shobak.ksa"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Al Hatab",
+      "arabic_name": "الحطب",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "bakery",
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current official branch finder shows a broad Jeddah network; manakish/savory pies are part of the brand's bakery offering.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "signature_dishes": null,
+      "price_positioning": "affordable_to_mid_range",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://alhatab.com.sa/our-branches"
+      ],
+      "branches": [
+        {
+          "branch_name": "Al Hatab Bawadi",
+          "city": "Jeddah",
+          "canonical_district": "Al Bawadi",
+          "formatted_address": "Hira St, Al Bawadi, Jeddah 23531, Saudi Arabia",
+          "google_place_id": "ChIJiTctdaTRwxURpGkRweXujLg",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+Bawadi%2C+Hira+St%2C+Al+Bawadi%2C+Jeddah+23531%2C+Saudi+Arabia&query_place_id=ChIJiTctdaTRwxURpGkRweXujLg",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 1739,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab Naseem",
+          "city": "Jeddah",
+          "canonical_district": "An Naseem",
+          "formatted_address": "King Abdullah Rd, An Naseem, Jeddah 23233, Saudi Arabia",
+          "google_place_id": "ChIJN_TndgjPwxURSYCVCoiNptk",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+Naseem%2C+King+Abdullah+Rd%2C+An+Naseem%2C+Jeddah+23233%2C+Saudi+Arabia&query_place_id=ChIJN_TndgjPwxURSYCVCoiNptk",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 1999,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab Safa",
+          "city": "Jeddah",
+          "canonical_district": "Al Safa",
+          "formatted_address": "JDSA7080, 7080 Umm Al Qoura, 4237, Al Safa, Jeddah 23453, Saudi Arabia",
+          "google_place_id": "ChIJkeylbYbRwxURBacZDW4faFs",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+Safa%2C+JDSA7080%2C+7080+Umm+Al+Qoura%2C+4237%2C+Al+Safa%2C+Jeddah+23453%2C+Saudi+Arabia&query_place_id=ChIJkeylbYbRwxURBacZDW4faFs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 1840,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab Hamdaniyyah",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamadaniyyah",
+          "formatted_address": "2976 Abi Firas Al Hamadani, Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+          "google_place_id": "ChIJ5zVBFXx9wRURMhNjfOnYyE0",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+Hamdaniyyah%2C+2976+Abi+Firas+Al+Hamadani%2C+Al+Hamadaniyyah%2C+Jeddah+23761%2C+Saudi+Arabia&query_place_id=ChIJ5zVBFXx9wRURMhNjfOnYyE0",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 1160,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab Naeem",
+          "city": "Jeddah",
+          "canonical_district": "Al Naeem",
+          "formatted_address": "Al Naeem, Jeddah 23526, Saudi Arabia",
+          "google_place_id": "ChIJJZmPlY_bwxURzxVGm7MLvxs",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+Naeem%2C+Al+Naeem%2C+Jeddah+23526%2C+Saudi+Arabia&query_place_id=ChIJJZmPlY_bwxURzxVGm7MLvxs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 1037,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab Rawdah",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Ar Rawdah, Jeddah 23433, Saudi Arabia",
+          "google_place_id": "ChIJ10vH-_vbwxURQ_NhwHi2gH8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+Rawdah%2C+Ar+Rawdah%2C+Jeddah+23433%2C+Saudi+Arabia&query_place_id=ChIJ10vH-_vbwxURQ_NhwHi2gH8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 930,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab Sanabel",
+          "city": "Jeddah",
+          "canonical_district": "Al Sanabel",
+          "formatted_address": "97XM+HQC, Al Sanabel, Jeddah 22444, Saudi Arabia",
+          "google_place_id": "ChIJwy9rtwLLwxURtsh-m7pwKno",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+Sanabel%2C+97XM%2BHQC%2C+Al+Sanabel%2C+Jeddah+22444%2C+Saudi+Arabia&query_place_id=ChIJwy9rtwLLwxURtsh-m7pwKno",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 582,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab North Obhur",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al-Shamaliyah",
+          "formatted_address": "8655 Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "google_place_id": "ChIJA7TnNpNjwRURISn7Pp9d9iU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+North+Obhur%2C+8655+Aabir+Al+Qarath+St%2C+Obhur+Al-Shamaliyah%2C+Jeddah+23817%2C+Saudi+Arabia&query_place_id=ChIJA7TnNpNjwRURISn7Pp9d9iU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 550,
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab TO GO Khalidiyah",
+          "city": "Jeddah",
+          "canonical_district": "Al Khalidiyyah",
+          "formatted_address": "H44J+3XV, Al Khalidiyyah, Jeddah 23421, Saudi Arabia",
+          "google_place_id": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "usable_with_caution",
+          "notes": "Current official branch finder confirms this TO GO point; branch-specific Google entity was not independently captured in this pass.",
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab TO GO Fayha",
+          "city": "Jeddah",
+          "canonical_district": "Al Fayha",
+          "formatted_address": "G658+98R, Al Fayha, Jeddah 22245, Saudi Arabia",
+          "google_place_id": "ChIJPapSg3bPwxURY6ikHQWkO8k",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+TO+GO+Fayha%2C+G658%2B98R%2C+Al+Fayha%2C+Jeddah+22245%2C+Saudi+Arabia&query_place_id=ChIJPapSg3bPwxURY6ikHQWkO8k",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 10,
+          "hours": "Daily 06:00-00:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        },
+        {
+          "branch_name": "Al Hatab TO GO Mohammadiyyah",
+          "city": "Jeddah",
+          "canonical_district": "Al Mohammadiyyah",
+          "formatted_address": "M47C+9J6, Al Mohammadiyyah, Jeddah 23618, Saudi Arabia",
+          "google_place_id": "ChIJaUOPPADZwxURpJkRpZpj0Yc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al+Hatab+TO+GO+Mohammadiyyah%2C+M47C%2B9J6%2C+Al+Mohammadiyyah%2C+Jeddah+23618%2C+Saudi+Arabia&query_place_id=ChIJaUOPPADZwxURpJkRpZpj0Yc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.5,
+          "google_review_count": 2,
+          "hours": "Daily 06:00-00:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "usable_with_caution",
+          "notes": "Very low review count; official network confirms location.",
+          "sources": [
+            "https://alhatab.com.sa/our-branches"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Manqousheh Hut",
+      "arabic_name": "منقوشة هت",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Multiple current Jeddah branches with strong ratings and substantial review volume.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "manakish"
+      ],
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [],
+      "branches": [
+        {
+          "branch_name": "Manqousheh Hut Naseem",
+          "city": "Jeddah",
+          "canonical_district": "An Naseem",
+          "formatted_address": "Abu Thar Al-Ghifari, An Naseem, Jeddah 23234, Saudi Arabia",
+          "google_place_id": "ChIJ979554nNwxUR2Ya-2TwPMzM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Manqousheh+Hut+Naseem%2C+Abu+Thar+Al-Ghifari%2C+An+Naseem%2C+Jeddah+23234%2C+Saudi+Arabia&query_place_id=ChIJ979554nNwxUR2Ya-2TwPMzM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 1617,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        },
+        {
+          "branch_name": "Manqousheh Hut Faisaliyyah",
+          "city": "Jeddah",
+          "canonical_district": "Al Faisaliyyah",
+          "formatted_address": "Prince Saud Al Faisal, Al Faisaliyyah, Jeddah 23442, Saudi Arabia",
+          "google_place_id": "ChIJo5ZdlkTQwxURJeMzH-yQRzA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Manqousheh+Hut+Faisaliyyah%2C+Prince+Saud+Al+Faisal%2C+Al+Faisaliyyah%2C+Jeddah+23442%2C+Saudi+Arabia&query_place_id=ChIJo5ZdlkTQwxURJeMzH-yQRzA",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 1397,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        },
+        {
+          "branch_name": "Manqousheh Hut Marwah",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "Hira St, Al Marwah, Jeddah 23544, Saudi Arabia",
+          "google_place_id": "ChIJxy3vAPnXwxURX4OEv4TlGfo",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Manqousheh+Hut+Marwah%2C+Hira+St%2C+Al+Marwah%2C+Jeddah+23544%2C+Saudi+Arabia&query_place_id=ChIJxy3vAPnXwxURX4OEv4TlGfo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 373,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        },
+        {
+          "branch_name": "Manqousheh Hut Hira/King Abdulaziz",
+          "city": "Jeddah",
+          "canonical_district": "unknown",
+          "formatted_address": "Hira St / King Abdulaziz Branch Rd, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJc3_3vA7bwxURTBOVH1-fPCk",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Manqousheh+Hut+Hira%2FKing+Abdulaziz%2C+Hira+St+%2F+King+Abdulaziz+Branch+Rd%2C+Jeddah%2C+Saudi+Arabia&query_place_id=ChIJc3_3vA7bwxURTBOVH1-fPCk",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 324,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "manual_review",
+          "notes": "Current 24-hour branch is verified at Hira St / King Abdulaziz Branch Rd, but the exact canonical district remains unresolved. Do not guess; keep manual_review until district or coordinates are independently verified.",
+          "sources": [
+            "https://restaurantguru.com/mnqwshh-ht-Jeddah-3"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Umm Al Zulf",
+      "arabic_name": "أم الزلف",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Two current Jeddah branches; Rawdah branch has very high review volume and strong rating.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "wood-fired manakish"
+      ],
+      "price_positioning": "mid_range",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://linktr.ee/umm_alzulf"
+      ],
+      "branches": [
+        {
+          "branch_name": "Umm Al Zulf Rawdah",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Khalidiyah 7916, Ar Rawdah, Jeddah 23433, Saudi Arabia",
+          "google_place_id": "ChIJI_RabDLRwxURL_IIuimTBXc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Umm+Al+Zulf+Rawdah%2C+Khalidiyah+7916%2C+Ar+Rawdah%2C+Jeddah+23433%2C+Saudi+Arabia&query_place_id=ChIJI_RabDLRwxURL_IIuimTBXc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 4629,
+          "hours": "Daily 06:00-02:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/umm_alzulf"
+          ]
+        },
+        {
+          "branch_name": "Umm Al Zulf Mohammadiyyah",
+          "city": "Jeddah",
+          "canonical_district": "Al Mohammadiyyah",
+          "formatted_address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23623, Saudi Arabia",
+          "google_place_id": "ChIJlYPwNwDZwxURdalDJLa8apQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Umm+Al+Zulf+Mohammadiyyah%2C+Prince+Sultan+Rd%2C+Al+Mohammadiyyah%2C+Jeddah+23623%2C+Saudi+Arabia&query_place_id=ChIJlYPwNwDZwxURdalDJLa8apQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 787,
+          "hours": "Daily 06:00-02:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/umm_alzulf"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Shaikh Manqoosh",
+      "arabic_name": "شيخ منقوش",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "lebanese"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Established Rawdah/Sari specialist with ~2.4k Google reviews and current Jeddah food coverage.",
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "zaatar manakish",
+        "cheese manakish",
+        "meat manakish"
+      ],
+      "price_positioning": "mid_range",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://restaurantguru.com/Shaikh-Manqoosh-Jeddah",
+        "https://destinationksa.com/en/13-irresistible-budget-eats-in-jeddah/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Shaikh Manqoosh Rawdah",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Al-Madinah Al-Munawarah Rd, Sari St, Ar Rawdah, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJva3U5XbQwxURHedWXjSbUO8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shaikh+Manqoosh+Rawdah%2C+Al-Madinah+Al-Munawarah+Rd%2C+Sari+St%2C+Ar+Rawdah%2C+Jeddah%2C+Saudi+Arabia&query_place_id=ChIJva3U5XbQwxURHedWXjSbUO8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 2467,
+          "hours": "Daily 07:00-00:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://restaurantguru.com/Shaikh-Manqoosh-Jeddah"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Fatayer Al Tayar",
+      "arabic_name": "فطائر على الطاير",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Dedicated fatayer concept with substantial Marwah review volume; separate Muhammadiyyah listing is currently temporarily closed.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": null,
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [],
+      "branches": [
+        {
+          "branch_name": "Fatayer Al Tayar Marwah",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "Abdul Rahman Al Khuza'i, Al Marwah, Jeddah 23545, Saudi Arabia",
+          "google_place_id": "ChIJRzlI4MvWwxURRHuFghgnK6E",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fatayer+Al+Tayar+Marwah%2C+Abdul+Rahman+Al+Khuza%27i%2C+Al+Marwah%2C+Jeddah+23545%2C+Saudi+Arabia&query_place_id=ChIJRzlI4MvWwxURRHuFghgnK6E",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 1407,
+          "hours": "Daily 06:00-04:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        },
+        {
+          "branch_name": "Fatayer Al Tayar Mohammadiyyah",
+          "city": "Jeddah",
+          "canonical_district": "Al Mohammadiyyah",
+          "formatted_address": "Safiyyah bint Abdul Muttalib St, Al Mohammadiyyah, Jeddah 23621, Saudi Arabia",
+          "google_place_id": "ChIJVW5BXADZwxURa34bphazzSQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fatayer+Al+Tayar+Mohammadiyyah%2C+Safiyyah+bint+Abdul+Muttalib+St%2C+Al+Mohammadiyyah%2C+Jeddah+23621%2C+Saudi+Arabia&query_place_id=ChIJVW5BXADZwxURa34bphazzSQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 349,
+          "hours": null,
+          "operating_status": "temporarily_closed",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "excluded",
+          "notes": "Keep historical/current-status record, but exclude from recommendation pool until reverified open.",
+          "sources": []
+        }
+      ]
+    },
+    {
+      "canonical_name": "Fatayer Aelaty Al-Lubnaniah",
+      "arabic_name": "فطائر عائلتي اللبنانية",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "lebanese"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Two current 24-hour Jeddah branches with substantial reviews; Marwah historical branch is closed.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "cheese pies",
+        "manakish"
+      ],
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/ftaer-aaelty-allbnanyh-fra-alsfa?to=place.ChIJWWPVvAnRwxURJcsSQT3q384",
+        "https://www.waze.com/ar/live-map/directions/sa/mkh-almkrmh/jdh/ftaer-aaelty-allbnanyh?to=place.ChIJucTEptnTwxUR8q53oemVBWo"
+      ],
+      "branches": [
+        {
+          "branch_name": "Fatayer Aelaty Safa",
+          "city": "Jeddah",
+          "canonical_district": "Al Safa",
+          "formatted_address": "7211 Prince Mutaib bin Abdulaziz Rd, 3222, Al Safa, Jeddah 23453, Saudi Arabia",
+          "google_place_id": "ChIJWWPVvAnRwxURJcsSQT3q384",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fatayer+Aelaty+Safa%2C+7211+Prince+Mutaib+bin+Abdulaziz+Rd%2C+3222%2C+Al+Safa%2C+Jeddah+23453%2C+Saudi+Arabia&query_place_id=ChIJWWPVvAnRwxURJcsSQT3q384",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 1100,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/ftaer-aaelty-allbnanyh-fra-alsfa?to=place.ChIJWWPVvAnRwxURJcsSQT3q384"
+          ]
+        },
+        {
+          "branch_name": "Fatayer Aelaty Samer",
+          "city": "Jeddah",
+          "canonical_district": "Al Samer",
+          "formatted_address": "Al Samer, Jeddah 23464, Saudi Arabia",
+          "google_place_id": "ChIJucTEptnTwxUR8q53oemVBWo",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fatayer+Aelaty+Samer%2C+Al+Samer%2C+Jeddah+23464%2C+Saudi+Arabia&query_place_id=ChIJucTEptnTwxUR8q53oemVBWo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 947,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://www.waze.com/ar/live-map/directions/sa/mkh-almkrmh/jdh/ftaer-aaelty-allbnanyh?to=place.ChIJucTEptnTwxUR8q53oemVBWo"
+          ]
+        },
+        {
+          "branch_name": "Fatayer Aelaty Marwah (historical)",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "3894 Hira, Al Marwah District, Jeddah 23544, Saudi Arabia",
+          "google_place_id": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "permanently_closed",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "excluded",
+          "notes": "Historical branch explicitly marked closed; retained only to prevent accidental re-import as active.",
+          "sources": [
+            "https://www.bizmideast.com/SA/%D9%81%D8%B7%D8%A7%D8%A6%D8%B1-%D8%B9%D8%A7%D8%A6%D9%84%D8%AA%D9%8A-%D8%A7%D9%84%D9%84%D8%A8%D9%86%D8%A7%D9%86%D9%8A%D8%A9-%D9%81%D8%B1%D8%B9-%D8%A7%D9%84%D9%85%D8%B1%D9%88%D8%A9"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Kdousha",
+      "arabic_name": "كدوشة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "lebanese"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current brand page confirms two Jeddah branches and manakish/Lebanese kaak positioning.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "manakish",
+        "Lebanese kaak"
+      ],
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://kadosha.carrd.co/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Kdousha Safa",
+          "city": "Jeddah",
+          "canonical_district": "Al Safa",
+          "formatted_address": "Umm Al Qoura, Al Safa, Jeddah 23453, Saudi Arabia",
+          "google_place_id": "ChIJmWOER3TRwxURL8c0aQH82ok",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Kdousha+Safa%2C+Umm+Al+Qoura%2C+Al+Safa%2C+Jeddah+23453%2C+Saudi+Arabia&query_place_id=ChIJmWOER3TRwxURL8c0aQH82ok",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 799,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://kadosha.carrd.co/"
+          ]
+        },
+        {
+          "branch_name": "Kdousha Naseem",
+          "city": "Jeddah",
+          "canonical_district": "An Naseem",
+          "formatted_address": "Abu Thar Al-Ghifari, An Naseem, Jeddah, Saudi Arabia",
+          "google_place_id": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official brand page confirms Naseem branch; branch-specific Google Place ID was not safely captured in this pass.",
+          "sources": [
+            "https://kadosha.carrd.co/"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Furn Aldayaa",
+      "arabic_name": "فرن الضيعة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical listing and active official ordering/social hub.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": null,
+      "price_positioning": "mid_range",
+      "confidence": "medium",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "usable_with_caution",
+      "sources": [
+        "https://linktr.ee/furnaldaya"
+      ],
+      "branches": [
+        {
+          "branch_name": "Furn Aldayaa Al Rabi",
+          "city": "Jeddah",
+          "canonical_district": "Al Rabi'",
+          "formatted_address": "Al Rabi', Jeddah 23462, Saudi Arabia",
+          "google_place_id": "ChIJQd83oxzRwxURoa3HQLN4MXw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Furn+Aldayaa+Al+Rabi%2C+Al+Rabi%27%2C+Jeddah+23462%2C+Saudi+Arabia&query_place_id=ChIJQd83oxzRwxURoa3HQLN4MXw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 257,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://linktr.ee/furnaldaya"
+          ]
+        }
+      ],
+      "manual_review": [
+        "Search results contain similarly named locations; only the current Al Rabi' Google entity is imported here. Do not merge other similarly named listings without branch-level verification."
+      ]
+    },
+    {
+      "canonical_name": "Pie Box",
+      "arabic_name": "صندوق الفطيرة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "pies"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "rising",
+      "classification_evidence": "Strong current review score/volume and current official location page; focused pie concept.",
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "savory pies"
+      ],
+      "price_positioning": "affordable",
+      "confidence": "medium",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "usable_with_caution",
+      "sources": [
+        "https://linktr.ee/pieboxsa",
+        "https://restaurantguru.com/sndwq-alftyrh-Pie-Box-Jeddah"
+      ],
+      "branches": [
+        {
+          "branch_name": "Pie Box King Abdullah / Prince Majid",
+          "city": "Jeddah",
+          "canonical_district": "unknown",
+          "formatted_address": "King Abdullah Rd & Prince Majid Rd, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJV_i3cQDPwxURLLoAk11uU_8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Pie+Box+King+Abdullah+%2F+Prince+Majid%2C+King+Abdullah+Rd+%26+Prince+Majid+Rd%2C+Jeddah%2C+Saudi+Arabia&query_place_id=ChIJV_i3cQDPwxURLLoAk11uU_8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 895,
+          "hours": "Daily 06:00-02:30",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "manual_review",
+          "notes": "Official current location confirms the intersection, but canonical district could not be safely resolved without guessing. Keep out of Nearby district filtering until district/coordinates are verified.",
+          "sources": [
+            "https://linktr.ee/pieboxsa",
+            "https://restaurantguru.com/sndwq-alftyrh-Pie-Box-Jeddah"
+          ]
+        }
+      ],
+      "manual_review": [
+        "A Yango listing points to a different Thaghr/Bakhashab address. Official current Pie Box page points to King Abdullah Rd / Prince Majid Rd, so the latter is retained and the conflicting listing is not imported."
+      ]
+    },
+    {
+      "canonical_name": "Agha Bakery",
+      "arabic_name": "أفران الآغا",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "bakery"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Dedicated Lebanese manakish bakery with a strong current rating and hundreds of reviews.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "Lebanese manakish"
+      ],
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://restaurantguru.com/Agha-Bakery-afran-alaagha-mnaqysh-lbnanyh-Jeddah"
+      ],
+      "branches": [
+        {
+          "branch_name": "Agha Bakery",
+          "city": "Jeddah",
+          "canonical_district": "Al Salamah",
+          "formatted_address": "Abdul Rahman bin Ahmad Al Sudairi St, Al Salamah, Jeddah 23437, Saudi Arabia",
+          "google_place_id": "ChIJdXTfdcnRwxURVQoRipkBpd0",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Agha+Bakery%2C+Abdul+Rahman+bin+Ahmad+Al+Sudairi%2C+Jeddah+23437%2C+Saudi+Arabia&query_place_id=ChIJdXTfdcnRwxURVQoRipkBpd0",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 583,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://restaurantguru.com/Agha-Bakery-afran-alaagha-mnaqysh-lbnanyh-Jeddah",
+            "https://maps.yango.com/ar-sa/org/151645678396/"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Fatayer Al Ameen",
+      "arabic_name": "فطائر الأمين",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Dedicated pie shop with multiple independently verified Jeddah branches.",
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner"
+      ],
+      "healthy": null,
+      "signature_dishes": null,
+      "price_positioning": "budget",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [],
+      "branches": [
+        {
+          "branch_name": "Fatayer Al Ameen Fayha",
+          "city": "Jeddah",
+          "canonical_district": "Al Fayha",
+          "formatted_address": "6607 4193 Zainab bint Maslamah, Al Fayha, Jeddah 22246, Saudi Arabia",
+          "google_place_id": "ChIJAd3e24nOwxURm1WlH1CJt7A",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fatayer+Al+Ameen+Fayha%2C+6607+4193+Zainab+bint+Maslamah%2C+Al+Fayha%2C+Jeddah+22246%2C+Saudi+Arabia&query_place_id=ChIJAd3e24nOwxURm1WlH1CJt7A",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 835,
+          "hours": "Daily 06:00-12:00 and 18:00-00:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        },
+        {
+          "branch_name": "Fatayer Al Ameen Rabwah",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rabwah",
+          "formatted_address": "5018 7156 Asaad Ibn Harethah, Ar Rabwah, Jeddah 23448, Saudi Arabia",
+          "google_place_id": "ChIJtWFUW-TQwxUREFjtP4AlGTA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fatayer+Al+Ameen+Rabwah%2C+5018+7156+Asaad+Ibn+Harethah%2C+Ar+Rabwah%2C+Jeddah+23448%2C+Saudi+Arabia&query_place_id=ChIJtWFUW-TQwxUREFjtP4AlGTA",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 207,
+          "hours": "Sun-Thu 06:00-12:00 & 18:00-00:00; Fri 06:00-11:30 & 19:00-23:00; Sat 06:00-12:00 & 18:00-23:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        },
+        {
+          "branch_name": "Fatayer Al Ameen Abrq Al Raghamah",
+          "city": "Jeddah",
+          "canonical_district": "Abrq Al Raghamah",
+          "formatted_address": "7721, Abrq Al Raghamah, Jeddah 22264, Saudi Arabia",
+          "google_place_id": "ChIJYSHX623NwxURVHueateKyGA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fatayer+Al+Ameen+Abrq+Al+Raghamah%2C+7721%2C+Abrq+Al+Raghamah%2C+Jeddah+22264%2C+Saudi+Arabia&query_place_id=ChIJYSHX623NwxURVHueateKyGA",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 186,
+          "hours": "Daily 06:00-12:00 and 16:00-00:00",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "canonical_name": "Mathaq Al Manousheh",
+      "arabic_name": "مذاق المنئوشة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "staple",
+      "classification_evidence": "Large Jeddah branch network with substantial branch-specific review volumes; current menu remains strongly manakish-focused.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "manakish",
+        "mini manakish boxes"
+      ],
+      "price_positioning": "affordable_to_mid_range",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://mthaq-almanousheh.yallaqrcodes.com/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Mathaq Al Manousheh Amir Fawwaz South",
+          "city": "Jeddah",
+          "canonical_district": "Al Amir Fawwaz Al Junoobi",
+          "formatted_address": "Sayed Al-Shuhada'a, Al Amir Fawwaz Al Junoobi, Jeddah 22431, Saudi Arabia",
+          "google_place_id": "ChIJCbRwAJXNwxURS1PVLaHF1po",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Amir+Fawwaz+South%2C+Sayed+Al-Shuhada%27a%2C+Al+Amir+Fawwaz+Al+Junoobi%2C+Jeddah+22431%2C+Saudi+Arabia&query_place_id=ChIJCbRwAJXNwxURS1PVLaHF1po",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 1699,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Bawadi",
+          "city": "Jeddah",
+          "canonical_district": "Al Bawadi",
+          "formatted_address": "Qouraish, Al Bawadi, Jeddah 22351, Saudi Arabia",
+          "google_place_id": "ChIJw_JmJ_3RwxURLhqHaYMtXzM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Bawadi%2C+Qouraish%2C+Al+Bawadi%2C+Jeddah+22351%2C+Saudi+Arabia&query_place_id=ChIJw_JmJ_3RwxURLhqHaYMtXzM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 1038,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Fayha",
+          "city": "Jeddah",
+          "canonical_district": "Al Fayha",
+          "formatted_address": "Abdullah Sulayman St, Al Fayha, Jeddah 22246, Saudi Arabia",
+          "google_place_id": "ChIJObRbEizPwxUR9fzPA-jpacE",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Fayha%2C+Abdullah+Sulayman+St%2C+Al+Fayha%2C+Jeddah+22246%2C+Saudi+Arabia&query_place_id=ChIJObRbEizPwxUR9fzPA-jpacE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 942,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Mohammadiyyah",
+          "city": "Jeddah",
+          "canonical_district": "Al Mohammadiyyah",
+          "formatted_address": "King Abdulaziz Branch Rd, Al Mohammadiyyah, Jeddah 23617, Saudi Arabia",
+          "google_place_id": "ChIJXeSoFmbZwxURtqPxPOpq9-s",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Mohammadiyyah%2C+King+Abdulaziz+Branch+Rd%2C+Al+Mohammadiyyah%2C+Jeddah+23617%2C+Saudi+Arabia&query_place_id=ChIJXeSoFmbZwxURtqPxPOpq9-s",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 515,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Safa",
+          "city": "Jeddah",
+          "canonical_district": "Al Safa",
+          "formatted_address": "Prince Saud Al Faisal, Al Safa, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJHzzqKAfRwxURXZkH7nhc7f8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Safa%2C+Prince+Saud+Al+Faisal%2C+Al+Safa%2C+Jeddah%2C+Saudi+Arabia&query_place_id=ChIJHzzqKAfRwxURXZkH7nhc7f8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 763,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Rawdah",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Hamad Al Jaser, Ar Rawdah, Jeddah 23434, Saudi Arabia",
+          "google_place_id": "ChIJzbVSWazRwxURUU6dXN5lMZI",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Rawdah%2C+Hamad+Al+Jaser%2C+Ar+Rawdah%2C+Jeddah+23434%2C+Saudi+Arabia&query_place_id=ChIJzbVSWazRwxURUU6dXN5lMZI",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 408,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Taiba",
+          "city": "Jeddah",
+          "canonical_district": "Taiba",
+          "formatted_address": "6561 Al-Madinah Al-Munawarah Rd, Taiba, Jeddah 23832, Saudi Arabia",
+          "google_place_id": "ChIJxQSEtTZlwRURUkl_uQ1K3IY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Taiba%2C+6561+Al-Madinah+Al-Munawarah+Rd%2C+Taiba%2C+Jeddah+23832%2C+Saudi+Arabia&query_place_id=ChIJxQSEtTZlwRURUkl_uQ1K3IY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 2432,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Rayaan",
+          "city": "Jeddah",
+          "canonical_district": "Al Rayaan",
+          "formatted_address": "Al Drees Station, P623, Al Rayaan, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJE8I6G319wRURbssQ6JXu1V8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Rayaan%2C+Al+Drees+Station%2C+P623%2C+Al+Rayaan%2C+Jeddah%2C+Saudi+Arabia&query_place_id=ChIJE8I6G319wRURbssQ6JXu1V8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 2206,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Sanabel",
+          "city": "Jeddah",
+          "canonical_district": "Al Sanabel",
+          "formatted_address": "Al Sanabel, Jeddah 22444, Saudi Arabia",
+          "google_place_id": "ChIJ6yBhbZ_LwxURLFcGIxWmmhw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Sanabel%2C+Al+Sanabel%2C+Jeddah+22444%2C+Saudi+Arabia&query_place_id=ChIJ6yBhbZ_LwxURLFcGIxWmmhw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 1054,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Harazat",
+          "city": "Jeddah",
+          "canonical_district": "Al Harazat",
+          "formatted_address": "Al Harazat Main St, Jeddah 22393, Saudi Arabia",
+          "google_place_id": "ChIJNTXaciYtwhURG1RA-SMBc04",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Harazat%2C+Al+Harazat+Main+St%2C+Jeddah+22393%2C+Saudi+Arabia&query_place_id=ChIJNTXaciYtwhURG1RA-SMBc04",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 674,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Qryniah",
+          "city": "Jeddah",
+          "canonical_district": "Al Qryniah",
+          "formatted_address": "8736 Al Lith Branch Rd, Al Qryniah, Jeddah 22624, Saudi Arabia",
+          "google_place_id": "ChIJxSuDOIq1wxUR1TxAK47qw0o",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Qryniah%2C+8736+Al+Lith+Branch+Rd%2C+Al+Qryniah%2C+Jeddah+22624%2C+Saudi+Arabia&query_place_id=ChIJxSuDOIq1wxUR1TxAK47qw0o",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 887,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Waha",
+          "city": "Jeddah",
+          "canonical_district": "Al Waha",
+          "formatted_address": "Al Waha, Jeddah 23354, Saudi Arabia",
+          "google_place_id": "ChIJiUa5iPjTwxURXXK4gKS-SEM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Mathaq+Al+Manousheh+Waha%2C+Al+Waha%2C+Jeddah+23354%2C+Saudi+Arabia&query_place_id=ChIJiUa5iPjTwxURXXK4gKS-SEM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 641,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": [
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Manqousha House",
+      "arabic_name": "منقوشة هاوس",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Strong Shati branch rating with several hundred reviews; dedicated manakish/pie positioning.",
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "manakish"
+      ],
+      "price_positioning": "budget",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [],
+      "branches": [
+        {
+          "branch_name": "Manqousha House Shati",
+          "city": "Jeddah",
+          "canonical_district": "Ash Shati",
+          "formatted_address": "Abu Al Abbas Ibn Abdulmutalib, Ash Shati, Jeddah 23513, Saudi Arabia",
+          "google_place_id": "ChIJZYx-wDXbwxURP4uf1EL4w88",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Manqousha+House+Shati%2C+Abu+Al+Abbas+Ibn+Abdulmutalib%2C+Ash+Shati%2C+Jeddah+23513%2C+Saudi+Arabia&query_place_id=ChIJZYx-wDXbwxURP4uf1EL4w88",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 560,
+          "hours": "Daily 07:00-23:30",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "canonical_name": "Manakish Countryside",
+      "arabic_name": "مناقيش الريف",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": true,
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Dedicated manakish concept with a current physical Jeddah branch and focused menu.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": null,
+      "signature_dishes": [
+        "akkawi manakish",
+        "zaatar manakish",
+        "meat manakish",
+        "spinach pies"
+      ],
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "verification_date": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [],
+      "branches": [
+        {
+          "branch_name": "Manakish Countryside Zahra",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "Helmi Koutbi, Al Zahra, Jeddah 23425, Saudi Arabia",
+          "google_place_id": "ChIJYWLze4rawxURdUM0J9PxUgY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Manakish+Countryside+Zahra%2C+Helmi+Koutbi%2C+Al+Zahra%2C+Jeddah+23425%2C+Saudi+Arabia&query_place_id=ChIJYWLze4rawxURdUM0J9PxUgY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 352,
+          "hours": "Open 24 hours",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "notes": null,
+          "sources": []
+        }
+      ]
+    }
+  ],
+  "branch_counts": {
+    "total_records": 52,
+    "production_ready": 45,
+    "usable_with_caution": 3,
+    "manual_review": 2,
+    "excluded": 2
+  },
+  "qa": {
+    "all_brand_names_present": true,
+    "all_branch_records_have_city": true,
+    "active_recommendation_branches_without_address": [],
+    "branches_with_unknown_district": [
+      "Manqousheh Hut / Manqousheh Hut Hira/King Abdulaziz",
+      "Pie Box / Pie Box King Abdullah / Prince Majid"
+    ],
+    "branches_without_place_id": [
+      "Al Hatab / Al Hatab TO GO Khalidiyah",
+      "Fatayer Aelaty Al-Lubnaniah / Fatayer Aelaty Marwah (historical)",
+      "Kdousha / Kdousha Naseem"
+    ],
+    "final_correction_note": "Agha Bakery district was resolved to Al Salamah using a current map listing. Two branch records still have intentionally unresolved districts: Pie Box at King Abdullah/Prince Majid and Manqousheh Hut at Hira/King Abdulaziz. Both are retained as manual_review because V3 requires unknown to remain unknown rather than guessing."
+  }
+}

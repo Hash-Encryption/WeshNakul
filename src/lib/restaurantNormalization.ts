@@ -234,6 +234,10 @@ export function normalizeRestaurantItem(
   if (record.selectedBranch !== undefined) {
     result.selectedBranch = selectedBranch;
   }
+  if (record.coreStatus !== undefined || record.core_status !== undefined) {
+    const rawCore = record.coreStatus ?? record.core_status;
+    result.coreStatus = rawCore === 'core' || rawCore === 'expansion' ? rawCore : null;
+  }
 
   return result;
 }

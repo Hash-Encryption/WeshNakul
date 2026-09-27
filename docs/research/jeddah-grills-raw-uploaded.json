@@ -1,0 +1,1847 @@
+{
+  "dataset": "WeshNakul Jeddah Grills",
+  "requirements_version": "V3",
+  "city": "Jeddah, Saudi Arabia",
+  "mode": "food",
+  "primary_category": "grills",
+  "verified_at": "2026-09-27",
+  "principles": {
+    "recommendation_quality_over_catalog_size": true,
+    "verified_reality_over_completeness": true,
+    "unknowns_are_null": true,
+    "delivery_distance_policy": "strict_nearby_branch_proximity",
+    "going_out_distance_policy": "mix_nearby_and_farther_destination_worthy_options"
+  },
+  "brands": [
+    {
+      "canonical_name": "Khayal Restaurant",
+      "arabic_name": "مطعم خيال",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish",
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Established Jeddah destination since 2005; very high branch-level Google review volume and grill/barbecue positioning.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range_to_premium",
+      "signature_dishes": [
+        "mixed grills",
+        "kebabs"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": "official delivery/pick-up available"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.khayalrest.com/",
+        "https://www.khayalrest.com/locations"
+      ],
+      "branches": [
+        {
+          "branch_name": "Al Zahra / Prince Sultan",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_zahra",
+          "formatted_address": "Prince Sultan Rd, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJu1UW2WzawxUR8MSuy51UO3Q",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJu1UW2WzawxUR8MSuy51UO3Q",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 38505,
+          "hours": "Daily approximately 06:00-03:00; Friday split service shown on Maps",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.khayalrest.com/locations"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Jeddah Park / Aziziyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_aziziyah",
+          "formatted_address": "Aziziyah, Jeddah 23334, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJF4W9-KzRwxUR2-LSZrt8sDA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJF4W9-KzRwxUR2-LSZrt8sDA",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 10460,
+          "hours": "Daily breakfast and lunch/dinner service; Maps shows service to around 03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.khayalrest.com/locations"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Ennabi Grill",
+      "arabic_name": "المشوى العنابي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "saudi",
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Large Saudi grill chain with multiple verified Jeddah physical branches, official grill-specialist positioning, and broad delivery-platform presence.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred_but_can_expand"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "mixed grill",
+        "Hijazi kebab",
+        "Halabi kebab",
+        "meat awsal",
+        "chicken kebab",
+        "shish tawook"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "yes",
+        "keeta": "yes",
+        "ninja": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.ennabigrill.com/",
+        "https://www.ennabigrill.com/locations-ennabi-grill",
+        "https://www.ennabigrill.com/menu",
+        "https://linktr.ee/EnnabiGrill_order"
+      ],
+      "branches": [
+        {
+          "branch_name": "Al Andalus",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_andalus",
+          "formatted_address": "Al Andalus, Jeddah 23326, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ549UTufFwxURMG1R3-Scvo4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ549UTufFwxURMG1R3-Scvo4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 4983,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Samer",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_samer",
+          "formatted_address": "Ankara St, Al Samer, Jeddah 23462, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ-9YjslTRwxUR8HJuFteQX-4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ-9YjslTRwxUR8HJuFteQX-4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 626,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_marwah",
+          "formatted_address": "Al Marwah, Jeddah 23545, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ5y3aATfXwxURC3Xs4g56-Ws",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5y3aATfXwxURC3Xs4g56-Ws",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 1773,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_zahra",
+          "formatted_address": "Helmi Koutbi, Al Zahra, Jeddah 23521, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJcQ5Jy9rRwxURXDeHHmS0m4w",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJcQ5Jy9rRwxURXDeHHmS0m4w",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.9,
+          "google_review_count": 643,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Sanabel",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_sanabel",
+          "formatted_address": "Khubayb Bin Adi Al Ansari St, Al Sanabel, Jeddah 22434, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJl21O157PwxURiYYWycsmS-s",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJl21O157PwxURiYYWycsmS-s",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 3189,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Hamdaniyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_hamdaniyah",
+          "formatted_address": "Al Qasim Bin Umayyah St, Al Hamdaniyyah, Jeddah 23761, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJR83N66p9wRURTMgUCJ_n7WI",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJR83N66p9wRURTMgUCJ_n7WI",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.9,
+          "google_review_count": 1824,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "North Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "obhur_al_shamaliyah",
+          "formatted_address": "Aabir Al Qarath St, Obhur Al Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJDwjCFABjwRUReL_46Or69vM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJDwjCFABjwRUReL_46Or69vM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 238,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Abdullah Bin Suleiman / Ivory Square",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_fayha",
+          "formatted_address": "Abdullah Sulayman Branch St, Ivory Square, Al Fayha, Jeddah 24444, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJq0R91-LPwxURpAZC38FdHik",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJq0R91-LPwxURpAZC38FdHik",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 2224,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order",
+            "https://yandex.com/maps/org/ivory_square/130385908790/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "usable_with_caution"
+    },
+    {
+      "canonical_name": "Kabebo",
+      "arabic_name": "كابيبو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "saudi",
+        "hijazi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Jeddah-founded Saudi Hijazi-grill specialist operating since 2007; official site confirms 11 Jeddah branches and nearby-branch delivery.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred_but_can_expand"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "quick_bite",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "beef kebab",
+        "chicken kebab",
+        "shish tawook",
+        "beef awsal",
+        "mabshoor",
+        "mixed grill platters"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "yes",
+        "brand_delivery": "yes_nearby_branches"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.kabebo.com/home",
+        "https://www.kabebo.com/",
+        "https://linktr.ee/kabebo_sa"
+      ],
+      "branches": [
+        {
+          "branch_name": "Al Samer",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_samer",
+          "formatted_address": "Abdullah Bin Atta, Al Samer, Jeddah 23462, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJhQIaw-_TwxURH5-Vf7mSzKw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJhQIaw-_TwxURH5-Vf7mSzKw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 1469,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_safa",
+          "formatted_address": "Umm Al Qoura, Al Safa, Jeddah, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJq_SWenTRwxUR_o3TqLNoU5c",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJq_SWenTRwxUR_o3TqLNoU5c",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 2295,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_marwah",
+          "formatted_address": "Abdulrahman Al Khuza'i, Al Marwah, Jeddah 23545, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJJae5YsnWwxURaBnjOMv8IUE",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJJae5YsnWwxURaBnjOMv8IUE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 857,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Ajaweed",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_ajaweed",
+          "formatted_address": "C892+C66, Al Ajaweed, Jeddah 22441, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJjZM1b13LwxURj9VLTRHnN2U",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJjZM1b13LwxURj9VLTRHnN2U",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 1874,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Falah / Hamdaniyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_hamdaniyah",
+          "formatted_address": "Amr Bin Abi Waqqas St, Jeddah 23762, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJXS31VWR9wRURBvp7q0lfI-c",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXS31VWR9wRURBvp7q0lfI-c",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 890,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_naseem",
+          "formatted_address": "7252 Umm Almuminin Safiah, Al Naseem, Jeddah 23234, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJkfumPMbPwxUR8qBdf82yC1g",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJkfumPMbPwxUR8qBdf82yC1g",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 433,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Aziziyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_aziziyah",
+          "formatted_address": "2749 Al Oudabaa, Jeddah 23342, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJQSCTaADRwxURamovLcZbS30",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJQSCTaADRwxURamovLcZbS30",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 94,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Qurainiyah Express",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_qurainiyah",
+          "formatted_address": "7633 Al Sharif Barakat Bin Mohammed, Jeddah 22535, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJP0XPKQC1wxURqgFUxrUL_lk",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJP0XPKQC1wxURqgFUxrUL_lk",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 96,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Sawari / Obhur Express",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_sawari",
+          "formatted_address": "4429 King Faisal Bin Abdulaziz Saud, Jeddah 23826, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ3TSFLQBjwRURH_-mddBpKJ4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ3TSFLQBjwRURH_-mddBpKJ4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 207,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Riyadh Express",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_riyadh",
+          "formatted_address": "Zain Al Abideen St, Al Riyadh, Jeddah 23839, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ8-cfQzl7wRUR7WnjB13bLJU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ8-cfQzl7wRUR7WnjB13bLJU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 104,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Abruq Ar Rughamah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "abruq_ar_rughamah",
+          "formatted_address": "King Abdullah Rd, Abruq Ar Rughamah, Jeddah 22272, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJEWamoqrNwxURCm1ewxzpA6U",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJEWamoqrNwxURCm1ewxzpA6U",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 65,
+          "hours": "Daily 13:00-01:00; Maps commonly shows Saturday closing 00:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Al Hamraa Barbecue Restaurant",
+      "arabic_name": "مطاعم مشويات الحمراء",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Multiple independently verified Jeddah branches with strong review counts plus official branch links; menu centers on meat/chicken mixed grills.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred_but_can_expand"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "chef mixed grill",
+        "Al Hamraa mixed grill",
+        "family grill trays"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "brand_delivery": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://linktr.ee/alhamraares",
+        "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Palestine / Mishrifah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "mishrifah",
+          "formatted_address": "4612 Palestine, Mishrifah, Jeddah 23335, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJGQtNZyrOwxUR6l_y-d7VMDs",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJGQtNZyrOwxUR6l_y-d7VMDs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 6773,
+          "hours": "Most verified branches approximately 12:00/13:00-02:00; some Thu/Fri to 03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Samer / Al Manar",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_manar",
+          "formatted_address": "JDJB3776, 7227 Al Ajawad St, Al Manar, Jeddah 23462, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ11K9xFHTwxURaYbRMNEJ8Uk",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ11K9xFHTwxURaYbRMNEJ8Uk",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 1868,
+          "hours": "Most verified branches approximately 12:00/13:00-02:00; some Thu/Fri to 03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Hamdaniyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_hamdaniyah",
+          "formatted_address": "Al Hamdaniyyah, Jeddah 23743, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJGxgs4UF9wRURs5ouaoap7oo",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJGxgs4UF9wRURs5ouaoap7oo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1493,
+          "hours": "Most verified branches approximately 12:00/13:00-02:00; some Thu/Fri to 03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Harazat",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_harazat",
+          "formatted_address": "F98F+JQ3, Al Harazat, Jeddah 22394, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ9TC1uBgzwhURg8m59k5yo8A",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ9TC1uBgzwhURg8m59k5yo8A",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 2459,
+          "hours": "Most verified branches approximately 12:00/13:00-02:00; some Thu/Fri to 03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Waziriyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_waziriyah",
+          "formatted_address": "Mada'en Al-Fahd / Al Waziriyah, Jeddah 22343, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJq3PLLgDNwxURET5Jr3yuY28",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJq3PLLgDNwxURET5Jr3yuY28",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 1369,
+          "hours": "Daily 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Sanabel",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_sanabel",
+          "formatted_address": "Khubayb Bin Adi Al Ansari, Al Sanabel, Jeddah 22436, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJMZhtZgDLwxURdiOLDJBQMa0",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJMZhtZgDLwxURdiOLDJBQMa0",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 711,
+          "hours": "Most verified branches approximately 12:00/13:00-02:00; some Thu/Fri to 03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "obhur_al_shamaliyah",
+          "formatted_address": "Aabir Al Qarath Street, Abhur Ash Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "google_maps_verified": false,
+          "google_place_id": null,
+          "google_maps_url": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": "Sat-Wed 12:00-02:00; Thu-Fri 12:00-03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://linktr.ee/alhamraares",
+            "https://yandex.com/maps/org/182039745746/",
+            "https://ar.restaurantguru.com/mtaam-mshwyat-alhmraa-fra-abhr-Jeddah"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "manual_review_notes": "Physical branch, district and address verified from current external mapping/review sources; direct Google Maps listing/Place ID still not independently resolved."
+        }
+      ],
+      "production_eligibility": "usable_with_caution"
+    },
+    {
+      "canonical_name": "Taksim Point Restaurant",
+      "arabic_name": "تقسيم بوينت",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Official site lists multiple Jeddah locations; Al Manar has very high Google review volume and the brand is strongly Turkish-grill oriented.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "mixed grill",
+        "Adana kebab",
+        "meat kebab",
+        "chicken kebab"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://taksimpoint.sa/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Al Manar",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_manar",
+          "formatted_address": "4050, Al Manar, Jeddah 23463, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ55Xb3bnXwxURGQYRKRPfdyY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ55Xb3bnXwxURGQYRKRPfdyY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 17497,
+          "hours": "Approximately 05:30-03:00; Thu/Fri later",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://taksimpoint.sa/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Waterfront / Ash Shati",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "ash_shati",
+          "formatted_address": "Marina Center near Atallah Park, Jeddah Waterfront, Ash Shati, Jeddah 23611, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJCfFzRgDbwxURiG14C-o4CqQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCfFzRgDbwxURiG14C-o4CqQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 2175,
+          "hours": "Daily approximately 13:30-04:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://taksimpoint.sa/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Jawharah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_jawharah",
+          "formatted_address": "100 Street, Al Jawharah, Jeddah 22416, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJleGZaADLwxURhUpfKIZ0yAs",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJleGZaADLwxURhUpfKIZ0yAs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 3157,
+          "hours": "Daily approximately 12:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://taksimpoint.sa/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready",
+      "unverified_locations": [
+        {
+          "name": "Taksim Express",
+          "status": "not_verified_as_physical_branch",
+          "reason": "Official brand source mentions Taksim Express, but a current exact Jeddah street address and canonical district were not independently verified. Excluded from physical branch import until verified."
+        }
+      ]
+    },
+    {
+      "canonical_name": "Al Fairouz Restaurant",
+      "arabic_name": "مطعم الفيروز",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Established in Jeddah in 1986; official site describes charcoal grill and Turkish kebabs and confirms two Jeddah branches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "Turkish kebabs",
+        "charcoal grills",
+        "Iskander"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "yes",
+        "keeta": "yes",
+        "ninja": "yes",
+        "toyou": "yes",
+        "mrsool": "yes",
+        "the_chefz": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://alfairouzrestaurants.com/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Hira Street / An Nahdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "an_nahdah",
+          "formatted_address": "Dania Center, Hira St, An Nahdah / As Salamah, Jeddah 23525, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJo8P85EPawxURYqMbgUkNMCE",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJo8P85EPawxURYqMbgUkNMCE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.9,
+          "google_review_count": 10365,
+          "hours": "Official: daily 10:00-02:00; Maps currently shows around 12:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://alfairouzrestaurants.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_safa",
+          "formatted_address": "3057 Prince Saud Al Faisal, Al Safa, Jeddah 23451, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJXVPW4AjRwxURWQVxTn_rIck",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXVPW4AjRwxURWQVxTn_rIck",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.9,
+          "google_review_count": 4191,
+          "hours": "Official: daily 10:00-02:00; Maps varies around 11:00/11:30-01:00/01:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://alfairouzrestaurants.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Shami",
+      "arabic_name": "مطاعم شامي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "syrian",
+        "levantine"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Official site states 46 years of Syrian cuisine heritage and natural-charcoal grilling; current Jeddah branch on Palestine Street.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": null,
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.shamirest.com/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Al Hamra / Palestine Street",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_hamra",
+          "formatted_address": "Palestine St, Al Hamra, Jeddah, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ3eLsLojPwxURcV7Mv5zJRWw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ3eLsLojPwxURcV7Mv5zJRWw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.7,
+          "google_review_count": 7609,
+          "hours": "Daily approximately 06:00-03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.shamirest.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Skewers Grilled Restaurant",
+      "arabic_name": "مطعم سكيوورز للمشويات",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Single current Jeddah Maps entity with strong review volume and explicit grilled/Turkish positioning.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "mixed grills",
+        "meat kebab"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "medium",
+      "source_urls": [],
+      "branches": [
+        {
+          "branch_name": "Jeddah branch",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_ruwais",
+          "formatted_address": "Al Sayyid St, Al Ruwais, Jeddah 23215, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJj7qVVL7PwxURFkiUNJEN8tY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJj7qVVL7PwxURFkiUNJEN8tY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 6425,
+          "hours": "Daily approximately 13:00-02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/skewers-grilled-restaurant"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "At Beirut Jeddah",
+      "arabic_name": "في بيروت جدة",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current physical Jeddah branch with strong Google review volume and Lebanese grill positioning.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": null,
+      "signature_dishes": [
+        "mixed grills"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "branches": [
+        {
+          "branch_name": "Al Batarji / Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_zahra",
+          "formatted_address": "Al Batarji Branch, Al Zahra, Jeddah 23521, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJgehFcwDbwxUR1kYn8vbT1rg",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJgehFcwDbwxUR1kYn8vbT1rg",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 2214,
+          "hours": "Most days approximately 12:00-03:00; Fri/Sat 08:00-03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Al Nakheel Restaurant",
+      "arabic_name": "مطعم النخيل",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Longstanding Jeddah destination; official menu identifies mixed grill as a best seller and includes lamb/chicken grill items.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": null,
+      "signature_dishes": [
+        "mixed grill",
+        "lamb kofta",
+        "lamb chops",
+        "shish tawook"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.alnakheel.group/",
+        "https://www.alnakheel.group/english-menu"
+      ],
+      "branches": [
+        {
+          "branch_name": "Corniche / Ash Shati",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "ash_shati",
+          "formatted_address": "Al Kurnaysh Branch Rd, Ash Shati, Jeddah 23413, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJh_DJ9inbwxUR0N9frVfFbdI",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJh_DJ9inbwxUR0N9frVfFbdI",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.9,
+          "google_review_count": 9734,
+          "hours": "Daily approximately 17:00-04:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.alnakheel.group/",
+            "https://www.alnakheel.group/english-menu"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Shababik",
+      "arabic_name": "شبابيك",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "High-review Lebanese destination with an official dedicated 'From the Grill' menu section.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "mixed grill"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://shababikrestaurant.com/menu"
+      ],
+      "branches": [
+        {
+          "branch_name": "Ana Special Mall / Ar Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "ar_rawdah",
+          "formatted_address": "Prince Sultan Rd, Ar Rawdah, Ana Special Mall, Jeddah 23431, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ974aorLawxURF_Xer7kszfw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ974aorLawxURF_Xer7kszfw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 7879,
+          "hours": "Sun-Fri approximately 12:30-01:00; Sat 09:00-01:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://shababikrestaurant.com/menu"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Burj Al Hamam",
+      "arabic_name": "برج الحمام",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Established Lebanese restaurant group with two current official Jeddah branches and substantial charcoal-grill menu.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "mixed grill",
+        "beef cubes",
+        "chicken tawook",
+        "Halabi kebab",
+        "lamb cutlets"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "brand_app": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.burjalhamamksa.com/en/",
+        "https://www.burjalhamamksa.com/en/branches/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Fayfa Avenue",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "ar_rawdah",
+          "formatted_address": "Prince Mohammed Bin Abdulaziz St, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJR56rhurFwxURsM4S5VFie8w",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJR56rhurFwxURsM4S5VFie8w",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 3261,
+          "hours": "Sat-Wed about 09:00-00:30; Thu-Fri to 01:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.burjalhamamksa.com/en/",
+            "https://www.burjalhamamksa.com/en/branches/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Penta Plaza",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_muhammadiyah",
+          "formatted_address": "Prince Sultan Rd, Al Muhammadiyyah, Jeddah 23621, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJN7GNUADZwxURGwdB4eTwDkU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJN7GNUADZwxURGwdB4eTwDkU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 886,
+          "hours": "Official: Sat-Wed 12:00-00:30; Thu-Fri 12:00-01:30",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://www.burjalhamamksa.com/en/",
+            "https://www.burjalhamamksa.com/en/branches/"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "usable_with_caution"
+    },
+    {
+      "canonical_name": "Saraya Latif",
+      "arabic_name": "سرايا لطيف",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Two current Jeddah Maps entities with large review counts; delivery menu confirms Adana, Urfa, tawook and mixed grills.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range_to_premium",
+      "signature_dishes": [
+        "Saraya Mix Grill",
+        "Adana kebab",
+        "Urfa kebab",
+        "shish tawook"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://ananinja.com/sa/en/restaurants/saraya-latif-20869"
+      ],
+      "branches": [
+        {
+          "branch_name": "Palestine Street / Al Hamra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_hamra",
+          "formatted_address": "Opposite Jamjoom Center, Palestine St, Jeddah 23212, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJgX0vu4nPwxURXh6srI6g3RE",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJgX0vu4nPwxURXh6srI6g3RE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 7684,
+          "hours": "Sun-Wed/Sat approx 13:00-01:00; Thu-Fri to 02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://ananinja.com/sa/en/restaurants/saraya-latif-20869"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        },
+        {
+          "branch_name": "Al Khalidiyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_khalidiyyah",
+          "formatted_address": "Prince Saud Al Faisal, Al Khalidiyyah, Jeddah 23421, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJJZdf17bawxURiMma_86FOw8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJJZdf17bawxURiMma_86FOw8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 6318,
+          "hours": "Sun-Wed/Sat approx 13:00-01:00; Thu-Fri to 02:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [
+            "https://ananinja.com/sa/en/restaurants/saraya-latif-20869"
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Yildizlar Restaurant",
+      "arabic_name": "مطعم يلدزلار",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese",
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Longstanding Jeddah restaurant with thousands of current Google reviews and historic association with grilled food.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": null,
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "medium",
+      "source_urls": [],
+      "branches": [
+        {
+          "branch_name": "Al Hamra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_hamra",
+          "formatted_address": "3274 Al Maadi, Al Hamra, Jeddah 23212, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ8_XUIZDPwxURuDB1XWsSrVs",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ8_XUIZDPwxURuDB1XWsSrVs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.8,
+          "google_review_count": 4386,
+          "hours": "Daily approximately 13:00-00:30; Thu/Fri about 00:45",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Istanbul Grill Restaurant",
+      "arabic_name": "مطعم اسطنبول جريل",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current Jeddah Turkish-grill restaurant with 2,000+ Google reviews and affordable Maps price band.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "branches": [
+        {
+          "branch_name": "Al Naeem / Hira Street",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "canonical_district": "al_naeem",
+          "formatted_address": "Hira St, Al Naeem, Jeddah, Saudi Arabia",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJpeROlxLawxURhEcynrnaKxY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJpeROlxLawxURhEcynrnaKxY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 2282,
+          "hours": "Sun-Wed/Sat approx 13:00-02:00; Thu-Fri to 03:00",
+          "phone": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_urls": [],
+          "production_eligibility": "production_ready",
+          "manual_review_notes": null
+        }
+      ],
+      "production_eligibility": "production_ready"
+    }
+  ],
+  "correction_pass": {
+    "pass": "D",
+    "checks_performed": [
+      "removed/avoided delivery-zone labels as physical-branch proof",
+      "kept branch ratings branch-specific",
+      "used direct Google Place IDs where surfaced",
+      "did not fabricate coordinates",
+      "did not fabricate delivery deep links",
+      "flagged unresolved canonical districts",
+      "flagged official branches without independently resolved Maps entities"
+    ],
+    "known_manual_review_items": [
+      "Al Hamraa Obhur: address and district verified; direct Google Maps Place ID remains unresolved, so branch is usable_with_caution.",
+      "Taksim Express: excluded from physical branches until exact current Jeddah address and district are independently verified."
+    ]
+  },
+  "summary": {
+    "brands_locked": 15,
+    "physical_branch_records": 44,
+    "branches_with_address": 44,
+    "branches_with_canonical_district": 44,
+    "branches_with_both_address_and_district": 44,
+    "production_ready_branches": 43,
+    "usable_with_caution_branches": 1,
+    "manual_review_branches": 0,
+    "excluded_unverified_locations": 1
+  }
+}

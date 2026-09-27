@@ -1,0 +1,462 @@
+{
+  "ChIJUyfUUtHFwxURvBANkV2JDck": {
+    "success": true,
+    "place_id": "ChIJUyfUUtHFwxURvBANkV2JDck",
+    "name": "نوتو",
+    "address": "نوتو، الخالدية، جدة 23421",
+    "short_address": "الخالدية، جدة 23421",
+    "district_en": "الخالدية",
+    "latitude": 21.548520999999997,
+    "longitude": 39.1382562,
+    "rating": 4.7,
+    "user_rating_count": 3323,
+    "phone": "055 090 3001",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١٢:٠٠ص; الاثنين: ١:٠٠م–١٢:٠٠ص; الثلاثاء: ١:٠٠م–١٢:٠٠ص; الأربعاء: ١:٠٠م–١٢:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١٢:٠٠ص",
+    "item": {
+      "brand": "Noto",
+      "branch": "Jeddah Walk",
+      "place_id": "ChIJUyfUUtHFwxURvBANkV2JDck"
+    }
+  },
+  "ChIJDf-YJh7bwxURl0MqeLVAWhw": {
+    "success": true,
+    "place_id": "ChIJDf-YJh7bwxURl0MqeLVAWhw",
+    "name": "سان كارلو شيكتي",
+    "address": "سان كارلو شيكتي، شارع الأمير محمد بن عبدالعزيز، الروضة، جدة 23431",
+    "short_address": "شارع الأمير محمد بن عبدالعزيز، الروضة، جدة 23431",
+    "district_en": "الروضة",
+    "latitude": 21.550590099999997,
+    "longitude": 39.1541522,
+    "rating": 4.2,
+    "user_rating_count": 4001,
+    "phone": "9200 04060",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١٢:٠٠ص; الاثنين: ١:٠٠م–١٢:٠٠ص; الثلاثاء: ١:٠٠م–١٢:٠٠ص; الأربعاء: ١:٠٠م–١:٣٠ص; الخميس: ١:٠٠م–١:٣٠ص; الجمعة: ١:٠٠م–١:٣٠ص; السبت: ١:٠٠م–١٢:٠٠ص",
+    "item": {
+      "brand": "San Carlo Cicchetti",
+      "branch": "Ar Rawdah",
+      "place_id": "ChIJDf-YJh7bwxURl0MqeLVAWhw"
+    }
+  },
+  "ChIJv0Uh5unawxURKQlZ_jaEdTY": {
+    "success": true,
+    "place_id": "ChIJv0Uh5unawxURKQlZ_jaEdTY",
+    "name": "بياتو",
+    "address": "بياتو, Etoile Center Next to Stars, Avenue Mall، طريق الملك عبدالعزيز، الزهراء، جدة 23424",
+    "short_address": "Etoile Center Next to Stars, Avenue Mall, طريق الملك عبدالعزيز، الزهراء، جدة 23424",
+    "district_en": "الزهراء",
+    "latitude": 21.5758945,
+    "longitude": 39.127302,
+    "rating": 4.3,
+    "user_rating_count": 8870,
+    "phone": "055 394 6738",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١١:٠٠ص–٢:٠٠ص; الاثنين: ١١:٠٠ص–٢:٠٠ص; الثلاثاء: ١١:٠٠ص–٢:٠٠ص; الأربعاء: ١١:٠٠ص–٢:٠٠ص; الخميس: ١١:٠٠ص–٣:٠٠ص; الجمعة: ١:٠٠م–٣:٠٠ص; السبت: ١١:٠٠ص–٢:٠٠ص",
+    "item": {
+      "brand": "Piatto",
+      "branch": "Etoile / Al Zahra",
+      "place_id": "ChIJv0Uh5unawxURKQlZ_jaEdTY"
+    }
+  },
+  "ChIJCbBXZovZwxURLTahf-whPQo": {
+    "success": true,
+    "place_id": "ChIJCbBXZovZwxURLTahf-whPQo",
+    "name": "بياتو و ستيك هاوس",
+    "address": "بياتو و ستيك هاوس، مركز القثمي، 7639 طريق الامير سلطان، المحمدية، جدة 23621",
+    "short_address": "مركز القثمي، 7639 طريق الامير سلطان، المحمدية، جدة 23621",
+    "district_en": "المحمدية",
+    "latitude": 21.6379421,
+    "longitude": 39.1319386,
+    "rating": 4.3,
+    "user_rating_count": null,
+    "phone": "053 683 1084",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١١:٠٠ص–٢:٠٠ص",
+    "item": {
+      "brand": "Piatto",
+      "branch": "Prince Sultan",
+      "place_id": "ChIJCbBXZovZwxURLTahf-whPQo"
+    }
+  },
+  "ChIJZb0FIa7PwxURV0LcamCcdhA": {
+    "success": true,
+    "place_id": "ChIJZb0FIa7PwxURV0LcamCcdhA",
+    "name": "بياتو",
+    "address": "بياتو, 45، الفيحاء، جدة 22241",
+    "short_address": "45، الفيحاء، جدة 22241",
+    "district_en": "الفيحاء",
+    "latitude": 21.5103848,
+    "longitude": 39.202632699999995,
+    "rating": 4.3,
+    "user_rating_count": null,
+    "phone": "053 712 7959",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١١:٠٠ص–١:٠٠ص",
+    "item": {
+      "brand": "Piatto",
+      "branch": "Emaar Square",
+      "place_id": "ChIJZb0FIa7PwxURV0LcamCcdhA"
+    }
+  },
+  "ChIJyweiP5h9wRURge_HLN6pGWk": {
+    "success": true,
+    "place_id": "ChIJyweiP5h9wRURge_HLN6pGWk",
+    "name": "Piatto Restaurant",
+    "address": "Piatto Restaurant, طريق الأمير طلال بن منصور بن عبدالعزيز، الأصالة، جدة 23738",
+    "short_address": "طريق الأمير طلال بن منصور بن عبدالعزيز، الأصالة، جدة 23738",
+    "district_en": "الأصالة",
+    "latitude": 21.773612999999997,
+    "longitude": 39.167837899999995,
+    "rating": 4.5,
+    "user_rating_count": null,
+    "phone": "053 712 7106",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١١:٠٠ص–١٢:٠٠ص",
+    "item": {
+      "brand": "Piatto",
+      "branch": "The Village",
+      "place_id": "ChIJyweiP5h9wRURge_HLN6pGWk"
+    }
+  },
+  "ChIJca-CWSrXwxURgh2LAWQ2AZE": {
+    "success": true,
+    "place_id": "ChIJca-CWSrXwxURgh2LAWQ2AZE",
+    "name": "بياتو",
+    "address": "بياتو، Mall of Arabia, طريق المدينة المنورة، second floor, An Nuzahah, جدة 23532",
+    "short_address": "Mall of Arabia, طريق المدينة المنورة، second floor, An Nuzahah, جدة 23532",
+    "district_en": "second floor",
+    "latitude": 21.6324683,
+    "longitude": 39.1561302,
+    "rating": 4.6,
+    "user_rating_count": null,
+    "phone": "055 400 1342",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١١:٠٠ص–١٢:٠٠ص",
+    "item": {
+      "brand": "Piatto",
+      "branch": "Mall of Arabia",
+      "place_id": "ChIJca-CWSrXwxURgh2LAWQ2AZE"
+    }
+  },
+  "ChIJt5tYPPHbwxURUUbPlY7uzWo": {
+    "success": true,
+    "place_id": "ChIJt5tYPPHbwxURUUbPlY7uzWo",
+    "name": "اوليف جاردن",
+    "address": "اوليف جاردن، 23514 طريق الملك عبدالعزيز، Branch, Atelier LaVie, جدة 23514",
+    "short_address": "23514 طريق الملك عبدالعزيز، Branch, Atelier LaVie, جدة 23514",
+    "district_en": "Branch",
+    "latitude": 21.613484099999997,
+    "longitude": 39.1179079,
+    "rating": 4.8,
+    "user_rating_count": null,
+    "phone": "059 748 5555",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١٢:٠٠م–٢:٠٠ص",
+    "item": {
+      "brand": "Olive Garden",
+      "branch": "Atelier LaVie",
+      "place_id": "ChIJt5tYPPHbwxURUUbPlY7uzWo"
+    }
+  },
+  "ChIJkR0wGgDRwxURbuskasl50nU": {
+    "success": true,
+    "place_id": "ChIJkR0wGgDRwxURbuskasl50nU",
+    "name": "Eataly",
+    "address": "Eataly, Vibes, الأندلس، Ground floor, جدة 23326",
+    "short_address": "Vibes, الأندلس، Ground floor, جدة 23326",
+    "district_en": "الأندلس",
+    "latitude": 21.5516725,
+    "longitude": 39.1602751,
+    "rating": 4.6,
+    "user_rating_count": 1480,
+    "phone": "054 702 9337",
+    "operating_status": "open",
+    "hours_text": "الأحد: ٩:٠٠ص–١٢:٠٠ص; الاثنين: ٩:٠٠ص–١٢:٠٠ص; الثلاثاء: ٩:٠٠ص–١٢:٠٠ص; الأربعاء: ٩:٠٠ص–١٢:٠٠ص; الخميس: ٩:٠٠ص–١٢:٠٠ص; الجمعة: ٩:٠٠ص–١٢:٠٠ص; السبت: ٩:٠٠ص–١٢:٠٠ص",
+    "item": {
+      "brand": "Eataly",
+      "branch": "Jeddah Vibes",
+      "place_id": "ChIJkR0wGgDRwxURbuskasl50nU"
+    }
+  },
+  "ChIJAwP2aQPQwxURGYkUSLA8hk0": {
+    "success": true,
+    "place_id": "ChIJAwP2aQPQwxURGYkUSLA8hk0",
+    "name": "مطعم ايلفيرو",
+    "address": "مطعم ايلفيرو، 3139 البريدي, حي الاندلس، جدة 23326",
+    "short_address": "3139 البريدي, حي الاندلس، جدة 23326",
+    "district_en": "حي الاندلس",
+    "latitude": 21.5486041,
+    "longitude": 39.1636355,
+    "rating": 4.4,
+    "user_rating_count": 716,
+    "phone": "054 971 4040",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–٣:٠٠ص; الاثنين: ١٢:٠٠م–٣:٠٠ص; الثلاثاء: ١٢:٠٠م–٣:٠٠ص; الأربعاء: ١٢:٠٠م–٣:٠٠ص; الخميس: ١٢:٠٠م–٣:٠٠ص; الجمعة: ١٢:٠٠م–٣:٠٠ص; السبت: ١٢:٠٠م–٣:٠٠ص",
+    "item": {
+      "brand": "IL Vero",
+      "branch": "Al Andalus",
+      "place_id": "ChIJAwP2aQPQwxURGYkUSLA8hk0"
+    }
+  },
+  "ChIJ07X0n-ZjwRURdGyPP-fukOQ": {
+    "success": true,
+    "place_id": "ChIJ07X0n-ZjwRURdGyPP-fukOQ",
+    "name": "إلفيرو احسن مطعم في السعودية",
+    "address": "إلفيرو احسن مطعم في السعودية، 3846, جدة 23816",
+    "short_address": "3846, جدة 23816",
+    "district_en": "الشراع",
+    "latitude": 21.7742376,
+    "longitude": 39.102828099999996,
+    "rating": 4.4,
+    "user_rating_count": null,
+    "phone": "057 588 3792",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١١:٠٠ص–١:٣٠ص",
+    "item": {
+      "brand": "IL Vero",
+      "branch": "Second Jeddah listing (Al Sheraa)",
+      "place_id": "ChIJ07X0n-ZjwRURdGyPP-fukOQ"
+    }
+  },
+  "ChIJnSdklK_awxURiwMU9F2xN6M": {
+    "success": true,
+    "place_id": "ChIJnSdklK_awxURiwMU9F2xN6M",
+    "name": "بورتو فينو كويزين",
+    "address": "بورتو فينو كويزين، حي الروضة، 7096 2307 شارع الامير سعود الفيصل، جدة 23431",
+    "short_address": "حي الروضة، 7096 2307 شارع الامير سعود الفيصل، جدة 23431",
+    "district_en": "الروضة",
+    "latitude": 21.5584541,
+    "longitude": 39.145452899999995,
+    "rating": 4.2,
+    "user_rating_count": 1351,
+    "phone": "012 665 5855",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠–٤:٠٠م, ٧:٣٠م–١٢:٠٠ص; الاثنين: ١:٠٠–٤:٠٠م, ٧:٣٠م–١٢:٠٠ص; الثلاثاء: ١:٠٠–٤:٠٠م, ٧:٣٠م–١٢:٠٠ص; الأربعاء: ١:٠٠–٤:٠٠م, ٧:٣٠م–١٢:٠٠ص; الخميس: ١:٠٠–٤:٠٠م, ٧:٣٠م–١٢:٠٠ص; الجمعة: ٢:٠٠م–١٢:٣٠ص; السبت: ١:٠٠–٤:٠٠م, ٧:٣٠م–١٢:٠٠ص",
+    "item": {
+      "brand": "Portofino",
+      "branch": "Ar Rawdah",
+      "place_id": "ChIJnSdklK_awxURiwMU9F2xN6M"
+    }
+  },
+  "ChIJDYKLVhrbwxURavlhB-QeaGQ": {
+    "success": true,
+    "place_id": "ChIJDYKLVhrbwxURavlhB-QeaGQ",
+    "name": "ViVACi | فيفاتشي",
+    "address": "ViVACi | فيفاتشي، 7100 2537 احمد الخطيب، الزهراء، جدة 23425",
+    "short_address": "7100 2537 احمد الخطيب، الزهراء، جدة 23425",
+    "district_en": "الزهراء",
+    "latitude": 21.582274599999998,
+    "longitude": 39.1300688,
+    "rating": 4.7,
+    "user_rating_count": null,
+    "phone": "055 103 1177",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١:٠٠ص",
+    "item": {
+      "brand": "Vivaci",
+      "branch": "Al Zahra",
+      "place_id": "ChIJDYKLVhrbwxURavlhB-QeaGQ"
+    }
+  },
+  "ChIJCTcptgHbwxURPbuWt4KeAi8": {
+    "success": true,
+    "place_id": "ChIJCTcptgHbwxURPbuWt4KeAi8",
+    "name": "ساليرنو",
+    "address": "ساليرنو، 3498 7798 شارع فهد بن زعير، الزهراء، جدة 23522",
+    "short_address": "3498 7798 شارع فهد بن زعير، الزهراء، جدة 23522",
+    "district_en": "الزهراء",
+    "latitude": 21.606474499999997,
+    "longitude": 39.1320943,
+    "rating": 4.6,
+    "user_rating_count": 1862,
+    "phone": "054 928 3842",
+    "operating_status": "open",
+    "hours_text": "الأحد: ٤:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+    "item": {
+      "brand": "Salernoo",
+      "branch": "Al Zahra",
+      "place_id": "ChIJCTcptgHbwxURPbuWt4KeAi8"
+    }
+  },
+  "ChIJQW4PGMbPwxUR-OfJcYLfYLg": {
+    "success": true,
+    "place_id": "ChIJQW4PGMbPwxUR-OfJcYLfYLg",
+    "name": "مطعم القلعة",
+    "address": "G5CP+R2G مطعم القلعة، اسد الله، الشرفية، جدة 23218",
+    "short_address": "G5CP+R2G، اسد الله، الشرفية، جدة 23218",
+    "district_en": "الشرفية",
+    "latitude": 21.5220689,
+    "longitude": 39.1850739,
+    "rating": 3.9,
+    "user_rating_count": 1477,
+    "phone": "012 660 6119",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠–٣:٣٠م, ٥:٣٠م–١٢:٠٠ص; الاثنين: ١:٠٠–٣:٣٠م, ٦:٠٠م–١٢:٠٠ص; الثلاثاء: ١:٠٠–٣:٣٠م, ٦:٠٠م–١٢:٠٠ص; الأربعاء: ١:٠٠–٣:٣٠م, ٦:٠٠م–١٢:٠٠ص; الخميس: ١:٠٠–٣:٣٠م, ٦:٠٠م–١٢:٠٠ص; الجمعة: ١:٠٠–٣:٣٠م, ٦:٠٠م–١٢:٠٠ص; السبت: ١:٠٠–٣:٣٠م, ٥:٣٠م–١٢:٠٠ص",
+    "item": {
+      "brand": "IL Castello",
+      "branch": "Al Sharafeyah",
+      "place_id": "ChIJQW4PGMbPwxUR-OfJcYLfYLg"
+    }
+  },
+  "ChIJL1hhI4zbwxURYcBSwlTBhLo": {
+    "success": true,
+    "place_id": "ChIJL1hhI4zbwxURYcBSwlTBhLo",
+    "name": "Jon & Vinny’s As-Salama",
+    "address": "Jon & Vinny’s As-Salama, السلامة، جدة 23525",
+    "short_address": "السلامة، جدة 23525",
+    "district_en": "السلامة",
+    "latitude": 21.6036875,
+    "longitude": 39.1430625,
+    "rating": 4.5,
+    "user_rating_count": null,
+    "phone": "9200 18212",
+    "operating_status": "open",
+    "hours_text": "الأحد: ٨:٠٠ص–١١:٣٠م",
+    "item": {
+      "brand": "Jon & Vinny's",
+      "branch": "La Paz / As Salamah",
+      "place_id": "ChIJL1hhI4zbwxURYcBSwlTBhLo"
+    }
+  },
+  "ChIJM2DnNgDRwxUR2Z5xk02gukQ": {
+    "success": true,
+    "place_id": "ChIJM2DnNgDRwxUR2Z5xk02gukQ",
+    "name": "نابولي بلو NAPOLI BLU",
+    "address": "نابولي بلو NAPOLI BLU، حمد الجاسر، الروضة، جدة 23435",
+    "short_address": "حمد الجاسر، الروضة، جدة 23435",
+    "district_en": "الروضة",
+    "latitude": 21.5769558,
+    "longitude": 39.156721499999996,
+    "rating": 4.7,
+    "user_rating_count": 2926,
+    "phone": "050 803 5530",
+    "operating_status": "open",
+    "hours_text": "الأحد: ٧:٠٠ص–٣:٠٠ص; الاثنين: ٧:٠٠ص–٣:٠٠ص; الثلاثاء: ٧:٠٠ص–٣:٠٠ص; الأربعاء: ٧:٠٠ص–٣:٠٠ص; الخميس: ٧:٠٠ص–٣:٠٠ص; الجمعة: ١:٠٠م–٤:٠٠ص; السبت: ٧:٠٠ص–٣:٠٠ص",
+    "item": {
+      "brand": "Napoli Blu",
+      "branch": "Ar Rawdah",
+      "place_id": "ChIJM2DnNgDRwxUR2Z5xk02gukQ"
+    }
+  },
+  "ChIJc-aQA9PbwxUR2cOZdM6POTE": {
+    "success": true,
+    "place_id": "ChIJc-aQA9PbwxUR2cOZdM6POTE",
+    "name": "Pizzalio Restaurant بيتزاليو للمأكولات الإيطالية",
+    "address": "Pizzalio Restaurant بيتزاليو للمأكولات الإيطالية, Rami street, السلامة، جدة 23436",
+    "short_address": "Rami street, السلامة، جدة 23436",
+    "district_en": "السلامة",
+    "latitude": 21.5823848,
+    "longitude": 39.1542442,
+    "rating": 4.7,
+    "user_rating_count": null,
+    "phone": "057 399 4170",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١:٠٠ص",
+    "item": {
+      "brand": "Pizzalio",
+      "branch": "As Salamah",
+      "place_id": "ChIJc-aQA9PbwxUR2cOZdM6POTE"
+    }
+  },
+  "ChIJc_9rnWbawxURdqShiels-ow": {
+    "success": true,
+    "place_id": "ChIJc_9rnWbawxURdqShiels-ow",
+    "name": "ڤيرا",
+    "address": "ڤيرا، 6849 Batterjie Street, الزهراء، District, 4144, جدة",
+    "short_address": "6849 Batterjie Street, الزهراء، District, 4144, جدة",
+    "district_en": "الزهراء",
+    "latitude": 21.5979474,
+    "longitude": 39.138719699999996,
+    "rating": 4.5,
+    "user_rating_count": null,
+    "phone": "9200 03213",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١:٠٠ص",
+    "item": {
+      "brand": "Vera Pizza",
+      "branch": "Al Zahra",
+      "place_id": "ChIJc_9rnWbawxURdqShiels-ow"
+    }
+  },
+  "ChIJUyizioNjwRURBwf0xqdZ0P4": {
+    "success": true,
+    "place_id": "ChIJUyizioNjwRURBwf0xqdZ0P4",
+    "name": "فيرا بيتزا",
+    "address": "فيرا بيتزا، شارع عابر القرات، أبحر الشمالية، جدة 23826",
+    "short_address": "شارع عابر القرات، أبحر الشمالية، جدة 23826",
+    "district_en": "أبحر الشمالية",
+    "latitude": 21.7608222,
+    "longitude": 39.117422499999996,
+    "rating": 4.7,
+    "user_rating_count": 918,
+    "phone": "9200 03213",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+    "item": {
+      "brand": "Vera Pizza",
+      "branch": "Obhur Al Shamaliyah",
+      "place_id": "ChIJUyizioNjwRURBwf0xqdZ0P4"
+    }
+  },
+  "ChIJwyXLvoXPwxURmPwwIPOhNPk": {
+    "success": true,
+    "place_id": "ChIJwyXLvoXPwxURmPwwIPOhNPk",
+    "name": "بيتزا لينيو",
+    "address": "بيتزا لينيو، المعادى، الحمراء، جدة 23212",
+    "short_address": "المعادى، الحمراء، جدة 23212",
+    "district_en": "الحمراء",
+    "latitude": 21.5138481,
+    "longitude": 39.1611901,
+    "rating": 4.4,
+    "user_rating_count": 4040,
+    "phone": "012 614 0663",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١٢:٠٠م–١٢:٤٥ص; الاثنين: ١٢:٠٠م–١٢:٤٥ص; الثلاثاء: ١٢:٠٠م–١٢:٤٥ص; الأربعاء: ١٢:٠٠م–١٢:٤٥ص; الخميس: ١٢:٠٠م–١:٤٥ص; الجمعة: ١:٠٠م–١:٤٥ص; السبت: ١٢:٠٠م–١٢:٤٥ص",
+    "item": {
+      "brand": "Pizza Lenuo",
+      "branch": "Al Hamra",
+      "place_id": "ChIJwyXLvoXPwxURmPwwIPOhNPk"
+    }
+  },
+  "ChIJOd4ucWnbwxUREsfKPgbPHMc": {
+    "success": true,
+    "place_id": "ChIJOd4ucWnbwxUREsfKPgbPHMc",
+    "name": "البوستينو بيتزاريا",
+    "address": "البوستينو بيتزاريا، 3803 صاري فرعي، الخالدية، جدة 23423",
+    "short_address": "3803 صاري فرعي، الخالدية، جدة 23423",
+    "district_en": "الخالدية",
+    "latitude": 21.5741476,
+    "longitude": 39.142584299999996,
+    "rating": 4.6,
+    "user_rating_count": 5278,
+    "phone": "050 365 0985",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–٢:٠٠ص; الجمعة: ٤:٣٠م–٢:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+    "item": {
+      "brand": "il Postino Pizzeria",
+      "branch": "Al Khalidiyyah / Sari Road",
+      "place_id": "ChIJOd4ucWnbwxUREsfKPgbPHMc"
+    }
+  },
+  "ChIJhfNya6HZwxURtxSMFrcWVnE": {
+    "success": true,
+    "place_id": "ChIJhfNya6HZwxURtxSMFrcWVnE",
+    "name": "البوستينو بيتزاريا",
+    "address": "البوستينو بيتزاريا، Al Murjan District, JEJB6434، 6434 طريق الملك عبدالعزيز فرعي، 4299, جدة 23715",
+    "short_address": "Al Murjan District, JEJB6434، 6434 طريق الملك عبدالعزيز فرعي، 4299, جدة 23715",
+    "district_en": "Al Murjan District",
+    "latitude": 21.694570199999998,
+    "longitude": 39.1081393,
+    "rating": 4.7,
+    "user_rating_count": null,
+    "phone": "053 030 3979",
+    "operating_status": "open",
+    "hours_text": "الأحد: ١:٠٠م–١:٠٠ص",
+    "item": {
+      "brand": "il Postino Pizzeria",
+      "branch": "Al Murjan / King Abdulaziz Road",
+      "place_id": "ChIJhfNya6HZwxURtxSMFrcWVnE"
+    }
+  }
+}

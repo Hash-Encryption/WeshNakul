@@ -1,0 +1,1581 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "sandwiches",
+    "display_category": "Sandwiches",
+    "verified_date": "2026-09-27",
+    "brand_count": 15,
+    "status": "PASS_WITH_FIELD_VALIDATION_COMPLETE",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknowns_are_null",
+      "delivery_distance_policy_strict_nearby_branch",
+      "going_out_distance_policy_mix_nearby_and_destination"
+    ],
+    "removed_from_category": [
+      {
+        "brand": "Bait Al Tamiya",
+        "reason": "Primary fit is falafel / street-folk food; deferred to that category."
+      }
+    ],
+    "summary": {
+      "total_brands": 15,
+      "production_ready_brands": 15,
+      "caution_brands": 0,
+      "manual_review_brands": 0,
+      "total_candidate_branches": 31,
+      "total_verified_active_branches": 28,
+      "production_ready_branches": 26,
+      "usable_with_caution_branches": 2,
+      "manual_review_branches": 3,
+      "excluded_branches": 0,
+      "canonical_district_active_branches": 26,
+      "outer_caution_branches": 2,
+      "canonical_district_total_candidates": 29,
+      "null_district_total_candidates": 2,
+      "place_id_completeness": "100.0% (28/28)",
+      "coordinate_completeness": "100.0% (28/28)",
+      "maps_url_completeness": "100.0% (28/28)",
+      "address_completeness": "100.0% (28/28)",
+      "operating_status_completeness": "100.0% (28/28)",
+      "rating_completeness": "100.0% (28/28)",
+      "review_count_completeness": "100.0% (28/28)",
+      "hours_completeness": "96.4% (27/28)"
+    }
+  },
+  "brands": [
+    {
+      "id": "dank_sandwich",
+      "canonical_name": "Dank Sandwich",
+      "arabic_name": "دانك ساندوتش",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Established Jeddah sandwich brand with large multi-branch presence across major commercial arteries, high Google review volume (>40k combined reviews), and strong local brand recognition for Philly steak and brisket sandwiches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "Philadelphia Steak Sandwich",
+        "Brisket Sandwich",
+        "Crispy Chicken Sandwich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://order.dank.sa/branches/p?language=en"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Samer / Ankara St",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Dank Sandwich, انقره، السامر، جدة 23464",
+          "raw_district": "Al Samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRQdts4nRwxURM8RG15LlCxA",
+          "google_place_id": "ChIJRQdts4nRwxURM8RG15LlCxA",
+          "latitude": 21.587164899999998,
+          "longitude": 39.2333711,
+          "google_rating": 4.5,
+          "google_review_count": 2303,
+          "operating_status": "open",
+          "hours": "الأحد: ١١:٠٠ص–٢:٠٠ص",
+          "phone": "9200 35553",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://order.dank.sa/branches/p?language=en"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_samer."
+        },
+        {
+          "branch_name": "Palm Walk / Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Dank Sandwich, الشيخ عبدالعزيز بن باز، المروة، جدة 23543",
+          "raw_district": "Al Marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ7RvwfKzRwxUR1cXCQmVe8RA",
+          "google_place_id": "ChIJ7RvwfKzRwxUR1cXCQmVe8RA",
+          "latitude": 21.6050309,
+          "longitude": 39.209300299999995,
+          "google_rating": 4.9,
+          "google_review_count": 2706,
+          "operating_status": "open",
+          "hours": "الأحد: ١١:٠٠ص–٢:٠٠ص",
+          "phone": "9200 35553",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://order.dank.sa/branches/p?language=en"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "Al Makarunah Rd",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Dank Sandwich، طريق المكرونة، حي الربوة، جدة 23448",
+          "raw_district": "Ar Rabwah",
+          "canonical_district": "ar_rabwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJPd61jeXQwxUR5lNEAkq7c4Y",
+          "google_place_id": "ChIJPd61jeXQwxUR5lNEAkq7c4Y",
+          "latitude": 21.592215,
+          "longitude": 39.1859842,
+          "google_rating": 4.6,
+          "google_review_count": 14949,
+          "operating_status": "open",
+          "hours": "الأحد: ١١:٠٠ص–٤:٠٠ص",
+          "phone": "9200 35553",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://order.dank.sa/branches/p?language=en"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district ar_rabwah."
+        },
+        {
+          "branch_name": "King Abdullah Rd / Sariya Square",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Dank Sandwich, طريق الملك عبدالله، السارية سكوير, جدة 22234",
+          "raw_district": "Al Baghdadiyah Al Gharbiyah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJITZ92qnPwxURVpMY4-_hGFc",
+          "google_place_id": "ChIJITZ92qnPwxURVpMY4-_hGFc",
+          "latitude": 21.5100367,
+          "longitude": 39.1779943,
+          "google_rating": 4.7,
+          "google_review_count": 12921,
+          "operating_status": "open",
+          "hours": "الأحد: ١١:٠٠ص–٢:٠٠ص; الاثنين: ١١:٠٠ص–٢:٠٠ص; الثلاثاء: ١١:٠٠ص–٢:٠٠ص; الأربعاء: ١١:٠٠ص–٢:٠٠ص; الخميس: ١١:٠٠ص–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١:٠٠م–٢:٠٠ص",
+          "phone": "9200 35553",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://order.dank.sa/branches/p?language=en"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al Baghdadiyah Al Gharbiyah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Sari St",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Dank Sandwich, صاري فرعي، الزهراء، جدة 23424",
+          "raw_district": "Al Zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJzTduvpfbwxURx247-Z4QwnU",
+          "google_place_id": "ChIJzTduvpfbwxURx247-Z4QwnU",
+          "latitude": 21.573190099999998,
+          "longitude": 39.136815,
+          "google_rating": 4.6,
+          "google_review_count": 10151,
+          "operating_status": "open",
+          "hours": "الأحد: ١١:٠٠ص–٢:٠٠ص",
+          "phone": "9200 35553",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://order.dank.sa/branches/p?language=en"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "moe_s_sandwiches",
+      "canonical_name": "Moe's Sandwiches",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Popular North Jeddah sandwich and roll destination in Obhur Al-Shamaliyah with consistent high ratings and active community following.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://linktr.ee/moesrolls"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Obhur Al-Shamaliyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Moe’s Sandwiches (burger, lobster & more), طريق الكورنيش الفرعي، أبحر الشمالية، جدة 23819",
+          "raw_district": "Obhur Al-Shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJT5QNTX1jwRURpGMTbdXvKlU",
+          "google_place_id": "ChIJT5QNTX1jwRURpGMTbdXvKlU",
+          "latitude": 21.7697239,
+          "longitude": 39.1332774,
+          "google_rating": 4.6,
+          "google_review_count": 345,
+          "operating_status": "open",
+          "hours": "الأحد: ١٠:٠٠ص–٤:٠٠ص; الاثنين: ١٠:٠٠ص–٤:٠٠ص; الثلاثاء: ١٠:٠٠ص–٤:٠٠ص; الأربعاء: ١٠:٠٠ص–٤:٠٠ص; الخميس: ١٠:٠٠ص–٤:٠٠ص; الجمعة: ١٢:٠٠م–٤:٠٠ص; السبت: ١٠:٠٠ص–٤:٠٠ص",
+          "phone": "054 273 3066",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/moesrolls"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "sans_sandwich_bar",
+      "canonical_name": "SANS Sandwich Bar",
+      "arabic_name": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Specialty sandwich bar on Sari Street combining breakfast and daytime craft sandwiches, established dine-in popularity and high review engagement.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout",
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://sans-sb.com/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Sari",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "سانس ساندوتش بار، صاري فرعي، الزهراء، جدة 12222",
+          "raw_district": "Al Zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJSWJ-djbbwxURyaw5LiNtXrY",
+          "google_place_id": "ChIJSWJ-djbbwxURyaw5LiNtXrY",
+          "latitude": 21.572612499999998,
+          "longitude": 39.1286693,
+          "google_rating": 4.6,
+          "google_review_count": 1911,
+          "operating_status": "open",
+          "hours": "الأحد: ٦:٠٠ص–٣:٣٠م; الاثنين: ٦:٠٠ص–٣:٣٠م; الثلاثاء: ٦:٠٠ص–٣:٣٠م; الأربعاء: ٦:٠٠ص–٣:٣٠م; الخميس: ٦:٠٠ص–٣:٣٠م; الجمعة: ٦:٠٠ص–٣:٣٠م; السبت: ٦:٠٠ص–٣:٣٠م",
+          "phone": "056 559 3868",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://sans-sb.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "pronto",
+      "canonical_name": "Pronto",
+      "arabic_name": "برونتو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "italian"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "rising",
+      "classification_evidence": "Emerging Italian-inspired artisanal sandwich concept in Ar Rawdah known for fresh focaccia and chicken pesto sandwiches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "Chicken Pesto Sandwich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://ar.restaurantguru.com/Pronto-Jeddah"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Pronto, عبدالله سلطان، الروضة، جدة 23435",
+          "raw_district": "Ar Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJIRIzZGjbwxURiy-tlzxrATQ",
+          "google_place_id": "ChIJIRIzZGjbwxURiy-tlzxrATQ",
+          "latitude": 21.5700579,
+          "longitude": 39.1433574,
+          "google_rating": 4.5,
+          "google_review_count": 108,
+          "operating_status": "open",
+          "hours": "الأحد: ٩:٠٠ص–٢:٠٠ص",
+          "phone": "053 666 4136",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://ar.restaurantguru.com/Pronto-Jeddah"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "eleven_inch_sandwich",
+      "canonical_name": "Eleven Inch Sandwich",
+      "arabic_name": "إيليفن إنش ساندوتش",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "High-volume sub sandwich specialist on King Abdullah Rd in An Naseem, recognized for hearty cheese steaks and wagyu sandwiches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Cheese Steak",
+        "Wagyu Sandwich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://menubarcode.com/Inch-11"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "An Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "ايليفن انش ساندوتش، طريق الملك عبدالله، النسيم، جدة 80200",
+          "raw_district": "An Naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJARKW3APPwxURS-ZHjcie-cA",
+          "google_place_id": "ChIJARKW3APPwxURS-ZHjcie-cA",
+          "latitude": 21.5107474,
+          "longitude": 39.2324485,
+          "google_rating": 4.6,
+          "google_review_count": 1365,
+          "operating_status": "open",
+          "hours": "الأحد: ٧:٠٠ص–٤:٠٠ص",
+          "phone": "050 163 2050",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://menubarcode.com/Inch-11"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naseem."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "samoly",
+      "canonical_name": "Samoly",
+      "arabic_name": "صامولي",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Traditional Saudi samoli sandwich establishment serving nostalgic breakfast and late-night samoli fillings across central Jeddah districts.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "Minced Meat Samoli",
+        "Liver Samoli",
+        "Chicken Shawarma Samoli"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://ananinja.com/sa/en/restaurants/samoly-13187",
+        "https://hungerstation.com/sa-ar/restaurant/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%B1%D9%88%D8%B6%D8%A9/106220"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "صامولي, الامام مالك، الروضة، جدة 23435",
+          "raw_district": "Ar Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJaVa5Qw7RwxUReQkpzSYpWmI",
+          "google_place_id": "ChIJaVa5Qw7RwxUReQkpzSYpWmI",
+          "latitude": 21.5735897,
+          "longitude": 39.1572174,
+          "google_rating": 3.9,
+          "google_review_count": 1759,
+          "operating_status": "open",
+          "hours": "الأحد: نعمل على مدار 24 ساعة; الاثنين: نعمل على مدار 24 ساعة; الثلاثاء: نعمل على مدار 24 ساعة; الأربعاء: نعمل على مدار 24 ساعة; الخميس: نعمل على مدار 24 ساعة; الجمعة: نعمل على مدار 24 ساعة; السبت: نعمل على مدار 24 ساعة",
+          "phone": "053 962 8009",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://ananinja.com/sa/en/restaurants/samoly-13187"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "صامولي، ام القرى، الصفا، جدة 23454",
+          "raw_district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCRDnWrnRwxURVJIEGKZffLQ",
+          "google_place_id": "ChIJCRDnWrnRwxURVJIEGKZffLQ",
+          "latitude": 21.577109399999998,
+          "longitude": 39.2194832,
+          "google_rating": 4,
+          "google_review_count": 447,
+          "operating_status": "open",
+          "hours": "الأحد: نعمل على مدار 24 ساعة; الاثنين: نعمل على مدار 24 ساعة; الثلاثاء: نعمل على مدار 24 ساعة; الأربعاء: نعمل على مدار 24 ساعة; الخميس: نعمل على مدار 24 ساعة; الجمعة: نعمل على مدار 24 ساعة; السبت: نعمل على مدار 24 ساعة",
+          "phone": "055 443 9033",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://hungerstation.com/sa-ar/restaurant/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%B1%D9%88%D8%B6%D8%A9/106220"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_safa."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "noho_deli",
+      "canonical_name": "Noho Deli",
+      "arabic_name": "نوهو ديلي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "deli"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "rising",
+      "classification_evidence": "New York-style deli concept in S Square Ash Shati, recognized for house-cured pastrami and premium deli sandwiches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "Pastrami Sandwich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://restaurantguru.com/Noho-Deli-nwhw-dyly-Jeddah"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "S Square",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Noho Deli / نوهو ديلي, S Square اس سكوير, 7750 شارع حراء، الشاطئ، 3362, جدة 23514",
+          "raw_district": "Ash Shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJp9XOFwDbwxUREWkSCESNIt4",
+          "google_place_id": "ChIJp9XOFwDbwxUREWkSCESNIt4",
+          "latitude": 21.605985,
+          "longitude": 39.118550299999995,
+          "google_rating": 4.6,
+          "google_review_count": 590,
+          "operating_status": "open",
+          "hours": "الأحد: ١١:٣٠ص–٢:٠٠ص",
+          "phone": "055 543 1176",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://restaurantguru.com/Noho-Deli-nwhw-dyly-Jeddah"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_shati."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "sandwicheina",
+      "canonical_name": "Sandwicheina",
+      "arabic_name": "ساندوتشينا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Multi-branch Jeddah sandwich chain with locations spanning Ar Rawdah, Al Marwah, and Obhur Al-Shamaliyah, highly rated for hot specialty sandwiches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Philly Steak Sandwich",
+        "Chicken Pesto Sandwich",
+        "Shrimp Sandwich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://hungerstation.com/sa-en/restaurant/jeddah/ar-rawdah/111824"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "ساندوتشينا | sandwicheina، حمد الجاسر، الروضة، جدة 23435",
+          "raw_district": "Ar Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJadIIYR3RwxURrOhYVSObvQw",
+          "google_place_id": "ChIJadIIYR3RwxURrOhYVSObvQw",
+          "latitude": 21.5727199,
+          "longitude": 39.1577013,
+          "google_rating": 4.7,
+          "google_review_count": 1729,
+          "operating_status": "open",
+          "hours": "الأحد: نعمل على مدار 24 ساعة",
+          "phone": "050 992 1848",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://hungerstation.com/sa-en/restaurant/jeddah/ar-rawdah/111824"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "ساندوتشينا | sandwicheina، 6574 الشيخ عبدالعزيز بن باز، حي المروة، JDMC4810، 4810، جدة 23543",
+          "raw_district": "Al Marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJEdyVCADRwxURqOAAxIE__m0",
+          "google_place_id": "ChIJEdyVCADRwxURqOAAxIE__m0",
+          "latitude": 21.605128,
+          "longitude": 39.209199,
+          "google_rating": 4.8,
+          "google_review_count": 145,
+          "operating_status": "open",
+          "hours": null,
+          "phone": "056 044 7096",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "Obhur Al-Shamaliyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "ساندوتشينا | sandwicheina، شارع عابر القرات، أبحر الشمالية، جدة 23817",
+          "raw_district": "Obhur Al-Shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJJ411yNFjwRUR-0hhKOF9Vnw",
+          "google_place_id": "ChIJJ411yNFjwRUR-0hhKOF9Vnw",
+          "latitude": 21.7601029,
+          "longitude": 39.1180343,
+          "google_rating": 4.7,
+          "google_review_count": 787,
+          "operating_status": "open",
+          "hours": "الأحد: نعمل على مدار 24 ساعة",
+          "phone": "056 419 0525",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "charleys_cheesesteaks",
+      "canonical_name": "Charleys Cheesesteaks",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "cheesesteak"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Global cheesesteak franchise with long-standing Saudi presence, offering grilled-to-order Philly cheesesteaks.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Philly Cheesesteak"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.charleys.com/locations/mall-of-arabia/",
+        "https://www.charleys.com/locations/salam-mall/",
+        "https://www.charleys.com/locations/red-sea-mall/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Mall of Arabia",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شارليز فيلي ستيكس، First Level Food Court, جدة",
+          "raw_district": "An Nuzhah",
+          "canonical_district": "an_nuzhah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ0e_UP1bXwxUR831p-z5Uo6Y",
+          "google_place_id": "ChIJ0e_UP1bXwxUR831p-z5Uo6Y",
+          "latitude": 21.632105,
+          "longitude": 39.1560473,
+          "google_rating": 3.5,
+          "google_review_count": 386,
+          "operating_status": "open",
+          "hours": "الأحد: ١٠:٠٠ص–١٢:٠٠ص",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.charleys.com/locations/mall-of-arabia/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district an_nuzhah."
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Salam Mall",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "formatted_address": "King Abdullah Road, Al Salam Mall, Jeddah, Saudi Arabia",
+          "raw_district": "Al Fayha",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "open",
+          "hours": null,
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "https://www.charleys.com/locations/salam-mall/"
+          ],
+          "production_eligibility": "manual_review",
+          "reason": "Official Charleys branch evidence exists (https://www.charleys.com/locations/salam-mall/), but an exact Google Place entity and Place ID could not be independently resolved on Google Maps. Quarantined in manual_review per production standard."
+        },
+        {
+          "branch_name": "Red Sea Mall",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "formatted_address": "Red Sea Mall, King Abdulaziz Branch Rd, Ash Shati, Jeddah 23612, Saudi Arabia",
+          "raw_district": "Ash Shati",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "open",
+          "hours": null,
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "https://www.charleys.com/locations/red-sea-mall/"
+          ],
+          "production_eligibility": "manual_review",
+          "reason": "Official Charleys branch evidence exists (https://www.charleys.com/locations/red-sea-mall/), but an exact Google Place entity and Place ID could not be independently resolved on Google Maps. Quarantined in manual_review per production standard."
+        }
+      ],
+      "excluded_branches": []
+    },
+    {
+      "id": "fat_steaks",
+      "canonical_name": "Fat Steaks",
+      "arabic_name": "فات ستيك",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "cheesesteak"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "rising",
+      "classification_evidence": "North Jeddah cheesesteak specialist in Al Hamadaniyyah, popular for generous beef and chicken cheesesteak sandwiches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Beef Cheesesteak",
+        "Chicken Cheesesteak"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://maps.yango.com/org/13047867617/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Hamdaniyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "fat steaks - فات ستيك الحمدانية, شارع عبدالله بن أبي أمية، الحمدانية، جدة 23761",
+          "raw_district": "Al Hamadaniyyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJO1BBbiB9wRUR7eJSx8_GHww",
+          "google_place_id": "ChIJO1BBbiB9wRUR7eJSx8_GHww",
+          "latitude": 21.7659465,
+          "longitude": 39.1813143,
+          "google_rating": 4.2,
+          "google_review_count": 88,
+          "operating_status": "open",
+          "hours": "الأحد: ١٢:٣٠م–٢:٠٠ص; الاثنين: ١٢:٣٠م–٢:٠٠ص; الثلاثاء: ١٢:٣٠م–٢:٠٠ص; الأربعاء: ١٢:٣٠م–٢:٠٠ص; الخميس: ١٢:٣٠م–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١٢:٣٠م–٢:٠٠ص",
+          "phone": "054 551 6491",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://maps.yango.com/org/13047867617/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamdaniyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "1610_bagel",
+      "canonical_name": "1610 Bagel",
+      "arabic_name": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Dedicated artisanal bagel shop in Al Zahra crafting fresh bagel sandwiches for morning and daytime dining.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout",
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/1610-bagel?to=place.ChIJY2XrAjvbwxURZ90q153nR-c"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "1610 Bagel ١٦١٠ بيجل، البترجي، الزهراء، جدة 23522",
+          "raw_district": "Al Zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJY2XrAjvbwxURZ90q153nR-c",
+          "google_place_id": "ChIJY2XrAjvbwxURZ90q153nR-c",
+          "latitude": 21.5984135,
+          "longitude": 39.124013,
+          "google_rating": 4.5,
+          "google_review_count": 1414,
+          "operating_status": "open",
+          "hours": "الأحد: ٧:٣٠ص–١٢:٠٠ص",
+          "phone": "055 030 1610",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/1610-bagel?to=place.ChIJY2XrAjvbwxURZ90q153nR-c"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "early_club",
+      "canonical_name": "Early Club",
+      "arabic_name": null,
+      "modes": [
+        "breakfast",
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "High-profile breakfast and brunch club in Skywalk Ar Rawdah with nearly 10,000 Google reviews, famous for breakfast sandwiches and brunch dishes.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "Chicken Pesto Sandwich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.waze.com/live-map/directions/sa/mkh-almkrmh/jdh/early-club-breakfast-and-brunch?to=place.ChIJZfHPm77bwxUR8DaEe-n2emM"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Skywalk / Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "ايرلي كلوب، Abdul Maqsud Khojah, AR Rawdah, skywalk, جدة 23435",
+          "raw_district": "Ar Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJZfHPm77bwxUR8DaEe-n2emM",
+          "google_place_id": "ChIJZfHPm77bwxUR8DaEe-n2emM",
+          "latitude": 21.5746839,
+          "longitude": 39.148241,
+          "google_rating": 4.6,
+          "google_review_count": 9763,
+          "operating_status": "open",
+          "hours": "الأحد: ٧:٠٠ص–٤:٣٠م; الاثنين: ٧:٠٠ص–٤:٣٠م; الثلاثاء: ٧:٠٠ص–٤:٣٠م; الأربعاء: ٧:٠٠ص–٤:٣٠م; الخميس: ٧:٠٠ص–٤:٣٠م; الجمعة: ٧:٠٠ص–٤:٣٠م; السبت: ٧:٠٠ص–٤:٣٠م",
+          "phone": "053 167 7755",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.waze.com/live-map/directions/sa/mkh-almkrmh/jdh/early-club-breakfast-and-brunch?to=place.ChIJZfHPm77bwxUR8DaEe-n2emM"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "club_sandwich_bowl",
+      "canonical_name": "Club Sandwich & Bowl",
+      "arabic_name": "كلوب ساندويش اند بول",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Established casual dining spot in Al Zahra with over 6,400 reviews, specializing in gourmet club sandwiches, steak & egg sandwiches, and bowls.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "Beef Steak & Egg Sandwich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.arabnews.com/food-health/where-we-are-going-today-club-sandwich-bowl-in-jeddah-2646701"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Ned / Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "CLUB SANDWICH & BOWL | كلوب ساندويش اند بول, الند، Street, جدة 23425",
+          "raw_district": "Al Zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRfQRMDfbwxURHtAqwXSF65I",
+          "google_place_id": "ChIJRfQRMDfbwxURHtAqwXSF65I",
+          "latitude": 21.5816286,
+          "longitude": 39.1300035,
+          "google_rating": 4.7,
+          "google_review_count": 6450,
+          "operating_status": "open",
+          "hours": "الأحد: ٧:٠٠ص–٢:٣٠ص; الاثنين: ٧:٠٠ص–٢:٣٠ص; الثلاثاء: ٧:٠٠ص–٢:٣٠ص; الأربعاء: ٧:٠٠ص–٢:٣٠ص; الخميس: ٧:٠٠ص–٢:٣٠ص; الجمعة: ٧:٠٠ص–٢:٣٠ص; السبت: ٧:٠٠ص–٢:٣٠ص",
+          "phone": "050 095 7596",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.arabnews.com/food-health/where-we-are-going-today-club-sandwich-bowl-in-jeddah-2646701"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "zed",
+      "canonical_name": "ZED",
+      "arabic_name": "زد",
+      "modes": [
+        "cafe",
+        "breakfast",
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Prominent modern café and sandwich brand in Jeddah with physical storefronts in Obhur, Andalus, Khalidiyah, and An Naim.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://linktr.ee/zed.ksa"
+      ],
+      "production_eligibility": "production_ready",
+      "notes": "Only current main ZED locations are included here; drive-through/station entries are intentionally excluded from the sandwich branch set.",
+      "branches": [
+        {
+          "branch_name": "Obhur Al-Shamaliyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "زد، شارع عابر القرات، أبحر الشمالية، جدة 23817",
+          "raw_district": "Obhur Al-Shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJnV2AdBNjwRUR2LlJt59ibL8",
+          "google_place_id": "ChIJnV2AdBNjwRUR2LlJt59ibL8",
+          "latitude": 21.7599494,
+          "longitude": 39.118135599999995,
+          "google_rating": 4.3,
+          "google_review_count": 449,
+          "operating_status": "open",
+          "hours": "الأحد: نعمل على مدار 24 ساعة; الاثنين: نعمل على مدار 24 ساعة; الثلاثاء: نعمل على مدار 24 ساعة; الأربعاء: نعمل على مدار 24 ساعة; الخميس: نعمل على مدار 24 ساعة; الجمعة: نعمل على مدار 24 ساعة; السبت: نعمل على مدار 24 ساعة",
+          "phone": "055 669 0488",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah."
+        },
+        {
+          "branch_name": "Al Andalus",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "زد | ZED, شارع عرفات، الأندلس، جدة 23325",
+          "raw_district": "Al Andalus",
+          "canonical_district": "al_andalus",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJMdC5X0_PwxURF29N6TaqLjw",
+          "google_place_id": "ChIJMdC5X0_PwxURF29N6TaqLjw",
+          "latitude": 21.5383279,
+          "longitude": 39.1648705,
+          "google_rating": 4,
+          "google_review_count": 134,
+          "operating_status": "open",
+          "hours": "الأحد: ٦:٠٠ص–٢:٠٠ص; الاثنين: ٦:٠٠ص–٢:٠٠ص; الثلاثاء: ٦:٠٠ص–٢:٠٠ص; الأربعاء: ٦:٠٠ص–٢:٠٠ص; الخميس: ٦:٠٠ص–٢:٠٠ص; الجمعة: ٦:٠٠ص–٢:٠٠ص; السبت: ٦:٠٠ص–٢:٠٠ص",
+          "phone": "055 662 2748",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_andalus."
+        },
+        {
+          "branch_name": "Al Khalidiyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "H44G+6W2 زد | ZED، الخالدية، فقيه ميديكال، جدة 23421",
+          "raw_district": "Al Khalidiyah",
+          "canonical_district": "al_khalidiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJtyn29qLbwxURn2VL4fnCSKU",
+          "google_place_id": "ChIJtyn29qLbwxURn2VL4fnCSKU",
+          "latitude": 21.5555625,
+          "longitude": 39.127312499999995,
+          "google_rating": 4.4,
+          "google_review_count": 33,
+          "operating_status": "open",
+          "hours": "الأحد: نعمل على مدار 24 ساعة",
+          "phone": "054 105 6162",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_khalidiyyah."
+        },
+        {
+          "branch_name": "An Naim",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "زِد النعيم، 7644, An Naim District, Jeddah 23621 3649, جدة 23621",
+          "raw_district": "An Naim",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJqfnnSInZwxURdxpmaNh3pMM",
+          "google_place_id": "ChIJqfnnSInZwxURdxpmaNh3pMM",
+          "latitude": 21.6374805,
+          "longitude": 39.141722699999995,
+          "google_rating": 4.3,
+          "google_review_count": 3069,
+          "operating_status": "open",
+          "hours": "الأحد: نعمل على مدار 24 ساعة",
+          "phone": "055 994 0448",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naeem."
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Prince Naif / Ash Shiraa",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "formatted_address": "Prince Naif Rd, Ash Shiraa District, Jeddah 23816, Saudi Arabia",
+          "raw_district": "Ash Shiraa",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "open",
+          "hours": null,
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "https://linktr.ee/zed.ksa",
+            "https://maps.yango.com/en-sa/org/183272474368/"
+          ],
+          "production_eligibility": "manual_review",
+          "reason": "Official ZED Linktree currently links this Prince Naif location to a Google Maps listing titled 'GOA', not ZED. Excluded from production import until the branch identity is reconfirmed."
+        }
+      ],
+      "excluded_branches": []
+    },
+    {
+      "id": "pizzawich",
+      "canonical_name": "Pizzawich",
+      "arabic_name": "بيتزاويتش",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "pizza"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "rising",
+      "classification_evidence": "Innovative hybrid pizza-sandwich brand rapidly expanding in Jeddah with 4 active branches across Al Murjan, Al Marwah, An Naseem, and Al Wurud.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Ranch Pizzawich",
+        "Dynamite Chicken Pizzawich",
+        "Pepperoni Pizzawich"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": null
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://pizzawich.sa/branches"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Murjan",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم بيتزاويتش، المرجان، جدة 23714",
+          "raw_district": "Al Murjan",
+          "canonical_district": "al_murjan",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJpRsTZlfZwxURnI1MPGfVAvI",
+          "google_place_id": "ChIJpRsTZlfZwxURnI1MPGfVAvI",
+          "latitude": 21.6942092,
+          "longitude": 39.1043861,
+          "google_rating": 4.8,
+          "google_review_count": 1108,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–٤:٠٠ص",
+          "phone": "056 470 1560",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://pizzawich.sa/branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_murjan."
+        },
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "بيتزاويتش، Al Marwah, Ibrahim Mohamed Abdel Wahab St, جدة 23545",
+          "raw_district": "Al Marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJL8FPNMbXwxURj-pHuAqD7Sc",
+          "google_place_id": "ChIJL8FPNMbXwxURj-pHuAqD7Sc",
+          "latitude": 21.6138904,
+          "longitude": 39.2183373,
+          "google_rating": 4.8,
+          "google_review_count": 3214,
+          "operating_status": "open",
+          "hours": "الأحد: ٥:٣٠م–٤:٠٠ص",
+          "phone": "056 609 5110",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://pizzawich.sa/branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "An Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "بيتزاويتش, district, Alnasim st, Albasim, جدة 23342",
+          "raw_district": "An Naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ62Hukw3PwxURZI9WufUj7ho",
+          "google_place_id": "ChIJ62Hukw3PwxURZI9WufUj7ho",
+          "latitude": 21.5150939,
+          "longitude": 39.2238116,
+          "google_rating": 4.9,
+          "google_review_count": 2119,
+          "operating_status": "open",
+          "hours": "الأحد: ٥:٣٠م–٤:٠٠ص",
+          "phone": "056 609 5110",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://pizzawich.sa/branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naseem."
+        },
+        {
+          "branch_name": "Al Wurud",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "بيتزاويتش, الورود، 6754 الورود، 2891, جدة 23225",
+          "raw_district": "Al Wurud",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRZEtXgDPwxURInrHxy0NkME",
+          "google_place_id": "ChIJRZEtXgDPwxURInrHxy0NkME",
+          "latitude": 21.522256199999998,
+          "longitude": 39.2109702,
+          "google_rating": 4.8,
+          "google_review_count": 109,
+          "operating_status": "open",
+          "hours": "الأحد: ٥:٣٠م–٣:٠٠ص; الاثنين: ٥:٣٠م–٣:٠٠ص; الثلاثاء: ٥:٣٠م–٣:٠٠ص; الأربعاء: ٥:٣٠م–٣:٠٠ص; الخميس: ٥:٠٠م–٤:٠٠ص; الجمعة: ٥:٠٠م–٤:٠٠ص; السبت: ٥:٣٠م–٣:٠٠ص",
+          "phone": "056 609 5110",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://pizzawich.sa/branches"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al Wurud'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    }
+  ]
+}

@@ -56,6 +56,7 @@ export interface RestaurantItem {
     rating: number | null;
     reviewCount: number | null;
   } | null;
+  coreStatus?: 'core' | 'expansion' | null;
 }
 
 export interface RestaurantDeck {

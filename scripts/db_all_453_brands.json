@@ -1,0 +1,1818 @@
+[
+  {
+    "id": "albaik",
+    "name_en": "ALBAIK",
+    "name_ar": "البيك",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "traditional_broast",
+      "fried_chicken",
+      "musahab"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "al_najah_broast",
+    "name_en": "Al Najah Broast",
+    "name_ar": "بروست النجاح",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "traditional_broast"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "broast_hanoo",
+    "name_en": "Broast Hanoo",
+    "name_ar": "بروست هنو",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "traditional_broast"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "chicken_mubeen",
+    "name_en": "Chicken Mubeen",
+    "name_ar": "دجاج مبين",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "traditional_broast",
+      "fried_chicken"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 7
+  },
+  {
+    "id": "crisper",
+    "name_en": "Crisper",
+    "name_ar": "كرسبر",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "tenders"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "crusted",
+    "name_en": "Crusted",
+    "name_ar": "كرستد",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "nashville",
+      "tenders",
+      "hot_chicken"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "dabboos",
+    "name_en": "Dabboos",
+    "name_ar": "دبوس",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "fried_chicken",
+      "tenders",
+      "chicken_burgers"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "daves_hot_chicken",
+    "name_en": "Dave's Hot Chicken",
+    "name_ar": "ديفز هوت تشيكن",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "hot_chicken",
+      "tenders",
+      "nashville"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "kfc",
+    "name_en": "KFC",
+    "name_ar": "كنتاكي",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "fried_chicken"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 4
+  },
+  {
+    "id": "ktaykit",
+    "name_en": "Ktaykit",
+    "name_ar": "كتيكت",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "traditional_broast",
+      "musahab",
+      "fried_chicken"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 9
+  },
+  {
+    "id": "nashvilles_hot_chicken",
+    "name_en": "Nashville's Hot Chicken",
+    "name_ar": "ناشفيلز هوت شكن",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "hot_chicken",
+      "nashville"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "popeyes",
+    "name_en": "Popeyes",
+    "name_ar": "بوبايز",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "fried_chicken"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "raising_canes",
+    "name_en": "Raising Cane's",
+    "name_ar": "ريزينج كينز",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "tenders"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "rami_broast",
+    "name_en": "Rami Broast",
+    "name_ar": "بروست رامي",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "traditional_broast"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "sayakh",
+    "name_en": "Sayakh",
+    "name_ar": "سياخ",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "fried_chicken",
+      "quick_bite"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "tndr",
+    "name_en": "TNDR",
+    "name_ar": "TNDR",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "tenders",
+      "fried_chicken"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "tenders_cart",
+    "name_en": "Tenders Cart",
+    "name_ar": "تندرز كارت",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "tenders"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "texas_chicken",
+    "name_en": "Texas Chicken",
+    "name_ar": "تكساس تشيكن",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "fried_chicken"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "wingstop",
+    "name_en": "Wingstop",
+    "name_ar": "وينج ستوب",
+    "primary_category": "broast",
+    "secondary_categories": [
+      "wings"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "century_burger",
+    "name_en": "Century Burger",
+    "name_ar": "سنشري برجر",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "american"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 7
+  },
+  {
+    "id": "chefs_burger",
+    "name_en": "Chef's Homemade Burger Gourmet",
+    "name_ar": "شيفز برجر",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "american"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "lou_burger",
+    "name_en": "Lou Burger",
+    "name_ar": "لو برجر",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "american"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "nora_burger",
+    "name_en": "Nora Burger",
+    "name_ar": "نورا برجر",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "fast_food"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "pplr",
+    "name_en": "PPLR",
+    "name_ar": "بي بي إل آر",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "american"
+    ],
+    "research_use": "usable_with_caution",
+    "dining_mode_summary": "dine_in_only",
+    "branch_count": 1
+  },
+  {
+    "id": "section_b",
+    "name_en": "Section-B",
+    "name_ar": "سكشن بي",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "american"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "sign_burger",
+    "name_en": "Sign Burger",
+    "name_ar": "ساين برجر",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "fast_food"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "smash_me",
+    "name_en": "Smash Me",
+    "name_ar": "سماش مي",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "fast_food"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "california_burger",
+    "name_en": "The California Burger",
+    "name_ar": "ذا كاليفورنيا برجر",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "american"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "wbj",
+    "name_en": "WBJ",
+    "name_ar": "واقيو برجر جوينت",
+    "primary_category": "burger",
+    "secondary_categories": [
+      "american"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "agha_bakery",
+    "name_en": "Agha Bakery",
+    "name_ar": "أفران الآغا",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish",
+      "bakery"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "al_hatab",
+    "name_en": "Al Hatab",
+    "name_ar": "الحطب",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "bakery",
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 10
+  },
+  {
+    "id": "fatayer_aelaty_al_lubnaniah",
+    "name_en": "Fatayer Aelaty Al-Lubnaniah",
+    "name_ar": "فطائر عائلتي اللبنانية",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish",
+      "lebanese"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "fatayer_al_ameen",
+    "name_en": "Fatayer Al Ameen",
+    "name_ar": "فطائر الأمين",
+    "primary_category": "fatayer",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "fatayer_al_tayar",
+    "name_en": "Fatayer Al Tayar",
+    "name_ar": "فطائر على الطاير",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "furn_aldayaa",
+    "name_en": "Furn Aldayaa",
+    "name_ar": "فرن الضيعة",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "usable_with_caution",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "kdousha",
+    "name_en": "Kdousha",
+    "name_ar": "كدوشة",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish",
+      "lebanese"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "manakish_countryside",
+    "name_en": "Manakish Countryside",
+    "name_ar": "مناقيش الريف",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "manqousha_house",
+    "name_en": "Manqousha House",
+    "name_ar": "منقوشة هاوس",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "manqousheh_hut",
+    "name_en": "Manqousheh Hut",
+    "name_ar": "منقوشة هت",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 4
+  },
+  {
+    "id": "mathaq_al_manousheh",
+    "name_en": "Mathaq Al Manousheh",
+    "name_ar": "مذاق المنئوشة",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 12
+  },
+  {
+    "id": "pie_box",
+    "name_en": "Pie Box",
+    "name_ar": "صندوق الفطيرة",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "pies"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "shaikh_manqoosh",
+    "name_en": "Shaikh Manqoosh",
+    "name_ar": "شيخ منقوش",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish",
+      "lebanese"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "shobak",
+    "name_en": "Shobak",
+    "name_ar": "شوبك",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 7
+  },
+  {
+    "id": "umm_al_zulf",
+    "name_en": "Umm Al Zulf",
+    "name_ar": "أم الزلف",
+    "primary_category": "fatayer",
+    "secondary_categories": [
+      "manakish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "al_fairouz_restaurant",
+    "name_en": "Al Fairouz Restaurant",
+    "name_ar": "مطعم الفيروز",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "turkish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "al_hamraa_barbecue_restaurant",
+    "name_en": "Al Hamraa Barbecue Restaurant",
+    "name_ar": "مطاعم مشويات الحمراء",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "middle_eastern"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "al_nakheel_restaurant",
+    "name_en": "Al Nakheel Restaurant",
+    "name_ar": "مطعم النخيل",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "middle_eastern"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "at_beirut_jeddah",
+    "name_en": "At Beirut Jeddah",
+    "name_ar": "في بيروت جدة",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "lebanese"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "burj_al_hamam",
+    "name_en": "Burj Al Hamam",
+    "name_ar": "برج الحمام",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "lebanese"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "ennabi_grill",
+    "name_en": "Ennabi Grill",
+    "name_ar": "المشوى العنابي",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "saudi",
+      "middle_eastern"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 8
+  },
+  {
+    "id": "istanbul_grill_restaurant",
+    "name_en": "Istanbul Grill Restaurant",
+    "name_ar": "مطعم اسطنبول جريل",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "turkish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "kabebo",
+    "name_en": "Kabebo",
+    "name_ar": "كابيبو",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "saudi",
+      "hijazi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 11
+  },
+  {
+    "id": "khayal_restaurant",
+    "name_en": "Khayal Restaurant",
+    "name_ar": "مطعم خيال",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "turkish",
+      "middle_eastern"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "saraya_latif",
+    "name_en": "Saraya Latif",
+    "name_ar": "سرايا لطيف",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "turkish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "shababik",
+    "name_en": "Shababik",
+    "name_ar": "شبابيك",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "lebanese"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "shami",
+    "name_en": "Shami",
+    "name_ar": "مطاعم شامي",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "syrian",
+      "levantine"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "skewers_grilled_restaurant",
+    "name_en": "Skewers Grilled Restaurant",
+    "name_ar": "مطعم سكيوورز للمشويات",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "turkish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "taksim_point_restaurant",
+    "name_en": "Taksim Point Restaurant",
+    "name_ar": "تقسيم بوينت",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "turkish"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "yildizlar_restaurant",
+    "name_en": "Yildizlar Restaurant",
+    "name_ar": "مطعم يلدزلار",
+    "primary_category": "grills",
+    "secondary_categories": [
+      "lebanese",
+      "middle_eastern"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "aryaas_indian_restaurant",
+    "name_en": "Aryaas Indian Restaurant - Jeddah",
+    "name_ar": "مطعم ارياس الهندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "south_indian",
+      "indian_chinese",
+      "family_restaurant"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "biryani_gate_restaurant",
+    "name_en": "Biryani Gate Restaurant Jeddah",
+    "name_ar": "مطعم برياني كيت",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "biryani",
+      "north_indian",
+      "mughlai",
+      "pakistani_influenced"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "cadence_indian_cuisine",
+    "name_en": "Cadence Indian Cuisine",
+    "name_ar": "مطعم كادينز الهندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "kerala",
+      "malabar",
+      "hyderabadi"
+    ],
+    "research_use": "usable_with_caution",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "chennai_darbar_aziziyah",
+    "name_en": "Chennai Darbar Restaurant Aziziyah",
+    "name_ar": "مطعم الديوان للمأكولات الهندية",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "south_indian",
+      "indian_chinese",
+      "vegetarian_friendly"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "indira_indian_restaurant",
+    "name_en": "Indira Indian Restaurant",
+    "name_ar": "مطعم انديرا الهندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "north_indian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "jewel_of_nizam",
+    "name_en": "Jewel of Nizam Restaurant",
+    "name_ar": "مطعم جويل اوف نظام جدة",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "hyderabadi",
+      "nizami",
+      "modern_indian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "makan_indian_restaurant",
+    "name_en": "Makan Indian Restaurant",
+    "name_ar": "مطعم مكان الهندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "modern_indian",
+      "north_indian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "rasoi_by_vineet",
+    "name_en": "Rasoi by Vineet",
+    "name_ar": "راسوي باي فينيت",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "modern_indian",
+      "fine_dining"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "royal_garden_indian_restaurant",
+    "name_en": "Royal Garden Indian Restaurant",
+    "name_ar": "مطعم رويال جاردن الهندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "north_indian",
+      "family_restaurant"
+    ],
+    "research_use": "usable_with_caution",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "saravanaa_bhavan_jeddah",
+    "name_en": "Saravanaa Bhavan Jeddah",
+    "name_ar": "سارافانا بهافان جدة",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "south_indian",
+      "vegetarian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "shehnai_indian_restaurant",
+    "name_en": "Shehnai Indian Restaurant",
+    "name_ar": "مطعم شهناي الهندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "north_indian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "the_bay_indian_restaurant",
+    "name_en": "The Bay Indian Restaurant",
+    "name_ar": "مطعم ذا باي الهندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "modern_indian",
+      "north_indian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "the_spice_route",
+    "name_en": "The Spice Route-Indian Cuisine",
+    "name_ar": "ذي سبايس روت - مطعم هندي",
+    "primary_category": "indian",
+    "secondary_categories": [
+      "modern_indian",
+      "hotel_dining"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "eataly",
+    "name_en": "Eataly",
+    "name_ar": "إيتالي",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pizza",
+      "breakfast",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": null,
+    "branch_count": 1
+  },
+  {
+    "id": "il_castello",
+    "name_en": "IL Castello",
+    "name_ar": "إل كاستيلو",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pasta",
+      "pizza"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "il_vero",
+    "name_en": "IL Vero",
+    "name_ar": "إل فيرو",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "noto",
+    "name_en": "Noto",
+    "name_ar": "نوتو",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "olive_garden",
+    "name_en": "Olive Garden",
+    "name_ar": "أوليف جاردن",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "italian_american",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "piatto",
+    "name_en": "Piatto",
+    "name_ar": "بياتو",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": null,
+    "branch_count": 5
+  },
+  {
+    "id": "portofino",
+    "name_en": "Portofino",
+    "name_ar": "بورتوفينو",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "seafood",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "salernoo",
+    "name_en": "Salernoo",
+    "name_ar": "ساليرنو",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "san_carlo_cicchetti",
+    "name_en": "San Carlo Cicchetti",
+    "name_ar": "سان كارلو تشيكيتّي",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "vivaci",
+    "name_en": "Vivaci",
+    "name_ar": "فيفاتشي",
+    "primary_category": "italian",
+    "secondary_categories": [
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "blu_pizzeria",
+    "name_en": "Blu Pizzeriá",
+    "name_ar": "بلو بيتزيريا",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "neapolitan",
+      "artisan"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "bread_ahead",
+    "name_en": "Bread Ahead",
+    "name_ar": "بريد أهيد",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "bakery",
+      "artisan_pizza"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 4
+  },
+  {
+    "id": "dominos",
+    "name_en": "Domino's",
+    "name_ar": "دومينوز",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "american_pizza",
+      "mainstream_chain"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 29
+  },
+  {
+    "id": "impasto_seven",
+    "name_en": "Impasto Seven",
+    "name_ar": "إمباستو سفن",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "italian",
+      "artisan"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "jon_and_vinnys",
+    "name_en": "Jon & Vinny's",
+    "name_ar": "جون آند فينيز",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "pizza",
+      "italian_american",
+      "pasta",
+      "premium_dining"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "little_caesars",
+    "name_en": "Little Caesars",
+    "name_ar": "ليتل سيزرز",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "american_pizza",
+      "value_chain"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "locos_pizza",
+    "name_en": "Locos Pizza",
+    "name_ar": "لوكوز بيتزا",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "american_pizza",
+      "local_pizzeria"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "maestro_pizza",
+    "name_en": "Maestro Pizza",
+    "name_ar": "مايسترو بيتزا",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "american_pizza",
+      "saudi_chain"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 20
+  },
+  {
+    "id": "mazencito_pizzeria",
+    "name_en": "Mazencito Pizzeria",
+    "name_ar": "مازينسيتو",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "italian",
+      "artisan"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "napoli_blu",
+    "name_en": "Napoli Blu",
+    "name_ar": "نابولي بلو",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "artisan",
+      "italian",
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "papa_johns",
+    "name_en": "Papa Johns",
+    "name_ar": "بابا جونز",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "american_pizza",
+      "mainstream_chain"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 12
+  },
+  {
+    "id": "pastola_italian_restaurant",
+    "name_en": "Pastola Italian Restaurant",
+    "name_ar": "باستولا",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "italian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "pizza_hut",
+    "name_en": "Pizza Hut",
+    "name_ar": "بيتزا هت",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "american_pizza",
+      "mainstream_chain"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 20
+  },
+  {
+    "id": "wood_fire_pizza_lenuo",
+    "name_en": "Pizza Lenuo",
+    "name_ar": "بيتزا لينو",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "italian",
+      "wood_fired",
+      "pizza",
+      "pasta"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "pizzalio",
+    "name_en": "Pizzalio",
+    "name_ar": "بيتزاليو",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "italian",
+      "pizza",
+      "local_pizzeria"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "verra_pizza",
+    "name_en": "Vera Pizza",
+    "name_ar": "ڤيرا",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "italian",
+      "wood_fired",
+      "pizza"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "white_wood_pizzeria",
+    "name_en": "White Wood Pizzeria",
+    "name_ar": "وايت وود بيتزيريا",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "neapolitan",
+      "artisan"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "il_postino_pizzeria",
+    "name_en": "il Postino Pizzeria",
+    "name_ar": "إل بوستينو بيتزاريا",
+    "primary_category": "pizza",
+    "secondary_categories": [
+      "italian",
+      "pizza",
+      "neapolitan"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "1610_bagel",
+    "name_en": "1610 Bagel",
+    "name_ar": "1610 Bagel",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "breakfast_sandwiches"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "charleys_cheesesteaks",
+    "name_en": "Charleys Cheesesteaks",
+    "name_ar": "Charleys Cheesesteaks",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "cheesesteak"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "club_sandwich_bowl",
+    "name_en": "Club Sandwich & Bowl",
+    "name_ar": "كلوب ساندويش اند بول",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "breakfast_sandwiches"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "dank_sandwich",
+    "name_en": "Dank Sandwich",
+    "name_ar": "دانك ساندوتش",
+    "primary_category": "sandwiches",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "early_club",
+    "name_en": "Early Club",
+    "name_ar": "Early Club",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "breakfast_sandwiches"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "eleven_inch_sandwich",
+    "name_en": "Eleven Inch Sandwich",
+    "name_ar": "إيليفن إنش ساندوتش",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "breakfast_sandwiches"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "fat_steaks",
+    "name_en": "Fat Steaks",
+    "name_ar": "فات ستيك",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "cheesesteak"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "moe_s_sandwiches",
+    "name_en": "Moe's Sandwiches",
+    "name_ar": "Moe's Sandwiches",
+    "primary_category": "sandwiches",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "noho_deli",
+    "name_en": "Noho Deli",
+    "name_ar": "نوهو ديلي",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "deli"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "pizzawich",
+    "name_en": "Pizzawich",
+    "name_ar": "بيتزاويتش",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "pizza"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 4
+  },
+  {
+    "id": "pronto",
+    "name_en": "Pronto",
+    "name_ar": "برونتو",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "italian"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "sans_sandwich_bar",
+    "name_en": "SANS Sandwich Bar",
+    "name_ar": "SANS Sandwich Bar",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "breakfast_sandwiches"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "samoly",
+    "name_en": "Samoly",
+    "name_ar": "صامولي",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "breakfast_sandwiches"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "sandwicheina",
+    "name_en": "Sandwicheina",
+    "name_ar": "ساندوتشينا",
+    "primary_category": "sandwiches",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "zed",
+    "name_en": "ZED",
+    "name_ar": "زد",
+    "primary_category": "sandwiches",
+    "secondary_categories": [
+      "breakfast_sandwiches"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 4
+  },
+  {
+    "id": "al_romansiah",
+    "name_en": "Al Romansiah",
+    "name_ar": "الرومانسية",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "mandi",
+      "madhbi",
+      "traditional_saudi",
+      "haneeth"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 4
+  },
+  {
+    "id": "al_saddah",
+    "name_en": "Al Saddah",
+    "name_ar": "السدة",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "mandi",
+      "madfoon",
+      "madhbi",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "al_shadawi_ras_al_mandi",
+    "name_en": "Al Shadawi Ras Al Mandi",
+    "name_ar": "الشدوي لرأس المندي",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "mandi",
+      "traditional_saudi",
+      "folk_heritage"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "ali_hanash",
+    "name_en": "Ali Hanash",
+    "name_ar": "علي حنش",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "haneeth",
+      "traditional_saudi",
+      "southern_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "almazaq_al_bukhari",
+    "name_en": "Almazaq Al Bukhari",
+    "name_ar": "المذاق البخاري",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "bukhari",
+      "grilled_chicken",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 7
+  },
+  {
+    "id": "eleyk_al_bukhari",
+    "name_en": "Eleyk Al Bukhari",
+    "name_ar": "إليك البخاري",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "bukhari",
+      "grilled_chicken",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 4
+  },
+  {
+    "id": "fnoon_al_shawaya",
+    "name_en": "Fnoon Al Shawaya",
+    "name_ar": "فنون الشواية",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "bukhari",
+      "grilled_chicken",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "ghamim",
+    "name_en": "Ghamim",
+    "name_ar": "غميم",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "haneeth",
+      "madghoot",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "hashi_basha",
+    "name_en": "Hashi Basha",
+    "name_ar": "حاشي باشا",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "kabsa",
+      "hashi",
+      "madghoot",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "hashi_bin_hamoud",
+    "name_en": "Hashi Bin Hamoud",
+    "name_ar": "حاشي بن حمود",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "hashi",
+      "kabsa",
+      "madghoot",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "kabset_elham",
+    "name_en": "Kabset Elham",
+    "name_ar": "كبسة إلهام",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "kabsa",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "labbani_fakher",
+    "name_en": "Labbani Fakher",
+    "name_ar": "لباني فاخر",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "haneeth",
+      "mandi",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "mandi_al_hejaz",
+    "name_en": "Mandi Al Hejaz",
+    "name_ar": "مندي الحجاز",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "mandi",
+      "traditional_saudi",
+      "hejazi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "mandi_world",
+    "name_en": "Mandi World",
+    "name_ar": "مندي ورلد",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "mandi",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "raydan",
+    "name_en": "Raydan",
+    "name_ar": "ريدان",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "mandi",
+      "madhbi",
+      "traditional_saudi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 7
+  },
+  {
+    "id": "sarmad",
+    "name_en": "Sarmad",
+    "name_ar": "سرمد",
+    "primary_category": "saudi_rice",
+    "secondary_categories": [
+      "mandi",
+      "traditional_saudi",
+      "madhbi"
+    ],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "al_khal_al_dimashqi",
+    "name_en": "Al-Khal Al-Dimashqi",
+    "name_ar": "الخال الدمشقي",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "ayedh_shawarma",
+    "name_en": "Ayedh Shawarma",
+    "name_ar": "شاورما عايض",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "radi_shawarma",
+    "name_en": "Radi Shawarma and Juices",
+    "name_ar": "شاورما راضي",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "shamiyat_haritna",
+    "name_en": "Shamiyat Haritna",
+    "name_ar": "شاميات حارتنا",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "shawarma_abu_bahij",
+    "name_en": "Shawarma Abu Bahij",
+    "name_ar": "شاورما أبو بهيج",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 3
+  },
+  {
+    "id": "shawarma_allosh",
+    "name_en": "Shawarma Allosh",
+    "name_ar": "شاورما علوش",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "shawarma_alrimal",
+    "name_en": "Shawarma Alrimal",
+    "name_ar": "شاورما الرمال",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 5
+  },
+  {
+    "id": "shawarma_classic",
+    "name_en": "Shawarma Classic",
+    "name_ar": "شاورما كلاسك",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 6
+  },
+  {
+    "id": "shawarma_elak",
+    "name_en": "Shawarma Elak",
+    "name_ar": "شاورما إلك",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "shawarma_habteen",
+    "name_en": "Shawarma Habteen",
+    "name_ar": "شاورما حبتين",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 2
+  },
+  {
+    "id": "shawarma_marmasha",
+    "name_en": "Shawarma Marmasha",
+    "name_ar": "شاورما مرمشة",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "shawarma_shakir_aljazeera",
+    "name_en": "Shawarma Shakir Aljazeera",
+    "name_ar": "شاورما شاكر الجزيرة",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  },
+  {
+    "id": "shawarmer",
+    "name_en": "Shawarmer",
+    "name_ar": "شاورمر",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 18
+  },
+  {
+    "id": "ziyada_toum",
+    "name_en": "Ziyada Toum",
+    "name_ar": "زيادة ثوم",
+    "primary_category": "shawarma",
+    "secondary_categories": [],
+    "research_use": "production_ready",
+    "dining_mode_summary": "both",
+    "branch_count": 1
+  }
+]

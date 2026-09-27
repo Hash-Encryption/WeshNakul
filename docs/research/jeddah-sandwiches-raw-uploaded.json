@@ -1,0 +1,815 @@
+{
+  "dataset": "WeshNakul Jeddah Sandwiches",
+  "version": "V3 research complete",
+  "verified_at": "2026-09-27",
+  "city": "Jeddah, Saudi Arabia",
+  "category": "sandwiches",
+  "brand_count": 15,
+  "removed_from_category": [
+    {
+      "brand": "Bait Al Tamiya",
+      "reason": "Primary fit is falafel / street-folk food; deferred to that category."
+    }
+  ],
+  "rules_applied": [
+    "Verified reality > completeness",
+    "Delivery-area labels were not treated as physical branches",
+    "Branch ratings are branch-specific",
+    "Unknown fields remain null",
+    "ZED drive-through/station entries excluded from the sandwich branch set"
+  ],
+  "brands": [
+    {
+      "brand_name": "Dank Sandwich",
+      "arabic_name": "دانك ساندوتش",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [],
+      "editorial_classification": "staple",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "Philadelphia Steak Sandwich",
+        "Brisket Sandwich",
+        "Crispy Chicken Sandwich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Samer / Ankara St",
+          "district": "Al Samer",
+          "address": "3285 Ankara St, Al Samer, Jeddah 23462, Saudi Arabia",
+          "google_place_id": "ChIJRQdts4nRwxURM8RG15LlCxA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJRQdts4nRwxURM8RG15LlCxA",
+          "rating": 4.5,
+          "review_count": 2303,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://order.dank.sa/branches/p?language=en"
+          ]
+        },
+        {
+          "branch_name": "Palm Walk / Marwah",
+          "district": "Al Marwah",
+          "address": "4810 Al Shikh Abdullaziz Bin Baz, Al Marwah, Jeddah 23543, Saudi Arabia",
+          "google_place_id": "ChIJ7RvwfKzRwxUR1cXCQmVe8RA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ7RvwfKzRwxUR1cXCQmVe8RA",
+          "rating": 4.9,
+          "review_count": 2706,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://order.dank.sa/branches/p?language=en"
+          ]
+        },
+        {
+          "branch_name": "Al Makarunah Rd",
+          "district": "Ar Rabwah",
+          "address": "Al Makarunah Rd, Ar Rabwah, Jeddah 23448, Saudi Arabia",
+          "google_place_id": "ChIJPd61jeXQwxUR5lNEAkq7c4Y",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJPd61jeXQwxUR5lNEAkq7c4Y",
+          "rating": 4.6,
+          "review_count": 14949,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://order.dank.sa/branches/p?language=en"
+          ]
+        },
+        {
+          "branch_name": "King Abdullah Rd / Sariya Square",
+          "district": "Al Baghdadiyah Al Gharbiyah",
+          "address": "Sariya Square, King Abdullah Rd, Al Baghdadiyah Al Gharbiyah, Jeddah 22234, Saudi Arabia",
+          "google_place_id": "ChIJITZ92qnPwxURVpMY4-_hGFc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJITZ92qnPwxURVpMY4-_hGFc",
+          "rating": 4.7,
+          "review_count": 12921,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://order.dank.sa/branches/p?language=en"
+          ]
+        },
+        {
+          "branch_name": "Sari St",
+          "district": "Al Zahra",
+          "address": "3324 Sari Branch Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "google_place_id": "ChIJzTduvpfbwxURx247-Z4QwnU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJzTduvpfbwxURx247-Z4QwnU",
+          "rating": 4.6,
+          "review_count": 10151,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://order.dank.sa/branches/p?language=en"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Moe's Sandwiches",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [],
+      "editorial_classification": "local_favorite",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Obhur Al-Shamaliyah",
+          "district": "Obhur Al-Shamaliyah",
+          "address": "Al Kurnaysh Branch Rd, Obhur Al-Shamaliyah, Jeddah 23819, Saudi Arabia",
+          "google_place_id": "ChIJT5QNTX1jwRURpGMTbdXvKlU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJT5QNTX1jwRURpGMTbdXvKlU",
+          "rating": 4.6,
+          "review_count": 345,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/moesrolls"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "SANS Sandwich Bar",
+      "arabic_name": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "editorial_classification": "local_favorite",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Sari",
+          "district": "Al Zahra",
+          "address": "Sari Branch Rd, Al Zahra, Jeddah 12222, Saudi Arabia",
+          "google_place_id": "ChIJSWJ-djbbwxURyaw5LiNtXrY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJSWJ-djbbwxURyaw5LiNtXrY",
+          "rating": 4.6,
+          "review_count": 1911,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://sans-sb.com/"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Pronto",
+      "arabic_name": "برونتو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "italian"
+      ],
+      "editorial_classification": "rising",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "Chicken Pesto Sandwich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "district": "Ar Rawdah",
+          "address": "Abdallah Sultan, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_place_id": "ChIJIRIzZGjbwxURiy-tlzxrATQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJIRIzZGjbwxURiy-tlzxrATQ",
+          "rating": 4.5,
+          "review_count": 108,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://ar.restaurantguru.com/Pronto-Jeddah"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Eleven Inch Sandwich",
+      "arabic_name": "إيليفن إنش ساندوتش",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "editorial_classification": "local_favorite",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Cheese Steak",
+        "Wagyu Sandwich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "An Naseem",
+          "district": "An Naseem",
+          "address": "King Abdullah Rd, An Naseem, Jeddah 80200, Saudi Arabia",
+          "google_place_id": "ChIJARKW3APPwxURS-ZHjcie-cA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJARKW3APPwxURS-ZHjcie-cA",
+          "rating": 4.6,
+          "review_count": 1365,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://menubarcode.com/Inch-11"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Samoly",
+      "arabic_name": "صامولي",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "editorial_classification": "local_favorite",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "Minced Meat Samoli",
+        "Liver Samoli",
+        "Chicken Shawarma Samoli"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "district": "Ar Rawdah",
+          "address": "Al Imam Malek, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_place_id": "ChIJaVa5Qw7RwxUReQkpzSYpWmI",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJaVa5Qw7RwxUReQkpzSYpWmI",
+          "rating": 3.9,
+          "review_count": 1759,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://ananinja.com/sa/en/restaurants/samoly-13187"
+          ]
+        },
+        {
+          "branch_name": "Safa",
+          "district": "Al Safa",
+          "address": "Umm Al Qoura, Al Safa, Jeddah 23454, Saudi Arabia",
+          "google_place_id": "ChIJCRDnWrnRwxURVJIEGKZffLQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJCRDnWrnRwxURVJIEGKZffLQ",
+          "rating": 4.0,
+          "review_count": 447,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://hungerstation.com/sa-ar/restaurant/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%B1%D9%88%D8%B6%D8%A9/106220"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Noho Deli",
+      "arabic_name": "نوهو ديلي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "deli"
+      ],
+      "editorial_classification": "rising",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "Pastrami Sandwich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "S Square",
+          "district": "Ash Shati",
+          "address": "S Square, 7750 Hira St, Ash Shati, Jeddah 23514, Saudi Arabia",
+          "google_place_id": "ChIJp9XOFwDbwxUREWkSCESNIt4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJp9XOFwDbwxUREWkSCESNIt4",
+          "rating": 4.6,
+          "review_count": 590,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://restaurantguru.com/Noho-Deli-nwhw-dyly-Jeddah"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Sandwicheina",
+      "arabic_name": "ساندوتشينا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [],
+      "editorial_classification": "local_favorite",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Philly Steak Sandwich",
+        "Chicken Pesto Sandwich",
+        "Shrimp Sandwich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "district": "Ar Rawdah",
+          "address": "Hamad Al Jaser, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_place_id": "ChIJadIIYR3RwxURrOhYVSObvQw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJadIIYR3RwxURrOhYVSObvQw",
+          "rating": 4.7,
+          "review_count": 1729,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://hungerstation.com/sa-en/restaurant/jeddah/ar-rawdah/111824"
+          ]
+        },
+        {
+          "branch_name": "Marwah",
+          "district": "Al Marwah",
+          "address": "6574 Al Shikh Abdullaziz Bin Baz, Al Marwah, Jeddah 23543, Saudi Arabia",
+          "google_place_id": "ChIJEdyVCADRwxURqOAAxIE__m0",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJEdyVCADRwxURqOAAxIE__m0",
+          "rating": 4.8,
+          "review_count": 145,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": []
+        },
+        {
+          "branch_name": "Obhur Al-Shamaliyah",
+          "district": "Obhur Al-Shamaliyah",
+          "address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "google_place_id": "ChIJJ411yNFjwRUR-0hhKOF9Vnw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJJ411yNFjwRUR-0hhKOF9Vnw",
+          "rating": 4.7,
+          "review_count": 787,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": []
+        }
+      ]
+    },
+    {
+      "brand_name": "Charleys Cheesesteaks",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "cheesesteak"
+      ],
+      "editorial_classification": "mainstream",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Philly Cheesesteak"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Mall of Arabia",
+          "district": "An Nuzhah",
+          "address": "First Level Food Court, Mall of Arabia, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJ0e_UP1bXwxUR831p-z5Uo6Y",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ0e_UP1bXwxUR831p-z5Uo6Y",
+          "rating": 3.5,
+          "review_count": 386,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.charleys.com/locations/mall-of-arabia/"
+          ]
+        },
+        {
+          "branch_name": "Salam Mall",
+          "district": "Al Fayha",
+          "address": "King Abdullah Road, Al Salam Mall, Jeddah, Saudi Arabia",
+          "google_place_id": null,
+          "google_maps_url": "https://www.google.com/maps/dir/?api=1&destination=Charleys,+King+Abdullah+Road+Jeddah,+Jeddah+",
+          "rating": null,
+          "review_count": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.charleys.com/locations/salam-mall/"
+          ]
+        },
+        {
+          "branch_name": "Red Sea Mall",
+          "district": "Ash Shati",
+          "address": "Red Sea Mall, King Abdulaziz Branch Rd, Ash Shati, Jeddah 23612, Saudi Arabia",
+          "google_place_id": null,
+          "google_maps_url": "https://www.google.com/maps/dir/?api=1&destination=Charleys,++Jeddah,+Ar+Riyad+",
+          "rating": null,
+          "review_count": null,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.charleys.com/locations/red-sea-mall/"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Fat Steaks",
+      "arabic_name": "فات ستيك",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "cheesesteak"
+      ],
+      "editorial_classification": "rising",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Beef Cheesesteak",
+        "Chicken Cheesesteak"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Hamdaniyah",
+          "district": "Al Hamadaniyyah",
+          "address": "Abdullah Bin Abi Umayyah St, Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+          "google_place_id": "ChIJO1BBbiB9wRUR7eJSx8_GHww",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJO1BBbiB9wRUR7eJSx8_GHww",
+          "rating": 4.2,
+          "review_count": 88,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://maps.yango.com/org/13047867617/"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "1610 Bagel",
+      "arabic_name": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "editorial_classification": "local_favorite",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Zahra",
+          "district": "Al Zahra",
+          "address": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "google_place_id": "ChIJY2XrAjvbwxURZ90q153nR-c",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJY2XrAjvbwxURZ90q153nR-c",
+          "rating": 4.5,
+          "review_count": 1414,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/1610-bagel?to=place.ChIJY2XrAjvbwxURZ90q153nR-c"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Early Club",
+      "arabic_name": null,
+      "modes": [
+        "breakfast",
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "editorial_classification": "mainstream",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "Chicken Pesto Sandwich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Skywalk / Rawdah",
+          "district": "Ar Rawdah",
+          "address": "Abdul Maqsud Khojah, Skywalk, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_place_id": "ChIJZfHPm77bwxUR8DaEe-n2emM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJZfHPm77bwxUR8DaEe-n2emM",
+          "rating": 4.6,
+          "review_count": 9762,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.waze.com/live-map/directions/sa/mkh-almkrmh/jdh/early-club-breakfast-and-brunch?to=place.ChIJZfHPm77bwxUR8DaEe-n2emM"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Club Sandwich & Bowl",
+      "arabic_name": "كلوب ساندويش اند بول",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "editorial_classification": "local_favorite",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "Beef Steak & Egg Sandwich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Ned / Zahra",
+          "district": "Al Zahra",
+          "address": "Al Ned Street, Jeddah 23425, Saudi Arabia",
+          "google_place_id": "ChIJRfQRMDfbwxURHtAqwXSF65I",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJRfQRMDfbwxURHtAqwXSF65I",
+          "rating": 4.7,
+          "review_count": 6450,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.arabnews.com/food-health/where-we-are-going-today-club-sandwich-bowl-in-jeddah-2646701"
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "ZED",
+      "arabic_name": "زد",
+      "modes": [
+        "cafe",
+        "breakfast",
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "breakfast_sandwiches"
+      ],
+      "editorial_classification": "mainstream",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "notes": "Only current main ZED locations are included here; drive-through/station entries are intentionally excluded from the sandwich branch set.",
+      "branches": [
+        {
+          "branch_name": "Obhur Al-Shamaliyah",
+          "district": "Obhur Al-Shamaliyah",
+          "address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "google_place_id": "ChIJnV2AdBNjwRUR2LlJt59ibL8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJnV2AdBNjwRUR2LlJt59ibL8",
+          "rating": 4.3,
+          "review_count": 449,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready"
+        },
+        {
+          "branch_name": "Al Andalus",
+          "district": "Al Andalus",
+          "address": "Arafat St, Al Andalus, Jeddah 23325, Saudi Arabia",
+          "google_place_id": "ChIJMdC5X0_PwxURF29N6TaqLjw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJMdC5X0_PwxURF29N6TaqLjw",
+          "rating": 4.0,
+          "review_count": 134,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready"
+        },
+        {
+          "branch_name": "Al Khalidiyah",
+          "district": "Al Khalidiyah",
+          "address": "Al Khalidiyyah, Jeddah 23421, Saudi Arabia",
+          "google_place_id": "ChIJtyn29qLbwxURn2VL4fnCSKU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJtyn29qLbwxURn2VL4fnCSKU",
+          "rating": 4.4,
+          "review_count": 33,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready"
+        },
+        {
+          "branch_name": "An Naim",
+          "district": "An Naim",
+          "address": "7644, An Naim District, Jeddah 23621, Saudi Arabia",
+          "google_place_id": "ChIJqfnnSInZwxURdxpmaNh3pMM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJqfnnSInZwxURdxpmaNh3pMM",
+          "rating": 4.3,
+          "review_count": 3069,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/zed.ksa"
+          ],
+          "production_eligibility": "production_ready"
+        }
+      ],
+      "held_out_branches": [
+        "Prince Naif / Ash Shiraa"
+      ]
+    },
+    {
+      "brand_name": "Pizzawich",
+      "arabic_name": "بيتزاويتش",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sandwiches",
+      "secondary_categories": [
+        "pizza"
+      ],
+      "editorial_classification": "rising",
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Ranch Pizzawich",
+        "Dynamite Chicken Pizzawich",
+        "Pepperoni Pizzawich"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Murjan",
+          "district": "Al Murjan",
+          "address": "Al Murjan, Jeddah 23714, Saudi Arabia",
+          "google_place_id": "ChIJpRsTZlfZwxURnI1MPGfVAvI",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJpRsTZlfZwxURnI1MPGfVAvI",
+          "rating": 4.8,
+          "review_count": 1108,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://pizzawich.sa/branches"
+          ]
+        },
+        {
+          "branch_name": "Al Marwah",
+          "district": "Al Marwah",
+          "address": "Ibrahim Mohamed Abdel Wahab St, Al Marwah, Jeddah 23545, Saudi Arabia",
+          "google_place_id": "ChIJL8FPNMbXwxURj-pHuAqD7Sc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJL8FPNMbXwxURj-pHuAqD7Sc",
+          "rating": 4.8,
+          "review_count": 3214,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://pizzawich.sa/branches"
+          ]
+        },
+        {
+          "branch_name": "An Naseem",
+          "district": "An Naseem",
+          "address": "Al Naseem St, Al Basim, Jeddah 23342, Saudi Arabia",
+          "google_place_id": "ChIJ62Hukw3PwxURZI9WufUj7ho",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ62Hukw3PwxURZI9WufUj7ho",
+          "rating": 4.9,
+          "review_count": 2119,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://pizzawich.sa/branches"
+          ]
+        },
+        {
+          "branch_name": "Al Wurud",
+          "district": "Al Wurud",
+          "address": "6754 Al Wurud, Jeddah 23225, Saudi Arabia",
+          "google_place_id": "ChIJRZEtXgDPwxURInrHxy0NkME",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJRZEtXgDPwxURInrHxy0NkME",
+          "rating": 4.8,
+          "review_count": 109,
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://pizzawich.sa/branches"
+          ]
+        }
+      ]
+    }
+  ],
+  "manual_review_candidates": [
+    {
+      "brand": "ZED",
+      "branch_name": "Prince Naif / Ash Shiraa",
+      "district": "Ash Shiraa",
+      "address": "Prince Naif Rd, Ash Shiraa District, Jeddah 23816, Saudi Arabia",
+      "google_place_id": null,
+      "google_maps_url": "https://www.google.com/maps/place/GOA/@21.7714897,39.0984787,17z/data=!3m1!4b1!4m5!3m4!1s0x15c1634715eca861:0x2e821c49bfc0f8df!8m2!3d21.7714897!4d39.0984787?hl=en-SA&shorturl=1",
+      "rating": null,
+      "review_count": null,
+      "operating_status": "open",
+      "hours": null,
+      "verification_date": "2026-09-27",
+      "sources": [
+        "https://linktr.ee/zed.ksa",
+        "https://maps.yango.com/en-sa/org/183272474368/"
+      ],
+      "manual_review": "Official ZED Linktree currently links this Prince Naif location to a Google Maps listing titled 'GOA', not ZED. Excluded from production import until the branch identity is reconfirmed.",
+      "production_eligibility": "manual_review"
+    }
+  ],
+  "production_branch_count": 30,
+  "manual_review_branch_count": 1,
+  "status": "production_research_complete",
+  "correction_pass": {
+    "completed": true,
+    "notes": [
+      "Bait Al Tamiya removed from Sandwiches.",
+      "Samoly and Samolji kept separate.",
+      "Delivery-zone labels not used as physical branches.",
+      "ZED drive-through/station locations excluded from this sandwich branch set.",
+      "ZED Prince Naif held out because the brand's official link resolves to a mismatched Google Maps listing."
+    ]
+  }
+}

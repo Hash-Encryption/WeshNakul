@@ -1,0 +1,1833 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "italian",
+    "display_category": "Italian",
+    "verified_date": "2026-09-27",
+    "brand_count": 16,
+    "status": "PASS_WITH_FIELD_VALIDATION_COMPLETE",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknowns_are_null",
+      "delivery_distance_policy_strict_nearby_branch",
+      "going_out_distance_policy_mix_nearby_and_destination",
+      "branch_count_does_not_equal_recommendation_weight"
+    ],
+    "summary": {
+      "total_brands": 16,
+      "production_ready_brands": 16,
+      "caution_brands": 0,
+      "manual_review_brands": 0,
+      "total_candidate_branches": 23,
+      "total_verified_active_branches": 22,
+      "production_ready_branches": 21,
+      "usable_with_caution_branches": 1,
+      "manual_review_branches": 1,
+      "excluded_branches": 0,
+      "canonical_district_active_branches": 21,
+      "outer_caution_branches": 1,
+      "place_id_completeness": "100.0% (22/22)",
+      "coordinate_completeness": "100.0% (22/22)",
+      "maps_url_completeness": "100.0% (22/22)",
+      "address_completeness": "100.0% (22/22)",
+      "operating_status_completeness": "100.0% (22/22)",
+      "rating_completeness": "100.0% (22/22)",
+      "review_count_completeness": "100.0% (22/22)",
+      "hours_completeness": "100.0% (22/22)"
+    }
+  },
+  "brands": [
+    {
+      "id": "jon_and_vinnys",
+      "canonical_name": "Jon & Vinny's",
+      "arabic_name": "جون آند فينيز",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "italian_american",
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "High Jeddah review volume, recognizable international brand, and confirmed Saudi operation.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout",
+        "late_night",
+        "premium"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Spicy Fusilli",
+        "Spaghetti Limone",
+        "Chicken Parmigiana",
+        "Margherita Pizza"
+      ],
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": "https://jonandvinnysksa.com/",
+      "sources": [
+        {
+          "label": "Official Saudi website",
+          "url": "https://jonandvinnysksa.com/",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        },
+        {
+          "label": "Official Saudi menu",
+          "url": "https://jonandvinnysksa.com/menus/aldabab",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "intentional_existing_identity_reused",
+        "existing_primary_category": "pizza",
+        "reused_restaurant_id": "jon_and_vinnys",
+        "reused_branches_count": 1
+      },
+      "branches": [
+        {
+          "branch_name": "La Paz / As Salamah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "La Paz Plaza, Prince Sultan Street, As Salamah, Jeddah 23525, Saudi Arabia",
+          "raw_district": "al_salamah",
+          "canonical_district": "al_salamah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJL1hhI4zbwxURYcBSwlTBhLo",
+          "google_place_id": "ChIJL1hhI4zbwxURYcBSwlTBhLo",
+          "latitude": 21.6036875,
+          "longitude": 39.1430625,
+          "google_rating": 4.5,
+          "google_review_count": 5189,
+          "hours": "Sat–Tue 08:00–23:30; Wed–Fri 08:00–01:30",
+          "phone": "9200 18212",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_salamah.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "noto",
+      "canonical_name": "Noto",
+      "arabic_name": "نوتو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "High review volume and repeated premium Italian coverage in Jeddah.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "premium"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Truffle Tubetti Pasta",
+        "Neapolitan Pizza"
+      ],
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [
+        {
+          "label": "Gault&Millau Saudi",
+          "url": "https://sa.gaultmillau.com/en/restaurants/noto",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Jeddah Walk",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Cascade at Jeddah Walk, Tahlia Street, Al Khalidiyyah, Jeddah 23421, Saudi Arabia",
+          "raw_district": "al_khalidiyyah",
+          "canonical_district": "al_khalidiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJUyfUUtHFwxURvBANkV2JDck",
+          "google_place_id": "ChIJUyfUUtHFwxURvBANkV2JDck",
+          "latitude": 21.548520999999997,
+          "longitude": 39.1382562,
+          "google_rating": 4.7,
+          "google_review_count": 3321,
+          "hours": "Sun–Wed 13:00–01:00; Thu–Sat 13:00–01:00",
+          "phone": null,
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_khalidiyyah.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "san_carlo_cicchetti",
+      "canonical_name": "San Carlo Cicchetti",
+      "arabic_name": "سان كارلو تشيكيتّي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Established international Italian brand with strong Jeddah review presence and official Jeddah branch.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "premium"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Tartufo Pizza",
+        "Burrata Pizza",
+        "Truffle Ravioli",
+        "Lobster Risotto"
+      ],
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": "https://sancarlocicchetti.sa/",
+      "sources": [
+        {
+          "label": "Official website",
+          "url": "https://sancarlocicchetti.sa/",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        },
+        {
+          "label": "HungerStation listing",
+          "url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/jeddah-islamic-seaport/san-carlo-cicchetti-152736",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Ar Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Mohammed Bin Abdulaziz St, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJDf-YJh7bwxURl0MqeLVAWhw",
+          "google_place_id": "ChIJDf-YJh7bwxURl0MqeLVAWhw",
+          "latitude": 21.550590099999997,
+          "longitude": 39.1541522,
+          "google_rating": 4.2,
+          "google_review_count": 4000,
+          "hours": "Sun–Tue 13:00–00:00; Wed–Fri 13:00–01:30; Sat 13:00–00:00",
+          "phone": "09200 04060",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "piatto",
+      "canonical_name": "Piatto",
+      "arabic_name": "بياتو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "classification_evidence": "Large multi-branch Jeddah presence, strong review volume, and long-running mainstream recognition.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "casual_hangout",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Fettuccine Alfredo",
+        "Chicken Parmigiana",
+        "Lasagna",
+        "Margherita Pizza"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": "https://www.alfaco.com.sa/",
+      "sources": [
+        {
+          "label": "Alfa / Piatto location directory",
+          "url": "https://table.alfaco.com.sa/locations/ar-piatto-map.html",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Etoile / Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Etoile Center Next to Stars Avenue Mall, King Abdulaziz Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJv0Uh5unawxURKQlZ_jaEdTY",
+          "google_place_id": "ChIJv0Uh5unawxURKQlZ_jaEdTY",
+          "latitude": 21.5758945,
+          "longitude": 39.127302,
+          "google_rating": 4.3,
+          "google_review_count": 8870,
+          "hours": "Sun–Wed 11:00–02:00; Thu 11:00–03:00; Fri 13:00–03:00; Sat 11:00–02:00",
+          "phone": "012 692 2501",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        },
+        {
+          "branch_name": "Prince Sultan",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Al-Gathmi Center, 7639 Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23621, Saudi Arabia",
+          "raw_district": "al_mohammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCbBXZovZwxURLTahf-whPQo",
+          "google_place_id": "ChIJCbBXZovZwxURLTahf-whPQo",
+          "latitude": 21.6379421,
+          "longitude": 39.1319386,
+          "google_rating": 4.3,
+          "google_review_count": 6833,
+          "hours": "Sun–Wed 11:00–01:00; Thu–Fri 11:00–02:00; Sat 11:00–01:00",
+          "phone": "012 622 3464",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        },
+        {
+          "branch_name": "Emaar Square",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Emaar Square, Building 45, Al Fayha, Jeddah 22241, Saudi Arabia",
+          "raw_district": "al_faiha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJZb0FIa7PwxURV0LcamCcdhA",
+          "google_place_id": "ChIJZb0FIa7PwxURV0LcamCcdhA",
+          "latitude": 21.5103848,
+          "longitude": 39.202632699999995,
+          "google_rating": 4.3,
+          "google_review_count": 4033,
+          "hours": "Sun–Wed 11:00–01:00; Thu–Fri 11:00–02:00; Sat 11:00–01:00",
+          "phone": "012 606 0092",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faiha.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        },
+        {
+          "branch_name": "The Village",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "The Village Mall, Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738, Saudi Arabia",
+          "raw_district": "al_asalah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJyweiP5h9wRURge_HLN6pGWk",
+          "google_place_id": "ChIJyweiP5h9wRURge_HLN6pGWk",
+          "latitude": 21.773612999999997,
+          "longitude": 39.167837899999995,
+          "google_rating": 4.5,
+          "google_review_count": 801,
+          "hours": "Sun–Wed 11:00–00:00; Thu–Sat 11:00–01:00",
+          "phone": "012 212 0184",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in outer Jeddah district Al Asalah (The Village Mall), outside the 30 canonical districts; retained with usable_with_caution.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        },
+        {
+          "branch_name": "Mall of Arabia",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Mall of Arabia, Second Floor, Madinah Rd, An Nuzhah, Jeddah 23532, Saudi Arabia",
+          "raw_district": "an_nuzhah",
+          "canonical_district": "an_nuzhah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJca-CWSrXwxURgh2LAWQ2AZE",
+          "google_place_id": "ChIJca-CWSrXwxURgh2LAWQ2AZE",
+          "latitude": 21.6324683,
+          "longitude": 39.1561302,
+          "google_rating": 4.6,
+          "google_review_count": 3141,
+          "hours": "Sun–Thu 11:00–00:00; Fri–Sat 11:00–01:00",
+          "phone": "012 612 2220",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district an_nuzhah.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "olive_garden",
+      "canonical_name": "Olive Garden",
+      "arabic_name": "أوليف جاردن",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "italian_american",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "classification_evidence": "Very high Jeddah review volume and major international mainstream recognition.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "casual_hangout",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": null,
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": "https://www.olivegarden.com/international",
+      "sources": [
+        {
+          "label": "Official international locations",
+          "url": "https://www.olivegarden.com/international",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Atelier LaVie",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Atelier LaVie, 23514 King Abdulaziz Branch Rd, Al Shati, Jeddah 23514, Saudi Arabia",
+          "raw_district": "al_shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJt5tYPPHbwxURUUbPlY7uzWo",
+          "google_place_id": "ChIJt5tYPPHbwxURUUbPlY7uzWo",
+          "latitude": 21.613484099999997,
+          "longitude": 39.1179079,
+          "google_rating": 4.8,
+          "google_review_count": 13269,
+          "hours": "Daily 12:00–02:00",
+          "phone": "059 748 5555",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_shati.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "eataly",
+      "canonical_name": "Eataly",
+      "arabic_name": "إيتالي",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta",
+        "breakfast"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "classification_evidence": "Globally recognized Italian food concept with confirmed Jeddah store and breakfast offering.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": null,
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": "https://www.eatalyarabia.com/",
+      "sources": [
+        {
+          "label": "Official contact/store page",
+          "url": "https://www.eatalyarabia.com/contact-us",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Jeddah Vibes",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Ground Floor, Vibes, 9144 Prince Mohammed Bin Abdulaziz St, Al Andalus, Jeddah 23326, Saudi Arabia",
+          "raw_district": "al_andalus",
+          "canonical_district": "al_andalus",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJkR0wGgDRwxURbuskasl50nU",
+          "google_place_id": "ChIJkR0wGgDRwxURbuskasl50nU",
+          "latitude": 21.5516725,
+          "longitude": 39.1602751,
+          "google_rating": 4.6,
+          "google_review_count": 1480,
+          "hours": "Daily 09:00–00:00",
+          "phone": "054 702 9337",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_andalus.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "il_vero",
+      "canonical_name": "IL Vero",
+      "arabic_name": "إل فيرو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Strong Jeddah Italian/pizza relevance and local review activity.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "late_night",
+        "casual_hangout",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": null,
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Al Andalus",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "3139 Al Bouraidi, Al Andalus, Jeddah 23326, Saudi Arabia",
+          "raw_district": "al_andalus",
+          "canonical_district": "al_andalus",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJAwP2aQPQwxURGYkUSLA8hk0",
+          "google_place_id": "ChIJAwP2aQPQwxURGYkUSLA8hk0",
+          "latitude": 21.5486041,
+          "longitude": 39.1636355,
+          "google_rating": 4.4,
+          "google_review_count": 716,
+          "hours": "Sun 13:00–03:00; Mon–Sat 12:00–03:00",
+          "phone": "054 971 4040",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_andalus.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Second Jeddah listing",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "3846, Al Sheraa, Jeddah 23816, Saudi Arabia",
+          "raw_district": "al_sheraa",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ07X0n-ZjwRURdGyPP-fukOQ",
+          "google_place_id": "ChIJ07X0n-ZjwRURdGyPP-fukOQ",
+          "latitude": 21.7742376,
+          "longitude": 39.102828099999996,
+          "google_rating": 4.4,
+          "google_review_count": 515,
+          "hours": "Sun–Wed 11:00–01:30",
+          "phone": "057 588 3792",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "production_eligibility": "manual_review",
+          "reason": "Unverified user-generated pin / delivery-only point in Al Sheraa titled 'إلفيرو احسن مطعم في السعودية' at building 3846. Lacks commercial storefront signage, formal branch locator confirmation, or verified physical dine-in evidence. Kept in manual_review per Section 18 to prevent accidental production promotion."
+        }
+      ],
+      "excluded_branches": []
+    },
+    {
+      "id": "portofino",
+      "canonical_name": "Portofino",
+      "arabic_name": "بورتوفينو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "seafood",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "classification_evidence": "Long-established Jeddah Italian restaurant with repeated local relevance.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Seafood Risotto",
+        "Olio Pasta",
+        "Fried Calamari",
+        "Milanese Veal"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Ar Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "7096 2307 Prince Saud Al Faisal St, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJnSdklK_awxURiwMU9F2xN6M",
+          "google_place_id": "ChIJnSdklK_awxURiwMU9F2xN6M",
+          "latitude": 21.5584541,
+          "longitude": 39.145452899999995,
+          "google_rating": 4.2,
+          "google_review_count": 1351,
+          "hours": "Sun–Thu 13:00–16:00, 19:30–00:00; Fri 14:00–00:30; Sat 13:00–16:00, 19:30–00:00",
+          "phone": "012 665 5855",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "vivaci",
+      "canonical_name": "Vivaci",
+      "arabic_name": "فيفاتشي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Strong ratings/review volume and repeated local recommendations.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Margherita Pizza",
+        "Risotto",
+        "Lasagna",
+        "Burrata Pizza"
+      ],
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "7100 2537 Ahmad Al Khatib, Al Zahra, Jeddah 23425, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJDYKLVhrbwxURavlhB-QeaGQ",
+          "google_place_id": "ChIJDYKLVhrbwxURavlhB-QeaGQ",
+          "latitude": 21.582274599999998,
+          "longitude": 39.1300688,
+          "google_rating": 4.7,
+          "google_review_count": 2485,
+          "hours": "Daily 13:00–01:00",
+          "phone": "055 103 1177",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "napoli_blu",
+      "canonical_name": "Napoli Blu",
+      "arabic_name": "نابولي بلو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Strong local review volume and unusually useful late-night hours.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "late_night",
+        "casual_hangout",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": null,
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "intentional_existing_identity_reused",
+        "existing_primary_category": "pizza",
+        "reused_restaurant_id": "napoli_blu",
+        "reused_branches_count": 1
+      },
+      "branches": [
+        {
+          "branch_name": "Ar Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Hamad Al Jaser, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJM2DnNgDRwxUR2Z5xk02gukQ",
+          "google_place_id": "ChIJM2DnNgDRwxUR2Z5xk02gukQ",
+          "latitude": 21.5769558,
+          "longitude": 39.156721499999996,
+          "google_rating": 4.7,
+          "google_review_count": 2926,
+          "hours": "Sat–Thu 07:00–03:00; Fri 13:00–04:00",
+          "phone": "050 803 5530",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "il_postino_pizzeria",
+      "canonical_name": "il Postino Pizzeria",
+      "arabic_name": "إل بوستينو بيتزاريا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "High branch-level review volume and repeated Jeddah pizza recognition.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "late_night",
+        "casual_hangout",
+        "dine_in_strong",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Burrata Pizza",
+        "Truffle Pizza",
+        "Diavola Pizza"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "intentional_existing_identity_reused",
+        "existing_primary_category": "pizza",
+        "reused_restaurant_id": "il_postino_pizzeria",
+        "reused_branches_count": 2
+      },
+      "branches": [
+        {
+          "branch_name": "Al Khalidiyyah / Sari Road",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "3803 Sari Branch Road, Al Khalidiyyah, Jeddah 23423, Saudi Arabia",
+          "raw_district": "al_khalidiyyah",
+          "canonical_district": "al_khalidiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJOd4ucWnbwxUREsfKPgbPHMc",
+          "google_place_id": "ChIJOd4ucWnbwxUREsfKPgbPHMc",
+          "latitude": 21.574147600000003,
+          "longitude": 39.142584299999996,
+          "google_rating": 4.6,
+          "google_review_count": 5278,
+          "hours": "Sat–Wed 13:00–01:00; Thu–Fri 13:00–02:00",
+          "phone": "050 365 0985",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_khalidiyyah.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        },
+        {
+          "branch_name": "Al Murjan / King Abdulaziz Road",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "JEJB6434, 6434 King Abdulaziz Branch Rd, 4299, Al Murjan, Jeddah 23715, Saudi Arabia",
+          "raw_district": "al_murjan",
+          "canonical_district": "al_murjan",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJhfNya6HZwxURtxSMFrcWVnE",
+          "google_place_id": "ChIJhfNya6HZwxURtxSMFrcWVnE",
+          "latitude": 21.694570199999998,
+          "longitude": 39.1081393,
+          "google_rating": 4.7,
+          "google_review_count": 5343,
+          "hours": "Daily 13:00–01:00",
+          "phone": "053 030 3979",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_murjan.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "wood_fire_pizza_lenuo",
+      "canonical_name": "Pizza Lenuo",
+      "arabic_name": "بيتزا لينو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "classification_evidence": "Long-running Jeddah wood-fired pizza brand with strong review volume and official local history.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "casual_hangout",
+        "dine_in_strong",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Jeddah Special Pizza",
+        "Friends Pizza",
+        "Truffle Pizza",
+        "Homemade Pasta"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": "https://pizzalenuo.com/",
+      "sources": [
+        {
+          "label": "Official website",
+          "url": "https://pizzalenuo.com/en/",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        },
+        {
+          "label": "Official about page",
+          "url": "https://pizzalenuo.com/en/about-us/",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        },
+        {
+          "label": "Official contact page",
+          "url": "https://pizzalenuo.com/en/contact-us/",
+          "type": "web",
+          "verified_at": "2026-09-27"
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "intentional_existing_identity_reused",
+        "existing_primary_category": "pizza",
+        "reused_restaurant_id": "wood_fire_pizza_lenuo",
+        "reused_branches_count": 1
+      },
+      "branches": [
+        {
+          "branch_name": "Al Hamra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "2916 Al Maadi, Al Hamra, Jeddah 23212, Saudi Arabia",
+          "raw_district": "al_hamra",
+          "canonical_district": "al_hamra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJwyXLvoXPwxURmPwwIPOhNPk",
+          "google_place_id": "ChIJwyXLvoXPwxURmPwwIPOhNPk",
+          "latitude": 21.5138481,
+          "longitude": 39.161190100000006,
+          "google_rating": 4.4,
+          "google_review_count": 4040,
+          "hours": "Sat–Wed 12:00–00:45; Thu 12:00–01:45; Fri 13:00–01:45",
+          "phone": "012 614 0663",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamra.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "verra_pizza",
+      "canonical_name": "Vera Pizza",
+      "arabic_name": "ڤيرا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "wood_fired"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Multiple Jeddah locations and strong local pizza relevance.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "late_night",
+        "casual_hangout",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "signature_dishes": null,
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "yes",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "intentional_existing_identity_reused",
+        "existing_primary_category": "pizza",
+        "reused_restaurant_id": "verra_pizza",
+        "reused_branches_count": 2
+      },
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "4144, 6849 Batterjie Street, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJc_9rnWbawxURdqShiels-ow",
+          "google_place_id": "ChIJc_9rnWbawxURdqShiels-ow",
+          "latitude": 21.5979474,
+          "longitude": 39.138719699999996,
+          "google_rating": 4.5,
+          "google_review_count": 4060,
+          "hours": "Sat–Wed 13:00–01:00; Thu–Fri 13:00–02:00",
+          "phone": "9200 03213",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        },
+        {
+          "branch_name": "Obhur Al Shamaliyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Aabir Al Qarath St, Obhur Al Shamaliyah, Jeddah 23826, Saudi Arabia",
+          "raw_district": "abhur_al_shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJUyizioNjwRURBwf0xqdZ0P4",
+          "google_place_id": "ChIJUyizioNjwRURBwf0xqdZ0P4",
+          "latitude": 21.7608222,
+          "longitude": 39.117422499999996,
+          "google_rating": 4.7,
+          "google_review_count": 918,
+          "hours": "Sat–Wed 13:00–01:00; Thu–Fri 13:00–02:00",
+          "phone": "9200 03213",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "salernoo",
+      "canonical_name": "Salernoo",
+      "arabic_name": "ساليرنو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "pasta"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Smaller neighborhood Italian restaurant with repeated strong customer feedback and less mainstream visibility.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": [
+        "Truffle Pizza",
+        "Truffle Fettuccine",
+        "Mushroom Risotto",
+        "Caprese"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "3498 7798 Fahed Bei Zouair, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCTcptgHbwxURPbuWt4KeAi8",
+          "google_place_id": "ChIJCTcptgHbwxURPbuWt4KeAi8",
+          "latitude": 21.606474499999997,
+          "longitude": 39.1320943,
+          "google_rating": 4.6,
+          "google_review_count": 1862,
+          "hours": "Sun 16:00–01:00; Mon–Sat 13:00–01:00",
+          "phone": "054 928 3842",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "il_castello",
+      "canonical_name": "IL Castello",
+      "arabic_name": "إل كاستيلو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pasta",
+        "pizza"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "classification_evidence": "Long-established legacy Italian restaurant in Jeddah.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": null,
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "new_brand_certified",
+        "existing_primary_category": null,
+        "reused_restaurant_id": null,
+        "reused_branches_count": 0
+      },
+      "branches": [
+        {
+          "branch_name": "Al Sharafeyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "G5CP+R2G, Asad Allah, Al Sharafeyah, Jeddah 23218, Saudi Arabia",
+          "raw_district": "al_sharafeyah",
+          "canonical_district": "al_sharafeyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJQW4PGMbPwxUR-OfJcYLfYLg",
+          "google_place_id": "ChIJQW4PGMbPwxUR-OfJcYLfYLg",
+          "latitude": 21.5220689,
+          "longitude": 39.1850739,
+          "google_rating": 3.9,
+          "google_review_count": 1477,
+          "hours": "Sun–Thu 13:00–15:30, 18:00–00:00; Fri 13:00–15:30, 18:00–00:00; Sat 13:00–15:30, 17:30–00:00",
+          "phone": "012 660 6119",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_sharafeyah.",
+          "existing_pizza_reconciliation": "none_new_italian_branch"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "pizzalio",
+      "canonical_name": "Pizzalio",
+      "arabic_name": "بيتزاليو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "italian",
+      "secondary_categories": [
+        "pizza",
+        "local_pizzeria"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Strong rating, local relevance, and more affordable positioning than many premium Italian options.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout",
+        "delivery_strong",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "signature_dishes": null,
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "direct_url": null,
+          "verified_at": "2026-09-27"
+        }
+      },
+      "official_website": null,
+      "sources": [],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "cross_category_reconciliation": {
+        "status": "intentional_existing_identity_reused",
+        "existing_primary_category": "pizza",
+        "reused_restaurant_id": "pizzalio",
+        "reused_branches_count": 1
+      },
+      "branches": [
+        {
+          "branch_name": "As Salamah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Rami Street, As Salamah, Jeddah 23436, Saudi Arabia",
+          "raw_district": "al_salamah",
+          "canonical_district": "al_salamah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJc-aQA9PbwxUR2cOZdM6POTE",
+          "google_place_id": "ChIJc-aQA9PbwxUR2cOZdM6POTE",
+          "latitude": 21.5823848,
+          "longitude": 39.1542442,
+          "google_rating": 4.7,
+          "google_review_count": 709,
+          "hours": "Sat–Wed 13:00–01:00; Thu–Fri 14:00–02:00",
+          "phone": "057 399 4170",
+          "operating_status": "open",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct Google Places preload entity verification pass — 2026-09-27",
+            "Official brand location directory / menu verification"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_salamah.",
+          "existing_pizza_reconciliation": "intentional_existing_identity_reused"
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    }
+  ]
+}

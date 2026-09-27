@@ -1,0 +1,1409 @@
+[
+  {
+    "target": "il vero",
+    "place": {
+      "id": "ChIJ07X0n-ZjwRURdGyPP-fukOQ",
+      "formattedAddress": "3846, الشراع، جدة 23816, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "3846",
+          "languageCode": "en"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "الشراع",
+          "shortText": "الشراع",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23816",
+          "shortText": "23816",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.7742376,
+        "longitude": 39.102828099999996
+      },
+      "rating": 4.4,
+      "googleMapsUri": "https://maps.google.com/?cid=16469926514265123956&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 515,
+      "displayName": {
+        "text": "IL Vero",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "olive garden",
+    "place": {
+      "id": "ChIJlW3m__pjwRURLSSftKaQbpk",
+      "formattedAddress": "الأمير مشعل ابن ماجد بن عبدالله, Al Shera'a, Jeddah 23816, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "الأمير مشعل ابن ماجد بن عبدالله",
+          "shortText": "الأمير مشعل ابن ماجد بن عبدالله",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Shera'a",
+          "shortText": "Al Shera'a",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23816",
+          "shortText": "23816",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.7638921,
+        "longitude": 39.1090234
+      },
+      "rating": 4.5,
+      "googleMapsUri": "https://maps.google.com/?cid=11055933180910445613&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 319,
+      "displayName": {
+        "text": "مطعم وكافيه حديقة الزيتون أبحر OLIVE GARDENO",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "piatto",
+    "place": {
+      "id": "ChIJyweiP5h9wRURge_HLN6pGWk",
+      "formattedAddress": "Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Prince Talal Bin Mansour Road",
+          "shortText": "Prince Talal Bin Mansour Rd",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Asalah",
+          "shortText": "Al Asalah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23738",
+          "shortText": "23738",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.773612999999997,
+        "longitude": 39.167837899999995
+      },
+      "rating": 4.5,
+      "googleMapsUri": "https://maps.google.com/?cid=7573271020099334017&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 801,
+      "displayName": {
+        "text": "Piatto Restaurant",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "piatto",
+    "place": {
+      "id": "ChIJCbBXZovZwxURLTahf-whPQo",
+      "formattedAddress": "Al-Gathmi Center, 7639 Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23621, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Al-Gathmi Center",
+          "shortText": "Al-Gathmi Center",
+          "types": [
+            "point_of_interest",
+            "establishment"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "7639",
+          "shortText": "7639",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Prince Sultan Road",
+          "shortText": "Prince Sultan Rd",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Mohammadiyyah",
+          "shortText": "Al Mohammadiyyah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23621",
+          "shortText": "23621",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.6379421,
+        "longitude": 39.1319386
+      },
+      "rating": 4.3,
+      "googleMapsUri": "https://maps.google.com/?cid=737783213595899437&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 6833,
+      "displayName": {
+        "text": "Piatto Restaurant",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "piatto",
+    "place": {
+      "id": "ChIJca-CWSrXwxURgh2LAWQ2AZE",
+      "formattedAddress": "An Nuzahah, Mall of Arabia, طريق المدينة المنورة، second floor, جدة 23532, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "An Nuzahah",
+          "languageCode": "en"
+        },
+        {
+          "longText": "Mall of Arabia",
+          "shortText": "Mall of Arabia",
+          "types": [
+            "premise"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "طريق المدينة المنورة",
+          "shortText": "طريق المدينة المنورة",
+          "types": [
+            "route"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "second floor",
+          "shortText": "second floor",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23532",
+          "shortText": "23532",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.6324683,
+        "longitude": 39.1561302
+      },
+      "rating": 4.6,
+      "googleMapsUri": "https://maps.google.com/?cid=10448692413626785154&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 3141,
+      "displayName": {
+        "text": "Piatto Restaurant",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "olive garden",
+    "place": {
+      "id": "ChIJt5tYPPHbwxURUUbPlY7uzWo",
+      "formattedAddress": "Atelier LaVie, 23514 طريق الملك عبدالعزيز، Branch, جدة 23514, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Atelier LaVie",
+          "languageCode": "en"
+        },
+        {
+          "longText": "23514",
+          "shortText": "23514",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "طريق الملك عبدالعزيز",
+          "shortText": "طريق الملك عبدالعزيز",
+          "types": [
+            "route"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Branch",
+          "shortText": "Branch",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23514",
+          "shortText": "23514",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.613484099999997,
+        "longitude": 39.1179079
+      },
+      "rating": 4.8,
+      "googleMapsUri": "https://maps.google.com/?cid=7696069634412201553&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 13269,
+      "displayName": {
+        "text": "مطعم أوليف جاردن جده | Olive Garden Jeddah",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "salernoo",
+    "place": {
+      "id": "ChIJCTcptgHbwxURPbuWt4KeAi8",
+      "formattedAddress": "3498 7798 Fahed Bei Zouair, Al Zahra, Jeddah 23522, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "3498 7798",
+          "shortText": "3498 7798",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Fahed Bei Zouair",
+          "shortText": "Fahed Bei Zouair",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Zahra",
+          "shortText": "Al Zahra",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23522",
+          "shortText": "23522",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.606474499999997,
+        "longitude": 39.1320943
+      },
+      "rating": 4.6,
+      "googleMapsUri": "https://maps.google.com/?cid=3387444153999080253&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 1861,
+      "displayName": {
+        "text": "Salernoo",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "vivaci",
+    "place": {
+      "id": "ChIJDYKLVhrbwxURavlhB-QeaGQ",
+      "formattedAddress": "7100 2537 Ahmad Al Khatib, Al Zahra, Jeddah 23425, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "7100 2537",
+          "shortText": "7100 2537",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Ahmad Al Khatib",
+          "shortText": "Ahmad Al Khatib",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Zahra",
+          "shortText": "Al Zahra",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23425",
+          "shortText": "23425",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.582274599999998,
+        "longitude": 39.1300688
+      },
+      "rating": 4.7,
+      "googleMapsUri": "https://maps.google.com/?cid=7235066766095939946&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 2485,
+      "displayName": {
+        "text": "Vivaci",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "piatto",
+    "place": {
+      "id": "ChIJv0Uh5unawxURKQlZ_jaEdTY",
+      "formattedAddress": "Etoile Center Next to Stars, Avenue Mall, King Abdul Aziz Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Etoile Center Next to Stars",
+          "shortText": "Etoile Center Next to Stars",
+          "types": [
+            "point_of_interest",
+            "establishment"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Avenue Mall",
+          "shortText": "Avenue Mall",
+          "types": [
+            "premise"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "King Abdul Aziz Road",
+          "shortText": "King Abdul Aziz Rd",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Zahra",
+          "shortText": "Al Zahra",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23424",
+          "shortText": "23424",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5758945,
+        "longitude": 39.127302
+      },
+      "rating": 4.3,
+      "googleMapsUri": "https://maps.google.com/?cid=3924188022053603625&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 8870,
+      "displayName": {
+        "text": "Piatto Restaurant",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "san carlo",
+    "place": {
+      "id": "ChIJDf-YJh7bwxURl0MqeLVAWhw",
+      "formattedAddress": "Prince Mohammed Bin Abdulaziz St, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Prince Mohammed Bin Abdulaziz Street",
+          "shortText": "Prince Mohammed Bin Abdulaziz St",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Ar Rawdah",
+          "shortText": "Ar Rawdah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23431",
+          "shortText": "23431",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.550590099999997,
+        "longitude": 39.1541522
+      },
+      "rating": 4.2,
+      "googleMapsUri": "https://maps.google.com/?cid=2043016529115235223&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 4000,
+      "displayName": {
+        "text": "San Carlo Cicchetti Jeddah",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "portofino",
+    "place": {
+      "id": "ChIJnSdklK_awxURiwMU9F2xN6M",
+      "formattedAddress": "حي الروضة، 7096 2307 شارع الامير سعود الفيصل، Ar Rawdah, Jeddah 23431, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "حي الروضة، 7096 2307 شارع الامير سعود الفيصل",
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Ar Rawdah",
+          "shortText": "Ar Rawdah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23431",
+          "shortText": "23431",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5584541,
+        "longitude": 39.145452899999995
+      },
+      "rating": 4.2,
+      "googleMapsUri": "https://maps.google.com/?cid=11761063968986366859&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 1351,
+      "displayName": {
+        "text": "Portofino",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "il vero",
+    "place": {
+      "id": "ChIJAwP2aQPQwxURGYkUSLA8hk0",
+      "formattedAddress": "3139 Al Bouraidi, حي الاندلس, Jeddah 23326, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "3139",
+          "shortText": "3139",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Al Bouraidi",
+          "shortText": "Al Bouraidi",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "حي الاندلس",
+          "shortText": "حي الاندلس",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23326",
+          "shortText": "23326",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5486041,
+        "longitude": 39.1636355
+      },
+      "rating": 4.4,
+      "googleMapsUri": "https://maps.google.com/?cid=5586219115620895001&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 716,
+      "displayName": {
+        "text": "Il Vero",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "noto",
+    "place": {
+      "id": "ChIJUyfUUtHFwxURvBANkV2JDck",
+      "formattedAddress": "Al Khalidiyyah, Jeddah 23421, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Al Khalidiyyah",
+          "shortText": "Al Khalidiyyah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23421",
+          "shortText": "23421",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.548520999999997,
+        "longitude": 39.1382562
+      },
+      "rating": 4.7,
+      "googleMapsUri": "https://maps.google.com/?cid=14487386611279270076&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 3321,
+      "displayName": {
+        "text": "Noto Jeddah - نوتو جدة",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "eataly",
+    "place": {
+      "id": "ChIJkR0wGgDRwxURbuskasl50nU",
+      "formattedAddress": "Ground floor, Vibes, الأندلس، جدة 23326, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Ground floor",
+          "languageCode": "en"
+        },
+        {
+          "longText": "Vibes",
+          "shortText": "Vibes",
+          "types": [
+            "point_of_interest",
+            "establishment"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "الأندلس",
+          "shortText": "الأندلس",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23326",
+          "shortText": "23326",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5516725,
+        "longitude": 39.1602751
+      },
+      "rating": 4.6,
+      "googleMapsUri": "https://maps.google.com/?cid=8489982153522998126&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 1480,
+      "displayName": {
+        "text": "Eataly",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "il castello",
+    "place": {
+      "id": "ChIJQW4PGMbPwxUR-OfJcYLfYLg",
+      "formattedAddress": "G5CP+R2G, Asad Allah, Al Sharafeyah, Jeddah 23218, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "G5CP+R2G",
+          "shortText": "G5CP+R2G",
+          "types": [
+            "plus_code"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Asad Allah",
+          "shortText": "Asad Allah",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Sharafeyah",
+          "shortText": "Al Sharafeyah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23218",
+          "shortText": "23218",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5220689,
+        "longitude": 39.1850739
+      },
+      "rating": 3.9,
+      "googleMapsUri": "https://maps.google.com/?cid=13285864652090763256&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 1477,
+      "displayName": {
+        "text": "IL Castello",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "target": "piatto",
+    "place": {
+      "id": "ChIJZb0FIa7PwxURV0LcamCcdhA",
+      "formattedAddress": "45, Al Fayha, Jeddah 22241, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "45",
+          "shortText": "45",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Fayha",
+          "shortText": "Al Fayha",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "22241",
+          "shortText": "22241",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5103848,
+        "longitude": 39.202632699999995
+      },
+      "rating": 4.3,
+      "googleMapsUri": "https://maps.google.com/?cid=1186307489782317655&g_mp=Cilnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaE5lYXJieRACGAQgAA",
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 4033,
+      "displayName": {
+        "text": "Piatto Restaurant",
+        "languageCode": "en"
+      }
+    }
+  }
+]

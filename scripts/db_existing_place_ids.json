@@ -1,0 +1,1409 @@
+[
+  {
+    "google_place_id": "ChIJXYv7rVPawxURq9tp8iVXvQU",
+    "restaurant_id": "section_b",
+    "branch_name_en": "S Square",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=413582561280383915&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA"
+  },
+  {
+    "google_place_id": "ChIJIf4HeczFwxUR7--yVh3sdTQ",
+    "restaurant_id": "section_b",
+    "branch_name_en": "Tahlia",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=3780187073000173551&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJYRlUaADbwxURxSYPglOTQqw",
+    "restaurant_id": "section_b",
+    "branch_name_en": "Hiraa",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=12412645509860107973&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJcSxas8PZwxURGFMKn_l_xSM",
+    "restaurant_id": "section_b",
+    "branch_name_en": "Obhur",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=2577607071831315224&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJe8h28QDRwxURjt3oMZeDt6w",
+    "restaurant_id": "section_b",
+    "branch_name_en": "Al Faisaliyyah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=12445560780662300046&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJBYiGaiTZwxURV7u8ZZ838Jg",
+    "restaurant_id": "section_b",
+    "branch_name_en": "Al Murjan",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=11020369445921798999&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJb-U82bDawxURLQMsTI8xk1U",
+    "restaurant_id": "california_burger",
+    "branch_name_en": "Khalidiyyah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=6166326806328378157&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJaRQT16TZwxURsne__gycq6M",
+    "restaurant_id": "california_burger",
+    "branch_name_en": "Muhammadiyyah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=11793691628827277234&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJV4JrDtfWwxURcb-1hYI-7-Q",
+    "restaurant_id": "california_burger",
+    "branch_name_en": "Al Marwah / Hira Street",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=16496472690391367537&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA"
+  },
+  {
+    "google_place_id": "ChIJK3j3HNvZwxURw2BfjRFcnDo",
+    "restaurant_id": "century_burger",
+    "branch_name_en": "Muhammadiyyah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=4223351781022720195&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJL9fpbrLawxURkzvsBWdEPV4",
+    "restaurant_id": "century_burger",
+    "branch_name_en": "Rawdah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=6790659022416264083&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJ97vtaM3bwxUR3mbHQZ9pzTA",
+    "restaurant_id": "century_burger",
+    "branch_name_en": "Red Sea Mall",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=3516583016770528990&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJ1WB-XoRjwRURlMetn79Bz8Q",
+    "restaurant_id": "century_burger",
+    "branch_name_en": "Obhur Plaza",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=14181626042886506388&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJXw7KLmbXwxURRPeNM_tNTsU",
+    "restaurant_id": "century_burger",
+    "branch_name_en": "King Abdulaziz International Airport",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=14217386814952306500&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJTYhSq_LRwxURKXuDXjsVkc4",
+    "restaurant_id": "century_burger",
+    "branch_name_en": "Jeddah Park",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=14884701588169128745&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJMRcGBwDPwxUR_EBJHsXuiJg",
+    "restaurant_id": "century_burger",
+    "branch_name_en": "Al Fayha",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=10991297420981780732&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJAaO4eTTbwxURzAzORGCvlIo",
+    "restaurant_id": "chefs_burger",
+    "branch_name_en": "Sari Road",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=9985799101793307852&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJnz7V_3bZwxURGti6VJjD8uA",
+    "restaurant_id": "chefs_burger",
+    "branch_name_en": "Prince Sultan Road",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=16209233067883812890&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJo1uDjmrPwxURbkRN9JTjs4U",
+    "restaurant_id": "chefs_burger",
+    "branch_name_en": "Al Ruwais",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=9634294256768992366&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJX5D-EwBjwRURQt-yfrn_xtQ",
+    "restaurant_id": "sign_burger",
+    "branch_name_en": "Obhur",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=15332223153589116738&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJXXQ5GQDNwxURjJlLXQDlKoE",
+    "restaurant_id": "sign_burger",
+    "branch_name_en": "Al Thaghr / Abdullah Suleiman",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=9307503369642547596&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJWRksoQ7bwxURKWwHjz8iutQ",
+    "restaurant_id": "sign_burger",
+    "branch_name_en": "Corniche",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=15328601938086816809&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJeWOe2kx9wRUR6mhEV5ZRBls",
+    "restaurant_id": "sign_burger",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=6559019613462751466&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJMcIDdTXRwxUR13YaNc6VY7I",
+    "restaurant_id": "sign_burger",
+    "branch_name_en": "Al Bawadi",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=12854282474332255959&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJA-s4bTXZwxUR-oILNZt2NPc",
+    "restaurant_id": "sign_burger",
+    "branch_name_en": "Al Muhammadiyyah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=17812992835139109626&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJzUvkcADbwxURdhzQI192mCs",
+    "restaurant_id": "nora_burger",
+    "branch_name_en": "Rawdah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=3141390891085732982&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJdXODDQDbwxURMprErPxcdZA",
+    "restaurant_id": "wbj",
+    "branch_name_en": "Al Zahra",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=10409328354036849202&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJh6NBPABjwRUR2J7qkihn5ZA",
+    "restaurant_id": "wbj",
+    "branch_name_en": "Abhur",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=10440864735089565400&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJ5YGoIwB9wRURBfdRIt_DL-k",
+    "restaurant_id": "wbj",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=16802864097863530245&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJz5WXPQDFwxURrnvjQpZYHiU",
+    "restaurant_id": "lou_burger",
+    "branch_name_en": "Al Andalus",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=2674672631095196590&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJ_Q7U0epjwRURHCXYMCGpfeo",
+    "restaurant_id": "lou_burger",
+    "branch_name_en": "Al Shera'a",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=16896847336982455580&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJ44H7RgDbwxURnuuuzb7m5iY",
+    "restaurant_id": "pplr",
+    "branch_name_en": "Rawdah",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=2803181525253680030&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJpTCKfADbwxUR2FepmjWNfRM",
+    "restaurant_id": "smash_me",
+    "branch_name_en": "Al Naeem",
+    "primary_category": "burger",
+    "google_maps_url": "https://maps.google.com/?cid=1404433920177035224&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+  },
+  {
+    "google_place_id": "ChIJe8s_Y7DPwxURnq35SRzMRpo",
+    "restaurant_id": "albaik",
+    "branch_name_en": "Al Sharafiyah – King Abdullah Rd",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJe8s_Y7DPwxURnq35SRzMRpo"
+  },
+  {
+    "google_place_id": "ChIJD-9adirQwxURzfEDl0QI_yE",
+    "restaurant_id": "albaik",
+    "branch_name_en": "Al Muhammadiyyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJD-9adirQwxURzfEDl0QI_yE"
+  },
+  {
+    "google_place_id": "ChIJzSoP9gJjwRUR_zcZJhPLrrw",
+    "restaurant_id": "albaik",
+    "branch_name_en": "Obhur Al Shamaliyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJzSoP9gJjwRUR_zcZJhPLrrw"
+  },
+  {
+    "google_place_id": "ChIJYZ1fGiPRwxURQXIwfgS8b3Y",
+    "restaurant_id": "albaik",
+    "branch_name_en": "Al Safa",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJYZ1fGiPRwxURQXIwfgS8b3Y"
+  },
+  {
+    "google_place_id": "ChIJCQwA0vHXwxURrRfzuvODqn8",
+    "restaurant_id": "albaik",
+    "branch_name_en": "King Abdulaziz International Airport T1",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCQwA0vHXwxURrRfzuvODqn8"
+  },
+  {
+    "google_place_id": "ChIJbT4rKq3PwxURGSunZl-GxrM",
+    "restaurant_id": "albaik",
+    "branch_name_en": "Al Baghdadiyah Al Sharqiyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJbT4rKq3PwxURGSunZl-GxrM"
+  },
+  {
+    "google_place_id": "ChIJmz2DL6TbwxUR8V9pwYu0O-w",
+    "restaurant_id": "raising_canes",
+    "branch_name_en": "Abhur Al Junoobiyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJmz2DL6TbwxUR8V9pwYu0O-w"
+  },
+  {
+    "google_place_id": "ChIJoX0va7vPwxURptgo2ywbn2Q",
+    "restaurant_id": "raising_canes",
+    "branch_name_en": "Liwan Centre",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJoX0va7vPwxURptgo2ywbn2Q"
+  },
+  {
+    "google_place_id": "ChIJm_3Sd6HZwxURok4FWCKemG4",
+    "restaurant_id": "raising_canes",
+    "branch_name_en": "Red Sea Mall",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJm_3Sd6HZwxURok4FWCKemG4"
+  },
+  {
+    "google_place_id": "ChIJPc7QSpXbwxUR53PR_l8hpvY",
+    "restaurant_id": "raising_canes",
+    "branch_name_en": "Sari Gate Center",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJPc7QSpXbwxUR53PR_l8hpvY"
+  },
+  {
+    "google_place_id": "ChIJr9rVNQrZwxURMLN5a6TctH0",
+    "restaurant_id": "raising_canes",
+    "branch_name_en": "Prince Sultan Drive-Thru",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJr9rVNQrZwxURMLN5a6TctH0"
+  },
+  {
+    "google_place_id": "ChIJG-pg727RwxURb5bP1Agzw5Q",
+    "restaurant_id": "raising_canes",
+    "branch_name_en": "Zengabar St",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJG-pg727RwxURb5bP1Agzw5Q"
+  },
+  {
+    "google_place_id": "ChIJ0WW_VozZwxURuRWrYODJla4",
+    "restaurant_id": "kfc",
+    "branch_name_en": "Al Muhammadiyyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ0WW_VozZwxURuRWrYODJla4"
+  },
+  {
+    "google_place_id": "ChIJP2FlbfhiwRURqnFMNg638Mg",
+    "restaurant_id": "kfc",
+    "branch_name_en": "Obhur Al Shamaliyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJP2FlbfhiwRURqnFMNg638Mg"
+  },
+  {
+    "google_place_id": "ChIJkQfmGrvPwxUR2kY53xv659M",
+    "restaurant_id": "kfc",
+    "branch_name_en": "King Abdullah Rd",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJkQfmGrvPwxUR2kY53xv659M"
+  },
+  {
+    "google_place_id": "ChIJ29KO9fbYwxURNiq3vL5f3GM",
+    "restaurant_id": "kfc",
+    "branch_name_en": "Al Basateen",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ29KO9fbYwxURNiq3vL5f3GM"
+  },
+  {
+    "google_place_id": "ChIJG-OvoeTNwxURYw8dGEl_fIk",
+    "restaurant_id": "texas_chicken",
+    "branch_name_en": "Town Square",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJG-OvoeTNwxURYw8dGEl_fIk"
+  },
+  {
+    "google_place_id": "ChIJ8UKmEwDRwxURSRFfOnj3ChY",
+    "restaurant_id": "texas_chicken",
+    "branch_name_en": "Macarona",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ8UKmEwDRwxURSRFfOnj3ChY"
+  },
+  {
+    "google_place_id": "ChIJu84eQwB9wRURXiRaIdqXIYY",
+    "restaurant_id": "texas_chicken",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJu84eQwB9wRURXiRaIdqXIYY"
+  },
+  {
+    "google_place_id": "ChIJ5wH1zaDbwxURkhzKB-8LKi8",
+    "restaurant_id": "texas_chicken",
+    "branch_name_en": "Sultan Mall",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5wH1zaDbwxURkhzKB-8LKi8"
+  },
+  {
+    "google_place_id": "ChIJNRqce0zXwxURDw-FZCx09jo",
+    "restaurant_id": "texas_chicken",
+    "branch_name_en": "Mall of Arabia",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJNRqce0zXwxURDw-FZCx09jo"
+  },
+  {
+    "google_place_id": "ChIJA0AHX-fPwxUR631RktKAA64",
+    "restaurant_id": "popeyes",
+    "branch_name_en": "Al Naseem",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJA0AHX-fPwxUR631RktKAA64"
+  },
+  {
+    "google_place_id": "ChIJ4SGtgQ7RwxURr4D179r0eq4",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "An Naseem",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ4SGtgQ7RwxURr4D179r0eq4"
+  },
+  {
+    "google_place_id": "ChIJGRZK26hjwRURItfpdJSinos",
+    "restaurant_id": "popeyes",
+    "branch_name_en": "Obhur Al Junoobiyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJGRZK26hjwRURItfpdJSinos"
+  },
+  {
+    "google_place_id": "ChIJOxIfRQB9wRURs-ArBXD0xEY",
+    "restaurant_id": "popeyes",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJOxIfRQB9wRURs-ArBXD0xEY"
+  },
+  {
+    "google_place_id": "ChIJF5sDKrLPwxURwp31YSSDNkA",
+    "restaurant_id": "popeyes",
+    "branch_name_en": "Al Fayha",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJF5sDKrLPwxURwp31YSSDNkA"
+  },
+  {
+    "google_place_id": "ChIJazAKPINjwRURujbOYg5cgNg",
+    "restaurant_id": "popeyes",
+    "branch_name_en": "Mall of Arabia",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJazAKPINjwRURujbOYg5cgNg"
+  },
+  {
+    "google_place_id": "ChIJdYtUQwDRwxUR392IHXX9_gU",
+    "restaurant_id": "popeyes",
+    "branch_name_en": "Aziziyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdYtUQwDRwxUR392IHXX9_gU"
+  },
+  {
+    "google_place_id": "ChIJX9m-_prbwxURXTJVcsATux4",
+    "restaurant_id": "daves_hot_chicken",
+    "branch_name_en": "U Walk Jeddah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJX9m-_prbwxURXTJVcsATux4"
+  },
+  {
+    "google_place_id": "ChIJb6WgNwDPwxURAauIqIckEcA",
+    "restaurant_id": "tndr",
+    "branch_name_en": "Al Naseem",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJb6WgNwDPwxURAauIqIckEcA"
+  },
+  {
+    "google_place_id": "ChIJMwsUGOLXwxUR0rp16WYzN9o",
+    "restaurant_id": "tndr",
+    "branch_name_en": "Al Marwah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJMwsUGOLXwxUR0rp16WYzN9o"
+  },
+  {
+    "google_place_id": "ChIJlxQzkfXRwxURD-oJ2Dhn_xQ",
+    "restaurant_id": "tndr",
+    "branch_name_en": "Al Rawdah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJlxQzkfXRwxURD-oJ2Dhn_xQ"
+  },
+  {
+    "google_place_id": "ChIJ_5KeL259wRURimZ9_sKypqU",
+    "restaurant_id": "tndr",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ_5KeL259wRURimZ9_sKypqU"
+  },
+  {
+    "google_place_id": "ChIJUbqqAQDRwxURDE-zT9L4Ifk",
+    "restaurant_id": "tndr",
+    "branch_name_en": "Jeddah Park",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJUbqqAQDRwxURDE-zT9L4Ifk"
+  },
+  {
+    "google_place_id": "ChIJWZuTKADRwxUREFzmU5TmctM",
+    "restaurant_id": "wingstop",
+    "branch_name_en": "Jeddah Park",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJWZuTKADRwxUREFzmU5TmctM"
+  },
+  {
+    "google_place_id": "ChIJqenNawDRwxUROXmCRMzbOls",
+    "restaurant_id": "wingstop",
+    "branch_name_en": "Jeddah Vibes",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJqenNawDRwxUROXmCRMzbOls"
+  },
+  {
+    "google_place_id": "ChIJcR4nIQDNwxURRF9RE-ZMowo",
+    "restaurant_id": "wingstop",
+    "branch_name_en": "Town Square",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJcR4nIQDNwxURRF9RE-ZMowo"
+  },
+  {
+    "google_place_id": "ChIJ0wHeXPTZwxURxtrHRssvtsU",
+    "restaurant_id": "crusted",
+    "branch_name_en": "Al Muhammadiyyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ0wHeXPTZwxURxtrHRssvtsU"
+  },
+  {
+    "google_place_id": "ChIJKURYOQDXwxURBcj9dyfAk3U",
+    "restaurant_id": "crusted",
+    "branch_name_en": "Al Marwah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJKURYOQDXwxURBcj9dyfAk3U"
+  },
+  {
+    "google_place_id": "ChIJ79XtBQDLwxUR2vfthAk2kfw",
+    "restaurant_id": "crusted",
+    "branch_name_en": "Al Sanabel",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ79XtBQDLwxUR2vfthAk2kfw"
+  },
+  {
+    "google_place_id": "ChIJWVJzJwBjwRURMh_OHC1Zaw8",
+    "restaurant_id": "crusted",
+    "branch_name_en": "Obhur Al Shamaliyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJWVJzJwBjwRURMh_OHC1Zaw8"
+  },
+  {
+    "google_place_id": "ChIJdySGd1zPwxURulYbfT1R2ew",
+    "restaurant_id": "crusted",
+    "branch_name_en": "Andalus Mall",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdySGd1zPwxURulYbfT1R2ew"
+  },
+  {
+    "google_place_id": "ChIJsaQt7CvbwxURut6By4IWJqs",
+    "restaurant_id": "crisper",
+    "branch_name_en": "Al Zahra",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJsaQt7CvbwxURut6By4IWJqs"
+  },
+  {
+    "google_place_id": "ChIJewOIJehjwRUR-T1AtuoY1tg",
+    "restaurant_id": "crisper",
+    "branch_name_en": "Obhur Al Shamaliyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJewOIJehjwRUR-T1AtuoY1tg"
+  },
+  {
+    "google_place_id": "ChIJK4C8NB7bwxURKACCoLUxtcE",
+    "restaurant_id": "dabboos",
+    "branch_name_en": "Al Zahra",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJK4C8NB7bwxURKACCoLUxtcE"
+  },
+  {
+    "google_place_id": "ChIJizwJUHbZwxUR5xnyXtfiuKw",
+    "restaurant_id": "sayakh",
+    "branch_name_en": "Al Muhammadiyyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJizwJUHbZwxUR5xnyXtfiuKw"
+  },
+  {
+    "google_place_id": "ChIJByHPU77XwxURlV11N6Yf3Sg",
+    "restaurant_id": "sayakh",
+    "branch_name_en": "Al Marwah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJByHPU77XwxURlV11N6Yf3Sg"
+  },
+  {
+    "google_place_id": "ChIJbVRBBmPRwxUROx_5Z8oAd-E",
+    "restaurant_id": "sayakh",
+    "branch_name_en": "Al Rawdah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJbVRBBmPRwxUROx_5Z8oAd-E"
+  },
+  {
+    "google_place_id": "ChIJ_zkVCwB9wRURSqGm9JMEY2g",
+    "restaurant_id": "sayakh",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ_zkVCwB9wRURSqGm9JMEY2g"
+  },
+  {
+    "google_place_id": "ChIJ5SuQJgfPwxURBUqOgcw8G7c",
+    "restaurant_id": "sayakh",
+    "branch_name_en": "Al Naseem",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5SuQJgfPwxURBUqOgcw8G7c"
+  },
+  {
+    "google_place_id": "ChIJhQj2--7ZwxUR4ve4c-A0_iA",
+    "restaurant_id": "nashvilles_hot_chicken",
+    "branch_name_en": "Al Muhammadiyyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJhQj2--7ZwxUR4ve4c-A0_iA"
+  },
+  {
+    "google_place_id": "ChIJXbTMiSDbwxURC6StGage6hA",
+    "restaurant_id": "tenders_cart",
+    "branch_name_en": "Al Zahra",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXbTMiSDbwxURC6StGage6hA"
+  },
+  {
+    "google_place_id": "ChIJMxq-NXTRwxURZ4lYqfsdgiU",
+    "restaurant_id": "rami_broast",
+    "branch_name_en": "Al Safa",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJMxq-NXTRwxURZ4lYqfsdgiU"
+  },
+  {
+    "google_place_id": "ChIJf6a3Z7HZwxURIbN96QtYTy8",
+    "restaurant_id": "rami_broast",
+    "branch_name_en": "Al Naeem",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJf6a3Z7HZwxURIbN96QtYTy8"
+  },
+  {
+    "google_place_id": "ChIJSRYYfKLRwxURbebrg2dhQws",
+    "restaurant_id": "rami_broast",
+    "branch_name_en": "Al Samer",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJSRYYfKLRwxURbebrg2dhQws"
+  },
+  {
+    "google_place_id": "ChIJyafGHX58wRURkULcKwnWWYY",
+    "restaurant_id": "rami_broast",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJyafGHX58wRURkULcKwnWWYY"
+  },
+  {
+    "google_place_id": "ChIJiXlY_1DPwxURtQ7xejdW9Us",
+    "restaurant_id": "rami_broast",
+    "branch_name_en": "Al Naseem",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJiXlY_1DPwxURtQ7xejdW9Us"
+  },
+  {
+    "google_place_id": "ChIJU-UMp8PQwxURVWFNc06Gd1I",
+    "restaurant_id": "chicken_mubeen",
+    "branch_name_en": "Ar Rabwah – Macarona Rd (Flagship)",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJU-UMp8PQwxURVWFNc06Gd1I"
+  },
+  {
+    "google_place_id": "ChIJiVvkzsLRwxURE9y4GXC76zk",
+    "restaurant_id": "chicken_mubeen",
+    "branch_name_en": "Al Safa",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJiVvkzsLRwxURE9y4GXC76zk"
+  },
+  {
+    "google_place_id": "ChIJj9AP0nLRwxURpVsCyFm3p-4",
+    "restaurant_id": "chicken_mubeen",
+    "branch_name_en": "An Nuzhah – Hira St",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJj9AP0nLRwxURpVsCyFm3p-4"
+  },
+  {
+    "google_place_id": "ChIJM6rwFQDRwxURGzwQG_Lmauc",
+    "restaurant_id": "chicken_mubeen",
+    "branch_name_en": "Al Bawadi",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJM6rwFQDRwxURGzwQG_Lmauc"
+  },
+  {
+    "google_place_id": "ChIJffZlcQBjwRURUxv7LEAGQXs",
+    "restaurant_id": "chicken_mubeen",
+    "branch_name_en": "Al Sheraa – Prince Nayef Rd",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJffZlcQBjwRURUxv7LEAGQXs"
+  },
+  {
+    "google_place_id": "ChIJdX-GLHV9wRURqolRJNdpkZA",
+    "restaurant_id": "chicken_mubeen",
+    "branch_name_en": "Al Hamdaniyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdX-GLHV9wRURqolRJNdpkZA"
+  },
+  {
+    "google_place_id": "ChIJ89NsNgDXwxURFALBePqQvq0",
+    "restaurant_id": "chicken_mubeen",
+    "branch_name_en": "Al Marwah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ89NsNgDXwxURFALBePqQvq0"
+  },
+  {
+    "google_place_id": "ChIJfeZ_-GTRwxURUywSe-ZA3VM",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "Al Ruwais",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJfeZ_-GTRwxURUywSe-ZA3VM"
+  },
+  {
+    "google_place_id": "ChIJYcaM7NLRwxURhwyX0qVme8Q",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "As Salamah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJYcaM7NLRwxURhwyX0qVme8Q"
+  },
+  {
+    "google_place_id": "ChIJo5p08eXQwxURCC2rHCBfQLQ",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "Ar Rabwah – Macarona Rd",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJo5p08eXQwxURCC2rHCBfQLQ"
+  },
+  {
+    "google_place_id": "ChIJ44wBT6bQwxURMfaIKJgXJoY",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "An Nuzhah – Hira St",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ44wBT6bQwxURMfaIKJgXJoY"
+  },
+  {
+    "google_place_id": "ChIJfVFMf37RwxURXfWdu-p7GM8",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "Al Safa",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJfVFMf37RwxURXfWdu-p7GM8"
+  },
+  {
+    "google_place_id": "ChIJ37qT-GTRwxUR5uyWy6P6yAk",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "Al Samer",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ37qT-GTRwxUR5uyWy6P6yAk"
+  },
+  {
+    "google_place_id": "ChIJH9FomyljwRURRaZ7j3ZiM4U",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "Abhur Al Junoobiyah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJH9FomyljwRURRaZ7j3ZiM4U"
+  },
+  {
+    "google_place_id": "ChIJFT1aVZ98wRURNuHBXvpltbU",
+    "restaurant_id": "ktaykit",
+    "branch_name_en": "Al Hamdaniyah – Al Falah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJFT1aVZ98wRURNuHBXvpltbU"
+  },
+  {
+    "google_place_id": "ChIJyVzL8jjRwxURrp93ZP5dFGU",
+    "restaurant_id": "al_najah_broast",
+    "branch_name_en": "Al Safa",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJyVzL8jjRwxURrp93ZP5dFGU"
+  },
+  {
+    "google_place_id": "ChIJ9Qgj04PLwxURGDMs8mD6tPE",
+    "restaurant_id": "al_najah_broast",
+    "branch_name_en": "Al Ajaweed",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ9Qgj04PLwxURGDMs8mD6tPE"
+  },
+  {
+    "google_place_id": "ChIJxwfIcBrPwxURQ1fk5R816PI",
+    "restaurant_id": "broast_hanoo",
+    "branch_name_en": "Al Balad – Historic Jeddah",
+    "primary_category": "broast",
+    "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJxwfIcBrPwxURQ1fk5R816PI"
+  },
+  {
+    "google_place_id": "ChIJ_zjGlY3ZwxURKZeb-5L1Spc",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Mohammadiyyah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_zjGlY3ZwxURKZeb-5L1Spc"
+  },
+  {
+    "google_place_id": "ChIJPxm8RzHPwxURCOReaD4mb2g",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Fayha",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJPxm8RzHPwxURCOReaD4mb2g"
+  },
+  {
+    "google_place_id": "ChIJy-uwg9jRwxUR-bJ1AhR3FBc",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Rabi",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJy-uwg9jRwxUR-bJ1AhR3FBc"
+  },
+  {
+    "google_place_id": "ChIJ7SGvIGHbwxURPvsMMtYIAtI",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Zahra",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ7SGvIGHbwxURPvsMMtYIAtI"
+  },
+  {
+    "google_place_id": "ChIJVU78RtXRwxURYdgPEmsOKXE",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Rehab",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJVU78RtXRwxURYdgPEmsOKXE"
+  },
+  {
+    "google_place_id": "ChIJveGyMQFjwRURyjGQnoa9djI",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "North Obhur",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJveGyMQFjwRURyjGQnoa9djI"
+  },
+  {
+    "google_place_id": "ChIJXyT-rFfXwxURcNmizGuVsl8",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Mall of Arabia",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJXyT-rFfXwxURcNmizGuVsl8"
+  },
+  {
+    "google_place_id": "ChIJbd2zjv3bwxURDGPoUpczSK4",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Red Sea Mall",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbd2zjv3bwxURDGPoUpczSK4"
+  },
+  {
+    "google_place_id": "ChIJE4CY1jNlwRURKj5BMu-iCyM",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Taiba",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJE4CY1jNlwRURKj5BMu-iCyM"
+  },
+  {
+    "google_place_id": "ChIJ9wx_hvvTwxURL22JlZwoTFc",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Samer",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ9wx_hvvTwxURL22JlZwoTFc"
+  },
+  {
+    "google_place_id": "ChIJsz_a01bPwxURhX9e9ubMjDw",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Hamra",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJsz_a01bPwxURhX9e9ubMjDw"
+  },
+  {
+    "google_place_id": "ChIJQf66Lo7LwxURsYyAUCF26fU",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Sanabel",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJQf66Lo7LwxURsYyAUCF26fU"
+  },
+  {
+    "google_place_id": "ChIJaTzlLFrRwxUR-CYCxpjNfsE",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Umm Al Qoura",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJaTzlLFrRwxUR-CYCxpjNfsE"
+  },
+  {
+    "google_place_id": "ChIJz4HiYgDZwxUROiVrQsYaOq4",
+    "restaurant_id": "shawarma_habteen",
+    "branch_name_en": "Al Murjan",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJz4HiYgDZwxUROiVrQsYaOq4"
+  },
+  {
+    "google_place_id": "ChIJ8R5AllrRwxUR3646IDL7KyM",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Mishrifah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ8R5AllrRwxUR3646IDL7KyM"
+  },
+  {
+    "google_place_id": "ChIJFeJ7HlPNwxURjR40GbD9ueY",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Prince Fawaz South",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJFeJ7HlPNwxURjR40GbD9ueY"
+  },
+  {
+    "google_place_id": "ChIJmSlpE_XRwxURDDCC9KVb6H8",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Marwah - Prince Majid",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJmSlpE_XRwxURDDCC9KVb6H8"
+  },
+  {
+    "google_place_id": "ChIJK8Ggb4fQwxURWSeZpoYU808",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "As Salamah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJK8Ggb4fQwxURWSeZpoYU808"
+  },
+  {
+    "google_place_id": "ChIJdcLuRRrXwxUR6UQ37CGXYeU",
+    "restaurant_id": "shawarmer",
+    "branch_name_en": "Al Marwah - Hira",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJdcLuRRrXwxUR6UQ37CGXYeU"
+  },
+  {
+    "google_place_id": "ChIJUWJgExLRwxURNtqFpE4BgTY",
+    "restaurant_id": "shawarma_classic",
+    "branch_name_en": "As Safa",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUWJgExLRwxURNtqFpE4BgTY"
+  },
+  {
+    "google_place_id": "ChIJYUPMpwvXwxURjSKKW9yYYNA",
+    "restaurant_id": "shawarma_classic",
+    "branch_name_en": "Al Marwah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJYUPMpwvXwxURjSKKW9yYYNA"
+  },
+  {
+    "google_place_id": "ChIJOTh2WMN9wRURs7v0ovLAwGk",
+    "restaurant_id": "shawarma_classic",
+    "branch_name_en": "Al Hamadaniyyah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJOTh2WMN9wRURs7v0ovLAwGk"
+  },
+  {
+    "google_place_id": "ChIJGYcw2N3PwxURIK8dLIGCUVU",
+    "restaurant_id": "shawarma_classic",
+    "branch_name_en": "Al Fayha",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGYcw2N3PwxURIK8dLIGCUVU"
+  },
+  {
+    "google_place_id": "ChIJVexALQbbwxUR2PpnI5WUXUE",
+    "restaurant_id": "shawarma_classic",
+    "branch_name_en": "Al Zahra",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJVexALQbbwxUR2PpnI5WUXUE"
+  },
+  {
+    "google_place_id": "ChIJ92qE3e1jwRUR2-FiJoVE38w",
+    "restaurant_id": "shawarma_classic",
+    "branch_name_en": "North Obhur",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ92qE3e1jwRUR2-FiJoVE38w"
+  },
+  {
+    "google_place_id": "ChIJOX7m6T_XwxURQWPnP9eHheE",
+    "restaurant_id": "shawarma_alrimal",
+    "branch_name_en": "Al Marwah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJOX7m6T_XwxURQWPnP9eHheE"
+  },
+  {
+    "google_place_id": "ChIJp-0hkQPQwxUR5Xvjg-yzup8",
+    "restaurant_id": "shawarma_alrimal",
+    "branch_name_en": "Tahlia / Al Andalus",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJp-0hkQPQwxUR5Xvjg-yzup8"
+  },
+  {
+    "google_place_id": "ChIJSWbxbwDbwxURRF6yWMw3OWQ",
+    "restaurant_id": "shawarma_alrimal",
+    "branch_name_en": "Al Khalidiyyah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJSWbxbwDbwxURRF6yWMw3OWQ"
+  },
+  {
+    "google_place_id": "ChIJ5bsnZALZwxUR40P5srMdQuo",
+    "restaurant_id": "shawarma_alrimal",
+    "branch_name_en": "Al Mohammadiyyah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5bsnZALZwxUR40P5srMdQuo"
+  },
+  {
+    "google_place_id": "ChIJGQH-HhXPwxURlo-il8pb63o",
+    "restaurant_id": "shawarma_alrimal",
+    "branch_name_en": "Al Fayha",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGQH-HhXPwxURlo-il8pb63o"
+  },
+  {
+    "google_place_id": "ChIJAzEqTQDbwxURThhPMFq4sZ4",
+    "restaurant_id": "shamiyat_haritna",
+    "branch_name_en": "Prince Sultan",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAzEqTQDbwxURThhPMFq4sZ4"
+  },
+  {
+    "google_place_id": "ChIJV1jA0xbRwxURAKJWs-DTaQ0",
+    "restaurant_id": "shamiyat_haritna",
+    "branch_name_en": "As Salamah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJV1jA0xbRwxURAKJWs-DTaQ0"
+  },
+  {
+    "google_place_id": "ChIJhTNHkP7PwxUR75tF8PF_tjU",
+    "restaurant_id": "shamiyat_haritna",
+    "branch_name_en": "Al Hamra",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhTNHkP7PwxUR75tF8PF_tjU"
+  },
+  {
+    "google_place_id": "ChIJ-2RxAgDbwxURXTbm30gRCjM",
+    "restaurant_id": "ayedh_shawarma",
+    "branch_name_en": "As Salamah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ-2RxAgDbwxURXTbm30gRCjM"
+  },
+  {
+    "google_place_id": "ChIJm9UGdADbwxURNAknozjvmcA",
+    "restaurant_id": "al_khal_al_dimashqi",
+    "branch_name_en": "Ar Rawdah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJm9UGdADbwxURNAknozjvmcA"
+  },
+  {
+    "google_place_id": "ChIJzbugmXPbwxURSoJGmsoHMQE",
+    "restaurant_id": "shawarma_habteen",
+    "branch_name_en": "King Abdulaziz Road / Ash Shati",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJzbugmXPbwxURSoJGmsoHMQE"
+  },
+  {
+    "google_place_id": "ChIJ_x0NAgrbwxURwqwcAI-PBks",
+    "restaurant_id": "ziyada_toum",
+    "branch_name_en": "Al Zahra",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_x0NAgrbwxURwqwcAI-PBks"
+  },
+  {
+    "google_place_id": "ChIJM0pMsxTRwxUR_hEsyv9DFSQ",
+    "restaurant_id": "shawarma_elak",
+    "branch_name_en": "As Salamah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJM0pMsxTRwxUR_hEsyv9DFSQ"
+  },
+  {
+    "google_place_id": "ChIJkelihgJjwRURdN9LnIP6h_0",
+    "restaurant_id": "shawarma_elak",
+    "branch_name_en": "North Obhur",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJkelihgJjwRURdN9LnIP6h_0"
+  },
+  {
+    "google_place_id": "ChIJGyOgugbPwxURFGdvv7RoC8s",
+    "restaurant_id": "shawarma_shakir_aljazeera",
+    "branch_name_en": "Ar Ruwais",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGyOgugbPwxURFGdvv7RoC8s"
+  },
+  {
+    "google_place_id": "ChIJb6mr-nDRwxUR5PIMjodKLTA",
+    "restaurant_id": "shawarma_abu_bahij",
+    "branch_name_en": "Hira / Al Bawadi",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJb6mr-nDRwxUR5PIMjodKLTA"
+  },
+  {
+    "google_place_id": "ChIJbU437H_NwxUReecRAb4iFFk",
+    "restaurant_id": "shawarma_abu_bahij",
+    "branch_name_en": "Prince Fawaz South",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbU437H_NwxUReecRAb4iFFk"
+  },
+  {
+    "google_place_id": "ChIJbQWg9FzRwxURAQLBzY2Se_I",
+    "restaurant_id": "shawarma_abu_bahij",
+    "branch_name_en": "As Safa",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbQWg9FzRwxURAQLBzY2Se_I"
+  },
+  {
+    "google_place_id": "ChIJe9f4bC3QwxUR1ZP4KS6RHas",
+    "restaurant_id": "radi_shawarma",
+    "branch_name_en": "Mishrifah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJe9f4bC3QwxUR1ZP4KS6RHas"
+  },
+  {
+    "google_place_id": "ChIJy0K3g37QwxURJ5tyc-ynoiI",
+    "restaurant_id": "radi_shawarma",
+    "branch_name_en": "As Salamah",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJy0K3g37QwxURJ5tyc-ynoiI"
+  },
+  {
+    "google_place_id": "ChIJiZZONQHPwxURQZP5k-kFuE8",
+    "restaurant_id": "radi_shawarma",
+    "branch_name_en": "Al Samer",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJiZZONQHPwxURQZP5k-kFuE8"
+  },
+  {
+    "google_place_id": "ChIJLRdqHBPawxURyAp8xSSJ5oc",
+    "restaurant_id": "shawarma_allosh",
+    "branch_name_en": "Al Naeem",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJLRdqHBPawxURyAp8xSSJ5oc"
+  },
+  {
+    "google_place_id": "ChIJ_1irKTzPwxURUhC34KyNT9o",
+    "restaurant_id": "shawarma_marmasha",
+    "branch_name_en": "Al Balad",
+    "primary_category": "shawarma",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_1irKTzPwxURUhC34KyNT9o"
+  },
+  {
+    "google_place_id": "ChIJg9bwO2N8wRURHt_T0Rzf_9A",
+    "restaurant_id": "raydan",
+    "branch_name_en": "Hamdaniyah Al Majed",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJg9bwO2N8wRURHt_T0Rzf_9A"
+  },
+  {
+    "google_place_id": "ChIJ08FVqph8wRUR_FdL0gaLmh8",
+    "restaurant_id": "raydan",
+    "branch_name_en": "Hamdaniyah Al Falah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ08FVqph8wRUR_FdL0gaLmh8"
+  },
+  {
+    "google_place_id": "ChIJh_8wm__NwxURCB3xm75aoTs",
+    "restaurant_id": "raydan",
+    "branch_name_en": "Naseem",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJh_8wm__NwxURCB3xm75aoTs"
+  },
+  {
+    "google_place_id": "ChIJG9SGUAFjwRURtnZvgfbECpw",
+    "restaurant_id": "raydan",
+    "branch_name_en": "Obhur",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJG9SGUAFjwRURtnZvgfbECpw"
+  },
+  {
+    "google_place_id": "ChIJAQAAABTRwxURnjXuvVohR6I",
+    "restaurant_id": "raydan",
+    "branch_name_en": "Safa",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAQAAABTRwxURnjXuvVohR6I"
+  },
+  {
+    "google_place_id": "ChIJLdb_U2TRwxUR_IuGLpMDYeU",
+    "restaurant_id": "raydan",
+    "branch_name_en": "Samer",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJLdb_U2TRwxUR_IuGLpMDYeU"
+  },
+  {
+    "google_place_id": "ChIJC02hBabQwxUR0ZYW3K24iBM",
+    "restaurant_id": "raydan",
+    "branch_name_en": "Hira",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJC02hBabQwxUR0ZYW3K24iBM"
+  },
+  {
+    "google_place_id": "ChIJacUSc5DRwxURiis7IF3O_Ho",
+    "restaurant_id": "al_romansiah",
+    "branch_name_en": "Bawadi",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJacUSc5DRwxURiis7IF3O_Ho"
+  },
+  {
+    "google_place_id": "ChIJuye_rRJ9wRUR6yRl-SmRjQc",
+    "restaurant_id": "al_romansiah",
+    "branch_name_en": "Hamdaniyah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJuye_rRJ9wRUR6yRl-SmRjQc"
+  },
+  {
+    "google_place_id": "ChIJS2-RawDRwxURgWHa6QRNWMY",
+    "restaurant_id": "al_romansiah",
+    "branch_name_en": "Safa",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJS2-RawDRwxURgWHa6QRNWMY"
+  },
+  {
+    "google_place_id": "ChIJI8cwBADLwxURj9Vpqjl8n1k",
+    "restaurant_id": "al_romansiah",
+    "branch_name_en": "Sanabel",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJI8cwBADLwxURj9Vpqjl8n1k"
+  },
+  {
+    "google_place_id": "ChIJI-3znwXQwxURN8ovm8z7GG4",
+    "restaurant_id": "al_saddah",
+    "branch_name_en": "Tahlia",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJI-3znwXQwxURN8ovm8z7GG4"
+  },
+  {
+    "google_place_id": "ChIJrz0lluvPwxURKf2w5x9PAJs",
+    "restaurant_id": "al_saddah",
+    "branch_name_en": "Palestine",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJrz0lluvPwxURKf2w5x9PAJs"
+  },
+  {
+    "google_place_id": "ChIJy7kH2EHawxUR5sCHxb9laV0",
+    "restaurant_id": "al_saddah",
+    "branch_name_en": "Hira",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJy7kH2EHawxUR5sCHxb9laV0"
+  },
+  {
+    "google_place_id": "ChIJv_m5c3rPwxURwGzBoqNrKvQ",
+    "restaurant_id": "almazaq_al_bukhari",
+    "branch_name_en": "Naseem",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJv_m5c3rPwxURwGzBoqNrKvQ"
+  },
+  {
+    "google_place_id": "ChIJc_zD4gnRwxURlCOIQkK47ts",
+    "restaurant_id": "almazaq_al_bukhari",
+    "branch_name_en": "Safa",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJc_zD4gnRwxURlCOIQkK47ts"
+  },
+  {
+    "google_place_id": "ChIJtXGnPzrTwxURnctgjBZCOII",
+    "restaurant_id": "almazaq_al_bukhari",
+    "branch_name_en": "Samer",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJtXGnPzrTwxURnctgjBZCOII"
+  },
+  {
+    "google_place_id": "ChIJk8bKM-R9wRURPYnmwFsnCSU",
+    "restaurant_id": "almazaq_al_bukhari",
+    "branch_name_en": "Hamdaniyah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJk8bKM-R9wRURPYnmwFsnCSU"
+  },
+  {
+    "google_place_id": "ChIJ00v8XgBjwRURT3w1azRcnx8",
+    "restaurant_id": "almazaq_al_bukhari",
+    "branch_name_en": "South Obhur",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ00v8XgBjwRURT3w1azRcnx8"
+  },
+  {
+    "google_place_id": "ChIJDWzcDwDbwxUR_S3kh1w1heA",
+    "restaurant_id": "almazaq_al_bukhari",
+    "branch_name_en": "Shati / Zahra",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJDWzcDwDbwxUR_S3kh1w1heA"
+  },
+  {
+    "google_place_id": "ChIJT_QFpkUzwhURW9cSbPtroEE",
+    "restaurant_id": "almazaq_al_bukhari",
+    "branch_name_en": "Harazat",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJT_QFpkUzwhURW9cSbPtroEE"
+  },
+  {
+    "google_place_id": "ChIJ44xNNhHNwxUR6FXsE1JsUWg",
+    "restaurant_id": "hashi_basha",
+    "branch_name_en": "Naseem",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ44xNNhHNwxUR6FXsE1JsUWg"
+  },
+  {
+    "google_place_id": "ChIJZZ_X7WLRwxUR6F4zRVLEIO8",
+    "restaurant_id": "hashi_basha",
+    "branch_name_en": "Safa",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZZ_X7WLRwxUR6F4zRVLEIO8"
+  },
+  {
+    "google_place_id": "ChIJgdj9AZ7RwxURHFxBfC9KZZg",
+    "restaurant_id": "hashi_basha",
+    "branch_name_en": "Samer",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJgdj9AZ7RwxURHFxBfC9KZZg"
+  },
+  {
+    "google_place_id": "ChIJ5-sWd6bLwxURpBpOHi25buY",
+    "restaurant_id": "hashi_basha",
+    "branch_name_en": "Ajawid",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5-sWd6bLwxURpBpOHi25buY"
+  },
+  {
+    "google_place_id": "ChIJf03UKSbTwxURNAPKm8zzn2U",
+    "restaurant_id": "hashi_basha",
+    "branch_name_en": "Muraikh",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJf03UKSbTwxURNAPKm8zzn2U"
+  },
+  {
+    "google_place_id": "ChIJ9QM1ksfRwxURtyB2fwrsAnM",
+    "restaurant_id": "eleyk_al_bukhari",
+    "branch_name_en": "Faisaliyah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ9QM1ksfRwxURtyB2fwrsAnM"
+  },
+  {
+    "google_place_id": "ChIJ407RJBTbwxURDnEblLv9uQw",
+    "restaurant_id": "eleyk_al_bukhari",
+    "branch_name_en": "Salamah / Sari",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ407RJBTbwxURDnEblLv9uQw"
+  },
+  {
+    "google_place_id": "ChIJG1kthrfLwxURtbIP3SEOSXo",
+    "restaurant_id": "eleyk_al_bukhari",
+    "branch_name_en": "Sanabel",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJG1kthrfLwxURtbIP3SEOSXo"
+  },
+  {
+    "google_place_id": "ChIJnSVuCX7NwxUR5AlFnAscpp0",
+    "restaurant_id": "eleyk_al_bukhari",
+    "branch_name_en": "Mada'en Al-Fahd",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJnSVuCX7NwxUR5AlFnAscpp0"
+  },
+  {
+    "google_place_id": "ChIJKauhIgDbwxURMVenYDlDt9E",
+    "restaurant_id": "kabset_elham",
+    "branch_name_en": "Al Batarji / Zahra",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJKauhIgDbwxURMVenYDlDt9E"
+  },
+  {
+    "google_place_id": "ChIJxf2GGBrPwxURJdsAMM7PORI",
+    "restaurant_id": "sarmad",
+    "branch_name_en": "Al-Baghdadiyah Al-Sharqiyah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJxf2GGBrPwxURJdsAMM7PORI"
+  },
+  {
+    "google_place_id": "ChIJGbh1lUTRwxURsgxasS7gRB0",
+    "restaurant_id": "labbani_fakher",
+    "branch_name_en": "Samer / Al Rabie",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGbh1lUTRwxURsgxasS7gRB0"
+  },
+  {
+    "google_place_id": "ChIJP8iEJwDXwxURlBl1fKn4OAc",
+    "restaurant_id": "labbani_fakher",
+    "branch_name_en": "Al Rayaan",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJP8iEJwDXwxURlBl1fKn4OAc"
+  },
+  {
+    "google_place_id": "ChIJZeUPAm3RwxUR5QVhnLtcZPU",
+    "restaurant_id": "mandi_world",
+    "branch_name_en": "Rawdah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZeUPAm3RwxUR5QVhnLtcZPU"
+  },
+  {
+    "google_place_id": "ChIJ3aph_hPRwxURc2dm1zO9OPo",
+    "restaurant_id": "mandi_world",
+    "branch_name_en": "Safa",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ3aph_hPRwxURc2dm1zO9OPo"
+  },
+  {
+    "google_place_id": "ChIJ_cocG7x7wRURd6BZrrKEtB8",
+    "restaurant_id": "hashi_bin_hamoud",
+    "branch_name_en": "Al Madinah Rd / Usfan",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_cocG7x7wRURd6BZrrKEtB8"
+  },
+  {
+    "google_place_id": "ChIJX3O3qFnRwxURS62jGEWbTws",
+    "restaurant_id": "fnoon_al_shawaya",
+    "branch_name_en": "Samer",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJX3O3qFnRwxURS62jGEWbTws"
+  },
+  {
+    "google_place_id": "ChIJ33te927PwxURydH1EnLSA2o",
+    "restaurant_id": "fnoon_al_shawaya",
+    "branch_name_en": "Sharafiyah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ33te927PwxURydH1EnLSA2o"
+  },
+  {
+    "google_place_id": "ChIJ3Zt-bQAzwhUR2jTU12Yave0",
+    "restaurant_id": "fnoon_al_shawaya",
+    "branch_name_en": "Harazat",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ3Zt-bQAzwhUR2jTU12Yave0"
+  },
+  {
+    "google_place_id": "ChIJu0pOYQDTwxURcTye8bqlAG8",
+    "restaurant_id": "ali_hanash",
+    "branch_name_en": "Muraikh",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJu0pOYQDTwxURcTye8bqlAG8"
+  },
+  {
+    "google_place_id": "ChIJYVaVUwB9wRURQipxT8Qz2a4",
+    "restaurant_id": "ghamim",
+    "branch_name_en": "Hamdaniyah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJYVaVUwB9wRURQipxT8Qz2a4"
+  },
+  {
+    "google_place_id": "ChIJG_F8XUjTwxURviMrQ58cAgU",
+    "restaurant_id": "ghamim",
+    "branch_name_en": "Muraikh",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJG_F8XUjTwxURviMrQ58cAgU"
+  },
+  {
+    "google_place_id": "ChIJodYd2nbQwxURNtR0sXeSWjY",
+    "restaurant_id": "mandi_al_hejaz",
+    "branch_name_en": "Rawdah — Qassem Zeinah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJodYd2nbQwxURNtR0sXeSWjY"
+  },
+  {
+    "google_place_id": "ChIJbR80WRvPwxURbD1TRq3Xx9A",
+    "restaurant_id": "al_shadawi_ras_al_mandi",
+    "branch_name_en": "Al-Balad / Historic Jeddah — Souq Bab Makkah",
+    "primary_category": "saudi_rice",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbR80WRvPwxURbD1TRq3Xx9A"
+  }
+]

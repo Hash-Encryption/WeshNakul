@@ -1,0 +1,1989 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "grills",
+    "display_category": "Grills",
+    "verified_date": "2026-09-27",
+    "brand_count": 15,
+    "status": "PASS_WITH_FIELD_VALIDATION_COMPLETE",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknowns_are_null",
+      "delivery_distance_policy_strict_nearby_branch",
+      "going_out_distance_policy_mix_nearby_and_destination"
+    ],
+    "summary": {
+      "total_brands": 15,
+      "production_ready_brands": 15,
+      "caution_brands": 0,
+      "manual_review_brands": 0,
+      "total_candidate_branches": 44,
+      "total_verified_active_branches": 43,
+      "production_ready_branches": 29,
+      "usable_with_caution_branches": 14,
+      "manual_review_branches": 1,
+      "excluded_branches": 0,
+      "canonical_district_active_branches": 29,
+      "outer_caution_branches": 14,
+      "canonical_district_total_candidates": 29,
+      "null_district_total_candidates": 15,
+      "place_id_completeness": "100.0% (43/43)",
+      "coordinate_completeness": "100.0% (43/43)",
+      "maps_url_completeness": "100.0% (43/43)",
+      "address_completeness": "100.0% (43/43)",
+      "operating_status_completeness": "100.0% (43/43)",
+      "rating_completeness": "100.0% (43/43)",
+      "review_count_completeness": "100.0% (43/43)"
+    }
+  },
+  "brands": [
+    {
+      "id": "khayal_restaurant",
+      "canonical_name": "Khayal Restaurant",
+      "arabic_name": "مطعم خيال",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish",
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Established Jeddah destination since 2005; very high branch-level Google review volume and grill/barbecue positioning.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range_to_premium",
+      "signature_dishes": [
+        "mixed grills",
+        "kebabs"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "other": "official delivery/pick-up available"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.khayalrest.com/",
+        "https://www.khayalrest.com/locations"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Zahra / Prince Sultan",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم خيال، طريق الامير سلطان، الزهراء، جدة 23522",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJu1UW2WzawxUR8MSuy51UO3Q",
+          "google_place_id": "ChIJu1UW2WzawxUR8MSuy51UO3Q",
+          "latitude": 21.6095822,
+          "longitude": 39.1410604,
+          "google_rating": 4.2,
+          "google_review_count": 38505,
+          "operating_status": "open",
+          "hours": "الأحد: ٦:٠٠ص–٣:٠٠ص",
+          "phone": "9200 02223",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.khayalrest.com/locations"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        },
+        {
+          "branch_name": "Jeddah Park / Aziziyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "خيال، العزيزية، جدة 23334",
+          "raw_district": "al_aziziyah",
+          "canonical_district": "al_aziziyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJF4W9-KzRwxUR2-LSZrt8sDA",
+          "google_place_id": "ChIJF4W9-KzRwxUR2-LSZrt8sDA",
+          "latitude": 21.5580008,
+          "longitude": 39.185319199999995,
+          "google_rating": 4.4,
+          "google_review_count": 10460,
+          "operating_status": "open",
+          "hours": "الأحد: ٦:٠٠–١١:٣٠ص, ١٢:٣٠م–٣:٠٠ص",
+          "phone": "9200 02223",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.khayalrest.com/locations"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_aziziyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "ennabi_grill",
+      "canonical_name": "Ennabi Grill",
+      "arabic_name": "المشوى العنابي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "saudi",
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Large Saudi grill chain with multiple verified Jeddah physical branches, official grill-specialist positioning, and broad delivery-platform presence.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred_but_can_expand"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "mixed grill",
+        "Hijazi kebab",
+        "Halabi kebab",
+        "meat awsal",
+        "chicken kebab",
+        "shish tawook"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "yes",
+        "keeta": "yes",
+        "ninja": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.ennabigrill.com/",
+        "https://www.ennabigrill.com/locations-ennabi-grill",
+        "https://www.ennabigrill.com/menu",
+        "https://linktr.ee/EnnabiGrill_order"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Andalus",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "المشوى العنابي | Ennabi Grill، الأندلس،، جدة 23326",
+          "raw_district": "al_andalus",
+          "canonical_district": "al_andalus",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ549UTufFwxURMG1R3-Scvo4",
+          "google_place_id": "ChIJ549UTufFwxURMG1R3-Scvo4",
+          "latitude": 21.5462709,
+          "longitude": 39.163020599999996,
+          "google_rating": 4.1,
+          "google_review_count": 4983,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_andalus."
+        },
+        {
+          "branch_name": "Al Samer",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "المشوى العنابي, حي، انقره، السامر، جدة 23462",
+          "raw_district": "al_samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ-9YjslTRwxUR8HJuFteQX-4",
+          "google_place_id": "ChIJ-9YjslTRwxUR8HJuFteQX-4",
+          "latitude": 21.58768,
+          "longitude": 39.2365715,
+          "google_rating": 4,
+          "google_review_count": 626,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_samer."
+        },
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "المشوى العنابي | Ennabi Grill, المروة، جدة 23545",
+          "raw_district": "al_marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5y3aATfXwxURC3Xs4g56-Ws",
+          "google_place_id": "ChIJ5y3aATfXwxURC3Xs4g56-Ws",
+          "latitude": 21.6243285,
+          "longitude": 39.2106722,
+          "google_rating": 4,
+          "google_review_count": 1773,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "H4RM+Q73 المشوى العنابي، حلمي كتبي، الزهراء، جدة 23521",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJcQ5Jy9rRwxURXDeHHmS0m4w",
+          "google_place_id": "ChIJcQ5Jy9rRwxURXDeHHmS0m4w",
+          "latitude": 21.5919375,
+          "longitude": 39.1331875,
+          "google_rating": 3.9,
+          "google_review_count": 643,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        },
+        {
+          "branch_name": "Al Sanabel",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "المشوى العنابي، ، 9199،, حي السنابل،, JJSD3087، 3087 خبيب بن عدي الأنصاري(رضي الله عنه, 22444، جدة 22434",
+          "raw_district": "al_sanabel",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJl21O157PwxURiYYWycsmS-s",
+          "google_place_id": "ChIJl21O157PwxURiYYWycsmS-s",
+          "latitude": 21.3997411,
+          "longitude": 39.2819047,
+          "google_rating": 4.2,
+          "google_review_count": 3189,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_sanabel'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Hamdaniyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "المشوي العنابي، القاسم بن أمية، حي، الحمدانية، جدة 23761",
+          "raw_district": "al_hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJR83N66p9wRURTMgUCJ_n7WI",
+          "google_place_id": "ChIJR83N66p9wRURTMgUCJ_n7WI",
+          "latitude": 21.7611892,
+          "longitude": 39.1966416,
+          "google_rating": 3.9,
+          "google_review_count": 1824,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamdaniyah."
+        },
+        {
+          "branch_name": "North Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "المشوى العنابي، شارع عابر القرات، أبحر الشمالية، جدة 23817",
+          "raw_district": "obhur_al_shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJDwjCFABjwRUReL_46Or69vM",
+          "google_place_id": "ChIJDwjCFABjwRUReL_46Or69vM",
+          "latitude": 21.7603457,
+          "longitude": 39.1178082,
+          "google_rating": 4,
+          "google_review_count": 238,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah."
+        },
+        {
+          "branch_name": "Abdullah Bin Suleiman / Ivory Square",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "المشوى العنابي، طريق عبدالله بن سليمان, مجمع ايفوري اسكوير, جدة 24444",
+          "raw_district": "al_fayha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJq0R91-LPwxURpAZC38FdHik",
+          "google_place_id": "ChIJq0R91-LPwxURpAZC38FdHik",
+          "latitude": 21.4962609,
+          "longitude": 39.2190304,
+          "google_rating": 4,
+          "google_review_count": 2224,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–٢:٠٠ص; الجمعة: ١:٠٠م–٢:٠٠ص; السبت: ١:٠٠م–١:٠٠ص",
+          "phone": "9200 06396",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.ennabigrill.com/",
+            "https://www.ennabigrill.com/locations-ennabi-grill",
+            "https://www.ennabigrill.com/menu",
+            "https://linktr.ee/EnnabiGrill_order",
+            "https://yandex.com/maps/org/ivory_square/130385908790/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faiha."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "kabebo",
+      "canonical_name": "Kabebo",
+      "arabic_name": "كابيبو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "saudi",
+        "hijazi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Jeddah-founded Saudi Hijazi-grill specialist operating since 2007; official site confirms 11 Jeddah branches and nearby-branch delivery.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred_but_can_expand"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "quick_bite",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "beef kebab",
+        "chicken kebab",
+        "shish tawook",
+        "beef awsal",
+        "mabshoor",
+        "mixed grill platters"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "yes",
+        "brand_delivery": "yes_nearby_branches"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.kabebo.com/home",
+        "https://www.kabebo.com/",
+        "https://linktr.ee/kabebo_sa"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Samer",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo (السامر)، حي، عبدالله بن عطاء، السامر، جدة 23462",
+          "raw_district": "al_samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJhQIaw-_TwxURH5-Vf7mSzKw",
+          "google_place_id": "ChIJhQIaw-_TwxURH5-Vf7mSzKw",
+          "latitude": 21.590084299999997,
+          "longitude": 39.251049699999996,
+          "google_rating": 4,
+          "google_review_count": 1469,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "050 628 2244",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_samer."
+        },
+        {
+          "branch_name": "Al Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo (الصفا)، ام القرى، حي الصفا،، جدة",
+          "raw_district": "al_safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJq_SWenTRwxUR_o3TqLNoU5c",
+          "google_place_id": "ChIJq_SWenTRwxUR_o3TqLNoU5c",
+          "latitude": 21.5735496,
+          "longitude": 39.2198537,
+          "google_rating": 4.1,
+          "google_review_count": 2295,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "050 271 0011",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_safa."
+        },
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo ( حي المروة - مخطط الحرمين )، عبد الرحمن الخزاعي، المروة، جدة 23545",
+          "raw_district": "al_marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJJae5YsnWwxURaBnjOMv8IUE",
+          "google_place_id": "ChIJJae5YsnWwxURaBnjOMv8IUE",
+          "latitude": 21.6153126,
+          "longitude": 39.214456,
+          "google_rating": 4.1,
+          "google_review_count": 857,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١٢:٣٠ص",
+          "phone": "055 264 2211",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "Al Ajaweed",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "C892+C66 كابيبو | Kabebo (الاجاويد)، الاجاويد، جدة 22441",
+          "raw_district": "al_ajaweed",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJjZM1b13LwxURj9VLTRHnN2U",
+          "google_place_id": "ChIJjZM1b13LwxURj9VLTRHnN2U",
+          "latitude": 21.4185315,
+          "longitude": 39.3006039,
+          "google_rating": 4.1,
+          "google_review_count": 1874,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "055 133 3288",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_ajaweed'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Falah / Hamdaniyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo (الفلاح)، 5548 عمرو بن ابي وقاص(رضي الله عن، JGRB5548 6779، جدة 23762",
+          "raw_district": "al_hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXS31VWR9wRURBvp7q0lfI-c",
+          "google_place_id": "ChIJXS31VWR9wRURBvp7q0lfI-c",
+          "latitude": 21.7722203,
+          "longitude": 39.2007124,
+          "google_rating": 4.1,
+          "google_review_count": 890,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١٢:٣٠ص",
+          "phone": "050 201 3020",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamdaniyah."
+        },
+        {
+          "branch_name": "Al Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo (النسيم)، 7252 أم المؤمنين صفية، حي النسيم، جدة 23234",
+          "raw_district": "al_naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJkfumPMbPwxUR8qBdf82yC1g",
+          "google_place_id": "ChIJkfumPMbPwxUR8qBdf82yC1g",
+          "latitude": 21.5204959,
+          "longitude": 39.2300664,
+          "google_rating": 4.4,
+          "google_review_count": 433,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١٢:٣٠ص",
+          "phone": "050 544 3381",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naseem."
+        },
+        {
+          "branch_name": "Al Aziziyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo (العزيزية) اكسبرس، JCZB2749، 2749 الأدباء, 8622، جدة 23342",
+          "raw_district": "al_aziziyah",
+          "canonical_district": "al_aziziyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJQSCTaADRwxURamovLcZbS30",
+          "google_place_id": "ChIJQSCTaADRwxURamovLcZbS30",
+          "latitude": 21.5586268,
+          "longitude": 39.2091366,
+          "google_rating": 4,
+          "google_review_count": 94,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "050 040 8054",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_aziziyah."
+        },
+        {
+          "branch_name": "Al Qurainiyah Express",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو القرينية، JMYC7633، 7633 الشريف بركات بن محمد، 4013، جدة 22535",
+          "raw_district": "al_qurainiyah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJP0XPKQC1wxURqgFUxrUL_lk",
+          "google_place_id": "ChIJP0XPKQC1wxURqgFUxrUL_lk",
+          "latitude": 21.318415899999998,
+          "longitude": 39.246595899999996,
+          "google_rating": 4.1,
+          "google_review_count": 96,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١٢:٣٠ص",
+          "phone": "053 833 8320",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_qurainiyah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Sawari / Obhur Express",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo (ابحر)، 4429 الملك فيصل بن عبدالعزيز، سعود، JHWA7429، 7429، جدة 23826",
+          "raw_district": "al_sawari",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ3TSFLQBjwRURH_-mddBpKJ4",
+          "google_place_id": "ChIJ3TSFLQBjwRURH_-mddBpKJ4",
+          "latitude": 21.7890937,
+          "longitude": 39.093672,
+          "google_rating": 4.4,
+          "google_review_count": 207,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "057 366 3655",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_sawari'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Riyadh Express",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo (حي الرياض) إكسبرس، حي، شارع زين العابدين، الرياض، لي آوت الرياض، جدة 23839",
+          "raw_district": "al_riyadh",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ8-cfQzl7wRUR7WnjB13bLJU",
+          "google_place_id": "ChIJ8-cfQzl7wRUR7WnjB13bLJU",
+          "latitude": 21.848796099999998,
+          "longitude": 39.1964736,
+          "google_rating": 4.2,
+          "google_review_count": 104,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١٢:٣٠ص",
+          "phone": "057 957 9575",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_riyadh'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Abruq Ar Rughamah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كابيبو | Kabebo ابرق الرغامه، حي، طريق الملك عبدالله، ابرق الرغامة، جدة 22272",
+          "raw_district": "abruq_ar_rughamah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJEWamoqrNwxURCm1ewxzpA6U",
+          "google_place_id": "ChIJEWamoqrNwxURCm1ewxzpA6U",
+          "latitude": 21.505643799999998,
+          "longitude": 39.3012379,
+          "google_rating": 4,
+          "google_review_count": 65,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص; الاثنين: ١:٠٠م–١:٠٠ص; الثلاثاء: ١:٠٠م–١:٠٠ص; الأربعاء: ١:٠٠م–١:٠٠ص; الخميس: ١:٠٠م–١:٠٠ص; الجمعة: ١:٠٠م–١:٠٠ص; السبت: ١:٠٠م–١٢:٣٠ص",
+          "phone": "055 701 0504",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.kabebo.com/home",
+            "https://www.kabebo.com/",
+            "https://linktr.ee/kabebo_sa"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'abruq_ar_rughamah'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "al_hamraa_barbecue_restaurant",
+      "canonical_name": "Al Hamraa Barbecue Restaurant",
+      "arabic_name": "مطاعم مشويات الحمراء",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Multiple independently verified Jeddah branches with strong review counts plus official branch links; menu centers on meat/chicken mixed grills.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred_but_can_expand"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "chef mixed grill",
+        "Al Hamraa mixed grill",
+        "family grill trays"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "brand_delivery": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://linktr.ee/alhamraares",
+        "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Palestine / Mishrifah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطاعم مشويات الحمراء فرع فلسطين، 4612 شارع فلسطين، مشرفة، جدة 23335",
+          "raw_district": "mishrifah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJGQtNZyrOwxUR6l_y-d7VMDs",
+          "google_place_id": "ChIJGQtNZyrOwxUR6l_y-d7VMDs",
+          "latitude": 21.5334046,
+          "longitude": 39.198993,
+          "google_rating": 4.5,
+          "google_review_count": 6773,
+          "operating_status": "open",
+          "hours": "السبت: ١٢:٠٠م–٢:٠٠ص; الأحد: ١٢:٠٠م–٢:٠٠ص; الاثنين: ١٢:٠٠م–٢:٠٠ص; الثلاثاء: ١٢:٠٠م–٣:٠٠ص; الأربعاء: ١٢:٠٠م–٣:٠٠ص; الخميس: ١٢:٠٠م–٣:٠٠ص; الجمعة: ١٢:٠٠م–٣:٠٠ص",
+          "phone": "055 650 6004",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'mishrifah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Samer / Al Manar",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم مشويات الحمراء فرع السامر Alhamraaress، JDJB3776، 3776 7227 الأجواد، المنار، جدة 23462",
+          "raw_district": "al_manar",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ11K9xFHTwxURaYbRMNEJ8Uk",
+          "google_place_id": "ChIJ11K9xFHTwxURaYbRMNEJ8Uk",
+          "latitude": 21.593505099999998,
+          "longitude": 39.2383374,
+          "google_rating": 4.7,
+          "google_review_count": 1868,
+          "operating_status": "open",
+          "hours": "الأحد: ١٢:٠٠م–٢:٠٠ص",
+          "phone": "055 670 2992",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_manar'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Hamdaniyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطاعم مشويات الحمراء فرع الحمدانية، غاز، الحمدانية، جدة 23743",
+          "raw_district": "al_hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJGxgs4UF9wRURs5ouaoap7oo",
+          "google_place_id": "ChIJGxgs4UF9wRURs5ouaoap7oo",
+          "latitude": 21.736488899999998,
+          "longitude": 39.1936213,
+          "google_rating": 4.5,
+          "google_review_count": 1493,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "050 707 9130",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamdaniyah."
+        },
+        {
+          "branch_name": "Al Harazat",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "F98F+JQ3 مطاعم مشويات الحمراء فرع الحرازات، حي الحرازات، جدة 22394",
+          "raw_district": "al_harazat",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ9TC1uBgzwhURg8m59k5yo8A",
+          "google_place_id": "ChIJ9TC1uBgzwhURg8m59k5yo8A",
+          "latitude": 21.4661823,
+          "longitude": 39.3748828,
+          "google_rating": 4.7,
+          "google_review_count": 2459,
+          "operating_status": "open",
+          "hours": "الأحد: ١٢:٠٠م–٢:٠٠ص",
+          "phone": "053 454 7600",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_harazat'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Waziriyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطاعم مشويات الحمراء فرع الوزيرية، عمارة النعمان حي الوزيرية، مدائن الفهد، جدة 22343",
+          "raw_district": "al_waziriyah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJq3PLLgDNwxURET5Jr3yuY28",
+          "google_place_id": "ChIJq3PLLgDNwxURET5Jr3yuY28",
+          "latitude": 21.4624269,
+          "longitude": 39.2440053,
+          "google_rating": 4.8,
+          "google_review_count": 1369,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–٢:٠٠ص",
+          "phone": "055 736 6595",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_waziriyah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Sanabel",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطاعم مشويات الحمراء فرع السنابل، خبيب بن عدي الأنصاري، السنابل، جدة 22436",
+          "raw_district": "al_sanabel",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJMZhtZgDLwxURdiOLDJBQMa0",
+          "google_place_id": "ChIJMZhtZgDLwxURdiOLDJBQMa0",
+          "latitude": 21.4033055,
+          "longitude": 39.2729527,
+          "google_rating": 4.7,
+          "google_review_count": 711,
+          "operating_status": "open",
+          "hours": "السبت: ١٢:٠٠م–٢:٠٠ص; الأحد: ١٢:٠٠م–٢:٠٠ص; الاثنين: ١٢:٠٠م–٢:٠٠ص; الثلاثاء: ١٢:٠٠م–٣:٠٠ص; الأربعاء: ١٢:٠٠م–٣:٠٠ص; الخميس: ١٢:٠٠م–٣:٠٠ص; الجمعة: ١٢:٠٠م–٣:٠٠ص",
+          "phone": "055 368 6371",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/alhamraares",
+            "https://jeddahrestaurants.com/al-hamraa-barbecue-restaurant/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_sanabel'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Aabir Al Qarath Street, Abhur Ash Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "raw_district": "obhur_al_shamaliyah",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "open",
+          "hours": "Sat-Wed 12:00-02:00; Thu-Fri 12:00-03:00",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "https://linktr.ee/alhamraares",
+            "https://yandex.com/maps/org/182039745746/",
+            "https://ar.restaurantguru.com/mtaam-mshwyat-alhmraa-fra-abhr-Jeddah"
+          ],
+          "production_eligibility": "manual_review",
+          "reason": "Physical branch, district and address verified from current external mapping/review sources; direct Google Maps listing/Place ID still not independently resolved."
+        }
+      ],
+      "unverified_locations": []
+    },
+    {
+      "id": "taksim_point_restaurant",
+      "canonical_name": "Taksim Point Restaurant",
+      "arabic_name": "تقسيم بوينت",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Official site lists multiple Jeddah locations; Al Manar has very high Google review volume and the brand is strongly Turkish-grill oriented.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "mixed grill",
+        "Adana kebab",
+        "meat kebab",
+        "chicken kebab"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://taksimpoint.sa/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Manar",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم تقسيم بوينت، طريق هدى الشام، حي المنار، جدة 23463",
+          "raw_district": "al_manar",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ55Xb3bnXwxURGQYRKRPfdyY",
+          "google_place_id": "ChIJ55Xb3bnXwxURGQYRKRPfdyY",
+          "latitude": 21.6117599,
+          "longitude": 39.2351679,
+          "google_rating": 4.6,
+          "google_review_count": 17497,
+          "operating_status": "open",
+          "hours": "السبت: ٥:٣٠ص–٣:٠٠ص; الأحد: ٥:٣٠ص–٣:٠٠ص; الاثنين: ٥:٣٠ص–٣:٠٠ص; الثلاثاء: ٥:٣٠ص–٣:٠٠ص; الأربعاء: ٥:٣٠ص–٣:٠٠ص; الخميس: ٥:٣٠ص–٣:٣٠ص; الجمعة: ٥:٣٠ص–٣:٣٠ص",
+          "phone": "056 169 3333",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://taksimpoint.sa/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_manar'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Waterfront / Ash Shati",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم تقسيم بوينت | Taksimpoint restaurants، داخل مركز المارينا بجوار منتزه عطا الله، الشاطئ، حي، الواجهة البحرية، جدة 23611",
+          "raw_district": "ash_shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCfFzRgDbwxURiG14C-o4CqQ",
+          "google_place_id": "ChIJCfFzRgDbwxURiG14C-o4CqQ",
+          "latitude": 21.616094099999998,
+          "longitude": 39.10841,
+          "google_rating": 4.7,
+          "google_review_count": 2175,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٣٠م–٤:٠٠ص",
+          "phone": "057 455 5000",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://taksimpoint.sa/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_shati."
+        },
+        {
+          "branch_name": "Al Jawharah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم تقسيم بوينت، بجانب معارض السيارات، شارع المائة، الجوهرة، حي، جدة 22416",
+          "raw_district": "al_jawharah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJleGZaADLwxURhUpfKIZ0yAs",
+          "google_place_id": "ChIJleGZaADLwxURhUpfKIZ0yAs",
+          "latitude": 21.437376399999998,
+          "longitude": 39.251687499999996,
+          "google_rating": 4.7,
+          "google_review_count": 3157,
+          "operating_status": "open",
+          "hours": "الأحد: ١٢:٠٠م–٢:٠٠ص",
+          "phone": "056 877 7222",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://taksimpoint.sa/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_jawharah'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": [
+        {
+          "name": "Taksim Express",
+          "status": "not_verified_as_physical_branch",
+          "reason": "Official brand source mentions Taksim Express, but a current exact Jeddah street address and canonical district were not independently verified. Excluded from physical branch import until verified."
+        }
+      ]
+    },
+    {
+      "id": "al_fairouz_restaurant",
+      "canonical_name": "Al Fairouz Restaurant",
+      "arabic_name": "مطعم الفيروز",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Established in Jeddah in 1986; official site describes charcoal grill and Turkish kebabs and confirms two Jeddah branches.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "Turkish kebabs",
+        "charcoal grills",
+        "Iskander"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "yes",
+        "keeta": "yes",
+        "ninja": "yes",
+        "toyou": "yes",
+        "mrsool": "yes",
+        "the_chefz": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://alfairouzrestaurants.com/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Hira Street / An Nahdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم الفيروز، مركز دانية التجاري، شارع حراء، center، جدة 23525",
+          "raw_district": "an_nahdah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJo8P85EPawxURYqMbgUkNMCE",
+          "google_place_id": "ChIJo8P85EPawxURYqMbgUkNMCE",
+          "latitude": 21.612467799999997,
+          "longitude": 39.1509536,
+          "google_rating": 3.9,
+          "google_review_count": 10365,
+          "operating_status": "open",
+          "hours": "السبت: ١٢:٠٠م–٢:٠٠ص; الأحد: ١٢:٠٠م–٢:٠٠ص; الاثنين: ١٢:٠٠م–٢:٠٠ص; الثلاثاء: ١٢:٠٠م–٢:٠٠ص; الأربعاء: ١٢:٠٠م–٢:٠٠ص; الخميس: ١٢:٠٠م–٢:٠٠ص; الجمعة: ٢:٠٠م–٢:٠٠ص",
+          "phone": "054 893 0864",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alfairouzrestaurants.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'an_nahdah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم الفيروز مطعم تركي، 3057 سعود الفيصل، الصفا، جدة 23451",
+          "raw_district": "al_safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXVPW4AjRwxURWQVxTn_rIck",
+          "google_place_id": "ChIJXVPW4AjRwxURWQVxTn_rIck",
+          "latitude": 21.5751199,
+          "longitude": 39.2086775,
+          "google_rating": 3.9,
+          "google_review_count": 4191,
+          "operating_status": "open",
+          "hours": "الأحد: ١١:٣٠ص–١:٣٠ص; الاثنين: ١١:٠٠ص–١:٠٠ص; الثلاثاء: ١١:٠٠ص–١:٠٠ص; الأربعاء: ١١:٣٠ص–١:٣٠ص; الخميس: ١١:٣٠ص–١:٠٠ص; الجمعة: ١١:٣٠ص–١:٣٠ص; السبت: ١١:٣٠ص–١:٠٠ص",
+          "phone": "012 272 1067",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alfairouzrestaurants.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_safa."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "shami",
+      "canonical_name": "Shami",
+      "arabic_name": "مطاعم شامي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "syrian",
+        "levantine"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Official site states 46 years of Syrian cuisine heritage and natural-charcoal grilling; current Jeddah branch on Palestine Street.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.shamirest.com/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Hamra / Palestine Street",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شامي، السخاء، شارع فلسطين، جدة",
+          "raw_district": "al_hamra",
+          "canonical_district": "al_hamra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ3eLsLojPwxURcV7Mv5zJRWw",
+          "google_place_id": "ChIJ3eLsLojPwxURcV7Mv5zJRWw",
+          "latitude": 21.519275999999998,
+          "longitude": 39.1548781,
+          "google_rating": 3.7,
+          "google_review_count": 7609,
+          "operating_status": "open",
+          "hours": "السبت: ٦:٠٠ص–٣:٠٠ص; الأحد: ٦:٠٠ص–٣:٠٠ص; الاثنين: ٦:٠٠ص–٣:٠٠ص; الثلاثاء: ٦:٠٠ص–٣:٠٠ص; الأربعاء: ٦:٠٠ص–٣:٠٠ص; الخميس: ٦:٠٠ص–٣:٠٠ص; الجمعة: ٦:٠٠ص–٣:٠٠ص",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.shamirest.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamra."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "skewers_grilled_restaurant",
+      "canonical_name": "Skewers Grilled Restaurant",
+      "arabic_name": "مطعم سكيوورز للمشويات",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Single current Jeddah Maps entity with strong review volume and explicit grilled/Turkish positioning.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "mixed grills",
+        "meat kebab"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "medium",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Jeddah branch",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شركة أسياخ كباب اسطنبول، شارع السيد، حي، جدة",
+          "raw_district": "al_ruwais",
+          "canonical_district": "al_ruwais",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJj7qVVL7PwxURFkiUNJEN8tY",
+          "google_place_id": "ChIJj7qVVL7PwxURFkiUNJEN8tY",
+          "latitude": 21.5180924,
+          "longitude": 39.177628399999996,
+          "google_rating": 4.3,
+          "google_review_count": 6425,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–٢:٠٠ص",
+          "phone": "056 951 8413",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/skewers-grilled-restaurant"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_ruwais."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "at_beirut_jeddah",
+      "canonical_name": "At Beirut Jeddah",
+      "arabic_name": "في بيروت جدة",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current physical Jeddah branch with strong Google review volume and Lebanese grill positioning.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "mixed grills"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Batarji / Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم في بيروت جدة | At Beirut Jeddah, البترجي فرعي، الزهراء، جدة 23521",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJgehFcwDbwxUR1kYn8vbT1rg",
+          "google_place_id": "ChIJgehFcwDbwxUR1kYn8vbT1rg",
+          "latitude": 21.5974832,
+          "longitude": 39.129700799999995,
+          "google_rating": 4.5,
+          "google_review_count": 2214,
+          "operating_status": "open",
+          "hours": "السبت: ٨:٠٠ص–٣:٠٠ص; الأحد: ١٢:٠٠م–٣:٠٠ص; الاثنين: ١٢:٠٠م–٣:٠٠ص; الثلاثاء: ١٢:٠٠م–٣:٠٠ص; الأربعاء: ١٢:٠٠م–٣:٠٠ص; الخميس: ١٢:٠٠م–٣:٠٠ص; الجمعة: ٨:٠٠ص–٣:٠٠ص",
+          "phone": "050 054 7799",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "al_nakheel_restaurant",
+      "canonical_name": "Al Nakheel Restaurant",
+      "arabic_name": "مطعم النخيل",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Longstanding Jeddah destination; official menu identifies mixed grill as a best seller and includes lamb/chicken grill items.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "mixed grill",
+        "lamb kofta",
+        "lamb chops",
+        "shish tawook"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.alnakheel.group/",
+        "https://www.alnakheel.group/english-menu"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Corniche / Ash Shati",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم منتزه النخيل، حي، طريق الكورنيش الفرعي، الشاطئ، جدة 23413",
+          "raw_district": "ash_shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJh_DJ9inbwxUR0N9frVfFbdI",
+          "google_place_id": "ChIJh_DJ9inbwxUR0N9frVfFbdI",
+          "latitude": 21.5645709,
+          "longitude": 39.1119218,
+          "google_rating": 3.9,
+          "google_review_count": 9734,
+          "operating_status": "open",
+          "hours": "السبت: ٥:٠٠م–٤:٣٠ص; الأحد: ٥:٠٠م–٤:٣٠ص; الاثنين: ٥:٠٠م–٤:٣٠ص; الثلاثاء: ٥:٠٠م–٤:٣٠ص; الأربعاء: ٥:٠٠م–٤:٣٠ص; الخميس: ٥:٠٠م–٤:٣٠ص; الجمعة: ٥:٠٠م–٤:٣٠ص",
+          "phone": "055 544 2969",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.alnakheel.group/",
+            "https://www.alnakheel.group/english-menu"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_shati."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "shababik",
+      "canonical_name": "Shababik",
+      "arabic_name": "شبابيك",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "High-review Lebanese destination with an official dedicated 'From the Grill' menu section.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "mixed grill"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://shababikrestaurant.com/menu"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Ana Special Mall / Ar Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Shababik Jeddah، طريق الامير سلطان، الروضة، Ana Special Mall، جدة 23431",
+          "raw_district": "ar_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ974aorLawxURF_Xer7kszfw",
+          "google_place_id": "ChIJ974aorLawxURF_Xer7kszfw",
+          "latitude": 21.551632899999998,
+          "longitude": 39.143699999999995,
+          "google_rating": 4.2,
+          "google_review_count": 7879,
+          "operating_status": "open",
+          "hours": "الأحد: ١٢:٣٠م–١:٠٠ص; الاثنين: ١٢:٣٠م–١:٠٠ص; الثلاثاء: ١٢:٣٠م–١:٠٠ص; الأربعاء: ١٢:٣٠م–١:٠٠ص; الخميس: ١٢:٣٠م–١:٠٠ص; الجمعة: ١٢:٣٠م–١:٠٠ص; السبت: ٩:٠٠ص–١:٠٠ص",
+          "phone": "9200 03945",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://shababikrestaurant.com/menu"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "burj_al_hamam",
+      "canonical_name": "Burj Al Hamam",
+      "arabic_name": "برج الحمام",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Established Lebanese restaurant group with two current official Jeddah branches and substantial charcoal-grill menu.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "mixed grill",
+        "beef cubes",
+        "chicken tawook",
+        "Halabi kebab",
+        "lamb cutlets"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "brand_app": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.burjalhamamksa.com/en/",
+        "https://www.burjalhamamksa.com/en/branches/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Fayfa Avenue",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم برج الحمام، شارع الأمير محمد بن عبدالعزيز، الروضة، Prince Sultan Road - شارع الأمير سلطان District, جدة 23431",
+          "raw_district": "ar_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJR56rhurFwxURsM4S5VFie8w",
+          "google_place_id": "ChIJR56rhurFwxURsM4S5VFie8w",
+          "latitude": 21.549478399999998,
+          "longitude": 39.1435728,
+          "google_rating": 4.7,
+          "google_review_count": 3261,
+          "operating_status": "open",
+          "hours": "الأحد: ٩:٠٠ص–١٢:٣٠ص",
+          "phone": "9200 08460",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.burjalhamamksa.com/en/",
+            "https://www.burjalhamamksa.com/en/branches/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Penta Plaza",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Burj Al Hamam - Penta Plaza, طريق الامير سلطان، المحمدية، جدة 23621",
+          "raw_district": "al_muhammadiyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJN7GNUADZwxURGwdB4eTwDkU",
+          "google_place_id": "ChIJN7GNUADZwxURGwdB4eTwDkU",
+          "latitude": 21.632889499999997,
+          "longitude": 39.1338131,
+          "google_rating": 4.8,
+          "google_review_count": 886,
+          "operating_status": "open",
+          "hours": "الأحد: ١٢:٠٠م–١٢:٣٠ص",
+          "phone": "9200 08460",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.burjalhamamksa.com/en/",
+            "https://www.burjalhamamksa.com/en/branches/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "saraya_latif",
+      "canonical_name": "Saraya Latif",
+      "arabic_name": "سرايا لطيف",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Two current Jeddah Maps entities with large review counts; delivery menu confirms Adana, Urfa, tawook and mixed grills.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range_to_premium",
+      "signature_dishes": [
+        "Saraya Mix Grill",
+        "Adana kebab",
+        "Urfa kebab",
+        "shish tawook"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "yes"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://ananinja.com/sa/en/restaurants/saraya-latif-20869"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Palestine Street / Al Hamra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "سرايا لطيف، مقابل مركز الجمجوم، شارع فلسطين، حي، G594+WHJ، جدة 23212",
+          "raw_district": "al_hamra",
+          "canonical_district": "al_hamra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJgX0vu4nPwxURXh6srI6g3RE",
+          "google_place_id": "ChIJgX0vu4nPwxURXh6srI6g3RE",
+          "latitude": 21.5198277,
+          "longitude": 39.1563946,
+          "google_rating": 4,
+          "google_review_count": 7684,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "055 141 3721",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://ananinja.com/sa/en/restaurants/saraya-latif-20869"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamra."
+        },
+        {
+          "branch_name": "Al Khalidiyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "سرايا لطيف، سعود الفيصل، الخالدية، جدة 23421",
+          "raw_district": "al_khalidiyyah",
+          "canonical_district": "al_khalidiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJJZdf17bawxURiMma_86FOw8",
+          "google_place_id": "ChIJJZdf17bawxURiMma_86FOw8",
+          "latitude": 21.5588224,
+          "longitude": 39.1391329,
+          "google_rating": 4.4,
+          "google_review_count": 6318,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١:٠٠ص",
+          "phone": "055 141 7752",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://ananinja.com/sa/en/restaurants/saraya-latif-20869"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_khalidiyyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "yildizlar_restaurant",
+      "canonical_name": "Yildizlar Restaurant",
+      "arabic_name": "مطعم يلدزلار",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "lebanese",
+        "middle_eastern"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Longstanding Jeddah restaurant with thousands of current Google reviews and historic association with grilled food.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "medium",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Hamra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم يلدزلار، الحمراء، JCHA3274، 3274 المعادى، 7018، جدة 23212",
+          "raw_district": "al_hamra",
+          "canonical_district": "al_hamra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ8_XUIZDPwxURuDB1XWsSrVs",
+          "google_place_id": "ChIJ8_XUIZDPwxURuDB1XWsSrVs",
+          "latitude": 21.5153705,
+          "longitude": 39.1649408,
+          "google_rating": 3.8,
+          "google_review_count": 4386,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–١٢:٣٠ص",
+          "phone": "012 653 1150",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamra."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    },
+    {
+      "id": "istanbul_grill_restaurant",
+      "canonical_name": "Istanbul Grill Restaurant",
+      "arabic_name": "مطعم اسطنبول جريل",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "grills",
+      "secondary_categories": [
+        "turkish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current Jeddah Turkish-grill restaurant with 2,000+ Google reviews and affordable Maps price band.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "nearby_preferred"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Naeem / Hira Street",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "الشيش للمشويات، النعيم، شارع حراء، حي، جدة",
+          "raw_district": "al_naeem",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJpeROlxLawxURhEcynrnaKxY",
+          "google_place_id": "ChIJpeROlxLawxURhEcynrnaKxY",
+          "latitude": 21.6129648,
+          "longitude": 39.1498352,
+          "google_rating": 4.2,
+          "google_review_count": 2282,
+          "operating_status": "open",
+          "hours": "الأحد: ١:٠٠م–٢:٠٠ص",
+          "phone": "055 676 5655",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naeem."
+        }
+      ],
+      "manual_review_branches": [],
+      "unverified_locations": []
+    }
+  ],
+  "manual_review": [
+    {
+      "brand": "Al Hamraa Barbecue Restaurant",
+      "branch": "Obhur",
+      "reason": "Physical branch, district and address verified from current external mapping/review sources; direct Google Maps listing/Place ID still not independently resolved."
+    }
+  ]
+}

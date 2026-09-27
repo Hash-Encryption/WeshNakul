@@ -1,0 +1,1580 @@
+{
+  "schema_version": "weshnakul_restaurant_catalog_v3",
+  "dataset": "jeddah_shawarma_pass_d_corrected",
+  "city": "Jeddah",
+  "country": "Saudi Arabia",
+  "verified_at": "2026-09-25",
+  "status": "PASS_WITH_MANUAL_REVIEW_QUEUE",
+  "rules": {
+    "verified_reality_over_completeness": true,
+    "nearby_is_dynamic_not_brand_tag": true,
+    "healthy_requires_meaningful_evidence": true,
+    "branch_ratings_are_branch_specific": true,
+    "delivery_service_area_is_not_physical_branch_proof": true,
+    "production_branch_required_fields": [
+      "physical_existence",
+      "city",
+      "address",
+      "canonical_district",
+      "google_maps_url",
+      "operating_status",
+      "source_provenance",
+      "verified_at"
+    ],
+    "strongly_wanted_fields": [
+      "latitude",
+      "longitude",
+      "google_rating",
+      "google_review_count",
+      "hours",
+      "phone",
+      "price_positioning",
+      "signature_items",
+      "healthy",
+      "context_tags",
+      "meal_fit",
+      "delivery_platform_presence"
+    ]
+  },
+  "brands": [
+    {
+      "canonical_name_en": "Shawarmer",
+      "canonical_name_ar": "شاورمر",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "price_positioning": "affordable_to_mid",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [
+        "Tagamees",
+        "Saji",
+        "Double Arabo",
+        "Al Azeima"
+      ],
+      "confidence": "high",
+      "brand_sources": [
+        "https://shawarmer.com/en",
+        "https://shawarmer.com/en/about-us"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Al Mohammadiyyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23431",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_zjGlY3ZwxURKZeb-5L1Spc",
+          "google_place_id": "ChIJ_zjGlY3ZwxURKZeb-5L1Spc",
+          "operating_status": "open",
+          "google_rating": 4.0,
+          "google_review_count": 2186,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Fayha",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Fayha, Jeddah 22246",
+          "canonical_district": "al_fayha",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJPxm8RzHPwxURCOReaD4mb2g",
+          "google_place_id": "ChIJPxm8RzHPwxURCOReaD4mb2g",
+          "operating_status": "open",
+          "google_rating": 3.9,
+          "google_review_count": 2589,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Rabi",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Haramain Rd, Al Rabi, Jeddah 23545",
+          "canonical_district": "al_rabi",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJy-uwg9jRwxUR-bJ1AhR3FBc",
+          "google_place_id": "ChIJy-uwg9jRwxUR-bJ1AhR3FBc",
+          "operating_status": "open",
+          "google_rating": 4.2,
+          "google_review_count": 1067,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Zahra, Jeddah 23521",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ7SGvIGHbwxURPvsMMtYIAtI",
+          "google_place_id": "ChIJ7SGvIGHbwxURPvsMMtYIAtI",
+          "operating_status": "open",
+          "google_rating": 4.2,
+          "google_review_count": 693,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Rehab",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Mutaib bin Abdulaziz Rd, Al Rehab, Jeddah 23342",
+          "canonical_district": "al_rehab",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJVU78RtXRwxURYdgPEmsOKXE",
+          "google_place_id": "ChIJVU78RtXRwxURYdgPEmsOKXE",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "North Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23817",
+          "canonical_district": "obhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJveGyMQFjwRURyjGQnoa9djI",
+          "google_place_id": "ChIJveGyMQFjwRURyjGQnoa9djI",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Mall of Arabia",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Mall of Arabia, An Nuzhah, Jeddah 23423",
+          "canonical_district": "an_nuzhah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJXyT-rFfXwxURcNmizGuVsl8",
+          "google_place_id": "ChIJXyT-rFfXwxURcNmizGuVsl8",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Red Sea Mall",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Red Sea Mall, Ash Shati, Jeddah 21146",
+          "canonical_district": "ash_shati",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbd2zjv3bwxURDGPoUpczSK4",
+          "google_place_id": "ChIJbd2zjv3bwxURDGPoUpczSK4",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Taiba",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Main St, Taiba, Jeddah 23832",
+          "canonical_district": "taiba",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJE4CY1jNlwRURKj5BMu-iCyM",
+          "google_place_id": "ChIJE4CY1jNlwRURKj5BMu-iCyM",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Samer",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Samer, Al Ajwad, Jeddah 23462",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ9wx_hvvTwxURL22JlZwoTFc",
+          "google_place_id": "ChIJ9wx_hvvTwxURL22JlZwoTFc",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Hamra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al-Hamra'a, Jeddah 22431",
+          "canonical_district": "al_hamra",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJsz_a01bPwxURhX9e9ubMjDw",
+          "google_place_id": "ChIJsz_a01bPwxURhX9e9ubMjDw",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Sanabel",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Sanabel, Jeddah 22444",
+          "canonical_district": "al_sanabel",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJQf66Lo7LwxURsYyAUCF26fU",
+          "google_place_id": "ChIJQf66Lo7LwxURsYyAUCF26fU",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Umm Al Qoura",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Umm Al Qoura St, Jeddah 23455",
+          "canonical_district": "umm_al_qoura",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJaTzlLFrRwxUR-CYCxpjNfsE",
+          "google_place_id": "ChIJaTzlLFrRwxUR-CYCxpjNfsE",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Mishrifah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Palestine, Mishrifah, Jeddah 23335",
+          "canonical_district": "mishrifah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ8R5AllrRwxUR3646IDL7KyM",
+          "google_place_id": "ChIJ8R5AllrRwxUR3646IDL7KyM",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Prince Fawaz South",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Makkah–Jeddah Hwy, Al Amir Fawaz Al Janouby, Jeddah 22431",
+          "canonical_district": "al_amir_fawaz_al_janouby",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJFeJ7HlPNwxURjR40GbD9ueY",
+          "google_place_id": "ChIJFeJ7HlPNwxURjR40GbD9ueY",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Marwah - Prince Majid",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Majid Rd, Al Marwah, Jeddah 23541",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJmSlpE_XRwxURDDCC9KVb6H8",
+          "google_place_id": "ChIJmSlpE_XRwxURDDCC9KVb6H8",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "As Salamah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Saqr Quraish St, As Salamah, Jeddah 23436",
+          "canonical_district": "as_salamah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJK8Ggb4fQwxURWSeZpoYU808",
+          "google_place_id": "ChIJK8Ggb4fQwxURWSeZpoYU808",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Marwah - Hira",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Hira St, Al Marwah, Jeddah 23545",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJdcLuRRrXwxUR6UQ37CGXYeU",
+          "google_place_id": "ChIJdcLuRRrXwxUR6UQ37CGXYeU",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Additional Jeddah locations from older/secondary directories",
+          "status": "manual_review",
+          "reason": "Not imported until current direct Google listing + exact address are reconciled. Includes leads such as Aziz Mall / airport / other historic listings."
+        }
+      ],
+      "notes": "Large national chain. Only the currently reconciled Jeddah branch set is included; no claim of exhaustive city coverage."
+    },
+    {
+      "canonical_name_en": "Shawarma Classic",
+      "canonical_name_ar": "شاورما كلاسك",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "price_positioning": "affordable",
+      "healthy": "manual_review",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [
+        "Shawarma Classic",
+        "Falka",
+        "Jumbo Classic",
+        "Arabi Classic"
+      ],
+      "confidence": "high",
+      "brand_sources": [
+        "https://shawarmaclassic.com/our-story/",
+        "https://shawarmaclassic.com/al-safa-branch/",
+        "https://shawarmaclassic.com/obhur-branch/"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "As Safa",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "4126 Umm Al Qoura, As Safa District, Jeddah",
+          "canonical_district": "as_safa",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUWJgExLRwxURNtqFpE4BgTY",
+          "google_place_id": "ChIJUWJgExLRwxURNtqFpE4BgTY",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Hira St, Al Marwah, Jeddah 23542",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJYUPMpwvXwxURjSKKW9yYYNA",
+          "google_place_id": "ChIJYUPMpwvXwxURjSKKW9yYYNA",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Hamadaniyyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Hamadaniyyah St, Al Hamadaniyyah, Jeddah 23761",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJOTh2WMN9wRURs7v0ovLAwGk",
+          "google_place_id": "ChIJOTh2WMN9wRURs7v0ovLAwGk",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Fayha",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "3622 Abdullah Sulayman Branch St, Al Fayha, Jeddah 22244",
+          "canonical_district": "al_fayha",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGYcw2N3PwxURIK8dLIGCUVU",
+          "google_place_id": "ChIJGYcw2N3PwxURIK8dLIGCUVU",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Sultan Rd, Al Zahra, Jeddah 23433",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJVexALQbbwxUR2PpnI5WUXUE",
+          "google_place_id": "ChIJVexALQbbwxUR2PpnI5WUXUE",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "North Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Aabir Al Qarath St, North Obhur, Jeddah 23815",
+          "canonical_district": "obhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ92qE3e1jwRUR2-FiJoVE38w",
+          "google_place_id": "ChIJ92qE3e1jwRUR2-FiJoVE38w",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Possible second Al Marwah listing",
+          "status": "manual_review",
+          "reason": "Potential duplicate/relocation collision; excluded from production."
+        },
+        {
+          "branch_name": "An Nuzhah",
+          "status": "manual_review",
+          "reason": "Official branch page exists, but not added until direct current Google business record is reconciled."
+        }
+      ],
+      "notes": "Healthy stays manual_review: keto/low-carb items exist, but brand-level healthy usefulness is not yet strong enough for healthy=true."
+    },
+    {
+      "canonical_name_en": "Shawarma Alrimal",
+      "canonical_name_ar": "شاورما الرمال",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "affordable_to_mid",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [
+        "https://linktr.ee/shawerma_alrimal"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Hira St, Al Marwah, Jeddah 23545",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJOX7m6T_XwxURQWPnP9eHheE",
+          "google_place_id": "ChIJOX7m6T_XwxURQWPnP9eHheE",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Tahlia / Al Andalus",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "2892 Abd Al Rahman Al Toubaishi, Al Andalus, Jeddah 23326",
+          "canonical_district": "al_andalus",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJp-0hkQPQwxUR5Xvjg-yzup8",
+          "google_place_id": "ChIJp-0hkQPQwxUR5Xvjg-yzup8",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Khalidiyyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Saud Al Faisal St, Al Khalidiyyah, Jeddah 23422",
+          "canonical_district": "al_khalidiyyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJSWbxbwDbwxURRF6yWMw3OWQ",
+          "google_place_id": "ChIJSWbxbwDbwxURRF6yWMw3OWQ",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Mohammadiyyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23625",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5bsnZALZwxUR40P5srMdQuo",
+          "google_place_id": "ChIJ5bsnZALZwxUR40P5srMdQuo",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Fayha",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "7535 Abdullah Sulayman St, Al Fayha, Jeddah 22246",
+          "canonical_district": "al_fayha",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGQH-HhXPwxURlo-il8pb63o",
+          "google_place_id": "ChIJGQH-HhXPwxURlo-il8pb63o",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Al Hamadaniyyah",
+          "status": "manual_review",
+          "reason": "Physical branch strongly evidenced, but retained outside production until direct Google place record is reconciled."
+        },
+        {
+          "branch_name": "Obhur",
+          "status": "manual_review",
+          "reason": "Officially listed branch; exact formatted address/direct Google place record not sufficiently reconciled."
+        }
+      ],
+      "notes": "Official current brand branch page supports a 7-branch Jeddah network; only clean branch records are production included."
+    },
+    {
+      "canonical_name_en": "Shamiyat Haritna",
+      "canonical_name_ar": "شاميات حارتنا",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "mid_range",
+      "healthy": false,
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout",
+        "late_night",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [
+        "https://linktr.ee/shamyatharitna"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Prince Sultan",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Sultan Rd, Al Naeem, Jeddah 23526",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAzEqTQDbwxURThhPMFq4sZ4",
+          "google_place_id": "ChIJAzEqTQDbwxURThhPMFq4sZ4",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "As Salamah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Saqer Qouraish St, As Salamah, Jeddah 23436",
+          "canonical_district": "as_salamah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJV1jA0xbRwxURAKJWs-DTaQ0",
+          "google_place_id": "ChIJV1jA0xbRwxURAKJWs-DTaQ0",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Hamra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Sourour, Al-Hamra'a, Jeddah 23212",
+          "canonical_district": "al_hamra",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhTNHkP7PwxUR75tF8PF_tjU",
+          "google_place_id": "ChIJhTNHkP7PwxUR75tF8PF_tjU",
+          "operating_status": "open",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Jeddah Park",
+          "status": "manual_review",
+          "district": "al_aziziyah",
+          "reason": "Official branch confirmed at Jeddah Park, but exact branch-specific Google business listing is not cleanly reconciled for production."
+        }
+      ],
+      "notes": "Broader Syrian restaurant where shawarma is a meaningful discovery reason; not modeled as shawarma-only."
+    },
+    {
+      "canonical_name_en": "Ayedh Shawarma",
+      "canonical_name_ar": "شاورما عايض",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "budget_to_affordable",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [
+        "Chicken Shawarma"
+      ],
+      "confidence": "high",
+      "brand_sources": [
+        "https://restaurantguru.com/Ayedh-Shawarma-Jeddah"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "As Salamah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Sultan Rd, As Salamah, Jeddah 23526",
+          "canonical_district": "as_salamah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ-2RxAgDbwxURXTbm30gRCjM",
+          "google_place_id": "ChIJ-2RxAgDbwxURXTbm30gRCjM",
+          "operating_status": "open",
+          "google_rating": 4.4,
+          "google_review_count": 3401,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [],
+      "notes": null
+    },
+    {
+      "canonical_name_en": "Al-Khal Al-Dimashqi",
+      "canonical_name_ar": "الخال الدمشقي",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "mid_range",
+      "healthy": false,
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [
+        "https://restaurantguru.com/ALKHAL-ALDIMASHKI-alkhal-aldmshqy-Jeddah"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Ar Rawdah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Saud Al Faisal, Ar Rawdah, Jeddah 23337",
+          "canonical_district": "ar_rawdah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJm9UGdADbwxURNAknozjvmcA",
+          "google_place_id": "ChIJm9UGdADbwxURNAknozjvmcA",
+          "operating_status": "open",
+          "google_rating": 4.7,
+          "google_review_count": 11038,
+          "hours": null,
+          "phone": "+966530000122",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [],
+      "notes": "Full Syrian restaurant; dine-in strength is a key differentiator."
+    },
+    {
+      "canonical_name_en": "Shawarma Habteen",
+      "canonical_name_ar": "شاورما حبتين",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "rising",
+      "price_positioning": "affordable_to_mid",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [
+        "https://linktr.ee/habteen",
+        "https://listah.io/p/shawarma-habteen-shawrma-hbtyn-12554376350068843834"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "King Abdulaziz Road / Ash Shati",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "H4XC+M92, King Abdulaziz Rd, Ash Shati, Jeddah 23513",
+          "canonical_district": "ash_shati",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJzbugmXPbwxURSoJGmsoHMQE",
+          "google_place_id": "ChIJzbugmXPbwxURSoJGmsoHMQE",
+          "operating_status": "open",
+          "google_rating": 4.0,
+          "google_review_count": 5111,
+          "hours": null,
+          "phone": "+966552067222",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing",
+            "https://linktr.ee/habteen"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Murjan",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "M4X3+8R5, Al Murjan, Jeddah 23715",
+          "canonical_district": "al_murjan",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJz4HiYgDZwxUROiVrQsYaOq4",
+          "google_place_id": "ChIJz4HiYgDZwxUROiVrQsYaOq4",
+          "operating_status": "open",
+          "google_rating": 4.5,
+          "google_review_count": 647,
+          "hours": null,
+          "phone": "+966530671222",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing",
+            "https://linktr.ee/habteen"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "North Obhur / third official branch",
+          "status": "manual_review",
+          "reason": "Official/secondary evidence supports a third Jeddah branch, but exact current Google place record remains unreconciled."
+        }
+      ],
+      "notes": null
+    },
+    {
+      "canonical_name_en": "Ziyada Toum",
+      "canonical_name_ar": "زيادة ثوم",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "mid_range",
+      "healthy": false,
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [
+        "https://jeddahnight.com/en/place/ziyada-toum-zyad-thom"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Brand Rd 6157, King Abdulaziz Rd, Al Zahra, Jeddah 23424",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_x0NAgrbwxURwqwcAI-PBks",
+          "google_place_id": "ChIJ_x0NAgrbwxURwqwcAI-PBks",
+          "operating_status": "open",
+          "google_rating": 4.6,
+          "google_review_count": 2790,
+          "hours": null,
+          "phone": null,
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing",
+            "https://jeddahnight.com/en/place/ziyada-toum-zyad-thom"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [],
+      "notes": "Lebanese restaurant; shawarma is a meaningful offering but broader than a pure shawarma shop."
+    },
+    {
+      "canonical_name_en": "Shawarma Elak",
+      "canonical_name_ar": "شاورما إلك",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "rising",
+      "price_positioning": "affordable_to_mid",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "As Salamah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Abdul Rahman Ibn Ahmad As Sidayri, As Salamah, Jeddah 23436",
+          "canonical_district": "as_salamah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJM0pMsxTRwxUR_hEsyv9DFSQ",
+          "google_place_id": "ChIJM0pMsxTRwxUR_hEsyv9DFSQ",
+          "operating_status": "open",
+          "google_rating": 4.2,
+          "google_review_count": 567,
+          "hours": null,
+          "phone": "+966533324298",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "North Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23815",
+          "canonical_district": "obhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJkelihgJjwRURdN9LnIP6h_0",
+          "google_place_id": "ChIJkelihgJjwRURdN9LnIP6h_0",
+          "operating_status": "open",
+          "google_rating": 4.0,
+          "google_review_count": 1452,
+          "hours": null,
+          "phone": "+966542260631",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Al Hamadaniyyah listing A",
+          "status": "manual_review",
+          "reason": "Conflicts with another active Hamadaniyyah listing; possible two branches, relocation, or duplicate."
+        },
+        {
+          "branch_name": "Al Hamadaniyyah listing B",
+          "status": "manual_review",
+          "reason": "Conflicts with another active Hamadaniyyah listing; possible two branches, relocation, or duplicate."
+        },
+        {
+          "branch_name": "Other north/east Jeddah leads",
+          "status": "manual_review",
+          "reason": "Active leads exist for additional locations, but district/address/brand identity needs reconciliation before production."
+        },
+        {
+          "branch_name": "Historic closed listing",
+          "status": "excluded",
+          "reason": "Permanently closed historical Elak branch; not imported."
+        }
+      ],
+      "notes": "Do not infer brand-wide closure/open status from a single branch; closure status is branch-specific."
+    },
+    {
+      "canonical_name_en": "Shawarma Shakir Aljazeera",
+      "canonical_name_ar": "شاورما شاكر الجزيرة",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "price_positioning": "budget",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [
+        "Meat Shawarma - Shakir Mixture",
+        "Chicken Shawarma"
+      ],
+      "confidence": "high",
+      "brand_sources": [
+        "https://shakiraljazeera.com/",
+        "https://hungerstation.com/sa-en/restaurant/jeddah/industrial-area/42895"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Ar Ruwais",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Hail St, Ar Ruwais, opposite International Medical Center, Jeddah",
+          "canonical_district": "ar_ruwais",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGyOgugbPwxURFGdvv7RoC8s",
+          "google_place_id": "ChIJGyOgugbPwxURFGdvv7RoC8s",
+          "operating_status": "open",
+          "google_rating": 4.1,
+          "google_review_count": 13939,
+          "hours": null,
+          "phone": "+966543442478",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "https://shakiraljazeera.com/",
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Al Aziziyah",
+          "status": "manual_review",
+          "address": "Solidere Center, Al Aziziyah, Granada St x Al Makaronah",
+          "reason": "Official branch and current operating evidence found, but no clean direct Google place ID captured in this pass."
+        },
+        {
+          "branch_name": "Prince Fawaz",
+          "status": "manual_review",
+          "address": "Behind Foul Al Sheikh, Municipality Roundabout / Prince Fawaz area",
+          "reason": "Official branch confirmed; exact direct Google place record not captured in this pass."
+        }
+      ],
+      "notes": "Official site explicitly states there are no other branches beyond Ruwais, Aziziyah, and Prince Fawaz."
+    },
+    {
+      "canonical_name_en": "Shawarma Abu Bahij",
+      "canonical_name_ar": "شاورما أبو بهيج",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "affordable",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [
+        "Chicken Shawarma",
+        "Beef Shawarma",
+        "Special Chicken Shawarma"
+      ],
+      "confidence": "high",
+      "brand_sources": [
+        "https://abobahij.analytiqatech.com/ar",
+        "https://www.scangow.site/menus/d1f0a2ab-ae47-4f1b-9476-32eae51a575c"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Hira / Al Bawadi",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Facing Imad Bakery, Hira St, Al Bawadi District, Jeddah 00966",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJb6mr-nDRwxUR5PIMjodKLTA",
+          "google_place_id": "ChIJb6mr-nDRwxUR5PIMjodKLTA",
+          "operating_status": "open",
+          "google_rating": 4.4,
+          "google_review_count": 4191,
+          "hours": null,
+          "phone": "+966550803502",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "https://abobahij.analytiqatech.com/ar",
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Prince Fawaz South",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Sayed Al-Shuhada'a, Al Shifa Complex, Al Amir Fawaz Al Janouby, Jeddah 00961",
+          "canonical_district": "al_amir_fawaz_al_janouby",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbU437H_NwxUReecRAb4iFFk",
+          "google_place_id": "ChIJbU437H_NwxUReecRAb4iFFk",
+          "operating_status": "open",
+          "google_rating": 4.6,
+          "google_review_count": 1726,
+          "hours": null,
+          "phone": "+966536758860",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "As Safa",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Prince Saud Al Faisal, As Safa, Jeddah 23451",
+          "canonical_district": "as_safa",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbQWg9FzRwxURAQLBzY2Se_I",
+          "google_place_id": "ChIJbQWg9FzRwxURAQLBzY2Se_I",
+          "operating_status": "open",
+          "google_rating": 4.5,
+          "google_review_count": 514,
+          "hours": null,
+          "phone": "+966532026724",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [],
+      "notes": null
+    },
+    {
+      "canonical_name_en": "Radi Shawarma and Juices",
+      "canonical_name_ar": "شاورما راضي",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "price_positioning": "budget",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Mishrifah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Makarunah Rd, Mishrifah, Jeddah 23336",
+          "canonical_district": "mishrifah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJe9f4bC3QwxUR1ZP4KS6RHas",
+          "google_place_id": "ChIJe9f4bC3QwxUR1ZP4KS6RHas",
+          "operating_status": "open",
+          "google_rating": 4.2,
+          "google_review_count": 5346,
+          "hours": null,
+          "phone": "+966126721141",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "As Salamah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Abdul Rahman Ibn Ahmad As Sidayri, As Salamah, Jeddah 23436",
+          "canonical_district": "as_salamah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJy0K3g37QwxURJ5tyc-ynoiI",
+          "google_place_id": "ChIJy0K3g37QwxURJ5tyc-ynoiI",
+          "operating_status": "open",
+          "google_rating": 4.1,
+          "google_review_count": 3576,
+          "hours": null,
+          "phone": "+966126984757",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        },
+        {
+          "branch_name": "Al Samer",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Wahib Bin Umair, Al Samer, Jeddah 23462",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJiZZONQHPwxURQZP5k-kFuE8",
+          "google_place_id": "ChIJiZZONQHPwxURQZP5k-kFuE8",
+          "operating_status": "open",
+          "google_rating": 4.2,
+          "google_review_count": 1582,
+          "hours": null,
+          "phone": "+966502618917",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [],
+      "notes": "Meal fit includes broad hours on Mishrifah/Salamah listings; not a separate Breakfast mode unless future breakfast relevance is independently established."
+    },
+    {
+      "canonical_name_en": "Shawarma Allosh",
+      "canonical_name_ar": "شاورما علوش",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "affordable_to_mid",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "dinner",
+        "late_night"
+      ],
+      "signature_items": [],
+      "confidence": "high",
+      "brand_sources": [],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Al Naeem",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "Al Naeem, Jeddah 23526",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJLRdqHBPawxURyAp8xSSJ5oc",
+          "google_place_id": "ChIJLRdqHBPawxURyAp8xSSJ5oc",
+          "operating_status": "open",
+          "google_rating": 4.0,
+          "google_review_count": 6199,
+          "hours": null,
+          "phone": "+966126676671",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [],
+      "notes": "Only the strongly confirmed Naeem location is imported; no extra branches are assumed."
+    },
+    {
+      "canonical_name_en": "Shawarma Marmasha",
+      "canonical_name_ar": "شاورما مرمشة",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "price_positioning": "budget",
+      "healthy": false,
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_items": [
+        "Chicken Shawarma",
+        "Beef Shawarma"
+      ],
+      "confidence": "high",
+      "brand_sources": [
+        "https://restaurantguru.com/shawrma-mrmshh-Shawarma-Marmasha-Jeddah"
+      ],
+      "verified_at": "2026-09-25",
+      "production_eligibility": "production_ready",
+      "production_branches": [
+        {
+          "branch_name": "Al Balad",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "address": "F5MP+PRF, Souq Al Alawi, Barhat Naseef, Al Mira Building, Jeddah 22236",
+          "canonical_district": "al_balad",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_1irKTzPwxURUhC34KyNT9o",
+          "google_place_id": "ChIJ_1irKTzPwxURUhC34KyNT9o",
+          "operating_status": "open",
+          "google_rating": 4.6,
+          "google_review_count": 186,
+          "hours": null,
+          "phone": "+966503400395",
+          "latitude": null,
+          "longitude": null,
+          "source_provenance": [
+            "https://restaurantguru.com/shawrma-mrmshh-Shawarma-Marmasha-Jeddah",
+            "current Google/business listing"
+          ],
+          "verified_at": "2026-09-25",
+          "notes": null
+        }
+      ],
+      "manual_review_branches": [],
+      "notes": "Kept as the deliberate hidden-gem / Al-Balad discovery option."
+    }
+  ],
+  "correction_summary": {
+    "brands_reviewed": 14,
+    "brands_passed": 14,
+    "production_branches_included": 48,
+    "manual_review_records": 13,
+    "key_corrections": [
+      "Removed or isolated duplicate/ambiguous branch listings instead of double-counting.",
+      "Kept branch-specific ratings/statuses attached only to their own branch.",
+      "Did not convert delivery service-area labels into physical branches.",
+      "Kept Nearby out of stored brand tags; it must be calculated from branch geography.",
+      "Healthy is false unless supported; Shawarma Classic remains manual_review for Healthy rather than true.",
+      "Shakir branch count is capped to its three official branches; only Ruwais is production-clean in this file because direct Google place IDs for Aziziyah and Prince Fawaz were not captured.",
+      "Elak conflicting Hamadaniyyah records moved to manual_review.",
+      "Shamiyat Haritna Jeddah Park moved to manual_review pending clean branch-specific Google record.",
+      "Alrimal Obhur/Hamadaniyyah retained as manual_review rather than guessed."
+    ]
+  }
+}

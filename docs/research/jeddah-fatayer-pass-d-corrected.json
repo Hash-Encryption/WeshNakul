@@ -1,0 +1,2147 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "fatayer",
+    "display_category": "Fatayer",
+    "verified_date": "2026-09-27",
+    "brand_count": 15,
+    "status": "PASS_WITH_FIELD_VALIDATION_COMPLETE",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknowns_are_null",
+      "delivery_distance_policy_strict_nearby_branch",
+      "going_out_distance_policy_mix_nearby_and_destination"
+    ],
+    "summary": {
+      "total_brands": 15,
+      "production_ready_brands": 14,
+      "caution_brands": 1,
+      "manual_review_brands": 0,
+      "total_candidate_branches": 52,
+      "total_verified_active_branches": 48,
+      "production_ready_branches": 37,
+      "usable_with_caution_branches": 11,
+      "manual_review_branches": 2,
+      "excluded_branches": 2,
+      "canonical_district_active_branches": 37,
+      "outer_caution_branches": 11,
+      "place_id_completeness": "100.0% (48/48)",
+      "coordinate_completeness": "100.0% (48/48)",
+      "maps_url_completeness": "100.0% (48/48)",
+      "address_completeness": "100.0% (48/48)",
+      "operating_status_completeness": "100.0% (48/48)",
+      "rating_completeness": "100.0% (48/48)",
+      "review_count_completeness": "100.0% (48/48)",
+      "hours_completeness": "100.0% (48/48)"
+    }
+  },
+  "brands": [
+    {
+      "id": "shobak",
+      "canonical_name": "Shobak",
+      "arabic_name": "شوبك",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Large multi-branch Jeddah footprint, thousands of branch reviews, current official Jeddah listing and current 2026 branch-operation posts.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": false,
+      "price_positioning": "affordable_to_mid_range",
+      "signature_dishes": [
+        "manakish",
+        "savory pies",
+        "cheese pies",
+        "zaatar manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://linktr.ee/shobak.ksa",
+        "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Shobak Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شوبك، 8912 حمد الجاسر، الروضة، جدة 23435",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJozyGDXfQwxURNxn9ozPFOGU",
+          "google_place_id": "ChIJozyGDXfQwxURNxn9ozPFOGU",
+          "latitude": 21.574923899999998,
+          "longitude": 39.1573981,
+          "google_rating": 4.2,
+          "google_review_count": 3336,
+          "operating_status": "open",
+          "hours": "Sun-Wed 05:30-01:00; Thu-Sat 05:30-02:00",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Shobak Hera",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شوبك، 3894 شارع حراء، المروة، جدة 23544",
+          "raw_district": "al_marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJcQUnQdfWwxURPRs2p9KTIrQ",
+          "google_place_id": "ChIJcQUnQdfWwxURPRs2p9KTIrQ",
+          "latitude": 21.622619099999998,
+          "longitude": 39.2002203,
+          "google_rating": 4.2,
+          "google_review_count": 3129,
+          "operating_status": "open",
+          "hours": "Sun-Wed 05:30-01:00; Thu-Sat 05:30-02:00",
+          "phone": "800 244 4005",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "Shobak Obhor",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شوبك، شارع عابر القرات، أبحر الشمالية، جدة 23815",
+          "raw_district": "abhur_al_shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJNwDJJQdjwRURBcF9x1wloxA",
+          "google_place_id": "ChIJNwDJJQdjwRURBcF9x1wloxA",
+          "latitude": 21.762026799999997,
+          "longitude": 39.1154619,
+          "google_rating": 4.4,
+          "google_review_count": 2127,
+          "operating_status": "open",
+          "hours": "Sun-Wed 05:30-01:00; Thu-Sat 05:30-02:00",
+          "phone": "800 244 4005",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah."
+        },
+        {
+          "branch_name": "Shobak Hamdaniya",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شــوبك، 2974 حي، الحمدانية، جدة 23761",
+          "raw_district": "al_hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJHV8Li_J8wRURZMEMh56TV8s",
+          "google_place_id": "ChIJHV8Li_J8wRURZMEMh56TV8s",
+          "latitude": 21.754735699999998,
+          "longitude": 39.186479899999995,
+          "google_rating": 3.9,
+          "google_review_count": 1517,
+          "operating_status": "open",
+          "hours": "Daily 05:30-01:00",
+          "phone": "800 244 4005",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/shobak.ksa",
+            "https://www.restaurants10.com/SA/Jeddah/1312670285417241/Shobak-pie--%D8%B4%D9%88%D8%A8%D9%83"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamdaniyah."
+        },
+        {
+          "branch_name": "Shobak Red Sea Mall",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شوبك shobakpie، 7394 طريق الملك عبدالعزيز الفرعي، الشاطئ، Red Sea Mall، جدة",
+          "raw_district": "al_shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJd6zW_cPbwxURf82wh1gUmT0",
+          "google_place_id": "ChIJd6zW_cPbwxURf82wh1gUmT0",
+          "latitude": 21.6283258,
+          "longitude": 39.1113335,
+          "google_rating": 4.2,
+          "google_review_count": 489,
+          "operating_status": "open",
+          "hours": "Daily 10:00-00:00",
+          "phone": "800 244 4005",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/shobak.ksa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_shati."
+        },
+        {
+          "branch_name": "Shobak Aziz Mall",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شوبك، عزيز مول، الأمير ماجد، الفيصلية، جدة 23447",
+          "raw_district": "al_faisaliyyah",
+          "canonical_district": "al_faisaliyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJOz09HwDRwxURKM6BX3QvDoc",
+          "google_place_id": "ChIJOz09HwDRwxURKM6BX3QvDoc",
+          "latitude": 21.5762222,
+          "longitude": 39.197285099999995,
+          "google_rating": 4.1,
+          "google_review_count": 1020,
+          "operating_status": "open",
+          "hours": "Daily 14:30-03:00",
+          "phone": "800 244 4005",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/shobak.ksa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faisaliyyah."
+        },
+        {
+          "branch_name": "Shobak Andalus Mall",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شوبك، الأندلس مول، الأمير ماجد، الفيحاء، جدة 22245",
+          "raw_district": "al_faiha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJsa4bomzOwxUReIRKkT6n3ug",
+          "google_place_id": "ChIJsa4bomzOwxUReIRKkT6n3ug",
+          "latitude": 21.5069649,
+          "longitude": 39.2179703,
+          "google_rating": 4.2,
+          "google_review_count": 1721,
+          "operating_status": "open",
+          "hours": "Sun-Thu/Sat 08:00-01:00; Fri 13:00-01:00",
+          "phone": "800 244 4005",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/shobak.ksa"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faiha."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "al_hatab",
+      "canonical_name": "Al Hatab",
+      "arabic_name": "الحطب",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "bakery",
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current official branch finder shows a broad Jeddah network; manakish/savory pies are part of the brand's bakery offering.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable_to_mid_range",
+      "signature_dishes": [
+        "manakish",
+        "savory pies",
+        "baked flatbreads"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://alhatab.com.sa/our-branches"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Hatab Bawadi",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Al Hatab، شارع حراء، البوادي، جدة 23531",
+          "raw_district": "al_bawadi",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJiTctdaTRwxURpGkRweXujLg",
+          "google_place_id": "ChIJiTctdaTRwxURpGkRweXujLg",
+          "latitude": 21.613838899999998,
+          "longitude": 39.156513,
+          "google_rating": 4.1,
+          "google_review_count": 1739,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_bawadi."
+        },
+        {
+          "branch_name": "Al Hatab Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Al Hatab، طريق الملك عبدالله، النسيم، جدة 23233",
+          "raw_district": "al_naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJN_TndgjPwxURSYCVCoiNptk",
+          "google_place_id": "ChIJN_TndgjPwxURSYCVCoiNptk",
+          "latitude": 21.511236999999998,
+          "longitude": 39.22709,
+          "google_rating": 4.1,
+          "google_review_count": 1999,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naseem."
+        },
+        {
+          "branch_name": "Al Hatab Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "AlHatab Bakery | أفران الحطب، JDSA7080، 7080 ام القرى، 4237، حي الصفا، جدة 23453",
+          "raw_district": "al_safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJkeylbYbRwxURBacZDW4faFs",
+          "google_place_id": "ChIJkeylbYbRwxURBacZDW4faFs",
+          "latitude": 21.5718808,
+          "longitude": 39.2201111,
+          "google_rating": 4.2,
+          "google_review_count": 1840,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_safa."
+        },
+        {
+          "branch_name": "Al Hatab Hamdaniyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Al Hatab، 2976 أبي فراس الحمداني، حي الحمدانية، 6645، جدة 23761",
+          "raw_district": "al_hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5zVBFXx9wRURMhNjfOnYyE0",
+          "google_place_id": "ChIJ5zVBFXx9wRURMhNjfOnYyE0",
+          "latitude": 21.7540321,
+          "longitude": 39.1868358,
+          "google_rating": 4.3,
+          "google_review_count": 1160,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamdaniyah."
+        },
+        {
+          "branch_name": "Al Hatab Naeem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Al Hatab، النعيم، جدة 23526",
+          "raw_district": "al_naeem",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJJZmPlY_bwxURzxVGm7MLvxs",
+          "google_place_id": "ChIJJZmPlY_bwxURzxVGm7MLvxs",
+          "latitude": 21.6136479,
+          "longitude": 39.1405469,
+          "google_rating": 4.3,
+          "google_review_count": 1036,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naeem."
+        },
+        {
+          "branch_name": "Al Hatab Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Al Hatab، الروضة، جدة 23433",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ10vH-_vbwxURQ_NhwHi2gH8",
+          "google_place_id": "ChIJ10vH-_vbwxURQ_NhwHi2gH8",
+          "latitude": 21.5648962,
+          "longitude": 39.143073099999995,
+          "google_rating": 4.3,
+          "google_review_count": 930,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Al Hatab Sanabel",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "97XM+HQC افران الحطب، السنابل، جدة 22444",
+          "raw_district": "al_sanabel",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJwy9rtwLLwxURtsh-m7pwKno",
+          "google_place_id": "ChIJwy9rtwLLwxURtsh-m7pwKno",
+          "latitude": 21.398937999999998,
+          "longitude": 39.2843884,
+          "google_rating": 4.1,
+          "google_review_count": 582,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_sanabel'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al Hatab North Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "أفران الحطب، 8655 شارع عابر القرات، أبحر الشمالية, 4002، جدة 23817",
+          "raw_district": "abhur_al_shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJA7TnNpNjwRURISn7Pp9d9iU",
+          "google_place_id": "ChIJA7TnNpNjwRURISn7Pp9d9iU",
+          "latitude": 21.7619531,
+          "longitude": 39.116515199999995,
+          "google_rating": 4.2,
+          "google_review_count": 550,
+          "operating_status": "open",
+          "hours": "Sun-Wed/Sat 06:00-00:00; Thu-Fri 06:00-01:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah."
+        },
+        {
+          "branch_name": "Al Hatab TO GO Fayha",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "G658+98R Al Hatab TO GO, الفيحاء، جدة 22245",
+          "raw_district": "al_faiha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJPapSg3bPwxURY6ikHQWkO8k",
+          "google_place_id": "ChIJPapSg3bPwxURY6ikHQWkO8k",
+          "latitude": 21.5084375,
+          "longitude": 39.2158125,
+          "google_rating": 4.5,
+          "google_review_count": 10,
+          "operating_status": "open",
+          "hours": "Daily 06:00-00:00",
+          "phone": "9200 02281",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faiha."
+        },
+        {
+          "branch_name": "Al Hatab TO GO Mohammadiyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "M47C+9J6 AlHatab Bakery, المحمدية، Dr.Sulaiman Al-Habib Jeddah Almuhamdiah, جدة 23618",
+          "raw_district": "al_mohammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJaUOPPADZwxURpJkRpZpj0Yc",
+          "google_place_id": "ChIJaUOPPADZwxURpJkRpZpj0Yc",
+          "latitude": 21.663404399999997,
+          "longitude": 39.121514,
+          "google_rating": 3.5,
+          "google_review_count": 2,
+          "operating_status": "open",
+          "hours": "Daily 06:00-00:00",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah."
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Al Hatab TO GO Khalidiyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "H44J+3XV, Al Khalidiyyah, Jeddah 23421, Saudi Arabia",
+          "raw_district": "al_khalidiyyah",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "open",
+          "hours": null,
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "https://alhatab.com.sa/our-branches"
+          ],
+          "production_eligibility": "manual_review",
+          "reason": "Official branch locator confirms TO GO location, but branch-specific Google Place ID, exact coordinates, hours, and direct Google Maps listing were not independently captured in this pass. Moved to manual_review per production standard."
+        }
+      ],
+      "excluded_branches": []
+    },
+    {
+      "id": "manqousheh_hut",
+      "canonical_name": "Manqousheh Hut",
+      "arabic_name": "منقوشة هت",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Multiple current Jeddah branches with strong ratings and substantial review volume.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "manakish",
+        "zaatar manakish",
+        "cheese manakish",
+        "meat manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Manqousheh Hut Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "منقوشة هت، أبو ذر الغفاري (رضي الله عنه)، النسيم، جدة 23234",
+          "raw_district": "al_naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ979554nNwxUR2Ya-2TwPMzM",
+          "google_place_id": "ChIJ979554nNwxUR2Ya-2TwPMzM",
+          "latitude": 21.5164756,
+          "longitude": 39.2395072,
+          "google_rating": 4.7,
+          "google_review_count": 1617,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 051 0845",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naseem."
+        },
+        {
+          "branch_name": "Manqousheh Hut Faisaliyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "منقوشة هت، سعود الفيصل، الفيصلية، جدة 23442",
+          "raw_district": "al_faisaliyyah",
+          "canonical_district": "al_faisaliyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJo5ZdlkTQwxURJeMzH-yQRzA",
+          "google_place_id": "ChIJo5ZdlkTQwxURJeMzH-yQRzA",
+          "latitude": 21.5678892,
+          "longitude": 39.181221199999996,
+          "google_rating": 4.6,
+          "google_review_count": 1397,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "050 928 9482",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faisaliyyah."
+        },
+        {
+          "branch_name": "Manqousheh Hut Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "منقوشة هت، شارع حراء، المروة، جدة 23544",
+          "raw_district": "al_marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJxy3vAPnXwxURX4OEv4TlGfo",
+          "google_place_id": "ChIJxy3vAPnXwxURX4OEv4TlGfo",
+          "latitude": 21.622505399999998,
+          "longitude": 39.1997439,
+          "google_rating": 4.6,
+          "google_review_count": 373,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 054 5728",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "Manqousheh Hut Hira/King Abdulaziz",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "منقوشة هت، شارع حراء، طريق الملك عبدالعزيز الفرعي، جدة",
+          "raw_district": "an_nahdah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJc3_3vA7bwxURTBOVH1-fPCk",
+          "google_place_id": "ChIJc3_3vA7bwxURTBOVH1-fPCk",
+          "latitude": 21.606693999999997,
+          "longitude": 39.122082299999995,
+          "google_rating": 4.6,
+          "google_review_count": 324,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 051 1377",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://restaurantguru.com/mnqwshh-ht-Jeddah-3"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'an_nahdah' (Hira St & King Abdulaziz Branch Rd); canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "umm_al_zulf",
+      "canonical_name": "Umm Al Zulf",
+      "arabic_name": "أم الزلف",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Two current Jeddah branches; Rawdah branch has very high review volume and strong rating.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "wood-fired manakish",
+        "cheese manakish",
+        "labneh manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://linktr.ee/umm_alzulf"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Umm Al Zulf Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم ام الزلف Umm Alzulf - فرع الروضة، حي الروضة، خالدية 7916، جدة 23433",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJI_RabDLRwxURL_IIuimTBXc",
+          "google_place_id": "ChIJI_RabDLRwxURL_IIuimTBXc",
+          "latitude": 21.5658696,
+          "longitude": 39.1571965,
+          "google_rating": 4.6,
+          "google_review_count": 4629,
+          "operating_status": "open",
+          "hours": "Daily 06:00-02:00",
+          "phone": "9200 32266",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/umm_alzulf"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Umm Al Zulf Mohammadiyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم ام الزلف Umm Alzulf - فرع الأمير سلطان، طريق الامير سلطان، المحمدية، جدة 23623",
+          "raw_district": "al_mohammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJlYPwNwDZwxURdalDJLa8apQ",
+          "google_place_id": "ChIJlYPwNwDZwxURdalDJLa8apQ",
+          "latitude": 21.6527113,
+          "longitude": 39.1258201,
+          "google_rating": 4.6,
+          "google_review_count": 787,
+          "operating_status": "open",
+          "hours": "Daily 06:00-02:00",
+          "phone": "9200 32266",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/umm_alzulf"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "shaikh_manqoosh",
+      "canonical_name": "Shaikh Manqoosh",
+      "arabic_name": "شيخ منقوش",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Established Rawdah/Sari specialist with ~2.4k Google reviews and current Jeddah food coverage.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "zaatar manakish",
+        "cheese manakish",
+        "meat manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://restaurantguru.com/Shaikh-Manqoosh-Jeddah",
+        "https://destinationksa.com/en/13-irresistible-budget-eats-in-jeddah/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Shaikh Manqoosh Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "شيخ منقوش، طريق المدينة المنورة، باتجاه، حيّ الروضة، شارع صاري، جدة",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJva3U5XbQwxURHedWXjSbUO8",
+          "google_place_id": "ChIJva3U5XbQwxURHedWXjSbUO8",
+          "latitude": 21.5786952,
+          "longitude": 39.158066,
+          "google_rating": 4.4,
+          "google_review_count": 2467,
+          "operating_status": "open",
+          "hours": "Daily 07:00-00:00",
+          "phone": "012 683 7330",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://restaurantguru.com/Shaikh-Manqoosh-Jeddah"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "fatayer_al_tayar",
+      "canonical_name": "Fatayer Al Tayar",
+      "arabic_name": "فطائر على الطاير",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Dedicated fatayer concept with substantial Marwah review volume; separate Muhammadiyyah listing is currently temporarily closed.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "manakish",
+        "savory pies",
+        "cheese pies"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Fatayer Al Tayar Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "فطاير على الطاير | المروة، عبد الرحمن الخزاعي، المروة، جدة 23545",
+          "raw_district": "al_marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRzlI4MvWwxURRHuFghgnK6E",
+          "google_place_id": "ChIJRzlI4MvWwxURRHuFghgnK6E",
+          "latitude": 21.6152139,
+          "longitude": 39.2128391,
+          "google_rating": 4.2,
+          "google_review_count": 1407,
+          "operating_status": "open",
+          "hours": "Daily 06:00-04:00",
+          "phone": "059 112 2140",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_marwah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [
+        {
+          "branch_name": "Fatayer Al Tayar Mohammadiyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "فطاير على الطاير | المحمدية، شارع صفيه بنت عبد المطلب، المحمدية، جدة 23621",
+          "raw_district": "al_mohammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJVW5BXADZwxURa34bphazzSQ",
+          "google_place_id": "ChIJVW5BXADZwxURa34bphazzSQ",
+          "latitude": 21.6416437,
+          "longitude": 39.1360969,
+          "google_rating": 4.8,
+          "google_review_count": 349,
+          "operating_status": "permanently_closed",
+          "phone": "056 126 2019",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Direct place preview status check"
+          ],
+          "production_eligibility": "excluded",
+          "reason": "Current Google Maps entity verified as permanently closed (previously recorded temporarily_closed). Excluded from active recommendation pool."
+        }
+      ]
+    },
+    {
+      "id": "fatayer_aelaty_al_lubnaniah",
+      "canonical_name": "Fatayer Aelaty Al-Lubnaniah",
+      "arabic_name": "فطائر عائلتي اللبنانية",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Two current 24-hour Jeddah branches with substantial reviews; Marwah historical branch is closed.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "cheese pies",
+        "manakish",
+        "meat manakish",
+        "pizza fatayer"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/ftaer-aaelty-allbnanyh-fra-alsfa?to=place.ChIJWWPVvAnRwxURJcsSQT3q384",
+        "https://www.waze.com/ar/live-map/directions/sa/mkh-almkrmh/jdh/ftaer-aaelty-allbnanyh?to=place.ChIJucTEptnTwxUR8q53oemVBWo"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Fatayer Aelaty Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مطعم فطائرعائلتي للبيتزا والمناقيش اللبنانيه، 7211 طريق الامير متعب بن عبدالعزيز، 3222, حي الصفا، جدة 23453",
+          "raw_district": "al_safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJWWPVvAnRwxURJcsSQT3q384",
+          "google_place_id": "ChIJWWPVvAnRwxURJcsSQT3q384",
+          "latitude": 21.573101299999998,
+          "longitude": 39.210258599999996,
+          "google_rating": 4.1,
+          "google_review_count": 1100,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 996 6180",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/ftaer-aaelty-allbnanyh-fra-alsfa?to=place.ChIJWWPVvAnRwxURJcsSQT3q384"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_safa."
+        },
+        {
+          "branch_name": "Fatayer Aelaty Samer",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "فطائر عائلتي اللبنانية، السامر, مدينة، جدة 23464",
+          "raw_district": "al_samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJucTEptnTwxUR8q53oemVBWo",
+          "google_place_id": "ChIJucTEptnTwxUR8q53oemVBWo",
+          "latitude": 21.5748222,
+          "longitude": 39.241118799999995,
+          "google_rating": 4.1,
+          "google_review_count": 947,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "050 416 6180",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://www.waze.com/ar/live-map/directions/sa/mkh-almkrmh/jdh/ftaer-aaelty-allbnanyh?to=place.ChIJucTEptnTwxUR8q53oemVBWo"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_samer."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [
+        {
+          "branch_name": "Fatayer Aelaty Marwah (historical)",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "formatted_address": "3894 Hira, Al Marwah District, Jeddah 23544, Saudi Arabia",
+          "raw_district": "al_marwah",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "permanently_closed",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "https://www.bizmideast.com/SA/فطائر-عائلتي-اللبنانية-فرع-المروة"
+          ],
+          "production_eligibility": "excluded",
+          "reason": "Historical branch explicitly marked permanently closed; retained in excluded archive only to prevent accidental re-import as active."
+        }
+      ]
+    },
+    {
+      "id": "kdousha",
+      "canonical_name": "Kdousha",
+      "arabic_name": "كدوشة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "lebanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current brand page confirms two Jeddah branches and manakish/Lebanese kaak positioning.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "manakish",
+        "Lebanese kaak",
+        "halloumi kaak"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://kadosha.carrd.co/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Kdousha Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "كدوشة (الصفا)، ام القرى، الصفا، جدة 23453",
+          "raw_district": "al_safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJmWOER3TRwxURL8c0aQH82ok",
+          "google_place_id": "ChIJmWOER3TRwxURL8c0aQH82ok",
+          "latitude": 21.5717779,
+          "longitude": 39.2206208,
+          "google_rating": 4,
+          "google_review_count": 799,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "056 863 7143",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://kadosha.carrd.co/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_safa."
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Kdousha Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Abu Thar Al-Ghifari, An Naseem, Jeddah, Saudi Arabia",
+          "raw_district": "al_naseem",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "https://kadosha.carrd.co/"
+          ],
+          "production_eligibility": "manual_review",
+          "reason": "Official brand page confirms Naseem branch, but independent Google Place ID, exact coordinates, hours, and verified Maps URL could not be safely captured in this pass. Retained in manual_review."
+        }
+      ],
+      "excluded_branches": []
+    },
+    {
+      "id": "furn_aldayaa",
+      "canonical_name": "Furn Aldayaa",
+      "arabic_name": "فرن الضيعة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical listing and active official ordering/social hub.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "mid_range",
+      "signature_dishes": [
+        "manakish",
+        "meat manakish",
+        "cheese manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "medium",
+      "source_urls": [
+        "https://linktr.ee/furnaldaya"
+      ],
+      "production_eligibility": "usable_with_caution",
+      "branches": [
+        {
+          "branch_name": "Furn Aldayaa Al Rabi",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Furn Aldayaa | فرن الضيعة، الربيع، جدة 23462",
+          "raw_district": "al_rabi",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJQd83oxzRwxURoa3HQLN4MXw",
+          "google_place_id": "ChIJQd83oxzRwxURoa3HQLN4MXw",
+          "latitude": 21.5874871,
+          "longitude": 39.2360452,
+          "google_rating": 4.4,
+          "google_review_count": 257,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "050 007 4924",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/furnaldaya"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_rabi'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "pie_box",
+      "canonical_name": "Pie Box",
+      "arabic_name": "صندوق الفطيرة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "pies"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "rising",
+      "classification_evidence": "Strong current review score/volume and current official location page; focused pie concept.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "savory pies",
+        "baked pies",
+        "cheese pies"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "medium",
+      "source_urls": [
+        "https://linktr.ee/pieboxsa",
+        "https://restaurantguru.com/sndwq-alftyrh-Pie-Box-Jeddah"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Pie Box King Abdullah / Prince Majid",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "صندوق الفطيرة | Pie Box، طريق الملك عبدالله، &، الأمير ماجد، جدة",
+          "raw_district": "al_faiha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJV_i3cQDPwxURLLoAk11uU_8",
+          "google_place_id": "ChIJV_i3cQDPwxURLLoAk11uU_8",
+          "latitude": 21.4868497,
+          "longitude": 39.232679999999995,
+          "google_rating": 4.7,
+          "google_review_count": 895,
+          "operating_status": "open",
+          "hours": "Daily 06:00-02:30",
+          "phone": "050 005 2981",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://linktr.ee/pieboxsa",
+            "https://restaurantguru.com/sndwq-alftyrh-Pie-Box-Jeddah"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faiha (King Abdullah Rd & Prince Majid Rd, verified via coordinates and reverse geocoding)."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "agha_bakery",
+      "canonical_name": "Agha Bakery",
+      "arabic_name": "أفران الآغا",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish",
+        "bakery"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Dedicated Lebanese manakish bakery with a strong current rating and hundreds of reviews.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "Lebanese manakish",
+        "zaatar manakish",
+        "cheese manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://restaurantguru.com/Agha-Bakery-afran-alaagha-mnaqysh-lbnanyh-Jeddah"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Agha Bakery",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "Agha Bakery / افران الآغا مناقيش لبنانية, Abdul Rahman bin Ahmad as sidayri, Agha Bakery أفران الآغا, جدة 23437",
+          "raw_district": "al_salamah",
+          "canonical_district": "al_salamah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdXTfdcnRwxURVQoRipkBpd0",
+          "google_place_id": "ChIJdXTfdcnRwxURVQoRipkBpd0",
+          "latitude": 21.595235199999998,
+          "longitude": 39.1551866,
+          "google_rating": 4.4,
+          "google_review_count": 583,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "053 708 8270",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://restaurantguru.com/Agha-Bakery-afran-alaagha-mnaqysh-lbnanyh-Jeddah",
+            "https://maps.yango.com/ar-sa/org/151645678396/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_salamah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "fatayer_al_ameen",
+      "canonical_name": "Fatayer Al Ameen",
+      "arabic_name": "فطائر الأمين",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Dedicated pie shop with multiple independently verified Jeddah branches.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "savory pies",
+        "cheese pies",
+        "spinach pies"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Fatayer Al Ameen Fayha",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "فطائر الأمين، 6607 4193 زينب بنت مسلمة، الفيحاء، جدة 22246",
+          "raw_district": "al_faiha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJAd3e24nOwxURm1WlH1CJt7A",
+          "google_place_id": "ChIJAd3e24nOwxURm1WlH1CJt7A",
+          "latitude": 21.487644799999998,
+          "longitude": 39.223683199999996,
+          "google_rating": 4.4,
+          "google_review_count": 835,
+          "operating_status": "open",
+          "hours": "Daily 06:00-12:00 and 18:00-00:00",
+          "phone": "055 364 4369",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faiha."
+        },
+        {
+          "branch_name": "Fatayer Al Ameen Rabwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "فطائر الامين، حي، 5018 7156 أسد ابن الحارثة، الربوة، جدة 23448",
+          "raw_district": "ar_rabwah",
+          "canonical_district": "ar_rabwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJtWFUW-TQwxUREFjtP4AlGTA",
+          "google_place_id": "ChIJtWFUW-TQwxUREFjtP4AlGTA",
+          "latitude": 21.5900993,
+          "longitude": 39.189160099999995,
+          "google_rating": 4.1,
+          "google_review_count": 207,
+          "operating_status": "open",
+          "hours": "Sun-Thu 06:00-12:00 & 18:00-00:00; Fri 06:00-11:30 & 19:00-23:00; Sat 06:00-12:00 & 18:00-23:00",
+          "phone": "054 974 6248",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district ar_rabwah."
+        },
+        {
+          "branch_name": "Fatayer Al Ameen Abrq Al Raghamah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "فطائر الامين، 7721، حي ابرق الرغامة، جدة 22264 4601،",
+          "raw_district": "abrq_al_raghamah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJYSHX623NwxURVHueateKyGA",
+          "google_place_id": "ChIJYSHX623NwxURVHueateKyGA",
+          "latitude": 21.503463699999998,
+          "longitude": 39.2775312,
+          "google_rating": 4,
+          "google_review_count": 186,
+          "operating_status": "open",
+          "hours": "Daily 06:00-12:00 and 16:00-00:00",
+          "phone": "053 856 4361",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'abrq_al_raghamah'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "mathaq_al_manousheh",
+      "canonical_name": "Mathaq Al Manousheh",
+      "arabic_name": "مذاق المنئوشة",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Large Jeddah branch network with substantial branch-specific review volumes; current menu remains strongly manakish-focused.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable_to_mid_range",
+      "signature_dishes": [
+        "manakish",
+        "mini manakish boxes",
+        "zaatar manakish",
+        "cheese manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [
+        "https://mthaq-almanousheh.yallaqrcodes.com/"
+      ],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Mathaq Al Manousheh Amir Fawwaz South",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة، سيد الشهداء، الامير فواز الجنوبي، جدة 22431",
+          "raw_district": "al_amir_fawwaz_al_junoobi",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCbRwAJXNwxURS1PVLaHF1po",
+          "google_place_id": "ChIJCbRwAJXNwxURS1PVLaHF1po",
+          "latitude": 21.435667,
+          "longitude": 39.278984,
+          "google_rating": 4.2,
+          "google_review_count": 1699,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "056 861 5271",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_amir_fawwaz_al_junoobi'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Bawadi",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي البوادي شارع قريش، قريش، البوادي، جدة 22351",
+          "raw_district": "al_bawadi",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJw_JmJ_3RwxURLhqHaYMtXzM",
+          "google_place_id": "ChIJw_JmJ_3RwxURLhqHaYMtXzM",
+          "latitude": 21.5999965,
+          "longitude": 39.1674295,
+          "google_rating": 4.4,
+          "google_review_count": 1038,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "054 535 9861",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_bawadi."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Fayha",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | الفيحاء، شارع عبدالله سليمان، الفيحاء، جدة 22246",
+          "raw_district": "al_faiha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJObRbEizPwxUR9fzPA-jpacE",
+          "google_place_id": "ChIJObRbEizPwxUR9fzPA-jpacE",
+          "latitude": 21.4896301,
+          "longitude": 39.2246313,
+          "google_rating": 4.4,
+          "google_review_count": 942,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "056 264 6287",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_faiha."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Mohammadiyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي المحمدية طريق الملك، طريق الملك عبدالعزيز الفرعي، المحمدية، جدة 23617",
+          "raw_district": "al_mohammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXeSoFmbZwxURtqPxPOpq9-s",
+          "google_place_id": "ChIJXeSoFmbZwxURtqPxPOpq9-s",
+          "latitude": 21.654498099999998,
+          "longitude": 39.1120926,
+          "google_rating": 4.5,
+          "google_review_count": 515,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 751 1827",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة، حي, سعود الفيصل، الصفا، الأمير, جدة",
+          "raw_district": "al_safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJHzzqKAfRwxURXZkH7nhc7f8",
+          "google_place_id": "ChIJHzzqKAfRwxURXZkH7nhc7f8",
+          "latitude": 21.5739034,
+          "longitude": 39.2026144,
+          "google_rating": 4.4,
+          "google_review_count": 763,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "056 264 6192",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_safa."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي الروضة، حمد الجاسر، الروضة، جدة 23434",
+          "raw_district": "al_rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJzbVSWazRwxURUU6dXN5lMZI",
+          "google_place_id": "ChIJzbVSWazRwxURUU6dXN5lMZI",
+          "latitude": 21.5722354,
+          "longitude": 39.159258099999995,
+          "google_rating": 4.6,
+          "google_review_count": 408,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "054 702 4401",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Taiba",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي طيبة، 6561 طريق المدينة المنورة، طيبة، جدة 23832",
+          "raw_district": "taiba",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJxQSEtTZlwRURUkl_uQ1K3IY",
+          "google_place_id": "ChIJxQSEtTZlwRURUkl_uQ1K3IY",
+          "latitude": 21.795156,
+          "longitude": 39.1245668,
+          "google_rating": 4.3,
+          "google_review_count": 2433,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "053 535 4451",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'taiba'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Rayaan",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي الريان، محطة الدريس، الريان، P623، جدة",
+          "raw_district": "al_rayaan",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJE8I6G319wRURbssQ6JXu1V8",
+          "google_place_id": "ChIJE8I6G319wRURbssQ6JXu1V8",
+          "latitude": 21.7009515,
+          "longitude": 39.2035481,
+          "google_rating": 4.7,
+          "google_review_count": 2206,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 078 8401",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_rayaan'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Sanabel",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي السنابل، السنابل، جدة 22444",
+          "raw_district": "al_sanabel",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ6yBhbZ_LwxURLFcGIxWmmhw",
+          "google_place_id": "ChIJ6yBhbZ_LwxURLFcGIxWmmhw",
+          "latitude": 21.399939099999997,
+          "longitude": 39.281423,
+          "google_rating": 4.4,
+          "google_review_count": 1054,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "050 988 2531",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_sanabel'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Harazat",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي الحرازات، شارع الحرازات العام، جدة 22393",
+          "raw_district": "al_harazat",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJNTXaciYtwhURG1RA-SMBc04",
+          "google_place_id": "ChIJNTXaciYtwhURG1RA-SMBc04",
+          "latitude": 21.483586799999998,
+          "longitude": 39.3695786,
+          "google_rating": 4.6,
+          "google_review_count": 674,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "053 534 1995",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_harazat'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Qryniah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | القرينية، 8736 طريق الليث الفرعي، القرينية، جدة 22624",
+          "raw_district": "al_qryniah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJxSuDOIq1wxUR1TxAK47qw0o",
+          "google_place_id": "ChIJxSuDOIq1wxUR1TxAK47qw0o",
+          "latitude": 21.3034374,
+          "longitude": 39.260876499999995,
+          "google_rating": 4.3,
+          "google_review_count": 887,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 076 7495",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_qryniah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Mathaq Al Manousheh Waha",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مذاق المنئوشة | حي الواحة، الواحة، جدة 23354",
+          "raw_district": "al_waha",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJiUa5iPjTwxURXXK4gKS-SEM",
+          "google_place_id": "ChIJiUa5iPjTwxURXXK4gKS-SEM",
+          "latitude": 21.562213099999997,
+          "longitude": 39.2439681,
+          "google_rating": 4.4,
+          "google_review_count": 641,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "055 751 7124",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution",
+            "https://mthaq-almanousheh.yallaqrcodes.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Outer Jeddah branch in physical district 'al_waha'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "manqousha_house",
+      "canonical_name": "Manqousha House",
+      "arabic_name": "منقوشة هاوس",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Strong Shati branch rating with several hundred reviews; dedicated manakish/pie positioning.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "manakish",
+        "zaatar manakish",
+        "cheese manakish"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Manqousha House Shati",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "منقوشة هاوس الشاطئ، أبو العباس بن عبدالمطلب، الشاطئ، جدة 23513",
+          "raw_district": "al_shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJZYx-wDXbwxURP4uf1EL4w88",
+          "google_place_id": "ChIJZYx-wDXbwxURP4uf1EL4w88",
+          "latitude": 21.599291599999997,
+          "longitude": 39.1146398,
+          "google_rating": 4.6,
+          "google_review_count": 560,
+          "operating_status": "open",
+          "hours": "Daily 07:00-23:30",
+          "phone": "012 655 0222",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_shati."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "manakish_countryside",
+      "canonical_name": "Manakish Countryside",
+      "arabic_name": "مناقيش الريف",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "fatayer",
+      "secondary_categories": [
+        "manakish"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Dedicated manakish concept with a current physical Jeddah branch and focused menu.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_only"
+      },
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligible": null,
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "akkawi manakish",
+        "zaatar manakish",
+        "meat manakish",
+        "spinach pies"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown",
+        "ninja": "unknown"
+      },
+      "confidence": "high",
+      "source_urls": [],
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Manakish Countryside Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "formatted_address": "مناقيش الريف، حلمي كتبي، الزهراء، جدة 23425",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJYWLze4rawxURdUM0J9PxUgY",
+          "google_place_id": "ChIJYWLze4rawxURdUM0J9PxUgY",
+          "latitude": 21.5914198,
+          "longitude": 39.1366985,
+          "google_rating": 4.1,
+          "google_review_count": 352,
+          "operating_status": "open",
+          "hours": "Open 24 hours",
+          "phone": "054 401 5121",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID",
+            "Direct Google Places preview entity resolution"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    }
+  ]
+}

@@ -1,0 +1,3821 @@
+{
+  "firegrill_zahra": {
+    "key": "firegrill_zahra",
+    "placeId": "ChIJOU1E5unawxURfjHoaCoVOyY",
+    "name": "FireGrill - Al Zahra",
+    "data": {
+      "id": "ChIJOU1E5unawxURfjHoaCoVOyY",
+      "nationalPhoneNumber": "055 435 0052",
+      "internationalPhoneNumber": "+966 55 435 0052",
+      "formattedAddress": "2328 King Abdul Aziz Rd, AZ Zahra District, 6403, Jeddah 23424, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "6403",
+          "shortText": "6403",
+          "types": [
+            "subpremise"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "2328",
+          "shortText": "2328",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "King Abdul Aziz Road",
+          "shortText": "King Abdul Aziz Rd",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "AZ Zahra District",
+          "shortText": "AZ Zahra District",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23424",
+          "shortText": "23424",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.575775699999998,
+        "longitude": 39.1274448
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=2754818868960047486&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 2222,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "firegrill_naeem": {
+    "key": "firegrill_naeem",
+    "placeId": "ChIJIc20ZovZwxURTkdtk-agTQg",
+    "name": "FireGrill - Al Naeem",
+    "data": {
+      "id": "ChIJIc20ZovZwxURTkdtk-agTQg",
+      "nationalPhoneNumber": "055 453 5569",
+      "internationalPhoneNumber": "+966 55 453 5569",
+      "formattedAddress": "Prince Sultan Rd, حي النعيم،، Jeddah 23621, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Prince Sultan Road",
+          "shortText": "Prince Sultan Rd",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "حي النعيم،",
+          "shortText": "حي النعيم،",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23621",
+          "shortText": "23621",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.637205299999998,
+        "longitude": 39.132021
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=598311237686478670&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 3:30 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 2373,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "firegrill_ruwais": {
+    "key": "firegrill_ruwais",
+    "placeId": "ChIJl_oaFLvPwxURfuENAVij11w",
+    "name": "FireGrill - Al Ruwais",
+    "data": {
+      "id": "ChIJl_oaFLvPwxURfuENAVij11w",
+      "nationalPhoneNumber": "055 660 2049",
+      "internationalPhoneNumber": "+966 55 660 2049",
+      "formattedAddress": "Liwan Center، King Abdullah Road, Al Ruwais،، Al-Ruwais, Jeddah 23214, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Liwan Center، King Abdullah Road, Al Ruwais،",
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Al-Ruwais",
+          "shortText": "Al-Ruwais",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23214",
+          "shortText": "23214",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5110429,
+        "longitude": 39.1818896
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=6689995369852297598&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 1915,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "firegrill_shati": {
+    "key": "firegrill_shati",
+    "placeId": "ChIJ93xpUA7bwxURpUX58ciaRkQ",
+    "name": "FireGrill - Ash Shati",
+    "data": {
+      "id": "ChIJ93xpUA7bwxURpUX58ciaRkQ",
+      "nationalPhoneNumber": "053 031 6569",
+      "internationalPhoneNumber": "+966 53 031 6569",
+      "formattedAddress": "Ash Shati, Jeddah 23612, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Ash Shati",
+          "shortText": "Ash Shati",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23612",
+          "shortText": "23612",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.6281325,
+        "longitude": 39.111729499999996
+      },
+      "rating": 4,
+      "googleMapsUri": "https://maps.google.com/?cid=4919789830792627621&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T21:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 314,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "firegrill_asalah": {
+    "key": "firegrill_asalah",
+    "placeId": "ChIJb0Loqsl9wRURSzQb0G1oEb0",
+    "name": "FireGrill - Al Asalah",
+    "data": {
+      "id": "ChIJb0Loqsl9wRURSzQb0G1oEb0",
+      "nationalPhoneNumber": "053 902 5776",
+      "internationalPhoneNumber": "+966 53 902 5776",
+      "formattedAddress": "Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Prince Talal Bin Mansour Road",
+          "shortText": "Prince Talal Bin Mansour Rd",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Asalah",
+          "shortText": "Al Asalah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23738",
+          "shortText": "23738",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.7741755,
+        "longitude": 39.1703143
+      },
+      "rating": 4.3,
+      "googleMapsUri": "https://maps.google.com/?cid=13623785168624628811&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T21:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 237,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "firegrill_mall_of_arabia": {
+    "key": "firegrill_mall_of_arabia",
+    "placeId": "ChIJ1Y8Uyb_XwxURC-5gpZtpJ20",
+    "name": "FireGrill - Mall of Arabia",
+    "data": {
+      "id": "ChIJ1Y8Uyb_XwxURC-5gpZtpJ20",
+      "nationalPhoneNumber": "053 469 2501",
+      "internationalPhoneNumber": "+966 53 469 2501",
+      "formattedAddress": "An Nuzahah, Al- Madinah Al Munawara Rd, Mall of Arabia Second floor, النزهة، جدة 23532, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "An Nuzahah, Al- Madinah Al Munawara Rd, Mall of Arabia Second floor",
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "النزهة",
+          "shortText": "النزهة",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "23532",
+          "shortText": "23532",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.6326341,
+        "longitude": 39.1555973
+      },
+      "rating": 3.4,
+      "googleMapsUri": "https://maps.google.com/?cid=7865371391441301003&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T21:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 92,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "firegrill_shiraa": {
+    "key": "firegrill_shiraa",
+    "placeId": "ChIJU8Frhv9jwRUROxy5aP6Qa_U",
+    "name": "FireGrill - Al Shiraa",
+    "data": {
+      "id": "ChIJU8Frhv9jwRUROxy5aP6Qa_U",
+      "nationalPhoneNumber": "053 715 5028",
+      "internationalPhoneNumber": "+966 53 715 5028",
+      "formattedAddress": "JHYC2627, 2627 Prince Naif Rd, 7242،, حي, الشراع،, جدة 23816, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "JHYC2627, 2627 Prince Naif Rd, 7242،",
+          "languageCode": "en"
+        },
+        {
+          "longText": "حي",
+          "shortText": "حي",
+          "types": [
+            "point_of_interest",
+            "establishment"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "الشراع،",
+          "shortText": "الشراع،",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23816",
+          "shortText": "23816",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.7660427,
+        "longitude": 39.0909498
+      },
+      "rating": 3.9,
+      "googleMapsUri": "https://maps.google.com/?cid=17684387784153439291&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 667,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "firegrill_fayha_closed": {
+    "key": "firegrill_fayha_closed",
+    "placeId": "ChIJM1awNyLPwxURFcrxEe8fq8Y",
+    "name": "FireGrill - Al Fayha (Closed)",
+    "data": {
+      "id": "ChIJM1awNyLPwxURFcrxEe8fq8Y",
+      "nationalPhoneNumber": "053 608 1183",
+      "internationalPhoneNumber": "+966 53 608 1183",
+      "formattedAddress": "G663+347, Al Fayha, Jeddah 22241, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "G663+347",
+          "shortText": "G663+347",
+          "types": [
+            "plus_code"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Al Fayha",
+          "shortText": "Al Fayha",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "22241",
+          "shortText": "22241",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5101537,
+        "longitude": 39.20280160000001
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=14315570952185956885&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "businessStatus": "CLOSED_PERMANENTLY",
+      "userRatingCount": 191,
+      "displayName": {
+        "text": "FireGrill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "cocina_zahra": {
+    "key": "cocina_zahra",
+    "placeId": "ChIJnXiuyYTbwxURksI859BDH9M",
+    "name": "Cocina La Cantina - Al Zahra",
+    "data": {
+      "id": "ChIJnXiuyYTbwxURksI859BDH9M",
+      "nationalPhoneNumber": "050 766 0556",
+      "internationalPhoneNumber": "+966 50 766 0556",
+      "formattedAddress": "Sari Br Rd, Al Zahra, Jeddah 23424, الزهراء، جدة 23615, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Sari Br Rd, Al Zahra, Jeddah 23424",
+          "languageCode": "en"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "الزهراء",
+          "shortText": "الزهراء",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23615",
+          "shortText": "23615",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5733257,
+        "longitude": 39.137460399999995
+      },
+      "rating": 4.7,
+      "googleMapsUri": "https://maps.google.com/?cid=15212952630792602258&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 16,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 16,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 16,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 16,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 1,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 1,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 1,
+              "minute": 45
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 4:00 PM – 12:00 AM",
+          "Tuesday: 4:00 PM – 12:00 AM",
+          "Wednesday: 4:00 PM – 12:00 AM",
+          "Thursday: 1:00 PM – 1:45 AM",
+          "Friday: 1:00 PM – 1:45 AM",
+          "Saturday: 1:00 PM – 1:45 AM",
+          "Sunday: 4:00 PM – 12:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T21:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 1897,
+      "displayName": {
+        "text": "Cocina La Cantina",
+        "languageCode": "en"
+      }
+    }
+  },
+  "eds_taco_zahra": {
+    "key": "eds_taco_zahra",
+    "placeId": "ChIJAfLe4yjbwxURJRHjzYoQA58",
+    "name": "ED'S Taco - Al Zahra",
+    "data": {
+      "id": "ChIJAfLe4yjbwxURJRHjzYoQA58",
+      "nationalPhoneNumber": "059 770 0070",
+      "internationalPhoneNumber": "+966 59 770 0070",
+      "formattedAddress": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Al Batarji",
+          "shortText": "Al Batarji",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Zahra",
+          "shortText": "Al Zahra",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23522",
+          "shortText": "23522",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5986023,
+        "longitude": 39.125437
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=11458020065306415397&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 17,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:00 PM – 2:00 AM",
+          "Tuesday: 12:00 PM – 2:00 AM",
+          "Wednesday: 12:00 PM – 2:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 5:00 PM – 3:00 AM",
+          "Saturday: 12:00 PM – 2:00 AM",
+          "Sunday: 12:00 PM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 1601,
+      "displayName": {
+        "text": "ED'S taco",
+        "languageCode": "ar"
+      }
+    }
+  },
+  "speakeasy_naeem": {
+    "key": "speakeasy_naeem",
+    "placeId": "ChIJf9RLrLnbwxUR4OhTyqJ5iCQ",
+    "name": "Speakeasy - Al Naeem",
+    "data": {
+      "id": "ChIJf9RLrLnbwxUR4OhTyqJ5iCQ",
+      "nationalPhoneNumber": "056 789 3384",
+      "internationalPhoneNumber": "+966 56 789 3384",
+      "formattedAddress": "Amna Bint Wahb St, Al Naeem, Jeddah 23621, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Amna Bint Wahb Street",
+          "shortText": "Amna Bint Wahb St",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Naeem",
+          "shortText": "Al Naeem",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23621",
+          "shortText": "23621",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.6329253,
+        "longitude": 39.14363
+      },
+      "rating": 4.4,
+      "googleMapsUri": "https://maps.google.com/?cid=2632487722284214496&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 1,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 1:00 PM – 1:00 AM",
+          "Tuesday: 1:00 PM – 1:00 AM",
+          "Wednesday: 1:00 PM – 1:00 AM",
+          "Thursday: 1:00 PM – 2:00 AM",
+          "Friday: 1:00 PM – 2:00 AM",
+          "Saturday: 1:00 PM – 1:00 AM",
+          "Sunday: 1:00 PM – 1:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T22:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 2225,
+      "displayName": {
+        "text": "Speakeasy - Alnaim",
+        "languageCode": "en"
+      }
+    }
+  },
+  "speakeasy_obhur_closed": {
+    "key": "speakeasy_obhur_closed",
+    "placeId": "ChIJW72IxmRjwRUR1fQvaT7IfsI",
+    "name": "Speakeasy - Obhur (Closed)",
+    "data": {
+      "id": "ChIJW72IxmRjwRUR1fQvaT7IfsI",
+      "nationalPhoneNumber": "056 789 3384",
+      "internationalPhoneNumber": "+966 56 789 3384",
+      "formattedAddress": "Al Lulu, Jeddah 23821, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Al Lulu",
+          "shortText": "Al Lulu",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23821",
+          "shortText": "23821",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.760108499999998,
+        "longitude": 39.071517799999995
+      },
+      "rating": 4.5,
+      "googleMapsUri": "https://maps.google.com/?cid=14014859260801840341&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "businessStatus": "CLOSED_PERMANENTLY",
+      "userRatingCount": 817,
+      "displayName": {
+        "text": "Speakeasy - سبيك إيزي",
+        "languageCode": "en"
+      }
+    }
+  },
+  "chilis_hamra": {
+    "key": "chilis_hamra",
+    "placeId": "ChIJpREyco3PwxUR_uqfIhqhJi0",
+    "name": "Chili's - Al Hamra",
+    "data": {
+      "id": "ChIJpREyco3PwxUR_uqfIhqhJi0",
+      "nationalPhoneNumber": "012 665 8504",
+      "internationalPhoneNumber": "+966 12 665 8504",
+      "formattedAddress": "شارع الاندلس، حي الحمراء، Palestine, Al-Hamra'a, Jeddah 23212, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "شارع الاندلس، حي الحمراء",
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Palestine",
+          "shortText": "Palestine",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al-Hamra'a",
+          "shortText": "Al-Hamra'a",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23212",
+          "shortText": "23212",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5227136,
+        "longitude": 39.1636744
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=3253464914443889406&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 1,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 1,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 1:00 AM",
+          "Tuesday: 11:00 AM – 1:00 AM",
+          "Wednesday: 11:00 AM – 1:00 AM",
+          "Thursday: 11:00 AM – 1:00 AM",
+          "Friday: 1:30 PM – 1:30 AM",
+          "Saturday: 11:00 AM – 1:00 AM",
+          "Sunday: 11:00 AM – 1:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T22:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 7929,
+      "displayName": {
+        "text": "Chili's",
+        "languageCode": "en"
+      }
+    }
+  },
+  "chilis_roshan_mall_closed": {
+    "key": "chilis_roshan_mall_closed",
+    "placeId": "ChIJue7ZegnZwxUR9P6egcVGDVg",
+    "name": "Chili's - Roshan Mall (Closed)",
+    "data": {
+      "id": "ChIJue7ZegnZwxUR9P6egcVGDVg",
+      "formattedAddress": "Roshan Mall شارع السلام، M485+2Q5 The Globe Round Bout، King Abdul Aziz Rd, Al Murjan, Jeddah 23713, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Roshan Mall شارع السلام",
+          "languageCode": "ar"
+        },
+        {
+          "longText": "The Globe Round Bout",
+          "shortText": "The Globe Round Bout",
+          "types": [
+            "point_of_interest",
+            "establishment"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "M485+2Q5",
+          "shortText": "M485+2Q5",
+          "types": [
+            "plus_code"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "King Abdul Aziz Road",
+          "shortText": "King Abdul Aziz Rd",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Murjan",
+          "shortText": "Al Murjan",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23713",
+          "shortText": "23713",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.665005999999998,
+        "longitude": 39.109494
+      },
+      "rating": 4,
+      "googleMapsUri": "https://maps.google.com/?cid=6344805264132079348&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "businessStatus": "CLOSED_PERMANENTLY",
+      "userRatingCount": 3065,
+      "displayName": {
+        "text": "Chili's",
+        "languageCode": "en"
+      }
+    }
+  },
+  "casa_twist_muhammadiyyah": {
+    "key": "casa_twist_muhammadiyyah",
+    "placeId": "ChIJ_7LBUQDZwxURx4YyTVfAw5Q",
+    "name": "Casa Twist - Al Muhammadiyyah",
+    "data": {
+      "id": "ChIJ_7LBUQDZwxURx4YyTVfAw5Q",
+      "formattedAddress": "Al Mohammadiyyah, Jeddah 23617, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Mohammadiyyah",
+          "shortText": "Al Mohammadiyyah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23617",
+          "shortText": "23617",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.6497821,
+        "longitude": 39.1246564
+      },
+      "rating": 4.5,
+      "googleMapsUri": "https://maps.google.com/?cid=10719623019261757127&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 8:00 PM – 2:00 AM",
+          "Tuesday: 8:00 PM – 2:00 AM",
+          "Wednesday: 8:00 PM – 2:00 AM",
+          "Thursday: 8:00 PM – 3:00 AM",
+          "Friday: 8:00 PM – 3:00 AM",
+          "Saturday: 8:00 PM – 2:00 AM",
+          "Sunday: 8:00 PM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 409,
+      "displayName": {
+        "text": "Casa twist",
+        "languageCode": "en"
+      }
+    }
+  },
+  "chiii_naeem": {
+    "key": "chiii_naeem",
+    "placeId": "ChIJn4qafwDZwxURfJ4Hq3FSk5c",
+    "name": "Chiii - Al Naeem",
+    "data": {
+      "id": "ChIJn4qafwDZwxURfJ4Hq3FSk5c",
+      "nationalPhoneNumber": "056 689 9678",
+      "internationalPhoneNumber": "+966 56 689 9678",
+      "formattedAddress": "Amna Bint Wahb St, Al Naeem, Jeddah 23622, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Amna Bint Wahb Street",
+          "shortText": "Amna Bint Wahb St",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Naeem",
+          "shortText": "Al Naeem",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23622",
+          "shortText": "23622",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.6317092,
+        "longitude": 39.14455410000001
+      },
+      "rating": 4.5,
+      "googleMapsUri": "https://maps.google.com/?cid=10922164169457770108&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 1,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:00 PM – 1:00 AM",
+          "Tuesday: 12:00 PM – 1:00 AM",
+          "Wednesday: 12:00 PM – 1:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 3:00 PM – 3:00 AM",
+          "Saturday: 12:00 PM – 1:00 AM",
+          "Sunday: 12:00 PM – 1:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T22:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 323,
+      "displayName": {
+        "text": "Chiii",
+        "languageCode": "en"
+      }
+    }
+  },
+  "chalcos_zahra": {
+    "key": "chalcos_zahra",
+    "placeId": "ChIJ4-Sos8HbwxURGll1LNwCxko",
+    "name": "Chalcos Mexican Grill - Al Zahra",
+    "data": {
+      "id": "ChIJ4-Sos8HbwxURGll1LNwCxko",
+      "nationalPhoneNumber": "054 587 6753",
+      "internationalPhoneNumber": "+966 54 587 6753",
+      "formattedAddress": "Al Zahra, Jeddah 23522, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "Al Zahra",
+          "shortText": "Al Zahra",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23522",
+          "shortText": "23522",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5983938,
+        "longitude": 39.1246738
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=5387997148857325850&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 8,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 1,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 8,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 1,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 8,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 1,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 8,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 1,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 8,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 1,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 14,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 1,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 8,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 1,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 8:00 AM – 1:30 AM",
+          "Tuesday: 8:00 AM – 1:30 AM",
+          "Wednesday: 8:00 AM – 1:30 AM",
+          "Thursday: 8:00 AM – 1:30 AM",
+          "Friday: 2:00 PM – 1:30 AM",
+          "Saturday: 8:00 AM – 1:30 AM",
+          "Sunday: 8:00 AM – 1:30 AM"
+        ],
+        "nextCloseTime": "2026-09-27T22:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 280,
+      "displayName": {
+        "text": "Chalcos Mexican Grill",
+        "languageCode": "en"
+      }
+    }
+  },
+  "tacomole_shati": {
+    "key": "tacomole_shati",
+    "placeId": "ChIJH_2-MwDZwxURevswJ3aqm5w",
+    "name": "Tacomole - Ash Shati",
+    "data": {
+      "id": "ChIJH_2-MwDZwxURevswJ3aqm5w",
+      "formattedAddress": "الشاطئ، جدة 23616, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "الشاطئ",
+          "shortText": "الشاطئ",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "جدة",
+          "shortText": "جدة",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "مكة المكرمة",
+          "shortText": "مكة المكرمة",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23616",
+          "shortText": "23616",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.639572899999997,
+        "longitude": 39.1258312
+      },
+      "rating": 5,
+      "googleMapsUri": "https://maps.google.com/?cid=11284800715747294074&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 20,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 8:00 PM – 2:00 AM",
+          "Tuesday: 8:00 PM – 2:00 AM",
+          "Wednesday: 8:00 PM – 2:00 AM",
+          "Thursday: 8:00 PM – 2:00 AM",
+          "Friday: 8:00 PM – 2:00 AM",
+          "Saturday: 8:00 PM – 2:00 AM",
+          "Sunday: 8:00 PM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 41,
+      "displayName": {
+        "text": "Tacomole",
+        "languageCode": "en"
+      }
+    }
+  },
+  "el_taco_loco_qryniah": {
+    "key": "el_taco_loco_qryniah",
+    "placeId": "ChIJOwRQLwC1wxURWZDE_FtRdeE",
+    "name": "EL TACO LOCO - Al Qryniah",
+    "data": {
+      "id": "ChIJOwRQLwC1wxURWZDE_FtRdeE",
+      "nationalPhoneNumber": "056 525 3281",
+      "internationalPhoneNumber": "+966 56 525 3281",
+      "formattedAddress": "حي, JMYC4530, 4530، 8060 الامير مشعل ابن عبدالعزيز، Al Qryniah, Jeddah 22624, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "حي, JMYC4530, 4530",
+          "languageCode": "ar"
+        },
+        {
+          "longText": "8060",
+          "shortText": "8060",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "الامير مشعل ابن عبدالعزيز",
+          "shortText": "الامير مشعل ابن عبدالعزيز",
+          "types": [
+            "route"
+          ],
+          "languageCode": "ar"
+        },
+        {
+          "longText": "Al Qryniah",
+          "shortText": "Al Qryniah",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "22624",
+          "shortText": "22624",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.3167546,
+        "longitude": 39.2551063
+      },
+      "rating": 4.7,
+      "googleMapsUri": "https://maps.google.com/?cid=16245980686333546585&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 6:00 PM – 2:00 AM",
+          "Tuesday: 6:00 PM – 2:00 AM",
+          "Wednesday: 6:00 PM – 2:00 AM",
+          "Thursday: 6:00 PM – 2:00 AM",
+          "Friday: 6:00 PM – 2:00 AM",
+          "Saturday: 6:00 PM – 2:00 AM",
+          "Sunday: 6:00 PM – 2:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 48,
+      "displayName": {
+        "text": "EL TACO LOCO (التاكو المجنون)",
+        "languageCode": "ar"
+      }
+    }
+  },
+  "gyb_taco_rehab": {
+    "key": "gyb_taco_rehab",
+    "placeId": "ChIJo7aD9b3RwxUR6vfK_4kvdUM",
+    "name": "Gyb Taco - Al Rehab",
+    "data": {
+      "id": "ChIJo7aD9b3RwxUR6vfK_4kvdUM",
+      "nationalPhoneNumber": "056 409 8080",
+      "internationalPhoneNumber": "+966 56 409 8080",
+      "formattedAddress": "dist, 4353 Sharurah, Al-Rehab, Jeddah 23343, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "dist",
+          "shortText": "dist",
+          "types": [
+            "point_of_interest",
+            "establishment"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "4353",
+          "shortText": "4353",
+          "types": [
+            "street_number"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Sharurah",
+          "shortText": "Sharurah",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al-Rehab",
+          "shortText": "Al-Rehab",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23343",
+          "shortText": "23343",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5442867,
+        "longitude": 39.2247554
+      },
+      "rating": 4.8,
+      "googleMapsUri": "https://maps.google.com/?cid=4860843642564835306&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 3,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 3,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 6:00 PM – 2:30 AM",
+          "Tuesday: 6:00 PM – 2:30 AM",
+          "Wednesday: 6:00 PM – 2:30 AM",
+          "Thursday: 6:00 PM – 3:00 AM",
+          "Friday: 6:00 PM – 3:00 AM",
+          "Saturday: 6:00 PM – 3:00 AM",
+          "Sunday: 6:00 PM – 2:30 AM"
+        ],
+        "nextCloseTime": "2026-09-27T23:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 32,
+      "displayName": {
+        "text": "Gyb taco | جي واي بي تاكو",
+        "languageCode": "en"
+      }
+    }
+  },
+  "taco_in_naseem": {
+    "key": "taco_in_naseem",
+    "placeId": "ChIJq29kOwDPwxURX0eW9sWErz0",
+    "name": "Taco In - An Naseem",
+    "data": {
+      "id": "ChIJq29kOwDPwxURX0eW9sWErz0",
+      "nationalPhoneNumber": "054 872 7087",
+      "internationalPhoneNumber": "+966 54 872 7087",
+      "formattedAddress": "G66G+P8J, Al Naseem St, An Naseem, Jeddah 23231, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "G66G+P8J",
+          "shortText": "G66G+P8J",
+          "types": [
+            "plus_code"
+          ],
+          "languageCode": "en-US"
+        },
+        {
+          "longText": "Al Naseem Street",
+          "shortText": "Al Naseem St",
+          "types": [
+            "route"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "An Naseem",
+          "shortText": "An Naseem",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23231",
+          "shortText": "23231",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.5118296,
+        "longitude": 39.225776599999996
+      },
+      "rating": 4.8,
+      "googleMapsUri": "https://maps.google.com/?cid=4444917343018436447&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 19,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 4,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 19,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 4,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 19,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 4,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 19,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 4,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 19,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 4,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 19,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 4,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 18,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 4,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 7:00 PM – 4:00 AM",
+          "Tuesday: 7:00 PM – 4:00 AM",
+          "Wednesday: 7:00 PM – 4:00 AM",
+          "Thursday: 7:00 PM – 4:00 AM",
+          "Friday: 7:00 PM – 4:00 AM",
+          "Saturday: 6:00 PM – 4:30 AM",
+          "Sunday: 7:00 PM – 4:00 AM"
+        ],
+        "nextCloseTime": "2026-09-28T01:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 20,
+      "displayName": {
+        "text": "تاكو ان",
+        "languageCode": "ar"
+      }
+    }
+  },
+  "kakt_uwalk": {
+    "key": "kakt_uwalk",
+    "placeId": "ChIJm4HefLfZwxURWEFXlUqNX00",
+    "name": "KAKT - U Walk",
+    "data": {
+      "id": "ChIJm4HefLfZwxURWEFXlUqNX00",
+      "formattedAddress": "U WALK, Al Zahra, Jeddah 23424, Saudi Arabia",
+      "addressComponents": [
+        {
+          "longText": "U WALK",
+          "shortText": "U WALK",
+          "types": [
+            "point_of_interest",
+            "establishment"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Al Zahra",
+          "shortText": "Al Zahra",
+          "types": [
+            "sublocality_level_1",
+            "sublocality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "locality",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Jeddah",
+          "shortText": "Jeddah",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Makkah Province",
+          "shortText": "Makkah Province",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "Saudi Arabia",
+          "shortText": "SA",
+          "types": [
+            "country",
+            "political"
+          ],
+          "languageCode": "en"
+        },
+        {
+          "longText": "23424",
+          "shortText": "23424",
+          "types": [
+            "postal_code"
+          ],
+          "languageCode": "en-US"
+        }
+      ],
+      "location": {
+        "latitude": 21.582539,
+        "longitude": 39.139972
+      },
+      "rating": 4.8,
+      "googleMapsUri": "https://maps.google.com/?cid=5575330215180583256&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 1,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 15,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 1,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 3:00 PM – 1:00 AM",
+          "Tuesday: 3:00 PM – 1:00 AM",
+          "Wednesday: 3:00 PM – 1:00 AM",
+          "Thursday: 3:00 PM – 2:00 AM",
+          "Friday: 3:00 PM – 2:00 AM",
+          "Saturday: 3:00 PM – 1:00 AM",
+          "Sunday: 3:00 PM – 1:00 AM"
+        ],
+        "nextCloseTime": "2026-09-27T22:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 67,
+      "displayName": {
+        "text": "KAKT | كاكت",
+        "languageCode": "en"
+      }
+    }
+  }
+}

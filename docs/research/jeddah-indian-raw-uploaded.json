@@ -1,0 +1,1392 @@
+{
+  "schema": "WeshNakul Restaurant Discovery & Research Requirements V3",
+  "category": "indian",
+  "city": "Jeddah",
+  "country": "Saudi Arabia",
+  "verified_date": "2026-09-27",
+  "research_stage": "Pass D correction / production research",
+  "rules_applied": [
+    "Verified reality > completeness",
+    "Unknown fields remain null/unknown/not_verified",
+    "Delivery service areas are not treated as physical branches",
+    "Ratings/review counts are branch-specific",
+    "Healthy is a filter, not a category",
+    "Nearby is not stored; branch geography is stored instead"
+  ],
+  "summary": {
+    "brands": 15,
+    "physical_branches": 16,
+    "production_ready_brands": 12,
+    "usable_with_caution_brands": 2,
+    "manual_review_brands": 1,
+    "temporarily_closed_brands": [
+      "5 Rivers Indian Restaurant"
+    ],
+    "brands_with_multiple_verified_jeddah_branches": [
+      "The Bay Indian Restaurant"
+    ]
+  },
+  "brands": [
+    {
+      "canonical_name": "Makan Indian Restaurant",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "modern_indian",
+        "north_indian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Very high current Google review volume in Jeddah (4.7 / 13,539) plus repeated local recommendation coverage.",
+      "reason_to_include": "One of the strongest high-volume Indian restaurant signals in Jeddah; destination-quality while still broadly accessible.",
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "butter chicken",
+        "garlic naan"
+      ],
+      "best_seller_confidence": "medium",
+      "confidence": "high",
+      "official_website": null,
+      "official_instagram": "https://instagram.com/makan1_sa",
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Khalidiyyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Prince Mohammed Bin Abdulaziz St, Al Khalidiyyah, Jeddah 23874, Saudi Arabia",
+          "canonical_district": "Al Khalidiyyah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ_WMxD-HFwxUR7VwJZkMXLc0",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_WMxD-HFwxUR7VwJZkMXLc0",
+          "latitude": 21.5493,
+          "longitude": 39.13902,
+          "coordinates_confidence": "medium",
+          "google_rating": 4.7,
+          "google_review_count": 13539,
+          "hours": {
+            "sun": "13:00-01:00",
+            "mon": "13:00-01:00",
+            "tue": "13:00-01:00",
+            "wed": "13:00-01:00",
+            "thu": "13:30-01:30",
+            "fri": "13:30-01:30",
+            "sat": "13:00-01:00"
+          },
+          "phone": "+966573514100",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/makan-indian-restaurant?to=place.ChIJ_WMxD-HFwxUR7VwJZkMXLc0",
+            "https://restaurantguru.com/Makan-Indian-Restaurant-Jeddah",
+            "https://aroundus.com/p/172201857-makan-indian-restaurant"
+          ],
+          "notes": "Coordinates are corroborated by a third-party POI source; Google place ID/rating/address/hours are from current business listing."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "The Bay Indian Restaurant",
+      "arabic_name": "مطعم ذا باي الهندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "modern_indian",
+        "north_indian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Two verified Jeddah branches with strong Google review volume; current local-ranking coverage also identifies two Jeddah branches.",
+      "reason_to_include": "One of the few strong Indian brands in the set with useful physical coverage across Jeddah.",
+      "context_tags": [
+        "dine_in_strong",
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "butter chicken",
+        "biryani balls",
+        "Kashmiri naan"
+      ],
+      "best_seller_confidence": "medium",
+      "confidence": "high",
+      "official_website": null,
+      "official_instagram": "https://www.instagram.com/thebayrestaurant_jed/",
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "yes",
+          "evidence": "HungerStation Indian cuisine results include The Bay"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Bawadi",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Qouraish, Al Bawadi, Jeddah 23443, Saudi Arabia",
+          "canonical_district": "Al Bawadi",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJC6SL88TRwxUR25AMKn7mMr4",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJC6SL88TRwxUR25AMKn7mMr4",
+          "latitude": 21.59905,
+          "longitude": 39.16541,
+          "coordinates_confidence": "medium",
+          "google_rating": 4.5,
+          "google_review_count": 7586,
+          "hours": {
+            "sun": "13:00-02:00",
+            "mon": "13:00-02:00",
+            "tue": "13:00-02:00",
+            "wed": "13:00-02:00",
+            "thu": "13:00-02:00",
+            "fri": "13:00-02:00",
+            "sat": "13:00-02:00"
+          },
+          "phone": "+966567376165",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://aroundus.com/p/171564786-the-bay-indian-restaurant",
+            "https://ananinja.com/sa/ar/restaurants/the-bay-32332"
+          ]
+        },
+        {
+          "branch_name": "Al Andalus",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Prince Mohammed Bin Abdulaziz St, Al Andalus, Jeddah 23326, Saudi Arabia",
+          "canonical_district": "Al Andalus",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJG0Wz5jBjwRURpr1SlkRQYBc",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJG0Wz5jBjwRURpr1SlkRQYBc",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.6,
+          "google_review_count": 3482,
+          "hours": {
+            "sun": "13:00-02:00",
+            "mon": "13:00-02:00",
+            "tue": "13:00-02:00",
+            "wed": "13:00-02:00",
+            "thu": "13:00-02:00",
+            "fri": "13:00-02:00",
+            "sat": "13:00-02:00"
+          },
+          "phone": "+966567376168",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://eatoutmap.com/en/saudi-arabia/jeddah/the-bay-restaurant",
+            "https://www.instagram.com/thebayrestaurant_jed/"
+          ],
+          "notes": "Exact latitude/longitude not safely verified in this pass; leave null."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Biryani Gate Restaurant Jeddah",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "biryani",
+        "north_indian",
+        "mughlai",
+        "pakistani_influenced"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "4.7 / 2,150 Google reviews, dedicated biryani positioning, and active HungerStation menu.",
+      "reason_to_include": "Strong specialist biryani option with distinct Lucknowi/Sindhi menu identity.",
+      "context_tags": [
+        "delivery_strong",
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "Lucknowi mutton biryani",
+        "Lucknowi chicken biryani",
+        "Sindhi chicken biryani"
+      ],
+      "best_seller_confidence": "high",
+      "confidence": "high",
+      "official_website": null,
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Biryani Gate",
+          "direct_url": "https://hungerstation.com/sa-en/restaurant/jeddah/jeddah-islamic-seaport/106255"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Aziziyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Ghernatah, Aziziyah, Jeddah 23342, Saudi Arabia",
+          "canonical_district": "Al Aziziyah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJhSncBYTRwxURLDY6wB34Few",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhSncBYTRwxURLDY6wB34Few",
+          "latitude": 21.547996,
+          "longitude": 39.21057,
+          "coordinates_confidence": "medium",
+          "google_rating": 4.7,
+          "google_review_count": 2150,
+          "hours": {
+            "sun": [
+              "12:30-16:00",
+              "18:30-01:00"
+            ],
+            "mon": [
+              "12:30-16:00",
+              "18:30-01:00"
+            ],
+            "tue": [
+              "12:30-16:00",
+              "18:30-01:00"
+            ],
+            "wed": [
+              "12:30-16:00",
+              "18:30-01:00"
+            ],
+            "thu": [
+              "12:30-16:00",
+              "18:30-01:00"
+            ],
+            "fri": [
+              "13:00-16:00",
+              "18:30-01:00"
+            ],
+            "sat": [
+              "12:30-16:00",
+              "18:30-01:00"
+            ]
+          },
+          "phone": "+966551458442",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://www.myguidesaudiarabia.com/restaurants/biryani-gate-restaurant-jeddah",
+            "https://hungerstation.com/sa-en/restaurant/jeddah/jeddah-islamic-seaport/106255"
+          ]
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Jewel of Nizam Restaurant",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "hyderabadi",
+        "nizami",
+        "modern_indian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "4.7 / 3,525 Google reviews with strong local review volume.",
+      "reason_to_include": "Strong high-rated local Indian destination with a distinct Nizami/Hyderabadi identity.",
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "best_seller_confidence": "unknown",
+      "confidence": "high",
+      "official_website": null,
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Rehab",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Dallah, Al-Rehab, Jeddah 23344, Saudi Arabia",
+          "canonical_district": "Al Rehab",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJXcKq8fbRwxURINqXN7GzOME",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJXcKq8fbRwxURINqXN7GzOME",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.7,
+          "google_review_count": 3525,
+          "hours": {
+            "sun": "12:30-01:00",
+            "mon": "12:30-01:00",
+            "tue": "12:30-01:00",
+            "wed": "12:30-01:00",
+            "thu": "12:30-01:00",
+            "fri": "12:30-01:00",
+            "sat": "12:30-01:00"
+          },
+          "phone": "+966502677811",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID"
+          ],
+          "notes": "Coordinates and a defensible bestseller remain unverified."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Indira Indian Restaurant",
+      "arabic_name": "مطعم انديرا الهندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "north_indian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Very high current Google rating (4.8) with 1,149 reviews.",
+      "reason_to_include": "Strong local-rating signal and useful southeastern Jeddah coverage.",
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "best_seller_confidence": "unknown",
+      "confidence": "high",
+      "official_website": null,
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "An Naseem",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "G66J+CJF, An Naseem, Jeddah 23233, Saudi Arabia",
+          "canonical_district": "An Naseem",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJQzAsXwDPwxUR1diGfSJc9nY",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJQzAsXwDPwxUR1diGfSJc9nY",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.8,
+          "google_review_count": 1149,
+          "hours": {
+            "sun": "14:00-02:00",
+            "mon": "14:00-02:00",
+            "tue": "14:00-02:00",
+            "wed": "14:00-02:00",
+            "thu": "14:00-02:00",
+            "fri": "14:00-02:00",
+            "sat": "14:00-02:00"
+          },
+          "phone": "+966573653991",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID"
+          ],
+          "notes": "Exact street address beyond plus code, coordinates, and bestseller not safely verified."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "The Spice Route-Indian Cuisine",
+      "arabic_name": "ذي سبايس روت - مطعم هندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "modern_indian",
+        "hotel_dining"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "4.9 / 582 current Google reviews plus official Sunset Jeddah operation.",
+      "reason_to_include": "High-rated destination Indian restaurant with official hotel backing and distinct upscale positioning.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "premium",
+      "signature_dishes": null,
+      "best_seller_confidence": "unknown",
+      "confidence": "high",
+      "official_website": "https://www.sunsetjeddah.com/dining",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "The Spice Route",
+          "direct_url": "https://hungerstation.com/sa-en/restaurant/jeddah/al-ammariyah/131512"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Sunset Jeddah / Ar Rawdah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Sunset Jeddah, Prince Saud Al Faisal, Ar Rawdah, Jeddah 23432, Saudi Arabia",
+          "canonical_district": "Ar Rawdah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJT_szx-fRwxURf80w0Ffpgbs",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJT_szx-fRwxURf80w0Ffpgbs",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.9,
+          "google_review_count": 582,
+          "hours": {
+            "sun": "13:00-23:30",
+            "mon": "13:00-23:30",
+            "tue": "closed",
+            "wed": "13:00-23:30",
+            "thu": "13:00-23:30",
+            "fri": "13:00-23:30",
+            "sat": "13:00-23:30"
+          },
+          "phone": "+966569503289",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://www.sunsetjeddah.com/dining",
+            "https://hungerstation.com/sa-en/restaurant/jeddah/al-ammariyah/131512"
+          ],
+          "notes": "Official Sunset Jeddah schedule says Tuesday closed; live Maps listing showed Tuesday hours. Official venue schedule is retained, with conflict flagged."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Rasoi by Vineet",
+      "arabic_name": "راسوي باي فينيت",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "modern_indian",
+        "fine_dining"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Official chef-led fine-dining restaurant with current menu, 4.4 / 439 Google reviews, and established Jeddah hotel location.",
+      "reason_to_include": "Distinct premium destination choice; materially different from practical Indian options.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "Murg Makhni",
+        "Nawabi Chops",
+        "Lamb Biryani",
+        "Raan Mussallam"
+      ],
+      "best_seller_confidence": "high",
+      "confidence": "high",
+      "official_website": "https://rasoibyvineetjeddah.com/",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Andalus",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "8749 Hael, Al Andalus, Jeddah 23326, Saudi Arabia",
+          "canonical_district": "Al Andalus",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJSWgB4VDRwxURD-6jnv_lTqs",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJSWgB4VDRwxURD-6jnv_lTqs",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.4,
+          "google_review_count": 439,
+          "hours": {
+            "sun": "closed",
+            "mon": "13:00-00:00",
+            "tue": "13:00-00:00",
+            "wed": "13:00-00:00",
+            "thu": "13:00-00:00",
+            "fri": "13:00-01:00",
+            "sat": "13:00-01:00"
+          },
+          "phone": "+966122132000",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://rasoibyvineetjeddah.com/",
+            "https://rasoibyvineetjeddah.com/our-menus/"
+          ],
+          "notes": "Official site hours are used; they differ from live Maps split-service hours."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Chennai Darbar Restaurant Aziziyah",
+      "arabic_name": "مطعم الديوان للمأكولات الهندية",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "south_indian",
+        "indian_chinese",
+        "vegetarian_friendly"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "staple",
+      "classification_evidence": "4.2 / 14,450 current Google reviews, long-established Jeddah presence, breakfast/tiffin range, and active delivery listing.",
+      "reason_to_include": "Very established practical Indian/South Indian option with exceptional review volume and broad meal usefulness.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "dosa",
+        "idli",
+        "South Indian thali",
+        "biryani"
+      ],
+      "best_seller_confidence": "medium",
+      "confidence": "high",
+      "official_website": "https://chennaidarbar.com/",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "yes",
+          "direct_url": "https://hungerstation.com/sa-en/restaurant/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D9%86%D9%87%D8%B6%D9%87/24999"
+        },
+        "jahez": {
+          "presence": "yes",
+          "evidence": "Official brand materials previously list Jahez"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Aziziyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "As Sahafa St, Aziziyah, Jeddah 23342, Saudi Arabia",
+          "canonical_district": "Al Aziziyah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJF8HaYbjRwxUR6BJAUQ6Sqb8",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJF8HaYbjRwxUR6BJAUQ6Sqb8",
+          "latitude": 21.5528,
+          "longitude": 39.20886,
+          "coordinates_confidence": "high",
+          "google_rating": 4.2,
+          "google_review_count": 14450,
+          "hours": {
+            "sun": "07:30-00:15",
+            "mon": "07:30-00:15",
+            "tue": "07:30-00:15",
+            "wed": "07:30-00:15",
+            "thu": "07:30-00:15",
+            "fri": "07:30-00:15",
+            "sat": "07:30-00:15"
+          },
+          "phone": "+966546252772",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://mapcarta.com/N3494301494",
+            "https://hungerstation.com/sa-en/restaurant/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D9%86%D9%87%D8%B6%D9%87/24999"
+          ]
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Ginger Leaf",
+      "arabic_name": "جينجر ليف",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "mughlai",
+        "hotel_dining"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Official Jeddah Hilton restaurant with longstanding Mughlai positioning; current third-party branch listing confirms physical operation and schedule.",
+      "reason_to_include": "Premium Mughlai hotel restaurant that adds destination variety to the catalog.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "dinner"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "premium",
+      "signature_dishes": [
+        "chicken tikka masala",
+        "biryani"
+      ],
+      "best_seller_confidence": "low",
+      "confidence": "medium",
+      "official_website": "https://www.hilton.com/en/hotels/jedhihi-jeddah-hilton-hotel/dining/",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Jeddah Hilton / Ash Shati",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Jeddah Hilton, North Corniche / Al Kurnaysh Branch Rd, Ash Shati, Jeddah 23511, Saudi Arabia",
+          "canonical_district": "Ash Shati",
+          "google_maps_verified": "not_fully_verified_in_this_pass",
+          "google_place_id": null,
+          "google_maps_url": null,
+          "latitude": 21.6045748,
+          "longitude": 39.1091485,
+          "coordinates_confidence": "medium",
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": {
+            "sun": "closed",
+            "mon": "19:30-00:00",
+            "tue": "19:30-00:00",
+            "wed": "19:30-00:00",
+            "thu": "19:30-00:00",
+            "fri": "19:30-00:00",
+            "sat": "19:30-00:00"
+          },
+          "phone": "+966122244300",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "https://www.hilton.com/en/hotels/jedhihi-jeddah-hilton-hotel/dining/",
+            "https://sa.near-place.com/ginger-leaf-indian-restaurant-jeddah-hilton-hilton-corniche-rd-jeddah-jeddah"
+          ],
+          "notes": "Physical existence is strongly verified by Hilton, but a clean current branch-specific Google Maps place ID/rating was not safely captured. Keep Maps fields null until a direct listing is captured."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "usable_with_caution"
+    },
+    {
+      "canonical_name": "Saravanaa Bhavan Jeddah",
+      "arabic_name": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "south_indian",
+        "vegetarian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current business listing 4.6 / 1,703, globally established South Indian concept, and active HungerStation Jeddah menu.",
+      "reason_to_include": "Very strong vegetarian/South Indian specialist with breakfast relevance and a differentiated menu.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "masala dosa",
+        "ghee roast",
+        "idly",
+        "medhu vada",
+        "mini tiffin"
+      ],
+      "best_seller_confidence": "high",
+      "confidence": "high",
+      "official_website": "https://saravanaabhavanksa.com/",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "yes",
+          "direct_url": "https://hungerstation.com/sa-en/restaurant/jeddah/jeddah-islamic-seaport/170346"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Aziziyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "H657+G52, Aziziyah, Jeddah 23342, Saudi Arabia",
+          "canonical_district": "Al Aziziyah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ7TtQFADRwxURsUHZ03r37LY",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ7TtQFADRwxURsUHZ03r37LY",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.6,
+          "google_review_count": 1703,
+          "hours": {
+            "sun": "07:00-23:30",
+            "mon": "07:00-23:30",
+            "tue": "07:00-23:30",
+            "wed": "07:00-23:30",
+            "thu": "07:00-00:00",
+            "fri": "07:00-00:00",
+            "sat": "07:00-23:30"
+          },
+          "phone": "+966551727755",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://hungerstation.com/sa-en/restaurant/jeddah/jeddah-islamic-seaport/170346",
+            "https://restaurantguru.com/Saravanaa-Bhavan-Jeddah"
+          ],
+          "notes": "A recent aggregator raised a possible closure concern, but the current Google business listing shows active hours and 1,703 reviews; current Google listing is treated as higher-priority evidence."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Shehnai Indian Restaurant",
+      "arabic_name": "مطعم شهناي الهندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "north_indian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Al Marwah Google listing at 4.7 / 1,159 plus an active 2026 restaurant ordering app.",
+      "reason_to_include": "High-rated north-Jeddah option that improves geographic coverage.",
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "mixed tandoori platter"
+      ],
+      "best_seller_confidence": "medium",
+      "confidence": "medium",
+      "official_website": null,
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        },
+        "own_app": {
+          "presence": "yes",
+          "evidence": "Android app updated April 2026"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Marwah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Hira St, Al Marwah, Jeddah 23544, Saudi Arabia",
+          "canonical_district": "Al Marwah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJTz1u0y7XwxURvxyxmY2kXlo",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJTz1u0y7XwxURvxyxmY2kXlo",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.7,
+          "google_review_count": 1159,
+          "hours": {
+            "sun": "12:00-02:00",
+            "mon": "12:00-02:00",
+            "tue": "12:00-02:00",
+            "wed": "12:00-02:00",
+            "thu": "12:00-03:00",
+            "fri": "12:00-03:00",
+            "sat": "12:00-02:00"
+          },
+          "phone": "+966531914513",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://play.google.com/store/apps/details?id=com.fhf871613"
+          ],
+          "notes": "Older Sharafiyah references appear to exist elsewhere; do not import an old branch as active without separate verification."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "usable_with_caution"
+    },
+    {
+      "canonical_name": "Royal Garden Indian Restaurant",
+      "arabic_name": "مطعم رويال جاردن الهندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "north_indian",
+        "family_restaurant"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "staple",
+      "classification_evidence": "Official site states operation in Jeddah since 1989; current Google listing is 4.6 / 1,402.",
+      "reason_to_include": "Long-established Jeddah Indian restaurant with strong rating and north-Jeddah coverage.",
+      "context_tags": [
+        "dine_in_strong",
+        "family_friendly",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "butter chicken",
+        "Chicken 65"
+      ],
+      "best_seller_confidence": "high",
+      "confidence": "high",
+      "official_website": "https://royalgardenksa.com/",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "An Nahdah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Hira St, An Nahdah, Jeddah 23523, Saudi Arabia",
+          "canonical_district": "An Nahdah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJUQHSZoLbwxURXUhwJ1Bht4M",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUQHSZoLbwxURXUhwJ1Bht4M",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.6,
+          "google_review_count": 1402,
+          "hours": {
+            "sun": "13:00-02:00",
+            "mon": "13:00-02:00",
+            "tue": "13:00-02:00",
+            "wed": "13:00-02:00",
+            "thu": "13:00-02:00",
+            "fri": "13:00-02:00",
+            "sat": "13:00-02:00"
+          },
+          "phone": "+966552915400",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://royalgardenksa.com/"
+          ],
+          "notes": "Live Maps showed earlier opening (08:00) than the official site. Official site 13:00-02:00 is retained as authoritative."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "Cadence Indian Cuisine",
+      "arabic_name": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "kerala",
+        "malabar",
+        "hyderabadi"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current 4.4 / 1,081 Google listing and active digital menu with strong Kerala/Malabar identity.",
+      "reason_to_include": "Affordable Kerala/Malabar specialist that broadens Indian representation and geographic coverage.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "Malabar beef biryani",
+        "Malabar chicken biryani",
+        "Malabari Chicken 65",
+        "butter chicken"
+      ],
+      "best_seller_confidence": "high",
+      "confidence": "high",
+      "official_website": "https://restoqr.skysecretary.com/cadence",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Mishrifah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Ghernatah, Mishrifah, Jeddah 23336, Saudi Arabia",
+          "canonical_district": "Mishrifah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJWYQyd7nRwxURf9yNzxcV9jY",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJWYQyd7nRwxURf9yNzxcV9jY",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.4,
+          "google_review_count": 1081,
+          "hours": {
+            "sun": "07:00-01:00",
+            "mon": "07:00-01:00",
+            "tue": "07:00-01:00",
+            "wed": "07:00-01:00",
+            "thu": "07:00-01:00",
+            "fri": "07:00-01:00",
+            "sat": "07:00-01:00"
+          },
+          "phone": "+966562884420",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://restoqr.skysecretary.com/cadence"
+          ]
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    },
+    {
+      "canonical_name": "5 Rivers Indian Restaurant",
+      "arabic_name": "مطعم 5 ريفرز",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "north_indian",
+        "south_indian",
+        "mughlai"
+      ],
+      "operating_status": "temporarily_closed",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Historically strong Jeddah review volume (4.5 / 4,959), but current Google business status is temporarily closed.",
+      "reason_to_include": "Strong historical/destination candidate worth preserving for reactivation if reopened.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "Aaloo Akhrot Tikki",
+        "Palak Baingan Chaat",
+        "Samosa Trio"
+      ],
+      "best_seller_confidence": "medium",
+      "confidence": "high",
+      "official_website": "https://5rivers.sa/",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        },
+        "other": {
+          "presence": "official_site_claims_delivery"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "2858 Sari Br Rd, Al Zahra District, Jeddah 23424, Saudi Arabia",
+          "canonical_district": "Al Zahra",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJj5XXG8DawxURfDuHnxCPrqw",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJj5XXG8DawxURfDuHnxCPrqw",
+          "latitude": null,
+          "longitude": null,
+          "coordinates_confidence": "not_verified",
+          "google_rating": 4.5,
+          "google_review_count": 4959,
+          "hours": null,
+          "phone": "+966508265666",
+          "operating_status": "temporarily_closed",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://5rivers.sa/"
+          ],
+          "notes": "Official website still advertises 12:00-00:00 dine-in/delivery, conflicting with current Google 'Temporarily Closed' status. Google current operating status governs recommendation eligibility."
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "manual_review"
+    },
+    {
+      "canonical_name": "Aryaas Indian Restaurant - Jeddah",
+      "arabic_name": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "indian",
+      "secondary_metadata": [
+        "south_indian",
+        "indian_chinese",
+        "family_restaurant"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current active branch, broad South Indian menu, current own-order menu, and 4.1 / 404 Google reviews.",
+      "reason_to_include": "Affordable South Indian/family option that adds menu diversity and Sharafeyah coverage.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": "not_verified",
+      "price_positioning": "affordable",
+      "signature_dishes": [
+        "dosa",
+        "idly",
+        "vada",
+        "Chicken Dum Biryani",
+        "Chettinad Chicken"
+      ],
+      "best_seller_confidence": "medium",
+      "confidence": "high",
+      "official_website": "https://aryaasrestaurant.whastores.com/",
+      "official_instagram": null,
+      "official_tiktok": null,
+      "delivery": {
+        "hungerstation": {
+          "presence": "unknown"
+        },
+        "jahez": {
+          "presence": "unknown"
+        },
+        "keeta": {
+          "presence": "unknown"
+        },
+        "own_delivery": {
+          "presence": "yes",
+          "direct_url": "https://aryaasrestaurant.whastores.com/"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al Sharafeyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "King Fahd Rd / Sitteen Street, Al Sharafeyah, Jeddah, Saudi Arabia",
+          "canonical_district": "Al Sharafeyah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJqZlH1MXPwxURogfXB1yl6aM",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJqZlH1MXPwxURogfXB1yl6aM",
+          "latitude": 21.49834,
+          "longitude": 39.19406,
+          "coordinates_confidence": "medium",
+          "google_rating": 4.1,
+          "google_review_count": 404,
+          "hours": {
+            "sun": "07:30-00:00",
+            "mon": "07:30-00:00",
+            "tue": "07:30-00:00",
+            "wed": "07:30-00:00",
+            "thu": "07:30-00:00",
+            "fri": "07:00-01:00",
+            "sat": "07:00-01:00"
+          },
+          "phone": "+966543469613",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "provenance": [
+            "Google business listing/place ID",
+            "https://aryaasrestaurant.whastores.com/",
+            "https://saudi-arabia.worldplaces.me/indian-restaurants-in-jeddah/38613265-aryaas-indian-restaurant-jeddah.html"
+          ]
+        }
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready"
+    }
+  ],
+  "remaining_manual_review": [
+    {
+      "item": "Ginger Leaf",
+      "issue": "Physical restaurant is strongly verified by Jeddah Hilton and coordinates are available, but a clean current branch-specific Google Maps place ID/rating/review count was not safely captured.",
+      "action": "Capture direct Google Maps listing before treating branch as fully production_ready."
+    },
+    {
+      "item": "Shehnai Indian Restaurant",
+      "issue": "Current Al Marwah branch is verified, but older Sharafiyah references may represent a legacy/relocated location.",
+      "action": "Do not import any older Sharafiyah branch as active without direct Maps verification."
+    },
+    {
+      "item": "5 Rivers Indian Restaurant",
+      "issue": "Current Google status is temporarily closed while official website still advertises normal hours.",
+      "action": "Keep excluded from decks until current Maps status becomes open and is reverified."
+    },
+    {
+      "item": "Coordinates",
+      "issue": "Exact safe latitude/longitude could not be independently captured for several otherwise verified branches.",
+      "action": "Leave null. Fill later from a direct Maps/geocoding source; do not approximate."
+    }
+  ]
+}

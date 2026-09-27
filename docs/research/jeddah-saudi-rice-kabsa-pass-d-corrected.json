@@ -1,0 +1,2214 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "saudi_rice",
+    "display_category": "Saudi / Rice / Kabsa",
+    "verified_date": "2026-09-26",
+    "brand_count": 16,
+    "status": "PASS_WITH_FIELD_VALIDATION_COMPLETE",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknown_is_better_than_wrong",
+      "delivery_service_area_is_not_a_physical_branch"
+    ],
+    "summary": {
+      "total_brands": 16,
+      "production_ready_brands": 16,
+      "caution_brands": 0,
+      "manual_review_brands": 0,
+      "total_verified_active_branches": 45,
+      "canonical_district_branches": 31,
+      "outer_caution_branches": 14,
+      "excluded_branches": 8,
+      "manual_review_branches": 1
+    }
+  },
+  "brands": [
+    {
+      "id": "raydan",
+      "canonical_name": "Raydan",
+      "arabic_name": "ريدان",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "mandi",
+        "madhbi",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Jeddah-founded Saudi rice institution (est. 1989, publicly listed), deeply established heritage brand with wide citywide coverage.",
+      "price_positioning": "budget_mid",
+      "signature_dishes": [
+        "Mandi Lamb (مندي لحم)",
+        "Madhbi Chicken (مظبي دجاج)",
+        "Kabsa Chicken (كبسة دجاج)",
+        "Saleeg Taifi (سليق طائفي)"
+      ],
+      "context_tags": [
+        "casual_hangout",
+        "delivery_strong",
+        "late_night",
+        "group_dining"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://raydan.com.sa/",
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Hamdaniyah Al Majed",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "شارع الحمدانية، Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+          "raw_district": "Al Hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJg9bwO2N8wRURHt_T0Rzf_9A",
+          "google_place_id": "ChIJg9bwO2N8wRURHt_T0Rzf_9A",
+          "latitude": 21.7622639,
+          "longitude": 39.1994645,
+          "google_rating": 3.6,
+          "google_review_count": 1926,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "059 329 7288",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Al Hamdaniyah Street near Al Majed commercial strip."
+        },
+        {
+          "branch_name": "Hamdaniyah Al Falah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "7077 - حي - 2917، Al Falah, Jeddah 23762, Saudi Arabia",
+          "raw_district": "Al Falah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ08FVqph8wRUR_FdL0gaLmh8",
+          "google_place_id": "ChIJ08FVqph8wRUR_FdL0gaLmh8",
+          "latitude": 21.7748176,
+          "longitude": 39.175249400000006,
+          "google_rating": 3.6,
+          "google_review_count": 2488,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "012 250 8600",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in Al Falah neighborhood just north of Al Hamdaniyah, outside the 30 canonical districts."
+        },
+        {
+          "branch_name": "Naseem",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي، Abu Thar Al-Ghifari, An Naseem, Hail 55428, Saudi Arabia",
+          "raw_district": "Al Naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJh_8wm__NwxURCB3xm75aoTs",
+          "google_place_id": "ChIJh_8wm__NwxURCB3xm75aoTs",
+          "latitude": 21.522400899999997,
+          "longitude": 39.239576899999996,
+          "google_rating": 3.4,
+          "google_review_count": 2438,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "9200 00043",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Abu Dhar Al-Ghifari Street in Al Naseem district."
+        },
+        {
+          "branch_name": "Obhur",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "8509، Obhur Al-Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "raw_district": "Abhur Al Shamaliyah",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJG9SGUAFjwRURtnZvgfbECpw",
+          "google_place_id": "ChIJG9SGUAFjwRURtnZvgfbECpw",
+          "latitude": 21.7606622,
+          "longitude": 39.1176037,
+          "google_rating": 3.4,
+          "google_review_count": 1274,
+          "operating_status": "open",
+          "hours": "11:00 AM – 1:30 AM",
+          "phone": "012 250 8600",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Aber Al Qarat Road in Abhur Al Shamaliyah."
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "H6J6+QH5, Abdullah Al-Sharbatlee, Al-Safa, Jeddah 23454, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAQAAABTRwxURnjXuvVohR6I",
+          "google_place_id": "ChIJAQAAABTRwxURnjXuvVohR6I",
+          "latitude": 21.5823479,
+          "longitude": 39.208858299999996,
+          "google_rating": 3.8,
+          "google_review_count": 8938,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "012 250 8600",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Flagship central branch located on Abdullah Al Sharbatli Street, Al Safa."
+        },
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "طريق حي السامر, Al Rabi', Jeddah 22631, Saudi Arabia",
+          "raw_district": "Al Samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJLdb_U2TRwxUR_IuGLpMDYeU",
+          "google_place_id": "ChIJLdb_U2TRwxUR_IuGLpMDYeU",
+          "latitude": 21.5785184,
+          "longitude": 39.2301761,
+          "google_rating": 3.6,
+          "google_review_count": 1740,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "9200 00043",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Al Samer Road (Al Rabie/Al Samer boundary)."
+        },
+        {
+          "branch_name": "Hira",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Hira St, An Nuzhah, Jeddah 23532, Saudi Arabia",
+          "raw_district": "An Nuzhah",
+          "canonical_district": "an_nuzhah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJC02hBabQwxUR0ZYW3K24iBM",
+          "google_place_id": "ChIJC02hBabQwxUR0ZYW3K24iBM",
+          "latitude": 21.6151806,
+          "longitude": 39.1613378,
+          "google_rating": 3.6,
+          "google_review_count": 7078,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "012 250 8600",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Hira Street within An Nuzhah district."
+        }
+      ],
+      "excluded_branches": [
+        {
+          "branch_name": "Al Haramain / Abrq Al-Rughama",
+          "candidate_name": "Al Haramain / Abrq Al-Rughama",
+          "google_place_id": "ChIJl9VGbMHNwxURMVzg03GMbEw",
+          "formatted_address": "قاعة بلاتسو للإحتفالات والمؤتمرات، حي، Abruq Ar Rughamah, Jeddah 22261, Saudi Arabia",
+          "business_status": "CLOSED_PERMANENTLY",
+          "exclusion_reason": "Google Places status is CLOSED_PERMANENTLY; listing no longer active.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        },
+        {
+          "branch_name": "Taysir",
+          "candidate_name": "Taysir",
+          "google_place_id": "ChIJN028d4PTwxURw6YS5HQH_vA",
+          "formatted_address": "8234 3454 عبد الله، شارع عبدالله بن ورقاء بن جنادة، Mraykh, Jeddah 22230, Saudi Arabia",
+          "business_status": "CLOSED_PERMANENTLY",
+          "exclusion_reason": "Google Places status is CLOSED_PERMANENTLY; listing no longer active.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        },
+        {
+          "branch_name": "Sanabel Express",
+          "candidate_name": "Sanabel Express",
+          "google_place_id": "ChIJj-mg-jfLwxUR4fEzk7907NU",
+          "formatted_address": "أبو القاسم الحصار، الزهري, Jeddah 23351, Saudi Arabia",
+          "business_status": "CLOSED_PERMANENTLY",
+          "exclusion_reason": "Google Places status is CLOSED_PERMANENTLY; express outlet shut down.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        },
+        {
+          "branch_name": "Hay Al Riyadh",
+          "candidate_name": "Hay Al Riyadh",
+          "google_place_id": "ChIJrbbduat7wRURFberS4poFG8",
+          "formatted_address": "7670 أحمد مكي بن عثمان العطار JHRA7670 3536، حي الرياض، Jeddah 23839, Saudi Arabia",
+          "business_status": "CLOSED_PERMANENTLY",
+          "exclusion_reason": "Google Places status is CLOSED_PERMANENTLY; listing no longer active.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Rawdah",
+          "google_place_id": "ChIJqb2TWQDRwxURW2FW4WvIRrg",
+          "address": "Ar Rawdah, Jeddah 23434, Saudi Arabia",
+          "status": "manual_review",
+          "reason": "Older Rawdah evidence conflicts with current official Raydan corporate directory; kept in manual review per catalog protocol until physical site visit re-verifies operating status."
+        }
+      ]
+    },
+    {
+      "id": "al_romansiah",
+      "canonical_name": "Al Romansiah",
+      "arabic_name": "الرومانسية",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "mandi",
+        "madhbi",
+        "traditional_saudi",
+        "haneeth"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Kingdom-wide Saudi hospitality flagship chain with enormous brand equity, famous for high-standard Mandi, Madhbi, and Haneeth.",
+      "price_positioning": "mid",
+      "signature_dishes": [
+        "Madhbi Chicken (مظبي دجاج)",
+        "Mandi Lamb (مندي لحم)",
+        "Haneeth Lamb (حنيذ لحم)",
+        "Kabsa Chicken (كبسة دجاج)",
+        "Kunafeh (كنافة)"
+      ],
+      "context_tags": [
+        "group_dining",
+        "dine_in_strong",
+        "delivery_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://alromansiah.com/",
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Bawadi",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Qouraish, Al Bawadi, Jeddah 23443, Saudi Arabia",
+          "raw_district": "Al Bawadi",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJacUSc5DRwxURiis7IF3O_Ho",
+          "google_place_id": "ChIJacUSc5DRwxURiis7IF3O_Ho",
+          "latitude": 21.59782,
+          "longitude": 39.161556999999995,
+          "google_rating": 4.2,
+          "google_review_count": 27112,
+          "operating_status": "open",
+          "hours": "10:30 AM – 1:00 AM",
+          "phone": "9200 00144",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Major multi-story dining complex on Quraysh Street, Al Bawadi."
+        },
+        {
+          "branch_name": "Hamdaniyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "8112 3346 جدة SA، حي الحمدانية، Jeddah 23761, Saudi Arabia",
+          "raw_district": "Al Hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJuye_rRJ9wRUR6yRl-SmRjQc",
+          "google_place_id": "ChIJuye_rRJ9wRUR6yRl-SmRjQc",
+          "latitude": 21.767585999999998,
+          "longitude": 39.190273,
+          "google_rating": 4.2,
+          "google_review_count": 7151,
+          "operating_status": "open",
+          "hours": "10:30 AM – 1:00 AM",
+          "phone": "9200 00144",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in Al Hamdaniyah commercial corridor."
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "3410 Prince Mutaib bin Abdulaziz Rd, Al-Safa, Jeddah 23452, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJS2-RawDRwxURgWHa6QRNWMY",
+          "google_place_id": "ChIJS2-RawDRwxURgWHa6QRNWMY",
+          "latitude": 21.587661,
+          "longitude": 39.205760999999995,
+          "google_rating": 4.3,
+          "google_review_count": 1266,
+          "operating_status": "open",
+          "hours": "10:30 AM – 1:00 AM",
+          "phone": "9200 00144",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Prince Mutaib bin Abdulaziz Road, Al Safa."
+        },
+        {
+          "branch_name": "Sanabel",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "شارع خبيب بن عدي الأنصاري الفرعي، Al Sanabel, Jeddah 22444, Saudi Arabia",
+          "raw_district": "Al Sanabel",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJI8cwBADLwxURj9Vpqjl8n1k",
+          "google_place_id": "ChIJI8cwBADLwxURj9Vpqjl8n1k",
+          "latitude": 21.397427999999998,
+          "longitude": 39.288182,
+          "google_rating": 4.1,
+          "google_review_count": 828,
+          "operating_status": "open",
+          "hours": "10:30 AM – 1:00 AM",
+          "phone": "9200 00144",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Khubayb bin Adi Al Ansari Street in Al Sanabel (outer southern district outside the 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "al_saddah",
+      "canonical_name": "Al Saddah",
+      "arabic_name": "السدة",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "mandi",
+        "madfoon",
+        "madhbi",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "staple",
+      "classification_evidence": "Jeddah traditional feast institution revered for authentic Mandi, Madfoon, and Madhbi meat with extremely high review volumes.",
+      "price_positioning": "mid_premium",
+      "signature_dishes": [
+        "Lamb Mandi (مندي لحم)",
+        "Lamb Madfoon (مدفون لحم)",
+        "Madhbi Chicken (مظبي دجاج)",
+        "Saleeg (سليق)"
+      ],
+      "context_tags": [
+        "dine_in_strong",
+        "group_dining",
+        "local_favorite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://alsaddah.com/",
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Tahlia",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Prince Mohammed Bin Abdulaziz St, Ar Rawdah, Jeddah 23432, Saudi Arabia",
+          "raw_district": "Al Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJI-3znwXQwxURN8ovm8z7GG4",
+          "google_place_id": "ChIJI-3znwXQwxURN8ovm8z7GG4",
+          "latitude": 21.553534199999998,
+          "longitude": 39.162201499999995,
+          "google_rating": 4.1,
+          "google_review_count": 10898,
+          "operating_status": "open",
+          "hours": "11:30 AM – 12:00 AM",
+          "phone": "012 667 7763",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Flagship destination located on Prince Mohammed bin Abdulaziz (Tahlia) Street, Al Rawdah."
+        },
+        {
+          "branch_name": "Palestine",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "شارع فلسطين، مقابل مستشفى سليمان فقيه، Al-Ruwais, Jeddah 23215, Saudi Arabia",
+          "raw_district": "Al Ruwais",
+          "canonical_district": "al_ruwais",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJrz0lluvPwxURKf2w5x9PAJs",
+          "google_place_id": "ChIJrz0lluvPwxURKf2w5x9PAJs",
+          "latitude": 21.5255482,
+          "longitude": 39.170310199999996,
+          "google_rating": 4.1,
+          "google_review_count": 15033,
+          "operating_status": "open",
+          "hours": "11:30 AM – 12:00 AM",
+          "phone": "012 667 3545",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Palestine Street opposite Dr. Soliman Fakeeh Hospital, Al Ruwais."
+        },
+        {
+          "branch_name": "Hira",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Hira St, An Nahdah, Jeddah 23523, Saudi Arabia",
+          "raw_district": "Al Nahdah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJy7kH2EHawxUR5sCHxb9laV0",
+          "google_place_id": "ChIJy7kH2EHawxUR5sCHxb9laV0",
+          "latitude": 21.6093892,
+          "longitude": 39.13383100000001,
+          "google_rating": 4.1,
+          "google_review_count": 11000,
+          "operating_status": "open",
+          "hours": "11:30 AM – 12:00 AM",
+          "phone": "012 622 8296",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Hira Street in Al Nahdah district (outer north-central, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "almazaq_al_bukhari",
+      "canonical_name": "Almazaq Al Bukhari",
+      "arabic_name": "المذاق البخاري",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "bukhari",
+        "grilled_chicken",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Major Bukhari restaurant brand in Jeddah recognized for popular rotisserie and charcoal-grilled chicken served over classic Bukhari and Peshawari rice.",
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "Shawaya Chicken with Bukhari Rice (دجاج شواية مع رز بخاري)",
+        "Faham Charcoal Chicken with Peshawari Rice (دجاج فحم مع رز بشاور)",
+        "Mixed Vegetable Edam (إيدام مشكل)"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Naseem",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "An Naseem, Jeddah 23234, Saudi Arabia",
+          "raw_district": "Al Naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJv_m5c3rPwxURwGzBoqNrKvQ",
+          "google_place_id": "ChIJv_m5c3rPwxURwGzBoqNrKvQ",
+          "latitude": 21.5185687,
+          "longitude": 39.2394371,
+          "google_rating": 4.5,
+          "google_review_count": 3654,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "055 510 9134",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in Al Naseem district."
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Prince Mutaib bin Abdulaziz Rd, Al-Safa, Jeddah 23453, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJc_zD4gnRwxURlCOIQkK47ts",
+          "google_place_id": "ChIJc_zD4gnRwxURlCOIQkK47ts",
+          "latitude": 21.5711698,
+          "longitude": 39.2108704,
+          "google_rating": 4.2,
+          "google_review_count": 2768,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "055 575 9733",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Flagship branch on Prince Mutaib bin Abdulaziz Road, Al Safa."
+        },
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي، Al Samer, Jeddah 23462, Saudi Arabia",
+          "raw_district": "Al Samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJtXGnPzrTwxURnctgjBZCOII",
+          "google_place_id": "ChIJtXGnPzrTwxURnctgjBZCOII",
+          "latitude": 21.5813071,
+          "longitude": 39.2389321,
+          "google_rating": 4.1,
+          "google_review_count": 886,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "053 855 8927",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in Al Samer district."
+        },
+        {
+          "branch_name": "Hamdaniyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي، القاسم بن أمية(رضي الله عنه)، Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+          "raw_district": "Al Hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJk8bKM-R9wRURPYnmwFsnCSU",
+          "google_place_id": "ChIJk8bKM-R9wRURPYnmwFsnCSU",
+          "latitude": 21.7581205,
+          "longitude": 39.187743,
+          "google_rating": 4.2,
+          "google_review_count": 710,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "055 587 3433",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Al Qasim bin Umayyah Street, Al Hamdaniyah."
+        },
+        {
+          "branch_name": "South Obhur",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "3801-3823 Hazm Ibn Abi Kaab, Abhur Al Junoobiyah, Jeddah 23733, Saudi Arabia",
+          "raw_district": "Abhur Al Janoubiyah",
+          "canonical_district": "abhur_al_janoubiyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ00v8XgBjwRURT3w1azRcnx8",
+          "google_place_id": "ChIJ00v8XgBjwRURT3w1azRcnx8",
+          "latitude": 21.7445743,
+          "longitude": 39.1400113,
+          "google_rating": 4.6,
+          "google_review_count": 840,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "055 104 9639",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Hazm bin Abi Kaab Street, Abhur Al Janoubiyah."
+        },
+        {
+          "branch_name": "Shati / Zahra",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "JEZA7425, 7425, 2744 احمد العطاس، الزهراء، جدة 23425, Saudi Arabia",
+          "raw_district": "Al Zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJDWzcDwDbwxUR_S3kh1w1heA",
+          "google_place_id": "ChIJDWzcDwDbwxUR_S3kh1w1heA",
+          "latitude": 21.5849038,
+          "longitude": 39.1313937,
+          "google_rating": 4.5,
+          "google_review_count": 587,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "055 600 2081",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Ahmed Al Attas Street, Al Zahra (bordering Al Shati)."
+        },
+        {
+          "branch_name": "Harazat",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "الحرازات، Jeddah 22393, Saudi Arabia",
+          "raw_district": "Al Harazat",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJT_QFpkUzwhURW9cSbPtroEE",
+          "google_place_id": "ChIJT_QFpkUzwhURW9cSbPtroEE",
+          "latitude": 21.4842962,
+          "longitude": 39.3696638,
+          "google_rating": 3.9,
+          "google_review_count": 457,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "055 509 5233",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in Al Harazat (outer eastern district outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [
+        {
+          "branch_name": "Rehab",
+          "candidate_name": "Rehab",
+          "google_place_id": "ChIJnVhCcpTRwxURpxL0iZMM2lw",
+          "formatted_address": "Dallah, حي الرحاب، Jeddah 23344, Saudi Arabia",
+          "business_status": "CLOSED_PERMANENTLY",
+          "exclusion_reason": "Google Places status is CLOSED_PERMANENTLY; Rehab branch is shut down.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        }
+      ],
+      "manual_review_branches": []
+    },
+    {
+      "id": "hashi_basha",
+      "canonical_name": "Hashi Basha",
+      "arabic_name": "حاشي باشا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "kabsa",
+        "hashi",
+        "madghoot",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Leading national Saudi chain popularizing fresh camel meat (Hashi) Kabsa and pressure-cooked Madghoot.",
+      "price_positioning": "mid",
+      "signature_dishes": [
+        "Madghoot Hashi (مضغوط حاشي)",
+        "Kabsa Hashi (كبسة حاشي)",
+        "Madghoot Chicken (مضغوط دجاج)"
+      ],
+      "context_tags": [
+        "casual_hangout",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://hashibasha.com/",
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Naseem",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي, شارع أبي ذر الغفاري، An Naseem, Jeddah 23234, Saudi Arabia",
+          "raw_district": "Al Naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ44xNNhHNwxUR6FXsE1JsUWg",
+          "google_place_id": "ChIJ44xNNhHNwxUR6FXsE1JsUWg",
+          "latitude": 21.521902,
+          "longitude": 39.239560999999995,
+          "google_rating": 3.7,
+          "google_review_count": 1605,
+          "operating_status": "open",
+          "hours": "11:00 AM – 4:00 AM",
+          "phone": "053 040 7666",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Branch HB51 located on Abu Dhar Al Ghifari Street, Al Naseem."
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي, طريق الأمير متعب الفرعي، Al-Safa, Jeddah 23452, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZZ_X7WLRwxUR6F4zRVLEIO8",
+          "google_place_id": "ChIJZZ_X7WLRwxUR6F4zRVLEIO8",
+          "latitude": 21.583371,
+          "longitude": 39.207259,
+          "google_rating": 3.9,
+          "google_review_count": 1657,
+          "operating_status": "open",
+          "hours": "11:30 AM – 12:30 AM",
+          "phone": "050 004 3740",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Branch HB29 located on Prince Mutaib Branch Road, Al Safa."
+        },
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي، شارع الحسين السهواجي، Al Rabi', Jeddah 23461, Saudi Arabia",
+          "raw_district": "Al Samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJgdj9AZ7RwxURHFxBfC9KZZg",
+          "google_place_id": "ChIJgdj9AZ7RwxURHFxBfC9KZZg",
+          "latitude": 21.579162999999998,
+          "longitude": 39.238138,
+          "google_rating": 4,
+          "google_review_count": 1827,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "050 004 5762",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Branch HB25 located on Al Hussein Al Sahwaji Street, Al Rabie/Al Samer."
+        },
+        {
+          "branch_name": "Ajawid",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي, شارع سهل بن عمرو الفرعي، Alajaweed, Jeddah 22441, Saudi Arabia",
+          "raw_district": "Al Ajawid",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5-sWd6bLwxURpBpOHi25buY",
+          "google_place_id": "ChIJ5-sWd6bLwxURpBpOHi25buY",
+          "latitude": 21.417793,
+          "longitude": 39.301088,
+          "google_rating": 3.9,
+          "google_review_count": 954,
+          "operating_status": "open",
+          "hours": "11:00 AM – 12:00 AM",
+          "phone": "050 054 5812",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Branch HB75 located on Sahl bin Amr Street in Al Ajawid (outer southern district, outside 30 canonical districts)."
+        },
+        {
+          "branch_name": "Muraikh",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Unnamed Road, Mraykh, Jeddah 23252, Saudi Arabia",
+          "raw_district": "Muraikh",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJf03UKSbTwxURNAPKm8zzn2U",
+          "google_place_id": "ChIJf03UKSbTwxURNAPKm8zzn2U",
+          "latitude": 21.548623,
+          "longitude": 39.283328,
+          "google_rating": 3.9,
+          "google_review_count": 464,
+          "operating_status": "open",
+          "hours": "11:00 AM – 3:00 AM",
+          "phone": "053 002 2264",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Branch HB142 located in Muraikh/Taysir (outer eastern district, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "eleyk_al_bukhari",
+      "canonical_name": "Eleyk Al Bukhari",
+      "arabic_name": "إليك البخاري",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "bukhari",
+        "grilled_chicken",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Locally cherished Bukhari chain prized for aromatic spiced rice and perfectly roasted chicken.",
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "Bukhari Chicken Shawaya (دجاج شواية مع رز بخاري)",
+        "Faham Chicken on Peshawari Rice (دجاج فحم على رز بشاور)",
+        "Moussaka / Mixed Edam (مسقعة / إيدام مشكل)"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night",
+        "local_favorite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Faisaliyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "4327 Prince Saud Al Faisal, Al Faisaliyyah, 7487, Jeddah 23444, Saudi Arabia",
+          "raw_district": "Al Faisaliyyah",
+          "canonical_district": "al_faisaliyyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ9QM1ksfRwxURtyB2fwrsAnM",
+          "google_place_id": "ChIJ9QM1ksfRwxURtyB2fwrsAnM",
+          "latitude": 21.569304499999998,
+          "longitude": 39.1879028,
+          "google_rating": 3.9,
+          "google_review_count": 1234,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "053 631 2235",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Saud Al Faisal Street, Al Faisaliyyah (normalized from al_faisaliyah)."
+        },
+        {
+          "branch_name": "Salamah / Sari",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Sari Br Rd, As Salamah, Jeddah 23436, Saudi Arabia",
+          "raw_district": "Al Salamah",
+          "canonical_district": "al_salamah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ407RJBTbwxURDnEblLv9uQw",
+          "google_place_id": "ChIJ407RJBTbwxURDnEblLv9uQw",
+          "latitude": 21.5803275,
+          "longitude": 39.1619009,
+          "google_rating": 4.3,
+          "google_review_count": 889,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "054 147 0332",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Sari Branch Road, Al Salamah."
+        },
+        {
+          "branch_name": "Sanabel",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "طريق السنابل درعه، Al Sanabel, Jeddah 22434, Saudi Arabia",
+          "raw_district": "Al Sanabel",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJG1kthrfLwxURtbIP3SEOSXo",
+          "google_place_id": "ChIJG1kthrfLwxURtbIP3SEOSXo",
+          "latitude": 21.4080866,
+          "longitude": 39.2604543,
+          "google_rating": 4.1,
+          "google_review_count": 2140,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "054 503 7706",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Sanabel Road, Al Sanabel (outer southern district, outside 30 canonical districts)."
+        },
+        {
+          "branch_name": "Mada'en Al-Fahd",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Mada'en Al-Fahd, Jeddah 22347, Saudi Arabia",
+          "raw_district": "Mada'en Al-Fahd",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJnSVuCX7NwxUR5AlFnAscpp0",
+          "google_place_id": "ChIJnSVuCX7NwxUR5AlFnAscpp0",
+          "latitude": 21.4547506,
+          "longitude": 39.2477921,
+          "google_rating": 4.4,
+          "google_review_count": 164,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "054 867 7103",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in Mada'en Al-Fahd (outer southern district, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "kabset_elham",
+      "canonical_name": "Kabset Elham",
+      "arabic_name": "كبسة إلهام",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "kabsa",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "High-rated boutique Kabsa specialist in Al Zahra with over 6,400 Google reviews, famous for home-style Saudi spiced chicken and meat kabsas.",
+      "price_positioning": "budget_mid",
+      "signature_dishes": [
+        "Kabset Elham Special Chicken (كبسة إلهام دجاج)",
+        "Meat Kabsa (كبسة لحم)",
+        "Saleeg (سليق)"
+      ],
+      "context_tags": [
+        "local_favorite",
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Batarji / Zahra",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "6849 Al Batarji, 4170، Jeddah 23522, Saudi Arabia",
+          "raw_district": "Al Zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJKauhIgDbwxURMVenYDlDt9E",
+          "google_place_id": "ChIJKauhIgDbwxURMVenYDlDt9E",
+          "latitude": 21.5980755,
+          "longitude": 39.1388588,
+          "google_rating": 3.8,
+          "google_review_count": 6418,
+          "operating_status": "open",
+          "hours": "12:00 PM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Al Batarji Street, Al Zahra district (postal code 23522)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "sarmad",
+      "canonical_name": "Sarmad",
+      "arabic_name": "سرمد",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "mandi",
+        "traditional_saudi",
+        "madhbi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Historic-quarter feast destination in Al-Baghdadiyah Al-Sharqiyah with over 7,300 reviews, known for classic Mandi, Madhbi, and traditional rice feasts.",
+      "price_positioning": "mid",
+      "signature_dishes": [
+        "Mandi Meat (مندي لحم)",
+        "Madhbi Chicken (مظبي دجاج)",
+        "Peshawari Rice with Meat (رز بشاور باللحم)"
+      ],
+      "context_tags": [
+        "local_favorite",
+        "group_dining",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "inactive",
+          "url": null
+        },
+        "keeta": {
+          "presence": "inactive",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al-Baghdadiyah Al-Sharqiyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Muhammad Ibn Abdulwahab, Al-Baghdadiyah Al-Sharqiyah, Jeddah 22235, Saudi Arabia",
+          "raw_district": "Al Baghdadiyah Al Sharqiyah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJxf2GGBrPwxURJdsAMM7PORI",
+          "google_place_id": "ChIJxf2GGBrPwxURJdsAMM7PORI",
+          "latitude": 21.492869199999998,
+          "longitude": 39.1889999,
+          "google_rating": 4.3,
+          "google_review_count": 7332,
+          "operating_status": "open",
+          "hours": "11:00 AM – 1:00 AM",
+          "phone": "9200 35728",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Mohammed bin Abdulwahab Street in Al Baghdadiyah Al Sharqiyah (historic central core, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "labbani_fakher",
+      "canonical_name": "Labbani Fakher",
+      "arabic_name": "لباني فاخر",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "haneeth",
+        "mandi",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "High-end traditional meat specialist dedicated to prime milk-fed lamb (Labbani / Naemi) cooked Haneeth, Mandi, and Madhbi.",
+      "price_positioning": "mid_premium",
+      "signature_dishes": [
+        "Labbani Meat with Rice (لحم لباني فاخر مع الرز)",
+        "Haneeth Labbani (حنيذ لباني)",
+        "Madhbi Labbani (مظبي لباني)"
+      ],
+      "context_tags": [
+        "local_favorite",
+        "group_dining",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "inactive",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Samer / Al Rabie",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "انقره، Al Rabi', Jeddah 23462, Saudi Arabia",
+          "raw_district": "Al Rabie",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGbh1lUTRwxURsgxasS7gRB0",
+          "google_place_id": "ChIJGbh1lUTRwxURsgxasS7gRB0",
+          "latitude": 21.586602,
+          "longitude": 39.2308904,
+          "google_rating": 4.4,
+          "google_review_count": 3334,
+          "operating_status": "open",
+          "hours": "11:30 AM – 1:00 AM",
+          "phone": "9200 06950",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Ankara Street in Al Rabie bordering Al Samer; universally known locally as the Samer branch."
+        },
+        {
+          "branch_name": "Al Rayaan",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "6448، JFRB2266، 2266 أبو عبد الله بن الحارث، Al Rayaan, Jeddah 23643, Saudi Arabia",
+          "raw_district": "Al Rayaan",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJP8iEJwDXwxURlBl1fKn4OAc",
+          "google_place_id": "ChIJP8iEJwDXwxURlBl1fKn4OAc",
+          "latitude": 21.6694224,
+          "longitude": 39.2062321,
+          "google_rating": 4.6,
+          "google_review_count": 1600,
+          "operating_status": "open",
+          "hours": "11:00 AM – 1:00 AM",
+          "phone": "9200 06950",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Abu Abdullah bin Al Harith Street in Al Rayaan (outer northeastern district near airport, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "mandi_world",
+      "canonical_name": "Mandi World",
+      "arabic_name": "مندي ورلد",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "mandi",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Modern Mandi brand recognized for consistent quality lamb and chicken mandi across central Jeddah districts.",
+      "price_positioning": "mid",
+      "signature_dishes": [
+        "Lamb Mandi (مندي لحم بلدي)",
+        "Chicken Mandi (مندي دجاج)",
+        "Kunafeh (كنافة)"
+      ],
+      "context_tags": [
+        "casual_hangout",
+        "dine_in_strong",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Hamad Al Jaser, Ar Rawdah, Jeddah 23434, Saudi Arabia",
+          "raw_district": "Al Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZeUPAm3RwxUR5QVhnLtcZPU",
+          "google_place_id": "ChIJZeUPAm3RwxUR5QVhnLtcZPU",
+          "latitude": 21.577047999999998,
+          "longitude": 39.1571018,
+          "google_rating": 4.2,
+          "google_review_count": 4552,
+          "operating_status": "open",
+          "hours": "11:30 AM – 2:00 AM",
+          "phone": "053 238 5217",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Hamad Al Jasir Street, Al Rawdah."
+        },
+        {
+          "branch_name": "Safa",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "As Safa, District, الشيخ عبدالعزيز بن باز، Rd, جدة 23456, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ3aph_hPRwxURc2dm1zO9OPo",
+          "google_place_id": "ChIJ3aph_hPRwxURc2dm1zO9OPo",
+          "latitude": 21.6047308,
+          "longitude": 39.211001499999995,
+          "google_rating": 4.7,
+          "google_review_count": 2658,
+          "operating_status": "open",
+          "hours": "11:00 AM – 2:00 AM",
+          "phone": "053 636 9797",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Sheikh Abdulaziz bin Baz Road, Al Safa."
+        }
+      ],
+      "excluded_branches": [
+        {
+          "branch_name": "Nahdah",
+          "candidate_name": "Nahdah",
+          "google_place_id": "ChIJITO5fADbwxURuIbsAzT5icU",
+          "formatted_address": "حي, 7802 Prince Sultan Rd, An Nahdah, Jeddah 23615, Saudi Arabia",
+          "business_status": "CLOSED_PERMANENTLY",
+          "exclusion_reason": "Google Places status is CLOSED_PERMANENTLY; Prince Sultan Rd branch in Al Nahdah is permanently closed.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        }
+      ],
+      "manual_review_branches": []
+    },
+    {
+      "id": "hashi_bin_hamoud",
+      "canonical_name": "Hashi Bin Hamoud",
+      "arabic_name": "حاشي بن حمود",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "hashi",
+        "kabsa",
+        "madghoot",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Celebrated destination restaurant on north Jeddah highway corridor with over 6,800 reviews, famed for high-grade camel meat Kabsa and Madghoot.",
+      "price_positioning": "mid",
+      "signature_dishes": [
+        "Madghoot Hashi (مضغوط حاشي طازج)",
+        "Kabsa Hashi Baladi (كبسة حاشي بلدي)"
+      ],
+      "context_tags": [
+        "local_favorite",
+        "group_dining",
+        "destination_dining",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "inactive",
+          "url": null
+        },
+        "jahez": {
+          "presence": "inactive",
+          "url": null
+        },
+        "keeta": {
+          "presence": "inactive",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Madinah Rd / Usfan",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Jeddah 23786, Saudi Arabia",
+          "raw_district": "Usfan Road",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_cocG7x7wRURd6BZrrKEtB8",
+          "google_place_id": "ChIJ_cocG7x7wRURd6BZrrKEtB8",
+          "latitude": 21.8701367,
+          "longitude": 39.234702,
+          "google_rating": 4.3,
+          "google_review_count": 6824,
+          "operating_status": "open",
+          "hours": "1:00 PM – 1:00 AM",
+          "phone": "050 387 0863",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Al Madinah Al Munawwarah Rd / Usfan corridor (postal code 23786, outer northern Jeddah, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "fnoon_al_shawaya",
+      "canonical_name": "Fnoon Al Shawaya",
+      "arabic_name": "فنون الشواية",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "bukhari",
+        "grilled_chicken",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Mainstream rotisserie chicken Bukhari chain offering classic grilled chicken meals over Bukhari rice with side edams.",
+      "price_positioning": "budget",
+      "signature_dishes": [
+        "Shawaya Chicken with Bukhari Rice (دجاج شواية مع رز بخاري)",
+        "Faham Chicken with Rice (دجاج فحم مع رز)",
+        "Edam Musaqaa (إيدام مسقعة)"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Samer",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "Al Ajawad St, حي السامر، Jeddah 23462, Saudi Arabia",
+          "raw_district": "Al Samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJX3O3qFnRwxURS62jGEWbTws",
+          "google_place_id": "ChIJX3O3qFnRwxURS62jGEWbTws",
+          "latitude": 21.5922409,
+          "longitude": 39.234899899999995,
+          "google_rating": 3.9,
+          "google_review_count": 527,
+          "operating_status": "open",
+          "hours": "11:30 AM – 1:00 AM",
+          "phone": "055 139 6929",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Al Ajwad Street, Al Samer district."
+        },
+        {
+          "branch_name": "Sharafiyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "الشرفية،، جدة 23216, Saudi Arabia",
+          "raw_district": "Al Sharafeyah",
+          "canonical_district": "al_sharafeyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ33te927PwxURydH1EnLSA2o",
+          "google_place_id": "ChIJ33te927PwxURydH1EnLSA2o",
+          "latitude": 21.513224599999997,
+          "longitude": 39.1890461,
+          "google_rating": 4,
+          "google_review_count": 445,
+          "operating_status": "open",
+          "hours": "11:30 AM – 1:00 AM",
+          "phone": "055 136 3539",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in Al Sharafeyah district (normalized from al_sharafiyah)."
+        },
+        {
+          "branch_name": "Harazat",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "F9MC+26M, Jeddah 22393, Saudi Arabia",
+          "raw_district": "Al Harazat",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ3Zt-bQAzwhUR2jTU12Yave0",
+          "google_place_id": "ChIJ3Zt-bQAzwhUR2jTU12Yave0",
+          "latitude": 21.4822986,
+          "longitude": 39.370682599999995,
+          "google_rating": 4,
+          "google_review_count": 50,
+          "operating_status": "open",
+          "hours": "11:30 AM – 1:00 AM",
+          "phone": "050 183 0532",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in Al Harazat (outer eastern district, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [
+        {
+          "branch_name": "Hay Al Riyadh",
+          "candidate_name": "Hay Al Riyadh",
+          "google_place_id": null,
+          "formatted_address": null,
+          "business_status": "UNKNOWN",
+          "exclusion_reason": "No physical storefront exists in Hay Al Riyadh; search match was an artifact returning the Sharafiyah listing.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        },
+        {
+          "branch_name": "Bahrah",
+          "candidate_name": "Bahrah",
+          "google_place_id": "ChIJK7ZcACcxwhUR1EuwsI1trro",
+          "formatted_address": "2483 طريق مكة، بحرة، Jeddah 22824, Saudi Arabia",
+          "business_status": "OPERATIONAL",
+          "exclusion_reason": "Location is in Bahrah along Makkah Road, outside Jeddah municipal boundaries.",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verification"
+          ]
+        }
+      ],
+      "manual_review_branches": []
+    },
+    {
+      "id": "ali_hanash",
+      "canonical_name": "Ali Hanash",
+      "arabic_name": "علي حنش",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "haneeth",
+        "traditional_saudi",
+        "southern_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Deeply authentic Southern Saudi (Asiri/Tihami) Haneeth institution in Muraikh with over 3,500 reviews, renowned for pit-smoked tender meat on Marakh leaves.",
+      "price_positioning": "mid_premium",
+      "signature_dishes": [
+        "Haneeth Muhannadh Meat (حنيذ محنذ لحم تيس بلدي)",
+        "Traditional Red Rice (رز محنذ أحمر)",
+        "Haneeth Baladi Ribs (أضلاع حنيذ بلدي)"
+      ],
+      "context_tags": [
+        "local_favorite",
+        "hidden_gem",
+        "group_dining",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "inactive",
+          "url": null
+        },
+        "jahez": {
+          "presence": "inactive",
+          "url": null
+        },
+        "keeta": {
+          "presence": "inactive",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Muraikh",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "JBKA2866، 2866 موقق، 6658، حي مريخ، Jeddah 23253, Saudi Arabia",
+          "raw_district": "Muraikh",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJu0pOYQDTwxURcTye8bqlAG8",
+          "google_place_id": "ChIJu0pOYQDTwxURcTye8bqlAG8",
+          "latitude": 21.530351,
+          "longitude": 39.3024123,
+          "google_rating": 3.9,
+          "google_review_count": 3584,
+          "operating_status": "open",
+          "hours": "12:00 PM – 12:00 AM",
+          "phone": "055 212 2635",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Mawqaq Street in Muraikh district (outer eastern Jeddah, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "ghamim",
+      "canonical_name": "Ghamim",
+      "arabic_name": "غميم",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "haneeth",
+        "madghoot",
+        "traditional_saudi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Highly popular traditional Haneeth and Madghoot destination with over 14,000 combined reviews across two verified Jeddah branches.",
+      "price_positioning": "mid",
+      "signature_dishes": [
+        "Haneeth Baladi (حنيذ بلدي بالمرخ)",
+        "Madghoot Meat (مضغوط لحم)",
+        "Chicken Haneeth (حنيذ دجاج)"
+      ],
+      "context_tags": [
+        "local_favorite",
+        "group_dining",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "active",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Hamdaniyah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "حي, JGAA7697، 7697 2445 ابو عمير بن انس، الحمدانية، جدة 23743، السعودية",
+          "raw_district": "Al Hamdaniyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJYVaVUwB9wRURQipxT8Qz2a4",
+          "google_place_id": "ChIJYVaVUwB9wRURQipxT8Qz2a4",
+          "latitude": 21.7416174,
+          "longitude": 39.1885067,
+          "google_rating": 4,
+          "google_review_count": 4981,
+          "operating_status": "open",
+          "hours": "12:00 م – 1:00 ص",
+          "phone": "055 894 3777",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Abu Umayr bin Anas Street, Al Hamdaniyah."
+        },
+        {
+          "branch_name": "Muraikh",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "عبدالله بن ورقاء بن جناده, Mraykh, Jeddah 23253, Saudi Arabia",
+          "raw_district": "Muraikh",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJG_F8XUjTwxURviMrQ58cAgU",
+          "google_place_id": "ChIJG_F8XUjTwxURviMrQ58cAgU",
+          "latitude": 21.526866599999998,
+          "longitude": 39.3050806,
+          "google_rating": 4.1,
+          "google_review_count": 9631,
+          "operating_status": "open",
+          "hours": "11:30 AM – 1:00 AM",
+          "phone": "053 368 8588",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located on Abdullah bin Warqaa bin Janadah Street, Muraikh (outer eastern district, outside 30 canonical districts)."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "mandi_al_hejaz",
+      "canonical_name": "Mandi Al Hejaz",
+      "arabic_name": "مندي الحجاز",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "mandi",
+        "traditional_saudi",
+        "hejazi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Classic Hejazi Mandi institution in Al Rawdah (Qassem Zeinal) with over 2,500 reviews, known for authentic traditional pit cooking.",
+      "price_positioning": "mid_premium",
+      "signature_dishes": [
+        "Hejazi Lamb Mandi (مندي لحم حجازي)",
+        "Chicken Mandi (مندي دجاج)",
+        "Taifi Rice with Meat (رز طائفي)"
+      ],
+      "context_tags": [
+        "local_favorite",
+        "dine_in_strong",
+        "group_dining"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "active",
+          "url": null
+        },
+        "jahez": {
+          "presence": "active",
+          "url": null
+        },
+        "keeta": {
+          "presence": "inactive",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Rawdah — Qassem Zeinah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "3684 قاسم زينل، الروضة، جدة 23434، السعودية",
+          "raw_district": "Al Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJodYd2nbQwxURNtR0sXeSWjY",
+          "google_place_id": "ChIJodYd2nbQwxURNtR0sXeSWjY",
+          "latitude": 21.5730061,
+          "longitude": 39.1589303,
+          "google_rating": 4.1,
+          "google_review_count": 2503,
+          "operating_status": "open",
+          "hours": "11:00 ص – 1:00 ص",
+          "phone": "012 613 3369",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located on Qassem Zeinal Street, Al Rawdah."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    },
+    {
+      "id": "al_shadawi_ras_al_mandi",
+      "canonical_name": "Al Shadawi Ras Al Mandi",
+      "arabic_name": "الشدوي لرأس المندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "saudi_rice",
+      "secondary_categories": [
+        "mandi",
+        "traditional_saudi",
+        "folk_heritage"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "active",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Legendary folk landmark in Historic Jeddah (Souq Bab Makkah, Al-Balad) with over 2,100 reviews, famous across the Hejaz for authentic sheep head Mandi and classic Balad heritage feasts.",
+      "price_positioning": "budget_mid",
+      "signature_dishes": [
+        "Ras Mandi - Sheep Head Mandi (رأس مندي على الطريقة الحجازية)",
+        "Lamb Mandi (لحم مندي بلدي)",
+        "Mandi Soup & Broth (مرقة مندي)"
+      ],
+      "context_tags": [
+        "hidden_gem",
+        "local_favorite",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": false,
+      "delivery": {
+        "hungerstation": {
+          "presence": "inactive",
+          "url": null
+        },
+        "jahez": {
+          "presence": "inactive",
+          "url": null
+        },
+        "keeta": {
+          "presence": "inactive",
+          "url": null
+        }
+      },
+      "sources": [
+        "https://www.google.com/maps"
+      ],
+      "last_verified_at": "2026-09-26",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al-Balad / Historic Jeddah — Souq Bab Makkah",
+          "physical_existence": "verified",
+          "city": "Jeddah",
+          "formatted_address": "3541، حي، 7073 Suq Bab Makkah, Historic Jeddah, Jeddah 22236, Saudi Arabia",
+          "raw_district": "Al Balad",
+          "canonical_district": "al_balad",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJbR80WRvPwxURbD1TRq3Xx9A",
+          "google_place_id": "ChIJbR80WRvPwxURbD1TRq3Xx9A",
+          "latitude": 21.486242300000004,
+          "longitude": 39.19045560000001,
+          "google_rating": 4.3,
+          "google_review_count": 2117,
+          "operating_status": "open",
+          "hours": "6:00 AM – 11:00 PM",
+          "phone": "056 039 3900",
+          "last_verified_at": "2026-09-26",
+          "source_provenance": [
+            "Google Places API (New)",
+            "Google Maps verified storefront listing",
+            "Official brand branch footprint"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in Historic Jeddah at Souq Bab Makkah, Al Balad."
+        }
+      ],
+      "excluded_branches": [],
+      "manual_review_branches": []
+    }
+  ],
+  "manual_review": [
+    "Raydan: older Rawdah evidence conflicts with current official directory; held in manual review queue until current physical verification confirms ongoing operation.",
+    "Labbani Fakher: successfully reconciled original ambiguous research lead (\"Samer / Al Rayaan\") into two verified physical branches (Branch 1 on Ankara St / Al Rabie bordering Samer, and Branch 2 in Al Rayaan).",
+    "Eleyk Al Bukhari: successfully confirmed that the candidate \"Salamah / Sari\" corresponds to Sari Branch Rd (ChIJ407RJBTbwxURDnEblLv9uQw), with a separate active branch on Al Sudairi (ChIJTYic5XXRwxURinnDtlihlBY).",
+    "Fnoon Al Shawaya: confirmed that no physical branch exists in Hay Al Riyadh; Bahrah location correctly excluded as outside Jeddah city limits.",
+    "Almazaq Al Bukhari: confirmed that Rehab branch is permanently closed (ChIJnVhCcpTRwxURpxL0iZMM2lw) and safely excluded from production.",
+    "Mandi World: confirmed that Prince Sultan Rd / Al Nahdah branch is permanently closed (ChIJITO5fADbwxURuIbsAzT5icU) and excluded from production."
+  ]
+}

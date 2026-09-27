@@ -1,0 +1,1423 @@
+{
+  "firegrill_zahra": {
+    "query": "FireGrill King Abdul Aziz Rd Al Zahra Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJOU1E5unawxURfjHoaCoVOyY",
+        "displayName": "FireGrill",
+        "formattedAddress": "2328 King Abdul Aziz Rd, AZ Zahra District, 6403, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.575775699999998,
+          "longitude": 39.1274448
+        },
+        "rating": 4.1,
+        "userRatingCount": 2222,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2754818868960047486&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "firegrill_naeem": {
+    "query": "FireGrill Prince Sultan Rd Al Naeem Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJIc20ZovZwxURTkdtk-agTQg",
+        "displayName": "FireGrill",
+        "formattedAddress": "Prince Sultan Rd, حي النعيم،، Jeddah 23621, Saudi Arabia",
+        "location": {
+          "latitude": 21.637205299999998,
+          "longitude": 39.132021
+        },
+        "rating": 4.1,
+        "userRatingCount": 2373,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=598311237686478670&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 3:30 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "firegrill_ruwais": {
+    "query": "FireGrill Liwan Center King Abdullah Rd Al Ruwais Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJl_oaFLvPwxURfuENAVij11w",
+        "displayName": "FireGrill",
+        "formattedAddress": "Liwan Center، King Abdullah Road, Al Ruwais،، Al-Ruwais, Jeddah 23214, Saudi Arabia",
+        "location": {
+          "latitude": 21.5110429,
+          "longitude": 39.1818896
+        },
+        "rating": 4.1,
+        "userRatingCount": 1915,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=6689995369852297598&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "firegrill_shati": {
+    "query": "FireGrill Ash Shati Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJ93xpUA7bwxURpUX58ciaRkQ",
+        "displayName": "FireGrill",
+        "formattedAddress": "Ash Shati, Jeddah 23612, Saudi Arabia",
+        "location": {
+          "latitude": 21.6281325,
+          "longitude": 39.111729499999996
+        },
+        "rating": 4,
+        "userRatingCount": 314,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=4919789830792627621&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      }
+    ]
+  },
+  "firegrill_asalah": {
+    "query": "FireGrill Prince Talal Bin Mansour Rd Al Asalah Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJb0Loqsl9wRURSzQb0G1oEb0",
+        "displayName": "FireGrill",
+        "formattedAddress": "Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738, Saudi Arabia",
+        "location": {
+          "latitude": 21.7741755,
+          "longitude": 39.1703143
+        },
+        "rating": 4.3,
+        "userRatingCount": 237,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=13623785168624628811&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      }
+    ]
+  },
+  "firegrill_mall_of_arabia": {
+    "query": "FireGrill Mall of Arabia Jeddah",
+    "count": 6,
+    "places": [
+      {
+        "id": "ChIJ1Y8Uyb_XwxURC-5gpZtpJ20",
+        "displayName": "FireGrill",
+        "formattedAddress": "An Nuzahah, Al- Madinah Al Munawara Rd, Mall of Arabia Second floor, النزهة، جدة 23532, Saudi Arabia",
+        "location": {
+          "latitude": 21.6326341,
+          "longitude": 39.1555973
+        },
+        "rating": 3.4,
+        "userRatingCount": 92,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=7865371391441301003&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJb0Loqsl9wRURSzQb0G1oEb0",
+        "displayName": "FireGrill",
+        "formattedAddress": "Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738, Saudi Arabia",
+        "location": {
+          "latitude": 21.7741755,
+          "longitude": 39.1703143
+        },
+        "rating": 4.3,
+        "userRatingCount": 237,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=13623785168624628811&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJIc20ZovZwxURTkdtk-agTQg",
+        "displayName": "FireGrill",
+        "formattedAddress": "Prince Sultan Rd, حي النعيم،، Jeddah 23621, Saudi Arabia",
+        "location": {
+          "latitude": 21.637205299999998,
+          "longitude": 39.132021
+        },
+        "rating": 4.1,
+        "userRatingCount": 2373,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=598311237686478670&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 3:30 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJe1POQgDRwxURTpXBJUcRjQ0",
+        "displayName": "Texas Fire Grill | تكساس فاير جريل",
+        "formattedAddress": "Abi Habib Al Ansari, Al Marwah, Jeddah 23541, Saudi Arabia",
+        "location": {
+          "latitude": 21.6093765,
+          "longitude": 39.1916818
+        },
+        "rating": 4.5,
+        "userRatingCount": 292,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=976455691483059534&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 3:00 PM – 3:00 AM",
+          "Tuesday: 3:00 PM – 3:00 AM",
+          "Wednesday: 3:00 PM – 3:00 AM",
+          "Thursday: 3:00 PM – 3:00 AM",
+          "Friday: 3:00 PM – 3:00 AM",
+          "Saturday: 3:00 PM – 3:00 AM",
+          "Sunday: 3:00 PM – 3:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJOU1E5unawxURfjHoaCoVOyY",
+        "displayName": "FireGrill",
+        "formattedAddress": "2328 King Abdul Aziz Rd, AZ Zahra District, 6403, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.575775699999998,
+          "longitude": 39.1274448
+        },
+        "rating": 4.1,
+        "userRatingCount": 2222,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2754818868960047486&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJ93xpUA7bwxURpUX58ciaRkQ",
+        "displayName": "FireGrill",
+        "formattedAddress": "Ash Shati, Jeddah 23612, Saudi Arabia",
+        "location": {
+          "latitude": 21.6281325,
+          "longitude": 39.111729499999996
+        },
+        "rating": 4,
+        "userRatingCount": 314,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=4919789830792627621&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      }
+    ]
+  },
+  "firegrill_shiraa": {
+    "query": "FireGrill Prince Naif Rd Al Shiraa Jeddah",
+    "count": 11,
+    "places": [
+      {
+        "id": "ChIJU8Frhv9jwRUROxy5aP6Qa_U",
+        "displayName": "FireGrill",
+        "formattedAddress": "JHYC2627, 2627 Prince Naif Rd, 7242،, حي, الشراع،, جدة 23816, Saudi Arabia",
+        "location": {
+          "latitude": 21.7660427,
+          "longitude": 39.0909498
+        },
+        "rating": 3.9,
+        "userRatingCount": 667,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=17684387784153439291&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJIc20ZovZwxURTkdtk-agTQg",
+        "displayName": "FireGrill",
+        "formattedAddress": "Prince Sultan Rd, حي النعيم،، Jeddah 23621, Saudi Arabia",
+        "location": {
+          "latitude": 21.637205299999998,
+          "longitude": 39.132021
+        },
+        "rating": 4.1,
+        "userRatingCount": 2373,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=598311237686478670&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 3:30 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJOU1E5unawxURfjHoaCoVOyY",
+        "displayName": "FireGrill",
+        "formattedAddress": "2328 King Abdul Aziz Rd, AZ Zahra District, 6403, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.575775699999998,
+          "longitude": 39.1274448
+        },
+        "rating": 4.1,
+        "userRatingCount": 2222,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2754818868960047486&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJl_oaFLvPwxURfuENAVij11w",
+        "displayName": "FireGrill",
+        "formattedAddress": "Liwan Center، King Abdullah Road, Al Ruwais،، Al-Ruwais, Jeddah 23214, Saudi Arabia",
+        "location": {
+          "latitude": 21.5110429,
+          "longitude": 39.1818896
+        },
+        "rating": 4.1,
+        "userRatingCount": 1915,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=6689995369852297598&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJb0Loqsl9wRURSzQb0G1oEb0",
+        "displayName": "FireGrill",
+        "formattedAddress": "Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738, Saudi Arabia",
+        "location": {
+          "latitude": 21.7741755,
+          "longitude": 39.1703143
+        },
+        "rating": 4.3,
+        "userRatingCount": 237,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=13623785168624628811&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJtxQosE1jwRURDIA_ty79_pc",
+        "displayName": "فحمة و قصدير",
+        "formattedAddress": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+        "location": {
+          "latitude": 21.7589912,
+          "longitude": 39.118113799999996
+        },
+        "rating": 4.6,
+        "userRatingCount": 286,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=10952469720896339980&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 3:00 AM",
+          "Tuesday: 12:00 PM – 3:00 AM",
+          "Wednesday: 12:00 PM – 3:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 1:00 PM – 4:00 AM",
+          "Saturday: 12:00 PM – 4:00 AM",
+          "Sunday: 12:00 PM – 3:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJKazIsMjRwxURdWP6GPeLTZg",
+        "displayName": "Hot N Spicy مطعم حار و حراق",
+        "formattedAddress": "40 Danube Supermarket, Prince Mutaib bin Abdulaziz Rd, Al-Rehab, Jeddah 23344, Saudi Arabia",
+        "location": {
+          "latitude": 21.5506611,
+          "longitude": 39.2154236
+        },
+        "rating": 4.2,
+        "userRatingCount": 1460,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=10974581760364012405&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 12:00 AM",
+          "Tuesday: 12:00 PM – 12:00 AM",
+          "Wednesday: 12:00 PM – 12:00 AM",
+          "Thursday: 12:00 PM – 12:00 AM",
+          "Friday: 12:00 PM – 12:00 AM",
+          "Saturday: 12:00 PM – 12:00 AM",
+          "Sunday: 12:00 PM – 12:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJ0zDXkIfMwxURc2un3pcvLrY",
+        "displayName": "The Art Of Barbecue",
+        "formattedAddress": "Makkah - Jeddah Hwy, Al Amir Fawwaz Al Junoobi, Jeddah 22431, Saudi Arabia",
+        "location": {
+          "latitude": 21.440787399999998,
+          "longitude": 39.280045199999996
+        },
+        "rating": 3.8,
+        "userRatingCount": 1571,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=13127482293153655667&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 2:00 AM",
+          "Tuesday: 12:00 PM – 2:00 AM",
+          "Wednesday: 12:00 PM – 2:00 AM",
+          "Thursday: 12:00 PM – 2:00 AM",
+          "Friday: 12:00 PM – 2:00 AM",
+          "Saturday: 12:00 PM – 2:00 AM",
+          "Sunday: 12:00 PM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJ4-Z9sRjPwxURxae7vwNdcX4",
+        "displayName": "Fairose Restaurant",
+        "formattedAddress": "G53P+5HQ, Ali Ibn Abi Talib, Al Sharafeyah, Jeddah 22234, Saudi Arabia",
+        "location": {
+          "latitude": 21.502954499999998,
+          "longitude": 39.1864762
+        },
+        "rating": 4.4,
+        "userRatingCount": 24,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=9111165791830255557&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      },
+      {
+        "id": "ChIJ93xpUA7bwxURpUX58ciaRkQ",
+        "displayName": "FireGrill",
+        "formattedAddress": "Ash Shati, Jeddah 23612, Saudi Arabia",
+        "location": {
+          "latitude": 21.6281325,
+          "longitude": 39.111729499999996
+        },
+        "rating": 4,
+        "userRatingCount": 314,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=4919789830792627621&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJ1Y8Uyb_XwxURC-5gpZtpJ20",
+        "displayName": "FireGrill",
+        "formattedAddress": "An Nuzahah, Al- Madinah Al Munawara Rd, Mall of Arabia Second floor, النزهة، جدة 23532, Saudi Arabia",
+        "location": {
+          "latitude": 21.6326341,
+          "longitude": 39.1555973
+        },
+        "rating": 3.4,
+        "userRatingCount": 92,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=7865371391441301003&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 12:30 PM – 1:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ]
+      }
+    ]
+  },
+  "firegrill_fayha": {
+    "query": "FireGrill Al Fayha Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJM1awNyLPwxURFcrxEe8fq8Y",
+        "displayName": "FireGrill",
+        "formattedAddress": "G663+347, Al Fayha, Jeddah 22241, Saudi Arabia",
+        "location": {
+          "latitude": 21.5101537,
+          "longitude": 39.20280160000001
+        },
+        "rating": 4.1,
+        "userRatingCount": 191,
+        "businessStatus": "CLOSED_PERMANENTLY",
+        "googleMapsUri": "https://maps.google.com/?cid=14315570952185956885&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      }
+    ]
+  },
+  "cocina_zahra": {
+    "query": "Cocina La Cantina Sari Branch Rd Al Zahra Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJnXiuyYTbwxURksI859BDH9M",
+        "displayName": "Cocina La Cantina",
+        "formattedAddress": "Sari Br Rd, Al Zahra, Jeddah 23424, الزهراء، جدة 23615, Saudi Arabia",
+        "location": {
+          "latitude": 21.5733257,
+          "longitude": 39.137460399999995
+        },
+        "rating": 4.7,
+        "userRatingCount": 1897,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=15212952630792602258&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 4:00 PM – 12:00 AM",
+          "Tuesday: 4:00 PM – 12:00 AM",
+          "Wednesday: 4:00 PM – 12:00 AM",
+          "Thursday: 1:00 PM – 1:45 AM",
+          "Friday: 1:00 PM – 1:45 AM",
+          "Saturday: 1:00 PM – 1:45 AM",
+          "Sunday: 4:00 PM – 12:00 AM"
+        ]
+      }
+    ]
+  },
+  "eds_taco_zahra": {
+    "query": "ED'S Taco Al Batarji Al Zahra Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJAfLe4yjbwxURJRHjzYoQA58",
+        "displayName": "ED'S taco",
+        "formattedAddress": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+        "location": {
+          "latitude": 21.5986023,
+          "longitude": 39.125437
+        },
+        "rating": 4.1,
+        "userRatingCount": 1601,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=11458020065306415397&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 2:00 AM",
+          "Tuesday: 12:00 PM – 2:00 AM",
+          "Wednesday: 12:00 PM – 2:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 5:00 PM – 3:00 AM",
+          "Saturday: 12:00 PM – 2:00 AM",
+          "Sunday: 12:00 PM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "speakeasy_naeem": {
+    "query": "Speakeasy Amna Bint Wahb St Al Naeem Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJf9RLrLnbwxUR4OhTyqJ5iCQ",
+        "displayName": "Speakeasy - Alnaim",
+        "formattedAddress": "Amna Bint Wahb St, Al Naeem, Jeddah 23621, Saudi Arabia",
+        "location": {
+          "latitude": 21.6329253,
+          "longitude": 39.14363
+        },
+        "rating": 4.4,
+        "userRatingCount": 2225,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2632487722284214496&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 1:00 PM – 1:00 AM",
+          "Tuesday: 1:00 PM – 1:00 AM",
+          "Wednesday: 1:00 PM – 1:00 AM",
+          "Thursday: 1:00 PM – 2:00 AM",
+          "Friday: 1:00 PM – 2:00 AM",
+          "Saturday: 1:00 PM – 1:00 AM",
+          "Sunday: 1:00 PM – 1:00 AM"
+        ]
+      }
+    ]
+  },
+  "speakeasy_khalidiyyah": {
+    "query": "Speakeasy Prince Sultan Rd Al Khalidiyyah Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJf9RLrLnbwxUR4OhTyqJ5iCQ",
+        "displayName": "Speakeasy - Alnaim",
+        "formattedAddress": "Amna Bint Wahb St, Al Naeem, Jeddah 23621, Saudi Arabia",
+        "location": {
+          "latitude": 21.6329253,
+          "longitude": 39.14363
+        },
+        "rating": 4.4,
+        "userRatingCount": 2225,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2632487722284214496&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 1:00 PM – 1:00 AM",
+          "Tuesday: 1:00 PM – 1:00 AM",
+          "Wednesday: 1:00 PM – 1:00 AM",
+          "Thursday: 1:00 PM – 2:00 AM",
+          "Friday: 1:00 PM – 2:00 AM",
+          "Saturday: 1:00 PM – 1:00 AM",
+          "Sunday: 1:00 PM – 1:00 AM"
+        ]
+      }
+    ]
+  },
+  "speakeasy_obhur": {
+    "query": "Speakeasy Obhur Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJf9RLrLnbwxUR4OhTyqJ5iCQ",
+        "displayName": "Speakeasy - Alnaim",
+        "formattedAddress": "Amna Bint Wahb St, Al Naeem, Jeddah 23621, Saudi Arabia",
+        "location": {
+          "latitude": 21.6329253,
+          "longitude": 39.14363
+        },
+        "rating": 4.4,
+        "userRatingCount": 2225,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2632487722284214496&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 1:00 PM – 1:00 AM",
+          "Tuesday: 1:00 PM – 1:00 AM",
+          "Wednesday: 1:00 PM – 1:00 AM",
+          "Thursday: 1:00 PM – 2:00 AM",
+          "Friday: 1:00 PM – 2:00 AM",
+          "Saturday: 1:00 PM – 1:00 AM",
+          "Sunday: 1:00 PM – 1:00 AM"
+        ]
+      }
+    ]
+  },
+  "chilis_hamra": {
+    "query": "Chili's Palestine St Al Hamra Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJpREyco3PwxUR_uqfIhqhJi0",
+        "displayName": "Chili's",
+        "formattedAddress": "شارع الاندلس، حي الحمراء، Palestine, Al-Hamra'a, Jeddah 23212, Saudi Arabia",
+        "location": {
+          "latitude": 21.5227136,
+          "longitude": 39.1636744
+        },
+        "rating": 4.1,
+        "userRatingCount": 7929,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=3253464914443889406&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 1:00 AM",
+          "Tuesday: 11:00 AM – 1:00 AM",
+          "Wednesday: 11:00 AM – 1:00 AM",
+          "Thursday: 11:00 AM – 1:00 AM",
+          "Friday: 1:30 PM – 1:30 AM",
+          "Saturday: 11:00 AM – 1:00 AM",
+          "Sunday: 11:00 AM – 1:00 AM"
+        ]
+      }
+    ]
+  },
+  "chilis_roshan_mall": {
+    "query": "Chili's Roshan Mall Jeddah",
+    "count": 4,
+    "places": [
+      {
+        "id": "ChIJkehXGAnZwxURW5FeMGTT3Ys",
+        "displayName": "Roshan Mall",
+        "formattedAddress": "6697 4014 Assalam St, Al Murjan, Jeddah 23713, Saudi Arabia",
+        "location": {
+          "latitude": 21.6656217,
+          "longitude": 39.1098804
+        },
+        "rating": 4,
+        "userRatingCount": 16386,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=10078443968386732379&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      },
+      {
+        "id": "ChIJpREyco3PwxUR_uqfIhqhJi0",
+        "displayName": "Chili's",
+        "formattedAddress": "شارع الاندلس، حي الحمراء، Palestine, Al-Hamra'a, Jeddah 23212, Saudi Arabia",
+        "location": {
+          "latitude": 21.5227136,
+          "longitude": 39.1636744
+        },
+        "rating": 4.1,
+        "userRatingCount": 7929,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=3253464914443889406&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 1:00 AM",
+          "Tuesday: 11:00 AM – 1:00 AM",
+          "Wednesday: 11:00 AM – 1:00 AM",
+          "Thursday: 11:00 AM – 1:00 AM",
+          "Friday: 1:30 PM – 1:30 AM",
+          "Saturday: 11:00 AM – 1:00 AM",
+          "Sunday: 11:00 AM – 1:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJZ57qa-JjwRURq6nLvQkwEdM",
+        "displayName": "Chili's",
+        "formattedAddress": "Prince Abdullah AlFiasal St, Mall, Jeddah 21431, Saudi Arabia",
+        "location": {
+          "latitude": 21.7536912,
+          "longitude": 39.118916299999995
+        },
+        "rating": 3.8,
+        "userRatingCount": 543,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=15208990235003955627&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 1:00 PM – 12:00 AM",
+          "Tuesday: 1:00 PM – 12:00 AM",
+          "Wednesday: 1:00 PM – 12:00 AM",
+          "Thursday: 1:00 PM – 1:00 AM",
+          "Friday: 1:00 PM – 1:00 AM",
+          "Saturday: 1:00 PM – 12:00 AM",
+          "Sunday: 1:00 PM – 12:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJOVKhibDFwxUReFnOyzOqK-E",
+        "displayName": "Roshana Mall",
+        "formattedAddress": "6590، 3391 Prince Mohammed Bin Abdulaziz St, حي الاندلس، Jeddah 23322, Saudi Arabia",
+        "location": {
+          "latitude": 21.5474738,
+          "longitude": 39.14288
+        },
+        "rating": 3.9,
+        "userRatingCount": 1668,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=16225249221971695992&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 9:00 AM – 12:00 AM",
+          "Tuesday: 9:00 AM – 12:00 AM",
+          "Wednesday: 9:00 AM – 12:00 AM",
+          "Thursday: 9:00 AM – 12:00 AM",
+          "Friday: 1:00 PM – 12:00 AM",
+          "Saturday: 9:00 AM – 12:00 AM",
+          "Sunday: 9:00 AM – 12:00 AM"
+        ]
+      }
+    ]
+  },
+  "taqado_jeddah_1": {
+    "query": "Taqado Mexican Kitchen Jeddah",
+    "count": 5,
+    "places": [
+      {
+        "id": "ChIJAfLe4yjbwxURJRHjzYoQA58",
+        "displayName": "ED'S taco",
+        "formattedAddress": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+        "location": {
+          "latitude": 21.5986023,
+          "longitude": 39.125437
+        },
+        "rating": 4.1,
+        "userRatingCount": 1601,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=11458020065306415397&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 2:00 AM",
+          "Tuesday: 12:00 PM – 2:00 AM",
+          "Wednesday: 12:00 PM – 2:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 5:00 PM – 3:00 AM",
+          "Saturday: 12:00 PM – 2:00 AM",
+          "Sunday: 12:00 PM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJqSQpy7njLj4RdRHCfhmek2c",
+        "displayName": "Taqado Mexican Kitchen - Hittin",
+        "formattedAddress": "Hittin, Square, الرياض 00000, Saudi Arabia",
+        "location": {
+          "latitude": 24.7531151,
+          "longitude": 46.6104932
+        },
+        "rating": 4.6,
+        "userRatingCount": 1013,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=7463482839821062517&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 11:00 AM – 1:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJRcEOYgD_Lj4R0Rc_rTYGeJI",
+        "displayName": "Taqado Mexican Kitchen - Yarmouk",
+        "formattedAddress": "Plaza, Al Yarmuk, Riyadh 13243, Saudi Arabia",
+        "location": {
+          "latitude": 24.8116682,
+          "longitude": 46.770097899999996
+        },
+        "rating": 4.5,
+        "userRatingCount": 635,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=10554192558647351249&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 1:00 AM",
+          "Tuesday: 11:00 AM – 1:00 AM",
+          "Wednesday: 11:00 AM – 1:00 AM",
+          "Thursday: 11:00 AM – 1:00 AM",
+          "Friday: 11:00 AM – 1:00 AM",
+          "Saturday: 11:00 AM – 1:00 AM",
+          "Sunday: 11:00 AM – 1:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJm3hsQr79Lj4R2KG-zecH74I",
+        "displayName": "Taqado Mexican Kitchen - Granada Mall",
+        "formattedAddress": "Eastern Ring Branch Rd, District, Riyadh 13241, Saudi Arabia",
+        "location": {
+          "latitude": 24.781077999999997,
+          "longitude": 46.731198899999995
+        },
+        "rating": 4.5,
+        "userRatingCount": 404,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=9434768436535140824&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 12:00 PM – 12:00 AM",
+          "Wednesday: 12:00 PM – 12:00 AM",
+          "Thursday: 12:00 PM – 12:00 AM",
+          "Friday: 1:00 PM – 12:00 AM",
+          "Saturday: 12:00 PM – 12:00 AM",
+          "Sunday: 12:00 PM – 12:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJgd0KjmrOwxURbcKzqhyrClU",
+        "displayName": "TakoHut",
+        "formattedAddress": "Andalus Mall، Prince Majid Rd, Al Fayha, Jeddah 22245, Saudi Arabia",
+        "location": {
+          "latitude": 21.5060337,
+          "longitude": 39.217836299999995
+        },
+        "rating": 3.3,
+        "userRatingCount": 222,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=6127898382602322541&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 – 11:45 PM",
+          "Tuesday: 12:00 – 11:45 PM",
+          "Wednesday: 12:00 – 11:45 PM",
+          "Thursday: 12:00 – 11:45 PM",
+          "Friday: 12:00 – 11:45 PM",
+          "Saturday: 12:00 – 11:45 PM",
+          "Sunday: 12:00 – 11:45 PM"
+        ]
+      }
+    ]
+  },
+  "taqado_jeddah_2": {
+    "query": "Taqado Mexican Kitchen Al Zahra Jeddah",
+    "count": 2,
+    "places": [
+      {
+        "id": "ChIJAfLe4yjbwxURJRHjzYoQA58",
+        "displayName": "ED'S taco",
+        "formattedAddress": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+        "location": {
+          "latitude": 21.5986023,
+          "longitude": 39.125437
+        },
+        "rating": 4.1,
+        "userRatingCount": 1601,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=11458020065306415397&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 2:00 AM",
+          "Tuesday: 12:00 PM – 2:00 AM",
+          "Wednesday: 12:00 PM – 2:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 5:00 PM – 3:00 AM",
+          "Saturday: 12:00 PM – 2:00 AM",
+          "Sunday: 12:00 PM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJOU1E5unawxURfjHoaCoVOyY",
+        "displayName": "FireGrill",
+        "formattedAddress": "2328 King Abdul Aziz Rd, AZ Zahra District, 6403, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.575775699999998,
+          "longitude": 39.1274448
+        },
+        "rating": 4.1,
+        "userRatingCount": 2222,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2754818868960047486&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "casa_twist_muhammadiyyah": {
+    "query": "Casa Twist Al Muhammadiyyah Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJ_7LBUQDZwxURx4YyTVfAw5Q",
+        "displayName": "Casa twist",
+        "formattedAddress": "Al Mohammadiyyah, Jeddah 23617, Saudi Arabia",
+        "location": {
+          "latitude": 21.6497821,
+          "longitude": 39.1246564
+        },
+        "rating": 4.5,
+        "userRatingCount": 409,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=10719623019261757127&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 8:00 PM – 2:00 AM",
+          "Tuesday: 8:00 PM – 2:00 AM",
+          "Wednesday: 8:00 PM – 2:00 AM",
+          "Thursday: 8:00 PM – 3:00 AM",
+          "Friday: 8:00 PM – 3:00 AM",
+          "Saturday: 8:00 PM – 2:00 AM",
+          "Sunday: 8:00 PM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "chiii_naeem": {
+    "query": "Chiii Amna Bint Wahb St Al Naeem Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJn4qafwDZwxURfJ4Hq3FSk5c",
+        "displayName": "Chiii",
+        "formattedAddress": "Amna Bint Wahb St, Al Naeem, Jeddah 23622, Saudi Arabia",
+        "location": {
+          "latitude": 21.6317092,
+          "longitude": 39.14455410000001
+        },
+        "rating": 4.5,
+        "userRatingCount": 323,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=10922164169457770108&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 1:00 AM",
+          "Tuesday: 12:00 PM – 1:00 AM",
+          "Wednesday: 12:00 PM – 1:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 3:00 PM – 3:00 AM",
+          "Saturday: 12:00 PM – 1:00 AM",
+          "Sunday: 12:00 PM – 1:00 AM"
+        ]
+      }
+    ]
+  },
+  "chalcos_zahra": {
+    "query": "Chalcos Mexican Grill Al Batarji Al Zahra Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJ4-Sos8HbwxURGll1LNwCxko",
+        "displayName": "Chalcos Mexican Grill",
+        "formattedAddress": "Al Zahra, Jeddah 23522, Saudi Arabia",
+        "location": {
+          "latitude": 21.5983938,
+          "longitude": 39.1246738
+        },
+        "rating": 4.1,
+        "userRatingCount": 280,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=5387997148857325850&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 8:00 AM – 1:30 AM",
+          "Tuesday: 8:00 AM – 1:30 AM",
+          "Wednesday: 8:00 AM – 1:30 AM",
+          "Thursday: 8:00 AM – 1:30 AM",
+          "Friday: 2:00 PM – 1:30 AM",
+          "Saturday: 8:00 AM – 1:30 AM",
+          "Sunday: 8:00 AM – 1:30 AM"
+        ]
+      }
+    ]
+  },
+  "tacomole_shati": {
+    "query": "Tacomole Ash Shati Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJH_2-MwDZwxURevswJ3aqm5w",
+        "displayName": "Tacomole",
+        "formattedAddress": "الشاطئ، جدة 23616, Saudi Arabia",
+        "location": {
+          "latitude": 21.639572899999997,
+          "longitude": 39.1258312
+        },
+        "rating": 5,
+        "userRatingCount": 41,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=11284800715747294074&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 8:00 PM – 2:00 AM",
+          "Tuesday: 8:00 PM – 2:00 AM",
+          "Wednesday: 8:00 PM – 2:00 AM",
+          "Thursday: 8:00 PM – 2:00 AM",
+          "Friday: 8:00 PM – 2:00 AM",
+          "Saturday: 8:00 PM – 2:00 AM",
+          "Sunday: 8:00 PM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "el_taco_loco_qryniah": {
+    "query": "EL TACO LOCO Prince Mishaal bin Abdulaziz Al Qryniah Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJOwRQLwC1wxURWZDE_FtRdeE",
+        "displayName": "EL TACO LOCO (التاكو المجنون)",
+        "formattedAddress": "حي, JMYC4530, 4530، 8060 الامير مشعل ابن عبدالعزيز، Al Qryniah, Jeddah 22624, Saudi Arabia",
+        "location": {
+          "latitude": 21.3167546,
+          "longitude": 39.2551063
+        },
+        "rating": 4.7,
+        "userRatingCount": 48,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=16245980686333546585&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 6:00 PM – 2:00 AM",
+          "Tuesday: 6:00 PM – 2:00 AM",
+          "Wednesday: 6:00 PM – 2:00 AM",
+          "Thursday: 6:00 PM – 2:00 AM",
+          "Friday: 6:00 PM – 2:00 AM",
+          "Saturday: 6:00 PM – 2:00 AM",
+          "Sunday: 6:00 PM – 2:00 AM"
+        ]
+      }
+    ]
+  },
+  "gyb_taco_rehab": {
+    "query": "Gyb Taco Sharurah Al Rehab Jeddah",
+    "count": 10,
+    "places": [
+      {
+        "id": "ChIJAfLe4yjbwxURJRHjzYoQA58",
+        "displayName": "ED'S taco",
+        "formattedAddress": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+        "location": {
+          "latitude": 21.5986023,
+          "longitude": 39.125437
+        },
+        "rating": 4.1,
+        "userRatingCount": 1601,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=11458020065306415397&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 2:00 AM",
+          "Tuesday: 12:00 PM – 2:00 AM",
+          "Wednesday: 12:00 PM – 2:00 AM",
+          "Thursday: 12:00 PM – 3:00 AM",
+          "Friday: 5:00 PM – 3:00 AM",
+          "Saturday: 12:00 PM – 2:00 AM",
+          "Sunday: 12:00 PM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJdVWR_HbRwxURyn38I_aGHSM",
+        "displayName": "Turk Kebabi المشويات التركية",
+        "formattedAddress": "6923, Al Nahdah Alhadeetha Al Rawdah Dist., 4881, الروضة، جدة 23432, Saudi Arabia",
+        "location": {
+          "latitude": 21.5571155,
+          "longitude": 39.1704261
+        },
+        "rating": 4.7,
+        "userRatingCount": 326,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2530326957375913418&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 2:00 PM – 2:00 AM",
+          "Tuesday: 2:00 PM – 2:00 AM",
+          "Wednesday: 2:00 PM – 2:00 AM",
+          "Thursday: 2:00 PM – 2:00 AM",
+          "Friday: 2:00 PM – 2:00 AM",
+          "Saturday: 2:00 PM – 2:00 AM",
+          "Sunday: 2:00 PM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJOU1E5unawxURfjHoaCoVOyY",
+        "displayName": "FireGrill",
+        "formattedAddress": "2328 King Abdul Aziz Rd, AZ Zahra District, 6403, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.575775699999998,
+          "longitude": 39.1274448
+        },
+        "rating": 4.1,
+        "userRatingCount": 2222,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=2754818868960047486&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:00 AM – 2:00 AM",
+          "Tuesday: 11:00 AM – 2:00 AM",
+          "Wednesday: 11:00 AM – 2:00 AM",
+          "Thursday: 11:00 AM – 2:00 AM",
+          "Friday: 12:30 PM – 2:00 AM",
+          "Saturday: 11:00 AM – 2:00 AM",
+          "Sunday: 11:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJ4-Sos8HbwxURGll1LNwCxko",
+        "displayName": "Chalcos Mexican Grill",
+        "formattedAddress": "Al Zahra, Jeddah 23522, Saudi Arabia",
+        "location": {
+          "latitude": 21.5983938,
+          "longitude": 39.1246738
+        },
+        "rating": 4.1,
+        "userRatingCount": 280,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=5387997148857325850&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 8:00 AM – 1:30 AM",
+          "Tuesday: 8:00 AM – 1:30 AM",
+          "Wednesday: 8:00 AM – 1:30 AM",
+          "Thursday: 8:00 AM – 1:30 AM",
+          "Friday: 2:00 PM – 1:30 AM",
+          "Saturday: 8:00 AM – 1:30 AM",
+          "Sunday: 8:00 AM – 1:30 AM"
+        ]
+      },
+      {
+        "id": "ChIJ0_QMUn3awxURuQt3fyP5yG4",
+        "displayName": "Meez Restaurant",
+        "formattedAddress": "Sultan Street, Al Mohammadiyyah, Jeddah 23437, Saudi Arabia",
+        "location": {
+          "latitude": 21.6318013,
+          "longitude": 39.134252599999996
+        },
+        "rating": 4.5,
+        "userRatingCount": 16091,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=7982904270371883961&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 1:00 PM – 1:00 AM",
+          "Tuesday: 1:00 PM – 1:00 AM",
+          "Wednesday: 1:00 PM – 1:00 AM",
+          "Thursday: 1:00 PM – 1:00 AM",
+          "Friday: 1:00 PM – 1:00 AM",
+          "Saturday: 1:00 PM – 1:00 AM",
+          "Sunday: 1:00 PM – 1:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJUQHSZoLbwxURXUhwJ1Bht4M",
+        "displayName": "Royal Garden Indian Restaurant",
+        "formattedAddress": "Hira St, An Nahdah, Jeddah 23523, Saudi Arabia",
+        "location": {
+          "latitude": 21.608283,
+          "longitude": 39.1287678
+        },
+        "rating": 4.6,
+        "userRatingCount": 1402,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=9491161736593557597&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 8:00 AM – 2:00 AM",
+          "Tuesday: 8:00 AM – 2:00 AM",
+          "Wednesday: 8:00 AM – 2:00 AM",
+          "Thursday: 8:00 AM – 2:00 AM",
+          "Friday: 8:00 AM – 3:00 AM",
+          "Saturday: 8:00 AM – 2:00 AM",
+          "Sunday: 8:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJg_3_793bwxUR6w9WMTA96F8",
+        "displayName": "NAC Jeddah",
+        "formattedAddress": "La Perle by Oud, Ash Shati, Jeddah 23415, Saudi Arabia",
+        "location": {
+          "latitude": 21.573203799999998,
+          "longitude": 39.116409
+        },
+        "rating": 4.5,
+        "userRatingCount": 2899,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=6910840905395474411&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 9:00 AM – 2:00 AM",
+          "Tuesday: 9:00 AM – 2:00 AM",
+          "Wednesday: 9:00 AM – 2:00 AM",
+          "Thursday: 9:00 AM – 2:00 AM",
+          "Friday: 9:00 AM – 2:00 AM",
+          "Saturday: 9:00 AM – 2:00 AM",
+          "Sunday: 9:00 AM – 2:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJ11IGIwfbwxURCU8nf5u140A",
+        "displayName": "Baco",
+        "formattedAddress": "Boulevard, Ash Shati, Jeddah 23414, Saudi Arabia",
+        "location": {
+          "latitude": 21.5692274,
+          "longitude": 39.124555799999996
+        },
+        "rating": 4.2,
+        "userRatingCount": 5009,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=4675780517598547721&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 1:00 PM – 1:00 AM",
+          "Tuesday: 1:00 PM – 1:00 AM",
+          "Wednesday: 1:00 PM – 1:00 AM",
+          "Thursday: 1:00 PM – 2:00 AM",
+          "Friday: 1:00 PM – 2:00 AM",
+          "Saturday: 1:00 PM – 1:00 AM",
+          "Sunday: 1:00 PM – 1:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJKZ3ZxCDbwxURsfDBffzjCq0",
+        "displayName": "Kumar Restaurant",
+        "formattedAddress": "Abdul Maqsud Khojah, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+        "location": {
+          "latitude": 21.572456199999998,
+          "longitude": 39.1485248
+        },
+        "rating": 4.3,
+        "userRatingCount": 5961,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=12469029191909765297&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 12:00 PM – 12:30 AM",
+          "Tuesday: 12:00 PM – 12:30 AM",
+          "Wednesday: 12:00 PM – 12:30 AM",
+          "Thursday: 12:00 PM – 1:30 AM",
+          "Friday: 12:00 PM – 1:30 AM",
+          "Saturday: 12:00 PM – 12:30 AM",
+          "Sunday: 12:00 PM – 12:30 AM"
+        ]
+      },
+      {
+        "id": "ChIJy7kH2EHawxUR5sCHxb9laV0",
+        "displayName": "AlSaddah",
+        "formattedAddress": "Hira St, An Nahdah, Jeddah 23523, Saudi Arabia",
+        "location": {
+          "latitude": 21.6093892,
+          "longitude": 39.13383100000001
+        },
+        "rating": 4.1,
+        "userRatingCount": 11004,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=6731022992409084134&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 11:30 AM – 12:00 AM",
+          "Tuesday: 11:30 AM – 12:00 AM",
+          "Wednesday: 11:30 AM – 12:00 AM",
+          "Thursday: 11:30 AM – 12:00 AM",
+          "Friday: 12:30 PM – 12:00 AM",
+          "Saturday: 11:30 AM – 12:00 AM",
+          "Sunday: 11:30 AM – 12:00 AM"
+        ]
+      }
+    ]
+  },
+  "taco_in_naseem": {
+    "query": "Taco In Al Naseem St Jeddah",
+    "count": 1,
+    "places": [
+      {
+        "id": "ChIJq29kOwDPwxURX0eW9sWErz0",
+        "displayName": "تاكو ان",
+        "formattedAddress": "G66G+P8J, Al Naseem St, An Naseem, Jeddah 23231, Saudi Arabia",
+        "location": {
+          "latitude": 21.5118296,
+          "longitude": 39.225776599999996
+        },
+        "rating": 4.8,
+        "userRatingCount": 20,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=4444917343018436447&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 7:00 PM – 4:00 AM",
+          "Tuesday: 7:00 PM – 4:00 AM",
+          "Wednesday: 7:00 PM – 4:00 AM",
+          "Thursday: 7:00 PM – 4:00 AM",
+          "Friday: 7:00 PM – 4:00 AM",
+          "Saturday: 6:00 PM – 4:30 AM",
+          "Sunday: 7:00 PM – 4:00 AM"
+        ]
+      }
+    ]
+  },
+  "kakt_uwalk": {
+    "query": "KAKT U Walk Prince Sultan Rd Al Zahra Jeddah",
+    "count": 3,
+    "places": [
+      {
+        "id": "ChIJg0cBVjTbwxUREGulZllvTfc",
+        "displayName": "Cenomi U Walk Jeddah | سينومي يو ووك جدة",
+        "formattedAddress": "3467 Al Amir Sultan, Al Zahra, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.582709299999998,
+          "longitude": 39.1407174
+        },
+        "rating": 4.6,
+        "userRatingCount": 9806,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=17820021730339810064&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 10:00 AM – 11:00 PM",
+          "Tuesday: 10:00 AM – 11:00 PM",
+          "Wednesday: 10:00 AM – 11:00 PM",
+          "Thursday: 10:00 AM – 11:00 PM",
+          "Friday: 2:00 – 11:30 PM",
+          "Saturday: 10:00 AM – 11:00 PM",
+          "Sunday: 10:00 AM – 11:00 PM"
+        ]
+      },
+      {
+        "id": "ChIJoTnZOcnbwxUR5SC2HJrOMNw",
+        "displayName": "فايبز كافيه يو ووك جدة/ Vibes cafe U-Walk",
+        "formattedAddress": "Prince Sultan Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.582455799999998,
+          "longitude": 39.1419844
+        },
+        "rating": 4.5,
+        "userRatingCount": 747,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=15866408648528240869&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 5:00 PM – 1:00 AM",
+          "Tuesday: 5:00 PM – 1:00 AM",
+          "Wednesday: 5:00 PM – 1:00 AM",
+          "Thursday: 5:00 PM – 2:00 AM",
+          "Friday: 5:00 PM – 2:00 AM",
+          "Saturday: 5:00 PM – 1:00 AM",
+          "Sunday: 5:00 PM – 1:00 AM"
+        ]
+      },
+      {
+        "id": "ChIJm4HefLfZwxURWEFXlUqNX00",
+        "displayName": "KAKT | كاكت",
+        "formattedAddress": "U WALK, Al Zahra, Jeddah 23424, Saudi Arabia",
+        "location": {
+          "latitude": 21.582539,
+          "longitude": 39.139972
+        },
+        "rating": 4.8,
+        "userRatingCount": 67,
+        "businessStatus": "OPERATIONAL",
+        "googleMapsUri": "https://maps.google.com/?cid=5575330215180583256&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+        "regularOpeningHours": [
+          "Monday: 3:00 PM – 1:00 AM",
+          "Tuesday: 3:00 PM – 1:00 AM",
+          "Wednesday: 3:00 PM – 1:00 AM",
+          "Thursday: 3:00 PM – 2:00 AM",
+          "Friday: 3:00 PM – 2:00 AM",
+          "Saturday: 3:00 PM – 1:00 AM",
+          "Sunday: 3:00 PM – 1:00 AM"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "ChIJfWSaIcTRwxURBGZ25fXoURQ": {
+    "place_id": "ChIJfWSaIcTRwxURBGZ25fXoURQ",
+    "name": "Maestro Pizza",
+    "address": "Maestro Pizza، 7528 الامام عبدالعزيز، الفيصلية، جدة 23442",
+    "latitude": 21.569249799999998,
+    "longitude": 39.1747709,
+    "rating": 4.5,
+    "user_rating_count": 175,
+    "operating_status": "open"
+  },
+  "ChIJsa_AQvl8wRURuemKWXGPApw": {
+    "place_id": "ChIJsa_AQvl8wRURuemKWXGPApw",
+    "name": "مايستروا",
+    "address": "مايستروا، شارع الحمدانية، الحمدانية، جدة 23743",
+    "latitude": 21.7417794,
+    "longitude": 39.191610499999996,
+    "rating": 4.1,
+    "user_rating_count": null,
+    "operating_status": "open"
+  },
+  "ChIJj1ceP5HPwxURV1e_HNukKHk": {
+    "place_id": "ChIJj1ceP5HPwxURV1e_HNukKHk",
+    "name": "مايسترو بيتزا، جدة",
+    "address": "مايسترو بيتزا، جدة، Al Andalus, Dream Land, جدة",
+    "latitude": 21.5171545,
+    "longitude": 39.165484299999996,
+    "rating": 4,
+    "user_rating_count": 1745,
+    "operating_status": "temporarily_closed"
+  },
+  "ChIJK47dwj3RwxURFLOtOEx2QD8": {
+    "place_id": "ChIJK47dwj3RwxURFLOtOEx2QD8",
+    "name": "Papa Johns - Tahliyah JED",
+    "address": "H679+XX4 Papa Johns - Tahliyah JED, شارع الأمير محمد بن عبدالعزيز، الرحاب، جدة 23345",
+    "latitude": 21.5651488,
+    "longitude": 39.2195995,
+    "rating": 4.2,
+    "user_rating_count": null,
+    "operating_status": "open"
+  },
+  "ChIJ_-S7EwBlwRURhXE2mYqyLcM": {
+    "place_id": "ChIJ_-S7EwBlwRURhXE2mYqyLcM",
+    "name": "Pizza hut",
+    "address": "Pizza hut, 3320 سعود بن عبدالعزيز, JHNA3320, جدة 23827",
+    "latitude": 21.810577499999997,
+    "longitude": 39.071325699999996,
+    "rating": 4,
+    "user_rating_count": null,
+    "operating_status": "open"
+  },
+  "ChIJA-zoawB7wRURd58rCgxmE1c": {
+    "place_id": "ChIJA-zoawB7wRURd58rCgxmE1c",
+    "name": "Pizza Hut",
+    "address": "Q5GQ+X8C Pizza Hut, الفلاح، جدة 23762",
+    "latitude": 21.7775729,
+    "longitude": 39.1882321,
+    "rating": 4.2,
+    "user_rating_count": null,
+    "operating_status": "open"
+  },
+  "ChIJAZqjr5NjwRURm7dm84Enf4g": {
+    "place_id": "ChIJAZqjr5NjwRURm7dm84Enf4g",
+    "name": "بيتزاهت",
+    "address": "Q3RR+M77 بيتزاهت، الياقوت، ابحر الشمالية،، جدة 23826",
+    "latitude": 21.791661599999998,
+    "longitude": 39.0906806,
+    "rating": 3.8,
+    "user_rating_count": null,
+    "operating_status": "open"
+  },
+  "ChIJM5eZJzhjwRURDf1kn8DtpHU": {
+    "place_id": "ChIJM5eZJzhjwRURDf1kn8DtpHU",
+    "name": "Impasto seven",
+    "address": "Impasto seven, الأمير عبدالمجيد، اللؤلؤ، جدة 23821",
+    "latitude": 21.759947999999998,
+    "longitude": 39.0715287,
+    "rating": 4.8,
+    "user_rating_count": 2004,
+    "operating_status": "open"
+  },
+  "ChIJIYbp4trbwxURseJD7d4cWtg": {
+    "place_id": "ChIJIYbp4trbwxURseJD7d4cWtg",
+    "name": "بريد أهيد المخبز والمدرسة",
+    "address": "بريد أهيد المخبز والمدرسة، طريق الملك عبدالعزيز الخدمة، الزهراء، جدة 23424",
+    "latitude": 21.576656999999997,
+    "longitude": 39.127314299999995,
+    "rating": 4.6,
+    "user_rating_count": null,
+    "operating_status": "open"
+  },
+  "ChIJszLICgbbwxUR93EJ3wcGjh4": {
+    "place_id": "ChIJszLICgbbwxUR93EJ3wcGjh4",
+    "name": "Bread Ahead Bakery & School (Kings College Hospital)",
+    "address": "Bread Ahead Bakery & School (Kings College Hospital), طريق الملك عبدالعزيز، الشاطئ، جدة 23416",
+    "latitude": 21.581225099999997,
+    "longitude": 39.1262519,
+    "rating": 4.9,
+    "user_rating_count": 479,
+    "operating_status": "open"
+  },
+  "ChIJCTvpJABjwRUR3BeAR3FK2uQ": {
+    "place_id": "ChIJCTvpJABjwRUR3BeAR3FK2uQ",
+    "name": "بريد أهيد",
+    "address": "بريد أهيد, Prince Abdullah Alfaisal street، أبحر الشمالية، جدة 23817",
+    "latitude": 21.7653872,
+    "longitude": 39.1286591,
+    "rating": 4.8,
+    "user_rating_count": null,
+    "operating_status": "open"
+  },
+  "ChIJO7c88FXbwxURmXJz6pQq0GI": {
+    "place_id": "ChIJO7c88FXbwxURmXJz6pQq0GI",
+    "name": "Bread Ahead Red Sea Mall",
+    "address": "Bread Ahead Red Sea Mall, طريق الملك عبدالعزيز، الشاطئ، جدة 21146",
+    "latitude": 21.627415199999998,
+    "longitude": 39.111073399999995,
+    "rating": 4.9,
+    "user_rating_count": 638,
+    "operating_status": "open"
+  },
+  "ChIJUwTOkIfMwxURSLylyDE8hHU": {
+    "place_id": "ChIJUwTOkIfMwxURSLylyDE8hHU",
+    "name": "دومينوز",
+    "address": "دومينوز، طريق مكة جدة السريع، الامير فواز الجنوبي، جدة 22431",
+    "latitude": 21.440780999999998,
+    "longitude": 39.280069,
+    "rating": 3.7,
+    "user_rating_count": 938,
+    "operating_status": "open"
+  }
+}

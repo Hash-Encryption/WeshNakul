@@ -8,7 +8,7 @@ The deck fallback was GPS distance, exact district, direct neighbor, same macroz
 
 ## Canonical contract
 
-`src/data/jeddahDistricts.ts` is the public application catalog. It contains the 26 supported district IDs, Arabic and English display names, controlled aliases, macrozones, and verified direct neighbors. The setup UI derives its Jeddah options from this catalog and stores the stable ID. Older English display values remain accepted through explicit aliases.
+`src/data/jeddahDistricts.ts` is the public application catalog. It contains the 30 supported district IDs, Arabic and English display names, controlled aliases, macrozones, and verified direct neighbors. The setup UI derives its Jeddah options from this catalog and stores the stable ID. Older English display values remain accepted through explicit aliases.
 
 The private database needs the same data without exposing `private` tables to clients. Migration `20260910000100_jeddah_geography_intelligence.sql` is the forward-only SQL snapshot. `scripts/check-geography.mjs` compares every catalog row, including aliases, zone, and neighbors, with that migration so the two representations cannot drift silently. The database harness also verifies the applied private graph and normalization functions.
 
@@ -16,18 +16,18 @@ Normalization is exact after case, surrounding whitespace, hyphen, underscore, a
 
 ## Geography verification
 
-The [Saudi National Address district API contract](https://api.address.gov.sa/Districts) confirms that district identity and name are registry fields, but reading its Jeddah register requires a subscription token. Bilingual spellings, direct relationships, and north-to-south placement were checked on the public [Jeddah district polygon layer](https://services8.arcgis.com/ET0FctyFeVvxU1Nq/ArcGIS/rest/services/Jeddah_Districts_gdb/FeatureServer/0), last edited 2026-05-19. A direct edge is present only when two supported district polygons share boundary segments. The Pass C research document supplied the five newly required district identities; restaurant rows and its coordinates remain outside this migration.
+The [Saudi National Address district API contract](https://api.address.gov.sa/Districts) confirms that district identity and name are registry fields, but reading its Jeddah register requires a subscription token. Bilingual spellings, direct relationships, and north-to-south placement were checked on the public [Jeddah district polygon layer](https://services8.arcgis.com/ET0FctyFeVvxU1Nq/ArcGIS/rest/services/Jeddah_Districts_gdb/FeatureServer/0), last edited 2026-05-19. A direct edge is present only when two supported district polygons share boundary segments. Four high-density urban districts (`an_nuzhah`, `ar_rabwah`, `al_aziziyah`, `al_sharafeyah`) were verified and incorporated during the Broast catalog expansion to cover verified flagship restaurant branches.
 
-The supported graph has 27 undirected direct relationships. `al_hamdaniyah`, `abhur_al_janoubiyah`, and `al_balad` have no shared boundary with another district in the supported subset. They intentionally use zone and city-wide fallback rather than invented direct edges.
+The supported graph has 40 undirected direct relationships. `al_hamdaniyah`, `abhur_al_janoubiyah`, and `al_balad` have no shared boundary with another district in the supported subset. They intentionally use zone and city-wide fallback rather than invented direct edges.
 
 Second-ring districts are derived from the direct graph. The derivation is bounded to one neighbor-of-neighbor step, excludes the origin and direct neighbors, removes duplicates, and sorts application results for deterministic behavior.
 
 The old `north_obhur / central_jeddah / south_jeddah` structure is replaced by five geometry-based north-to-south bands:
 
 - `north`: Al Sheraa, Al Hamdaniyah, North Obhur, South Obhur
-- `north_central`: Al Murjan, Al Basateen, Al Mohammadiyyah, Al Naeem, Al Marwah
-- `central`: Al Shati, Al Bawadi, Al Salamah, Al Zahra, Al Safa, Al Samer, Al Faisaliyyah, Al Rawdah, Al Khalidiyyah, Al Rehab
-- `south_central`: Al Andalus, Al Hamra, Al Naseem, Al Ruwais
+- `north_central`: Al Murjan, Al Basateen, Al Mohammadiyyah, Al Naeem, Al Marwah, An Nuzhah
+- `central`: Al Shati, Al Bawadi, Al Salamah, Al Zahra, Al Safa, Al Samer, Ar Rabwah, Al Faisaliyyah, Al Aziziyah, Al Rawdah, Al Khalidiyyah, Al Rehab
+- `south_central`: Al Andalus, Al Hamra, Al Sharafeyah, Al Naseem, Al Ruwais
 - `south`: Al Faiha, Al Balad, Al Thaghr
 
 These bands follow the polygon layer's district centroids and preserve a weaker fallback for supported districts that are not connected in the subset graph.

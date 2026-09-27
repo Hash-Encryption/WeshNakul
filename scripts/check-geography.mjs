@@ -7,12 +7,12 @@ const server = await createServer({ server: { middlewareMode: true }, appType: '
 try {
   const geography = await server.ssrLoadModule('/src/data/jeddahDistricts.ts');
   const cities = await server.ssrLoadModule('/src/lib/cities.ts');
-  const migration = await readFile('supabase/migrations/20260910000100_jeddah_geography_intelligence.sql', 'utf8');
+  const migration = await readFile('supabase/migrations/20260926000100_expand_jeddah_geography_30_districts.sql', 'utf8');
   const { JEDDAH_DISTRICT_LIST: districts, JEDDAH_DISTRICTS: byId, normalizeJeddahDistrict, getSecondRingDistrictIds } = geography;
   let checks = 0;
   const check = (value, message) => { assert.ok(value, message); checks += 1; };
 
-  check(districts.length === 26, 'all 26 supported Jeddah districts are present');
+  check(districts.length === 30, 'all 30 supported Jeddah districts are present');
   check(new Set(districts.map(({ id }) => id)).size === districts.length, 'district IDs are unique');
   check(districts.every(({ nameAr, nameEn, aliases, macroZone }) => nameAr && nameEn && aliases.length && macroZone), 'district metadata is complete');
 
@@ -44,6 +44,10 @@ try {
     ['South Obhur', 'abhur_al_janoubiyah'], ['أبحر الجنوبية', 'abhur_al_janoubiyah'],
     ['Al Ruwais', 'al_ruwais'], ['Al Thaghr', 'al_thaghr'], ['Al Balad', 'al_balad'],
     ['Al Hamdaniyah', 'al_hamdaniyah'], ['Al Sheraa', 'al_sheraa'],
+    ['Ar Rabwah', 'ar_rabwah'], ['الربوة', 'ar_rabwah'], ['Al Rabwa', 'ar_rabwah'],
+    ['An Nuzhah', 'an_nuzhah'], ['النزهة', 'an_nuzhah'], ['Al Nozha', 'an_nuzhah'],
+    ['Al Aziziyah', 'al_aziziyah'], ['العزيزية', 'al_aziziyah'], ['Aziziyah', 'al_aziziyah'],
+    ['Al Sharafeyah', 'al_sharafeyah'], ['الشرفية', 'al_sharafeyah'], ['Sharafiyah', 'al_sharafeyah'],
   ]) {
     check(normalizeJeddahDistrict(input) === expected, `${input} resolves to ${expected}`);
   }

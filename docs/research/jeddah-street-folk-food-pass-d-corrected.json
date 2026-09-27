@@ -1,0 +1,3110 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "street_folk_food",
+    "display_category": "Street / Folk Food",
+    "verified_date": "2026-09-27",
+    "brand_count": 15,
+    "status": "PASS_WITH_FIELD_VALIDATION_COMPLETE",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknowns_are_null",
+      "delivery_distance_policy_strict_nearby_branch",
+      "going_out_distance_policy_mix_nearby_and_destination",
+      "candidate_selection_brand_first_then_branch_resolution_to_prevent_chain_weighting",
+      "preserve_anchor_group_a_foul_tamees_and_b_falafel_koshari",
+      "healthy_is_a_filter_not_a_category",
+      "nearby_remains_dynamic"
+    ],
+    "removed_from_category": [],
+    "summary": {
+      "total_brands": 15,
+      "production_ready_brands": 15,
+      "caution_brands": 0,
+      "manual_review_brands": 0,
+      "total_candidate_branches": 39,
+      "total_verified_active_branches": 38,
+      "production_ready_branches": 29,
+      "usable_with_caution_branches": 9,
+      "manual_review_branches": 1,
+      "excluded_branches": 0,
+      "canonical_district_active_branches": 29,
+      "outer_caution_branches": 9,
+      "place_id_completeness": "100.0% (38/38)",
+      "coordinate_completeness": "100.0% (38/38)",
+      "maps_url_completeness": "100.0% (38/38)",
+      "address_completeness": "100.0% (38/38)",
+      "operating_status_completeness": "100.0% (38/38)",
+      "rating_completeness": "100.0% (38/38)",
+      "review_count_completeness": "100.0% (38/38)",
+      "hours_completeness": "100.0% (38/38)"
+    }
+  },
+  "taxonomy": {
+    "mode": "food",
+    "category": "street_folk_food",
+    "subtypes": [
+      "falafel",
+      "foul",
+      "tamees",
+      "mutabbaq",
+      "masoub",
+      "areeka",
+      "koshari",
+      "kebda"
+    ]
+  },
+  "deck_rules": {
+    "deck_size": 7,
+    "randomized": true,
+    "anchor_groups": [
+      {
+        "id": "foul_tamees_anchor",
+        "min_per_deck": 1,
+        "brands": [
+          "abu_zaid",
+          "banaemah"
+        ],
+        "rule": "Include at least one eligible nearby branch from Abu Zaid or Banaemah. Both may appear naturally."
+      },
+      {
+        "id": "falafel_koshari_anchor",
+        "min_per_deck": 1,
+        "brands": [
+          "operation_falafel",
+          "koshary_abu_tarek"
+        ],
+        "rule": "Include at least one eligible nearby branch from Operation Falafel or Koshary Abu Tarek. Both may appear naturally."
+      }
+    ],
+    "remaining_slots": "Randomize from all other eligible nearby brands/branches after anchor constraints.",
+    "proximity_rule": "Use realistically nearby branches first, especially for delivery/easy-order oriented brands.",
+    "no_forced_reroll_bias": true
+  },
+  "brands": [
+    {
+      "id": "abu_zaid",
+      "canonical_name": "Abu Zaid",
+      "name_en": "Abu Zaid",
+      "arabic_name": "أبو زيد",
+      "name_ar": "أبو زيد",
+      "subtypes": [
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "masoub",
+        "areeka"
+      ],
+      "recognition_tier": "anchor_mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": true,
+      "notes": "Large Jeddah/KSA chain. Dataset intentionally does not require every Abu Zaid branch; proximity search can supplement later.",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "staple",
+      "classification_evidence": "Long-established, highly recognizable Saudi/Jeddah traditional-food chain with large branch footprint and substantial branch review volume.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "masoub",
+        "areeka"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-murjan/abu-zaid-12448",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-murjan/abu-zaid-12448"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "high",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Abu Zaid — Mishrifah",
+          "name": "Abu Zaid — Mishrifah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "حي، 4840 Palestine, Mishrifah, Jeddah 23335, Saudi Arabia",
+          "address": "حي، 4840 Palestine, Mishrifah, Jeddah 23335, Saudi Arabia",
+          "raw_district": "Mishrifah",
+          "district": "Mishrifah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJS5Pl_9XRwxURYgRiHnGgMnk",
+          "google_place_id": "ChIJS5Pl_9XRwxURYgRiHnGgMnk",
+          "latitude": 21.534012699999998,
+          "longitude": 39.2008928,
+          "google_rating": 3.8,
+          "rating": 3.8,
+          "google_review_count": 4363,
+          "review_count": 4363,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 AM – 2:00 AM; Tuesday: 5:00 AM – 2:00 AM; Wednesday: 5:00 AM – 2:00 AM; Thursday: 5:00 AM – 2:00 AM; Friday: 5:00 AM – 2:00 AM; Saturday: 5:00 AM – 2:00 AM; Sunday: 5:00 AM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJS5Pl_9XRwxURYgRiHnGgMnk"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Mishrifah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Abu Zaid — Hira / Al Bawadi",
+          "name": "Abu Zaid — Hira / Al Bawadi",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Hira St, Al Bawadi, Jeddah 23531, Saudi Arabia",
+          "address": "Hira St, Al Bawadi, Jeddah 23531, Saudi Arabia",
+          "raw_district": "Al Bawadi",
+          "district": "Al Bawadi",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ2bkombHQwxURcTjB77kafms",
+          "google_place_id": "ChIJ2bkombHQwxURcTjB77kafms",
+          "latitude": 21.6154467,
+          "longitude": 39.1647469,
+          "google_rating": 3.9,
+          "rating": 3.9,
+          "google_review_count": 10030,
+          "review_count": 10030,
+          "operating_status": "open",
+          "hours": "Monday: 5:30 AM – 2:00 AM; Tuesday: 5:30 AM – 2:00 AM; Wednesday: 5:30 AM – 2:00 AM; Thursday: 5:30 AM – 2:00 AM; Friday: 5:30 AM – 2:00 AM; Saturday: 5:30 AM – 2:00 AM; Sunday: 5:30 AM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ2bkombHQwxURcTjB77kafms"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_bawadi."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "banaemah",
+      "canonical_name": "Banaemah",
+      "name_en": "Banaemah",
+      "arabic_name": "بانعمه",
+      "name_ar": "بانعمه",
+      "subtypes": [
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "masoub"
+      ],
+      "recognition_tier": "anchor_mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": true,
+      "notes": "Official brand material lists 6 active branches total, including 5 in Jeddah: Obhur, Mohammadiyah, Hamdaniyah, Fayha, Bawadi. Only branches with usable verified address+district are exported here.",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "staple",
+      "classification_evidence": "Long-established traditional-food brand with multiple current Jeddah branches and strong local recognition.",
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner"
+      ],
+      "signature_dishes": [
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "masoub"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [],
+      "source_urls": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Banaemah — North Obhur",
+          "name": "Banaemah — North Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Naif Rd, حي الشراع، Jeddah 23816, Saudi Arabia",
+          "address": "Prince Naif Rd, حي الشراع، Jeddah 23816, Saudi Arabia",
+          "raw_district": "Al Shiraa",
+          "district": "Al Shiraa",
+          "canonical_district": "al_sheraa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJPWKJobBjwRURdvwwcTeiLQg",
+          "google_place_id": "ChIJPWKJobBjwRURdvwwcTeiLQg",
+          "latitude": 21.771338600000004,
+          "longitude": 39.0982244,
+          "google_rating": 4,
+          "rating": 4,
+          "google_review_count": 3926,
+          "review_count": 3926,
+          "operating_status": "open",
+          "hours": "Monday: 5:45 AM – 2:00 PM, 6:00 PM – 12:00 AM; Tuesday: 5:45 AM – 2:00 PM, 6:00 PM – 12:00 AM; Wednesday: 5:45 AM – 2:00 PM, 6:00 PM – 12:00 AM; Thursday: 5:45 AM – 2:00 PM, 6:00 PM – 12:00 AM; Friday: 5:45 AM – 12:00 PM, 1:00 – 3:00 PM, 6:00 PM – 12:00 AM; Saturday: 5:45 AM – 2:00 PM, 6:00 PM – 12:00 AM; Sunday: 5:45 AM – 2:00 PM, 6:00 PM – 12:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJPWKJobBjwRURdvwwcTeiLQg"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_sheraa."
+        },
+        {
+          "branch_name": "Banaemah — Al Fayha",
+          "name": "Banaemah — Al Fayha",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "طريق الملك عبدالله بن عبدالعزيز، Al Fayha, مقابل أويسس مول محمود سعيد، جدة 22241, Saudi Arabia",
+          "address": "طريق الملك عبدالله بن عبدالعزيز، Al Fayha, مقابل أويسس مول محمود سعيد، جدة 22241, Saudi Arabia",
+          "raw_district": "Al Fayha",
+          "district": "Al Fayha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdx2k39PPwxUR-bHKpAA8ozY",
+          "google_place_id": "ChIJdx2k39PPwxUR-bHKpAA8ozY",
+          "latitude": 21.5109146,
+          "longitude": 39.1967132,
+          "google_rating": 4.1,
+          "rating": 4.1,
+          "google_review_count": 311,
+          "review_count": 311,
+          "operating_status": "open",
+          "hours": "Monday: 5:30 AM – 2:00 PM, 6:30 PM – 12:00 AM; Tuesday: 5:30 AM – 2:00 PM, 6:30 PM – 12:00 AM; Wednesday: 5:30 AM – 2:00 PM, 6:30 PM – 12:00 AM; Thursday: 5:30 AM – 2:00 PM, 6:30 PM – 12:00 AM; Friday: 5:30 AM – 2:00 PM, 6:30 PM – 12:00 AM; Saturday: 5:30 AM – 2:00 PM, 6:30 PM – 12:00 AM; Sunday: 5:30 AM – 2:00 PM, 6:30 PM – 12:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdx2k39PPwxUR-bHKpAA8ozY"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_faiha."
+        },
+        {
+          "branch_name": "Banaemah — Hamdaniyah area",
+          "name": "Banaemah — Hamdaniyah area",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Al Falah, Jeddah 23762, Saudi Arabia",
+          "address": "Al Falah, Jeddah 23762, Saudi Arabia",
+          "raw_district": "Al Falah",
+          "district": "Al Falah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJqwjJEYJ9wRURuHY8J-DlFEw",
+          "google_place_id": "ChIJqwjJEYJ9wRURuHY8J-DlFEw",
+          "latitude": 21.7695767,
+          "longitude": 39.1928768,
+          "google_rating": 3.7,
+          "rating": 3.7,
+          "google_review_count": 1592,
+          "review_count": 1592,
+          "operating_status": "open",
+          "hours": "Monday: 5:45 AM – 1:00 PM, 6:00 PM – 12:00 AM; Tuesday: 5:45 AM – 1:00 PM, 6:00 PM – 12:00 AM; Wednesday: 5:45 AM – 1:00 PM, 6:00 PM – 12:00 AM; Thursday: 5:45 AM – 1:00 PM, 6:00 PM – 12:00 AM; Friday: 5:45 AM – 2:30 PM, 6:00 PM – 12:00 AM; Saturday: 5:45 AM – 1:00 PM, 6:00 PM – 12:00 AM; Sunday: 5:45 AM – 1:00 PM, 6:00 PM – 12:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJqwjJEYJ9wRURuHY8J-DlFEw"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al Falah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Banaemah — Mohammadiyah",
+          "name": "Banaemah — Mohammadiyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "شارع صفية بنت عبدالمطلب، Al Mohammadiyyah, Jeddah 23621, Saudi Arabia",
+          "address": "شارع صفية بنت عبدالمطلب، Al Mohammadiyyah, Jeddah 23621, Saudi Arabia",
+          "raw_district": "Al Mohammadiyyah",
+          "district": "Al Mohammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ7QcyZWjZwxUR7yDuuzgPRy0",
+          "google_place_id": "ChIJ7QcyZWjZwxUR7yDuuzgPRy0",
+          "latitude": 21.6416285,
+          "longitude": 39.1361262,
+          "google_rating": 4,
+          "rating": 4,
+          "google_review_count": 454,
+          "review_count": 454,
+          "operating_status": "open",
+          "hours": "Monday: 5:45 AM – 12:00 PM, 6:00 PM – 12:00 AM; Tuesday: 5:45 AM – 12:00 PM, 6:00 PM – 12:00 AM; Wednesday: 5:45 AM – 12:00 PM, 6:00 PM – 12:00 AM; Thursday: 5:45 AM – 12:00 PM, 6:00 PM – 12:00 AM; Friday: 5:45 AM – 12:00 PM, 6:00 PM – 12:00 AM; Saturday: 5:45 AM – 12:00 PM, 6:00 PM – 12:00 AM; Sunday: 5:45 AM – 12:00 PM, 6:00 PM – 12:00 AM",
+          "phone": "+966505863921",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ7QcyZWjZwxUR7yDuuzgPRy0"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "am_qasim",
+      "canonical_name": "Am Qasim",
+      "name_en": "Am Qasim",
+      "arabic_name": "عم قاسم",
+      "name_ar": "عم قاسم",
+      "subtypes": [
+        "masoub",
+        "areeka",
+        "mutabbaq"
+      ],
+      "recognition_tier": "mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": "Official Jeddah branch list also names Harazat and Taibah; excluded from production export until exact address+district are reconciled.",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Established since 1987 with a multi-city Saudi footprint; brand identifies 15 branches overall and specializes in areeka, masoub and mutabbaq.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner"
+      ],
+      "signature_dishes": [
+        "areeka",
+        "masoub",
+        "mutabbaq"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://am-qasim.com/ar/pages/about-us",
+          "type": "official_or_verified_web"
+        },
+        {
+          "url": "https://linktr.ee/aam.qasimm",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://am-qasim.com/ar/pages/about-us",
+        "https://linktr.ee/aam.qasimm"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "high",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Am Qasim — Al Bawadi",
+          "name": "Am Qasim — Al Bawadi",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "ثرمدا، البوادي 23443, 7218 Ibn Qasim Al Khawarizmi, Al Bawadi, 3025، Jeddah 23443, Saudi Arabia",
+          "address": "ثرمدا، البوادي 23443, 7218 Ibn Qasim Al Khawarizmi, Al Bawadi, 3025، Jeddah 23443, Saudi Arabia",
+          "raw_district": "Al Bawadi",
+          "district": "Al Bawadi",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJYTNaYlrRwxURJ_gZJbMOhVc",
+          "google_place_id": "ChIJYTNaYlrRwxURJ_gZJbMOhVc",
+          "latitude": 21.590683499999997,
+          "longitude": 39.169843199999995,
+          "google_rating": 4.1,
+          "rating": 4.1,
+          "google_review_count": 1677,
+          "review_count": 1677,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 – 11:00 AM, 6:00 PM – 12:00 AM; Tuesday: 6:00 – 11:00 AM, 6:00 PM – 12:00 AM; Wednesday: 6:00 – 11:00 AM, 6:00 PM – 12:00 AM; Thursday: 6:00 – 11:00 AM, 6:00 PM – 12:00 AM; Friday: 6:00 – 11:00 AM, 6:00 PM – 12:00 AM; Saturday: 6:00 – 11:00 AM, 6:00 PM – 12:00 AM; Sunday: 6:00 – 11:00 AM, 6:00 PM – 12:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJYTNaYlrRwxURJ_gZJbMOhVc"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_bawadi."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "operation_falafel",
+      "canonical_name": "Operation Falafel",
+      "name_en": "Operation Falafel",
+      "arabic_name": "أوبريشن فلافل",
+      "name_ar": "أوبريشن فلافل",
+      "subtypes": [
+        "falafel",
+        "levant_street_food"
+      ],
+      "recognition_tier": "anchor_mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "falafel"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Recognizable regional street-food chain with multiple Jeddah branches, strong Google review volume, and active delivery presence.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "falafel",
+        "falafel_saj"
+      ],
+      "price_positioning": "affordable",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/an-naim/operation-falafel-94729",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/an-naim/operation-falafel-94729"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "high",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Operation Falafel — Fayfa Avenue",
+          "name": "Operation Falafel — Fayfa Avenue",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Sultan Rd, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+          "address": "Prince Sultan Rd, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+          "raw_district": "Ar Rawdah",
+          "district": "Ar Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJBzwXZ5zFwxUR2TPV2zLyKNk",
+          "google_place_id": "ChIJBzwXZ5zFwxUR2TPV2zLyKNk",
+          "latitude": 21.5496126,
+          "longitude": 39.1435458,
+          "google_rating": 4.7,
+          "rating": 4.7,
+          "google_review_count": 2849,
+          "review_count": 2849,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 2:00 AM; Tuesday: 6:00 AM – 2:00 AM; Wednesday: 6:00 AM – 2:00 AM; Thursday: 6:00 AM – 2:00 AM; Friday: 6:00 AM – 2:00 AM; Saturday: 6:00 AM – 2:00 AM; Sunday: 6:00 AM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJBzwXZ5zFwxUR2TPV2zLyKNk"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Operation Falafel — Prince Sultan",
+          "name": "Operation Falafel — Prince Sultan",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Sultan, Al Mohammadiyyah, Jeddah 23621, Saudi Arabia",
+          "address": "Prince Sultan, Al Mohammadiyyah, Jeddah 23621, Saudi Arabia",
+          "raw_district": "Al Mohammadiyyah",
+          "district": "Al Mohammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJH_J5saTZwxURnqTg4GBlkyg",
+          "google_place_id": "ChIJH_J5saTZwxURnqTg4GBlkyg",
+          "latitude": 21.636839000000002,
+          "longitude": 39.13220690000001,
+          "google_rating": 4.5,
+          "rating": 4.5,
+          "google_review_count": 3413,
+          "review_count": 3413,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 2:00 AM; Tuesday: 6:00 AM – 2:00 AM; Wednesday: 6:00 AM – 2:00 AM; Thursday: 6:00 AM – 2:00 AM; Friday: 6:00 AM – 2:00 AM; Saturday: 6:00 AM – 2:00 AM; Sunday: 6:00 AM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJH_J5saTZwxURnqTg4GBlkyg"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "koshary_abu_tarek",
+      "canonical_name": "Koshary Abu Tarek",
+      "name_en": "Koshary Abu Tarek",
+      "arabic_name": "كشري أبو طارق",
+      "name_ar": "كشري أبو طارق",
+      "subtypes": [
+        "koshari"
+      ],
+      "recognition_tier": "anchor_mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "koshari"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Internationally recognized koshari brand with two heavily reviewed current Jeddah branches.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "koshari"
+      ],
+      "price_positioning": "affordable",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [],
+      "source_urls": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Koshary Abu Tarek — Palestine",
+          "name": "Koshary Abu Tarek — Palestine",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "3103 فلسطين، سيف العزه، حي الشرفية، Jeddah 23218, Saudi Arabia",
+          "address": "3103 فلسطين، سيف العزه، حي الشرفية، Jeddah 23218, Saudi Arabia",
+          "raw_district": "Al Sharafiyah",
+          "district": "Al Sharafiyah",
+          "canonical_district": "al_sharafeyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ8UR5RNHPwxURof5D8-03i4U",
+          "google_place_id": "ChIJ8UR5RNHPwxURof5D8-03i4U",
+          "latitude": 21.531270499999998,
+          "longitude": 39.190026499999995,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 18152,
+          "review_count": 18152,
+          "operating_status": "open",
+          "hours": "Monday: 10:00 AM – 2:00 AM; Tuesday: 10:00 AM – 2:00 AM; Wednesday: 10:00 AM – 2:00 AM; Thursday: 10:00 AM – 2:00 AM; Friday: 1:00 PM – 2:00 AM; Saturday: 10:00 AM – 2:00 AM; Sunday: 10:00 AM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ8UR5RNHPwxURof5D8-03i4U"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_sharafeyah."
+        },
+        {
+          "branch_name": "Koshary Abu Tarek — Prince Sultan",
+          "name": "Koshary Abu Tarek — Prince Sultan",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "8599، 2202 Al Amir Sultan، An Naim District، Jeddah 23526, Saudi Arabia",
+          "address": "8599، 2202 Al Amir Sultan، An Naim District، Jeddah 23526, Saudi Arabia",
+          "raw_district": "An Naim",
+          "district": "An Naim",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ7SStS4TbwxURZ2gbTb5F7dU",
+          "google_place_id": "ChIJ7SStS4TbwxURZ2gbTb5F7dU",
+          "latitude": 21.6168278,
+          "longitude": 39.139268,
+          "google_rating": 4.4,
+          "rating": 4.4,
+          "google_review_count": 5073,
+          "review_count": 5073,
+          "operating_status": "open",
+          "hours": "Monday: 10:00 AM – 2:00 AM; Tuesday: 10:00 AM – 2:00 AM; Wednesday: 10:00 AM – 2:00 AM; Thursday: 10:00 AM – 3:00 AM; Friday: 1:00 PM – 3:00 AM; Saturday: 10:00 AM – 2:00 AM; Sunday: 10:00 AM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ7SStS4TbwxURZ2gbTb5F7dU"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_naeem."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "masoub_al_qadri",
+      "canonical_name": "Masoub Al Qadri",
+      "name_en": "Masoub Al Qadri",
+      "arabic_name": "معصوب القادري",
+      "name_ar": "معصوب القادري",
+      "subtypes": [
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "masoub",
+        "areeka"
+      ],
+      "recognition_tier": "mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": "Official brand states 6 Jeddah branches: Hira, Al-Ruwais, Al-Rawdah, Obhur, Waterfront, Al-Marwah. Obhur omitted here until exact branch address is reconciled.",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Jeddah-founded in 2009; official site confirms six current Jeddah branches specializing in folk/traditional food.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "masoub",
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "areeka"
+      ],
+      "price_positioning": "affordable",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://masoubalgadri.com/الاسئلة-الشائعة/",
+          "type": "official_or_verified_web"
+        },
+        {
+          "url": "https://masoubalgadri.com/نبذة-عنا/",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://masoubalgadri.com/الاسئلة-الشائعة/",
+        "https://masoubalgadri.com/نبذة-عنا/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Masoub Al Qadri — Rawdah",
+          "name": "Masoub Al Qadri — Rawdah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "قاسم زينة، الروضة،، Ar Rawdah, Jeddah 23434, Saudi Arabia",
+          "address": "قاسم زينة، الروضة،، Ar Rawdah, Jeddah 23434, Saudi Arabia",
+          "raw_district": "Ar Rawdah",
+          "district": "Ar Rawdah",
+          "canonical_district": "al_rawdah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJKVx62nbQwxURp5MKkuymSyc",
+          "google_place_id": "ChIJKVx62nbQwxURp5MKkuymSyc",
+          "latitude": 21.5726553,
+          "longitude": 39.1586805,
+          "google_rating": 4.5,
+          "rating": 4.5,
+          "google_review_count": 6852,
+          "review_count": 6852,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Tuesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Wednesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Thursday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Friday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Saturday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Sunday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJKVx62nbQwxURp5MKkuymSyc"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_rawdah."
+        },
+        {
+          "branch_name": "Masoub Al Qadri — Hira",
+          "name": "Masoub Al Qadri — Hira",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "3417 حراء، As Salamah District Jeddah 23525 8103, السلامة، جدة 23525, Saudi Arabia",
+          "address": "3417 حراء، As Salamah District Jeddah 23525 8103, السلامة، جدة 23525, Saudi Arabia",
+          "raw_district": "As Salamah",
+          "district": "As Salamah",
+          "canonical_district": "al_salamah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJLZZwi1HRwxUR8ZsA2Xl-5I4",
+          "google_place_id": "ChIJLZZwi1HRwxUR8ZsA2Xl-5I4",
+          "latitude": 21.6126146,
+          "longitude": 39.1508466,
+          "google_rating": 4.6,
+          "rating": 4.6,
+          "google_review_count": 3197,
+          "review_count": 3197,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Tuesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Wednesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Thursday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Friday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Saturday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Sunday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJLZZwi1HRwxUR8ZsA2Xl-5I4"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_salamah."
+        },
+        {
+          "branch_name": "Masoub Al Qadri — Al Marwah",
+          "name": "Masoub Al Qadri — Al Marwah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "J6G6+23Q, Hira St, Al Marwah, Jeddah 23544, Saudi Arabia",
+          "address": "J6G6+23Q, Hira St, Al Marwah, Jeddah 23544, Saudi Arabia",
+          "raw_district": "Al Marwah",
+          "district": "Al Marwah",
+          "canonical_district": "al_marwah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ6TzlVufXwxURklenZO4pjMI",
+          "google_place_id": "ChIJ6TzlVufXwxURklenZO4pjMI",
+          "latitude": 21.6250625,
+          "longitude": 39.210187499999996,
+          "google_rating": 4.6,
+          "rating": 4.6,
+          "google_review_count": 3368,
+          "review_count": 3368,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Tuesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Wednesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Thursday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Friday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Saturday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Sunday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ6TzlVufXwxURklenZO4pjMI"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_marwah."
+        },
+        {
+          "branch_name": "Masoub Al Qadri — Al Ruwais",
+          "name": "Masoub Al Qadri — Al Ruwais",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Hael, Al-Ruwais, Jeddah 23213, Saudi Arabia",
+          "address": "Hael, Al-Ruwais, Jeddah 23213, Saudi Arabia",
+          "raw_district": "Al-Ruwais",
+          "district": "Al-Ruwais",
+          "canonical_district": "al_ruwais",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJT7nmpZfPwxURjzeAqvOvRbE",
+          "google_place_id": "ChIJT7nmpZfPwxURjzeAqvOvRbE",
+          "latitude": 21.513890399999998,
+          "longitude": 39.1729357,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 6892,
+          "review_count": 6892,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Tuesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Wednesday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Thursday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Friday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Saturday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM; Sunday: 5:00 – 11:00 AM, 7:00 PM – 12:30 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJT7nmpZfPwxURjzeAqvOvRbE"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_ruwais."
+        },
+        {
+          "branch_name": "Masoub Al Qadri — Waterfront",
+          "name": "Masoub Al Qadri — Waterfront",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Ash Shati, Jeddah 23611, Saudi Arabia",
+          "address": "Ash Shati, Jeddah 23611, Saudi Arabia",
+          "raw_district": "Ash Shati",
+          "district": "Ash Shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJHTHr5bPbwxUR4dnAz_vvzaw",
+          "google_place_id": "ChIJHTHr5bPbwxUR4dnAz_vvzaw",
+          "latitude": 21.6167977,
+          "longitude": 39.1081164,
+          "google_rating": 4.6,
+          "rating": 4.6,
+          "google_review_count": 1525,
+          "review_count": 1525,
+          "operating_status": "open",
+          "hours": "Monday: Open 24 hours; Tuesday: Open 24 hours; Wednesday: Open 24 hours; Thursday: Open 24 hours; Friday: Open 24 hours; Saturday: Open 24 hours; Sunday: Open 24 hours",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJHTHr5bPbwxUR4dnAz_vvzaw"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_shati."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "kabdat_al_muallimi",
+      "canonical_name": "Kabdat Al-Muallimi",
+      "name_en": "Kabdat Al-Muallimi",
+      "arabic_name": "كبدة المعلمي",
+      "name_ar": "كبدة المعلمي",
+      "subtypes": [
+        "kebda",
+        "hijazi_food"
+      ],
+      "recognition_tier": "mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "kebda"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Established Jeddah kebda/traditional-food chain with six official branches and ongoing expansion.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "kebda"
+      ],
+      "price_positioning": "affordable",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://almuallimisa.com/",
+          "type": "official_or_verified_web"
+        },
+        {
+          "url": "https://almuallimisa.com/فروعنا-مطاعم-كبدة-المعلمي/",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://almuallimisa.com/",
+        "https://almuallimisa.com/فروعنا-مطاعم-كبدة-المعلمي/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Kabdat Al-Muallimi — Al Faisaliyah",
+          "name": "Kabdat Al-Muallimi — Al Faisaliyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "H59Q+RF8 الفيصلية, District, جدة 23444, Saudi Arabia",
+          "address": "H59Q+RF8 الفيصلية, District, جدة 23444, Saudi Arabia",
+          "raw_district": "Al Faisaliyah",
+          "district": "Al Faisaliyah",
+          "canonical_district": "al_faisaliyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJP81xTlDQwxURpYkenM2TWv4",
+          "google_place_id": "ChIJP81xTlDQwxURpYkenM2TWv4",
+          "latitude": 21.5695625,
+          "longitude": 39.1886875,
+          "google_rating": 3.9,
+          "rating": 3.9,
+          "google_review_count": 7377,
+          "review_count": 7377,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Tuesday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Wednesday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Thursday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Friday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Saturday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Sunday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM",
+          "phone": "+966126600035",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJP81xTlDQwxURpYkenM2TWv4"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_faisaliyyah."
+        },
+        {
+          "branch_name": "Kabdat Al-Muallimi — Corniche",
+          "name": "Kabdat Al-Muallimi — Corniche",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "6151 Al Kurnaysh Br Rd, Ash Shati District، 2741، Jeddah 23611, Saudi Arabia",
+          "address": "6151 Al Kurnaysh Br Rd, Ash Shati District، 2741، Jeddah 23611, Saudi Arabia",
+          "raw_district": "Ash Shati",
+          "district": "Ash Shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJHXmHulzbwxUROHd0aHqBl1E",
+          "google_place_id": "ChIJHXmHulzbwxUROHd0aHqBl1E",
+          "latitude": 21.6165971,
+          "longitude": 39.1083328,
+          "google_rating": 3.8,
+          "rating": 3.8,
+          "google_review_count": 1830,
+          "review_count": 1830,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 3:00 AM; Tuesday: 6:00 AM – 3:00 AM; Wednesday: 6:00 AM – 3:00 AM; Thursday: 6:00 AM – 3:00 AM; Friday: 6:00 AM – 3:00 AM; Saturday: 6:00 AM – 3:00 AM; Sunday: 6:00 AM – 3:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJHXmHulzbwxUROHd0aHqBl1E"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_shati."
+        },
+        {
+          "branch_name": "Kabdat Al-Muallimi — Obhur",
+          "name": "Kabdat Al-Muallimi — Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Naif Rd, Al Shera'a, Jeddah 23816, Saudi Arabia",
+          "address": "Prince Naif Rd, Al Shera'a, Jeddah 23816, Saudi Arabia",
+          "raw_district": "Al Shiraa",
+          "district": "Al Shiraa",
+          "canonical_district": "al_sheraa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJw0lhBQBjwRURvJapC4-b2sY",
+          "google_place_id": "ChIJw0lhBQBjwRURvJapC4-b2sY",
+          "latitude": 21.7733733,
+          "longitude": 39.1024554,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 1470,
+          "review_count": 1470,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Tuesday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Wednesday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Thursday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Friday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Saturday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM; Sunday: 6:00 AM – 12:00 PM, 1:00 PM – 3:00 AM",
+          "phone": "+966126600035",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJw0lhBQBjwRURvJapC4-b2sY"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_sheraa."
+        },
+        {
+          "branch_name": "Kabdat Al-Muallimi — Al Bashayer",
+          "name": "Kabdat Al-Muallimi — Al Bashayer",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "حي، جوار محطة ساسكو، 285, Al Bashaer, Jeddah 22441, Saudi Arabia",
+          "address": "حي، جوار محطة ساسكو، 285, Al Bashaer, Jeddah 22441, Saudi Arabia",
+          "raw_district": "Al Bashaer",
+          "district": "Al Bashaer",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXXo09F97wRURRytJGECfemE",
+          "google_place_id": "ChIJXXo09F97wRURRytJGECfemE",
+          "latitude": 21.8206599,
+          "longitude": 39.17516,
+          "google_rating": 3.9,
+          "rating": 3.9,
+          "google_review_count": 1399,
+          "review_count": 1399,
+          "operating_status": "open",
+          "hours": "Monday: 5:30 AM – 3:00 AM; Tuesday: 5:30 AM – 3:00 AM; Wednesday: 5:30 AM – 3:00 AM; Thursday: 5:30 AM – 3:00 AM; Friday: 5:30 AM – 3:00 AM; Saturday: 5:30 AM – 3:00 AM; Sunday: 5:30 AM – 3:00 AM",
+          "phone": "+966126600035",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJXXo09F97wRURRytJGECfemE"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al Bashaer'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Kabdat Al-Muallimi — Al Waha",
+          "name": "Kabdat Al-Muallimi — Al Waha",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "H67V+6QP, Al Waha, Jeddah 22441, Saudi Arabia",
+          "address": "H67V+6QP, Al Waha, Jeddah 22441, Saudi Arabia",
+          "raw_district": "Al Waha",
+          "district": "Al Waha",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ59jeytbTwxURKYDoheaRsl8",
+          "google_place_id": "ChIJ59jeytbTwxURKYDoheaRsl8",
+          "latitude": 21.563062499999997,
+          "longitude": 39.2444375,
+          "google_rating": 4,
+          "rating": 4,
+          "google_review_count": 196,
+          "review_count": 196,
+          "operating_status": "open",
+          "hours": "Monday: 5:30 AM – 3:00 AM; Tuesday: 5:30 AM – 3:00 AM; Wednesday: 5:30 AM – 3:00 AM; Thursday: 5:30 AM – 3:00 AM; Friday: 5:30 AM – 3:00 AM; Saturday: 5:30 AM – 3:00 AM; Sunday: 5:30 AM – 3:00 AM",
+          "phone": "+966126600035",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ59jeytbTwxURKYDoheaRsl8"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al Waha'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Kabdat Al-Muallimi — Al Ruhaili",
+          "name": "Kabdat Al-Muallimi — Al Ruhaili",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Al Ruhaili Station, Jeddah–Makkah Expressway, Jeddah, Saudi Arabia",
+          "address": "Al Ruhaili Station, Jeddah–Makkah Expressway, Jeddah, Saudi Arabia",
+          "raw_district": "Al Ruhaili",
+          "district": "Al Ruhaili",
+          "canonical_district": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "rating": null,
+          "google_review_count": null,
+          "review_count": null,
+          "operating_status": "active",
+          "hours": null,
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "official_brand_branch",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "provenance": [
+            {
+              "type": "official_brand_branch",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "manual_review",
+          "coordinate_status": "not_verified",
+          "reason": "Exact branch-level Google Maps listing/Place ID was not safely matched in the final correction pass."
+        }
+      ],
+      "excluded_branches": []
+    },
+    {
+      "id": "falafel_al_sham",
+      "canonical_name": "Falafel Al-Sham",
+      "name_en": "Falafel Al-Sham",
+      "arabic_name": "فلافل الشام",
+      "name_ar": "فلافل الشام",
+      "subtypes": [
+        "falafel"
+      ],
+      "recognition_tier": "mainstream",
+      "use_case": "delivery_easy_order",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "strict_nearby_only",
+        "going_out": "nearby_only"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "falafel"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Multi-branch Jeddah falafel/Levantine brand with official branch listings and current online ordering.",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "falafel"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://linktr.ee/falafelalsham",
+          "type": "official_or_verified_web"
+        },
+        {
+          "url": "https://www.falafel-alsham.com/",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://linktr.ee/falafelalsham",
+        "https://www.falafel-alsham.com/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "high",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "yes",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "high",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Falafel Al-Sham — Al Bawadi",
+          "name": "Falafel Al-Sham — Al Bawadi",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "7548 Al Khatib At Tabrizi، 2859 Al Khatib، Al Bawadi District، Jeddah 23443, Saudi Arabia",
+          "address": "7548 Al Khatib At Tabrizi، 2859 Al Khatib، Al Bawadi District، Jeddah 23443, Saudi Arabia",
+          "raw_district": "Al Bawadi",
+          "district": "Al Bawadi",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJF06KxJHQwxURJd7dLgg-8xk",
+          "google_place_id": "ChIJF06KxJHQwxURJd7dLgg-8xk",
+          "latitude": 21.593640999999998,
+          "longitude": 39.1682422,
+          "google_rating": 4,
+          "rating": 4,
+          "google_review_count": 2224,
+          "review_count": 2224,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 12:15 AM; Tuesday: 6:00 AM – 12:15 AM; Wednesday: 6:00 AM – 12:15 AM; Thursday: 6:00 AM – 12:15 AM; Friday: 6:00 AM – 12:15 AM; Saturday: 6:00 AM – 12:15 AM; Sunday: 6:00 AM – 12:15 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJF06KxJHQwxURJd7dLgg-8xk"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_bawadi."
+        },
+        {
+          "branch_name": "Falafel Al-Sham — Al Safa",
+          "name": "Falafel Al-Sham — Al Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "JDSA6778، 6778، 4301 Umm Al Qoura, Al-Safa, Jeddah 23453, Saudi Arabia",
+          "address": "JDSA6778، 6778، 4301 Umm Al Qoura, Al-Safa, Jeddah 23453, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJb86gTADRwxURVU-z_0dUUWI",
+          "google_place_id": "ChIJb86gTADRwxURVU-z_0dUUWI",
+          "latitude": 21.5691725,
+          "longitude": 39.220784099999996,
+          "google_rating": 3.7,
+          "rating": 3.7,
+          "google_review_count": 188,
+          "review_count": 188,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 AM – 12:00 AM; Tuesday: 5:00 AM – 12:00 AM; Wednesday: 5:00 AM – 12:00 AM; Thursday: 5:00 AM – 12:00 AM; Friday: 5:00 – 11:30 AM, 1:00 PM – 12:00 AM; Saturday: 5:00 AM – 12:00 AM; Sunday: 5:00 AM – 12:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJb86gTADRwxURVU-z_0dUUWI"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_safa."
+        },
+        {
+          "branch_name": "Falafel Al-Sham — Al Faisaliyah",
+          "name": "Falafel Al-Sham — Al Faisaliyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Imam abdulaziz, Al Faisaliyyah, Jeddah 23442, Saudi Arabia",
+          "address": "Imam abdulaziz, Al Faisaliyyah, Jeddah 23442, Saudi Arabia",
+          "raw_district": "Al Faisaliyah",
+          "district": "Al Faisaliyah",
+          "canonical_district": "al_faisaliyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJlU7P5WfQwxURuAinj_5DQT4",
+          "google_place_id": "ChIJlU7P5WfQwxURuAinj_5DQT4",
+          "latitude": 21.571585,
+          "longitude": 39.1743113,
+          "google_rating": 4.5,
+          "rating": 4.5,
+          "google_review_count": 6910,
+          "review_count": 6910,
+          "operating_status": "open",
+          "hours": "Monday: 5:15 AM – 1:00 AM; Tuesday: 5:15 AM – 1:00 AM; Wednesday: 5:15 AM – 1:00 AM; Thursday: 5:15 AM – 1:30 AM; Friday: 5:15 AM – 1:30 AM; Saturday: 5:15 AM – 1:00 AM; Sunday: 5:15 AM – 1:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJlU7P5WfQwxURuAinj_5DQT4"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_faisaliyyah."
+        },
+        {
+          "branch_name": "Falafel Al-Sham — Al Hamadaniyyah",
+          "name": "Falafel Al-Sham — Al Hamadaniyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "P5RR+QG5 21.7418900, 39.1913649, Al Hamadaniyyah, Jeddah 23743, Saudi Arabia",
+          "address": "P5RR+QG5 21.7418900, 39.1913649, Al Hamadaniyyah, Jeddah 23743, Saudi Arabia",
+          "raw_district": "Al Hamadaniyyah",
+          "district": "Al Hamadaniyyah",
+          "canonical_district": "al_hamdaniyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRXI70L19wRURBSA5KaWqWPM",
+          "google_place_id": "ChIJRXI70L19wRURBSA5KaWqWPM",
+          "latitude": 21.7419224,
+          "longitude": 39.1915,
+          "google_rating": 3.8,
+          "rating": 3.8,
+          "google_review_count": 517,
+          "review_count": 517,
+          "operating_status": "open",
+          "hours": "Monday: 5:15 AM – 12:15 AM; Tuesday: 5:15 AM – 12:15 AM; Wednesday: 5:15 AM – 12:15 AM; Thursday: 5:15 AM – 12:15 AM; Friday: 5:15 AM – 12:15 AM; Saturday: 5:15 AM – 12:15 AM; Sunday: 5:15 AM – 12:15 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRXI70L19wRURBSA5KaWqWPM"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_hamdaniyah."
+        },
+        {
+          "branch_name": "Falafel Al-Sham — Mishrifah",
+          "name": "Falafel Al-Sham — Mishrifah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "7136- 7170 شارع الأمير متعب بن عبدالعزيز، 3406، حي مشرفة، Jeddah 23341, Saudi Arabia",
+          "address": "7136- 7170 شارع الأمير متعب بن عبدالعزيز، 3406، حي مشرفة، Jeddah 23341, Saudi Arabia",
+          "raw_district": "Mishrifah",
+          "district": "Mishrifah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ9cjd88HRwxURHim_A3Hy9_Y",
+          "google_place_id": "ChIJ9cjd88HRwxURHim_A3Hy9_Y",
+          "latitude": 21.545439,
+          "longitude": 39.2157039,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 662,
+          "review_count": 662,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 11:45 PM; Tuesday: 6:00 AM – 11:45 PM; Wednesday: 6:00 AM – 11:45 PM; Thursday: 6:00 AM – 11:45 PM; Friday: 6:00 AM – 11:45 PM; Saturday: 6:00 AM – 11:45 PM; Sunday: 6:00 AM – 11:45 PM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ9cjd88HRwxURHim_A3Hy9_Y"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Mishrifah'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "tamees_09",
+      "canonical_name": "Tamees 09",
+      "name_en": "Tamees 09",
+      "arabic_name": "تميس 09",
+      "name_ar": "تميس 09",
+      "subtypes": [
+        "tamees",
+        "foul",
+        "hijazi_food"
+      ],
+      "recognition_tier": "mainstream",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Modern Jeddah traditional-food concept with multiple active branches and significant delivery/review presence.",
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "tamees",
+        "masoub",
+        "areeka",
+        "mutabbaq"
+      ],
+      "price_positioning": "mid-range",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-khalidiyah/tamees-09-147795",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-khalidiyah/tamees-09-147795"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "high",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Tamees 09 — Al Baghdadiyah Al Gharbiyah",
+          "name": "Tamees 09 — Al Baghdadiyah Al Gharbiyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "King Abdullah Branch Rd, Al-Baghdadiyah Al-Gharbiyah, Jeddah 22231, Saudi Arabia",
+          "address": "King Abdullah Branch Rd, Al-Baghdadiyah Al-Gharbiyah, Jeddah 22231, Saudi Arabia",
+          "raw_district": "Al-Baghdadiyah Al-Gharbiyah",
+          "district": "Al-Baghdadiyah Al-Gharbiyah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJb5EzeZ_PwxUR6j_O4BxOA0U",
+          "google_place_id": "ChIJb5EzeZ_PwxUR6j_O4BxOA0U",
+          "latitude": 21.509454599999998,
+          "longitude": 39.1741129,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 13347,
+          "review_count": 13347,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 AM – 1:00 AM; Tuesday: 5:00 AM – 1:00 AM; Wednesday: 5:00 AM – 1:00 AM; Thursday: 5:00 AM – 1:00 AM; Friday: 5:00 – 11:45 AM, 1:00 PM – 1:00 AM; Saturday: 5:00 AM – 1:00 AM; Sunday: 5:00 AM – 1:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJb5EzeZ_PwxUR6j_O4BxOA0U"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al-Baghdadiyah Al-Gharbiyah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Tamees 09 — Obhur",
+          "name": "Tamees 09 — Obhur",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "ابحر، Camel Roundabout, Abhur Al Junoobiyah, Jeddah 22231, Saudi Arabia",
+          "address": "ابحر، Camel Roundabout, Abhur Al Junoobiyah, Jeddah 22231, Saudi Arabia",
+          "raw_district": "Obhur",
+          "district": "Obhur",
+          "canonical_district": "abhur_al_shamaliyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ09m9iEpjwRURUrzUHYmYNa8",
+          "google_place_id": "ChIJ09m9iEpjwRURUrzUHYmYNa8",
+          "latitude": 21.7642141,
+          "longitude": 39.1421755,
+          "google_rating": 4.5,
+          "rating": 4.5,
+          "google_review_count": 1061,
+          "review_count": 1061,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 AM – 12:00 AM; Tuesday: 5:00 AM – 12:00 AM; Wednesday: 5:00 AM – 12:00 AM; Thursday: 5:00 AM – 12:00 AM; Friday: 5:00 – 11:45 AM, 1:00 PM – 12:00 AM; Saturday: 5:00 AM – 12:00 AM; Sunday: 5:00 AM – 12:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ09m9iEpjwRURUrzUHYmYNa8"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district abhur_al_shamaliyah."
+        },
+        {
+          "branch_name": "Tamees 09 Mini — Aziziyah",
+          "name": "Tamees 09 Mini — Aziziyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "العزيز، Aziziyah, Jeddah 23334, Saudi Arabia",
+          "address": "العزيز، Aziziyah, Jeddah 23334, Saudi Arabia",
+          "raw_district": "Aziziyah",
+          "district": "Aziziyah",
+          "canonical_district": "al_aziziyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdQPTQCzRwxURPjYs3fz2by0",
+          "google_place_id": "ChIJdQPTQCzRwxURPjYs3fz2by0",
+          "latitude": 21.5564954,
+          "longitude": 39.184163,
+          "google_rating": 4.4,
+          "rating": 4.4,
+          "google_review_count": 118,
+          "review_count": 118,
+          "operating_status": "open",
+          "hours": "Monday: 8:00 AM – 1:00 AM; Tuesday: 8:00 AM – 1:00 AM; Wednesday: 8:00 AM – 1:00 AM; Thursday: 8:00 AM – 1:00 AM; Friday: 8:00 – 11:45 AM, 1:00 PM – 1:00 AM; Saturday: 8:00 AM – 1:00 AM; Sunday: 8:00 AM – 1:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJdQPTQCzRwxURPjYs3fz2by0"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_aziziyah."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "al_qarmoshi",
+      "canonical_name": "Al-Qarmoshi",
+      "name_en": "Al-Qarmoshi",
+      "arabic_name": "القرموشي",
+      "name_ar": "القرموشي",
+      "subtypes": [
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "masoub"
+      ],
+      "recognition_tier": "established",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": "Official brand page identifies Prince Mutaib Road (40th Street) as its Jeddah branch; other similarly named listings are intentionally excluded.",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "staple",
+      "classification_evidence": "Historic traditional-food brand with an official current Jeddah branch listing on Prince Mutaib Road.",
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner"
+      ],
+      "signature_dishes": [
+        "foul",
+        "tamees",
+        "mutabbaq",
+        "masoub"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://algarmoshi.com/branches/",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://algarmoshi.com/branches/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al-Qarmoshi — Prince Mutaib / 40th St",
+          "name": "Al-Qarmoshi — Prince Mutaib / 40th St",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "حي الصفا، 6413 Prince Mutaib bin Abdulaziz Rd, Al-Safa, Jeddah 23455, Saudi Arabia",
+          "address": "حي الصفا، 6413 Prince Mutaib bin Abdulaziz Rd, Al-Safa, Jeddah 23455, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5ZSXRBDRwxURQWbfeCewask",
+          "google_place_id": "ChIJ5ZSXRBDRwxURQWbfeCewask",
+          "latitude": 21.5835221,
+          "longitude": 39.2080584,
+          "google_rating": 3.9,
+          "rating": 3.9,
+          "google_review_count": 1857,
+          "review_count": 1857,
+          "operating_status": "open",
+          "hours": "Monday: 5:40 – 11:50 AM, 7:15 PM – 12:20 AM; Tuesday: 5:40 – 11:50 AM, 7:15 PM – 12:20 AM; Wednesday: 5:40 – 11:50 AM, 7:15 PM – 12:20 AM; Thursday: 5:40 – 11:50 AM, 7:15 PM – 12:20 AM; Friday: 5:40 – 11:50 AM, 7:15 PM – 12:20 AM; Saturday: 5:40 – 11:50 AM, 7:15 PM – 12:20 AM; Sunday: 5:40 – 11:50 AM, 7:15 PM – 12:20 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5ZSXRBDRwxURQWbfeCewask"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_safa."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "koshary_el_tahrir",
+      "canonical_name": "Koshary El Tahrir",
+      "name_en": "Koshary El Tahrir",
+      "arabic_name": "كشري التحرير",
+      "name_ar": "كشري التحرير",
+      "subtypes": [
+        "koshari"
+      ],
+      "recognition_tier": "established",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "koshari"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Established koshari chain with a current verified Jeddah branch and active Saudi operation.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "koshari"
+      ],
+      "price_positioning": "affordable",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "medium",
+      "sources": [],
+      "source_urls": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Koshary El Tahrir — Al Safa",
+          "name": "Koshary El Tahrir — Al Safa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "7632 ام القرى، 4131، حي الصفا،، Al-Safa, Jeddah 23454،, Saudi Arabia",
+          "address": "7632 ام القرى، 4131، حي الصفا،، Al-Safa, Jeddah 23454،, Saudi Arabia",
+          "raw_district": "Al Safa",
+          "district": "Al Safa",
+          "canonical_district": "al_safa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJKxlLoqDRwxURzRudZHWQArY",
+          "google_place_id": "ChIJKxlLoqDRwxURzRudZHWQArY",
+          "latitude": 21.576903299999998,
+          "longitude": 39.21913620000001,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 805,
+          "review_count": 805,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 2:00 AM; Tuesday: 11:00 AM – 2:00 AM; Wednesday: 11:00 AM – 2:00 AM; Thursday: 11:00 AM – 2:00 AM; Friday: 12:30 PM – 2:00 AM; Saturday: 11:00 AM – 2:00 AM; Sunday: 11:00 AM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJKxlLoqDRwxURzRudZHWQArY"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_safa."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "al_hindawiyah",
+      "canonical_name": "Al-Hindawiyah",
+      "name_en": "Al-Hindawiyah",
+      "arabic_name": "معصوب ومطبق الهنداوية",
+      "name_ar": "معصوب ومطبق الهنداوية",
+      "subtypes": [
+        "masoub",
+        "mutabbaq",
+        "areeka"
+      ],
+      "recognition_tier": "established",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Jeddah folk-food specialist operating since 1990 with three official current Jeddah branches.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "masoub",
+        "mutabbaq",
+        "areeka"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://alhindawiyah.com/",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://alhindawiyah.com/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al-Hindawiyah — Mishrifah",
+          "name": "Al-Hindawiyah — Mishrifah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "G6W6+6PQ, Al Tadamun Al Arabi, Mishrifah, Jeddah 23341, Saudi Arabia",
+          "address": "G6W6+6PQ, Al Tadamun Al Arabi, Mishrifah, Jeddah 23341, Saudi Arabia",
+          "raw_district": "Mishrifah",
+          "district": "Mishrifah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJp9YjZC_RwxURpLJ8La9SjPk",
+          "google_place_id": "ChIJp9YjZC_RwxURpLJ8La9SjPk",
+          "latitude": 21.5447368,
+          "longitude": 39.2111577,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 7465,
+          "review_count": 7465,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 AM – 12:00 PM, 7:00 PM – 1:30 AM; Tuesday: 5:00 AM – 12:00 PM, 7:00 PM – 1:30 AM; Wednesday: 5:00 AM – 12:00 PM, 7:00 PM – 1:30 AM; Thursday: 5:00 AM – 12:00 PM, 7:00 PM – 2:00 AM; Friday: 5:00 – 10:00 AM, 7:00 PM – 1:30 AM; Saturday: 5:00 AM – 12:00 PM, 7:00 PM – 1:30 AM; Sunday: 5:00 AM – 12:00 PM, 7:00 PM – 1:30 AM",
+          "phone": "+966565775695",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJp9YjZC_RwxURpLJ8La9SjPk"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Mishrifah'; canonical_district is null; usable_with_caution."
+        },
+        {
+          "branch_name": "Al-Hindawiyah — Al Bawadi",
+          "name": "Al-Hindawiyah — Al Bawadi",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Qouraish, Al Bawadi, Jeddah 23443, Saudi Arabia",
+          "address": "Qouraish, Al Bawadi, Jeddah 23443, Saudi Arabia",
+          "raw_district": "Al Bawadi",
+          "district": "Al Bawadi",
+          "canonical_district": "al_bawadi",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJnSPoHufRwxUR9jmgp2C8MqA",
+          "google_place_id": "ChIJnSPoHufRwxUR9jmgp2C8MqA",
+          "latitude": 21.5990273,
+          "longitude": 39.1653105,
+          "google_rating": 4.5,
+          "rating": 4.5,
+          "google_review_count": 1054,
+          "review_count": 1054,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 AM – 12:00 PM, 7:00 PM – 4:00 AM; Tuesday: 5:00 AM – 12:00 PM, 7:00 PM – 4:00 AM; Wednesday: 5:00 AM – 12:00 PM, 7:00 PM – 4:00 AM; Thursday: 5:00 AM – 12:00 PM, 7:00 PM – 4:00 AM; Friday: 5:00 – 10:00 AM, 7:00 PM – 4:00 AM; Saturday: 5:00 AM – 12:00 PM, 7:00 PM – 4:00 AM; Sunday: 5:00 AM – 12:00 PM, 7:00 PM – 4:00 AM",
+          "phone": "+966561852883",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJnSPoHufRwxUR9jmgp2C8MqA"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_bawadi."
+        },
+        {
+          "branch_name": "Al-Hindawiyah — Al Ajaweed",
+          "name": "Al-Hindawiyah — Al Ajaweed",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "3946، 6691،، حي الاجاويد،، Jeddah 22443،, Saudi Arabia",
+          "address": "3946، 6691،، حي الاجاويد،، Jeddah 22443،, Saudi Arabia",
+          "raw_district": "Al Ajaweed",
+          "district": "Al Ajaweed",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJFcSKJfDLwxURbTljca0XXBs",
+          "google_place_id": "ChIJFcSKJfDLwxURbTljca0XXBs",
+          "latitude": 21.3918493,
+          "longitude": 39.297749700000004,
+          "google_rating": 4.5,
+          "rating": 4.5,
+          "google_review_count": 1872,
+          "review_count": 1872,
+          "operating_status": "open",
+          "hours": "Monday: 5:00 – 11:00 AM, 7:00 PM – 1:30 AM; Tuesday: 5:00 – 11:00 AM, 7:00 PM – 1:30 AM; Wednesday: 5:00 – 11:00 AM, 7:00 PM – 1:30 AM; Thursday: 5:00 – 11:00 AM, 7:00 PM – 2:00 AM; Friday: 5:00 – 10:00 AM, 7:00 PM – 1:30 AM; Saturday: 5:00 – 11:00 AM, 7:00 PM – 1:30 AM; Sunday: 5:00 – 11:00 AM, 7:00 PM – 1:30 AM",
+          "phone": "+966567226762",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJFcSKJfDLwxURbTljca0XXBs"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al Ajaweed'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "foul_abbas",
+      "canonical_name": "Foul Abbas",
+      "name_en": "Foul Abbas",
+      "arabic_name": "فول عباس",
+      "name_ar": "فول عباس",
+      "subtypes": [
+        "foul",
+        "tamees",
+        "traditional_breakfast"
+      ],
+      "recognition_tier": "established_local_favorite",
+      "use_case": "both",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": "Other current Jeddah listings exist, but only the cleanly resolved production branch is exported here.",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Well-known Jeddah traditional breakfast name with substantial current Google review presence.",
+      "context_tags": [
+        "quick_bite",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "foul",
+        "tamees"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [],
+      "source_urls": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Foul Abbas — Al Samer",
+          "name": "Foul Abbas — Al Samer",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "6693 السامر، حي السامر، جدة 23464 3329، Al Tawfiq, Jeddah 21442, Saudi Arabia",
+          "address": "6693 السامر، حي السامر، جدة 23464 3329، Al Tawfiq, Jeddah 21442, Saudi Arabia",
+          "raw_district": "Al Samer",
+          "district": "Al Samer",
+          "canonical_district": "al_samer",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRXFlKnjTwxURDpHSYzd6dik",
+          "google_place_id": "ChIJRXFlKnjTwxURDpHSYzd6dik",
+          "latitude": 21.5741884,
+          "longitude": 39.241263499999995,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 3438,
+          "review_count": 3438,
+          "operating_status": "open",
+          "hours": "Monday: 5:30 – 11:30 AM, 4:30 PM – 2:00 AM; Tuesday: 5:30 – 11:30 AM, 4:30 PM – 2:00 AM; Wednesday: 5:30 – 11:30 AM, 4:30 PM – 2:00 AM; Thursday: 5:30 – 11:30 AM, 4:30 PM – 3:00 AM; Friday: 5:30 – 11:30 AM, 4:30 PM – 3:00 AM; Saturday: 5:30 – 11:30 AM, 4:30 PM – 2:00 AM; Sunday: 5:30 – 11:30 AM, 4:30 PM – 2:00 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJRXFlKnjTwxURDpHSYzd6dik"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_samer."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "tamees_house",
+      "canonical_name": "Tamees House",
+      "name_en": "Tamees House",
+      "arabic_name": "تميس هاوس",
+      "name_ar": "تميس هاوس",
+      "subtypes": [
+        "tamees",
+        "hijazi_food"
+      ],
+      "recognition_tier": "established",
+      "use_case": "going_out_dine_in",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": null,
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Polished Hijazi/traditional-food concept with two official current Jeddah branches.",
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": [
+        "tamees"
+      ],
+      "price_positioning": "mid-range",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://tameeshouse.com/",
+          "type": "official_or_verified_web"
+        }
+      ],
+      "source_urls": [
+        "https://tameeshouse.com/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Tamees House — Al Zahra",
+          "name": "Tamees House — Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "King Abdulaziz Service Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "address": "King Abdulaziz Service Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "raw_district": "Al Zahra",
+          "district": "Al Zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJfVPLabbbwxURB8dP0RddisA",
+          "google_place_id": "ChIJfVPLabbbwxURB8dP0RddisA",
+          "latitude": 21.576156299999997,
+          "longitude": 39.127297399999996,
+          "google_rating": 4.4,
+          "rating": 4.4,
+          "google_review_count": 2189,
+          "review_count": 2189,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 11:30 PM; Tuesday: 6:00 AM – 11:30 PM; Wednesday: 6:00 AM – 11:30 PM; Thursday: 6:00 AM – 11:30 PM; Friday: 6:00 – 11:30 AM, 1:30 – 11:30 PM; Saturday: 6:00 AM – 11:30 PM; Sunday: 6:00 AM – 11:30 PM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJfVPLabbbwxURB8dP0RddisA"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_zahra."
+        },
+        {
+          "branch_name": "Tamees House — Prince Fawaz",
+          "name": "Tamees House — Prince Fawaz",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Uptown square center, C7VC+4W8, الامير فواز الجنوبي،،, الامير فواز الجنوبي، جدة 22431, Saudi Arabia",
+          "address": "Uptown square center, C7VC+4W8, الامير فواز الجنوبي،،, الامير فواز الجنوبي، جدة 22431, Saudi Arabia",
+          "raw_district": "Al Amir Fawwaz Al Junoobi",
+          "district": "Al Amir Fawwaz Al Junoobi",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5TK6lhbNwxURk05buGfcC34",
+          "google_place_id": "ChIJ5TK6lhbNwxURk05buGfcC34",
+          "latitude": 21.4428022,
+          "longitude": 39.2723253,
+          "google_rating": 4.3,
+          "rating": 4.3,
+          "google_review_count": 2960,
+          "review_count": 2960,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 AM – 11:30 PM; Tuesday: 6:00 AM – 11:30 PM; Wednesday: 6:00 AM – 11:30 PM; Thursday: 6:00 AM – 11:30 PM; Friday: 6:00 – 11:30 AM, 1:30 – 11:30 PM; Saturday: 6:00 AM – 11:30 PM; Sunday: 6:00 AM – 11:30 PM",
+          "phone": "+966503218162",
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ5TK6lhbNwxURk05buGfcC34"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "usable_with_caution",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Outer Jeddah branch in physical district 'Al Amir Fawwaz Al Junoobi'; canonical_district is null; usable_with_caution."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    },
+    {
+      "id": "foul_fattah",
+      "canonical_name": "Foul Fattah",
+      "name_en": "Foul Fattah",
+      "arabic_name": "فول فتة",
+      "name_ar": "فول فتة",
+      "subtypes": [
+        "foul",
+        "tamees",
+        "masoub",
+        "mutabbaq"
+      ],
+      "recognition_tier": "iconic_single_location",
+      "use_case": "going_out_dine_in",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "delivery": "nearby_only",
+        "going_out": "nearby_and_destination"
+      },
+      "citywide_presence": false,
+      "notes": "Intentional iconic single-location exception to the branch-preferred rule.",
+      "modes": [
+        "food",
+        "breakfast"
+      ],
+      "primary_category": "street_folk_food",
+      "secondary_categories": [
+        "saudi_breakfast"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": true,
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Iconic Historic Jeddah traditional-food location with long-standing local recognition and a current Maps listing.",
+      "context_tags": [
+        "quick_bite",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "breakfast",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "foul",
+        "tamees",
+        "masoub",
+        "mutabbaq"
+      ],
+      "price_positioning": "budget",
+      "healthy_eligible": null,
+      "healthy_eligibility": null,
+      "confidence": "high",
+      "sources": [],
+      "source_urls": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "service_area": null,
+          "confidence": "low",
+          "verified_at": "2026-09-27",
+          "url": null
+        }
+      },
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Foul Fattah — Historic Jeddah",
+          "name": "Foul Fattah — Historic Jeddah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "حي، Al Dhahab, Historic Jeddah, Jeddah 22233, Saudi Arabia",
+          "address": "حي، Al Dhahab, Historic Jeddah, Jeddah 22233, Saudi Arabia",
+          "raw_district": "Historic Jeddah / Al Balad",
+          "district": "Historic Jeddah / Al Balad",
+          "canonical_district": "al_balad",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJnQKdAhDPwxURqNKCxLmEt6g",
+          "google_place_id": "ChIJnQKdAhDPwxURqNKCxLmEt6g",
+          "latitude": 21.487730499999998,
+          "longitude": 39.1847384,
+          "google_rating": 4,
+          "rating": 4,
+          "google_review_count": 2203,
+          "review_count": 2203,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 – 11:30 AM, 5:00 PM – 12:30 AM; Tuesday: 6:00 – 11:30 AM, 5:00 PM – 12:30 AM; Wednesday: 6:00 – 11:30 AM, 5:00 PM – 12:30 AM; Thursday: 6:00 – 11:30 AM, 5:00 PM – 12:30 AM; Friday: 6:00 – 10:30 AM, 5:00 PM – 12:30 AM; Saturday: 6:00 – 11:30 AM, 5:00 PM – 12:30 AM; Sunday: 6:00 – 11:30 AM, 5:00 PM – 12:30 AM",
+          "phone": null,
+          "last_verified_at": "2026-09-27",
+          "source_provenance": [
+            "Google Places API (New) Place Details entity resolution",
+            "Google Maps verified Place ID",
+            "https://www.google.com/maps/search/?api=1&query_place_id=ChIJnQKdAhDPwxURqNKCxLmEt6g"
+          ],
+          "provenance": [
+            {
+              "type": "Google Places API v1 Place Details",
+              "verified_at": "2026-09-27"
+            },
+            {
+              "type": "Google Maps verified Place ID",
+              "verified_at": "2026-09-27"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "coordinate_status": "exact_google_places_api_v1",
+          "geographic_notes": "Located in canonical district al_balad."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": []
+    }
+  ],
+  "validation": {
+    "brand_count": 15,
+    "exported_branch_count": 38,
+    "production_ready_branch_count": 29,
+    "usable_with_caution_branch_count": 9,
+    "manual_review_branch_count": 1,
+    "all_exported_branches_have_address_and_district": true,
+    "anchor_brand_ids_valid": true,
+    "notes": [
+      "Branch coverage is intentionally conservative: ambiguous or conflicting branches are quarantined in manual_review rather than guessed.",
+      "Ratings/review counts/hours are branch-specific snapshots as of the 2026-09-27 Google Places API v1 verification pass.",
+      "Google Maps URLs are standardized directly to canonical Google Place-ID search endpoints.",
+      "Exact coordinates resolved via Google Places API (New) Place Details; zero centroids or estimations."
+    ]
+  },
+  "v3_audit": {
+    "verdict": "production_ready_with_explicit_manual_review_exceptions",
+    "brand_count": 15,
+    "branch_count": 39,
+    "production_ready_branch_count": 29,
+    "usable_with_caution_branch_count": 9,
+    "manual_review_branch_count": 1,
+    "all_production_ready_branches_have_address": true,
+    "all_production_ready_branches_have_district": true,
+    "all_production_ready_branches_have_exact_maps_match": true,
+    "coordinates_complete": true,
+    "coordinate_policy": "All active branches resolved with exact Google Places API v1 coordinates; no district centroids, road coordinates, or estimations allowed.",
+    "manual_review_branches": [
+      "Kabdat Al-Muallimi — Al Ruhaili"
+    ],
+    "notes": [
+      "Exact Google Places API (New) Place Details resolution verified for all 38 active branches.",
+      "Kabdat Al-Muallimi — Al Ruhaili kept quarantined in manual_review due to lack of verified Google Place identity.",
+      "100% coordinate completeness achieved across all active branches."
+    ]
+  }
+}

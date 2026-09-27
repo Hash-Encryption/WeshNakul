@@ -634,6 +634,36 @@ try {
     assert.ok(html.length > 0, 'RestaurantRouletteOverlay renders slices safely');
   });
 
+  check('normalizeRestaurantItem and normalizeRestaurantDeck preserve coreStatus safely', () => {
+    const coreItem = normalizeRestaurantItem({
+      id: 'section_b',
+      nameAr: 'سكشن بي',
+      nameEn: 'Section-B',
+      categories: ['burger'],
+      coreStatus: 'core',
+    });
+    assert.equal(coreItem?.coreStatus, 'core');
+
+    const expansionItem = normalizeRestaurantItem({
+      id: 'black_tap',
+      nameAr: 'بلاك تاب',
+      nameEn: 'Black Tap',
+      categories: ['burger'],
+      core_status: 'expansion',
+    });
+    assert.equal(expansionItem?.coreStatus, 'expansion');
+
+    const deck = normalizeRestaurantDeck({
+      deckId: 'deck-burger-test',
+      generation: 0,
+      restaurants: [coreItem, expansionItem],
+    });
+    assert.ok(deck != null);
+    assert.equal(deck.restaurants.length, 2);
+    assert.equal(deck.restaurants[0].coreStatus, 'core');
+    assert.equal(deck.restaurants[1].coreStatus, 'expansion');
+  });
+
   console.log(`\nPASS: All ${checks} White-Screen Reliability & Regression checks passed successfully!`);
 } finally {
   await server.close();

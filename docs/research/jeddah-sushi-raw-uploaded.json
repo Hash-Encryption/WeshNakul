@@ -1,0 +1,1755 @@
+{
+  "dataset": "WeshNakul Jeddah Sushi",
+  "requirements_version": "V3",
+  "export_version": "production-research-pass-d-2026-09-27",
+  "city": "Jeddah",
+  "country": "Saudi Arabia",
+  "mode": "food",
+  "primary_category": "sushi",
+  "brand_count": 16,
+  "branch_count": 28,
+  "verification_date": "2026-09-27",
+  "data_policy": {
+    "verified_reality_over_completeness": true,
+    "unknowns_are_explicit": true,
+    "direct_google_maps_place_links": true,
+    "coordinates_not_invented": true,
+    "delivery_deep_links_optional": true
+  },
+  "pass_d_corrections": [
+    "Replaced generic Google Maps search URLs with branch-specific Google Place-ID URLs.",
+    "Added required brand fields: mode, operating status, Jeddah presence, editorial classification/evidence, context tags, price positioning, confidence, provenance, verification date.",
+    "Added recommendation metadata: meal fit, healthy eligibility, signature dishes when supportable.",
+    "Added explicit HungerStation/Jahez/Keeta presence states; unknown is retained when a reliable public listing was not found.",
+    "Added branch-level physical existence, operating status, provenance, Google Place ID, verification date and production eligibility.",
+    "Coordinates remain null because they were not safely verified in this pass; this is strongly wanted but not production-blocking under V3."
+  ],
+  "remaining_non_blocking_gaps": {
+    "coordinates": "null on all branches pending safe extraction/verification",
+    "delivery_platforms": "Jahez/Keeta are unknown for many brands because reliable public restaurant-specific listings were not surfaced; Sushiah is confirmed on all three via its official Linktree.",
+    "signature_dishes": "null for brands where no sufficiently defensible bestseller/signature evidence was found.",
+    "arabic_names": "null when not clearly verified from an official/current source."
+  },
+  "brands": [
+    {
+      "canonical_name": "Maki House",
+      "arabic_name": "ماكي هاوس",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Seven officially listed Jeddah locations plus strong branch-level Google review volume across the city.",
+      "context_tags": [
+        "delivery_strong",
+        "late_night",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Tom Yum Kani Soup",
+        "Maki Bowl Nuts Crunchy",
+        "Hot Cheddar sushi"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-ar/restaurants/regions/jeddah-islamic-seaport/top-offers/%D9%85%D8%A7%D9%83%D9%8A-%D9%87%D8%A7%D9%88%D8%B3-83314"
+        ]
+      },
+      "sources": [
+        "https://linktr.ee/makihousearabia",
+        "https://hungerstation.com/sa-ar/restaurants/regions/jeddah-islamic-seaport/top-offers/%D9%85%D8%A7%D9%83%D9%8A-%D9%87%D8%A7%D9%88%D8%B3-83314"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Maki House - Al Hamadaniyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamadaniyyah",
+          "formatted_address": "Abi Firas Alhamadani, Al Hamadaniyyah, Jeddah 23761",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJyX-kf3Z9wRURlSvdgECBuUw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Maki+House+-+Al+Hamadaniyah&query_place_id=ChIJyX-kf3Z9wRURlSvdgECBuUw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 604,
+          "hours": "Sun-Thu 11:00-03:00; Fri-Sat 12:45-03:00",
+          "phone": "+966920033371",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJyX-kf3Z9wRURlSvdgECBuUw"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Maki House - Al Zahra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "Ahmad Al Attas, Al Zahra, Jeddah 23425",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJebd5bo3bwxURNPJzMayFzZQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Maki+House+-+Al+Zahra&query_place_id=ChIJebd5bo3bwxURNPJzMayFzZQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 1533,
+          "hours": "Sun-Wed/Sat 12:45-02:00; Thu-Fri 12:45-03:00",
+          "phone": "+966920033371",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJebd5bo3bwxURNPJzMayFzZQ"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Maki House - Al Naseem",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "An Naseem",
+          "formatted_address": "Al Saleem Plaza, King Abdullah Rd, An Naseem, Jeddah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJl9owyRbPwxURpr5YEWFvIW4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Maki+House+-+Al+Naseem&query_place_id=ChIJl9owyRbPwxURpr5YEWFvIW4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 3645,
+          "hours": "Daily 12:00-05:00",
+          "phone": "+966920033371",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJl9owyRbPwxURpr5YEWFvIW4"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Maki House - Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al-Shamaliyah",
+          "formatted_address": "7230, Obhur Al-Shamaliyah, Jeddah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ1TdErv5jwRUREihVK6nPl0s",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Maki+House+-+Obhur&query_place_id=ChIJ1TdErv5jwRUREihVK6nPl0s",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1543,
+          "hours": "Daily 12:45-04:00",
+          "phone": "+966920033371",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJ1TdErv5jwRUREihVK6nPl0s"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Maki House - Al Mohammadiyyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Mohammadiyyah",
+          "formatted_address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23625",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJP3v-ronawxUR0ShXt1KxPXo",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Maki+House+-+Al+Mohammadiyyah&query_place_id=ChIJP3v-ronawxUR0ShXt1KxPXo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 2631,
+          "hours": "Sun-Wed 12:00-02:00; Thu 12:00-03:00; Fri 12:45-03:00; Sat 12:45-02:00",
+          "phone": "+966920033371",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJP3v-ronawxUR0ShXt1KxPXo"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Maki House - Al Marwah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "8727 Hira St, Al Marwah District, Jeddah 23545",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJn-NvxTLXwxURJHq-gJ_EnqY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Maki+House+-+Al+Marwah&query_place_id=ChIJn-NvxTLXwxURJHq-gJ_EnqY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 3791,
+          "hours": "Daily 12:45-04:00",
+          "phone": "+966920033371",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJn-NvxTLXwxURJHq-gJ_EnqY"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Maki House - Salamah / Sari Road",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "As Salamah",
+          "formatted_address": "Hadiqat Rami, As Salamah, Sari Road, Jeddah",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJAf_Z9HjQwxURnAt8pmn2E68",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Maki+House+-+Salamah+%2F+Sari+Road&query_place_id=ChIJAf_Z9HjQwxURnAt8pmn2E68",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 2725,
+          "hours": "Sun-Wed/Sat 12:45-03:00; Thu-Fri 12:45-04:00",
+          "phone": "+966920033371",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJAf_Z9HjQwxURnAt8pmn2E68"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Wakame",
+      "arabic_name": "وكامي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Established Jeddah sushi brand with three official Jeddah locations; King Abdulaziz branch has very high Google review volume.",
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": true,
+      "healthy_evidence": "Official/delivery menu has sashimi, salads, vegetarian maki and calorie information across a substantial menu.",
+      "signature_dishes": [
+        "Wakame Platter",
+        "Sushi Party",
+        "Cali 15"
+      ],
+      "best_sellers_confidence": "high",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-murjan/wakame-sushi-11243"
+        ]
+      },
+      "sources": [
+        "https://www.wakame-ksa.com/",
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-murjan/wakame-sushi-11243"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Wakame King Abdulaziz",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "King Abdul Aziz Rd, Al Zahra, Jeddah 23424",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ-YTqdunawxURaTWgM0QLLtY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Wakame+King+Abdulaziz&query_place_id=ChIJ-YTqdunawxURaTWgM0QLLtY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 8115,
+          "hours": "Sat-Wed 12:00-00:30; Thu-Fri 12:00-01:30",
+          "phone": "+966920005036",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJ-YTqdunawxURaTWgM0QLLtY"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Wakame Al Rawdah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Prince Saud Al Faisal, Ar Rawdah, Jeddah 23432",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJTy6KDgzQwxUR9mohg17tmQo",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Wakame+Al+Rawdah&query_place_id=ChIJTy6KDgzQwxUR9mohg17tmQo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 740,
+          "hours": "Sat-Wed 12:00-01:30; Thu-Fri 12:00-02:30",
+          "phone": "+966920005036",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJTy6KDgzQwxUR9mohg17tmQo"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Wakame Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al-Shamaliyah",
+          "formatted_address": "Prince Abdullah AlFaisal St, Obhur Al-Shamaliyah, Jeddah 23815",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJd78w_ldiwRUROJwhXyEpQoU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Wakame+Obhur&query_place_id=ChIJd78w_ldiwRUROJwhXyEpQoU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 1943,
+          "hours": "Sat-Wed 12:00-00:30; Thu-Fri 12:00-01:30",
+          "phone": "+966920005036",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJd78w_ldiwRUROJwhXyEpQoU"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Gold Sushi Club",
+      "arabic_name": "جولد سوشي كلوب",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Three verified Jeddah branches and strong Google review counts, including ~4.8k at Sari.",
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Sakura shrimp noodles"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-ar/restaurants/regions/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%AD%D9%85%D8%B1%D8%A7%D8%A1/%D8%AC%D9%88%D9%84%D8%AF-%D8%B3%D9%88%D8%B4%D9%8A-%D9%83%D9%84%D9%88%D8%A8-2852"
+        ]
+      },
+      "sources": [
+        "https://hungerstation.com/sa-ar/restaurants/regions/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%AD%D9%85%D8%B1%D8%A7%D8%A1/%D8%AC%D9%88%D9%84%D8%AF-%D8%B3%D9%88%D8%B4%D9%8A-%D9%83%D9%84%D9%88%D8%A8-2852"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Gold Sushi Club - Sari",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Sari Gate Center, Sari St, Ar Rawdah, Jeddah 23435",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJNcoLQgPQwxURH2A1_KQ4VUM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Gold+Sushi+Club+-+Sari&query_place_id=ChIJNcoLQgPQwxURH2A1_KQ4VUM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 4782,
+          "hours": "Daily about 13:00-02:00",
+          "phone": "+966126068069",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJNcoLQgPQwxURH2A1_KQ4VUM"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Gold Sushi Club - Al Mohammadiyyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Mohammadiyyah",
+          "formatted_address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23623",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJrwcqZJHZwxURFH6UBYBUU9s",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Gold+Sushi+Club+-+Al+Mohammadiyyah&query_place_id=ChIJrwcqZJHZwxURFH6UBYBUU9s",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1283,
+          "hours": "Daily 13:00-02:00",
+          "phone": "+966126999850",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJrwcqZJHZwxURFH6UBYBUU9s"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Gold Sushi Club - Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Obhur",
+          "formatted_address": "Prince Abdullah AlFiasal St, Obhur Dist, Jeddah 23819",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJhXWABVhiwRURPIEld4l2VUQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Gold+Sushi+Club+-+Obhur&query_place_id=ChIJhXWABVhiwRURPIEld4l2VUQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 628,
+          "hours": "Sun-Wed 13:00-01:00; Thu-Sat 13:00-02:00",
+          "phone": "+966122899914",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJhXWABVhiwRURPIEld4l2VUQ"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Sushiah",
+      "arabic_name": "سوشيّا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "High-volume active Jeddah sushi restaurant; official Linktree confirms Sari branch and all three delivery apps.",
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": null,
+      "best_sellers_confidence": "unknown",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://linktr.ee/Sushiah_ksa"
+        ]
+      },
+      "sources": [
+        "https://linktr.ee/Sushiah_ksa"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Sushiah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "Sari Br Rd, Al Zahra, Jeddah 23424",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJZYAFEj7bwxURlxfbSWNAWCU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Sushiah&query_place_id=ChIJZYAFEj7bwxURlxfbSWNAWCU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 2337,
+          "hours": "Sun-Wed/Sat 12:00-01:00; Thu 12:00-02:00; Fri 13:00-02:00",
+          "phone": "+966555189902",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJZYAFEj7bwxURlxfbSWNAWCU"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "SHiRO",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Strong Jeddah Google review volume and active dedicated sushi delivery listing.",
+      "context_tags": [
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Shiro Box",
+        "Crunchy Box",
+        "California Box A",
+        "Salmon Mix Box"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ar-rawdah/shiro-78200"
+        ]
+      },
+      "sources": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ar-rawdah/shiro-78200"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "SHiRO",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Abdul Maqsud Khojah, Ar Rawdah, Jeddah 23435",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ-4ohxhnbwxURp3xynQBNQgs",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=SHiRO&query_place_id=ChIJ-4ohxhnbwxURp3xynQBNQgs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 3676,
+          "hours": "Daily 12:30-01:30",
+          "phone": "+966122601179",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJ-4ohxhnbwxURp3xynQBNQgs"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "MYAZU",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Large Jeddah review footprint and premium Japanese/sushi positioning.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "fresh nigiri",
+        "chicken gyoza",
+        "popcorn shrimp"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": []
+      },
+      "sources": [
+        "https://www.google.com/maps/search/?api=1&query=MYAZU&query_place_id=ChIJr7siXarawxURGedypt4lvyU"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "MYAZU",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Al Basateen Mall, Prince Mohammed Bin Abdulaziz St, Ar Rawdah, Jeddah 23431",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJr7siXarawxURGedypt4lvyU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=MYAZU&query_place_id=ChIJr7siXarawxURGedypt4lvyU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 5501,
+          "hours": "Sun-Tue/Sat 13:00-00:30; Wed-Fri 13:00-01:30",
+          "phone": "+966920010434",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJr7siXarawxURGedypt4lvyU"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Sakura Japanese Restaurant",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Long-established Japanese/sushi destination in Jeddah with current active Maps listing.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Tokujou Sushi",
+        "Nami Sushi Moriawase",
+        "assorted sashimi"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": []
+      },
+      "sources": [
+        "https://www.google.com/maps/search/?api=1&query=Sakura+Japanese+Restaurant&query_place_id=ChIJg-2NTADPwxURxhfLE_Kmrbc"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Sakura Japanese Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamra",
+          "formatted_address": "Al-Hamra'a, Jeddah 21443",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJg-2NTADPwxURxhfLE_Kmrbc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Sakura+Japanese+Restaurant&query_place_id=ChIJg-2NTADPwxURxhfLE_Kmrbc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 164,
+          "hours": "Sun-Wed split lunch/dinner; Thu-Sat 13:00-23:30",
+          "phone": "+966552893752",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJg-2NTADPwxURxhfLE_Kmrbc"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "SushiArt",
+      "arabic_name": "سوشي ارت",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Official Jeddah Red Sea Mall location and strong Google review volume.",
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": true,
+      "healthy_evidence": "Menu includes sashimi salad, edamame and multiple non-fried sushi/sashimi options.",
+      "signature_dishes": [
+        "Samurai Roll",
+        "shrimp tempura",
+        "shrimp gyoza",
+        "crab salad"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-en/restaurants/regions/jeddah/an-nuzhah/sushi-art-12017"
+        ]
+      },
+      "sources": [
+        "https://order.sushiart.sa/locations",
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/an-nuzhah/sushi-art-12017"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "SushiArt",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ash Shati",
+          "formatted_address": "Red Sea Mall, Level 1, 3020 King Abdul Aziz Rd, Ash Shati, Jeddah 23612",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJPztsYc3bwxURR9sS2lrcUu0",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=SushiArt&query_place_id=ChIJPztsYc3bwxURR9sS2lrcUu0",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 4197,
+          "hours": "Sun-Wed/Sat 11:00-00:00; Thu-Fri 11:00-00:30",
+          "phone": "+966535303337",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJPztsYc3bwxURR9sS2lrcUu0"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Sushi Yoshi",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "seafood",
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Three verified Jeddah branches and a long-standing sushi-first concept.",
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Signature Box",
+        "Salmon Galore",
+        "Mixed Fried Rolls"
+      ],
+      "best_sellers_confidence": "high",
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ash-shati/sushi-yoshi-12115"
+        ]
+      },
+      "sources": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ash-shati/sushi-yoshi-12115"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Sushi Yoshi - Corniche",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Corniche",
+          "formatted_address": "Corniche, Jeddah 23512",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJv9s8BrbbwxURHJfAvM5JGug",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Sushi+Yoshi+-+Corniche&query_place_id=ChIJv9s8BrbbwxURHJfAvM5JGug",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 166,
+          "hours": "Sun-Wed/Sat 13:00-00:00; Thu-Fri 13:00-01:00",
+          "phone": "+966920008506",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJv9s8BrbbwxURHJfAvM5JGug"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Sushi Yoshi - Al Hamra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamra",
+          "formatted_address": "Commercial Center next to Aroma Café, Al Kurnaysh Br Rd, Al Hamra, Jeddah 23212",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ5ytZWH3FwxURHiK_CAHoQKM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Sushi+Yoshi+-+Al+Hamra&query_place_id=ChIJ5ytZWH3FwxURHiK_CAHoQKM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 558,
+          "hours": "Mostly 12:30-00:00; Fri 12:45-01:00",
+          "phone": "+966532276209",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJ5ytZWH3FwxURHiK_CAHoQKM"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        },
+        {
+          "name": "Sushi Yoshi - Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al-Shamaliyah",
+          "formatted_address": "Q49M+XH5, beside Batterjee Medical College, Obhur Al-Shamaliyah, Jeddah 23819",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJyYJI2j9jwRURqc8Exmjbh98",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Sushi+Yoshi+-+Obhur&query_place_id=ChIJyYJI2j9jwRURqc8Exmjbh98",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 444,
+          "hours": "Sun-Wed/Sat 12:00-00:00; Thu-Fri 12:00-01:00",
+          "phone": "+966532279665",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJyYJI2j9jwRURqc8Exmjbh98"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Kuuru",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Michelin Guide-listed Nikkei destination with sushi chefs and Japanese techniques.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "nigiri",
+        "ceviche",
+        "crunchy shrimp"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": []
+      },
+      "sources": [
+        "https://guide.michelin.com/en/mecca-province/jeddah_2555048/restaurant/kuuru"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Kuuru",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Khalidiyyah",
+          "formatted_address": "Leylaty, Al Malik Road, Al Khalidiyyah, Jeddah 23422",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJCV_6FK3bwxURGW35gnbsOmY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Kuuru&query_place_id=ChIJCV_6FK3bwxURGW35gnbsOmY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 1985,
+          "hours": "Sun-Wed/Sat 13:00-23:30; Thu-Fri 13:00-00:30",
+          "phone": "+966920035739",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJCV_6FK3bwxURGW35gnbsOmY"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Tanuki Sushi",
+      "arabic_name": "سوشي تانوكي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Sushi-specialist concept with 1k+ Google reviews and active HungerStation menu.",
+      "context_tags": [
+        "delivery_strong",
+        "late_night",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Tanuki Lovers 24pc",
+        "Tanuki Birthday Cake",
+        "California Sushi Push Pop"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ar-ruwais/tanuki-70049"
+        ]
+      },
+      "sources": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ar-ruwais/tanuki-70049"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Tanuki Sushi",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "As Salamah",
+          "formatted_address": "As Salamah, Jeddah 23437",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJf-dSVQLbwxUR8iDYGoWNcM4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Tanuki+Sushi&query_place_id=ChIJf-dSVQLbwxUR8iDYGoWNcM4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 1040,
+          "hours": "Sun-Wed 12:00-01:00; Thu-Sat 12:00-02:00",
+          "phone": "+966551723446",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJf-dSVQLbwxUR8iDYGoWNcM4"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "KIMONO",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Active Japanese restaurant at The Point with strong ratings and meaningful sushi positioning.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "dinner"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": null,
+      "best_sellers_confidence": "unknown",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": []
+      },
+      "sources": [
+        "https://www.google.com/maps/search/?api=1&query=KIMONO+The+Point&query_place_id=ChIJC4K6QgDbwxUREH5ZRDRnns8"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "KIMONO",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "2573 Abdul Maqsud Khojah, Jeddah 23435",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJC4K6QgDbwxUREH5ZRDRnns8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=KIMONO&query_place_id=ChIJC4K6QgDbwxUREH5ZRDRnns8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 859,
+          "hours": "Daily 14:30-00:30",
+          "phone": "+966555125082",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJC4K6QgDbwxUREH5ZRDRnns8"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Ikigai Sushi Restaurant",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Smaller local sushi specialist with broad sushi/nigiri/sashimi menu and active delivery presence.",
+      "context_tags": [
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Classic Sushi Combo",
+        "Special Sushi Combo",
+        "Super Crunchy Roll"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-en/restaurants/regions/jeddah/king-abdul-aziz-university/ikigai-sushi-104529"
+        ]
+      },
+      "sources": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/king-abdul-aziz-university/ikigai-sushi-104529"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Ikigai Sushi Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamra",
+          "formatted_address": "3236 Arafat, Al Hamra, Jeddah 23323",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJu-VXzIPPwxURmHqIoGsSBk4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Ikigai+Sushi+Restaurant&query_place_id=ChIJu-VXzIPPwxURmHqIoGsSBk4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 590,
+          "hours": "Daily 13:00-02:00",
+          "phone": "+966558150945",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJu-VXzIPPwxURmHqIoGsSBk4"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Ashi Sushi",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Established local Japanese/sushi option with 1.4k+ Google reviews and active delivery listing.",
+      "context_tags": [
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": null,
+      "best_sellers_confidence": "unknown",
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "confidence": "high",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": [
+          "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-salamah/ashi-sushi-165952"
+        ]
+      },
+      "sources": [
+        "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-salamah/ashi-sushi-165952"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Ashi Sushi",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Prince Saud Al Faisal, Ar Rawdah, Jeddah 23433",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ6Vq0IHzQwxURJVdTkGOWqyw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Ashi+Sushi&query_place_id=ChIJ6Vq0IHzQwxURJVdTkGOWqyw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 1460,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:30-01:30",
+          "phone": "+966126044991",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJ6Vq0IHzQwxURJVdTkGOWqyw"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Fuji Japanese Restaurant",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Established Jeddah Japanese restaurant with 1k+ Google reviews and a meaningful sushi menu.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Salmon Oshisushi",
+        "Maki Boat",
+        "California Roll"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": []
+      },
+      "sources": [
+        "https://www.google.com/maps/search/?api=1&query=Fuji+Japanese+Restaurant&query_place_id=ChIJFX7bUp3bwxURIKGYRCBJLXY"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Fuji Japanese Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "Broadway Center, King Abdulaziz Service Rd, Al Zahra, Jeddah 23424",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJFX7bUp3bwxURIKGYRCBJLXY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Fuji+Japanese+Restaurant&query_place_id=ChIJFX7bUp3bwxURIKGYRCBJLXY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1197,
+          "hours": "Sun-Wed/Sat 16:00-00:00; Thu-Fri 16:00-01:00",
+          "phone": "+966539557771",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJFX7bUp3bwxURIKGYRCBJLXY"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "canonical_name": "Ricci San",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "sushi",
+      "secondary_categories": [
+        "asian"
+      ],
+      "operating_status": "open",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "rising",
+      "classification_evidence": "Strong current Google rating/review footprint and a substantial official sushi/sashimi/nigiri menu.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": null,
+      "signature_dishes": [
+        "Tempura Shrimp Roll",
+        "Scallop Roll",
+        "salmon nigiri",
+        "omakase sashimi"
+      ],
+      "best_sellers_confidence": "medium",
+      "price_positioning": "premium",
+      "confidence": "high",
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "confidence": "low",
+          "verified_at": "2026-09-27"
+        },
+        "evidence": []
+      },
+      "sources": [
+        "https://www.ricci-san.com/wp-content/uploads/2024/07/Ricci-San-Japanese-Eatery-MENU-1.pdf"
+      ],
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "name": "Ricci San",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Abhur Al Junoobiyah",
+          "formatted_address": "King Abdul Aziz Rd, Abhur Al Junoobiyah, Jeddah 21451",
+          "google_maps_verified": true,
+          "google_place_id": "ChIJ-5-GeVTZwxURQ0_pDBgGlhc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Ricci+San&query_place_id=ChIJ-5-GeVTZwxURQ0_pDBgGlhc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 1548,
+          "hours": "Sun-Wed 13:00-00:00; Thu-Sat 13:00-01:00",
+          "phone": "+966500031777",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            {
+              "type": "google_maps_business_lookup",
+              "place_id": "ChIJ-5-GeVTZwxURQ0_pDBgGlhc"
+            }
+          ],
+          "production_eligibility": "production_ready",
+          "manual_review": [
+            "latitude_longitude_not_verified"
+          ]
+        }
+      ]
+    }
+  ]
+}

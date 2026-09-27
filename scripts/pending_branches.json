@@ -1,0 +1,205 @@
+[
+  {
+    "brand": "Domino's",
+    "branch": "Al Marwah — Al Manini",
+    "candidate_place_id": null,
+    "address": "Al Manini St, Al Marwah, Jeddah",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Al Marwah 2",
+    "candidate_place_id": null,
+    "address": "7541 Abdul Rahman Al Khuzaay St, Al Marwah, Jeddah",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "An Nuzhah",
+    "candidate_place_id": null,
+    "address": "7489 King Fahd Rd, An Nuzhah, Jeddah",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "An Naseem",
+    "candidate_place_id": null,
+    "address": "6802 Abi Dharr Al Ghifari St, Al Naseem, Jeddah",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Ar Rehab",
+    "candidate_place_id": null,
+    "address": "Prince Mutaib bin Abdulaziz Rd, Al Rehab, Jeddah 23344-7951",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Al Fayha'a",
+    "candidate_place_id": null,
+    "address": "4258 Abdullah Sulayman Branch Rd, Al Faiha, Jeddah 22246",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Al Murjan",
+    "candidate_place_id": null,
+    "address": "9195 Al Murjan St, Al Murjan, Jeddah",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Al Samer 2",
+    "candidate_place_id": null,
+    "address": "6855-6879 Al Samer St, Al Samer, Jeddah",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Al Fadeylah",
+    "candidate_place_id": null,
+    "address": "Al Fadeylah, Jeddah 22631",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Al Mohammadiyyah",
+    "candidate_place_id": null,
+    "address": "2120 Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23625",
+    "maps_url": null
+  },
+  {
+    "brand": "Domino's",
+    "branch": "Village Mall — Al Asalah",
+    "candidate_place_id": null,
+    "address": "Village Mall, Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738",
+    "maps_url": null
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Hamra",
+    "candidate_place_id": null,
+    "address": "Al Hamra, Jeddah",
+    "maps_url": "https://goo.gl/maps/m7ahCmm3M2iKqLMm7"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Muhammadiyah",
+    "candidate_place_id": null,
+    "address": "Al Mohammadiyyah, Jeddah",
+    "maps_url": "https://goo.gl/maps/dUwC6gdhPuFuy4VV8"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Taiba",
+    "candidate_place_id": null,
+    "address": "Taiba, Jeddah",
+    "maps_url": "https://goo.gl/maps/AtLvqkeSGqvmAwxf7"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Marwah",
+    "candidate_place_id": null,
+    "address": "Al Marwah, Jeddah",
+    "maps_url": "https://goo.gl/maps/W9DkqM5kATAJQppr6"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Samer",
+    "candidate_place_id": null,
+    "address": "Al Samer, Jeddah",
+    "maps_url": "https://goo.gl/maps/Ngb2ZhpjLGyiXFyA7"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Faisaliyyah",
+    "candidate_place_id": "ChIJfWSaIcTRwxURBGZ25fXoURQ",
+    "address": "7528 Al Imam Abdul Aziz, Al Faisaliyyah, Jeddah 23442, Saudi Arabia",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJfWSaIcTRwxURBGZ25fXoURQ"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Noor / Abhur South",
+    "candidate_place_id": null,
+    "address": "Abhur Al Janoubiyah, Jeddah",
+    "maps_url": "https://goo.gl/maps/hwQjHXvxSfyG4Skb9"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Hamdaniyah",
+    "candidate_place_id": "ChIJsa_AQvl8wRURuemKWXGPApw",
+    "address": "Al Hamdaniyah St, Al Hamdaniyyah, Jeddah 23743, Saudi Arabia",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJsa_AQvl8wRURuemKWXGPApw"
+  },
+  {
+    "brand": "Maestro Pizza",
+    "branch": "Ajaweed",
+    "candidate_place_id": null,
+    "address": "Al Ajaweed, Jeddah",
+    "maps_url": "https://goo.gl/maps/Baf1cet16dmSW7ZV7"
+  },
+  {
+    "brand": "Papa Johns",
+    "branch": "Tahlia / Al Rehab",
+    "candidate_place_id": "ChIJK47dwj3RwxURFLOtOEx2QD8",
+    "address": "Prince Mohammed Bin Abdulaziz St, Al Rehab, Jeddah 23345, Saudi Arabia",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJK47dwj3RwxURFLOtOEx2QD8"
+  },
+  {
+    "brand": "Pizza Hut",
+    "branch": "Saud Bin Abdulaziz",
+    "candidate_place_id": "ChIJ_-S7EwBlwRURhXE2mYqyLcM",
+    "address": "Saud Bin Abdulaziz, Jeddah 23827",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ_-S7EwBlwRURhXE2mYqyLcM"
+  },
+  {
+    "brand": "Pizza Hut",
+    "branch": "Al Falah",
+    "candidate_place_id": "ChIJA-zoawB7wRURd58rCgxmE1c",
+    "address": "Al Falah, Jeddah",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJA-zoawB7wRURd58rCgxmE1c"
+  },
+  {
+    "brand": "Pizza Hut",
+    "branch": "Obhur North — Al Yaqout",
+    "candidate_place_id": "ChIJAZqjr5NjwRURm7dm84Enf4g",
+    "address": "Al Yaqout, Obhur Al Shamaliyah, Jeddah",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJAZqjr5NjwRURm7dm84Enf4g"
+  },
+  {
+    "brand": "Impasto Seven",
+    "branch": "Impasto Seven",
+    "candidate_place_id": "ChIJM5eZJzhjwRURDf1kn8DtpHU",
+    "address": "Prince Abdulmajeed, Al Lulu, Jeddah 23821, Saudi Arabia",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJM5eZJzhjwRURDf1kn8DtpHU"
+  },
+  {
+    "brand": "Bread Ahead",
+    "branch": "Al Zahra",
+    "candidate_place_id": "ChIJIYbp4trbwxURseJD7d4cWtg",
+    "address": "King Abdulaziz Service Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJIYbp4trbwxURseJD7d4cWtg"
+  },
+  {
+    "brand": "Bread Ahead",
+    "branch": "King's College Hospital",
+    "candidate_place_id": "ChIJszLICgbbwxUR93EJ3wcGjh4",
+    "address": "King Abdul Aziz Rd, Ash Shati, Jeddah 23416",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJszLICgbbwxUR93EJ3wcGjh4"
+  },
+  {
+    "brand": "Bread Ahead",
+    "branch": "Obhur Al Shamaliyah",
+    "candidate_place_id": "ChIJCTvpJABjwRUR3BeAR3FK2uQ",
+    "address": "Prince Abdullah Alfaisal St, Obhur Al Shamaliyah, Jeddah 23817",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJCTvpJABjwRUR3BeAR3FK2uQ"
+  },
+  {
+    "brand": "Bread Ahead",
+    "branch": "Red Sea Mall",
+    "candidate_place_id": "ChIJO7c88FXbwxURmXJz6pQq0GI",
+    "address": "King Abdul Aziz Rd, Ash Shati, Jeddah 21146, Saudi Arabia",
+    "maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJO7c88FXbwxURmXJz6pQq0GI"
+  }
+]

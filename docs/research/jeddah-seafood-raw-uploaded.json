@@ -1,0 +1,2414 @@
+{
+  "dataset": "WeshNakul Seafood — Stage 2 Production Research + Pass D Correction",
+  "city": "Jeddah, Saudi Arabia",
+  "mode": "food",
+  "primary_category": "seafood",
+  "sushi_excluded": true,
+  "verified_at": "2026-09-27",
+  "research_standard": "WeshNakul Restaurant Discovery & Research Requirements V3",
+  "core_rule": "Verified reality > completeness. Unknown values remain null/unknown/manual_review.",
+  "seafood_deck_rule": {
+    "deck_size": 7,
+    "guaranteed_anchor_count": 1,
+    "anchor_candidates": [
+      "Shrimp Zone",
+      "Shrimp Anatomy"
+    ],
+    "initial_anchor_probability_each": 0.5,
+    "rule": "Choose exactly one anchor first, then choose the nearest usable physical branch. Do not automatically add the other anchor in the remaining six cards."
+  },
+  "brands": [
+    {
+      "canonical_name": "Twina Seafood",
+      "arabic_name": "توينا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [
+        "saudi_seafood",
+        "fresh_fish"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Founded in Jeddah; official site lists six Jeddah seafood locations. Major branches have thousands of Google reviews, including Dahban and La Playa.",
+      "context_tags": [
+        "dine_in_strong",
+        "family_friendly"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": "supported_with_caution",
+      "healthy_evidence": "Official/ordering menus include grilled fish/seafood and a Healthy Meals section, but the brand is not health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "premium",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://twina.sa/",
+        "https://twina.sa/menu"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Twina",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Twina Seafood - Al Muhammadiyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Muhammadiyah",
+          "formatted_address": "Prince Sultan Rd, Al Muhammadiyah, Jeddah 23625, Saudi Arabia",
+          "google_place_id": "ChIJVWeyg9PZwxURZdtvtt_aBbQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Twina%20Seafood%20-%20Al%20Muhammadiyah&query_place_id=ChIJVWeyg9PZwxURZdtvtt_aBbQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 2416,
+          "hours": "Daily 13:00-01:00",
+          "phone": "+966920028284",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Twina official branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Twina Seafood - Corniche Al Hamra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamra",
+          "formatted_address": "2903 Al Kurnaysh Br Rd, Al-Hamra'a, Jeddah 23321, Saudi Arabia",
+          "google_place_id": "ChIJkcApePTPwxURWdgK3AbmtPk",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Twina%20Seafood%20-%20Corniche%20Al%20Hamra&query_place_id=ChIJkcApePTPwxURWdgK3AbmtPk",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 5501,
+          "hours": "Daily 13:00-01:00",
+          "phone": "+966920028284",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Twina official branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Twina Seafood - Sari",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "3788 Sari Br Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "google_place_id": "ChIJU-H0NZfawxUR3Ftqo9sRsYo",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Twina%20Seafood%20-%20Sari&query_place_id=ChIJU-H0NZfawxUR3Ftqo9sRsYo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.1,
+          "google_review_count": 6884,
+          "hours": "Daily 13:00-01:00",
+          "phone": "+966920028284",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Twina official branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Twina Seafood - Jeddah Yacht Club",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ash Shati",
+          "formatted_address": "Al Kurnaysh Br Rd, Ash Shati, Jeddah 23613, Saudi Arabia",
+          "google_place_id": "ChIJA0DVLJ7ZwxUReUDtc4vhM4c",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Twina%20Seafood%20-%20Jeddah%20Yacht%20Club&query_place_id=ChIJA0DVLJ7ZwxUReUDtc4vhM4c",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 1661,
+          "hours": "Official site: daily 13:00-01:00; Google listing showed Sunday/Monday 16:00 opening at verification",
+          "phone": "+966920028284",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Twina official branches page"
+          ],
+          "notes": "Hours differ slightly between official site and current Google listing; use branch-specific Google hours operationally."
+        },
+        {
+          "branch_name": "Twina Seafood - La Playa",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al Shamaliyah",
+          "formatted_address": "La Playa Beach Twina, Prince Abdullah Al Faisal St, North Obhur, Jeddah 23811, Saudi Arabia",
+          "google_place_id": "ChIJs1zdlajYwxURIvIOGfps25E",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Twina%20Seafood%20-%20La%20Playa&query_place_id=ChIJs1zdlajYwxURIvIOGfps25E",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 10582,
+          "hours": "Official site: daily 08:00-02:00",
+          "phone": "+966920028284",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Twina official branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Twina Park - Dahban",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Dahban",
+          "formatted_address": "Twina Park, 9659 Dahaban Road, Dahaban, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJqyjaOVBuwRURtKeTPkFWINY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Twina%20Park%20-%20Dahban&query_place_id=ChIJqyjaOVBuwRURtKeTPkFWINY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 18573,
+          "hours": "Official site: daily 13:00-01:00",
+          "phone": "+966122138737",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Twina official branches page"
+          ],
+          "notes": null
+        }
+      ]
+    },
+    {
+      "canonical_name": "Shrimp Anatomy",
+      "arabic_name": "شرمب أناتومي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [
+        "shrimp",
+        "seafood_boil"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Official site lists six Jeddah branches; Sari branch has >11k Google reviews and the brand has broad city coverage.",
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "Not health-focused; no basis to mark Healthy for the recommendation filter.",
+      "signature_dishes": [
+        "Shrimp Mode",
+        "Dynamite Shrimp",
+        "The Giant Mix"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://shrimpanatomysa.com/",
+        "HungerStation current listing"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Shrimp Anatomy",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "deck_rule": {
+        "seafood_anchor": true,
+        "selection_group": "shrimp_mainstream_anchor",
+        "initial_anchor_probability": 0.5,
+        "mutually_exclusive_with": "Shrimp Zone"
+      },
+      "branches": [
+        {
+          "branch_name": "Shrimp Anatomy - Sari",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Khalidiyah",
+          "formatted_address": "Sari Br Rd, Al Khalidiyah District, Jeddah 23445, Saudi Arabia",
+          "google_place_id": "ChIJp8irY5bawxURdfapLcJMIJI",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Anatomy%20-%20Sari&query_place_id=ChIJp8irY5bawxURdfapLcJMIJI",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 11584,
+          "hours": "Sun 12:00-00:00; Mon-Thu/Sat 12:00-02:00; Fri 13:00-02:00",
+          "phone": "+966550900379",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official site"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Anatomy - Club House",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Basateen",
+          "formatted_address": "King Abdul Aziz Rd, Al Basateen, Jeddah 23718, Saudi Arabia",
+          "google_place_id": "ChIJl_7PO_LZwxUR2pCgK9u_-dk",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Anatomy%20-%20Club%20House&query_place_id=ChIJl_7PO_LZwxUR2pCgK9u_-dk",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 128,
+          "hours": "Daily 13:00-03:00",
+          "phone": "+966551780416",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official site"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Anatomy - Al Fayha",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Fayha",
+          "formatted_address": "Prince Majid Rd, Al Fayha, Jeddah 22245, Saudi Arabia",
+          "google_place_id": "ChIJh_2lNADPwxURLeg8g7tayO4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Anatomy%20-%20Al%20Fayha&query_place_id=ChIJh_2lNADPwxURLeg8g7tayO4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1342,
+          "hours": "Sun-Thu/Sat 12:00-02:00; Fri 13:00-02:00",
+          "phone": "+966559349654",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official site"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Anatomy - Al Nahda",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Nahdah",
+          "formatted_address": "Prince Sultan Rd, An Nahdah, Jeddah 23615, Saudi Arabia",
+          "google_place_id": "ChIJKT5eAADbwxURAUWXiV5IHFM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Anatomy%20-%20Al%20Nahda&query_place_id=ChIJKT5eAADbwxURAUWXiV5IHFM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 2773,
+          "hours": "Sun-Thu/Sat 12:00-02:00; Fri 13:00-02:00",
+          "phone": "+966554795615",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official site"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Anatomy - Al Marwah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "6540 Al Shikh Abdullaziz Bin Baz, Al Marwah, Jeddah 23543, Saudi Arabia",
+          "google_place_id": "ChIJqQt5YQDRwxUR-k6ySN2lRLs",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Anatomy%20-%20Al%20Marwah&query_place_id=ChIJqQt5YQDRwxUR-k6ySN2lRLs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 354,
+          "hours": "Sun-Thu/Sat 12:00-02:00; Fri 13:00-02:00",
+          "phone": "+966554737328",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official site"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Anatomy - Marina",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Abhur Al Junoobiyah",
+          "formatted_address": "King Abdul Aziz Rd, Abhur Al Junoobiyah, Jeddah 23734, Saudi Arabia",
+          "google_place_id": "ChIJF5YZIXZjwRUR0zrPNIP4F-I",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Anatomy%20-%20Marina&query_place_id=ChIJF5YZIXZjwRUR0zrPNIP4F-I",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 2233,
+          "hours": "Sun-Thu/Sat 12:00-02:00; Fri 13:00-02:00",
+          "phone": "+966554404901",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official site"
+          ],
+          "notes": null
+        }
+      ]
+    },
+    {
+      "canonical_name": "Shrimp Zone",
+      "arabic_name": "منطقة الجمبري",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [
+        "shrimp",
+        "seafood_boil",
+        "fast_casual"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Official locations page lists 10 Jeddah branches; Sari exceeds 15k Google reviews and the brand has broad city coverage.",
+      "context_tags": [
+        "delivery_strong",
+        "quick_bite",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "Not health-focused; grilled options exist but do not justify Healthy=true.",
+      "signature_dishes": [
+        "Grilled Shrimp",
+        "Dynamite Shrimp",
+        "Shrimp bags / Mix & Match"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://shrimp.zone/locations",
+        "https://shrimp.zone/",
+        "HungerStation current listings"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Shrimp Zone",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "deck_rule": {
+        "seafood_anchor": true,
+        "selection_group": "shrimp_mainstream_anchor",
+        "initial_anchor_probability": 0.5,
+        "mutually_exclusive_with": "Shrimp Anatomy"
+      },
+      "branches": [
+        {
+          "branch_name": "Shrimp Zone - Sariah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Baghdadiyah Al Gharbiyah",
+          "formatted_address": "Sariah Branch, Al-Baghdadiyah Al-Gharbiyah, Jeddah 22234, Saudi Arabia",
+          "google_place_id": "ChIJ91biMuTPwxURGxFMqcb8q_I",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Sariah&query_place_id=ChIJ91biMuTPwxURGxFMqcb8q_I",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 4063,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 13:00-03:00",
+          "phone": "+966533357134",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Sari",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "2709 Sari Br Rd, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_place_id": "ChIJGfSt5-_bwxUR4lfoUAUAzOc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Sari&query_place_id=ChIJGfSt5-_bwxUR4lfoUAUAzOc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 15124,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 13:00-03:00",
+          "phone": "+966544500445",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": "Canonical district should be reconciled to the project's district whitelist from the verified address; do not infer beyond whitelist."
+        },
+        {
+          "branch_name": "Shrimp Zone - Red Sea Mall",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ash Shati",
+          "formatted_address": "Red Sea Mall, King Abdul Aziz Rd, Ash Shati, Jeddah 23612, Saudi Arabia",
+          "google_place_id": "ChIJRSPOJ0LbwxURDUO1OgwD-9c",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Red%20Sea%20Mall&query_place_id=ChIJRSPOJ0LbwxURDUO1OgwD-9c",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.9,
+          "google_review_count": 3495,
+          "hours": "Sun-Wed/Sat 12:00-00:00; Thu 12:00-01:00; Fri 13:00-01:00",
+          "phone": "+966536663416",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Aya Mall",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Muhammadiyah",
+          "formatted_address": "Aya Mall, Prince Sultan Rd, Al Muhammadiyah, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJv5yf4RjawxUR2JDPIcsjc2s",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Aya%20Mall&query_place_id=ChIJv5yf4RjawxUR2JDPIcsjc2s",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 8608,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 13:00-03:00",
+          "phone": "+966556623552",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Obhur",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al Shamaliyah",
+          "formatted_address": "Prince Abdullah Al Faisal Branch, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+          "google_place_id": "ChIJ209VejRjwRUR9kUA6MqbJi4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Obhur&query_place_id=ChIJ209VejRjwRUR9kUA6MqbJi4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 3260,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 13:00-03:00",
+          "phone": "+966535530991",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Al Marwah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "Hira St, Al Marwah, Jeddah 23545, Saudi Arabia",
+          "google_place_id": "ChIJlcTohGjXwxUR1Iq86EIgw2E",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Al%20Marwah&query_place_id=ChIJlcTohGjXwxUR1Iq86EIgw2E",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 4230,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 13:00-03:00",
+          "phone": "+966536663169",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Al Jamea Plaza",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Jami'ah",
+          "formatted_address": "Jamea Mall Branch, Al Jami'ah, Jeddah 22338, Saudi Arabia",
+          "google_place_id": "ChIJBfQFrv_NwxURYcgPe239hVE",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Al%20Jamea%20Plaza&query_place_id=ChIJBfQFrv_NwxURYcgPe239hVE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 2754,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 13:00-03:00",
+          "phone": "+966530066557",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Hamdaniya",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamadaniyyah",
+          "formatted_address": "Hamdaniya Branch, Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+          "google_place_id": "ChIJ4_yajD59wRURL4cVKVPEeKM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Hamdaniya&query_place_id=ChIJ4_yajD59wRURL4cVKVPEeKM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 1743,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 13:00-03:00",
+          "phone": "+966535454053",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Mall of Arabia",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "An Nuzhah",
+          "formatted_address": "Mall of Arabia, Al-Madinah Al-Munawarah Rd, An Nuzhah, Jeddah 23532, Saudi Arabia",
+          "google_place_id": "ChIJI6eRa6nXwxURp-8DscIODCw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Mall%20of%20Arabia&query_place_id=ChIJI6eRa6nXwxURp-8DscIODCw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 986,
+          "hours": "Sun-Wed/Sat 12:00-00:00; Thu 12:00-01:00; Fri 14:00-01:00",
+          "phone": "+966573590961",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Zone - Al Waha Boulevard",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Waha",
+          "formatted_address": "3370 8553 Al Samer, Al Waha Branch, Jeddah 23354, Saudi Arabia",
+          "google_place_id": "ChIJy2vUJgDTwxURusYlr7yGv80",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Zone%20-%20Al%20Waha%20Boulevard&query_place_id=ChIJy2vUJgDTwxURusYlr7yGv80",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1065,
+          "hours": "Sun-Wed/Sat 12:00-02:00; Thu 12:00-03:00; Fri 12:00-03:00",
+          "phone": "+966533391089",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Shrimp Zone official locations"
+          ],
+          "notes": null
+        }
+      ]
+    },
+    {
+      "canonical_name": "Shrimp Nation",
+      "arabic_name": "شرمب نيشن",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [
+        "shrimp",
+        "seafood_boil"
+      ],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Official site lists six Jeddah branches; Al Salamah has nearly 9k Google reviews.",
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "Not health-focused.",
+      "signature_dishes": [
+        "Shrimp",
+        "Crab",
+        "Lobster",
+        "Mussels",
+        "Fish Sticks",
+        "Calamari Basket",
+        "Dynamite Shrimp"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://shrimpnation.com/sa-en/branches/jeddah/",
+        "HungerStation current listing"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Shrimp Nation",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Shrimp Nation - Al Salamah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "As Salamah",
+          "formatted_address": "Prince Sultan Rd, As Salamah, Jeddah 23436, Saudi Arabia",
+          "google_place_id": "ChIJN9P9upDbwxUR00HYFnn1pHA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Nation%20-%20Al%20Salamah&query_place_id=ChIJN9P9upDbwxUR00HYFnn1pHA",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 8926,
+          "hours": "Sun-Wed 12:00-02:00; Thu-Sat 12:00-03:00",
+          "phone": "+966562098999",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official Jeddah branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Nation - Al Murjan",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Murjan",
+          "formatted_address": "P452+2W3, 7862 Alkurnaysh Road, Al Murjan District, Jeddah 23712, Saudi Arabia",
+          "google_place_id": "ChIJIwM_HnLZwxURXYXgBW1euqE",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Nation%20-%20Al%20Murjan&query_place_id=ChIJIwM_HnLZwxURXYXgBW1euqE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 1817,
+          "hours": "Sun-Wed 12:00-02:00; Thu-Sat 12:00-03:00",
+          "phone": "+966546039991",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official Jeddah branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Nation - An Naseem",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "An Naseem",
+          "formatted_address": "King Abdallah Rd, An Naseem, Jeddah 23233, Saudi Arabia",
+          "google_place_id": "ChIJFXlaJLPPwxURYbqNhzVt8ug",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Nation%20-%20An%20Naseem&query_place_id=ChIJFXlaJLPPwxURYbqNhzVt8ug",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 805,
+          "hours": "Sun-Wed 12:00-02:00; Thu-Sat 12:00-03:00",
+          "phone": "+966550642999",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official Jeddah branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Nation - Obhur Al Shamaliyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Obhur Al Shamaliyah",
+          "formatted_address": "Prince Abdullah Al Faisal, Obhur Al-Shamaliyah, Jeddah 23817, Saudi Arabia",
+          "google_place_id": "ChIJCR3g_eBjwRURsyF9amjh3y4",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Nation%20-%20Obhur%20Al%20Shamaliyah&query_place_id=ChIJCR3g_eBjwRURsyF9amjh3y4",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1141,
+          "hours": "Sun-Wed 12:00-02:00; Thu-Sat 12:00-03:00",
+          "phone": "+966546059991",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official Jeddah branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Nation - Al Marwah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "Al Marwah, Jeddah 23345, Saudi Arabia",
+          "google_place_id": "ChIJAVa15jrRwxURQiRfaaqCzVM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Nation%20-%20Al%20Marwah&query_place_id=ChIJAVa15jrRwxURQiRfaaqCzVM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 1614,
+          "hours": "Sun-Wed 12:00-02:00; Thu-Sat 12:00-03:00",
+          "phone": "+966559768899",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official Jeddah branches page"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Shrimp Nation - Al Hamdaniya",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamadaniyyah",
+          "formatted_address": "Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+          "google_place_id": "ChIJQ4TTurl9wRURh_Qsd65w_is",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Shrimp%20Nation%20-%20Al%20Hamdaniya&query_place_id=ChIJQ4TTurl9wRURh_Qsd65w_is",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 107,
+          "hours": "Sun-Wed 12:00-02:00; Thu-Sat 12:00-03:00",
+          "phone": "+966558204999",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Official Jeddah branches page"
+          ],
+          "notes": null
+        }
+      ]
+    },
+    {
+      "canonical_name": "AlQalzam Seafood Restaurant",
+      "arabic_name": "القلزم",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong",
+        "family_friendly"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "premium",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://linktr.ee/alqalzam"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "AlQalzam - Al Waha / Al Samer",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Waha",
+          "formatted_address": "Al Samer, Al Waha, Jeddah 23354, Saudi Arabia",
+          "google_place_id": "ChIJDyFOkvrTwxURPFj97wwmQE8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=AlQalzam%20-%20Al%20Waha%20/%20Al%20Samer&query_place_id=ChIJDyFOkvrTwxURPFj97wwmQE8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 187,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": "+966920001515",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://linktr.ee/alqalzam"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "AlQalzam - Al Qarat",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Qarat",
+          "formatted_address": "Aabir Al Qarath St, Al Qarat, Jeddah 23817, Saudi Arabia",
+          "google_place_id": "ChIJFV1vTgFjwRURrXEd8GN8094",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=AlQalzam%20-%20Al%20Qarat&query_place_id=ChIJFV1vTgFjwRURrXEd8GN8094",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 1847,
+          "hours": "Sun-Tue/Sat 13:00-01:00; Wed-Fri 13:00-02:00",
+          "phone": "+966920001515",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://linktr.ee/alqalzam"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "AlQalzam Seafood Resort",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Riyadh",
+          "formatted_address": "Al-Madinah Al-Munawarah Rd, Al Riyadh, Jeddah 23872, Saudi Arabia",
+          "google_place_id": "ChIJn9hOrr1jwRURqU92wWYUmpA",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=AlQalzam%20Seafood%20Resort&query_place_id=ChIJn9hOrr1jwRURqU92wWYUmpA",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 12519,
+          "hours": "Sun-Tue/Sat 13:00-01:00; Wed-Fri 13:00-02:00",
+          "phone": "+966920001515",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://linktr.ee/alqalzam"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "AlQalzam - Al Nahda",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Nahdah",
+          "formatted_address": "6790 Prince Sultan Rd, Al Nahdah, Jeddah 23615, Saudi Arabia",
+          "google_place_id": "ChIJXVmPEWJjwRURB54HXE1tezY",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=AlQalzam%20-%20Al%20Nahda&query_place_id=ChIJXVmPEWJjwRURB54HXE1tezY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 6128,
+          "hours": "Sun-Tue/Sat 12:30-01:00; Wed-Fri approx 13:00-02:00",
+          "phone": "+966920001515",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://linktr.ee/alqalzam"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "AmoHamza",
+      "arabic_name": "عمو حمزة",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "delivery_strong",
+        "family_friendly"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Grilled fish fillet",
+        "Tilapia with rice",
+        "Mixed seafood offers"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://www.amohamza.com.sa/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "AmoHamza",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "AmoHamza - Al Safa",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Safa",
+          "formatted_address": "2206 Prince Majid Rd, Al Safa, Jeddah 23451, Saudi Arabia",
+          "google_place_id": "ChIJ9T-zPKrRwxURZH93Phq1bsQ",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=AmoHamza%20-%20Al%20Safa&query_place_id=ChIJ9T-zPKrRwxURZH93Phq1bsQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.6,
+          "google_review_count": 4438,
+          "hours": "Daily 12:00-00:30",
+          "phone": "+966920000639",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://www.amohamza.com.sa/"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": [
+        "Potential Ruwais location appears in current Yango data but lacks sufficient Google Maps verification in this pass; manual_review."
+      ]
+    },
+    {
+      "canonical_name": "Hook",
+      "arabic_name": "هوك",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Shrimp",
+        "Lobster",
+        "Mix seafood",
+        "Oyster",
+        "Crab"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Hook",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Hook - Al Zahra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "Prince Sultan Rd, Al Zahra, Jeddah 23425, Saudi Arabia",
+          "google_place_id": "ChIJ-SqFc5zbwxURGn8crycynOg",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Hook%20-%20Al%20Zahra&query_place_id=ChIJ-SqFc5zbwxURGn8crycynOg",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 3260,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": "+966126344440",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Hook - Al Fayha",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Fayha",
+          "formatted_address": "Abdullah Sulayman St, Al Fayha, Jeddah 22246, Saudi Arabia",
+          "google_place_id": "ChIJjQqGvSbPwxUR5JhqKtWP3Hc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Hook%20-%20Al%20Fayha&query_place_id=ChIJjQqGvSbPwxUR5JhqKtWP3Hc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 2026,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": "+966122888003",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Operation Seafood",
+      "arabic_name": "أوبريشن سي فود",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Fresh fish",
+        "Shrimp bags",
+        "Thai seafood dishes",
+        "Seafood tagines"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Operation Seafood",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Operation Seafood - Al Zahra",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "Helmi Koutbi, Al Zahra, Jeddah 23521, Saudi Arabia",
+          "google_place_id": "ChIJ5bY08BTbwxURpbuUmbEan0s",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Operation%20Seafood%20-%20Al%20Zahra&query_place_id=ChIJ5bY08BTbwxURpbuUmbEan0s",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 3211,
+          "hours": "Sun-Thu/Sat 13:00-01:00; Fri 13:00-02:00",
+          "phone": "+966565864626",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Operation Seafood - Abhur Al Junoobiyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Abhur Al Junoobiyah",
+          "formatted_address": "King Abdul Aziz Rd, Abhur Al Junoobiyah, Jeddah 23734, Saudi Arabia",
+          "google_place_id": "ChIJWbH2OKtjwRURTFl81UOsag0",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Operation%20Seafood%20-%20Abhur%20Al%20Junoobiyah&query_place_id=ChIJWbH2OKtjwRURTFl81UOsag0",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 1065,
+          "hours": "Sun-Wed/Sat 13:00-01:00; Thu-Fri 13:00-02:00",
+          "phone": "+966509929913",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Alaaly Seafood Restaurant",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Grilled fish",
+        "Fried fish",
+        "Seafood trays",
+        "Tajines"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Alaaly Seafood Restaurant",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Alaaly Seafood Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "8683 2623 Abdul Maqsud Khojah, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_place_id": "ChIJdyf4iTzbwxURtcoLBOJTP4k",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Alaaly%20Seafood%20Restaurant&query_place_id=ChIJdyf4iTzbwxURtcoLBOJTP4k",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 14432,
+          "hours": "Sun-Wed/Sat 13:00-00:30; Thu-Fri 13:00-01:30",
+          "phone": "+966507873166",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Albasali Seafood Restaurant",
+      "arabic_name": "البصلي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://www.visitsaudi.com/en/jeddah/attractions/al-basli-resturant"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Albasali Seafood Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Historic Jeddah",
+          "formatted_address": "Behind Al Falah Schools, Suq Bab Makkah, Historic Jeddah, Jeddah 22236, Saudi Arabia",
+          "google_place_id": "ChIJD73pfivPwxUROdee-Zl5GxM",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Albasali%20Seafood%20Restaurant&query_place_id=ChIJD73pfivPwxUROdee-Zl5GxM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 10684,
+          "hours": "Sun-Wed 13:00-23:30; Thu 13:00-23:00/23:30; Fri-Sat 13:00-23:00",
+          "phone": "+966504301163",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://www.visitsaudi.com/en/jeddah/attractions/al-basli-resturant"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Saedi Fish Restaurant",
+      "arabic_name": null,
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "staple",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Saedi Fish Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamra",
+          "formatted_address": "2128 Al Kurnaysh Br Rd, Al-Hamra'a, Jeddah 23212, Saudi Arabia",
+          "google_place_id": "ChIJjc2BsGLFwxUR8OctnGtwyr8",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Saedi%20Fish%20Restaurant&query_place_id=ChIJjc2BsGLFwxUR8OctnGtwyr8",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.8,
+          "google_review_count": 10601,
+          "hours": "Daily 13:00-02:00",
+          "phone": "+966555036346",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Saedi Fish Restaurant - Hira",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Zahra",
+          "formatted_address": "7751 Hira St, 2395, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "google_place_id": "ChIJaXH5QBTbwxUR2dANnaQer4E",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Saedi%20Fish%20Restaurant%20-%20Hira&query_place_id=ChIJaXH5QBTbwxUR2dANnaQer4E",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 2744,
+          "hours": "Daily 12:00-02:00",
+          "phone": "+966561198959",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Current Restaurant Guru listing (updated 2026)",
+            "District cross-check: Hira St / postal code 23522 = Al Zahra"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "Saedi Fish Restaurant - Al Baghdadiyah Al Gharbiyah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Baghdadiyah Al Gharbiyah",
+          "formatted_address": "Near Madinah Palace Hotel, Al Baghdadiyah Al Gharbiyah, Jeddah 22231, Saudi Arabia",
+          "google_place_id": "ChIJ205ghQzPwxURgBn-5MzU31g",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Saedi%20Fish%20Restaurant%20-%20Al%20Baghdadiyah%20Al%20Gharbiyah&query_place_id=ChIJ205ghQzPwxURgBn-5MzU31g",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 3.9,
+          "google_review_count": 4109,
+          "hours": "Daily 13:00-02:00",
+          "phone": "+966550775333",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "Current Listah listing (Sep 2026)",
+            "Current/secondary directory cross-check"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Ba’eshen Seafood",
+      "arabic_name": "باعشن",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/baeshen-seafood?to=place.ChIJgzFNWBDPwxUR8RJvjjybMKI"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Ba’eshen Seafood",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Historic Jeddah",
+          "formatted_address": "F5PM+RJ, Historic Jeddah, Jeddah 22233, Saudi Arabia",
+          "google_place_id": "ChIJgzFNWBDPwxUR8RJvjjybMKI",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Ba%E2%80%99eshen%20Seafood&query_place_id=ChIJgzFNWBDPwxUR8RJvjjybMKI",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 6428,
+          "hours": "Sun-Thu/Sat 12:15-23:00; Fri 13:00-23:00",
+          "phone": "+966503674710",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/baeshen-seafood?to=place.ChIJgzFNWBDPwxUR8RJvjjybMKI"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Asmak Tharaa",
+      "arabic_name": "أسماك ثراء",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "delivery_strong",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Tipsy Bahri",
+        "Grilled shrimp",
+        "Grilled Red Sea fish",
+        "Sayadiyah-related dishes"
+      ],
+      "price_positioning": "premium",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://asmaktharaa.com/",
+        "https://linktr.ee/assmaktharaa"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Asmak Tharaa",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "yes",
+          "listing_name": "Asmak Tharaa",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Asmak Tharaa - Al Naeem",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Naeem",
+          "formatted_address": "Prince Sultan Street, Al Naeem, Jeddah 23526, Saudi Arabia",
+          "google_place_id": "ChIJrzBO3HnbwxURyMAm9Wh_fmo",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Asmak%20Tharaa%20-%20Al%20Naeem&query_place_id=ChIJrzBO3HnbwxURyMAm9Wh_fmo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 6896,
+          "hours": "Sun-Wed/Sat 13:00-00:30; Thu-Fri 13:00-01:30",
+          "phone": "+966920035050",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://asmaktharaa.com/",
+            "https://linktr.ee/assmaktharaa"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "El Marakby Seafood Restaurant",
+      "arabic_name": "المراكبي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Jumbo grilled shrimp",
+        "Fresh grilled/fried fish",
+        "Seafood tagines"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://elmarakby.com/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "El Marakby Seafood Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ar Rawdah",
+          "formatted_address": "Saud Al Faisal Walk, Ar Rawdah, Jeddah 23432, Saudi Arabia",
+          "google_place_id": "ChIJ7-5mQ57RwxURdaZXVEmELOw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=El%20Marakby%20Seafood%20Restaurant&query_place_id=ChIJ7-5mQ57RwxURdaZXVEmELOw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 5165,
+          "hours": "Sat-Thu approx 12:30/13:00-01:00; Fri 13:00-01:00/02:00",
+          "phone": "+966555291131",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://elmarakby.com/"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Portofish Seafood",
+      "arabic_name": "بورتوفيش",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "rising",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "premium",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Portofish Seafood",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Hamra",
+          "formatted_address": "Palestine St, Al-Hamra'a, Jeddah 23212, Saudi Arabia",
+          "google_place_id": "ChIJvXP34Z_PwxUR9-fNZkLbOwE",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Portofish%20Seafood&query_place_id=ChIJvXP34Z_PwxUR9-fNZkLbOwE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.9,
+          "google_review_count": 925,
+          "hours": "Sun-Wed/Sat 12:30-01:00; Thu 13:00-03:00; Fri 13:00-03:00",
+          "phone": "+966556650922",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "AlMurjan Seafood Restaurant",
+      "arabic_name": "المرجان",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong",
+        "family_friendly"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Salmon Bechamel",
+        "Squid Meal & Rice",
+        "Paella",
+        "Lobster Cheese Bechamel",
+        "Seafood Mandhi"
+      ],
+      "price_positioning": "mid-range",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [
+        "https://almurjanseafood.com/"
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "AlMurjan Seafood - Al Murjan",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Murjan",
+          "formatted_address": "Next to King Abdullah's Palace, 6481, Al Murjan, Jeddah 23715, Saudi Arabia",
+          "google_place_id": "ChIJFwyfKZHZwxURHlBkclvlJyk",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=AlMurjan%20Seafood%20-%20Al%20Murjan&query_place_id=ChIJFwyfKZHZwxURHlBkclvlJyk",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 1503,
+          "hours": "Daily 11:00-02:00",
+          "phone": "+966502955500",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://almurjanseafood.com/"
+          ],
+          "notes": null
+        },
+        {
+          "branch_name": "AlMurjan Seafood - Abruq Ar Rughamah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Abruq Ar Rughamah",
+          "formatted_address": "45 King Abdallah Rd, Abruq Ar Rughamah, Jeddah 22261, Saudi Arabia",
+          "google_place_id": "ChIJ37ZdQs3TwxURPAENiZrf7yw",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=AlMurjan%20Seafood%20-%20Abruq%20Ar%20Rughamah&query_place_id=ChIJ37ZdQs3TwxURPAENiZrf7yw",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.3,
+          "google_review_count": 1476,
+          "hours": "Daily 11:00-02:00",
+          "phone": "+966537922200",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing",
+            "https://almurjanseafood.com/"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Almarsah",
+      "arabic_name": "المرسى",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": [
+        "Fried/grilled fish",
+        "Shrimp",
+        "Seafood meal"
+      ],
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Almarsah",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Almarsah",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Marwah",
+          "formatted_address": "Hira St, Al Marwah, Jeddah 23541, Saudi Arabia",
+          "google_place_id": "ChIJu5AP5yvXwxURtV7qWQKI_Co",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Almarsah&query_place_id=ChIJu5AP5yvXwxURtV7qWQKI_Co",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 4939,
+          "hours": "Daily 10:00-01:00",
+          "phone": "+966126556833",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "SeaGulls' Catch",
+      "arabic_name": "صيد النورس",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "SeaGulls' Catch",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "SeaGulls' Catch - Al Ruwais",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Al Ruwais",
+          "formatted_address": "Opp. Al Rajhi Bank, Al Maadi St, Al Ruwais, Jeddah, Saudi Arabia",
+          "google_place_id": "ChIJjxTQNpHPwxUR_zCKloAJm8A",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=SeaGulls%27%20Catch%20-%20Al%20Ruwais&query_place_id=ChIJjxTQNpHPwxUR_zCKloAJm8A",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.0,
+          "google_review_count": 2332,
+          "hours": "Daily 12:00-01:00",
+          "phone": "+966508025763",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": [
+        "Older/current web sources mention additional Al Hamra/Al Nuzha/Al Ajwad service locations, but they were not independently verified as current Google physical branches in this pass. Keep out of production until verified."
+      ]
+    },
+    {
+      "canonical_name": "Blue Ocean Restaurant",
+      "arabic_name": "بلو أوشن",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong",
+        "family_friendly"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "premium",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Blue Ocean Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Ash Shati",
+          "formatted_address": "Al Kurnaysh Br Rd, Ash Shati, Jeddah 23413, Saudi Arabia",
+          "google_place_id": "ChIJhRT6XCbbwxURG-1vrUB6bXU",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Blue%20Ocean%20Restaurant&query_place_id=ChIJhRT6XCbbwxURG-1vrUB6bXU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.2,
+          "google_review_count": 19317,
+          "hours": "Daily 07:00-01:00",
+          "phone": "+966533056605",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    },
+    {
+      "canonical_name": "Al-Daraj Seafood Restaurant",
+      "arabic_name": "الدرج",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "seafood",
+      "secondary_categories": [],
+      "operating_status": "active",
+      "jeddah_presence": "confirmed",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Current Jeddah physical presence and review footprint verified; classification is editorial and based on local longevity/review scale/current relevance.",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy_eligibility": false,
+      "healthy_evidence": "No sufficient evidence to mark the brand as meaningfully health-focused.",
+      "signature_dishes": null,
+      "price_positioning": "affordable",
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "brand_sources": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      },
+      "branches": [
+        {
+          "branch_name": "Al-Daraj Seafood Restaurant",
+          "physical_existence": "confirmed",
+          "city": "Jeddah",
+          "canonical_district": "Historic Jeddah",
+          "formatted_address": "F5PR+H7Q, Old Mecca Al Moukarramah Rd, Historic Jeddah, Jeddah 22236, Saudi Arabia",
+          "google_place_id": "ChIJb7a0h93PwxURcnrTMXc2PAc",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Al-Daraj%20Seafood%20Restaurant&query_place_id=ChIJb7a0h93PwxURcnrTMXc2PAc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 472,
+          "hours": "Sun-Thu/Sat 12:00-23:30; Fri 13:00-23:30",
+          "phone": "+966568078200",
+          "operating_status": "open",
+          "verification_date": "2026-09-27",
+          "production_eligibility": "production_ready",
+          "source_provenance": [
+            "Google Maps structured business listing"
+          ],
+          "notes": null
+        }
+      ],
+      "manual_review_notes": null
+    }
+  ],
+  "pass_d_findings": {
+    "coordinates": "Left null across this export because latitude/longitude were not safely exposed by the verified source results used in this pass. Resolve later from verified Place IDs or a trusted geocoding source.",
+    "delivery_zones": "Delivery-platform neighborhood labels were not treated as proof of physical branches.",
+    "ratings": "Branch ratings/review counts are branch-specific; none were copied across branches.",
+    "legacy_or_unverified_locations": [
+      "AmoHamza Ruwais — current secondary-map evidence exists, but no sufficiently verified Google physical branch listing in this pass.",
+      "SeaGulls' Catch Al Hamra / Al Nuzha / Al Ajwad — mentioned by web/order sources but not independently verified as current Google physical branches in this pass."
+    ],
+    "maps_urls": "Generated deterministically from verified Google Place IDs using the official Google Maps search URL format.",
+    "production_policy": "Only branch objects marked production_ready should be imported without additional manual verification."
+  },
+  "address_district_audit": {
+    "hard_minimum_rule": "A branch is not production-ready unless it has both a verified usable address/location and a verified district.",
+    "audit_date": "2026-09-27",
+    "branches_checked": 52,
+    "branches_with_address": 52,
+    "branches_with_district": 52,
+    "corrections": [
+      {
+        "branch": "Shrimp Zone - Sari",
+        "from": "Ar Rawdah / Sari corridor",
+        "to": "Ar Rawdah"
+      },
+      {
+        "branch": "El Marakby Seafood Restaurant",
+        "from": "Ar Rawdah / Tahlia corridor",
+        "to": "Ar Rawdah"
+      }
+    ]
+  },
+  "final_branch_coverage_audit": {
+    "audit_date": "2026-09-27",
+    "brands_checked": 20,
+    "verified_physical_branches": 52,
+    "branches_with_address": 52,
+    "branches_with_district": 52,
+    "new_branches_added_during_final_audit": [
+      "Saedi Fish Restaurant - Hira (Al Zahra)",
+      "Saedi Fish Restaurant - Al Baghdadiyah Al Gharbiyah"
+    ],
+    "excluded_or_unresolved_locations": [
+      {
+        "brand": "AmoHamza",
+        "location": "Al Samer delivery listing",
+        "decision": "not treated as a physical branch",
+        "reason": "Current HungerStation evidence is a delivery-area listing; independent physical-branch proof was not found. Current business/directory evidence supports the Al Safa physical branch."
+      },
+      {
+        "brand": "SeaGulls' Catch",
+        "location": "Al Ajwad",
+        "decision": "manual_review / not imported",
+        "reason": "Current local ranking data shows a seafood venue at Al Ajwad using the historic SeaGulls phone, but the current structured business identity resolves under a different business name. Brand identity is therefore not sufficiently verified."
+      },
+      {
+        "brand": "SeaGulls' Catch",
+        "location": "Al Nuzha / Al Hamra / other historic branches",
+        "decision": "not imported",
+        "reason": "Only older web evidence was found; no sufficiently strong current branch verification."
+      }
+    ],
+    "completion_statement": "For the retained production-ready dataset, every included branch has both a usable address and a verified district. Remaining ambiguous locations are excluded or marked for manual review rather than guessed."
+  }
+}

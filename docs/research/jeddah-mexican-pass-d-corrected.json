@@ -1,0 +1,1523 @@
+{
+  "schema_version": "weshnakul_restaurant_research_v3",
+  "dataset": {
+    "name": "WeshNakul Mexican - Jeddah",
+    "version": "V3-PassD-Corrected",
+    "city": "Jeddah",
+    "country": "Saudi Arabia",
+    "mode": "food",
+    "primary_category": "mexican",
+    "display_category": "Mexican",
+    "verified_date": "2026-09-27",
+    "last_verified_at": "2026-09-27",
+    "brand_count": 14,
+    "status": "PASS_WITH_FIELD_VALIDATION_COMPLETE",
+    "research_standard": "WeshNakul Restaurant Discovery & Research Requirements V3",
+    "principles": [
+      "recommendation_quality_over_catalog_size",
+      "verified_reality_over_completeness",
+      "unknown_is_better_than_wrong",
+      "delivery_distance_policy_strict_nearby_branch",
+      "going_out_distance_policy_mix_nearby_and_destination",
+      "branch_count_does_not_equal_recommendation_weight"
+    ],
+    "deck_rules": {
+      "deck_size": 7,
+      "guaranteed_anchor_count": 1,
+      "guaranteed_anchor_pool": [
+        "firegrill"
+      ],
+      "rotating_strong_count": 1,
+      "rotating_strong_pool": [
+        "cocina_la_cantina",
+        "eds_taco",
+        "speakeasy",
+        "chilis",
+        "taqado_mexican_kitchen"
+      ],
+      "remaining_slots": 5,
+      "remaining_selection": "randomized_from_eligible_nearby_brands_and_branches",
+      "rules": [
+        "Every Mexican deck must contain at least one proven anchor/staple.",
+        "Normally FireGrill satisfies the guaranteed anchor slot.",
+        "At least one additional strong/popular brand should rotate randomly when eligible.",
+        "A deck must not consist entirely of lesser-known/hidden-gem brands.",
+        "Anchor and strong-brand card positions should be randomized.",
+        "Physical branch selection should use verified geography and favor nearby branches, especially for delivery-oriented restaurants.",
+        "The UI must not hard-code a specific branch when a closer verified branch is eligible.",
+        "Branch count must NOT create recommendation weight: select brand -> resolve appropriate nearby branch."
+      ]
+    },
+    "summary": {
+      "total_brands": 14,
+      "production_ready_brands": 13,
+      "usable_with_caution_brands": 1,
+      "manual_review_brands": 0,
+      "excluded_brands": 0,
+      "total_candidate_branches": 23,
+      "total_verified_active_branches": 19,
+      "production_ready_branches": 15,
+      "usable_with_caution_branches": 4,
+      "manual_review_branches": 1,
+      "excluded_branches": 3,
+      "canonical_district_active_branches": 17,
+      "outer_caution_branches": 2,
+      "canonical_district_total_candidates": 19,
+      "null_district_total_candidates": 4,
+      "place_id_completeness": "100.0% (19/19)",
+      "coordinate_completeness": "100.0% (19/19)",
+      "maps_url_completeness": "100.0% (19/19)",
+      "address_completeness": "100.0% (19/19)",
+      "operating_status_completeness": "100.0% (19/19)",
+      "rating_completeness": "100.0% (19/19)",
+      "review_count_completeness": "100.0% (19/19)",
+      "hours_completeness": "100.0% (19/19)"
+    }
+  },
+  "deck_rules": {
+    "deck_size": 7,
+    "guaranteed_anchor_count": 1,
+    "guaranteed_anchor_pool": [
+      "firegrill"
+    ],
+    "rotating_strong_count": 1,
+    "rotating_strong_pool": [
+      "cocina_la_cantina",
+      "eds_taco",
+      "speakeasy",
+      "chilis",
+      "taqado_mexican_kitchen"
+    ],
+    "remaining_slots": 5,
+    "remaining_selection": "randomized_from_eligible_nearby_brands_and_branches",
+    "rules": [
+      "Every Mexican deck must contain at least one proven anchor/staple.",
+      "Normally FireGrill satisfies the guaranteed anchor slot.",
+      "At least one additional strong/popular brand should rotate randomly when eligible.",
+      "A deck must not consist entirely of lesser-known/hidden-gem brands.",
+      "Anchor and strong-brand card positions should be randomized.",
+      "Physical branch selection should use verified geography and favor nearby branches, especially for delivery-oriented restaurants.",
+      "The UI must not hard-code a specific branch when a closer verified branch is eligible.",
+      "Branch count must NOT create recommendation weight: select brand -> resolve appropriate nearby branch."
+    ]
+  },
+  "brands": [
+    {
+      "id": "firegrill",
+      "canonical_name": "FireGrill",
+      "arabic_name": "فاير جريل",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tex_mex",
+        "burritos",
+        "bowls",
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "classification_evidence": "Multiple active Jeddah branches with substantial review volume; primary anchor of the Mexican category.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "burritos",
+        "bowls",
+        "tacos",
+        "quesadillas"
+      ],
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "2328 King Abdul Aziz Rd, AZ Zahra District, 6403, Jeddah 23424, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJOU1E5unawxURfjHoaCoVOyY",
+          "google_place_id": "ChIJOU1E5unawxURfjHoaCoVOyY",
+          "latitude": 21.575775699999998,
+          "longitude": 39.1274448,
+          "google_rating": 4.1,
+          "google_review_count": 2222,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 2:00 AM; Tuesday: 11:00 AM – 2:00 AM; Wednesday: 11:00 AM – 2:00 AM; Thursday: 11:00 AM – 2:00 AM; Friday: 12:30 PM – 2:00 AM; Saturday: 11:00 AM – 2:00 AM; Sunday: 11:00 AM – 2:00 AM",
+          "phone": "+966 55 435 0052",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra."
+        },
+        {
+          "branch_name": "Al Naeem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Sultan Rd, حي النعيم،، Jeddah 23621, Saudi Arabia",
+          "raw_district": "al_naeem",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJIc20ZovZwxURTkdtk-agTQg",
+          "google_place_id": "ChIJIc20ZovZwxURTkdtk-agTQg",
+          "latitude": 21.637205299999998,
+          "longitude": 39.132021,
+          "google_rating": 4.1,
+          "google_review_count": 2373,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 3:30 AM; Tuesday: 11:00 AM – 2:00 AM; Wednesday: 11:00 AM – 2:00 AM; Thursday: 11:00 AM – 2:00 AM; Friday: 12:30 PM – 2:00 AM; Saturday: 11:00 AM – 2:00 AM; Sunday: 11:00 AM – 2:00 AM",
+          "phone": "+966 55 453 5569",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naeem."
+        },
+        {
+          "branch_name": "Al Ruwais",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Liwan Center، King Abdullah Road, Al Ruwais،، Al-Ruwais, Jeddah 23214, Saudi Arabia",
+          "raw_district": "al_ruwais",
+          "canonical_district": "al_ruwais",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJl_oaFLvPwxURfuENAVij11w",
+          "google_place_id": "ChIJl_oaFLvPwxURfuENAVij11w",
+          "latitude": 21.5110429,
+          "longitude": 39.1818896,
+          "google_rating": 4.1,
+          "google_review_count": 1915,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 2:00 AM; Tuesday: 11:00 AM – 2:00 AM; Wednesday: 11:00 AM – 2:00 AM; Thursday: 11:00 AM – 2:00 AM; Friday: 12:30 PM – 2:00 AM; Saturday: 11:00 AM – 2:00 AM; Sunday: 11:00 AM – 2:00 AM",
+          "phone": "+966 55 660 2049",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_ruwais."
+        },
+        {
+          "branch_name": "Ash Shati",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Ash Shati, Jeddah 23612, Saudi Arabia",
+          "raw_district": "ash_shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ93xpUA7bwxURpUX58ciaRkQ",
+          "google_place_id": "ChIJ93xpUA7bwxURpUX58ciaRkQ",
+          "latitude": 21.6281325,
+          "longitude": 39.111729499999996,
+          "google_rating": 4,
+          "google_review_count": 314,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 12:00 AM; Tuesday: 11:00 AM – 12:00 AM; Wednesday: 11:00 AM – 12:00 AM; Thursday: 11:00 AM – 12:00 AM; Friday: 12:30 PM – 1:00 AM; Saturday: 11:00 AM – 12:00 AM; Sunday: 11:00 AM – 12:00 AM",
+          "phone": "+966 53 031 6569",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_shati."
+        },
+        {
+          "branch_name": "Al Asalah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Talal Bin Mansour Rd, Al Asalah, Jeddah 23738, Saudi Arabia",
+          "raw_district": "al_asalah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJb0Loqsl9wRURSzQb0G1oEb0",
+          "google_place_id": "ChIJb0Loqsl9wRURSzQb0G1oEb0",
+          "latitude": 21.7741755,
+          "longitude": 39.1703143,
+          "google_rating": 4.3,
+          "google_review_count": 237,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 12:00 AM; Tuesday: 11:00 AM – 12:00 AM; Wednesday: 11:00 AM – 12:00 AM; Thursday: 11:00 AM – 12:00 AM; Friday: 12:30 PM – 1:00 AM; Saturday: 11:00 AM – 12:00 AM; Sunday: 11:00 AM – 12:00 AM",
+          "phone": "+966 53 902 5776",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in outer Jeddah district Al Asalah; outside canonical 30 districts, hence canonical_district is null."
+        },
+        {
+          "branch_name": "Mall of Arabia",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "An Nuzahah, Al- Madinah Al Munawara Rd, Mall of Arabia Second floor, النزهة، جدة 23532, Saudi Arabia",
+          "raw_district": "an_nuzhah",
+          "canonical_district": "an_nuzhah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ1Y8Uyb_XwxURC-5gpZtpJ20",
+          "google_place_id": "ChIJ1Y8Uyb_XwxURC-5gpZtpJ20",
+          "latitude": 21.6326341,
+          "longitude": 39.1555973,
+          "google_rating": 3.4,
+          "google_review_count": 92,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 12:00 AM; Tuesday: 11:00 AM – 12:00 AM; Wednesday: 11:00 AM – 12:00 AM; Thursday: 11:00 AM – 12:00 AM; Friday: 12:30 PM – 1:00 AM; Saturday: 11:00 AM – 12:00 AM; Sunday: 11:00 AM – 12:00 AM",
+          "phone": null,
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district an_nuzhah (Mall of Arabia, 2nd floor). Normalized source typo An Nuzahah -> an_nuzhah."
+        },
+        {
+          "branch_name": "Al Shiraa",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "JHYC2627, 2627 Prince Naif Rd, 7242،, حي, الشراع،, جدة 23816, Saudi Arabia",
+          "raw_district": "al_shiraa",
+          "canonical_district": "al_sheraa",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJU8Frhv9jwRUROxy5aP6Qa_U",
+          "google_place_id": "ChIJU8Frhv9jwRUROxy5aP6Qa_U",
+          "latitude": 21.7660427,
+          "longitude": 39.0909498,
+          "google_rating": 3.9,
+          "google_review_count": 667,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 2:00 AM; Tuesday: 11:00 AM – 2:00 AM; Wednesday: 11:00 AM – 2:00 AM; Thursday: 11:00 AM – 2:00 AM; Friday: 12:30 PM – 2:00 AM; Saturday: 11:00 AM – 2:00 AM; Sunday: 11:00 AM – 2:00 AM",
+          "phone": null,
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_sheraa (Al Shiraa)."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [
+        {
+          "branch_name": "Al Fayha",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "G663+347, Al Fayha, Jeddah 22241, Saudi Arabia",
+          "raw_district": "al_fayha",
+          "canonical_district": "al_faiha",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJM1awNyLPwxURFcrxEe8fq8Y",
+          "google_place_id": "ChIJM1awNyLPwxURFcrxEe8fq8Y",
+          "latitude": 21.5101537,
+          "longitude": 39.20280160000001,
+          "operating_status": "closed",
+          "reason": "Google Places confirms location is CLOSED_PERMANENTLY.",
+          "production_eligibility": "excluded"
+        }
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "cocina_la_cantina",
+      "canonical_name": "Cocina La Cantina",
+      "arabic_name": "كوتشينا لا كانتينا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Strong current rating/review volume (4.7, 1897 reviews) and established Jeddah Mexican positioning on Sari Branch Rd.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Sari Br Rd, Al Zahra, Jeddah 23424, الزهراء، جدة 23615, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJnXiuyYTbwxURksI859BDH9M",
+          "google_place_id": "ChIJnXiuyYTbwxURksI859BDH9M",
+          "latitude": 21.5733257,
+          "longitude": 39.137460399999995,
+          "google_rating": 4.7,
+          "google_review_count": 1897,
+          "operating_status": "open",
+          "hours": "Monday: 4:00 PM – 12:00 AM; Tuesday: 4:00 PM – 12:00 AM; Wednesday: 4:00 PM – 12:00 AM; Thursday: 1:00 PM – 1:45 AM; Friday: 1:00 PM – 1:45 AM; Saturday: 1:00 PM – 1:45 AM; Sunday: 4:00 PM – 12:00 AM",
+          "phone": "+966 50 766 0556",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra on Sari Branch Rd."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "eds_taco",
+      "canonical_name": "ED'S Taco",
+      "arabic_name": "إيدز تاكو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Substantial Jeddah review volume (1601 reviews) and credible local food coverage, including prominent birria taco positioning.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "birria tacos"
+      ],
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJAfLe4yjbwxURJRHjzYoQA58",
+          "google_place_id": "ChIJAfLe4yjbwxURJRHjzYoQA58",
+          "latitude": 21.5986023,
+          "longitude": 39.125437,
+          "google_rating": 4.1,
+          "google_review_count": 1601,
+          "operating_status": "open",
+          "hours": "Monday: 12:00 PM – 2:00 AM; Tuesday: 12:00 PM – 2:00 AM; Wednesday: 12:00 PM – 2:00 AM; Thursday: 12:00 PM – 3:00 AM; Friday: 5:00 PM – 3:00 AM; Saturday: 12:00 PM – 2:00 AM; Sunday: 12:00 PM – 2:00 AM",
+          "phone": "+966 59 770 0070",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27",
+            "Arab News food coverage (2026)"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra on Al Batarji."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "speakeasy",
+      "canonical_name": "Speakeasy",
+      "arabic_name": "سبيك إيزي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "latin",
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "High review volume (2225 reviews on Al Naeem branch) and established Latin/Mexican menu focus.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "tacos",
+        "burritos",
+        "barbacoa"
+      ],
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Naeem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Amna Bint Wahb St, Al Naeem, Jeddah 23621, Saudi Arabia",
+          "raw_district": "al_naeem",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJf9RLrLnbwxUR4OhTyqJ5iCQ",
+          "google_place_id": "ChIJf9RLrLnbwxUR4OhTyqJ5iCQ",
+          "latitude": 21.6329253,
+          "longitude": 39.14363,
+          "google_rating": 4.4,
+          "google_review_count": 2225,
+          "operating_status": "open",
+          "hours": "Monday: 1:00 PM – 1:00 AM; Tuesday: 1:00 PM – 1:00 AM; Wednesday: 1:00 PM – 1:00 AM; Thursday: 1:00 PM – 2:00 AM; Friday: 1:00 PM – 2:00 AM; Saturday: 1:00 PM – 1:00 AM; Sunday: 1:00 PM – 1:00 AM",
+          "phone": "+966 56 789 3384",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27",
+            "Official Speakeasy channel"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naeem on Amna Bint Wahb St."
+        }
+      ],
+      "manual_review_branches": [
+        {
+          "branch_name": "Al Khalidiyyah",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Prince Sultan Rd, Al Khalidiyyah, Jeddah 23423, Saudi Arabia",
+          "raw_district": "al_khalidiyyah",
+          "canonical_district": "al_khalidiyyah",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "operating_status": "unknown",
+          "hours": null,
+          "phone": null,
+          "verification_date": "2026-09-27",
+          "production_eligibility": "manual_review",
+          "reason": "No independent Google Place entity or physical storefront identity could be verified in Al Khalidiyyah. Held in manual_review to protect strict production catalog standards."
+        }
+      ],
+      "excluded_branches": [
+        {
+          "branch_name": "Obhur",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Al Lulu, Jeddah 23821, Saudi Arabia",
+          "raw_district": "al_lulu",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJW72IxmRjwRUR1fQvaT7IfsI",
+          "google_place_id": "ChIJW72IxmRjwRUR1fQvaT7IfsI",
+          "latitude": 21.760108499999998,
+          "longitude": 39.071517799999995,
+          "google_rating": 4.5,
+          "google_review_count": 817,
+          "operating_status": "closed",
+          "reason": "Google Places confirms location Speakeasy - سبيك إيزي in Al Lulu (Obhur) is CLOSED_PERMANENTLY / temporarily_closed.",
+          "production_eligibility": "excluded"
+        }
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "chilis",
+      "canonical_name": "Chili's",
+      "arabic_name": "تشيليز",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tex_mex",
+        "american"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Highly recognizable mainstream Tex-Mex/American option with very high Jeddah review volume (7929 reviews).",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "dine_in_strong",
+        "family_friendly"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Hamra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "شارع الاندلس، حي الحمراء، Palestine, Al-Hamra'a, Jeddah 23212, Saudi Arabia",
+          "raw_district": "al_hamra",
+          "canonical_district": "al_hamra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJpREyco3PwxUR_uqfIhqhJi0",
+          "google_place_id": "ChIJpREyco3PwxUR_uqfIhqhJi0",
+          "latitude": 21.5227136,
+          "longitude": 39.1636744,
+          "google_rating": 4.1,
+          "google_review_count": 7929,
+          "operating_status": "open",
+          "hours": "Monday: 11:00 AM – 1:00 AM; Tuesday: 11:00 AM – 1:00 AM; Wednesday: 11:00 AM – 1:00 AM; Thursday: 11:00 AM – 1:00 AM; Friday: 1:30 PM – 1:30 AM; Saturday: 11:00 AM – 1:00 AM; Sunday: 11:00 AM – 1:00 AM",
+          "phone": "+966 12 665 8504",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_hamra at intersection of Palestine St and Al Andalus Rd."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [
+        {
+          "branch_name": "Roshan Mall",
+          "physical_existence": false,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Roshan Mall شارع السلام، M485+2Q5 The Globe Round Bout، King Abdul Aziz Rd, Al Murjan, Jeddah 23713, Saudi Arabia",
+          "raw_district": "al_murjan",
+          "canonical_district": "al_murjan",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJue7ZegnZwxUR9P6egcVGDVg",
+          "google_place_id": "ChIJue7ZegnZwxUR9P6egcVGDVg",
+          "latitude": 21.665005999999998,
+          "longitude": 39.109494,
+          "operating_status": "closed",
+          "reason": "Google Places confirms branch is CLOSED_PERMANENTLY.",
+          "production_eligibility": "excluded"
+        }
+      ],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "taqado_mexican_kitchen",
+      "canonical_name": "Taqado Mexican Kitchen",
+      "arabic_name": "تاكادو المطبخ المكسيكي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos",
+        "burritos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "classification_evidence": "Active Jeddah delivery presence with a full Mexican menu including tacos, burritos, quesadillas, bowls and birria. Verified delivery-only operation in Az Zahra / Jeddah service area.",
+      "recommendation_use_case": "delivery",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch"
+      },
+      "context_tags": [
+        "delivery_strong",
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "birria",
+        "tacos",
+        "burritos",
+        "quesadillas"
+      ],
+      "confidence": "medium",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "usable_with_caution",
+      "branches": [],
+      "delivery_only_note": "Jeddah/Az Zahra delivery presence is verified via HungerStation, but no independently verified physical storefront branch record exists in Jeddah. Not valid for physical nearby distance calculations.",
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "Taqado Mexican Kitchen",
+          "service_area": "Az Zahra / Jeddah",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "casa_twist",
+      "canonical_name": "Casa Twist",
+      "arabic_name": "كازا تويست",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Strong rating with several hundred reviews (4.5, 409 reviews); distinctive local alternative to mainstream brands.",
+      "recommendation_use_case": "going_out",
+      "distance_behavior": {
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Muhammadiyyah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Al Mohammadiyyah, Jeddah 23617, Saudi Arabia",
+          "raw_district": "al_muhammadiyyah",
+          "canonical_district": "al_mohammadiyyah",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ_7LBUQDZwxURx4YyTVfAw5Q",
+          "google_place_id": "ChIJ_7LBUQDZwxURx4YyTVfAw5Q",
+          "latitude": 21.6497821,
+          "longitude": 39.1246564,
+          "google_rating": 4.5,
+          "google_review_count": 409,
+          "operating_status": "open",
+          "hours": "Monday: 8:00 PM – 2:00 AM; Tuesday: 8:00 PM – 2:00 AM; Wednesday: 8:00 PM – 2:00 AM; Thursday: 8:00 PM – 3:00 AM; Friday: 8:00 PM – 3:00 AM; Saturday: 8:00 PM – 2:00 AM; Sunday: 8:00 PM – 2:00 AM",
+          "phone": null,
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in canonical district al_mohammadiyyah. Google Places formatted address is district-level without street name; exact coordinates and operating hours verified."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "chiii",
+      "canonical_name": "Chiii",
+      "arabic_name": "تشي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Strong rating and verified local review count (4.5, 323 reviews) on Amna Bint Wahb St.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": null,
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Naeem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Amna Bint Wahb St, Al Naeem, Jeddah 23622, Saudi Arabia",
+          "raw_district": "al_naeem",
+          "canonical_district": "al_naeem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJn4qafwDZwxURfJ4Hq3FSk5c",
+          "google_place_id": "ChIJn4qafwDZwxURfJ4Hq3FSk5c",
+          "latitude": 21.6317092,
+          "longitude": 39.14455410000001,
+          "google_rating": 4.5,
+          "google_review_count": 323,
+          "operating_status": "open",
+          "hours": "Monday: 12:00 PM – 1:00 AM; Tuesday: 12:00 PM – 1:00 AM; Wednesday: 12:00 PM – 1:00 AM; Thursday: 12:00 PM – 3:00 AM; Friday: 3:00 PM – 3:00 AM; Saturday: 12:00 PM – 1:00 AM; Sunday: 12:00 PM – 1:00 AM",
+          "phone": "+966 56 689 9678",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naeem on Amna Bint Wahb St."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "chalcos_mexican_grill",
+      "canonical_name": "Chalcos Mexican Grill",
+      "arabic_name": "شالكوس مكسيكان جريل",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos",
+        "burritos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "classification_evidence": "Established local Mexican option with 280 reviews and clear Mexican menu focus in Al Zahra.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite",
+        "casual_hangout"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "birria tacos",
+        "burritos"
+      ],
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Zahra",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "Al Zahra, Jeddah 23522, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJ4-Sos8HbwxURGll1LNwCxko",
+          "google_place_id": "ChIJ4-Sos8HbwxURGll1LNwCxko",
+          "latitude": 21.5983938,
+          "longitude": 39.1246738,
+          "google_rating": 4.1,
+          "google_review_count": 280,
+          "operating_status": "open",
+          "hours": "Monday: 8:00 AM – 1:30 AM; Tuesday: 8:00 AM – 1:30 AM; Wednesday: 8:00 AM – 1:30 AM; Thursday: 8:00 AM – 1:30 AM; Friday: 2:00 PM – 1:30 AM; Saturday: 8:00 AM – 1:30 AM; Sunday: 8:00 AM – 1:30 AM",
+          "phone": "+966 54 587 6753",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra near Al Batarji."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "tacomole",
+      "canonical_name": "Tacomole",
+      "arabic_name": "تاكومولي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Very high current rating (5.0) but small review sample (41 reviews); kept as an exploration/hidden-gem candidate rather than a guaranteed staple.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": null,
+      "confidence": "medium",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Ash Shati",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "الشاطئ، جدة 23616, Saudi Arabia",
+          "raw_district": "ash_shati",
+          "canonical_district": "al_shati",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJH_2-MwDZwxURevswJ3aqm5w",
+          "google_place_id": "ChIJH_2-MwDZwxURevswJ3aqm5w",
+          "latitude": 21.639572899999997,
+          "longitude": 39.1258312,
+          "google_rating": 5,
+          "google_review_count": 41,
+          "operating_status": "open",
+          "hours": "Monday: 8:00 PM – 2:00 AM; Tuesday: 8:00 PM – 2:00 AM; Wednesday: 8:00 PM – 2:00 AM; Thursday: 8:00 PM – 2:00 AM; Friday: 8:00 PM – 2:00 AM; Saturday: 8:00 PM – 2:00 AM; Sunday: 8:00 PM – 2:00 AM",
+          "phone": null,
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in canonical district al_shati. Formatted address is district-level on Google Places; exact coordinates and operating hours verified."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "el_taco_loco",
+      "canonical_name": "EL TACO LOCO",
+      "arabic_name": "التاكو المجنون",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "Strong current rating (4.7) with a small local review base (48 reviews); suitable for randomized exploration slots.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": null,
+      "confidence": "medium",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Qryniah",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "حي, JMYC4530, 4530، 8060 الامير مشعل ابن عبدالعزيز، Al Qryniah, Jeddah 22624, Saudi Arabia",
+          "raw_district": "al_qryniah",
+          "canonical_district": null,
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJOwRQLwC1wxURWZDE_FtRdeE",
+          "google_place_id": "ChIJOwRQLwC1wxURWZDE_FtRdeE",
+          "latitude": 21.3167546,
+          "longitude": 39.2551063,
+          "google_rating": 4.7,
+          "google_review_count": 48,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 PM – 2:00 AM; Tuesday: 6:00 PM – 2:00 AM; Wednesday: 6:00 PM – 2:00 AM; Thursday: 6:00 PM – 2:00 AM; Friday: 6:00 PM – 2:00 AM; Saturday: 6:00 PM – 2:00 AM; Sunday: 6:00 PM – 2:00 AM",
+          "phone": "+966 56 525 3281",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "geographic_notes": "Located in outer Jeddah district Al Qryniah; outside canonical 30 districts, hence canonical_district is null."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "gyb_taco",
+      "canonical_name": "Gyb Taco",
+      "arabic_name": "جي واي بي تاكو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "High rating (4.8) with small review volume (32 reviews); useful exploration option in Al Rehab.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": null,
+      "confidence": "medium",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Al Rehab",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "dist, 4353 Sharurah, Al-Rehab, Jeddah 23343, Saudi Arabia",
+          "raw_district": "al_rehab",
+          "canonical_district": "al_rehab",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJo7aD9b3RwxUR6vfK_4kvdUM",
+          "google_place_id": "ChIJo7aD9b3RwxUR6vfK_4kvdUM",
+          "latitude": 21.5442867,
+          "longitude": 39.2247554,
+          "google_rating": 4.8,
+          "google_review_count": 32,
+          "operating_status": "open",
+          "hours": "Monday: 6:00 PM – 2:30 AM; Tuesday: 6:00 PM – 2:30 AM; Wednesday: 6:00 PM – 2:30 AM; Thursday: 6:00 PM – 3:00 AM; Friday: 6:00 PM – 3:00 AM; Saturday: 6:00 PM – 3:00 AM; Sunday: 6:00 PM – 2:30 AM",
+          "phone": "+966 56 409 8080",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_rehab on Sharurah St."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "taco_in",
+      "canonical_name": "Taco In",
+      "arabic_name": "تاكو ان",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "tacos"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "hidden_gem",
+      "classification_evidence": "High rating (4.8) with small review base (20 reviews); suitable for randomized exploration slots in An Naseem.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": null,
+      "signature_dishes": null,
+      "confidence": "medium",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "An Naseem",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "G66G+P8J, Al Naseem St, An Naseem, Jeddah 23231, Saudi Arabia",
+          "raw_district": "an_naseem",
+          "canonical_district": "al_naseem",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJq29kOwDPwxURX0eW9sWErz0",
+          "google_place_id": "ChIJq29kOwDPwxURX0eW9sWErz0",
+          "latitude": 21.5118296,
+          "longitude": 39.225776599999996,
+          "google_rating": 4.8,
+          "google_review_count": 20,
+          "operating_status": "open",
+          "hours": "Monday: 7:00 PM – 4:00 AM; Tuesday: 7:00 PM – 4:00 AM; Wednesday: 7:00 PM – 4:00 AM; Thursday: 7:00 PM – 4:00 AM; Friday: 7:00 PM – 4:00 AM; Saturday: 6:00 PM – 4:30 AM; Sunday: 7:00 PM – 4:00 AM",
+          "phone": "+966 54 872 7087",
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_naseem on Al Naseem St."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    },
+    {
+      "id": "kakt",
+      "canonical_name": "KAKT",
+      "arabic_name": "كاكت",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "mexican",
+      "secondary_categories": [
+        "burritos",
+        "bowls"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "rising",
+      "classification_evidence": "Strong rating (4.8, 67 reviews) and verified Mexican menu evidence (birria brisket burrito, chipotle chicken burrito, barbacoa bowl) in U Walk.",
+      "recommendation_use_case": "both",
+      "distance_behavior": {
+        "delivery": "strict_nearby_branch",
+        "going_out": "destination_and_nearby"
+      },
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "healthy": null,
+      "price_positioning": "mid-range",
+      "signature_dishes": [
+        "birria brisket burrito",
+        "chipotle chicken burrito",
+        "barbacoa bowl"
+      ],
+      "confidence": "medium",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "U Walk",
+          "physical_existence": true,
+          "city": "Jeddah",
+          "country": "Saudi Arabia",
+          "formatted_address": "U WALK, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "raw_district": "al_zahra",
+          "canonical_district": "al_zahra",
+          "google_maps_url": "https://www.google.com/maps/search/?api=1&query_place_id=ChIJm4HefLfZwxURWEFXlUqNX00",
+          "google_place_id": "ChIJm4HefLfZwxURWEFXlUqNX00",
+          "latitude": 21.582539,
+          "longitude": 39.139972,
+          "google_rating": 4.8,
+          "google_review_count": 67,
+          "operating_status": "open",
+          "hours": "Monday: 3:00 PM – 1:00 AM; Tuesday: 3:00 PM – 1:00 AM; Wednesday: 3:00 PM – 1:00 AM; Thursday: 3:00 PM – 2:00 AM; Friday: 3:00 PM – 2:00 AM; Saturday: 3:00 PM – 1:00 AM; Sunday: 3:00 PM – 1:00 AM",
+          "phone": null,
+          "verification_date": "2026-09-27",
+          "source_provenance": [
+            "Google Maps verified Place ID entity",
+            "Google Places API (New) verification pass — 2026-09-27",
+            "HungerStation Mexican menu evidence"
+          ],
+          "production_eligibility": "production_ready",
+          "geographic_notes": "Located in canonical district al_zahra in U Walk on Prince Sultan Rd."
+        }
+      ],
+      "manual_review_branches": [],
+      "excluded_branches": [],
+      "delivery_platforms": {
+        "hungerstation": {
+          "presence": "yes",
+          "listing_name": "KAKT",
+          "confidence": "high",
+          "verification_date": "2026-09-27"
+        },
+        "jahez": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        },
+        "keeta": {
+          "presence": "unknown",
+          "listing_name": null,
+          "confidence": "low",
+          "verification_date": "2026-09-27"
+        }
+      }
+    }
+  ],
+  "validation_summary": {
+    "locked_brand_count": 14,
+    "physical_brands_with_verified_jeddah_presence": 13,
+    "delivery_only_or_non_physical_verified_brands": 1,
+    "total_active_physical_branches": 19,
+    "production_ready_branches": 15,
+    "usable_with_caution_branches": 4,
+    "manual_review_branches": 1,
+    "excluded_branches": 3,
+    "notes": [
+      "Taqado remains locked at brand level as delivery-only; verified on HungerStation in Az Zahra / Jeddah service area, but has no physical storefront branch and is not eligible for physical Nearby distance calculations.",
+      "Speakeasy Al Khalidiyyah is held in manual_review because no independent Google Place identity could be verified.",
+      "Speakeasy Obhur is verified closed (CLOSED_PERMANENTLY / temporarily_closed on Google Places ChIJW72IxmRjwRUR1fQvaT7IfsI) and excluded from active recommendations.",
+      "FireGrill Al Fayha is verified closed (CLOSED_PERMANENTLY on Google Places ChIJM1awNyLPwxURFcrxEe8fq8Y) and excluded.",
+      "Chili's Roshan Mall is verified closed (CLOSED_PERMANENTLY on Google Places ChIJue7ZegnZwxUR9P6egcVGDVg) and excluded.",
+      "All 19 active usable branches have 100% verified physical existence, 100% Place IDs, 100% direct Maps URLs, 100% exact coordinates, 100% operating hours, 100% verified ratings and review counts.",
+      "FireGrill guaranteed anchor rule preserved; rotating strong pool (Cocina La Cantina, ED'S Taco, Speakeasy, Chili's, Taqado) preserved; 7-card deck preserved; branch count weighting not introduced (select brand -> resolve branch)."
+    ]
+  }
+}
