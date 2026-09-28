@@ -33,7 +33,7 @@ export const CITYWIDE_STAPLES: RestaurantItem[] = [
     id: 'al_tazaj',
     nameAr: 'الطازج',
     nameEn: 'Al Tazaj',
-    categories: ['broast', 'saudi_kabsa', 'grills'],
+    categories: ['broast', 'saudi_kabsa', 'grill'],
     isCityWide: true,
     branches: [],
     diningMode: 'both',
