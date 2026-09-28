@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Baytoti",
+    "id": "ChIJHRbxI5LZwxURbTt2ZHZkskM",
+    "address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23623, Saudi Arabia",
+    "lat": 21.645183,
+    "lng": 39.128769999999996,
+    "rating": 4.4,
+    "reviews": 6932,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti | بيتوتي",
+    "id": "ChIJZ7hHRYLQwxURYSZtxu_s9-4",
+    "address": "حي, Abdul Rahman Ibn Ahmad As Sidayri, As Salamah, Jeddah 23437, Saudi Arabia",
+    "lat": 21.593139,
+    "lng": 39.156290999999996,
+    "rating": 4.4,
+    "reviews": 4250,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti",
+    "id": "ChIJh4CWYHjQwxURQ-bwhoCnT-E",
+    "address": "بجانب بنك ساب، Sari Br Rd, As Salamah, Jeddah 23436, Saudi Arabia",
+    "lat": 21.578646,
+    "lng": 39.155614,
+    "rating": 4.5,
+    "reviews": 8399,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Asian Hub",
+    "id": "ChIJqQ17lj_bwxUR6ZP8qGDl0Uw",
+    "address": "J4H6+MG7, Ash Shati, Jeddah 23612, Saudi Arabia",
+    "lat": 21.6291875,
+    "lng": 39.1113125,
+    "rating": 4.6,
+    "reviews": 2571,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti | بيتوتي",
+    "id": "ChIJQfHZBqfPwxURgZ8SPMh65tA",
+    "address": "Al-Baghdadiyah Al-Gharbiyah, Jeddah 22234, Saudi Arabia",
+    "lat": 21.501562399999997,
+    "lng": 39.1828163,
+    "rating": 4.4,
+    "reviews": 5173,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti",
+    "id": "ChIJm1mbv9DWwxURt6UpZpPBaXs",
+    "address": "Mandarine Avenue، Al Marwah, Jeddah 23543, Saudi Arabia",
+    "lat": 21.6219844,
+    "lng": 39.202340299999996,
+    "rating": 4.6,
+    "reviews": 5546,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti | بيتوتي",
+    "id": "ChIJ37RaYUPTwxUR5vJ3udlmtMM",
+    "address": "H6GR+P7, Al Samer, Jeddah 23464, Saudi Arabia",
+    "lat": 21.576812500000003,
+    "lng": 39.2406875,
+    "rating": 4.5,
+    "reviews": 1785,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti | بيتوتي",
+    "id": "ChIJz8XNaJh9wRURJJGIU8-38yw",
+    "address": "P5XQ+RF, Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+    "lat": 21.749496099999998,
+    "lng": 39.1887467,
+    "rating": 4.7,
+    "reviews": 1897,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti | بيتوتي",
+    "id": "ChIJox-wHkBjwRURr3OyZx3RaD4",
+    "address": "الملك فيصل بن عبدالعزيز، Al Yaqoot, Jeddah 23826, Saudi Arabia",
+    "lat": 21.799458599999998,
+    "lng": 39.084173,
+    "rating": 4.6,
+    "reviews": 464,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti | بيتوتي",
+    "id": "ChIJK3vrevhiwRURhD0wZVKdNeA",
+    "address": "Prince Abdullah Al Fiasal Branch, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+    "lat": 21.749488,
+    "lng": 39.113414,
+    "rating": 4.6,
+    "reviews": 5645,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Baytoti | بيتوتي",
+    "id": "ChIJowkyIvXLwxUR5iyQVXGyygs",
+    "address": "Al Sanabel, Thuwal 22444, Saudi Arabia",
+    "lat": 21.400008,
+    "lng": 39.281653999999996,
+    "rating": 4.8,
+    "reviews": 945,
+    "status": "OPERATIONAL"
+  }
+]

@@ -1,0 +1,1859 @@
+{
+  "_meta": {
+    "dataset": "WeshNakul Asian — Jeddah",
+    "requirements_version": "V3",
+    "generated_at": "2026-09-27",
+    "city": "Jeddah, Saudi Arabia",
+    "locked_brand_count": 19,
+    "branch_record_count": 51,
+    "rule": "Verified reality > completeness. Unknown fields remain null; manual_review rows must not be promoted without follow-up verification.",
+    "import_guidance": {
+      "production_ready": "Safe to import based on currently captured evidence.",
+      "usable_with_caution": "Core branch/brand existence is supported, but one or more strongly wanted fields remain incomplete.",
+      "manual_review": "Do not import as a live branch until required unresolved fields are independently verified."
+    }
+  },
+  "brands": [
+    {
+      "brand_name": "Da Bao",
+      "arabic_name": "دا باو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "asian_fusion"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "mid-range",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "casual_hangout",
+        "dine_in_strong",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Da Bao – Rovan Tower",
+          "city": "Jeddah",
+          "district": "ar_rawdah",
+          "address": "Rovan Tower, Prince Saud Al Faisal, Ar Rawdah, Jeddah 23433, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJRWzD_zDRwxURCXY5GnzD-cg",
+          "google_place_id": "ChIJRWzD_zDRwxURCXY5GnzD-cg",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 3775,
+          "hours": {
+            "sun-wed": "13:00-02:00",
+            "thu-sat": "13:00-03:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.waze.com/live-map/directions/sa/makkah-province/jeddah/da-bao?to=place.ChIJRWzD_zDRwxURCXY5GnzD-cg"
+          ],
+          "production_eligibility": "production_ready",
+          "notes": "Asian fusion; Rovan Tower branch."
+        }
+      ]
+    },
+    {
+      "brand_name": "CHAN | شان",
+      "arabic_name": "شان",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "mixed_asian"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "price_positioning": "mid-range",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "casual_hangout",
+        "dine_in_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "CHAN – Al Zahra",
+          "city": "Jeddah",
+          "district": "al_zahra",
+          "address": "Ahmad Al Attas Street, Al Zahra, Jeddah 23521, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhTEPcTDbwxURsgwQ_YfD_HQ",
+          "google_place_id": "ChIJhTEPcTDbwxURsgwQ_YfD_HQ",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 10480,
+          "hours": {
+            "daily": "12:00-03:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Togarashi",
+      "arabic_name": "توقاراشي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "japanese",
+        "ramen"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "affordable-mid",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Togarashi – Al Zahra",
+          "city": "Jeddah",
+          "district": "al_zahra",
+          "address": "Helmi Koutbi, Al Zahra, Jeddah 23521, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJdwVUQQDbwxURa_VK4nHhCkg",
+          "google_place_id": "ChIJdwVUQQDbwxURa_VK4nHhCkg",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 3338,
+          "hours": {
+            "sun-thu": "12:00-02:00",
+            "fri": "17:00-03:00",
+            "sat": "12:00-02:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Wakame",
+      "arabic_name": "وكامي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "japanese",
+        "sushi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "price_positioning": "premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "sushi",
+        "sashimi",
+        "tempura",
+        "signature maki"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "sources": [
+        "https://www.wakame-ksa.com/en/about"
+      ],
+      "branches": [
+        {
+          "branch_name": "Wakame Obhur",
+          "city": "Jeddah",
+          "district": "obhur_al_shamaliyah",
+          "address": "Prince Abdullah AlFaisal St, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJd78w_ldiwRUROJwhXyEpQoU",
+          "google_place_id": "ChIJd78w_ldiwRUROJwhXyEpQoU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 1943,
+          "hours": {
+            "sat-wed": "12:00-00:30",
+            "thu-fri": "12:00-01:30"
+          },
+          "operating_status": "open",
+          "service_model": "dine_in,pickup,delivery",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.wakame-ksa.com/en/restaurant/wakame-obhur"
+          ],
+          "production_eligibility": "production_ready",
+          "notes": null
+        },
+        {
+          "branch_name": "Wakame Al Rawdah",
+          "city": "Jeddah",
+          "district": "ar_rawdah",
+          "address": "Prince Saud Al Faisal, Ar Rawdah, Jeddah 23432, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": {
+            "sat-wed": "12:00-01:30",
+            "thu-fri": "12:00-02:30"
+          },
+          "operating_status": "open",
+          "service_model": "pickup,delivery",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.wakame-ksa.com/en/restaurant/wakame-al-rawdah"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official branch verified; direct Google Place ID not independently captured in this pass."
+        },
+        {
+          "branch_name": "Wakame King Abdulaziz",
+          "city": "Jeddah",
+          "district": "al_zahra",
+          "address": "King Abdul Aziz Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": {
+            "sat-wed": "12:00-00:30",
+            "thu-fri": "12:00-01:30"
+          },
+          "operating_status": "open",
+          "service_model": "dine_in,pickup,delivery",
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://www.wakame-ksa.com/en/restaurant/wakame-king-abdulaziz"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official branch verified; direct Google Place ID not independently captured in this pass."
+        }
+      ]
+    },
+    {
+      "brand_name": "SHiRO",
+      "arabic_name": "شيرو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "japanese",
+        "sushi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "price_positioning": "mid-range",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "delivery_strong",
+        "casual_hangout",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "SHiRO – Ar Rawdah",
+          "city": "Jeddah",
+          "district": "ar_rawdah",
+          "address": "Abdul Maqsud Khojah, Ar Rawdah, Jeddah 23435, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ-4ohxhnbwxURp3xynQBNQgs",
+          "google_place_id": "ChIJ-4ohxhnbwxURp3xynQBNQgs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 3676,
+          "hours": {
+            "daily": "12:30-01:30"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "MYAZU",
+      "arabic_name": "ميازو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "japanese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "price_positioning": "premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong",
+        "premium"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "MYAZU Jeddah",
+          "city": "Jeddah",
+          "district": "ar_rawdah",
+          "address": "Al Basateen Mall, Prince Mohammed Bin Abdulaziz St, Al Rawdah, Jeddah 23431, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJr7siXarawxURGedypt4lvyU",
+          "google_place_id": "ChIJr7siXarawxURGedypt4lvyU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 5498,
+          "hours": {
+            "sat-tue": "13:00-00:30",
+            "wed-fri": "13:00-01:30"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://myazu.com/jeddah/"
+          ],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Kuuru Jeddah",
+      "arabic_name": "كورو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "japanese",
+        "nikkei"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong",
+        "premium"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Kuuru Jeddah",
+          "city": "Jeddah",
+          "district": "al_khalidiyyah",
+          "address": "Al Malik Road, Al Khalidiyyah, Jeddah 23422, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJCV_6FK3bwxURGW35gnbsOmY",
+          "google_place_id": "ChIJCV_6FK3bwxURGW35gnbsOmY",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 1985,
+          "hours": {
+            "sun-wed": "13:00-23:30",
+            "thu-sat": "13:00-00:30"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Toki Restaurant",
+      "arabic_name": "توكي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "chinese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "price_positioning": "premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong",
+        "premium"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Toki Restaurant",
+          "city": "Jeddah",
+          "district": "al_khalidiyyah",
+          "address": "King Abdulaziz Road, Al Khalidiyyah, Jeddah 23422, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJaeuq88XawxUR059lmk5Urps",
+          "google_place_id": "ChIJaeuq88XawxUR059lmk5Urps",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 2061,
+          "hours": {
+            "sun-wed": "13:00-23:30",
+            "thu-sat": "13:00-00:30"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "SURA Korean Fine Dining",
+      "arabic_name": "سورا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "korean"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "mid-premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "SURA Korean Fine Dining",
+          "city": "Jeddah",
+          "district": "ar_rawdah",
+          "address": "Prince Saud Al Faisal, Ar Rawdah, Jeddah 23432, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ8_LCkKfawxURkIR-oDZInLc",
+          "google_place_id": "ChIJ8_LCkKfawxURkIR-oDZInLc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 2659,
+          "hours": {
+            "sun-wed": "12:00-23:00",
+            "thu-sat": "12:00-00:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "HWARO",
+      "arabic_name": "هووارو",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "korean",
+        "korean_bbq"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "mid-premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "HWARO – Ar Rawdah",
+          "city": "Jeddah",
+          "district": "ar_rawdah",
+          "address": "7140 Prince Saud Al Faisal, Ar Rawdah, Jeddah 23432, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJj9kfkafawxURXKzuNstbv4Y",
+          "google_place_id": "ChIJj9kfkafawxURXKzuNstbv4Y",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 2785,
+          "hours": {
+            "sun-wed": "13:00-23:30",
+            "thu-sat": "13:00-00:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Koreana Restaurant",
+      "arabic_name": "كوريانا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "korean"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "price_positioning": "mid-range",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "casual_hangout",
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Koreana Restaurant",
+          "city": "Jeddah",
+          "district": "al_andalus",
+          "address": "Abd Al Majid Shoubakshi, Al Andalus, Jeddah 23326, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAysxRuXPwxUR6baPL-w9jTE",
+          "google_place_id": "ChIJAysxRuXPwxUR6baPL-w9jTE",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 1410,
+          "hours": {
+            "daily": "12:00-23:30"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Thai Fortune Restaurant",
+      "arabic_name": "مطعم فورتشن التايلاندي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "thai"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "hidden_gem",
+      "price_positioning": "mid-range",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "casual_hangout",
+        "delivery_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Thai Fortune Restaurant",
+          "city": "Jeddah",
+          "district": "as_salamah",
+          "address": "Shar Qurashi, As Salamah, Jeddah 23437, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJFVG7XS3ZwxURdOhnOj_WOxc",
+          "google_place_id": "ChIJFVG7XS3ZwxURdOhnOj_WOxc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 1075,
+          "hours": {
+            "sun-thu": "12:30-00:30",
+            "fri": "13:00-00:30",
+            "sat": "12:30-00:30"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Thai lee | تاي لي",
+      "arabic_name": "تاي لي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "thai"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "rising",
+      "price_positioning": "affordable-mid",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Thai Lee – Al Zahra",
+          "city": "Jeddah",
+          "district": "al_zahra",
+          "address": "Ahmad Al Attas, Al Zahra, Jeddah 23425, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJKz0nuyPbwxURQ3zzgb3leEs",
+          "google_place_id": "ChIJKz0nuyPbwxURQ3zzgb3leEs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 1886,
+          "hours": {
+            "sun-thu": "13:00-01:00",
+            "fri-sat": "13:00-02:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Sakura Japanese Restaurant",
+      "arabic_name": "ساكورا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "japanese",
+        "sushi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "price_positioning": "premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Sakura Japanese Restaurant",
+          "city": "Jeddah",
+          "district": "al_hamra",
+          "address": "Al Mansourah, Al Hamra'a, Jeddah 21443, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJg-2NTADPwxURxhfLE_Kmrbc",
+          "google_place_id": "ChIJg-2NTADPwxURxhfLE_Kmrbc",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 164,
+          "hours": {
+            "sun-thu": "13:00-16:00,19:00-23:30",
+            "fri-sat": "13:00-23:30"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Sushiah - سوشيّا",
+      "arabic_name": "سوشيّا",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "japanese",
+        "sushi"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "price_positioning": "premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong",
+        "delivery_strong",
+        "late_night"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Sushiah – Sari",
+          "city": "Jeddah",
+          "district": "al_zahra",
+          "address": "Sari Branch Rd, Al Zahra, Jeddah 23424, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZYAFEj7bwxURlxfbSWNAWCU",
+          "google_place_id": "ChIJZYAFEj7bwxURlxfbSWNAWCU",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.7,
+          "google_review_count": 2336,
+          "hours": {
+            "sun-wed": "12:00-01:00",
+            "thu": "12:00-02:00",
+            "fri": "13:00-02:00",
+            "sat": "12:00-01:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://sushiah.co/contact-us/"
+          ],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Shang Palace",
+      "arabic_name": "شانغ بالاس",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "chinese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "mainstream",
+      "price_positioning": "premium",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "dine_in_strong",
+        "premium"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "production_ready",
+      "branches": [
+        {
+          "branch_name": "Shang Palace – Shangri-La Jeddah",
+          "city": "Jeddah",
+          "district": "ash_shati",
+          "address": "4th Floor, Shangri-La Jeddah, Corniche Rd, Ash Shati, Jeddah 23611, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJWWrCyzHbwxURr-EBsKkAnDo",
+          "google_place_id": "ChIJWWrCyzHbwxURr-EBsKkAnDo",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.8,
+          "google_review_count": 2091,
+          "hours": {
+            "mon-wed": "16:00-23:30",
+            "thu-sat": "13:00-23:30",
+            "sun": "closed"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        }
+      ]
+    },
+    {
+      "brand_name": "Canton",
+      "arabic_name": "كانتون",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "chinese",
+        "fast_casual"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "price_positioning": "budget",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "budget",
+        "quick_bite",
+        "delivery_strong",
+        "broad_coverage"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": [
+        "Beef Mushroom",
+        "Dynamite Shrimp",
+        "Beef Kung Pao",
+        "Chicken Fried Rice"
+      ],
+      "delivery_platforms": {
+        "hungerstation": "yes",
+        "jahez": "yes",
+        "keeta": "yes"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "usable_with_caution",
+      "sources": [
+        "https://canton-express.com/locations.html",
+        "https://canton-express.com/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Canton Red Sea Mall",
+          "city": "Jeddah",
+          "district": "ash_shati",
+          "address": "King Abdulaziz Branch Rd, Red Sea Mall, Jeddah",
+          "google_maps_url": "https://www.google.com/maps?q=21.628777,39.111337",
+          "google_place_id": null,
+          "latitude": 21.628777,
+          "longitude": 39.111337,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Andalus Mall",
+          "city": "Jeddah",
+          "district": "al_fayha",
+          "address": "Andalus Mall, Prince Majid Rd, Al Fayha'a, Jeddah 22245",
+          "google_maps_url": "https://www.google.com/maps?q=21.507789,39.217791",
+          "google_place_id": null,
+          "latitude": 21.507789,
+          "longitude": 39.217791,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Ar Ruwais",
+          "city": "Jeddah",
+          "district": "ar_ruwais",
+          "address": "Palestine Road, Ar Ruwais, Jeddah 23215",
+          "google_maps_url": "https://www.google.com/maps?q=21.528107,39.175617",
+          "google_place_id": null,
+          "latitude": 21.528107,
+          "longitude": 39.175617,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Ath Thaghr",
+          "city": "Jeddah",
+          "district": "ath_thaghr",
+          "address": "Ibn an Nafis, Ath Thaghr District, Jeddah 22338",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Official Canton branch coordinate failed Jeddah plausibility check; coordinate intentionally nulled."
+        },
+        {
+          "branch_name": "Canton Al Faisaliyyah – King Fahd Br Rd",
+          "city": "Jeddah",
+          "district": "al_faisaliyyah",
+          "address": "King Fahd Br Rd, Al Faisaliyyah, Jeddah 23334",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Official Canton branch coordinate failed Jeddah plausibility check; coordinate intentionally nulled."
+        },
+        {
+          "branch_name": "Canton Al Faisaliyyah – Al Souwaiss",
+          "city": "Jeddah",
+          "district": "al_faisaliyyah",
+          "address": "Al Souwaiss, Al Faisaliyyah, Jeddah 23447",
+          "google_maps_url": "https://www.google.com/maps?q=21.584209,39.196225",
+          "google_place_id": null,
+          "latitude": 21.584209,
+          "longitude": 39.196225,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton King Abdullah Rd",
+          "city": "Jeddah",
+          "district": "al_fayha",
+          "address": "King Abdullah Rd, Jeddah",
+          "google_maps_url": "https://www.google.com/maps?q=21.508505,39.224475",
+          "google_place_id": null,
+          "latitude": 21.508505,
+          "longitude": 39.224475,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Al Manar",
+          "city": "Jeddah",
+          "district": "al_manar",
+          "address": "Al Ajawad St, Al Manar, Jeddah 23462",
+          "google_maps_url": "https://www.google.com/maps?q=21.593015,39.229306",
+          "google_place_id": null,
+          "latitude": 21.593015,
+          "longitude": 39.229306,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Al Amir Fawwaz",
+          "city": "Jeddah",
+          "district": "al_amir_fawwaz_al_junoobi",
+          "address": "Makkah–Jeddah Hwy, Al Amir Fawwaz Al Junoobi, Jeddah 22431",
+          "google_maps_url": "https://www.google.com/maps?q=21.4448,39.280457",
+          "google_place_id": null,
+          "latitude": 21.4448,
+          "longitude": 39.280457,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton An Nuzhah",
+          "city": "Jeddah",
+          "district": "an_nuzhah",
+          "address": "An Nuzhah, Jeddah 23532",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Official Canton branch coordinate failed Jeddah plausibility check; coordinate intentionally nulled."
+        },
+        {
+          "branch_name": "Canton Al Shera'a",
+          "city": "Jeddah",
+          "district": "al_sheraa",
+          "address": "Q482+CGF Al Shera'a, Jeddah",
+          "google_maps_url": "https://www.google.com/maps?q=21.76626,39.101284",
+          "google_place_id": null,
+          "latitude": 21.76626,
+          "longitude": 39.101284,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Ar Rawdah",
+          "city": "Jeddah",
+          "district": "ar_rawdah",
+          "address": "G4XX+R2R Ar Rawdah, Jeddah",
+          "google_maps_url": "https://www.google.com/maps?q=21.549796,39.147511",
+          "google_place_id": null,
+          "latitude": 21.549796,
+          "longitude": 39.147511,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Al Sanabel",
+          "city": "Jeddah",
+          "district": "al_sanabel",
+          "address": "Ibn Manea St, Al Sanabel, Jeddah 22444",
+          "google_maps_url": "https://www.google.com/maps?q=21.399961,39.281644",
+          "google_place_id": null,
+          "latitude": 21.399961,
+          "longitude": 39.281644,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Ash Shati",
+          "city": "Jeddah",
+          "district": "ash_shati",
+          "address": "J4R2+6GQ Ash Shati, Jeddah",
+          "google_maps_url": "https://www.google.com/maps?q=21.640772,39.10134",
+          "google_place_id": null,
+          "latitude": 21.640772,
+          "longitude": 39.10134,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        },
+        {
+          "branch_name": "Canton Al Hamadaniyyah",
+          "city": "Jeddah",
+          "district": "al_hamdaniyyah",
+          "address": "Q54W+3VQ Al Hamadaniyyah, Jeddah",
+          "google_maps_url": "https://www.google.com/maps?q=21.755426,39.197271",
+          "google_place_id": null,
+          "latitude": 21.755426,
+          "longitude": 39.197271,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://canton-express.com/locations.html"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official Canton location page verifies branch/address/coordinate."
+        }
+      ]
+    },
+    {
+      "brand_name": "Baytoti",
+      "arabic_name": "بيتوتي",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "chinese"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "price_positioning": "affordable",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "budget",
+        "quick_bite",
+        "delivery_strong",
+        "late_night",
+        "broad_coverage"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "usable_with_caution",
+      "sources": [
+        "https://linktr.ee/baytoti"
+      ],
+      "branches": [
+        {
+          "branch_name": "Baytoti Sari",
+          "city": "Jeddah",
+          "district": "as_salamah",
+          "address": "Beside SABB, Sari Br Rd, As Salamah, Jeddah 23436, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJh4CWYHjQwxURQ-bwhoCnT-E",
+          "google_place_id": "ChIJh4CWYHjQwxURQ-bwhoCnT-E",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.5,
+          "google_review_count": 8398,
+          "hours": {
+            "daily": "12:45-03:00",
+            "thu-fri": "12:45-04:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        },
+        {
+          "branch_name": "Baytoti Al Mohammadiyah",
+          "city": "Jeddah",
+          "district": "al_mohammadiyah",
+          "address": "Prince Sultan Rd, Al Mohammadiyyah, Jeddah 23623, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJHRbxI5LZwxURbTt2ZHZkskM",
+          "google_place_id": "ChIJHRbxI5LZwxURbTt2ZHZkskM",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.4,
+          "google_review_count": 6934,
+          "hours": {
+            "daily": "12:45-03:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        },
+        {
+          "branch_name": "Baytoti Marwah",
+          "city": "Jeddah",
+          "district": "al_marwah",
+          "address": "Mandarine Avenue, Al Marwah, Jeddah 23543, Saudi Arabia",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJm1mbv9DWwxURt6UpZpPBaXs",
+          "google_place_id": "ChIJm1mbv9DWwxURt6UpZpPBaXs",
+          "latitude": null,
+          "longitude": null,
+          "google_rating": 4.6,
+          "google_review_count": 5404,
+          "hours": {
+            "daily": "12:45-04:00"
+          },
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [],
+          "production_eligibility": "production_ready",
+          "notes": null
+        },
+        {
+          "branch_name": "Baytoti Al Sanabel",
+          "city": "Jeddah",
+          "district": "al_sanabel",
+          "address": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/baytoti"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Current Baytoti-controlled branch list confirms this Jeddah location; exact branch address/Place ID was not safely captured in this export pass."
+        },
+        {
+          "branch_name": "Baytoti Obhur",
+          "city": "Jeddah",
+          "district": "obhur",
+          "address": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/baytoti"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Current Baytoti-controlled branch list confirms this Jeddah location; exact branch address/Place ID was not safely captured in this export pass."
+        },
+        {
+          "branch_name": "Baytoti Albughdadiya",
+          "city": "Jeddah",
+          "district": "al_baghdadiyah",
+          "address": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/baytoti"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Current Baytoti-controlled branch list confirms this Jeddah location; exact branch address/Place ID was not safely captured in this export pass."
+        },
+        {
+          "branch_name": "Baytoti Al Samer",
+          "city": "Jeddah",
+          "district": "as_samer",
+          "address": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/baytoti"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Current Baytoti-controlled branch list confirms this Jeddah location; exact branch address/Place ID was not safely captured in this export pass."
+        },
+        {
+          "branch_name": "Baytoti Alsalama",
+          "city": "Jeddah",
+          "district": "as_salamah",
+          "address": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/baytoti"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Current Baytoti-controlled branch list confirms this Jeddah location; exact branch address/Place ID was not safely captured in this export pass."
+        },
+        {
+          "branch_name": "Baytoti Al Yaqoot",
+          "city": "Jeddah",
+          "district": "al_yaqoot",
+          "address": null,
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://linktr.ee/baytoti"
+          ],
+          "production_eligibility": "manual_review",
+          "notes": "Current Baytoti-controlled branch list confirms this Jeddah location; exact branch address/Place ID was not safely captured in this export pass."
+        }
+      ]
+    },
+    {
+      "brand_name": "Denden Restaurant for Indonesian foods",
+      "arabic_name": "دندن",
+      "modes": [
+        "food"
+      ],
+      "primary_category": "asian",
+      "secondary_categories": [
+        "indonesian"
+      ],
+      "jeddah_presence": true,
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "budget",
+      "healthy": false,
+      "healthy_status": "not_verified_for_filter",
+      "context_tags": [
+        "budget",
+        "quick_bite",
+        "delivery_strong",
+        "broad_coverage"
+      ],
+      "meal_fit": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "signature_dishes": null,
+      "delivery_platforms": {
+        "hungerstation": "unknown",
+        "jahez": "unknown",
+        "keeta": "unknown"
+      },
+      "confidence": "high",
+      "last_verified_at": "2026-09-27",
+      "production_eligibility": "usable_with_caution",
+      "sources": [
+        "https://dendenksa.com/"
+      ],
+      "branches": [
+        {
+          "branch_name": "Denden An Nahdah",
+          "city": "Jeddah",
+          "district": "an_nahdah",
+          "address": "An Nahdah District, Hiraa Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden Al Andalus Mall",
+          "city": "Jeddah",
+          "district": "al_fayha",
+          "address": "Al Andalus Mall, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden As Samer",
+          "city": "Jeddah",
+          "district": "as_samer",
+          "address": "As Samer District, Ankara Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden Al Marwah",
+          "city": "Jeddah",
+          "district": "al_marwah",
+          "address": "Al Marwah District, Hiraa Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden As Safa",
+          "city": "Jeddah",
+          "district": "as_safa",
+          "address": "As Safa District, Saud Al Faisal Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden Obhur Al Shamaliyyah",
+          "city": "Jeddah",
+          "district": "obhur_al_shamaliyah",
+          "address": "Obhur Al Shamaliyyah, Aber Al Qarrat Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden An Naseem",
+          "city": "Jeddah",
+          "district": "an_naseem",
+          "address": "An Naseem District, Abi Thar Al Ghaffari Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden Al Hamdaniyyah",
+          "city": "Jeddah",
+          "district": "al_hamdaniyyah",
+          "address": "Al Hamdaniyyah District, Al Hamdaniyyah Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        },
+        {
+          "branch_name": "Denden As Salamah",
+          "city": "Jeddah",
+          "district": "as_salamah",
+          "address": "As Salamah District, Abdulrahman Bin Ahmad Alsederi Street, Jeddah, Saudi Arabia",
+          "google_maps_url": null,
+          "google_place_id": null,
+          "latitude": null,
+          "longitude": null,
+          "google_rating": null,
+          "google_review_count": null,
+          "hours": null,
+          "operating_status": "open",
+          "service_model": null,
+          "verification_date": "2026-09-27",
+          "sources": [
+            "https://dendenksa.com/"
+          ],
+          "production_eligibility": "usable_with_caution",
+          "notes": "Official current Den Den branch directory verifies branch/district/street. Direct Place ID/rating not independently captured in this export pass."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1691 @@
+[
+  {
+    "branch": "Canton Red Sea Mall",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.628777,
+      "lng": 39.111337
+    },
+    "found_place": {
+      "id": "ChIJmQwqXc3bwxURpuqdAjhUSwI",
+      "formattedAddress": "Red Sea Mall، King Abdulaziz Branch Rd, Ash Shati, Jeddah 23612, Saudi Arabia",
+      "location": {
+        "latitude": 21.627959,
+        "longitude": 39.111595
+      },
+      "rating": 3.9,
+      "googleMapsUri": "https://maps.google.com/?cid=165318410867960486&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 23,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 11:30 PM",
+          "Tuesday: 11:00 AM – 11:30 PM",
+          "Wednesday: 11:00 AM – 11:30 PM",
+          "Thursday: 11:00 AM – 11:30 PM",
+          "Friday: 1:00 PM – 12:30 AM",
+          "Saturday: 11:00 AM – 11:30 PM",
+          "Sunday: 11:00 AM – 11:30 PM"
+        ],
+        "nextCloseTime": "2026-09-28T20:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 434,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Andalus Mall",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.507789,
+      "lng": 39.217791
+    },
+    "found_place": {
+      "id": "ChIJEZ7TrM3PwxUR0QAaJyb-ysA",
+      "formattedAddress": "King Abdullah Rd, Al Andalus Mall, Jeddah 22245, Saudi Arabia",
+      "location": {
+        "latitude": 21.5077391,
+        "longitude": 39.2176723
+      },
+      "rating": 4.4,
+      "googleMapsUri": "https://maps.google.com/?cid=13892195440395944145&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:30 PM – 12:00 AM",
+          "Tuesday: 12:30 PM – 12:00 AM",
+          "Wednesday: 12:30 PM – 12:00 AM",
+          "Thursday: 12:30 PM – 12:00 AM",
+          "Friday: 12:30 PM – 12:00 AM",
+          "Saturday: 12:30 PM – 12:00 AM",
+          "Sunday: 12:30 PM – 12:00 AM"
+        ],
+        "nextCloseTime": "2026-09-28T21:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 53,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Ar Ruwais",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.528107,
+      "lng": 39.175617
+    },
+    "found_place": {
+      "id": "ChIJn6CJF8LPwxURZG5sb6dRuUQ",
+      "formattedAddress": "Palestine Road, AR Ruwais، District، Jeddah 23215, Saudi Arabia",
+      "location": {
+        "latitude": 21.5266296,
+        "longitude": 39.175617300000006
+      },
+      "rating": 4.1,
+      "googleMapsUri": "https://maps.google.com/?cid=4952079044841336420&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:00 PM – 2:30 AM",
+          "Tuesday: 12:00 PM – 2:30 AM",
+          "Wednesday: 12:00 PM – 2:30 AM",
+          "Thursday: 12:00 PM – 2:30 AM",
+          "Friday: 12:00 PM – 2:30 AM",
+          "Saturday: 12:00 PM – 2:30 AM",
+          "Sunday: 12:00 PM – 2:30 AM"
+        ],
+        "nextCloseTime": "2026-09-28T23:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 472,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Ath Thaghr",
+    "original_eligibility": "manual_review",
+    "original_coords": {
+      "lat": null,
+      "lng": null
+    },
+    "found_place": {
+      "id": "ChIJoaZz1CDNwxURCDNJ_HMbBEg",
+      "formattedAddress": "Ibn an Nafis, Ath Thaghr District, Jeddah 22338, Saudi Arabia",
+      "location": {
+        "latitude": 21.4828444,
+        "longitude": 39.2410931
+      },
+      "rating": 3.8,
+      "googleMapsUri": "https://maps.google.com/?cid=5189302855605498632&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: Open 24 hours",
+          "Tuesday: Open 24 hours",
+          "Wednesday: Open 24 hours",
+          "Thursday: Open 24 hours",
+          "Friday: Open 24 hours",
+          "Saturday: Open 24 hours",
+          "Sunday: Open 24 hours"
+        ]
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 225,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Al Faisaliyyah – King Fahd Br Rd",
+    "original_eligibility": "manual_review",
+    "original_coords": {
+      "lat": null,
+      "lng": null
+    },
+    "found_place": {
+      "id": "ChIJ24IGOvXRwxURxn69KHoTL-4",
+      "formattedAddress": "King Fahad Rd, Al Faisaliyyah, Jeddah 23334, Saudi Arabia",
+      "location": {
+        "latitude": 21.560847,
+        "longitude": 39.1860253
+      },
+      "rating": 4.5,
+      "googleMapsUri": "https://maps.google.com/?cid=17162958120322694854&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 0,
+              "hour": 0,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:30 PM – 12:30 AM",
+          "Tuesday: 12:30 PM – 12:30 AM",
+          "Wednesday: 12:30 PM – 12:30 AM",
+          "Thursday: 12:30 PM – 12:30 AM",
+          "Friday: 1:30 PM – 12:30 AM",
+          "Saturday: 12:30 PM – 12:30 AM",
+          "Sunday: 12:30 PM – 12:30 AM"
+        ],
+        "nextCloseTime": "2026-09-28T21:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 307,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Al Faisaliyyah – Al Souwaiss",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.584209,
+      "lng": 39.196225
+    },
+    "found_place": {
+      "id": "ChIJN5Cq3__QwxURCp0jMH3p4bo",
+      "formattedAddress": "Al Souwaiss, Al Faisaliyyah, Jeddah 23447, Saudi Arabia",
+      "location": {
+        "latitude": 21.5767067,
+        "longitude": 39.1958821
+      },
+      "rating": 3.9,
+      "googleMapsUri": "https://maps.google.com/?cid=13466301084702317834&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 23,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 23,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 23,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 23,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 23,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 23,
+              "minute": 45
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 23,
+              "minute": 45
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 11:45 PM",
+          "Tuesday: 11:00 AM – 11:45 PM",
+          "Wednesday: 11:00 AM – 11:45 PM",
+          "Thursday: 11:00 AM – 11:45 PM",
+          "Friday: 1:00 – 11:45 PM",
+          "Saturday: 11:00 AM – 11:45 PM",
+          "Sunday: 11:00 AM – 11:45 PM"
+        ],
+        "nextCloseTime": "2026-09-28T20:45:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 456,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton King Abdullah Rd",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.508505,
+      "lng": 39.224475
+    },
+    "found_place": {
+      "id": "ChIJEZ7TrM3PwxUR0QAaJyb-ysA",
+      "formattedAddress": "King Abdullah Rd, Al Andalus Mall, Jeddah 22245, Saudi Arabia",
+      "location": {
+        "latitude": 21.5077391,
+        "longitude": 39.2176723
+      },
+      "rating": 4.4,
+      "googleMapsUri": "https://maps.google.com/?cid=13892195440395944145&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:30 PM – 12:00 AM",
+          "Tuesday: 12:30 PM – 12:00 AM",
+          "Wednesday: 12:30 PM – 12:00 AM",
+          "Thursday: 12:30 PM – 12:00 AM",
+          "Friday: 12:30 PM – 12:00 AM",
+          "Saturday: 12:30 PM – 12:00 AM",
+          "Sunday: 12:30 PM – 12:00 AM"
+        ],
+        "nextCloseTime": "2026-09-28T21:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 53,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Al Manar",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.593015,
+      "lng": 39.229306
+    },
+    "found_place": {
+      "id": "ChIJtYm5JlvRwxUR_iKTo1Qj2DE",
+      "formattedAddress": "Al Ajawad St, Al-Manar, Jeddah 23462, Saudi Arabia",
+      "location": {
+        "latitude": 21.5922137,
+        "longitude": 39.2294201
+      },
+      "rating": 3.6,
+      "googleMapsUri": "https://maps.google.com/?cid=3591659549256524542&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 0,
+              "minute": 0
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 12:00 AM",
+          "Tuesday: 11:00 AM – 12:00 AM",
+          "Wednesday: 11:00 AM – 12:00 AM",
+          "Thursday: 11:00 AM – 12:00 AM",
+          "Friday: 1:00 PM – 12:00 AM",
+          "Saturday: 11:00 AM – 12:00 AM",
+          "Sunday: 11:00 AM – 12:00 AM"
+        ],
+        "nextCloseTime": "2026-09-28T21:00:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 202,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Al Amir Fawwaz",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.4448,
+      "lng": 39.280457
+    },
+    "found_place": {
+      "id": "ChIJwy_Xc4fMwxURscnKsoHauoY",
+      "formattedAddress": "District، Makkah - Jeddah Hwy, Al Amir Fawwaz Al Junoobi, Jeddah 22431, Saudi Arabia",
+      "location": {
+        "latitude": 21.440794399999998,
+        "longitude": 39.2811324
+      },
+      "rating": 4,
+      "googleMapsUri": "https://maps.google.com/?cid=9708312197335796145&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 0,
+              "minute": 0
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: Open 24 hours",
+          "Tuesday: Open 24 hours",
+          "Wednesday: Open 24 hours",
+          "Thursday: Open 24 hours",
+          "Friday: Open 24 hours",
+          "Saturday: Open 24 hours",
+          "Sunday: Open 24 hours"
+        ]
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 620,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton An Nuzhah",
+    "original_eligibility": "manual_review",
+    "original_coords": {
+      "lat": null,
+      "lng": null
+    },
+    "found_place": {
+      "id": "ChIJ320THLDXwxURe9jGyD0rnxw",
+      "formattedAddress": "An Nuzhah, Jeddah 23532, Saudi Arabia",
+      "location": {
+        "latitude": 21.6328398,
+        "longitude": 39.1564529
+      },
+      "rating": 4,
+      "googleMapsUri": "https://maps.google.com/?cid=2062414698720450683&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 0,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 23,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:30 AM – 11:30 PM",
+          "Tuesday: 11:30 AM – 11:30 PM",
+          "Wednesday: 11:30 AM – 11:30 PM",
+          "Thursday: 11:30 AM – 11:30 PM",
+          "Friday: 1:00 PM – 12:30 AM",
+          "Saturday: 11:30 AM – 11:30 PM",
+          "Sunday: 11:30 AM – 11:30 PM"
+        ],
+        "nextCloseTime": "2026-09-28T20:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 274,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Al Shera'a",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.76626,
+      "lng": 39.101284
+    },
+    "found_place": {
+      "id": "ChIJN5b0BgBjwRURjsujrl-cGW4",
+      "formattedAddress": "Al Shera'a, Jeddah 23816, Saudi Arabia",
+      "location": {
+        "latitude": 21.7659959,
+        "longitude": 39.1013847
+      },
+      "rating": 4.2,
+      "googleMapsUri": "https://maps.google.com/?cid=7933544153355635598&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 2,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 0,
+              "hour": 2,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:30 PM – 2:30 AM",
+          "Tuesday: 12:30 PM – 2:30 AM",
+          "Wednesday: 12:30 PM – 2:30 AM",
+          "Thursday: 12:30 PM – 2:30 AM",
+          "Friday: 1:00 PM – 2:30 AM",
+          "Saturday: 12:30 PM – 2:30 AM",
+          "Sunday: 12:30 PM – 2:30 AM"
+        ],
+        "nextCloseTime": "2026-09-28T23:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 289,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Ar Rawdah",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.549796,
+      "lng": 39.147511
+    },
+    "found_place": {
+      "id": "ChIJTYFZvqzawxUR3DF5ohrKmoc",
+      "formattedAddress": "Tahlia Mall, Ar Rawdah, Jeddah 23431, Saudi Arabia",
+      "location": {
+        "latitude": 21.5497957,
+        "longitude": 39.1475107
+      },
+      "rating": 3.9,
+      "googleMapsUri": "https://maps.google.com/?cid=9771344557277524444&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": false,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 4,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 4,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 4,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 4,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 4,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 4,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 0,
+              "hour": 4,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 3:30 PM – 4:30 AM",
+          "Tuesday: 3:30 PM – 4:30 AM",
+          "Wednesday: 3:30 PM – 4:30 AM",
+          "Thursday: 3:30 PM – 4:30 AM",
+          "Friday: 3:30 PM – 4:30 AM",
+          "Saturday: 3:30 PM – 4:30 AM",
+          "Sunday: 3:30 PM – 4:30 AM"
+        ],
+        "nextOpenTime": "2026-09-28T12:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 113,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Al Sanabel",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.399961,
+      "lng": 39.281644
+    },
+    "found_place": {
+      "id": "ChIJJ5N46VDLwxURkvT_8EgPL9s",
+      "formattedAddress": "97XJ+WMC, شارع ابن مانع, Al Sanabel, Jeddah 22444, Saudi Arabia",
+      "location": {
+        "latitude": 21.3998055,
+        "longitude": 39.281652699999995
+      },
+      "rating": 4.4,
+      "googleMapsUri": "https://maps.google.com/?cid=15793859224166986898&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 5,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 6,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 3,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 3:30 AM",
+          "Tuesday: 11:00 AM – 3:30 AM",
+          "Wednesday: 11:00 AM – 3:30 AM",
+          "Thursday: 11:00 AM – 3:30 AM",
+          "Friday: 12:30 PM – 3:30 AM",
+          "Saturday: 11:00 AM – 3:30 AM",
+          "Sunday: 11:00 AM – 3:30 AM"
+        ],
+        "nextCloseTime": "2026-09-29T00:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 25,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Ash Shati",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.640772,
+      "lng": 39.10134
+    },
+    "found_place": {
+      "id": "ChIJmQwqXc3bwxURpuqdAjhUSwI",
+      "formattedAddress": "Red Sea Mall، King Abdulaziz Branch Rd, Ash Shati, Jeddah 23612, Saudi Arabia",
+      "location": {
+        "latitude": 21.627959,
+        "longitude": 39.111595
+      },
+      "rating": 3.9,
+      "googleMapsUri": "https://maps.google.com/?cid=165318410867960486&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 0,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 1,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 2,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 3,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 4,
+              "hour": 23,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 0,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 11,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 23,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 11:00 AM – 11:30 PM",
+          "Tuesday: 11:00 AM – 11:30 PM",
+          "Wednesday: 11:00 AM – 11:30 PM",
+          "Thursday: 11:00 AM – 11:30 PM",
+          "Friday: 1:00 PM – 12:30 AM",
+          "Saturday: 11:00 AM – 11:30 PM",
+          "Sunday: 11:00 AM – 11:30 PM"
+        ],
+        "nextCloseTime": "2026-09-28T20:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 434,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  },
+  {
+    "branch": "Canton Al Hamadaniyyah",
+    "original_eligibility": "usable_with_caution",
+    "original_coords": {
+      "lat": 21.755426,
+      "lng": 39.197271
+    },
+    "found_place": {
+      "id": "ChIJC3gPewB9wRURL1Z3eEXzepM",
+      "formattedAddress": "Jeddah Al Hamadaniyyah، JGAB6787، 6787, الحمدانية، جدة 23761, Saudi Arabia",
+      "location": {
+        "latitude": 21.7554265,
+        "longitude": 39.1972715
+      },
+      "rating": 4.2,
+      "googleMapsUri": "https://maps.google.com/?cid=10627073750433486383&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 1,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 2,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 3,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 4,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            },
+            "close": {
+              "day": 6,
+              "hour": 3,
+              "minute": 30
+            }
+          },
+          {
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 30
+            },
+            "close": {
+              "day": 0,
+              "hour": 3,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 12:30 PM – 3:30 AM",
+          "Tuesday: 12:30 PM – 3:30 AM",
+          "Wednesday: 12:30 PM – 3:30 AM",
+          "Thursday: 12:30 PM – 3:30 AM",
+          "Friday: 1:00 PM – 3:30 AM",
+          "Saturday: 12:30 PM – 3:30 AM",
+          "Sunday: 12:30 PM – 3:30 AM"
+        ],
+        "nextCloseTime": "2026-09-29T00:30:00Z"
+      },
+      "businessStatus": "OPERATIONAL",
+      "userRatingCount": 241,
+      "displayName": {
+        "text": "Canton | كانتون",
+        "languageCode": "en"
+      }
+    }
+  }
+]

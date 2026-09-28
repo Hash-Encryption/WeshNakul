@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Denden Restaurant for Indonesian foods",
+    "id": "ChIJ8cic10PawxUR29ld0F3g3hU",
+    "address": "Hira St, An Nahdah, Jeddah 23523, Saudi Arabia",
+    "lat": 21.608349699999998,
+    "lng": 39.1294991,
+    "rating": 4.1,
+    "reviews": 6235,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden Restuarant for Indonesian foods",
+    "id": "ChIJ5RrsRH7QwxURVFpbF3OisUw",
+    "address": "Abdul Rahman Ibn Ahmad As Sidayri, As Salamah, Jeddah 23436, Saudi Arabia",
+    "lat": 21.5891798,
+    "lng": 39.157153699999995,
+    "rating": 3.9,
+    "reviews": 3148,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden Indonesian Food",
+    "id": "ChIJS6g_Zv7NwxURhYlSnzK0vzM",
+    "address": "7114 Abu Thar Al-Ghifari, حي النسيم، Jeddah 23234, Saudi Arabia",
+    "lat": 21.5192853,
+    "lng": 39.2395421,
+    "rating": 3.8,
+    "reviews": 3211,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden restaurant for indonesian food",
+    "id": "ChIJdcpLSQDXwxURnFIXaSb-V8g",
+    "address": "Al Marwah, Jeddah 23545, Saudi Arabia",
+    "lat": 21.624428899999998,
+    "lng": 39.210454999999996,
+    "rating": 4.3,
+    "reviews": 401,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden restaurant for indonesian food",
+    "id": "ChIJIeusQgJjwRURj46PqyRAbvo",
+    "address": "Aabir Al Qarath St, Obhur Al-Shamaliyah, Jeddah 23815, Saudi Arabia",
+    "lat": 21.7563495,
+    "lng": 39.1203308,
+    "rating": 4.2,
+    "reviews": 3068,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden restaurant for Indonesian food",
+    "id": "ChIJF1zxePF8wRURXz3EejnhRgQ",
+    "address": "شارع الحمدانية، Al Hamadaniyyah, Jeddah 23761, Saudi Arabia",
+    "lat": 21.750104099999998,
+    "lng": 39.1882977,
+    "rating": 3.8,
+    "reviews": 1751,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden restaurant for indonesian food",
+    "id": "ChIJewKSTUfRwxURcnLDzBqHNxI",
+    "address": "شارع الأمير سعود الفيصل، حي، Al-Safa, Jeddah 23451, Saudi Arabia",
+    "lat": 21.5728962,
+    "lng": 39.200748399999995,
+    "rating": 3.5,
+    "reviews": 1172,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden restaurant for Indonesian food",
+    "id": "ChIJN66YGx3RwxURAFy0_5Hiy9c",
+    "address": "Ankara, Al Rabi', Jeddah 23462, Saudi Arabia",
+    "lat": 21.5875809,
+    "lng": 39.2360676,
+    "rating": 3.8,
+    "reviews": 1078,
+    "status": "OPERATIONAL"
+  },
+  {
+    "name": "Denden restaurant for indonesian food",
+    "id": "ChIJg6d6bpjPwxUR_ZJzrgg5kEc",
+    "address": "food court - Andalus MAll، Al Fayha, Jeddah 22245, Saudi Arabia",
+    "lat": 21.505869800000003,
+    "lng": 39.2181561,
+    "rating": 4.2,
+    "reviews": 346,
+    "status": "OPERATIONAL"
+  }
+]
