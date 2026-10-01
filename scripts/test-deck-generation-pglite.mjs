@@ -89,6 +89,16 @@ async function main() {
     console.log('Corrective migration does not exist yet. Testing baseline state.');
   }
 
+  if (fs.existsSync('supabase/migrations/20260928000500_progressive_geography_widening.sql')) {
+    console.log('Applying 20260928000500_progressive_geography_widening.sql...');
+    await db.exec(migration('20260928000500_progressive_geography_widening.sql'));
+  }
+
+  if (fs.existsSync('supabase/migrations/20261001000100_expand_jeddah_shawarma_20_brands.sql')) {
+    console.log('Applying 20261001000100_expand_jeddah_shawarma_20_brands.sql...');
+    await db.exec(migration('20261001000100_expand_jeddah_shawarma_20_brands.sql'));
+  }
+
   // Helper to test deck generation
   const activeCategories = [
     'burger', 'shawarma', 'fried_chicken', 'broast', 'rice', 'grill', 'pizza', 'sushi',

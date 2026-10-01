@@ -1,0 +1,801 @@
+{
+  "schema_version": "weshnakul_restaurant_catalog_v3",
+  "dataset": "jeddah_shawarma_expansion_pass_d_corrected",
+  "city": "Jeddah",
+  "country": "Saudi Arabia",
+  "verified_at": "2026-10-01",
+  "status": "PASS_WITH_MANUAL_REVIEW_QUEUE",
+  "catalog_expansion": {
+    "baseline_brands": 14,
+    "newly_approved_brands": 6,
+    "total_target_brands": 20,
+    "baseline_branches": 48,
+    "new_active_branches": 13,
+    "total_active_branches": 61,
+    "excluded_branches": [
+      {
+        "brand_id": "palm_beach",
+        "branch_name": "Al Faisaliyah historical listing",
+        "reason": "Verified Google businessStatus: CLOSED_TEMPORARILY. Excluded from active production deck eligibility.",
+        "google_place_id": "ChIJrVgX_2vQwxURIqpyD6QI1G8"
+      },
+      {
+        "brand_id": "palm_beach",
+        "branch_name": "Al Khalidiyah historical listing",
+        "reason": "Verified Google businessStatus: CLOSED_PERMANENTLY. Excluded from active production deck eligibility.",
+        "google_place_id": "ChIJYxK0GIvbwxURIy4N8dOxUiI"
+      },
+      {
+        "brand_id": "ganat_al_shawarma",
+        "branch_name": "Al Farouk candidate",
+        "reason": "Listing surfaces as Jan'nat Al Shawarma Restaurants. Unreconciled brand identity; retained in manual review queue.",
+        "google_place_id": "ChIJb-sgAl7MwxURKVBMzVhClWA"
+      }
+    ]
+  },
+  "brands": [
+    {
+      "brand_id": "palm_beach",
+      "canonical_name_en": "Palm Beach",
+      "canonical_name_ar": "بالم بيتش",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "subcategories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "affordable_to_mid",
+      "price_tier": "$$",
+      "estimated_spend_min_sar": 20,
+      "estimated_spend_max_sar": 45,
+      "signature_dish_ar": "شاورما دجاج عربي بالم بيتش 🌯",
+      "signature_dish_en": "Palm Beach Arabi Chicken Shawarma 🌯",
+      "vibe_tags_ar": [
+        "شاورما عريقة",
+        "لبناني",
+        "سريع",
+        "عائلي"
+      ],
+      "vibe_tags_en": [
+        "Classic Lebanese",
+        "Shawarma Legend",
+        "Quick Bite",
+        "Family Friendly"
+      ],
+      "reputation_tags": [
+        "local_favorite",
+        "mainstream"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "time_slots": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "is_open_late": true,
+      "is_24_hours": false,
+      "is_city_wide": true,
+      "branch_list_completeness": "partial",
+      "verified_jeddah_branch_count": 3,
+      "canonical_districts": [
+        "al_zahra",
+        "abhur_al_janoubiyah"
+      ],
+      "official_website": "https://palmbeachksa.com",
+      "trend_status": "none",
+      "trend_confidence": "unknown",
+      "confidence": "high",
+      "production_eligibility": "production_ready",
+      "delivery_platforms": {
+        "hungerstation": true,
+        "jahez": true,
+        "keeta": true
+      },
+      "best_sellers": [
+        {
+          "name_ar": "شاورما دجاج عربي",
+          "name_en": "Arabi Chicken Shawarma",
+          "is_signature": true,
+          "sort_order": 0
+        },
+        {
+          "name_ar": "شاورما لحم عربي",
+          "name_en": "Arabi Beef Shawarma",
+          "is_signature": false,
+          "sort_order": 1
+        },
+        {
+          "name_ar": "ساندوتش شاورما لحم",
+          "name_en": "Beef Shawarma Sandwich",
+          "is_signature": false,
+          "sort_order": 2
+        }
+      ],
+      "production_branches": [
+        {
+          "restaurant_id": "palm_beach",
+          "branch_name_en": "Al Zahra",
+          "branch_name_ar": "الزهراء",
+          "branch_type": "unknown",
+          "district": "al_zahra",
+          "address_en": "Al Batarji, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "latitude": 21.597963,
+          "longitude": 39.139307,
+          "maps_business_name": "Palm Beach",
+          "google_place_id": "ChIJxX-9L2TawxURGNKhTbdSpMU",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJxX-9L2TawxURGNKhTbdSpMU",
+          "google_rating": 4.1,
+          "google_review_count": 10989,
+          "phone": "+966126161144",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        },
+        {
+          "restaurant_id": "palm_beach",
+          "branch_name_en": "Abhur / Marina Avenue",
+          "branch_name_ar": "أبحر / مارينا أفينيو",
+          "branch_type": "unknown",
+          "district": "abhur_al_janoubiyah",
+          "address_en": "Abhur Al Junoobiyah, Jeddah 23734, Saudi Arabia",
+          "latitude": 21.7647671,
+          "longitude": 39.1415757,
+          "maps_business_name": "Palm Beach Restaurant",
+          "google_place_id": "ChIJSz-kHQBjwRUR977JALhYkK8",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJSz-kHQBjwRUR977JALhYkK8",
+          "google_rating": 3.8,
+          "google_review_count": 937,
+          "phone": "+966537374409",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        },
+        {
+          "restaurant_id": "palm_beach",
+          "branch_name_en": "Al Baghdadiyah / Al Sariah Square",
+          "branch_name_ar": "البغدادية / ميدان السارية",
+          "branch_type": "unknown",
+          "district": null,
+          "address_en": "Al Sariah Square, Al-Baghdadiyah Al-Gharbiyah, Jeddah 22234, Saudi Arabia",
+          "latitude": 21.5099734,
+          "longitude": 39.1774628,
+          "maps_business_name": "PALM BEACH RESTAURANTS",
+          "google_place_id": "ChIJl0hnwE3PwxURV8qzlc0R8YI",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJl0hnwE3PwxURV8qzlc0R8YI",
+          "google_rating": 4.0,
+          "google_review_count": 920,
+          "phone": "+966509763388",
+          "operating_status": "open",
+          "geographic_notes": "Outer Jeddah branch in physical district Al Baghdadiyah Al Gharbiyah (Al Sariah Square), outside the 30 canonical districts; usable_with_caution.",
+          "production_branch_status": "usable_with_caution"
+        }
+      ]
+    },
+    {
+      "brand_id": "ganat_al_shawarma",
+      "canonical_name_en": "Ganat Al Shawarma",
+      "canonical_name_ar": "جنة الشاورما",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "subcategories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "budget",
+      "price_tier": "$",
+      "estimated_spend_min_sar": 10,
+      "estimated_spend_max_sar": 25,
+      "signature_dish_ar": "شاورما دجاج عربي جنة الشاورما 🌯",
+      "signature_dish_en": "Ganat Arabi Chicken Shawarma 🌯",
+      "vibe_tags_ar": [
+        "شعبي",
+        "سريع",
+        "اقتصادي",
+        "سهرات"
+      ],
+      "vibe_tags_en": [
+        "Local Favorite",
+        "Quick Bite",
+        "Budget Friendly",
+        "Late Night"
+      ],
+      "reputation_tags": [
+        "local_favorite"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "time_slots": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "is_open_late": true,
+      "is_24_hours": false,
+      "is_city_wide": false,
+      "branch_list_completeness": "partial",
+      "verified_jeddah_branch_count": 2,
+      "canonical_districts": [],
+      "official_website": null,
+      "trend_status": "none",
+      "trend_confidence": "unknown",
+      "confidence": "medium",
+      "production_eligibility": "usable_with_caution",
+      "delivery_platforms": {
+        "hungerstation": true,
+        "jahez": true,
+        "keeta": true
+      },
+      "best_sellers": [
+        {
+          "name_ar": "صحن شاورما عربي دجاج",
+          "name_en": "Arabi Chicken Shawarma Plate",
+          "is_signature": true,
+          "sort_order": 0
+        },
+        {
+          "name_ar": "صاروخ شاورما دجاج",
+          "name_en": "Chicken Shawarma Saroukh",
+          "is_signature": false,
+          "sort_order": 1
+        },
+        {
+          "name_ar": "صحن شاورما فرط",
+          "name_en": "Shawarma Platter",
+          "is_signature": false,
+          "sort_order": 2
+        }
+      ],
+      "production_branches": [
+        {
+          "restaurant_id": "ganat_al_shawarma",
+          "branch_name_en": "Mada'en Al-Fahd",
+          "branch_name_ar": "مدائن الفهد",
+          "branch_type": "unknown",
+          "district": null,
+          "address_en": "Mada'en Al-Fahd, Jeddah 22347, Saudi Arabia",
+          "latitude": 21.4560402,
+          "longitude": 39.2457165,
+          "maps_business_name": "ganat alshawarma",
+          "google_place_id": "ChIJY8j1NhrMwxUR1h-Jw_NcMc0",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJY8j1NhrMwxUR1h-Jw_NcMc0",
+          "google_rating": 4.3,
+          "google_review_count": 2141,
+          "phone": "+966550299770",
+          "operating_status": "open",
+          "geographic_notes": "Outer Jeddah branch in physical district Mada'en Al-Fahd (postal 22347), outside canonical 30 districts; usable_with_caution.",
+          "production_branch_status": "usable_with_caution"
+        },
+        {
+          "restaurant_id": "ganat_al_shawarma",
+          "branch_name_en": "Marikh / Palestine",
+          "branch_name_ar": "مريخ / شارع فلسطين",
+          "branch_type": "unknown",
+          "district": null,
+          "address_en": "8060 Palestine St, Marikh, Jeddah 23252, Saudi Arabia",
+          "latitude": 21.5545928,
+          "longitude": 39.2865726,
+          "maps_business_name": "Ganat Alshawarma",
+          "google_place_id": "ChIJx08kFwDTwxURxMVOLVG3Pvs",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJx08kFwDTwxURxMVOLVG3Pvs",
+          "google_rating": null,
+          "google_review_count": null,
+          "phone": null,
+          "operating_status": "open",
+          "geographic_notes": "Physical listing on Palestine Street in Marikh (postal 23252), outside canonical 30 districts; usable_with_caution.",
+          "production_branch_status": "usable_with_caution"
+        }
+      ]
+    },
+    {
+      "brand_id": "shawarma_jalila",
+      "canonical_name_en": "Shawarma Jalila",
+      "canonical_name_ar": "شاورما جليلة",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "subcategories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "open",
+      "editorial_classification": "rising",
+      "price_positioning": "affordable_to_mid",
+      "price_tier": "$$",
+      "estimated_spend_min_sar": 16,
+      "estimated_spend_max_sar": 35,
+      "signature_dish_ar": "شاورما جليلة 🌯",
+      "signature_dish_en": "Jalila Shawarma 🌯",
+      "vibe_tags_ar": [
+        "شاورما شامي",
+        "عربي مميز",
+        "سريع",
+        "سهرات"
+      ],
+      "vibe_tags_en": [
+        "Levant Shawarma",
+        "Arabi Box",
+        "Quick Bite",
+        "Late Night"
+      ],
+      "reputation_tags": [
+        "rising"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "time_slots": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "is_open_late": true,
+      "is_24_hours": false,
+      "is_city_wide": false,
+      "branch_list_completeness": "complete",
+      "verified_jeddah_branch_count": 2,
+      "canonical_districts": [
+        "al_safa",
+        "al_zahra"
+      ],
+      "official_website": null,
+      "trend_status": "rising",
+      "trend_confidence": "high",
+      "confidence": "high",
+      "production_eligibility": "production_ready",
+      "delivery_platforms": {
+        "hungerstation": true,
+        "jahez": true,
+        "keeta": true
+      },
+      "best_sellers": [
+        {
+          "name_ar": "شاورما جليلة",
+          "name_en": "Jalila Shawarma",
+          "is_signature": true,
+          "sort_order": 0
+        },
+        {
+          "name_ar": "شاورما عربي دجاج",
+          "name_en": "Arabi Chicken Shawarma",
+          "is_signature": false,
+          "sort_order": 1
+        },
+        {
+          "name_ar": "صاروخية جليلة",
+          "name_en": "Jalila Saroukh",
+          "is_signature": false,
+          "sort_order": 2
+        }
+      ],
+      "production_branches": [
+        {
+          "restaurant_id": "shawarma_jalila",
+          "branch_name_en": "Al Safa",
+          "branch_name_ar": "الصفا",
+          "branch_type": "unknown",
+          "district": "al_safa",
+          "address_en": "3141 Prince Mutaib bin Abdulaziz Rd, Al-Safa, Jeddah 23451, Saudi Arabia",
+          "latitude": 21.5740633,
+          "longitude": 39.2094765,
+          "maps_business_name": "Shawarma Jalila شاورما جليلة",
+          "google_place_id": "ChIJc1d5qsPRwxURxk5zjAV0qW8",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJc1d5qsPRwxURxk5zjAV0qW8",
+          "google_rating": 4.1,
+          "google_review_count": 1438,
+          "phone": "+966920025199",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        },
+        {
+          "restaurant_id": "shawarma_jalila",
+          "branch_name_en": "Al Zahra",
+          "branch_name_ar": "الزهراء",
+          "branch_type": "unknown",
+          "district": "al_zahra",
+          "address_en": "2497 Hira, Al Zahra, Jeddah 23522, Saudi Arabia",
+          "latitude": 21.6064317,
+          "longitude": 39.1227845,
+          "maps_business_name": "Shawarma Jalila شاورما جليلة",
+          "google_place_id": "ChIJQbu5i9_bwxURDEYfwLTIB4U",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJQbu5i9_bwxURDEYfwLTIB4U",
+          "google_rating": 3.9,
+          "google_review_count": 2085,
+          "phone": "+966920025199",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        }
+      ]
+    },
+    {
+      "brand_id": "samar_jeddah_shawarma",
+      "canonical_name_en": "Samar Jeddah Shawarma",
+      "canonical_name_ar": "شاورما سمر",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "subcategories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "open",
+      "editorial_classification": "local_favorite",
+      "price_positioning": "budget",
+      "price_tier": "$",
+      "estimated_spend_min_sar": 12,
+      "estimated_spend_max_sar": 28,
+      "signature_dish_ar": "شاورما سمر دجاج عربي بالثوم والشطة 🌯",
+      "signature_dish_en": "Samar Arabi Shawarma with Garlic & Shotta 🌯",
+      "vibe_tags_ar": [
+        "شاورما أصيلة",
+        "ثوم وشطة",
+        "سريع",
+        "سهرات"
+      ],
+      "vibe_tags_en": [
+        "Authentic Shawarma",
+        "Garlic & Spicy",
+        "Quick Bite",
+        "Late Night"
+      ],
+      "reputation_tags": [
+        "local_favorite"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "time_slots": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "is_open_late": true,
+      "is_24_hours": false,
+      "is_city_wide": true,
+      "branch_list_completeness": "complete",
+      "verified_jeddah_branch_count": 3,
+      "canonical_districts": [
+        "al_safa",
+        "al_shati"
+      ],
+      "official_website": null,
+      "trend_status": "none",
+      "trend_confidence": "unknown",
+      "confidence": "high",
+      "production_eligibility": "production_ready",
+      "delivery_platforms": {
+        "hungerstation": true,
+        "jahez": true,
+        "keeta": true
+      },
+      "best_sellers": [
+        {
+          "name_ar": "وجبة شاورما عربي",
+          "name_en": "Arabi Shawarma Meal",
+          "is_signature": true,
+          "sort_order": 0
+        },
+        {
+          "name_ar": "شاورما صاروخ",
+          "name_en": "Saroukh Shawarma",
+          "is_signature": false,
+          "sort_order": 1
+        },
+        {
+          "name_ar": "شاورما إيطالي",
+          "name_en": "Italian Shawarma",
+          "is_signature": false,
+          "sort_order": 2
+        }
+      ],
+      "production_branches": [
+        {
+          "restaurant_id": "samar_jeddah_shawarma",
+          "branch_name_en": "Al Safa",
+          "branch_name_ar": "الصفا",
+          "branch_type": "unknown",
+          "district": "al_safa",
+          "address_en": "Al-Shakireen, Al Safa, Jeddah 23453, Saudi Arabia",
+          "latitude": 21.5733423,
+          "longitude": 39.2103978,
+          "maps_business_name": "Samar Jeddah Shawarma",
+          "google_place_id": "ChIJjT8PognRwxURA3yRHuSrOHg",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJjT8PognRwxURA3yRHuSrOHg",
+          "google_rating": 4.0,
+          "google_review_count": 3704,
+          "phone": "+966532719271",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        },
+        {
+          "restaurant_id": "samar_jeddah_shawarma",
+          "branch_name_en": "Marina / Waterfront",
+          "branch_name_ar": "الواجهة البحرية / مركز شاطئ المارينا",
+          "branch_type": "unknown",
+          "district": "al_shati",
+          "address_en": "Jeddah Waterfront, Marina Beach Center, Al Shati, Jeddah 67321, Saudi Arabia",
+          "latitude": 21.6163283,
+          "longitude": 39.1083364,
+          "maps_business_name": "samar land jeddah",
+          "google_place_id": "ChIJTxbldIrbwxURbZeKSTOvrZk",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJTxbldIrbwxURbZeKSTOvrZk",
+          "google_rating": 4.1,
+          "google_review_count": 802,
+          "phone": "+966553338708",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        },
+        {
+          "restaurant_id": "samar_jeddah_shawarma",
+          "branch_name_en": "North Jeddah / Hamdaniyah-area",
+          "branch_name_ar": "شمال جدة / منطقة الحمدانية",
+          "branch_type": "unknown",
+          "district": null,
+          "address_en": "Al Yam, Jeddah 23761, Saudi Arabia",
+          "latitude": 21.7500525,
+          "longitude": 39.1876432,
+          "maps_business_name": "SHAWERMA SAMAR JEDDAH",
+          "google_place_id": "ChIJ65ffIB99wRURq0dUcAC5Aao",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ65ffIB99wRURq0dUcAC5Aao",
+          "google_rating": 3.7,
+          "google_review_count": 1076,
+          "phone": "+966563330370",
+          "operating_status": "open",
+          "geographic_notes": "North Jeddah branch in postal code 23761 (outer / Hamdaniyah vicinity); canonical_district is null per Pass D research requirement; usable_with_caution.",
+          "production_branch_status": "usable_with_caution"
+        }
+      ]
+    },
+    {
+      "brand_id": "professional_shawarma",
+      "canonical_name_en": "Professional Shawarma",
+      "canonical_name_ar": "شاورما المحترفين",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "subcategories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "open",
+      "editorial_classification": "hidden_gem",
+      "price_positioning": "budget",
+      "price_tier": "$",
+      "estimated_spend_min_sar": 12,
+      "estimated_spend_max_sar": 28,
+      "signature_dish_ar": "صحن عربي دجاج 🌯",
+      "signature_dish_en": "Arabi Chicken Shawarma Plate 🌯",
+      "vibe_tags_ar": [
+        "شاورما شامي",
+        "سريع",
+        "اقتصادي",
+        "سهرات"
+      ],
+      "vibe_tags_en": [
+        "Levant Shawarma",
+        "Quick Bite",
+        "Budget Friendly",
+        "Late Night"
+      ],
+      "reputation_tags": [
+        "hidden_gem"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night"
+      ],
+      "time_slots": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "is_open_late": true,
+      "is_24_hours": false,
+      "is_city_wide": false,
+      "branch_list_completeness": "complete",
+      "verified_jeddah_branch_count": 2,
+      "canonical_districts": [
+        "al_sharafeyah"
+      ],
+      "official_website": null,
+      "trend_status": "none",
+      "trend_confidence": "unknown",
+      "confidence": "high",
+      "production_eligibility": "production_ready",
+      "delivery_platforms": {
+        "hungerstation": true,
+        "jahez": true,
+        "keeta": true
+      },
+      "best_sellers": [
+        {
+          "name_ar": "صحن عربي دجاج",
+          "name_en": "Arabi Chicken Shawarma Plate",
+          "is_signature": true,
+          "sort_order": 0
+        },
+        {
+          "name_ar": "شاورما دجاج صاج",
+          "name_en": "Saj Chicken Shawarma Sandwich",
+          "is_signature": false,
+          "sort_order": 1
+        },
+        {
+          "name_ar": "الصحن الإيطالي",
+          "name_en": "Italian Shawarma Plate",
+          "is_signature": false,
+          "sort_order": 2
+        }
+      ],
+      "production_branches": [
+        {
+          "restaurant_id": "professional_shawarma",
+          "branch_name_en": "Al Sharafiyah",
+          "branch_name_ar": "الشرفية",
+          "branch_type": "unknown",
+          "district": "al_sharafeyah",
+          "address_en": "Ibn Al Alam Center, King Fahd Rd, Al Sharafeyah, Jeddah 23218, Saudi Arabia",
+          "latitude": 21.5242626,
+          "longitude": 39.192294,
+          "maps_business_name": "شاورما المحترفين Professional shawarma",
+          "google_place_id": "ChIJe7XN1hLPwxUR13HhN1oRqSY",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJe7XN1hLPwxUR13HhN1oRqSY",
+          "google_rating": 4.1,
+          "google_review_count": 1378,
+          "phone": "+966500674534",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        },
+        {
+          "restaurant_id": "professional_shawarma",
+          "branch_name_en": "Al Baghdadiyah Al Sharqiyah",
+          "branch_name_ar": "البغدادية الشرقية",
+          "branch_type": "unknown",
+          "district": null,
+          "address_en": "Mud Said Al Matbuli St, Al Baghdadiyah Al Sharqiyah, Jeddah 22235, Saudi Arabia",
+          "latitude": 21.4998303,
+          "longitude": 39.1849882,
+          "maps_business_name": "Professional Shawarma",
+          "google_place_id": "ChIJ_w52rkzPwxURCW829ZKK-eY",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_w52rkzPwxURCW829ZKK-eY",
+          "google_rating": 4.6,
+          "google_review_count": 387,
+          "phone": null,
+          "operating_status": "open",
+          "geographic_notes": "Outer Jeddah branch in physical district Al Baghdadiyah Al Sharqiyah, outside canonical 30 districts; usable_with_caution.",
+          "production_branch_status": "usable_with_caution"
+        }
+      ]
+    },
+    {
+      "brand_id": "al_wazzan_restaurant",
+      "canonical_name_en": "Al-Wazzan Restaurant",
+      "canonical_name_ar": "مطعم الوزان",
+      "mode": [
+        "food"
+      ],
+      "primary_category": "shawarma",
+      "secondary_categories": [],
+      "subcategories": [],
+      "jeddah_presence": "confirmed",
+      "operating_status": "open",
+      "editorial_classification": "staple",
+      "price_positioning": "standard",
+      "price_tier": "$$",
+      "estimated_spend_min_sar": 25,
+      "estimated_spend_max_sar": 55,
+      "signature_dish_ar": "شاورما دجاج الوزان الأصلية 🌯",
+      "signature_dish_en": "Original Al-Wazzan Chicken Shawarma 🌯",
+      "vibe_tags_ar": [
+        "مؤسسة تاريخية",
+        "لبناني أصيل",
+        "مفتوح 24 ساعة",
+        "سهرات"
+      ],
+      "vibe_tags_en": [
+        "Historic Landmark",
+        "Authentic Lebanese",
+        "24/7 Service",
+        "Late Night"
+      ],
+      "reputation_tags": [
+        "jeddah_staple",
+        "mainstream"
+      ],
+      "context_tags": [
+        "quick_bite",
+        "delivery_strong",
+        "late_night",
+        "open_24_hours"
+      ],
+      "time_slots": [
+        "lunch",
+        "dinner",
+        "late_night"
+      ],
+      "is_open_late": true,
+      "is_24_hours": true,
+      "closing_time_ar": "مفتوح 24 ساعة",
+      "is_city_wide": false,
+      "branch_list_completeness": "complete",
+      "verified_jeddah_branch_count": 1,
+      "canonical_districts": [
+        "al_faisaliyyah"
+      ],
+      "official_website": null,
+      "trend_status": "none",
+      "trend_confidence": "unknown",
+      "confidence": "high",
+      "production_eligibility": "production_ready",
+      "serves_breakfast_menu": false,
+      "delivery_platforms": {
+        "hungerstation": true,
+        "jahez": true,
+        "keeta": true
+      },
+      "best_sellers": [
+        {
+          "name_ar": "ساندوتش شاورما دجاج الوزان",
+          "name_en": "Al-Wazzan Chicken Shawarma Sandwich",
+          "is_signature": true,
+          "sort_order": 0
+        },
+        {
+          "name_ar": "ساندوتش شاورما لحم الوزان",
+          "name_en": "Al-Wazzan Beef Shawarma Sandwich",
+          "is_signature": false,
+          "sort_order": 1
+        },
+        {
+          "name_ar": "وجبة شاورما عربي",
+          "name_en": "Arabi Shawarma Platter",
+          "is_signature": false,
+          "sort_order": 2
+        }
+      ],
+      "production_branches": [
+        {
+          "restaurant_id": "al_wazzan_restaurant",
+          "branch_name_en": "Al Faisaliyah",
+          "branch_name_ar": "الفيصلية",
+          "branch_type": "unknown",
+          "district": "al_faisaliyyah",
+          "address_en": "Prince Mohammed Bin Abdulaziz St, Al Faisaliyyah, Jeddah 23441, Saudi Arabia",
+          "latitude": 21.5581379,
+          "longitude": 39.18091,
+          "maps_business_name": "Al-Wazzan Restaurant",
+          "google_place_id": "ChIJV1POzTjQwxURDjZwwrOJSWo",
+          "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJV1POzTjQwxURDjZwwrOJSWo",
+          "google_rating": 4.0,
+          "google_review_count": 32458,
+          "phone": "+966126608909",
+          "operating_status": "open",
+          "geographic_notes": null,
+          "production_branch_status": "production_ready"
+        }
+      ]
+    }
+  ]
+}
