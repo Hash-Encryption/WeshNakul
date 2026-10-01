@@ -1,0 +1,198 @@
+{
+  "project": "WeshNakul",
+  "category": "burger",
+  "brand_count": 21,
+  "selection_rule": "One brand-specific, food-focused image per brand. Prefer a clear burger/product shot; avoid storefronts, people, collages, and logos unless no suitable food image exists.",
+  "usage_note": "These are research/source candidates. Verify licensing/usage rights before publishing third-party images in production.",
+  "brands": [
+    {
+      "index": 1,
+      "brand": "Section-B",
+      "image_url": "https://webcms.listmag.com/listmag/uploads/images/2024/10/02/2162212.jpg",
+      "source_url": "https://www.listmag.com/en/eat-drink/casual/best-burger-restaurants-in-jeddah",
+      "source": "LIST Magazine",
+      "status": "selected",
+      "notes": "Food-focused spread of Section-B burgers and fries."
+    },
+    {
+      "index": 2,
+      "brand": "The California Burger",
+      "image_url": "https://www.timeoutjeddah.com/cloud/timeoutjeddah/2024/05/10/The-California-Burger1-Best-burgers-in-Jeddah-1024x768.jpg",
+      "source_url": "https://www.timeoutjeddah.com/",
+      "source": "Time Out Jeddah",
+      "status": "selected",
+      "notes": "Clean burger-focused food shot."
+    },
+    {
+      "index": 3,
+      "brand": "Century Burger",
+      "image_url": "https://img.ananinja.com/media/ninja-catalog-42/restaurants/tcswf0jp3j80ud7f7n8njysvc25h/100845.jpg",
+      "source_url": "https://ananinja.com/",
+      "source": "Ninja",
+      "status": "selected",
+      "notes": "Menu-style burger shot."
+    },
+    {
+      "index": 4,
+      "brand": "Chef's Homemade Burger Gourmet",
+      "image_url": "https://www.timeoutjeddah.com/cloud/timeoutjeddah/2024/05/10/Chefs-Homemade-Burger-Gourmet-Al-Mohammadiyyah1-Best-burgers-in-Jeddah-1024x768.jpg",
+      "source_url": "https://www.timeoutjeddah.com/",
+      "source": "Time Out Jeddah",
+      "status": "selected",
+      "notes": "Strong close-up burger image."
+    },
+    {
+      "index": 5,
+      "brand": "Sign Burger",
+      "image_url": "https://assets.maestronewsroom.com/media/30f6532d-717b-4366-9158-9c455299fcd9/arabnews-import/2024/12/proxy/4555383-190541584.webp",
+      "source_url": "https://www.arabnews.com/",
+      "source": "Arab News",
+      "status": "selected",
+      "notes": "Branded burger close-up."
+    },
+    {
+      "index": 6,
+      "brand": "Nora Burger",
+      "image_url": "https://khayratco.sa/noraburger/images/double-smash-burger.jpg",
+      "source_url": "https://khayratco.sa/noraburger/",
+      "source": "Nora Burger official website",
+      "status": "selected",
+      "notes": "Official Nora Double Cheese Smash Burger product shot."
+    },
+    {
+      "index": 7,
+      "brand": "WBJ",
+      "image_url": "https://www.arabnews.pk/sites/default/files/styles/n_670_395/public/2025/09/15/4639856-1107468653.jpg?itok=n7EOC7tA",
+      "source_url": "https://www.arabnews.pk/",
+      "source": "Arab News",
+      "status": "selected",
+      "notes": "Burger, fries and branded cup."
+    },
+    {
+      "index": 8,
+      "brand": "Lou Burger",
+      "image_url": "https://assets.maestronewsroom.com/media/30f6532d-717b-4366-9158-9c455299fcd9/arabnews-import/2024/12/proxy/4553409-979894227.webp",
+      "source_url": "https://www.arabnews.com/",
+      "source": "Arab News",
+      "status": "selected",
+      "notes": "Food-first burger shot."
+    },
+    {
+      "index": 9,
+      "brand": "PPLR",
+      "image_url": "https://menux.app/wp-content/uploads/2026/01/BURGER.png",
+      "source_url": "https://menux.app/pplr-burger/",
+      "source": "MenuX / PPLR menu",
+      "status": "selected",
+      "notes": "PPLR burger menu image."
+    },
+    {
+      "index": 10,
+      "brand": "Smash Me",
+      "image_url": "https://d12eu00glpdtk2.cloudfront.net/public/images/news/qatar-smash-me-burger-debut-saudi-arabia-two-new-locations/qatar-smash-me-burger-debut-saudi-arabia-two-new-locations.jpg",
+      "source_url": "https://www.iloveqatar.net/",
+      "source": "ILoveQatar",
+      "status": "selected",
+      "notes": "Branded burger meal shot."
+    },
+    {
+      "index": 11,
+      "brand": "Black Tap",
+      "image_url": "https://www.timeoutjeddah.com/cloud/timeoutjeddah/2024/08/25/black-tap-jeddah-burger-1024x683.jpg",
+      "source_url": "https://blacktap.com/location/jeddah/",
+      "source": "Time Out Jeddah / Black Tap",
+      "status": "selected",
+      "notes": "Jeddah burger spread."
+    },
+    {
+      "index": 12,
+      "brand": "FATT",
+      "image_url": "https://img.ananinja.com/media/ninja-catalog-42/restaurants/qonmn3oxhmo4nzj0iegobkjpjb12/flabby-mini-thick.jpg",
+      "source_url": "https://ananinja.com/",
+      "source": "Ninja",
+      "status": "selected",
+      "notes": "Two burgers with fries, food-focused."
+    },
+    {
+      "index": 13,
+      "brand": "Burger Boutique",
+      "image_url": "https://ar.timeoutriyadh.com/cloud/artimeoutriyadh/2023/08/30/JRsZ6CLR-Burger-Boutique_1-800x600.jpg",
+      "source_url": "https://ar.timeoutriyadh.com/",
+      "source": "Time Out Riyadh",
+      "status": "selected",
+      "notes": "Brand-wide signature burger shot; not Jeddah-specific."
+    },
+    {
+      "index": 14,
+      "brand": "Place",
+      "image_url": "https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2026/04/11/4701880-1482397990.jpg?itok=iyowSXl-",
+      "source_url": "https://www.arabnews.com/",
+      "source": "Arab News",
+      "status": "selected",
+      "notes": "Tray of burgers and fries."
+    },
+    {
+      "index": 15,
+      "brand": "Score",
+      "image_url": "https://score.sa/wp-content/uploads/2024/03/40fc10ca-50f5-4cf7-b8cb-a60bea9dd8a3-2.jpg",
+      "source_url": "https://score.sa/",
+      "source": "Score official website",
+      "status": "selected",
+      "notes": "Official food-focused burger image."
+    },
+    {
+      "index": 16,
+      "brand": "SMPL BRGR",
+      "image_url": "https://webcms.listmag.com/listmag/uploads/images/2024/10/02/2162211.jpg",
+      "source_url": "https://www.listmag.com/en/eat-drink/casual/best-burger-restaurants-in-jeddah",
+      "source": "LIST Magazine",
+      "status": "selected",
+      "notes": "Food-focused branded burgers and fries."
+    },
+    {
+      "index": 17,
+      "brand": "Bunco Burger",
+      "image_url": "https://images.deliveryhero.io/image/hungerstation/menuitem/image_url_ref/0ef0b3f309287c67eaa7db41c924cadb.jpg?quality=75&webp=true&width=1440",
+      "source_url": "https://hungerstation.com/",
+      "source": "HungerStation",
+      "status": "selected",
+      "notes": "Clean Double Cheeseburger menu image."
+    },
+    {
+      "index": 18,
+      "brand": "Mmmm Burger",
+      "image_url": "https://also3odyah.com/uploads/1786046979347-2abc65ba.webp",
+      "source_url": "https://also3odyah.com/",
+      "source": "Als3odyah",
+      "status": "selected",
+      "notes": "Burger in branded wrapper."
+    },
+    {
+      "index": 19,
+      "brand": "The Plan",
+      "image_url": "https://images.deliveryhero.io/image/menu-import-gateway-prd/regions/ME/chains/HS-PLA/858c62386ec751ec1c41599e2ec63f31.jpeg?quality=75&webp=true&width=1440",
+      "source_url": "https://hungerstation.com/",
+      "source": "HungerStation",
+      "status": "selected",
+      "notes": "Burger meal in The Plan branded box."
+    },
+    {
+      "index": 20,
+      "brand": "I'M Hungry",
+      "image_url": "https://pbs.twimg.com/media/D5y1q_UXsAEgYkb.jpg",
+      "source_url": "https://x.com/",
+      "source": "X/Twitter",
+      "status": "selected",
+      "notes": "Burger close-up with I'M HUNGRY branding."
+    },
+    {
+      "index": 21,
+      "brand": "BRGR1983",
+      "image_url": "https://pbs.twimg.com/media/HEq5cCna0AA8FPV?format=jpg&name=large",
+      "source_url": "https://x.com/lolol202020/status/2038645768995656042",
+      "source": "X/Twitter post (@lolol202020)",
+      "status": "selected",
+      "notes": "Food-focused burger cross-section photo from BRGR1983 post."
+    }
+  ]
+}

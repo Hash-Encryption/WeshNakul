@@ -1,0 +1,23 @@
+WeshNakul — Burger Image Handoff
+
+Use the attached burger image manifest as the source-of-truth mapping for the 21 locked Burger brands.
+
+Rules:
+- Do NOT change restaurant catalog data, branch data, recommendation weights, deck logic, or algorithm behavior.
+- Do NOT rename canonical brands.
+- Each brand gets exactly one approved card image.
+- Food-focused image is preferred over logo/storefront/people.
+- Preserve aspect ratio and use object-fit: cover in the card UI.
+- Do not import any image marked unapproved or source-only until the user approves/replaces it.
+- Keep source/provenance metadata.
+- Before shipping third-party images, verify the project has appropriate rights/license to use them.
+- BRGR1983 currently has a verified food-image source but no stable direct-file URL; do not substitute a different restaurant image.
+
+Expected mapping source: weshnakul_burger_image_manifest.json
+
+After the user approves the visual set:
+1. Download/copy each approved image into the project's restaurant image asset directory.
+2. Use deterministic slugs based on canonical brand name.
+3. Update only the image field/path for the matching Burger brand.
+4. Run existing catalog/deck tests.
+5. Show a diff listing only image-path changes.

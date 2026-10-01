@@ -7,6 +7,7 @@ import type {
   TimeSlot,
 } from '../types/restaurant';
 import { logDeckError } from './observability';
+import { getBurgerBrandImage } from '../data/burgerBrandImages';
 
 const VALID_PRICE_TIERS = new Set<PriceTier>(['$', '$$', '$$$']);
 const VALID_DINING_MODES = new Set<DiningMode>(['both', 'delivery_only', 'dine_in_only']);
@@ -310,6 +311,14 @@ export function normalizeRestaurantDeck(
     }
 
     seenIds.add(item.id);
+
+    if (!item.imageUrl) {
+      const burgerImage = getBurgerBrandImage(item.id) || getBurgerBrandImage(item.nameEn);
+      if (burgerImage) {
+        item.imageUrl = burgerImage;
+      }
+    }
+
     normalizedRestaurants.push(item);
   });
 
