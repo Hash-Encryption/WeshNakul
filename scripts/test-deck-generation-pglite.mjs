@@ -99,9 +99,19 @@ async function main() {
     await db.exec(migration('20261001000100_expand_jeddah_shawarma_20_brands.sql'));
   }
 
-  // Helper to test deck generation
+  if (fs.existsSync('supabase/migrations/20261003000100_top5_wildcard_consensus_selection.sql')) {
+    console.log('Applying 20261003000100_top5_wildcard_consensus_selection.sql...');
+    await db.exec(migration('20261003000100_top5_wildcard_consensus_selection.sql'));
+  }
+
+  if (fs.existsSync('supabase/migrations/20261007000100_merge_broast_into_fried_chicken.sql')) {
+    console.log('Applying 20261007000100_merge_broast_into_fried_chicken.sql...');
+    await db.exec(migration('20261007000100_merge_broast_into_fried_chicken.sql'));
+  }
+
+  // Helper to test deck generation (15 real food categories, broast retired)
   const activeCategories = [
-    'burger', 'shawarma', 'fried_chicken', 'broast', 'rice', 'grill', 'pizza', 'sushi',
+    'burger', 'shawarma', 'fried_chicken', 'rice', 'grill', 'pizza', 'sushi',
     'italian', 'asian', 'seafood', 'indian', 'fatayer', 'street_folk', 'mexican', 'sandwiches'
   ];
 
@@ -156,7 +166,7 @@ async function main() {
   `);
 
   console.log('\n======================================================');
-  console.log('TESTING DECK GENERATION FOR ALL 16 CATEGORIES');
+  console.log('TESTING DECK GENERATION FOR ALL 15 CATEGORIES');
   console.log('======================================================');
 
   for (const cat of activeCategories) {
@@ -193,21 +203,31 @@ async function main() {
   console.log('OVERLAP ANALYSIS');
   console.log('======================================================');
 
-  // Broast vs Fried Chicken overlap
-  const broastBrands = await db.query(`
-    SELECT DISTINCT r.id FROM public.restaurants r
-    WHERE r.primary_category = 'broast' OR 'broast' = ANY(r.categories) OR 'broast' = ANY(r.secondary_categories)
-  `);
+  // Unified Fried Chicken Category Verification
   const friedBrands = await db.query(`
     SELECT DISTINCT r.id FROM public.restaurants r
-    WHERE r.primary_category = 'fried_chicken' OR 'fried_chicken' = ANY(r.categories) OR 'fried_chicken' = ANY(r.secondary_categories)
+    WHERE (r.primary_category = 'fried_chicken' OR 'fried_chicken' = ANY(r.categories))
+      AND r.research_use IN ('production_ready', 'usable_with_caution')
   `);
-  const bSet = new Set(broastBrands.rows.map(r => r.id));
-  const fSet = new Set(friedBrands.rows.map(r => r.id));
-  const chickenOverlap = [...bSet].filter(id => fSet.has(id));
-  console.log(`Broast brands count: ${bSet.size} (${[...bSet].join(', ')})`);
-  console.log(`Fried Chicken brands count: ${fSet.size} (${[...fSet].join(', ')})`);
-  console.log(`Broast & Fried Chicken overlap count: ${chickenOverlap.length} (${chickenOverlap.join(', ')})`);
+  const broastPrimaryBrands = await db.query(`
+    SELECT DISTINCT r.id FROM public.restaurants r
+    WHERE r.primary_category = 'broast' OR 'broast' = ANY(r.categories)
+  `);
+  const traditionalBroastSubtypeBrands = await db.query(`
+    SELECT DISTINCT r.id FROM public.restaurants r
+    WHERE 'traditional_broast' = ANY(r.secondary_categories) OR 'traditional_broast' = ANY(r.subcategories)
+  `);
+  const fcBranches = await db.query(`
+    SELECT count(rb.id)::int as branch_count
+    FROM public.restaurant_branches rb
+    JOIN public.restaurants r ON r.id = rb.restaurant_id
+    WHERE r.primary_category = 'fried_chicken' AND rb.branch_status NOT IN ('temporarily_closed', 'permanently_closed')
+  `);
+
+  console.log(`Unified Fried Chicken brands: ${friedBrands.rows.length} (expected 19)`);
+  console.log(`Unified Fried Chicken active branches: ${fcBranches.rows[0].branch_count} (expected 75)`);
+  console.log(`Active user-facing 'broast' category brands: ${broastPrimaryBrands.rows.length} (expected 0)`);
+  console.log(`Preserved 'traditional_broast' subtype intelligence brands: ${traditionalBroastSubtypeBrands.rows.length} (${traditionalBroastSubtypeBrands.rows.map(r => r.id).join(', ')})`);
 
   // Asian vs Sushi overlap
   const asianBrands = await db.query(`
