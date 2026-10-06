@@ -42,13 +42,16 @@ BEGIN
       SELECT array_agg(sub.cat ORDER BY sub.cat_count DESC, sub.cat)
       INTO v_draw_pool
       FROM (
-        SELECT unnest(r.categories) AS cat, count(*)::int AS cat_count
-        FROM public.restaurants r
-        WHERE lower(r.city) = lower(room_row.city)
-          AND r.operating_status NOT IN ('temporarily_closed', 'permanently_closed')
-          AND r.research_use IN ('production_ready', 'usable_with_caution')
-        GROUP BY 1
-        HAVING unnest(r.categories) = ANY(room_row.tied_categories)
+        SELECT unnested.cat, count(*)::int AS cat_count
+        FROM (
+          SELECT unnest(r.categories) AS cat
+          FROM public.restaurants r
+          WHERE lower(r.city) = lower(room_row.city)
+            AND r.operating_status NOT IN ('temporarily_closed', 'permanently_closed')
+            AND r.research_use IN ('production_ready', 'usable_with_caution')
+        ) unnested
+        WHERE unnested.cat = ANY(room_row.tied_categories)
+        GROUP BY unnested.cat
         ORDER BY count(*) DESC
         LIMIT 5
       ) sub;
