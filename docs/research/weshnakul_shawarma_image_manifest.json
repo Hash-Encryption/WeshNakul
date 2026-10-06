@@ -1,0 +1,196 @@
+{
+  "dataset": "WeshNakul Shawarma Image Research Pack",
+  "category": "shawarma",
+  "city": "Jeddah",
+  "created_at": "2026-10-01",
+  "brand_count": 20,
+  "notes": [
+    "This is a source-selection research pack for the 20-brand Shawarma category.",
+    "Because some brands surfaced stronger official/listing sources than others, statuses are marked strong / medium / weak.",
+    "Weak entries should be treated as needing replacement or manual source improvement during import.",
+    "The target image style for the app is one food-focused image per brand, ideally shawarma-first, with no people and minimal storefront/logo clutter."
+  ],
+  "brands": [
+    {
+      "number": 1,
+      "canonical_name": "Shawarmer",
+      "status": "strong",
+      "recommended_item": "Saji or Tannouri chicken shawarma",
+      "source_page": "https://shawarmer.com/en",
+      "source_note": "Official menu/source page. Pick a clean food-focused shawarma sandwich image from the official menu.",
+      "preferred_visual_style": "single sandwich or box, food-focused, no people",
+      "local_preview_image": "/mnt/data/ghostwriter_images/web_context/web_image_7a29ea2a076f.png"
+    },
+    {
+      "number": 2,
+      "canonical_name": "Shawarma Classic",
+      "status": "medium",
+      "recommended_item": "Arabic Shawarma",
+      "source_page": "https://www.youtube.com/watch?v=l9Vx9yUA1Es",
+      "source_note": "Best current surfaced source in this pass was a full-menu review video; use it only as a clue and replace with a cleaner food-only source if Antigravity finds an official menu/listing.",
+      "preferred_visual_style": "single wrapped shawarma or Arabic shawarma cut pieces"
+    },
+    {
+      "number": 3,
+      "canonical_name": "Shawarma Alrimal",
+      "status": "weak",
+      "recommended_item": "Chicken or meat shawarma wrap",
+      "source_page": "https://www.reddit.com/r/Jeddah/comments/1rno5oe/travelling_to_jeddah_soon_pls_recommend_musttry/",
+      "source_note": "Brand confirmed in catalog, but this pass did not surface a strong current menu page. Needs a better direct food-image source during import.",
+      "preferred_visual_style": "single shawarma wrap, food-focused"
+    },
+    {
+      "number": 4,
+      "canonical_name": "Shamiyat Haritna",
+      "status": "strong",
+      "recommended_item": "Chicken Shawarma Sandwich",
+      "source_page": "https://hungerstation.com/en/jeddah/al-hamra/18934/shamyat-haritna",
+      "source_note": "Current HungerStation listing includes food images and a dedicated shawarma section.",
+      "preferred_visual_style": "classic chicken shawarma sandwich"
+    },
+    {
+      "number": 5,
+      "canonical_name": "Ayedh Shawarma",
+      "status": "weak",
+      "recommended_item": "Standard shawarma sandwich",
+      "source_page": "",
+      "source_note": "This pass did not surface a reliable current menu page. Needs manual source selection later.",
+      "preferred_visual_style": "shawarma sandwich, food-focused"
+    },
+    {
+      "number": 6,
+      "canonical_name": "Al-Khal Al-Dimashqi",
+      "status": "weak",
+      "recommended_item": "Syrian-style shawarma wrap",
+      "source_page": "",
+      "source_note": "This pass did not surface a strong current official/listing source. Needs manual source selection later.",
+      "preferred_visual_style": "levant-style shawarma wrap"
+    },
+    {
+      "number": 7,
+      "canonical_name": "Shawarma Habteen",
+      "status": "strong",
+      "recommended_item": "حبة شاورما دجاج or حبتين مفحم دجاج",
+      "source_page": "https://shawermahabteen.order.sa/",
+      "source_note": "Official order site with item images and clear shawarma products.",
+      "preferred_visual_style": "single chicken shawarma or charcoaled duo"
+    },
+    {
+      "number": 8,
+      "canonical_name": "Ziyada Toum",
+      "status": "strong",
+      "recommended_item": "Shawarma sandwich",
+      "source_page": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-khalidiyah/ziyada-toum-108039",
+      "source_note": "Current HungerStation listing; use a proper shawarma sandwich image, not a pie.",
+      "preferred_visual_style": "single shawarma sandwich"
+    },
+    {
+      "number": 9,
+      "canonical_name": "Shawarma Elak",
+      "status": "strong",
+      "recommended_item": "Toasted Shawerma Sandwich or Large Saroukh Shawarma",
+      "source_page": "https://ananinja.com/sa/en/restaurants/shawarma-elak-1406",
+      "source_note": "Current Ninja listing with multiple shawarma food items.",
+      "preferred_visual_style": "toasted or saroukh shawarma, food-focused"
+    },
+    {
+      "number": 10,
+      "canonical_name": "Shawarma Shakir Aljazeera",
+      "status": "strong",
+      "recommended_item": "Meat shawarma sandwich in samoli or classic sandwich",
+      "source_page": "https://shakiraljazeera.com/",
+      "source_note": "Official website with menu and branch info.",
+      "preferred_visual_style": "classic old-school shawarma sandwich"
+    },
+    {
+      "number": 11,
+      "canonical_name": "Shawarma Abu Bahij",
+      "status": "strong",
+      "recommended_item": "Shami Chicken Shawarma Medium or Saj Chicken Shawarma",
+      "source_page": "https://ananinja.com/sa/en/restaurants/abu-bahij-505",
+      "source_note": "Current Ninja listing with dedicated chicken and meat shawarma sections.",
+      "preferred_visual_style": "single chicken or meat shawarma wrap"
+    },
+    {
+      "number": 12,
+      "canonical_name": "Radi Shawarma and Juices",
+      "status": "strong",
+      "recommended_item": "Meat Shawarma With Sauce",
+      "source_page": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-hamadaniyah/radi-shawarma-and-juices-169946",
+      "source_note": "Current HungerStation listing with food images in the shawarma section.",
+      "preferred_visual_style": "meat shawarma sandwich"
+    },
+    {
+      "number": 13,
+      "canonical_name": "Shawarma Allosh",
+      "status": "weak",
+      "recommended_item": "Cheese shawarma or classic shawarma",
+      "source_page": "https://www.reddit.com/r/Jeddah/comments/14tu8h0",
+      "source_note": "Locals strongly mention Allosh, but this pass did not surface a strong current menu page. Needs a better direct image source during import.",
+      "preferred_visual_style": "shawarma with cheese or arabi-style serving"
+    },
+    {
+      "number": 14,
+      "canonical_name": "Shawarma Marmasha",
+      "status": "strong",
+      "recommended_item": "Large Arabic Shawarma Plate",
+      "source_page": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-bawadi/shawarma-marmasha-166124",
+      "source_note": "Current HungerStation listing with food images and a dedicated shawarma plates section.",
+      "preferred_visual_style": "arabic shawarma plate or strips"
+    },
+    {
+      "number": 15,
+      "canonical_name": "Palm Beach",
+      "status": "medium",
+      "recommended_item": "Classic chicken or meat shawarma sandwich",
+      "source_page": "https://palmbeachksa.com/",
+      "source_note": "Official brand site is the best brand-grounding source from this pass; during import, prefer a clean food image from the brand's official current channels or delivery listing.",
+      "preferred_visual_style": "classic Levant-style shawarma sandwich"
+    },
+    {
+      "number": 16,
+      "canonical_name": "Ganat Al Shawarma",
+      "status": "strong",
+      "recommended_item": "Arabic - Regular or Chicken Ganat Shawarma",
+      "source_page": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/jeddah-islamic-seaport/ganat-al-shawarma-78629",
+      "source_note": "Current HungerStation listing with multiple shawarma food images.",
+      "preferred_visual_style": "arabic shawarma or brand-signature chicken shawarma"
+    },
+    {
+      "number": 17,
+      "canonical_name": "Shawarma Jalila",
+      "status": "strong",
+      "recommended_item": "Jalila Shawarma or Arabi",
+      "source_page": "https://order.shawarmajalila.com/menu/108?language=en",
+      "source_note": "Official order page with named shawarma items; official site also confirms the brand and menu categories.",
+      "preferred_visual_style": "single Jalila shawarma sandwich or arabi pieces"
+    },
+    {
+      "number": 18,
+      "canonical_name": "Samar Jeddah Shawarma",
+      "status": "strong",
+      "recommended_item": "Sandwich Shawerma Sarookh or Arabic Meal",
+      "source_page": "https://ananinja.com/sa/en/restaurants/samar-jeddah-shawarma-11709",
+      "source_note": "Current Ninja listing with dedicated shawarma products.",
+      "preferred_visual_style": "single sarookh shawarma or arabic meal"
+    },
+    {
+      "number": 19,
+      "canonical_name": "Professional Shawarma",
+      "status": "weak",
+      "recommended_item": "Classic shawarma sandwich",
+      "source_page": "https://www.reddit.com/r/Jeddah/comments/1fvxe6s",
+      "source_note": "This pass confirmed popularity but did not surface a strong current menu page. Needs a better direct source during import.",
+      "preferred_visual_style": "single shawarma sandwich"
+    },
+    {
+      "number": 20,
+      "canonical_name": "Al-Wazzan Restaurant",
+      "status": "strong",
+      "recommended_item": "Chicken Shawarma Sandwich",
+      "source_page": "https://hungerstation.com/sa-en/restaurant/al-wazzan/jeddah/as-safa/22284",
+      "source_note": "Current HungerStation listing with dedicated shawarma items and food images.",
+      "preferred_visual_style": "classic chicken shawarma sandwich"
+    }
+  ]
+}

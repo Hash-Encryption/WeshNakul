@@ -8,6 +8,7 @@ import type {
 } from '../types/restaurant';
 import { logDeckError } from './observability';
 import { getBurgerBrandImage } from '../data/burgerBrandImages';
+import { getShawarmaBrandImage } from '../data/shawarmaBrandImages';
 
 const VALID_PRICE_TIERS = new Set<PriceTier>(['$', '$$', '$$$']);
 const VALID_DINING_MODES = new Set<DiningMode>(['both', 'delivery_only', 'dine_in_only']);
@@ -316,6 +317,11 @@ export function normalizeRestaurantDeck(
       const burgerImage = getBurgerBrandImage(item.id) || getBurgerBrandImage(item.nameEn);
       if (burgerImage) {
         item.imageUrl = burgerImage;
+      } else {
+        const shawarmaImage = getShawarmaBrandImage(item.id) || getShawarmaBrandImage(item.nameEn);
+        if (shawarmaImage) {
+          item.imageUrl = shawarmaImage;
+        }
       }
     }
 

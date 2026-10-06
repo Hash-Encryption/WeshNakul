@@ -1,0 +1,13 @@
+WeshNakul — Shawarma Image Handoff
+
+Use the attached shawarma image manifest as the source-of-truth mapping for the 20 locked Shawarma brands.
+
+Rules:
+- Do NOT change restaurant catalog data, branch data, recommendation weights, deck logic, or algorithm behavior.
+- Do NOT rename canonical brands.
+- Each brand gets exactly one approved card image.
+- Food-focused image is preferred over logo/storefront/people.
+- Preserve aspect ratio and use object-fit: cover in the card UI.
+- Deterministic filenames based on canonical brand name.
+- Improve weak/medium sources before final import.
+- Run image verification + tests + production build.

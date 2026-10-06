@@ -1,0 +1,2506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WeshNakul — Shawarma Final Visual Review Gallery (20 Brands)</title>
+<style>
+  :root {
+    --bg-dark: #0f1115;
+    --bg-card: #181b21;
+    --bg-card-inner: #222630;
+    --border: #2d3342;
+    --border-accent: #f59e0b;
+    --brand-dark: #241B18;
+    --brand-cream: #FFF8F1;
+    --brand-yellow: #FFD75A;
+    --brand-green: #55B96A;
+    --brand-red: #F0443E;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --text-dim: #6b7280;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 28px 20px 80px;
+  }
+  .container { max-width: 1240px; margin: 0 auto; }
+  
+  /* Header */
+  .header {
+    background: linear-gradient(145deg, #181b21, #13151a);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .header-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  h1 { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+  .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; max-width: 800px; }
+  
+  /* Stats Grid */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .stat-card {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+  .stat-val { font-size: 22px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    position: sticky;
+    top: 12px;
+    z-index: 100;
+    background: rgba(15, 17, 21, 0.92);
+    backdrop-filter: blur(12px);
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+  }
+  .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .filter-btn:hover { color: #fff; border-color: #4b5563; }
+  .filter-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+  .filter-btn.active.warn-btn { background: #d97706; border-color: #d97706; }
+
+  /* Brand Cards List */
+  .cards-list { display: flex; flex-direction: column; gap: 24px; }
+  .review-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: border-color 0.2s;
+  }
+  .review-card.flagged { border-color: #f59e0b; }
+  .review-card.severe { border-color: #ef4444; }
+
+  /* Card Head */
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .card-num-title { display: flex; align-items: center; gap: 12px; }
+  .brand-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .brand-name { font-size: 20px; font-weight: 800; color: #fff; }
+  
+  .badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-approved { background: #14532d; color: #86efac; border: 1px solid #166534; }
+  .badge-warning { background: #78350f; color: #fde68a; border: 1px solid #92400e; }
+  .badge-danger { background: #7f1d1d; color: #fecaca; border: 1px solid #991b1b; }
+
+  /* Main Visual Grid */
+  .visual-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .visual-grid { grid-template-columns: 1fr; }
+  }
+
+  /* WeshNakul Card Simulation */
+  .sim-col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .sim-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    text-align: center;
+  }
+  .card-shell {
+    width: 100%;
+    max-width: 360px;
+    background: #ffffff;
+    border: 2px solid #241B18;
+    box-shadow: 0px 4px 0px #241B18;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .cover-box {
+    position: relative;
+    height: 208px;
+    width: 100%;
+    background: var(--brand-cream);
+    border-bottom: 2px solid #241B18;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.38), transparent 60%);
+    pointer-events: none;
+  }
+  .card-bottom-sim {
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+  }
+  .sim-brand-title {
+    font-weight: 800;
+    font-size: 16px;
+    color: #241B18;
+  }
+  .sim-chip {
+    background: #FFD75A;
+    border: 1.5px solid #241B18;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #241B18;
+    padding: 2px 8px;
+  }
+
+  /* Specs & Uncropped Column */
+  .specs-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .uncropped-box {
+    background: #11141a;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .uncropped-thumb-wrap {
+    width: 180px;
+    height: 120px;
+    background: #090a0d;
+    border: 1px dashed #374151;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .uncropped-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .uncropped-info { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
+  
+  /* Spec Pills */
+  .spec-pills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+  }
+  .pill {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 12px;
+  }
+  .pill-title { font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; }
+  .pill-val { font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px; }
+  .pill-val.alert { color: #f87171; }
+  .pill-val.warn { color: #fbbf24; }
+
+  /* Metadata Rows */
+  .meta-rows { font-size: 13px; color: var(--text-muted); display: flex; flex-direction: column; gap: 6px; }
+  .meta-row { display: flex; gap: 8px; }
+  .meta-key { font-weight: 700; color: #9ca3af; min-width: 90px; }
+  .meta-val { color: #e5e7eb; word-break: break-all; }
+  .meta-val a { color: #60a5fa; text-decoration: none; }
+  .meta-val a:hover { text-decoration: underline; }
+  .code-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background: #090a0d;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid #374151;
+    font-size: 12px;
+    color: #93c5fd;
+  }
+
+  /* Flags & Recommendations */
+  .flags-container {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .flag-box {
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .flag-box.danger {
+    background: rgba(127, 29, 29, 0.25);
+    border: 1px solid #991b1b;
+    color: #fca5a5;
+  }
+  .flag-box.warning {
+    background: rgba(120, 53, 15, 0.25);
+    border: 1px solid #92400e;
+    color: #fde68a;
+  }
+  .flag-box.notice {
+    background: rgba(30, 58, 138, 0.2);
+    border: 1px solid #1e40af;
+    color: #bfdbfe;
+  }
+  .flag-box.clean {
+    background: rgba(20, 83, 45, 0.2);
+    border: 1px solid #166534;
+    color: #bbf7d0;
+  }
+  .flag-title { font-weight: 800; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-title-row">
+      <div>
+        <h1>WeshNakul — Shawarma Final Visual Review Gallery</h1>
+        <div class="subtitle">
+          Inspection of the actual local food images stored in <code>public/images/restaurants/shawarma/</code> across all 20 canonical brands. Showing card crop simulation (<code>object-fit: cover</code>) and native aspect ratios.
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-val">20 / 20</div>
+        <div class="stat-label">Total Brands</div>
+        <div class="stat-sub">100% locally imported</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">2.79 MB</div>
+        <div class="stat-label">Category Payload</div>
+        <div class="stat-sub">All 20 images on disk</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">2.42 MB</div>
+        <div class="stat-label">19 Standard Brands</div>
+        <div class="stat-sub">Avg 130.2 KB per brand</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color: #ef4444;">0.37 MB</div>
+        <div class="stat-label">Palm Beach Asset</div>
+        <div class="stat-sub">53% of total category weight</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color: #f59e0b;">1</div>
+        <div class="stat-label">Flagged For Review</div>
+        <div class="stat-sub">Oversized, portrait, or low-res</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Controls -->
+  <div class="controls">
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setFilter('all')">Show All (20)</button>
+      <button class="filter-btn warn-btn" onclick="setFilter('flagged')">Needs Review (1)</button>
+      <button class="filter-btn" onclick="setFilter('clean')">Clean (19)</button>
+    </div>
+    <div style="font-size: 13px; color: var(--text-muted);">
+      Viewing local filesystem assets (<code>public/images/restaurants/shawarma/*</code>)
+    </div>
+  </div>
+
+  <!-- Cards List -->
+  <div class="cards-list" id="cardsList">
+    
+    <div class="review-card flagged" data-flagged="true">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">1</div>
+          <div>
+            <div class="brand-name">Shawarmer</div>
+          </div>
+        </div>
+        <div class="badge badge-warning">⚠️ REVIEW RECOMMENDED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarmer.png"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarmer.png'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarmer.png'; }"
+                alt="Shawarmer in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarmer</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarmer.png"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarmer.png'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarmer.png'; }"
+                alt="Shawarmer uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.37:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val warn">386 × 282 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">23.1 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">PNG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.37 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarmer.png</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">Shawarmer official website — <a href="https://shawarmer.com/en" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Official food-focused Saji chicken shawarma sandwich shot.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box warning">
+            <div style="font-size: 16px;">⚠️</div>
+            <div>
+              <div class="flag-title">Small Dimensions</div>
+              <div>Native dimensions 386×282 (23.1 KB) are relatively small and may show compression artifacts on high-DPI (Retina) mobile screens.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">2</div>
+          <div>
+            <div class="brand-name">Shawarma Classic</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-classic.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-classic.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-classic.jpg'; }"
+                alt="Shawarma Classic in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Classic</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-classic.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-classic.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-classic.jpg'; }"
+                alt="Shawarma Classic uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.00:1</strong> (Square)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">2134 × 2134 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">119.3 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.00 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-classic.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Shawerma Classic) — <a href="https://hungerstation.com/sa-en/restaurants/regions/riyadh/al-azizyah/shawerma-classic-20887" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Official Arabi Classic shawarma cut pieces with fries and garlic dipping sauces.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Square Crop (1:1)</div>
+              <div>Square photo (2134×2134). In horizontal card cover, ~18% top and bottom are cropped.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">3</div>
+          <div>
+            <div class="brand-name">Shawarma Alrimal</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-alrimal.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-alrimal.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-alrimal.jpg'; }"
+                alt="Shawarma Alrimal in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Alrimal</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-alrimal.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-alrimal.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-alrimal.jpg'; }"
+                alt="Shawarma Alrimal uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.50:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">3240 × 2160 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">380.3 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.50 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-alrimal.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Shawarma Alrimal) — <a href="https://hungerstation.com/sa-ar/restaurants/regions/sands-hotel-2/jeddah/shawarma-alrimal-23187" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Chicken shawarma plate with garlic and sides.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">4</div>
+          <div>
+            <div class="brand-name">Shamiyat Haritna</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shamiyat-haritna.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shamiyat-haritna.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shamiyat-haritna.jpg'; }"
+                alt="Shamiyat Haritna in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shamiyat Haritna</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shamiyat-haritna.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shamiyat-haritna.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shamiyat-haritna.jpg'; }"
+                alt="Shamiyat Haritna uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.33:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">640 × 480 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">32.1 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.33 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shamiyat-haritna.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Shamiyat Haritna) — <a href="https://hungerstation.com/en/jeddah/al-hamra/18934/shamyat-haritna" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Classic chicken shawarma sandwich in toasted flatbread.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Standard Mobile Resolution</div>
+              <div>Dimensions 640×480 are adequate for standard mobile cards without excess weight.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">5</div>
+          <div>
+            <div class="brand-name">Ayedh Shawarma</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/ayedh-shawarma.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/ayedh-shawarma.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/ayedh-shawarma.jpg'; }"
+                alt="Ayedh Shawarma in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Ayedh Shawarma</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/ayedh-shawarma.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/ayedh-shawarma.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/ayedh-shawarma.jpg'; }"
+                alt="Ayedh Shawarma uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.67:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1280 × 765 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">132.9 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.67 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/ayedh-shawarma.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Shawarma Am Ayed) — <a href="https://hungerstation.com/sa-ar/restaurant/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D9%85%D8%B3%D8%B1%D8%A9/156736" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Shawarma Arabi plate with fries and signature sauces.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">6</div>
+          <div>
+            <div class="brand-name">Al-Khal Al-Dimashqi</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/al-khal-al-dimashqi.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/al-khal-al-dimashqi.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/al-khal-al-dimashqi.jpg'; }"
+                alt="Al-Khal Al-Dimashqi in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Al-Khal Al-Dimashqi</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/al-khal-al-dimashqi.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/al-khal-al-dimashqi.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/al-khal-al-dimashqi.jpg'; }"
+                alt="Al-Khal Al-Dimashqi uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.33:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">640 × 480 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">70.7 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.33 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/al-khal-al-dimashqi.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Al-Khal Al-Dimashqi) — <a href="https://hungerstation.com/sa-ar/restaurants/regions/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%AE%D8%A7%D9%84%D8%AF%D9%8A%D8%A9/%D8%A7%D9%84%D8%AE%D8%A7%D9%84-%D8%A7%D9%84%D8%AF%D9%85%D8%B4%D9%82%D9%8A-144512" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Syrian-style chicken shawarma Arabi with garlic paste and pickles.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Standard Mobile Resolution</div>
+              <div>Dimensions 640×480 are adequate for standard mobile cards without excess weight.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">7</div>
+          <div>
+            <div class="brand-name">Shawarma Habteen</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-habteen.png"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-habteen.png'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-habteen.png'; }"
+                alt="Shawarma Habteen in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Habteen</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-habteen.png"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-habteen.png'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-habteen.png'; }"
+                alt="Shawarma Habteen uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.00:1</strong> (Square)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">500 × 500 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">20.4 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">PNG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.00 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-habteen.png</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">Shawarma Habteen official online ordering — <a href="https://shawermahabteen.order.sa/" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Official chicken shawarma sandwich menu shot.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Square Crop (1:1)</div>
+              <div>Square photo (500×500). In horizontal card cover, ~18% top and bottom are cropped.</div>
+            </div>
+          </div>
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Standard Mobile Resolution</div>
+              <div>Dimensions 500×500 are adequate for standard mobile cards without excess weight.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">8</div>
+          <div>
+            <div class="brand-name">Ziyada Toum</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/ziyada-toum.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/ziyada-toum.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/ziyada-toum.jpg'; }"
+                alt="Ziyada Toum in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Ziyada Toum</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/ziyada-toum.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/ziyada-toum.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/ziyada-toum.jpg'; }"
+                alt="Ziyada Toum uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.67:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1250 × 750 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">224.1 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.67 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/ziyada-toum.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Ziyada Toum) — <a href="https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-khalidiyah/ziyada-toum-108039" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Signature toasted sesame wrap on silver platter with generous toum (garlic sauce) and fries.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">9</div>
+          <div>
+            <div class="brand-name">Shawarma Elak</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-elak.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-elak.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-elak.jpg'; }"
+                alt="Shawarma Elak in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Elak</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-elak.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-elak.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-elak.jpg'; }"
+                alt="Shawarma Elak uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.00:1</strong> (Square)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1080 × 1080 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">52.1 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.00 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-elak.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Shawarma Elak) — <a href="https://hungerstation.com/sa-ar/restaurants/regions/%D9%8A%D9%86%D8%A8%D8%B9/%D8%A7%D9%84%D8%B5%D8%B1%D9%8A%D9%81/shawarma-elak-164435" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Toasted saroukh shawarma sandwich, branded product shot.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Square Crop (1:1)</div>
+              <div>Square photo (1080×1080). In horizontal card cover, ~18% top and bottom are cropped.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">10</div>
+          <div>
+            <div class="brand-name">Shawarma Shakir Aljazeera</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-shakir-aljazeera.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-shakir-aljazeera.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-shakir-aljazeera.jpg'; }"
+                alt="Shawarma Shakir Aljazeera in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Shakir Aljazeera</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-shakir-aljazeera.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-shakir-aljazeera.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-shakir-aljazeera.jpg'; }"
+                alt="Shawarma Shakir Aljazeera uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.40:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">976 × 697 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">147.5 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.40 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-shakir-aljazeera.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">Shakir Aljazeera official website — <a href="https://shakiraljazeera.com/" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Classic shawarma sandwich spread, official brand photo.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">11</div>
+          <div>
+            <div class="brand-name">Shawarma Abu Bahij</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-abu-bahij.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-abu-bahij.webp'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-abu-bahij.webp'; }"
+                alt="Shawarma Abu Bahij in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Abu Bahij</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-abu-bahij.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-abu-bahij.webp'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-abu-bahij.webp'; }"
+                alt="Shawarma Abu Bahij uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.50:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1920 × 1280 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">103.5 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">WebP</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.50 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-abu-bahij.webp</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Abu Bahij) — <a href="https://hungerstation.com/sa-ar/restaurants/regions/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%B5%D9%81%D8%A7/%D8%B4%D8%A7%D9%88%D8%B1%D9%85%D8%A7-%D8%A3%D8%A8%D9%88-%D8%A8%D9%87%D9%8A%D8%AC-148921" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Large Arabic chicken shawarma plate with golden fries and garlic dip.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">12</div>
+          <div>
+            <div class="brand-name">Radi Shawarma and Juices</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/radi-shawarma-and-juices.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/radi-shawarma-and-juices.webp'; this.onerror=function(){ this.src='/images/restaurants/shawarma/radi-shawarma-and-juices.webp'; }"
+                alt="Radi Shawarma and Juices in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Radi Shawarma and Juices</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/radi-shawarma-and-juices.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/radi-shawarma-and-juices.webp'; this.onerror=function(){ this.src='/images/restaurants/shawarma/radi-shawarma-and-juices.webp'; }"
+                alt="Radi Shawarma and Juices uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.50:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1920 × 1280 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">116.5 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">WebP</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.50 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/radi-shawarma-and-juices.webp</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Radi Shawarma and Juices) — <a href="https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-hamadaniyah/radi-shawarma-and-juices-169946" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Meat shawarma sandwich with signature sauce, food-focused.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">13</div>
+          <div>
+            <div class="brand-name">Shawarma Allosh</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-allosh.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-allosh.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-allosh.jpg'; }"
+                alt="Shawarma Allosh in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Allosh</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-allosh.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-allosh.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-allosh.jpg'; }"
+                alt="Shawarma Allosh uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.33:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">640 × 480 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">22.1 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.33 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-allosh.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Shawarma Allosh) — <a href="https://hungerstation.com/sa-ar/restaurants/regions/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%AD%D9%85%D8%B1%D8%A7%D8%A1/%D8%B9%D9%84%D9%88%D8%B4-131369" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Double cheese Arabic shawarma plate.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Standard Mobile Resolution</div>
+              <div>Dimensions 640×480 are adequate for standard mobile cards without excess weight.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">14</div>
+          <div>
+            <div class="brand-name">Shawarma Marmasha</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-marmasha.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-marmasha.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-marmasha.jpg'; }"
+                alt="Shawarma Marmasha in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Marmasha</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-marmasha.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-marmasha.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-marmasha.jpg'; }"
+                alt="Shawarma Marmasha uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.33:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">3547 × 2660 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">462.0 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.33 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-marmasha.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Shawarma Marmasha) — <a href="https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-bawadi/shawarma-marmasha-166124" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Large Arabic shawarma plate with fries and garlic sauces.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">15</div>
+          <div>
+            <div class="brand-name">Palm Beach</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/palm-beach.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/palm-beach.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/palm-beach.jpg'; }"
+                alt="Palm Beach in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Palm Beach</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/palm-beach.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/palm-beach.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/palm-beach.jpg'; }"
+                alt="Palm Beach uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.50:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1732 × 1155 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">380.6 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.50 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/palm-beach.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">Palm Beach official website — <a href="https://palmbeachksa.com/" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Official Lebanese shawarma wraps with traditional wrapper (optimized for web delivery).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">16</div>
+          <div>
+            <div class="brand-name">Ganat Al Shawarma</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/ganat-al-shawarma.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/ganat-al-shawarma.webp'; this.onerror=function(){ this.src='/images/restaurants/shawarma/ganat-al-shawarma.webp'; }"
+                alt="Ganat Al Shawarma in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Ganat Al Shawarma</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/ganat-al-shawarma.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/ganat-al-shawarma.webp'; this.onerror=function(){ this.src='/images/restaurants/shawarma/ganat-al-shawarma.webp'; }"
+                alt="Ganat Al Shawarma uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.50:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1920 × 1280 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">87.1 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">WebP</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.50 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/ganat-al-shawarma.webp</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Ganat Al Shawarma) — <a href="https://hungerstation.com/sa-en/restaurants/regions/jeddah/jeddah-islamic-seaport/ganat-al-shawarma-78629" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Arabic shawarma plate with garlic and crispy french fries.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">17</div>
+          <div>
+            <div class="brand-name">Shawarma Jalila</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-jalila.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-jalila.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-jalila.jpg'; }"
+                alt="Shawarma Jalila in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Shawarma Jalila</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/shawarma-jalila.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/shawarma-jalila.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/shawarma-jalila.jpg'; }"
+                alt="Shawarma Jalila uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.50:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">750 × 500 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">24.6 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.50 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/shawarma-jalila.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">Shawarma Jalila official ordering page — <a href="https://order.shawarmajalila.com/menu/108?language=en" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Official Shawarma Jalila sandwich product shot.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">18</div>
+          <div>
+            <div class="brand-name">Samar Jeddah Shawarma</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/samar-jeddah-shawarma.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/samar-jeddah-shawarma.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/samar-jeddah-shawarma.jpg'; }"
+                alt="Samar Jeddah Shawarma in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Samar Jeddah Shawarma</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/samar-jeddah-shawarma.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/samar-jeddah-shawarma.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/samar-jeddah-shawarma.jpg'; }"
+                alt="Samar Jeddah Shawarma uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.33:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">640 × 480 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">39.3 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.33 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/samar-jeddah-shawarma.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Samar Jeddah Shawarma) — <a href="https://hungerstation.com/sa-ar/restaurants/regions/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%AD%D9%85%D8%AF%D8%A7%D9%86%D9%8A%D8%A9/%D8%B3%D9%85%D8%B1-%D8%AC%D8%AF%D8%A9-19405" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Signature Samar shawarma wrap with garlic and shotta.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box notice">
+            <div style="font-size: 16px;">ℹ️</div>
+            <div>
+              <div class="flag-title">Standard Mobile Resolution</div>
+              <div>Dimensions 640×480 are adequate for standard mobile cards without excess weight.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">19</div>
+          <div>
+            <div class="brand-name">Professional Shawarma</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/professional-shawarma.png"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/professional-shawarma.png'; this.onerror=function(){ this.src='/images/restaurants/shawarma/professional-shawarma.png'; }"
+                alt="Professional Shawarma in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Professional Shawarma</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/professional-shawarma.png"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/professional-shawarma.png'; this.onerror=function(){ this.src='/images/restaurants/shawarma/professional-shawarma.png'; }"
+                alt="Professional Shawarma uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.47:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1500 × 1018 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">241.9 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">PNG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.47 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/professional-shawarma.png</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">Professional Shawarma official website — <a href="https://shawarma-pro.com/" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Official food-focused shawarma sandwich from shawarma-pro.com.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+
+    <div class="review-card" data-flagged="false">
+      <div class="card-head">
+        <div class="card-num-title">
+          <div class="brand-num">20</div>
+          <div>
+            <div class="brand-name">Al-Wazzan Restaurant</div>
+          </div>
+        </div>
+        <div class="badge badge-approved">✓ READY & VERIFIED</div>
+      </div>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column -->
+        <div class="sim-col">
+          <div class="sim-label">WeshNakul Card Simulation (object-cover)</div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/shawarma/al-wazzan-restaurant.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/al-wazzan-restaurant.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/al-wazzan-restaurant.jpg'; }"
+                alt="Al-Wazzan Restaurant in-card"
+                class="cover-img"
+              />
+              <div class="gradient-overlay"></div>
+            </div>
+            <div class="card-bottom-sim">
+              <div class="sim-brand-title">Al-Wazzan Restaurant</div>
+              <div class="sim-chip">Shawarma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specs & Uncropped View -->
+        <div class="specs-col">
+          <!-- Uncropped natural view -->
+          <div class="uncropped-box">
+            <div class="uncropped-thumb-wrap">
+              <img
+                src="../../public/images/restaurants/shawarma/al-wazzan-restaurant.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/shawarma/al-wazzan-restaurant.jpg'; this.onerror=function(){ this.src='/images/restaurants/shawarma/al-wazzan-restaurant.jpg'; }"
+                alt="Al-Wazzan Restaurant uncropped"
+                class="uncropped-img"
+              />
+            </div>
+            <div class="uncropped-info">
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;">Full Uncropped Asset</div>
+              <div>Natural aspect ratio: <strong>1.50:1</strong> (Landscape)</div>
+              <div style="color: var(--text-dim); margin-top: 4px;">Shows the complete uncropped source image to judge what gets sliced off by card margins.</div>
+            </div>
+          </div>
+
+          <!-- Spec Pills -->
+          <div class="spec-pills">
+            <div class="pill">
+              <div class="pill-title">Dimensions</div>
+              <div class="pill-val ">1584 × 1056 px</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">File Size</div>
+              <div class="pill-val ">174.8 KB</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Format</div>
+              <div class="pill-val">JPEG</div>
+            </div>
+            <div class="pill">
+              <div class="pill-title">Aspect Ratio</div>
+              <div class="pill-val ">1.50 : 1</div>
+            </div>
+          </div>
+
+          <!-- Metadata rows -->
+          <div class="meta-rows">
+            <div class="meta-row">
+              <span class="meta-key">Local Path:</span>
+              <span class="meta-val"><span class="code-tag">/images/restaurants/shawarma/al-wazzan-restaurant.jpg</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Source:</span>
+              <span class="meta-val">HungerStation (Al-Wazzan) — <a href="https://hungerstation.com/sa-en/restaurant/al-wazzan/jeddah/as-safa/22284" target="_blank" rel="noopener">Direct Link ↗</a></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Item Note:</span>
+              <span class="meta-val">Classic Al-Wazzan chicken shawarma sandwich.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flags -->
+      <div class="flags-container">
+        
+          <div class="flag-box clean">
+            <div style="font-size: 16px;">✓</div>
+            <div>
+              <div class="flag-title">Clean Visual Alignment</div>
+              <div>Appetizing food-focused shot with standard landscape aspect ratio; crops cleanly in card view.</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+      
+  </div>
+</div>
+
+<script>
+  function setFilter(type) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    const cards = document.querySelectorAll('.review-card');
+    cards.forEach(card => {
+      const isFlagged = card.getAttribute('data-flagged') === 'true';
+      if (type === 'all') {
+        card.style.display = 'block';
+      } else if (type === 'flagged') {
+        card.style.display = isFlagged ? 'block' : 'none';
+      } else if (type === 'clean') {
+        card.style.display = !isFlagged ? 'block' : 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
