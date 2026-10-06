@@ -37,33 +37,24 @@ BEGIN
     END IF;
     selected_category := p_category;
   ELSIF p_method = 'choose_for_us' THEN
-    -- If all participants were flexible/wildcard, pick from top 5 categories by restaurant count in this city
-    IF coalesce((room_row.category_summary->>'allWildcard')::boolean, false) THEN
-      SELECT array_agg(sub.cat ORDER BY sub.cat_count DESC, sub.cat)
+    -- In Breakfast mode: preserve authentic breakfast categories (street_folk, sandwiches, fatayer, breakfast)
+    IF coalesce(room_row.room_mode, 'food') = 'breakfast' THEN
+      v_draw_pool := room_row.tied_categories;
+    -- In Food mode with All-Wildcard: select from the top 7 Saudi crowd-pleasing staples
+    ELSIF coalesce((room_row.category_summary->>'allWildcard')::boolean, false) THEN
+      SELECT array_agg(cat ORDER BY array_position(ARRAY['burger', 'shawarma', 'broast', 'fried_chicken', 'pizza', 'rice', 'seafood', 'asian']::text[], cat))
       INTO v_draw_pool
-      FROM (
-        SELECT unnested.cat, count(*)::int AS cat_count
-        FROM (
-          SELECT unnest(r.categories) AS cat
-          FROM public.restaurants r
-          WHERE lower(r.city) = lower(room_row.city)
-            AND r.operating_status NOT IN ('temporarily_closed', 'permanently_closed')
-            AND r.research_use IN ('production_ready', 'usable_with_caution')
-        ) unnested
-        WHERE unnested.cat = ANY(room_row.tied_categories)
-        GROUP BY unnested.cat
-        ORDER BY count(*) DESC
-        LIMIT 5
-      ) sub;
+      FROM unnest(ARRAY['burger', 'shawarma', 'broast', 'fried_chicken', 'pizza', 'rice', 'seafood', 'asian']::text[]) cat
+      WHERE cat = ANY(room_row.tied_categories);
 
       IF v_draw_pool IS NULL OR cardinality(v_draw_pool) = 0 THEN
         v_draw_pool := room_row.tied_categories;
       END IF;
-
-      selected_category := private.secure_fair_draw('category', v_draw_pool);
     ELSE
-      selected_category := private.secure_fair_draw('category', room_row.tied_categories);
+      v_draw_pool := room_row.tied_categories;
     END IF;
+
+    selected_category := private.secure_fair_draw('category', v_draw_pool);
   ELSE
     RAISE EXCEPTION 'WSH_INVALID_RESOLUTION_METHOD' USING ERRCODE = '22023';
   END IF;
