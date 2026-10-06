@@ -163,20 +163,34 @@ export async function getRoomByCode(
 export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; participant: Participant }> {
   if (!supabase) throw new Error('Supabase is not configured');
 
-  const code = generateRoomCode();
-  const sessionToken = getOrCreateSessionToken(code);
   const safeEatingMode = input.eating_mode || 'delivery';
   const safeCity = input.city || 'riyadh';
   const safeLanguage = input.language || 'ar';
   const safeNickname = input.host_nickname?.trim() || 'المضيف';
 
-  const { data, error } = await supabase.rpc('create_room_authorized', {
-    p_code: code, p_session_token: sessionToken, p_eating_mode: safeEatingMode,
-    p_city: safeCity, p_neighborhood: input.neighborhood || null, p_language: safeLanguage,
-    p_nickname: safeNickname, p_latitude: input.latitude ?? null, p_longitude: input.longitude ?? null,
-  });
-  if (error) throw error;
-  return data as { room: Room; participant: Participant };
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const code = generateRoomCode();
+    const sessionToken = getOrCreateSessionToken(code);
+
+    const { data, error } = await supabase.rpc('create_room_authorized', {
+      p_code: code, p_session_token: sessionToken, p_eating_mode: safeEatingMode,
+      p_city: safeCity, p_neighborhood: input.neighborhood || null, p_language: safeLanguage,
+      p_nickname: safeNickname, p_latitude: input.latitude ?? null, p_longitude: input.longitude ?? null,
+    });
+
+    if (!error && data) {
+      return data as { room: Room; participant: Participant };
+    }
+
+    lastError = error;
+    const errMsg = (error as { message?: string })?.message || '';
+    if (!errMsg.includes('rooms_code_key') && !errMsg.includes('duplicate key') && !errMsg.includes('23505')) {
+      throw error;
+    }
+  }
+
+  throw lastError;
 }
 
 /**

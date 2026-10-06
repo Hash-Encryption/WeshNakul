@@ -84,7 +84,7 @@
     "placeholder": "e.g. A7K2",
     "submit": "Enter",
     "cancel": "Cancel",
-    "errorNotFound": "Invalid code or room has expired"
+    "errorNotFound": "Can't find that squad code or time ran out 🔍"
   },
   "voting": {
     "heading": "What are you craving? 🤤",
@@ -170,7 +170,7 @@
     "appName": "Wsh N6lob?",
     "appTagline": "Saudi Group Food Decision Engine",
     "close": "Close",
-    "errorGeneric": "Something went wrong, please try again",
+    "errorGeneric": "Quick hiccup! Please try again 🔄",
     "participant": "member",
     "participants": "members"
   },
@@ -249,11 +249,11 @@
     "everyoneWildcardNotice": "Everyone is flexible! 🎲 Spinning the wheel"
   },
   "session": {
-    "networkFailure": "Cannot connect to game servers. Check your internet connection or network settings 🌐",
-    "expiredNotice": "Room session expired (30-minute limit reached) ⌛",
-    "roomClosedByHost": "Room was closed by the host 👋",
-    "resetSuccess": "Voting reset! Pick categories again 🔄",
-    "invalidCode": "Invalid room code"
+    "networkFailure": "Lost connection for a moment! Check your internet and try again 🌐",
+    "expiredNotice": "Time's up! Rooms last 30 minutes ⌛ Start a new squad to pick again!",
+    "roomClosedByHost": "The host wrapped up this squad 👋",
+    "resetSuccess": "Clean slate! Vote again 🔄",
+    "invalidCode": "Can't find that squad code! Double-check and try again 🔍"
   },
   "categoryRoulette": {
     "title": "Category Tie-Breaker 🎲",

@@ -10,7 +10,6 @@ import {
   resolveCategoryTie,
   resolveRestaurantTie,
   beginRestaurantVoting,
-  getFoodChoices,
   resetRoomVoting as apiResetRoomVoting,
   deleteRoom as apiDeleteRoom,
   isRoomExpired,
@@ -671,12 +670,25 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const res = await apiJoinRoom({ code, nickname });
       if (res.success && res.room && res.participant) {
         const { participants: parts } = await getRoomByCode(res.room.code);
-        const choices = await getFoodChoices(res.room.id, res.participant.session_token);
         setCurrentRoom(res.room);
         setCurrentParticipant(res.participant);
         setActiveRoomCode(res.room.code);
         setParticipants(parts);
-        setFoodChoices(choices);
+
+        if (res.room.stage === 'voting') {
+          try {
+            const state = await getRoomDecisionState(res.room.id, res.participant.session_token);
+            if (state.suggestions) {
+              setSuggestions(state.suggestions);
+            }
+            setFoodChoices(state.myCategorySelection ? [state.myCategorySelection] : []);
+          } catch {
+            setFoodChoices([]);
+          }
+        } else {
+          setFoodChoices([]);
+        }
+
         return { success: true };
       }
       if (res.error === 'ROOM_EXPIRED') {
