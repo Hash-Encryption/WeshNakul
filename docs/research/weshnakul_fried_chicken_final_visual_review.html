@@ -1,0 +1,1739 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WeshNakul — Fried Chicken Final Visual Review (19 Brands)</title>
+<style>
+  :root {
+    --bg-dark: #0f1115;
+    --bg-card: #181b21;
+    --bg-card-inner: #222630;
+    --border: #2d3342;
+    --brand-gold: #f59e0b;
+    --brand-red: #ef4444;
+    --brand-green: #10b981;
+    --brand-blue: #3b82f6;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 24px 20px 80px;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+  
+  /* Header */
+  .header {
+    background: linear-gradient(145deg, #181b21, #13151a);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  h1 { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+  .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 6px; max-width: 900px; }
+  
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .stat-card {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .stat-val { font-size: 22px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 12px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; font-weight: 600; }
+  .stat-sub { font-size: 11px; color: #6b7280; margin-top: 2px; }
+
+  /* Navigation Shortcuts */
+  .quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0 28px;
+    padding: 14px;
+    background: #14171d;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .nav-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-right: 6px; }
+  .nav-link {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: var(--bg-card-inner);
+    color: var(--text-main);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+  .nav-link:hover { border-color: var(--brand-gold); color: #fff; }
+  .nav-link.special { border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); font-weight: 700; }
+
+  /* Cards List */
+  .cards-list { display: flex; flex-direction: column; gap: 24px; }
+  .review-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .review-card.special-card { border-color: #f59e0b; }
+  .review-card.rotation-card { border-left: 4px solid #ef4444; }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .card-num-title { display: flex; align-items: center; gap: 14px; }
+  .brand-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rotation-card .brand-num { background: #dc2626; }
+  .brand-name { font-size: 21px; font-weight: 800; color: #fff; }
+  .brand-name-ar { font-size: 18px; font-weight: 600; color: var(--text-muted); margin-left: 6px; }
+  .brand-meta-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .badge {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+  .badge-general { background: #14532d; color: #86efac; border: 1px solid #166534; }
+  .badge-rotation { background: #7f1d1d; color: #fecaca; border: 1px solid #991b1b; }
+  .badge-special { background: #78350f; color: #fde68a; border: 1px solid #92400e; }
+
+  /* Visual Grid: Simulation vs Uncropped */
+  .visual-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .visual-grid { grid-template-columns: 1fr; }
+  }
+
+  .sim-header, .uncropped-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .sim-title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+  .sim-tag { font-size: 11px; background: #1e293b; padding: 2px 6px; border-radius: 4px; color: #94a3b8; font-family: monospace; }
+  .file-path-badge { font-size: 12px; color: #f59e0b; font-family: monospace; font-weight: 600; }
+
+  /* In-Card Container (Matching SwipeCard) */
+  .card-shell {
+    width: 100%;
+    max-width: 360px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  }
+  .cover-box {
+    position: relative;
+    width: 100%;
+    height: 440px;
+    overflow: hidden;
+  }
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 16px 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-chip {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.9);
+    color: #000;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .card-title-mock { font-size: 20px; font-weight: 800; color: #fff; line-height: 1.2; }
+  .card-sub-mock { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 4px; }
+  .sim-caption { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px; }
+
+  /* Uncropped Image Box */
+  .uncropped-box {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    max-height: 440px;
+  }
+  .uncropped-img {
+    max-width: 100%;
+    max-height: 440px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .meta-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px 16px;
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .meta-k { color: var(--text-muted); }
+  .meta-v { font-weight: 600; color: #fff; }
+  .highlight-dim { color: #38bdf8; font-weight: 700; }
+
+  .special-callout {
+    margin-top: 14px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid #92400e;
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .callout-title { font-weight: 800; color: #fde68a; font-size: 13px; margin-bottom: 4px; }
+  .callout-body { font-size: 13px; color: #fef3c7; line-height: 1.45; }
+
+  .source-note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <h1>WeshNakul — Fried Chicken Final Visual Review Gallery</h1>
+    <p class="subtitle">
+      Comprehensive inspection of the actual local files stored in <code>public/images/restaurants/fried_chicken/</code> across all 19 canonical brands. Displays real-time in-card simulation (<code>object-fit: cover</code>) alongside full uncropped source files.
+    </p>
+
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-val">19 / 19</div>
+        <div class="stat-label">Total Brands</div>
+        <div class="stat-sub">100% locally verified</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">2.08 MB</div>
+        <div class="stat-label">Total Category Weight</div>
+        <div class="stat-sub">All 19 local images combined</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color: #ef4444;">3 Brands</div>
+        <div class="stat-label">Traditional Broast Pool</div>
+        <div class="stat-sub">Rami, Al Najah, Broast Hanoo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color: #f59e0b;">3 Special Checks</div>
+        <div class="stat-label">Focused Visual Audits</div>
+        <div class="stat-sub">Dabboos, Al Najah, Hanoo</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Nav -->
+  <nav class="quick-nav">
+    <span class="nav-label">Jump to:</span>
+    <a href="#card-albaik" class="nav-link ">1. ALBAIK</a>
+<a href="#card-raising_canes" class="nav-link ">2. Raising Cane's</a>
+<a href="#card-kfc" class="nav-link ">3. KFC</a>
+<a href="#card-texas_chicken" class="nav-link ">4. Texas Chicken</a>
+<a href="#card-popeyes" class="nav-link ">5. Popeyes</a>
+<a href="#card-daves_hot_chicken" class="nav-link ">6. Dave's Hot Chicken</a>
+<a href="#card-tndr" class="nav-link ">7. TNDR</a>
+<a href="#card-wingstop" class="nav-link ">8. Wingstop</a>
+<a href="#card-crusted" class="nav-link ">9. Crusted</a>
+<a href="#card-crisper" class="nav-link ">10. Crisper</a>
+<a href="#card-dabboos" class="nav-link special">11. Dabboos</a>
+<a href="#card-sayakh" class="nav-link ">12. Sayakh</a>
+<a href="#card-nashvilles_hot_chicken" class="nav-link ">13. Nashville's Hot Chicken</a>
+<a href="#card-tenders_cart" class="nav-link ">14. Tenders Cart</a>
+<a href="#card-rami_broast" class="nav-link ">15. Rami Broast</a>
+<a href="#card-chicken_mubeen" class="nav-link ">16. Chicken Mubeen</a>
+<a href="#card-ktaykit" class="nav-link ">17. Ktaykit</a>
+<a href="#card-al_najah_broast" class="nav-link special">18. Al Najah Broast</a>
+<a href="#card-broast_hanoo" class="nav-link special">19. Broast Hanoo</a>
+  </nav>
+
+  <!-- Cards List -->
+  <main class="cards-list">
+    
+    <article class="review-card  " id="card-albaik">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">1</span>
+          <div>
+            <h2 class="brand-name">ALBAIK <span class="brand-name-ar">البيك</span></h2>
+            <div class="brand-meta-sub">ID: <code>albaik</code> &bull; Role: <strong>General Pool (Anchor)</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/albaik.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/albaik.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/albaik.jpg'; }"
+                alt="ALBAIK in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">ALBAIK</div>
+                <div class="card-sub-mock">البيك &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">albaik.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/albaik.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/albaik.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/albaik.jpg'; }"
+              alt="ALBAIK full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1440 &times; 953 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">180.7 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.51 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/albaik.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation delivery hero official item image: 4-piece chicken meal with fries, bun and garlic sauce.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-raising_canes">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">2</span>
+          <div>
+            <h2 class="brand-name">Raising Cane's <span class="brand-name-ar">ريزينج كانز</span></h2>
+            <div class="brand-meta-sub">ID: <code>raising_canes</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/raising-canes.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/raising-canes.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/raising-canes.jpg'; }"
+                alt="Raising Cane's in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Raising Cane's</div>
+                <div class="card-sub-mock">ريزينج كانز &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">raising-canes.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/raising-canes.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/raising-canes.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/raising-canes.jpg'; }"
+              alt="Raising Cane's full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">800 &times; 533 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">67.9 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.50 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/raising-canes.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation item image: Signature Box Combo chicken fingers with crinkle-cut fries, Texas toast, and Cane's sauce.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-kfc">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">3</span>
+          <div>
+            <h2 class="brand-name">KFC <span class="brand-name-ar">كنتاكي</span></h2>
+            <div class="brand-meta-sub">ID: <code>kfc</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/kfc.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/kfc.webp'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/kfc.webp'; }"
+                alt="KFC in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">KFC</div>
+                <div class="card-sub-mock">كنتاكي &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">kfc.webp</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/kfc.webp"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/kfc.webp'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/kfc.webp'; }"
+              alt="KFC full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">400 &times; 400 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">16.9 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">WebP</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.00 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/kfc.webp</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved AnaNinja catalog image: Signature KFC fried chicken bucket with crispy golden chicken pieces dominating frame.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-texas_chicken">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">4</span>
+          <div>
+            <h2 class="brand-name">Texas Chicken <span class="brand-name-ar">تكساس تشيكن</span></h2>
+            <div class="brand-meta-sub">ID: <code>texas_chicken</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/texas-chicken.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/texas-chicken.webp'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/texas-chicken.webp'; }"
+                alt="Texas Chicken in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Texas Chicken</div>
+                <div class="card-sub-mock">تكساس تشيكن &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">texas-chicken.webp</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/texas-chicken.webp"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/texas-chicken.webp'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/texas-chicken.webp'; }"
+              alt="Texas Chicken full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1920 &times; 1920 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">152.8 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">WebP</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.00 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/texas-chicken.webp</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved AnaNinja high-resolution item image: 2-piece golden fried chicken meal with fries and signature honey-butter biscuit.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-popeyes">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">5</span>
+          <div>
+            <h2 class="brand-name">Popeyes <span class="brand-name-ar">بوبايز</span></h2>
+            <div class="brand-meta-sub">ID: <code>popeyes</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/popeyes.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/popeyes.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/popeyes.jpg'; }"
+                alt="Popeyes in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Popeyes</div>
+                <div class="card-sub-mock">بوبايز &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">popeyes.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/popeyes.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/popeyes.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/popeyes.jpg'; }"
+              alt="Popeyes full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1024 &times; 768 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">115.3 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.33 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/popeyes.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved official TimeOut Riyadh feature photo: Signature Louisiana crispy fried chicken spread with dipping sauce and biscuits.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-daves_hot_chicken">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">6</span>
+          <div>
+            <h2 class="brand-name">Dave's Hot Chicken <span class="brand-name-ar">ديفز هوت تشيكن</span></h2>
+            <div class="brand-meta-sub">ID: <code>daves_hot_chicken</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/daves-hot-chicken.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/daves-hot-chicken.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/daves-hot-chicken.jpg'; }"
+                alt="Dave's Hot Chicken in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Dave's Hot Chicken</div>
+                <div class="card-sub-mock">ديفز هوت تشيكن &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">daves-hot-chicken.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/daves-hot-chicken.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/daves-hot-chicken.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/daves-hot-chicken.jpg'; }"
+              alt="Dave's Hot Chicken full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1024 &times; 768 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">97.4 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.33 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/daves-hot-chicken.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved Caterer Middle East feature photo: Signature Nashville hot chicken sliders and tenders loaded with Dave's sauce and crinkle fries.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-tndr">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">7</span>
+          <div>
+            <h2 class="brand-name">TNDR <span class="brand-name-ar">تندر</span></h2>
+            <div class="brand-meta-sub">ID: <code>tndr</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/tndr.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/tndr.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/tndr.jpg'; }"
+                alt="TNDR in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">TNDR</div>
+                <div class="card-sub-mock">تندر &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">tndr.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/tndr.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/tndr.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/tndr.jpg'; }"
+              alt="TNDR full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1200 &times; 600 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">67.1 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">2.00 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/tndr.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation cover photo: Crispy golden tenders platter with loaded sauces and seasoning.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-wingstop">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">8</span>
+          <div>
+            <h2 class="brand-name">Wingstop <span class="brand-name-ar">وينج ستوب</span></h2>
+            <div class="brand-meta-sub">ID: <code>wingstop</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/wingstop.webp"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/wingstop.webp'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/wingstop.webp'; }"
+                alt="Wingstop in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Wingstop</div>
+                <div class="card-sub-mock">وينج ستوب &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">wingstop.webp</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/wingstop.webp"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/wingstop.webp'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/wingstop.webp'; }"
+              alt="Wingstop full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1080 &times; 607 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">91.3 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">WebP</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.78 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/wingstop.webp</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved DeliveryHero / HungerStation chain asset: Assorted tossed wings platter with ranch dip and seasoned fries.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-crusted">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">9</span>
+          <div>
+            <h2 class="brand-name">Crusted <span class="brand-name-ar">كرستد</span></h2>
+            <div class="brand-meta-sub">ID: <code>crusted</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/crusted.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/crusted.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/crusted.jpg'; }"
+                alt="Crusted in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Crusted</div>
+                <div class="card-sub-mock">كرستد &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">crusted.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/crusted.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/crusted.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/crusted.jpg'; }"
+              alt="Crusted full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1200 &times; 1435 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">275.5 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">0.84 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/crusted.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved Arab News feature photo: Crusted Jeddah signature crispy fried chicken tenders with loaded house dipping sauce.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-crisper">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">10</span>
+          <div>
+            <h2 class="brand-name">Crisper <span class="brand-name-ar">كريسبر</span></h2>
+            <div class="brand-meta-sub">ID: <code>crisper</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/crisper.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/crisper.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/crisper.jpg'; }"
+                alt="Crisper in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Crisper</div>
+                <div class="card-sub-mock">كريسبر &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">crisper.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/crisper.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/crisper.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/crisper.jpg'; }"
+              alt="Crisper full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1200 &times; 800 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">127.5 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.50 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/crisper.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation item image: Crisper chicken strips and tenders box with signature sauce and crispy fries.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card special-card " id="card-dabboos">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">11</span>
+          <div>
+            <h2 class="brand-name">Dabboos <span class="brand-name-ar">دبوس</span></h2>
+            <div class="brand-meta-sub">ID: <code>dabboos</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-special">⭐ SPECIAL APPROVED</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/dabboos.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/dabboos.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/dabboos.jpg'; }"
+                alt="Dabboos in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Dabboos</div>
+                <div class="card-sub-mock">دبوس &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">dabboos.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/dabboos.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/dabboos.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/dabboos.jpg'; }"
+              alt="Dabboos full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1200 &times; 1796 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">333.6 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">0.67 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/dabboos.jpg</code></span></div>
+          </div>
+
+          
+          <div class="special-callout">
+            <div class="callout-title">🔍 Visual Inspection Note</div>
+            <div class="callout-body">USER-SPECIFIED OFFICIAL IMAGE: Exact URL requested (dabboos.sa/wp-content/uploads/2026/09/DSC08673-copy-scaled.jpg). Verified 100% authentic dish shot.</div>
+          </div>
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Exact user-selected official food image from dabboos.sa (DSC08673-copy-scaled.jpg): Signature golden chicken drumstick dish with premium dip.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-sayakh">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">12</span>
+          <div>
+            <h2 class="brand-name">Sayakh <span class="brand-name-ar">سياخ</span></h2>
+            <div class="brand-meta-sub">ID: <code>sayakh</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/sayakh.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/sayakh.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/sayakh.jpg'; }"
+                alt="Sayakh in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Sayakh</div>
+                <div class="card-sub-mock">سياخ &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">sayakh.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/sayakh.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/sayakh.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/sayakh.jpg'; }"
+              alt="Sayakh full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1280 &times; 875 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">80.5 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.46 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/sayakh.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation item image: Signature crispy chicken skewers with rich seasoned crust and dipping sauce.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-nashvilles_hot_chicken">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">13</span>
+          <div>
+            <h2 class="brand-name">Nashville's Hot Chicken <span class="brand-name-ar">ناشفيلز هوت تشيكن</span></h2>
+            <div class="brand-meta-sub">ID: <code>nashvilles_hot_chicken</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/nashvilles-hot-chicken.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/nashvilles-hot-chicken.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/nashvilles-hot-chicken.jpg'; }"
+                alt="Nashville's Hot Chicken in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Nashville's Hot Chicken</div>
+                <div class="card-sub-mock">ناشفيلز هوت تشيكن &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">nashvilles-hot-chicken.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/nashvilles-hot-chicken.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/nashvilles-hot-chicken.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/nashvilles-hot-chicken.jpg'; }"
+              alt="Nashville's Hot Chicken full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1000 &times; 750 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">47.8 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.33 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/nashvilles-hot-chicken.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved TimeOut Riyadh photo: Authentic Nashville hot chicken tenders and slider plate with pickles and paprika spice crust.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-tenders_cart">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">14</span>
+          <div>
+            <h2 class="brand-name">Tenders Cart <span class="brand-name-ar">تندرز كارت</span></h2>
+            <div class="brand-meta-sub">ID: <code>tenders_cart</code> &bull; Role: <strong>General Pool</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/tenders-cart.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/tenders-cart.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/tenders-cart.jpg'; }"
+                alt="Tenders Cart in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Tenders Cart</div>
+                <div class="card-sub-mock">تندرز كارت &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">tenders-cart.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/tenders-cart.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/tenders-cart.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/tenders-cart.jpg'; }"
+              alt="Tenders Cart full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1200 &times; 800 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">75.8 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.50 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/tenders-cart.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved DeliveryHero menu item image: Crisp golden tenders basket with seasoned crinkle fries and sauce.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  rotation-card" id="card-rami_broast">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">15</span>
+          <div>
+            <h2 class="brand-name">Rami Broast <span class="brand-name-ar">بروست رامي</span></h2>
+            <div class="brand-meta-sub">ID: <code>rami_broast</code> &bull; Role: <strong>Broast Rotation Pool (1 of 3)</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-rotation">🍗 BROAST ROTATION POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/rami-broast.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/rami-broast.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/rami-broast.jpg'; }"
+                alt="Rami Broast in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Rami Broast</div>
+                <div class="card-sub-mock">بروست رامي &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">rami-broast.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/rami-broast.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/rami-broast.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/rami-broast.jpg'; }"
+              alt="Rami Broast full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1500 &times; 750 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">122.8 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">2.00 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/rami-broast.jpg</code></span></div>
+          </div>
+
+          
+          <div class="special-callout">
+            <div class="callout-title">🔍 Visual Inspection Note</div>
+            <div class="callout-body">Traditional Broast rotation pool brand. Verified authentic Rami Broast dish.</div>
+          </div>
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation cover asset: Signature 4-piece traditional broasted chicken plate with garlic sauce, fries and bread.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-chicken_mubeen">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">16</span>
+          <div>
+            <h2 class="brand-name">Chicken Mubeen <span class="brand-name-ar">دجاج مبين</span></h2>
+            <div class="brand-meta-sub">ID: <code>chicken_mubeen</code> &bull; Role: <strong>General Pool (Traditional Subtype Preserved)</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/chicken-mubeen.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/chicken-mubeen.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/chicken-mubeen.jpg'; }"
+                alt="Chicken Mubeen in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Chicken Mubeen</div>
+                <div class="card-sub-mock">دجاج مبين &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">chicken-mubeen.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/chicken-mubeen.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/chicken-mubeen.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/chicken-mubeen.jpg'; }"
+              alt="Chicken Mubeen full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">2000 &times; 1333 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">148.1 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.50 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/chicken-mubeen.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation asset: Authentic 4-piece Chicken Mubeen broasted chicken meal with golden skin, garlic dip and fries.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card  " id="card-ktaykit">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">17</span>
+          <div>
+            <h2 class="brand-name">Ktaykit <span class="brand-name-ar">كتاكيت</span></h2>
+            <div class="brand-meta-sub">ID: <code>ktaykit</code> &bull; Role: <strong>General Pool (Traditional Subtype Preserved)</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-general">✓ GENERAL POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/ktaykit.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/ktaykit.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/ktaykit.jpg'; }"
+                alt="Ktaykit in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Ktaykit</div>
+                <div class="card-sub-mock">كتاكيت &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">ktaykit.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/ktaykit.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/ktaykit.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/ktaykit.jpg'; }"
+              alt="Ktaykit full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">1999 &times; 1333 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">116.8 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.50 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/ktaykit.jpg</code></span></div>
+          </div>
+
+          
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Approved HungerStation asset: Ktaykit 4-piece traditional broast / mofalfal chicken meal with garlic dip and bread.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card special-card rotation-card" id="card-al_najah_broast">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">18</span>
+          <div>
+            <h2 class="brand-name">Al Najah Broast <span class="brand-name-ar">بروست النجاح</span></h2>
+            <div class="brand-meta-sub">ID: <code>al_najah_broast</code> &bull; Role: <strong>Broast Rotation Pool (1 of 3)</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-rotation">🍗 BROAST ROTATION POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/al-najah-broast.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/al-najah-broast.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/al-najah-broast.jpg'; }"
+                alt="Al Najah Broast in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Al Najah Broast</div>
+                <div class="card-sub-mock">بروست النجاح &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">al-najah-broast.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/al-najah-broast.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/al-najah-broast.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/al-najah-broast.jpg'; }"
+              alt="Al Najah Broast full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">235 &times; 310 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">32.8 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">0.76 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/al-najah-broast.jpg</code></span></div>
+          </div>
+
+          
+          <div class="special-callout">
+            <div class="callout-title">🔍 Visual Inspection Note</div>
+            <div class="callout-body">GENUINE AL NAJAH FOOD CROP: Extracted from approved RestaurantGuru photo gallery (cc99). Cropped to isolate authentic golden broasted chicken pieces and toast, eliminating background noise and watermark.</div>
+          </div>
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Extracted from approved RestaurantGuru gallery (restaurantguru.com/Al-Najah-Broast-brwst-alnjah-Jeddah-2): Genuine Al Najah broasted chicken in aluminum container with toasted bread.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="review-card special-card rotation-card" id="card-broast_hanoo">
+      <header class="card-head">
+        <div class="card-num-title">
+          <span class="brand-num">19</span>
+          <div>
+            <h2 class="brand-name">Broast Hanoo <span class="brand-name-ar">بروست هنو</span></h2>
+            <div class="brand-meta-sub">ID: <code>broast_hanoo</code> &bull; Role: <strong>Broast Rotation Pool (1 of 3)</strong></div>
+          </div>
+        </div>
+        <div class="badge-group">
+          <span class="badge badge-rotation">🍗 BROAST ROTATION POOL</span>
+        </div>
+      </header>
+
+      <div class="visual-grid">
+        <!-- In-Card Simulation Column (SwipeCard object-fit: cover simulation) -->
+        <div class="sim-col">
+          <div class="sim-header">
+            <span class="sim-title">WeshNakul Card Simulation</span>
+            <span class="sim-tag">object-fit: cover</span>
+          </div>
+          <div class="card-shell">
+            <div class="cover-box">
+              <img
+                src="../../public/images/restaurants/fried_chicken/broast-hanoo.jpg"
+                onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/broast-hanoo.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/broast-hanoo.jpg'; }"
+                alt="Broast Hanoo in-card simulation"
+                class="cover-img"
+                loading="lazy"
+              />
+              <div class="card-overlay">
+                <div class="card-chip">Fried Chicken</div>
+                <div class="card-title-mock">Broast Hanoo</div>
+                <div class="card-sub-mock">بروست هنو &bull; ⭐ 4.6</div>
+              </div>
+            </div>
+          </div>
+          <div class="sim-caption">Matches SwipeCard.tsx presentation in app deck</div>
+        </div>
+
+        <!-- Full File Details & Uncropped Image Column -->
+        <div class="detail-col">
+          <div class="uncropped-header">
+            <span class="sim-title">Original Uncropped File Asset</span>
+            <span class="file-path-badge">broast-hanoo.jpg</span>
+          </div>
+          <div class="uncropped-box">
+            <img
+              src="../../public/images/restaurants/fried_chicken/broast-hanoo.jpg"
+              onerror="this.onerror=null; this.src='public/images/restaurants/fried_chicken/broast-hanoo.jpg'; this.onerror=function(){ this.src='/images/restaurants/fried_chicken/broast-hanoo.jpg'; }"
+              alt="Broast Hanoo full uncropped"
+              class="uncropped-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="meta-table">
+            <div class="meta-row"><span class="meta-k">Dimensions:</span><span class="meta-v highlight-dim">980 &times; 620 px</span></div>
+            <div class="meta-row"><span class="meta-k">File Size:</span><span class="meta-v">111.9 KB</span></div>
+            <div class="meta-row"><span class="meta-k">Format:</span><span class="meta-v">JPEG</span></div>
+            <div class="meta-row"><span class="meta-k">Aspect Ratio:</span><span class="meta-v">1.58 : 1</span></div>
+            <div class="meta-row"><span class="meta-k">Local Path:</span><span class="meta-v"><code>public/images/restaurants/fried_chicken/broast-hanoo.jpg</code></span></div>
+          </div>
+
+          
+          <div class="special-callout">
+            <div class="callout-title">🔍 Visual Inspection Note</div>
+            <div class="callout-body">HISTORIC AL-BALAD RESTAURANT: Decrypted from Destination KSA Issue 142 page 80 feature. Isolated and cropped high-resolution golden broasted chicken and fries serving dish without magazine collage text.</div>
+          </div>
+
+          <div class="source-note">
+            <strong>Source & Verification:</strong> Extracted from Destination KSA Issue 142 (Al-Balad, Jeddah feature): Authentic golden crispy broasted chicken in aluminum container with hot fries.
+          </div>
+        </div>
+      </div>
+    </article>
+    
+  </main>
+
+</div>
+</body>
+</html>

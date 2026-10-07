@@ -9,6 +9,7 @@ import type {
 import { logDeckError } from './observability';
 import { getBurgerBrandImage } from '../data/burgerBrandImages';
 import { getShawarmaBrandImage } from '../data/shawarmaBrandImages';
+import { getFriedChickenBrandImage } from '../data/friedChickenBrandImages';
 
 const VALID_PRICE_TIERS = new Set<PriceTier>(['$', '$$', '$$$']);
 const VALID_DINING_MODES = new Set<DiningMode>(['both', 'delivery_only', 'dine_in_only']);
@@ -321,6 +322,11 @@ export function normalizeRestaurantDeck(
         const shawarmaImage = getShawarmaBrandImage(item.id) || getShawarmaBrandImage(item.nameEn);
         if (shawarmaImage) {
           item.imageUrl = shawarmaImage;
+        } else {
+          const friedChickenImage = getFriedChickenBrandImage(item.id) || getFriedChickenBrandImage(item.nameEn);
+          if (friedChickenImage) {
+            item.imageUrl = friedChickenImage;
+          }
         }
       }
     }

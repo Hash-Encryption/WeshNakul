@@ -109,6 +109,11 @@ async function main() {
     await db.exec(migration('20261007000100_merge_broast_into_fried_chicken.sql'));
   }
 
+  if (fs.existsSync('supabase/migrations/20261007000200_fried_chicken_deck_broast_rotation.sql')) {
+    console.log('Applying 20261007000200_fried_chicken_deck_broast_rotation.sql...');
+    await db.exec(migration('20261007000200_fried_chicken_deck_broast_rotation.sql'));
+  }
+
   // Helper to test deck generation (15 real food categories, broast retired)
   const activeCategories = [
     'burger', 'shawarma', 'fried_chicken', 'rice', 'grill', 'pizza', 'sushi',
@@ -200,6 +205,47 @@ async function main() {
   }
 
   console.log('\n======================================================');
+  console.log('FOCUSED FRIED CHICKEN DECK COMPOSITION AUDIT (25 DRAWS)');
+  console.log('======================================================');
+  const rotationPool = ['rami_broast', 'al_najah_broast', 'broast_hanoo'];
+  const seenRotationMembers = new Set();
+  const seenPositions = new Set();
+
+  for (let i = 1; i <= 25; i++) {
+    try {
+      const res = await db.query(`SELECT test_create_deck('fried_chicken', 'both', 'al_rawdah') as deck`);
+      const deck = res.rows[0].deck;
+      const cards = deck.restaurants || deck.cards || [];
+      if (cards.length !== 7) throw new Error(`Draw ${i} expected 7 cards, got ${cards.length}`);
+
+      const rotCards = cards.filter(c => rotationPool.includes(c.id));
+      const genCards = cards.filter(c => !rotationPool.includes(c.id));
+
+      if (rotCards.length !== 1) {
+        throw new Error(`Draw ${i} expected 1 rotation card, got ${rotCards.length} (${rotCards.map(c => c.id)})`);
+      }
+      if (genCards.length !== 6) {
+        throw new Error(`Draw ${i} expected 6 general cards, got ${genCards.length}`);
+      }
+
+      const rotCard = rotCards[0];
+      seenRotationMembers.add(rotCard.id);
+      const pos = cards.findIndex(c => c.id === rotCard.id);
+      seenPositions.add(pos);
+    } catch (err) {
+      console.error(`Draw ${i} ERROR:`, err.message);
+      throw err;
+    }
+  }
+
+  console.log(`✓ All 25 Fried Chicken decks contain exactly 7 cards`);
+  console.log(`✓ All 25 Fried Chicken decks contain exactly 1 rotation card + 6 general cards`);
+  console.log(`✓ Rotation variety observed across draws: [${[...seenRotationMembers].join(', ')}]`);
+  console.log(`✓ Shuffled positions observed across draws: [${[...seenPositions].sort().map(p => p+1).join(', ')}]`);
+  if (seenRotationMembers.size < 2) throw new Error('Rotation pool should rotate across draws');
+  if (seenPositions.size < 3) throw new Error('Rotation card position should be randomized');
+
+  console.log('\n======================================================');
   console.log('OVERLAP ANALYSIS');
   console.log('======================================================');
 
@@ -251,6 +297,6 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error(err);
+  console.error('TOP LEVEL ERROR:', err.message);
   process.exit(1);
 });

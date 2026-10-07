@@ -164,6 +164,9 @@ try {
   console.log('4c. Applying forward taxonomy merge migration (20261007000100)...');
   await db.exec(migration('20261007000100_merge_broast_into_fried_chicken.sql'));
 
+  console.log('4d. Applying forward Fried Chicken deck Broast rotation migration (20261007000200)...');
+  await db.exec(migration('20261007000200_fried_chicken_deck_broast_rotation.sql'));
+
   // --- 15 MANDATORY ASSERTIONS FROM APPROVED SPECIFICATION ---
 
   // 1. Exactly 19 expected chicken brands still exist
@@ -280,10 +283,44 @@ try {
 
   await db.exec('SET ROLE anon');
   const deckFC = (await query(`SELECT public.get_or_create_restaurant_deck('${roomFC}', '${hostFC}', '${tokenFC}', NULL) deck`))[0].deck;
-  check(deckFC.generation === 0 && deckFC.restaurants.length === 7, '8. Fried Chicken deck generates 7 cards');
+  check(deckFC.generation === 0 && deckFC.restaurants.length === 7, '8a. Fried Chicken deck generates 7 cards');
   check(deckFC.restaurants.every(r => r.categories.includes('fried_chicken')), 'All restaurants in deck are eligible for fried_chicken');
   check(deckFC.restaurants.every(r => r.selectedBranch && r.selectedBranch.googleMapsUrl && r.selectedBranch.distanceKm !== null), 'Branches have maps URLs and distance');
+
+  const rotPool = ['rami_broast', 'al_najah_broast', 'broast_hanoo'];
+  const rotInDeck = deckFC.restaurants.filter(r => rotPool.includes(r.id));
+  const genInDeck = deckFC.restaurants.filter(r => !rotPool.includes(r.id));
+  check(rotInDeck.length === 1, `8b. Exactly 1 card from rotation pool [rami_broast, al_najah_broast, broast_hanoo] (found: ${rotInDeck.map(r=>r.id)})`);
+  check(genInDeck.length === 6, '8c. Exactly 6 cards from general pool');
+
+  // Multi-draw verification
   await db.exec('RESET ROLE');
+  const seenRotBrands = new Set();
+  const seenRotPositions = new Set();
+  for (let i = 1; i <= 20; i++) {
+    const testRoom = `70000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
+    const testHost = `80000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
+    const testToken = `token-fc-draw-${i}`;
+    await db.exec(`
+      INSERT INTO rooms (id, code, status, eating_mode, city, neighborhood, language, host_participant_id, current_stage, stage, winning_category, swiping_started_at)
+      VALUES ('${testRoom}', 'FC${String(i).padStart(2, '0')}', 'restaurant_selection', 'dine_in', 'jeddah', 'Al Rawdah', 'ar', '${testHost}', 'swiping', 'swiping', 'fried_chicken', '2026-10-07T12:00:00Z');
+      INSERT INTO participants (id, room_id, session_token, nickname, player_color, player_shape, is_host)
+      VALUES ('${testHost}', '${testRoom}', '${testToken}', 'User${i}', '#FF6B6B', 'star', true);
+    `);
+    await db.exec('SET ROLE anon');
+    const d = (await query(`SELECT public.get_or_create_restaurant_deck('${testRoom}', '${testHost}', '${testToken}', NULL) deck`))[0].deck;
+    await db.exec('RESET ROLE');
+    check(d.restaurants.length === 7, `Draw ${i} length is 7`);
+    const rCards = d.restaurants.filter(r => rotPool.includes(r.id));
+    const gCards = d.restaurants.filter(r => !rotPool.includes(r.id));
+    check(rCards.length === 1, `Draw ${i} has exactly 1 rotation card`);
+    check(gCards.length === 6, `Draw ${i} has exactly 6 general cards`);
+    seenRotBrands.add(rCards[0].id);
+    const pos = d.restaurants.findIndex(r => r.id === rCards[0].id);
+    seenRotPositions.add(pos);
+  }
+  check(seenRotBrands.size >= 2, '8d. Rotation pool rotates dynamically across draws');
+  check(seenRotPositions.size >= 3, '8e. Rotation card position is randomized within the deck');
 
   // 9. private.allowed_categories('food') contains 'fried_chicken'
   const allowedFood = (await query(`SELECT private.allowed_categories('food') cats`))[0].cats;
@@ -327,8 +364,9 @@ try {
   check(totalChickenBranches === 75, '14. No branch loss (exactly 75 branches for fried_chicken primary brands)');
 
   // 15. Migration is safe/idempotent where appropriate
-  console.log('5. Testing migration idempotence (re-applying 20261007000100_merge_broast_into_fried_chicken.sql)...');
+  console.log('5. Testing migration idempotence (re-applying 20261007000100 and 20261007000200)...');
   await db.exec(migration('20261007000100_merge_broast_into_fried_chicken.sql'));
+  await db.exec(migration('20261007000200_fried_chicken_deck_broast_rotation.sql'));
 
   const reBrandCount = (await query(`SELECT count(*)::int n FROM restaurants WHERE id IN (${chickenIdsSql}) AND primary_category = 'fried_chicken'`))[0].n;
   check(reBrandCount === 19, '15a. Idempotence: all 19 brands still fried_chicken');

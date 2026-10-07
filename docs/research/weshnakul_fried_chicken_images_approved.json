@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.0",
+  "category": "fried_chicken",
+  "city": "Jeddah",
+  "generated_for": "WeshNakul",
+  "research_status": "complete",
+  "brand_count": 19,
+  "image_policy": {
+    "one_image_per_brand": true,
+    "food_focused_preferred": true,
+    "no_collages": true,
+    "no_hotlinking_in_app": true,
+    "download_locally": true,
+    "validate_image_content_before_use": true,
+    "broast_rotation": {
+      "enabled": true,
+      "rule": "exactly_one_when_pool_available",
+      "cards_per_deck": 7,
+      "pool_brand_ids": [
+        "rami_broast",
+        "al_najah_broast",
+        "broast_hanoo"
+      ],
+      "notes": "These three are local/traditional Broast variety slots, not anchors. ALBAIK does not count toward this special slot."
+    }
+  },
+  "brands": [
+    {
+      "id": "albaik",
+      "name": "ALBAIK",
+      "selection_status": "approved",
+      "target_image": "ALBAIK 4 Piece Chicken Meal / signature fried chicken meal",
+      "direct_image_url": "https://images.deliveryhero.io/image/hungerstation/menus/menuitem/hsimg-34006599-1740486016?quality=75&width=1440",
+      "source_page_url": "https://hungerstation.com/sa-en/restaurant/jeddah/jeddah-islamic-seaport/44450",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "raising_canes",
+      "name": "Raising Cane's",
+      "selection_status": "approved",
+      "target_image": "Box Combo / signature chicken fingers with fries, toast and Cane's sauce",
+      "direct_image_url": null,
+      "source_page_url": "https://hungerstation.com/sa-en/restaurant/riyadh/riyadh/85369",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "kfc",
+      "name": "KFC",
+      "selection_status": "approved",
+      "target_image": "Saudi KFC fried chicken bucket/meal; food must dominate",
+      "direct_image_url": "https://img.ananinja.com/media/ninja-catalog-42/restaurants/pvemxhrq7p1204p9k9n8vib6t3tw/1216.jpg?q=75&w=1080",
+      "source_page_url": "https://ananinja.com/sa/en/restaurants/kfc-32053",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "texas_chicken",
+      "name": "Texas Chicken",
+      "selection_status": "approved",
+      "target_image": "2-piece fried chicken meal with fries and bun",
+      "direct_image_url": "https://img.ananinja.com/media/ninja-catalog-42/restaurants/kdycqhskww3036tthetyh0bd8n9c/92414.jpg",
+      "source_page_url": "https://ananinja.com/sa/en/restaurants/texas-chicken-2144/2-pc-chicken-with-value-fries-bun-184771",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "popeyes",
+      "name": "Popeyes",
+      "selection_status": "approved",
+      "target_image": "Popeyes branded fried chicken spread/family meal",
+      "direct_image_url": null,
+      "source_page_url": "https://www.timeoutriyadh.com/food-drink/popeyes-saudi-arabia-is-expanding",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "daves_hot_chicken",
+      "name": "Dave's Hot Chicken",
+      "selection_status": "approved",
+      "target_image": "Dave's signature hot chicken tenders/sliders; chicken prominent",
+      "direct_image_url": "https://www.caterermiddleeast.com/cloud/2026/03/31/Daves-Hot-Chicken-Jeddah-expansion-copy-1024x768.jpg",
+      "source_page_url": "https://hungerstation.com/sa-en/restaurant/jeddah/jeddah-islamic-seaport/top-offers/106488",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "tndr",
+      "name": "TNDR",
+      "selection_status": "approved",
+      "target_image": "TNDR signature crispy chicken/tenders",
+      "direct_image_url": "https://images.deliveryhero.io/image/hungerstation/restaurant/android_cover_photo/2b42df4df5a85930d9efe2099b3aa7b0.jpg?quality=75&width=1200",
+      "source_page_url": "https://hungerstation.com/sa-ar/restaurants/regions/%D8%AC%D8%AF%D9%87/%D8%A7%D9%84%D8%A8%D9%84%D8%AF/%D8%AA%D9%86%D8%AF%D8%B1-103936",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "wingstop",
+      "name": "Wingstop",
+      "selection_status": "approved",
+      "target_image": "Branded Wingstop wings platter; wings prominent",
+      "direct_image_url": "https://images.deliveryhero.io/image/menu-import-gateway-prd/regions/ME/chains/HS-WSTOP/2da8a707239f7f3ca9d209130a4c90f1.jpg?quality=75&webp=true&width=1080",
+      "source_page_url": "https://hungerstation.com/sa-en/restaurant/riyadh/al-waha/170778",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "crusted",
+      "name": "Crusted",
+      "selection_status": "approved",
+      "target_image": "Crusted Nashville fried chicken spread",
+      "direct_image_url": "https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2025/11/29/4662983-401477762.jpg?itok=uUi7xTSK",
+      "source_page_url": "https://www.arabnews.com/food-health/where-we-are-going-today-crusted-fried-chicken-in-jeddah-2624435",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "crisper",
+      "name": "Crisper",
+      "selection_status": "approved",
+      "target_image": "Crisper Nashville/strips meal; fried chicken prominent",
+      "direct_image_url": null,
+      "source_page_url": "https://hungerstation.com/sa-en/restaurant/jeddah/al-asalah/86492",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "dabboos",
+      "name": "Dabboos",
+      "selection_status": "approved_user_choice",
+      "target_image": "User-approved official Dabboos food photo",
+      "direct_image_url": "https://dabboos.sa/wp-content/uploads/2026/09/DSC08673-copy-scaled.jpg",
+      "source_page_url": "https://dabboos.sa/",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "sayakh",
+      "name": "Sayakh",
+      "selection_status": "approved",
+      "target_image": "Sayakh fried/broasted chicken food image",
+      "direct_image_url": null,
+      "source_page_url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ar-rawdah/saya5-77765",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "nashvilles_hot_chicken",
+      "name": "Nashville's Hot Chicken",
+      "selection_status": "approved",
+      "target_image": "Nashville's signature hot chicken/tenders",
+      "direct_image_url": "https://www.timeoutriyadh.com/cloud/timeoutriyadh/2024/09/16/Nashvilles-6-1000x750.jpg",
+      "source_page_url": null,
+      "broast_rotation_member": false
+    },
+    {
+      "id": "tenders_cart",
+      "name": "Tenders Cart",
+      "selection_status": "approved",
+      "target_image": "Signature chicken tenders meal",
+      "direct_image_url": "https://images.deliveryhero.io/image/hungerstation/menuitem/image/29053565?quality=75&webp=true&width=1440",
+      "source_page_url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-murjan/tenders-cart-106091",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "rami_broast",
+      "name": "Rami Broast",
+      "selection_status": "approved",
+      "target_image": "Broasted Chicken Regular / signature broast meal",
+      "direct_image_url": "https://hungerstation.com/_next/image?q=75&url=https%3A%2F%2Fimages.deliveryhero.io%2Fimage%2Fhungerstation%2Frestaurant%2Fandroid_cover_photo%2Fae40711a2277c1dccbb33791916d305c.jpg&w=1440",
+      "source_page_url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-ajwad/rami-broast-30008",
+      "broast_rotation_member": true
+    },
+    {
+      "id": "chicken_mubeen",
+      "name": "Chicken Mubeen",
+      "selection_status": "approved",
+      "target_image": "Regular Broasted Chicken / genuine Chicken Mubeen meal",
+      "direct_image_url": null,
+      "source_page_url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/al-ferdous/chicken-mubeen-160165",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "ktaykit",
+      "name": "Ktaykit",
+      "selection_status": "approved",
+      "target_image": "Ktaykit Regular or Ktaykit Mofalfal 4-piece chicken meal",
+      "direct_image_url": null,
+      "source_page_url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ar-rabwah/ktaykit-15458",
+      "broast_rotation_member": false
+    },
+    {
+      "id": "al_najah_broast",
+      "name": "Al Najah Broast",
+      "selection_status": "approved",
+      "target_image": "Genuine Al Najah broasted chicken food photo; simple usable crop is acceptable",
+      "direct_image_url": null,
+      "source_page_url": "https://ar.restaurantguru.com/Al-Najah-Broast-brwst-alnjah-Jeddah-2",
+      "broast_rotation_member": true
+    },
+    {
+      "id": "broast_hanoo",
+      "name": "Broast Hanoo",
+      "selection_status": "approved_source_crop",
+      "target_image": "Genuine Broast Hanoo crispy broast chicken photo from Al-Balad coverage/gallery; simple food crop is acceptable",
+      "direct_image_url": null,
+      "source_page_url": "https://fliphtml5.com/iwmhr/kmin/DKSA_JED_142_JAN-FEB_25/",
+      "broast_rotation_member": true,
+      "notes": "Historic Al-Balad restaurant. Do not substitute a similarly named restaurant. Verify the image is actually Broast Hanoo before saving."
+    }
+  ]
+}
