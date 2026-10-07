@@ -6,50 +6,79 @@
 -- Strict WeshNakul Standard: VERIFIED REALITY > COMPLETENESS.
 -- Unknown/null is ALWAYS preferred over unverified or assumed facts.
 --
--- Audit Summary:
--- 1. Texas Roadhouse ('texas_roadhouse'):
---    - Verified facts from official Alshaya/Texas Roadhouse locator & Google Places:
---      * Brand name: Texas Roadhouse / تكساس رودهاوس
---      * Approved editorial role: staple, going_out, grills, american, steakhouse, $$$ / premium
---      * Le Mall Branch: Al Andalus, Place ID ChIJb1GhhhDQwxURDjHOC0sO0nM, Phone +966122617026
---      * Red Sea Mall Branch: Ash Shati (al_shati), Place ID ChIJeUDVLcrbwxUR-gZEIBzRlns, Phone +966122303409
---      * Official website: https://www.texasroadhouse.com/
---    - ALL unsourced fields set to NULL / neutral schema defaults:
---      * Google ratings & review counts -> NULL (rating_source = 'unknown')
---      * Coordinates -> NULL (strict refusal to invent coordinates)
---      * Prep time -> 20 (schema default)
---      * Closing time -> '' (empty neutral string, no 1:00 AM assumption)
---      * is_open_late -> false (neutral)
---      * Spend per person -> NULL (no 80-180 assumption)
---      * Delivery platforms -> false (no Jahez/HungerStation assumption)
---      * Menu claims & signature dish -> '' (neutral, no unverified claims)
---      * Menu verification date -> NULL (no fake menu sync)
---      * Branch phones -> preserved in geographic_notes & provenance
---
--- 2. Yildizlar ('yildizlar_restaurant') Retirement:
---    - Non-destructive disqualification without inventing 'retired' category.
---    - Sets research_use = 'manual_review_only' (disqualifies from create_restaurant_deck).
---    - Removes 'grills' and 'grill' from categories and secondary_categories.
---    - Idempotent manual_review_reasons array check.
---    - Preserves historical row, branch rows, Google Place ID, and analytics.
---
--- 3. Alsheesh BBQ ('istanbul_grill_restaurant') Identity Correction:
---    - Preserves historical ID istanbul_grill_restaurant for DB integrity.
---    - Corrects canonical names to 'Alsheesh BBQ' / 'الشيش للمشويات'.
---    - Idempotent manual_review_reasons array check.
---
--- 4. Al Nakheel ('al_nakheel_restaurant') Multi-Category Eligibility:
---    - ADDITIVE update only: preserves existing categories ('grills', 'middle_eastern').
---    - Adds 'breakfast', 'street_folk', 'falafel' via idempotent set union.
---    - Preserves primary_category = 'grills'.
---    - Sets serves_breakfast_menu = true.
+-- ============================================================================
+-- PREFLIGHT VERIFICATION (READ-ONLY INSPECTION QUERIES)
+-- Run these queries prior to approving migration execution:
+-- ============================================================================
+/*
+-- 1. Check if Texas Roadhouse brand already exists:
+SELECT id, name_en, name_ar, primary_category, categories, research_use
+FROM public.restaurants
+WHERE id = 'texas_roadhouse';
+
+-- 2. Check if either Texas Roadhouse Place ID is already registered in DB:
+SELECT id, restaurant_id, branch_name_en, district, google_place_id, latitude, longitude
+FROM public.restaurant_branches
+WHERE google_place_id IN ('ChIJb1GhhhDQwxURDjHOC0sO0nM', 'ChIJeUDVLcrbwxUR-gZEIBzRlns');
+
+-- 3. Check current Yildizlar state:
+SELECT id, name_en, primary_category, categories, secondary_categories, research_use, manual_review_required, manual_review_reasons
+FROM public.restaurants
+WHERE id = 'yildizlar_restaurant';
+
+-- 4. Check Istanbul Grill identity and Place ID:
+SELECT r.id, r.name_en, r.name_ar, b.google_place_id, b.address_en, b.district
+FROM public.restaurants r
+LEFT JOIN public.restaurant_branches b ON b.restaurant_id = r.id
+WHERE r.id = 'istanbul_grill_restaurant';
+
+-- 5. Check Al Nakheel current categories:
+SELECT id, name_en, primary_category, categories, secondary_categories, time_slots, serves_breakfast_menu
+FROM public.restaurants
+WHERE id = 'al_nakheel_restaurant';
+
+-- 6. Check required enum types and labels:
+SELECT enumtypid::regtype AS enum_name, enumlabel
+FROM pg_enum
+WHERE enumtypid::regtype::text IN (
+  'public.research_use',
+  'public.operating_status',
+  'public.branch_type',
+  'public.price_position',
+  'public.rating_source',
+  'public.intelligence_confidence'
+)
+ORDER BY enum_name, enumsortorder;
+*/
 -- ============================================================================
 
 BEGIN;
 
 -- ============================================================================
+-- SAFETY GUARD: Assert no Place ID collision with an unrelated brand
+-- ============================================================================
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM public.restaurant_branches old
+    WHERE old.google_place_id IN ('ChIJb1GhhhDQwxURDjHOC0sO0nM', 'ChIJeUDVLcrbwxUR-gZEIBzRlns')
+      AND old.restaurant_id <> 'texas_roadhouse'
+  ) THEN
+    RAISE EXCEPTION 'Place ID collision: One of the Texas Roadhouse Place IDs is already assigned to a different restaurant in public.restaurant_branches';
+  END IF;
+END $$;
+
+
+-- ============================================================================
 -- 1. TEXAS ROADHOUSE BRAND & BRANCH INSERT (VERIFIED FACTS ONLY)
 -- ============================================================================
+-- Note on technical defaults vs verified facts:
+-- - avg_prep_minutes (20): Schema default requirement, NOT a measured kitchen prep time.
+-- - platforms (all false): Reflects unresearched delivery listings, NOT confirmed absence from Jahez/HungerStation.
+-- - time_slots ('{}'): Operating meal windows are unresearched.
+-- - closing_time_ar (''): Neutral string, closing hours are unresearched.
+-- - spend min/max (NULL): Unresearched spend figures remain strictly NULL.
+-- - signature dish / vibes ('' / '{}'): No unresearched menu marketing claims added.
 INSERT INTO public.restaurants (
   id,
   name_ar,
@@ -134,7 +163,7 @@ INSERT INTO public.restaurants (
   'staple'::public.editorial_role,
   '{}'::text[],
   ARRAY['going_out'],
-  'Approved going-out destination grill per human review handoff',
+  'Approved going-out destination grill per human review handoff. Technical defaults (prep_time=20, platforms all false) used where schema requires non-null but reflect unresearched fields.',
   'restaurant',
   'open',
   'high'::public.intelligence_confidence,
@@ -162,48 +191,33 @@ INSERT INTO public.restaurants (
   categories = EXCLUDED.categories,
   is_city_wide = EXCLUDED.is_city_wide,
   branches = EXCLUDED.branches,
-  dining_mode = EXCLUDED.dining_mode,
-  time_slots = EXCLUDED.time_slots,
-  closing_time_ar = EXCLUDED.closing_time_ar,
-  is_open_late = EXCLUDED.is_open_late,
-  is_24_hours = EXCLUDED.is_24_hours,
-  avg_prep_minutes = EXCLUDED.avg_prep_minutes,
+  dining_mode = coalesce(public.restaurants.dining_mode, EXCLUDED.dining_mode),
+  time_slots = CASE WHEN cardinality(EXCLUDED.time_slots) > 0 THEN EXCLUDED.time_slots ELSE public.restaurants.time_slots END,
+  closing_time_ar = CASE WHEN EXCLUDED.closing_time_ar <> '' THEN EXCLUDED.closing_time_ar ELSE public.restaurants.closing_time_ar END,
+  is_open_late = coalesce(public.restaurants.is_open_late, EXCLUDED.is_open_late),
   tier = EXCLUDED.tier,
   price_tier = EXCLUDED.price_tier,
-  signature_dish_ar = EXCLUDED.signature_dish_ar,
-  signature_dish_en = EXCLUDED.signature_dish_en,
-  vibe_tags_ar = EXCLUDED.vibe_tags_ar,
-  vibe_tags_en = EXCLUDED.vibe_tags_en,
-  platforms = EXCLUDED.platforms,
-  links = EXCLUDED.links,
-  city = EXCLUDED.city,
+  signature_dish_ar = CASE WHEN EXCLUDED.signature_dish_ar <> '' THEN EXCLUDED.signature_dish_ar ELSE public.restaurants.signature_dish_ar END,
+  signature_dish_en = CASE WHEN EXCLUDED.signature_dish_en <> '' THEN EXCLUDED.signature_dish_en ELSE public.restaurants.signature_dish_en END,
+  vibe_tags_ar = CASE WHEN cardinality(EXCLUDED.vibe_tags_ar) > 0 THEN EXCLUDED.vibe_tags_ar ELSE public.restaurants.vibe_tags_ar END,
+  vibe_tags_en = CASE WHEN cardinality(EXCLUDED.vibe_tags_en) > 0 THEN EXCLUDED.vibe_tags_en ELSE public.restaurants.vibe_tags_en END,
+  platforms = CASE WHEN public.restaurants.platforms <> '{"hungerstation": false, "jahez": false, "keeta": false}'::jsonb THEN public.restaurants.platforms ELSE EXCLUDED.platforms END,
   primary_category = EXCLUDED.primary_category,
   secondary_categories = EXCLUDED.secondary_categories,
-  subcategories = EXCLUDED.subcategories,
-  category_fit_confidence = EXCLUDED.category_fit_confidence,
-  category_fit_evidence = EXCLUDED.category_fit_evidence,
   editorial_role = EXCLUDED.editorial_role,
-  reputation_tags = EXCLUDED.reputation_tags,
   context_tags = EXCLUDED.context_tags,
   operating_status = EXCLUDED.operating_status,
-  brand_status_confidence = EXCLUDED.brand_status_confidence,
-  verified_jeddah_branch_count = EXCLUDED.verified_jeddah_branch_count,
-  branch_list_completeness = EXCLUDED.branch_list_completeness,
-  dining_mode_summary = EXCLUDED.dining_mode_summary,
+  verified_jeddah_branch_count = greatest(coalesce(public.restaurants.verified_jeddah_branch_count, 0), EXCLUDED.verified_jeddah_branch_count),
   price_position = EXCLUDED.price_position,
-  estimated_sar_per_person_min = EXCLUDED.estimated_sar_per_person_min,
-  estimated_sar_per_person_max = EXCLUDED.estimated_sar_per_person_max,
-  official_website = EXCLUDED.official_website,
-  trend_status = EXCLUDED.trend_status,
-  trend_confidence = EXCLUDED.trend_confidence,
-  overall_confidence = EXCLUDED.overall_confidence,
+  estimated_sar_per_person_min = coalesce(public.restaurants.estimated_sar_per_person_min, EXCLUDED.estimated_sar_per_person_min),
+  estimated_sar_per_person_max = coalesce(public.restaurants.estimated_sar_per_person_max, EXCLUDED.estimated_sar_per_person_max),
+  official_website = coalesce(public.restaurants.official_website, EXCLUDED.official_website),
   research_use = EXCLUDED.research_use,
-  last_verified_at = EXCLUDED.last_verified_at,
-  manual_review_required = EXCLUDED.manual_review_required,
-  manual_review_reasons = EXCLUDED.manual_review_reasons;
+  last_verified_at = greatest(public.restaurants.last_verified_at, EXCLUDED.last_verified_at);
 
--- Verified physical branches with uninvented coordinates (NULL)
--- and verified phone numbers preserved in geographic_notes.
+-- Non-destructive branch upsert preserving existing verified coordinates and ratings.
+-- Coordinates are preserved as NULL (uninvented).
+-- Branch phone numbers are preserved in geographic_notes.
 INSERT INTO public.restaurant_branches (
   restaurant_id,
   branch_name_ar,
@@ -274,26 +288,41 @@ INSERT INTO public.restaurant_branches (
   '2026-10-07T00:00:00Z'::timestamptz
 )
 ON CONFLICT (google_place_id) DO UPDATE SET
-  restaurant_id = EXCLUDED.restaurant_id,
-  branch_name_ar = EXCLUDED.branch_name_ar,
-  branch_name_en = EXCLUDED.branch_name_en,
-  branch_status = EXCLUDED.branch_status,
-  branch_status_confidence = EXCLUDED.branch_status_confidence,
-  branch_type = EXCLUDED.branch_type,
-  district = EXCLUDED.district,
-  address_en = EXCLUDED.address_en,
-  latitude = EXCLUDED.latitude,
-  longitude = EXCLUDED.longitude,
-  maps_business_name = EXCLUDED.maps_business_name,
-  maps_lookup_status = EXCLUDED.maps_lookup_status,
-  google_maps_url = EXCLUDED.google_maps_url,
-  google_rating = EXCLUDED.google_rating,
-  google_review_count = EXCLUDED.google_review_count,
-  rating_source = EXCLUDED.rating_source,
-  maps_last_verified_at = EXCLUDED.maps_last_verified_at,
-  branch_identity_confidence = EXCLUDED.branch_identity_confidence,
-  geographic_notes = EXCLUDED.geographic_notes,
-  last_verified_at = EXCLUDED.last_verified_at;
+  branch_name_ar = coalesce(EXCLUDED.branch_name_ar, public.restaurant_branches.branch_name_ar),
+  branch_name_en = coalesce(EXCLUDED.branch_name_en, public.restaurant_branches.branch_name_en),
+  branch_status = coalesce(EXCLUDED.branch_status, public.restaurant_branches.branch_status),
+  branch_status_confidence = CASE
+    WHEN EXCLUDED.branch_status_confidence = 'unknown' THEN public.restaurant_branches.branch_status_confidence
+    ELSE coalesce(EXCLUDED.branch_status_confidence, public.restaurant_branches.branch_status_confidence)
+  END,
+  branch_type = CASE
+    WHEN EXCLUDED.branch_type = 'unknown' THEN public.restaurant_branches.branch_type
+    ELSE coalesce(EXCLUDED.branch_type, public.restaurant_branches.branch_type)
+  END,
+  district = coalesce(EXCLUDED.district, public.restaurant_branches.district),
+  address_en = coalesce(EXCLUDED.address_en, public.restaurant_branches.address_en),
+  latitude = coalesce(public.restaurant_branches.latitude, EXCLUDED.latitude),
+  longitude = coalesce(public.restaurant_branches.longitude, EXCLUDED.longitude),
+  maps_business_name = coalesce(public.restaurant_branches.maps_business_name, EXCLUDED.maps_business_name),
+  maps_lookup_status = CASE
+    WHEN public.restaurant_branches.maps_lookup_status = 'verified' THEN 'verified'
+    ELSE coalesce(EXCLUDED.maps_lookup_status, public.restaurant_branches.maps_lookup_status)
+  END,
+  google_maps_url = coalesce(public.restaurant_branches.google_maps_url, EXCLUDED.google_maps_url),
+  google_rating = coalesce(public.restaurant_branches.google_rating, EXCLUDED.google_rating),
+  google_review_count = coalesce(public.restaurant_branches.google_review_count, EXCLUDED.google_review_count),
+  rating_source = CASE
+    WHEN public.restaurant_branches.rating_source <> 'unknown' THEN public.restaurant_branches.rating_source
+    ELSE EXCLUDED.rating_source
+  END,
+  maps_last_verified_at = coalesce(public.restaurant_branches.maps_last_verified_at, EXCLUDED.maps_last_verified_at),
+  branch_identity_confidence = CASE
+    WHEN EXCLUDED.branch_identity_confidence = 'unknown' THEN public.restaurant_branches.branch_identity_confidence
+    ELSE coalesce(EXCLUDED.branch_identity_confidence, public.restaurant_branches.branch_identity_confidence)
+  END,
+  geographic_notes = coalesce(public.restaurant_branches.geographic_notes, EXCLUDED.geographic_notes),
+  last_verified_at = greatest(public.restaurant_branches.last_verified_at, EXCLUDED.last_verified_at)
+WHERE public.restaurant_branches.restaurant_id = EXCLUDED.restaurant_id;
 
 
 -- ============================================================================
