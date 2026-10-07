@@ -11,6 +11,7 @@ import { getBurgerBrandImage } from '../data/burgerBrandImages';
 import { getShawarmaBrandImage } from '../data/shawarmaBrandImages';
 import { getFriedChickenBrandImage } from '../data/friedChickenBrandImages';
 import { getPizzaBrandImage } from '../data/pizzaBrandImages';
+import { getGrillsBrandImage } from '../data/grillsBrandImages';
 
 const VALID_PRICE_TIERS = new Set<PriceTier>(['$', '$$', '$$$']);
 const VALID_DINING_MODES = new Set<DiningMode>(['both', 'delivery_only', 'dine_in_only']);
@@ -331,6 +332,11 @@ export function normalizeRestaurantDeck(
             const pizzaImage = getPizzaBrandImage(item.id) || getPizzaBrandImage(item.nameEn);
             if (pizzaImage) {
               item.imageUrl = pizzaImage;
+            } else {
+              const grillsImage = getGrillsBrandImage(item.id) || getGrillsBrandImage(item.nameEn);
+              if (grillsImage) {
+                item.imageUrl = grillsImage;
+              }
             }
           }
         }
