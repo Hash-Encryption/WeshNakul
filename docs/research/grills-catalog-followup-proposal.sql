@@ -1,24 +1,29 @@
 -- ============================================================================
--- FOR REVIEW ONLY — DO NOT EXECUTE AUTOMATICALLY AGAINST PRODUCTION DB
--- Migration: 20261008000100_curated_grills_and_al_nakheel_followup.sql
+-- WeshNakul — Grills Catalog Follow-up Proposal (RESEARCH ONLY)
+-- File: docs/research/grills-catalog-followup-proposal.sql
+--
+-- DO NOT EXECUTE AUTOMATICALLY AGAINST PRODUCTION SUPABASE.
 --
 -- Description:
--- 1. Retires Yildizlar Restaurant from curated Grills catalog.
--- 2. Stubs Texas Roadhouse insertion pending verified Jeddah branch coordinates/Place ID.
--- 3. Prepares Al Nakheel multi-category eligibility (Grills + Breakfast + Falafel).
+-- 1. Proposed retirement of Yildizlar Restaurant from curated Grills catalog.
+-- 2. Catalog specification template for Texas Roadhouse (pending verified Jeddah branch research).
+-- 3. Proposal for Al Nakheel multi-category eligibility (Grills + Breakfast + Falafel).
 -- ============================================================================
 
 BEGIN;
 
 -- ============================================================================
--- 1. RETIRE YILDIZLAR RESTAURANT
+-- 1. RETIRE YILDIZLAR RESTAURANT (PROPOSAL)
 -- ============================================================================
--- Yildizlar Restaurant (yildizlar_restaurant) was formerly in Grills.
--- It is replaced in the curated set by Texas Roadhouse as the premium steak/grill going-out option.
+-- Yildizlar Restaurant (yildizlar_restaurant) currently exists in the Grills catalog.
+-- It is slated to be replaced in the curated set by Texas Roadhouse as the premium steak/grill going-out option.
+-- This section will be executed only after Texas Roadhouse branch data is verified.
 
+/*
 DELETE FROM private.room_restaurant_deck_items WHERE restaurant_id = 'yildizlar_restaurant';
 DELETE FROM public.restaurant_branches WHERE restaurant_id = 'yildizlar_restaurant';
 DELETE FROM public.restaurants WHERE id = 'yildizlar_restaurant';
+*/
 
 
 -- ============================================================================
