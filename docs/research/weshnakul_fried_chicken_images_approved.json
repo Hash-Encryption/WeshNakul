@@ -4,7 +4,7 @@
   "city": "Jeddah",
   "generated_for": "WeshNakul",
   "research_status": "complete",
-  "brand_count": 19,
+  "brand_count": 18,
   "image_policy": {
     "one_image_per_brand": true,
     "food_focused_preferred": true,
@@ -18,10 +18,9 @@
       "cards_per_deck": 7,
       "pool_brand_ids": [
         "rami_broast",
-        "al_najah_broast",
         "broast_hanoo"
       ],
-      "notes": "These three are local/traditional Broast variety slots, not anchors. ALBAIK does not count toward this special slot."
+      "notes": "These two are local/traditional Broast variety slots, not anchors. ALBAIK does not count toward this special slot."
     }
   },
   "brands": [
@@ -177,15 +176,6 @@
       "direct_image_url": null,
       "source_page_url": "https://hungerstation.com/sa-en/restaurants/regions/jeddah/ar-rabwah/ktaykit-15458",
       "broast_rotation_member": false
-    },
-    {
-      "id": "al_najah_broast",
-      "name": "Al Najah Broast",
-      "selection_status": "approved",
-      "target_image": "Genuine Al Najah broasted chicken food photo; simple usable crop is acceptable",
-      "direct_image_url": null,
-      "source_page_url": "https://ar.restaurantguru.com/Al-Najah-Broast-brwst-alnjah-Jeddah-2",
-      "broast_rotation_member": true
     },
     {
       "id": "broast_hanoo",

@@ -7,7 +7,7 @@
  * - Preserves aspect ratio with object-fit: cover in UI cards
  * - Deterministic filenames based on canonical brand slug
  * - No hotlinking in production
- * - Dedicated Broast rotation pool: rami_broast, al_najah_broast, broast_hanoo
+ * - Dedicated Broast rotation pool: rami_broast, broast_hanoo
  */
 
 export interface FriedChickenBrandImageMetadata {
@@ -186,7 +186,7 @@ export const FRIED_CHICKEN_BRAND_IMAGES: FriedChickenBrandImageMetadata[] = [
     source: 'HungerStation (Rami Broast)',
     targetImage: 'Broasted Chicken Regular / signature broast meal',
     isBroastRotationMember: true,
-    notes: 'Traditional Broast rotation member #1. Verified signature broast meal.',
+    notes: 'Traditional Broast rotation member #1 of 2. Verified signature broast meal.',
   },
   {
     brandId: 'chicken_mubeen',
@@ -197,7 +197,7 @@ export const FRIED_CHICKEN_BRAND_IMAGES: FriedChickenBrandImageMetadata[] = [
     source: 'HungerStation (Chicken Mubeen)',
     targetImage: 'Regular Broasted Chicken / genuine Chicken Mubeen meal',
     isBroastRotationMember: false,
-    notes: 'General pool staple broast; does NOT count toward special 3-brand rotation slot.',
+    notes: 'General pool staple broast; does NOT count toward special 2-brand rotation slot.',
   },
   {
     brandId: 'ktaykit',
@@ -208,18 +208,7 @@ export const FRIED_CHICKEN_BRAND_IMAGES: FriedChickenBrandImageMetadata[] = [
     source: 'HungerStation (Ktaykit)',
     targetImage: 'Ktaykit Regular or Ktaykit Mofalfal 4-piece chicken meal',
     isBroastRotationMember: false,
-    notes: 'General pool staple broast; does NOT count toward special 3-brand rotation slot.',
-  },
-  {
-    brandId: 'al_najah_broast',
-    canonicalName: 'Al Najah Broast',
-    localPath: '/images/restaurants/fried_chicken/al-najah-broast.jpg',
-    status: 'approved',
-    sourceUrl: 'https://restaurantguru.com/Al-Najah-Broast-brwst-alnjah-Jeddah-2',
-    source: 'RestaurantGuru (Al Najah Broast As Safa)',
-    targetImage: 'Genuine Al Najah broasted chicken food photo; simple usable crop is acceptable',
-    isBroastRotationMember: true,
-    notes: 'Traditional Broast rotation member #2. Clean crop of authentic broasted chicken meal.',
+    notes: 'General pool staple broast; does NOT count toward special 2-brand rotation slot.',
   },
   {
     brandId: 'broast_hanoo',
@@ -230,7 +219,7 @@ export const FRIED_CHICKEN_BRAND_IMAGES: FriedChickenBrandImageMetadata[] = [
     source: 'Destination KSA Issue 142 (Jan/Feb 2025, Al-Balad culinary feature)',
     targetImage: 'Genuine Broast Hanoo crispy broast chicken photo from Al-Balad coverage/gallery; simple food crop is acceptable',
     isBroastRotationMember: true,
-    notes: 'Traditional Broast rotation member #3. Historic Al-Balad broast chicken meal crop.',
+    notes: 'Traditional Broast rotation member #2. Historic Al-Balad broast chicken meal crop.',
   },
 ];
 

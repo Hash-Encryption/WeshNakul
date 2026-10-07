@@ -114,6 +114,11 @@ async function main() {
     await db.exec(migration('20261007000200_fried_chicken_deck_broast_rotation.sql'));
   }
 
+  if (fs.existsSync('supabase/migrations/20261007000300_retire_al_najah_broast.sql')) {
+    console.log('Applying 20261007000300_retire_al_najah_broast.sql...');
+    await db.exec(migration('20261007000300_retire_al_najah_broast.sql'));
+  }
+
   // Helper to test deck generation (15 real food categories, broast retired)
   const activeCategories = [
     'burger', 'shawarma', 'fried_chicken', 'rice', 'grill', 'pizza', 'sushi',
@@ -207,7 +212,7 @@ async function main() {
   console.log('\n======================================================');
   console.log('FOCUSED FRIED CHICKEN DECK COMPOSITION AUDIT (25 DRAWS)');
   console.log('======================================================');
-  const rotationPool = ['rami_broast', 'al_najah_broast', 'broast_hanoo'];
+  const rotationPool = ['rami_broast', 'broast_hanoo'];
   const seenRotationMembers = new Set();
   const seenPositions = new Set();
 
@@ -270,10 +275,13 @@ async function main() {
     WHERE r.primary_category = 'fried_chicken' AND rb.branch_status NOT IN ('temporarily_closed', 'permanently_closed')
   `);
 
-  console.log(`Unified Fried Chicken brands: ${friedBrands.rows.length} (expected 19)`);
-  console.log(`Unified Fried Chicken active branches: ${fcBranches.rows[0].branch_count} (expected 75)`);
+  console.log(`Unified Fried Chicken brands: ${friedBrands.rows.length} (expected 18)`);
+  console.log(`Unified Fried Chicken active branches: ${fcBranches.rows[0].branch_count} (expected 73)`);
   console.log(`Active user-facing 'broast' category brands: ${broastPrimaryBrands.rows.length} (expected 0)`);
   console.log(`Preserved 'traditional_broast' subtype intelligence brands: ${traditionalBroastSubtypeBrands.rows.length} (${traditionalBroastSubtypeBrands.rows.map(r => r.id).join(', ')})`);
+
+  if (friedBrands.rows.length !== 18) throw new Error(`Expected 18 Fried Chicken brands, got ${friedBrands.rows.length}`);
+  if (fcBranches.rows[0].branch_count !== 73) throw new Error(`Expected 73 Fried Chicken branches, got ${fcBranches.rows[0].branch_count}`);
 
   // Asian vs Sushi overlap
   const asianBrands = await db.query(`

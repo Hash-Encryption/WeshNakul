@@ -30,16 +30,16 @@ try {
   const { SwipeCard } = await server.ssrLoadModule('/src/components/swiping/SwipeCard.tsx');
   const { LocaleProvider } = await server.ssrLoadModule('/src/context/LocaleContext.tsx');
 
-  // 1. Exact 19 brands in registry
-  check('Registry contains exactly 19 Fried Chicken brands with unique IDs', () => {
-    assert.equal(FRIED_CHICKEN_BRAND_IMAGES.length, 19);
-    assert.equal(new Set(FRIED_CHICKEN_BRAND_IMAGES.map((b) => b.brandId)).size, 19);
+  // 1. Exact 18 brands in registry
+  check('Registry contains exactly 18 Fried Chicken brands with unique IDs', () => {
+    assert.equal(FRIED_CHICKEN_BRAND_IMAGES.length, 18);
+    assert.equal(new Set(FRIED_CHICKEN_BRAND_IMAGES.map((b) => b.brandId)).size, 18);
   });
 
-  // 2. Verified all 19 downloaded local image files exist on disk
-  check('All 19 approved brand images exist locally in public/images/restaurants/fried_chicken/', () => {
+  // 2. Verified all 18 downloaded local image files exist on disk
+  check('All 18 approved brand images exist locally in public/images/restaurants/fried_chicken/', () => {
     const approved = FRIED_CHICKEN_BRAND_IMAGES.filter((b) => b.localPath !== null);
-    assert.equal(approved.length, 19);
+    assert.equal(approved.length, 18);
 
     for (const b of approved) {
       assert.ok(b.localPath.startsWith('/images/restaurants/fried_chicken/'), `Valid local path prefix for ${b.canonicalName}`);
@@ -62,14 +62,17 @@ try {
 
       assert.ok(isJpeg || isPng || isWebp, `Valid image format for ${b.canonicalName}`);
     }
+
+    // Verify retired Al Najah image is absent
+    assert.equal(fs.existsSync(path.resolve('public/images/restaurants/fried_chicken/al-najah-broast.jpg')), false, 'Al Najah image must be removed');
   });
 
-  // 3. Rotation pool membership verified
-  check('Broast rotation pool contains exactly rami_broast, al_najah_broast, and broast_hanoo', () => {
+  // 3. Rotation pool membership verified (2 brands)
+  check('Broast rotation pool contains exactly rami_broast and broast_hanoo', () => {
     const rotationMembers = FRIED_CHICKEN_BRAND_IMAGES.filter((b) => b.isBroastRotationMember);
-    assert.equal(rotationMembers.length, 3);
+    assert.equal(rotationMembers.length, 2);
     const rotationIds = rotationMembers.map((b) => b.brandId).sort();
-    assert.deepEqual(rotationIds, ['al_najah_broast', 'broast_hanoo', 'rami_broast']);
+    assert.deepEqual(rotationIds, ['broast_hanoo', 'rami_broast']);
 
     // Anchors/staples are NOT rotation members
     const nonRotationIds = ['albaik', 'chicken_mubeen', 'ktaykit'];
@@ -78,15 +81,14 @@ try {
       assert.ok(brand, `Brand exists: ${id}`);
       assert.equal(brand.isBroastRotationMember, false, `${id} must not be in the rotation pool`);
     }
+
+    // Retired Al Najah must not exist in registry
+    assert.equal(FRIED_CHICKEN_BRAND_IMAGES.some(b => b.brandId === 'al_najah_broast'), false);
+    assert.equal(getFriedChickenBrandImage('al_najah_broast'), null);
   });
 
-  // 4. Special cases: Al Najah, Broast Hanoo, Dabboos
-  check('Special cases (Al Najah, Broast Hanoo, Dabboos) have valid approved status and local paths', () => {
-    const najah = FRIED_CHICKEN_BRAND_IMAGES.find((b) => b.brandId === 'al_najah_broast');
-    assert.ok(najah);
-    assert.equal(najah.status, 'approved');
-    assert.equal(najah.localPath, '/images/restaurants/fried_chicken/al-najah-broast.jpg');
-
+  // 4. Special cases: Broast Hanoo, Dabboos
+  check('Special cases (Broast Hanoo, Dabboos) have valid approved status and local paths', () => {
     const hanoo = FRIED_CHICKEN_BRAND_IMAGES.find((b) => b.brandId === 'broast_hanoo');
     assert.ok(hanoo);
     assert.equal(hanoo.status, 'approved');
@@ -119,13 +121,6 @@ try {
           coreStatus: 'core',
         },
         {
-          id: 'al_najah_broast',
-          nameAr: 'بروست النجاح',
-          nameEn: 'Al Najah Broast',
-          categories: ['fried_chicken'],
-          coreStatus: 'core',
-        },
-        {
           id: 'broast_hanoo',
           nameAr: 'بروست هانو',
           nameEn: 'Broast Hanoo',
@@ -151,16 +146,13 @@ try {
 
     const normDeck = normalizeRestaurantDeck(rawDeck);
     assert.ok(normDeck);
-    assert.equal(normDeck.restaurants.length, 6);
+    assert.equal(normDeck.restaurants.length, 5);
 
     const albaik = normDeck.restaurants.find((r) => r.id === 'albaik');
     assert.equal(albaik.imageUrl, '/images/restaurants/fried_chicken/albaik.jpg');
 
     const rami = normDeck.restaurants.find((r) => r.id === 'rami_broast');
     assert.equal(rami.imageUrl, '/images/restaurants/fried_chicken/rami-broast.jpg');
-
-    const najah = normDeck.restaurants.find((r) => r.id === 'al_najah_broast');
-    assert.equal(najah.imageUrl, '/images/restaurants/fried_chicken/al-najah-broast.jpg');
 
     const hanoo = normDeck.restaurants.find((r) => r.id === 'broast_hanoo');
     assert.equal(hanoo.imageUrl, '/images/restaurants/fried_chicken/broast-hanoo.jpg');

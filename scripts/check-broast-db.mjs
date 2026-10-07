@@ -17,7 +17,7 @@ const chickenBrandIds = [
   'albaik', 'raising_canes', 'kfc', 'texas_chicken', 'popeyes',
   'daves_hot_chicken', 'tndr', 'wingstop', 'crusted', 'crisper',
   'dabboos', 'sayakh', 'nashvilles_hot_chicken', 'tenders_cart',
-  'rami_broast', 'chicken_mubeen', 'ktaykit', 'al_najah_broast', 'broast_hanoo'
+  'rami_broast', 'chicken_mubeen', 'ktaykit', 'broast_hanoo'
 ];
 const chickenIdsSql = chickenBrandIds.map(id => `'${id}'`).join(',');
 
@@ -167,39 +167,42 @@ try {
   console.log('4d. Applying forward Fried Chicken deck Broast rotation migration (20261007000200)...');
   await db.exec(migration('20261007000200_fried_chicken_deck_broast_rotation.sql'));
 
+  console.log('4e. Applying forward migration to retire Al Najah (20261007000300)...');
+  await db.exec(migration('20261007000300_retire_al_najah_broast.sql'));
+
   // --- 15 MANDATORY ASSERTIONS FROM APPROVED SPECIFICATION ---
 
-  // 1. Exactly 19 expected chicken brands still exist
+  // 1. Exactly 18 expected chicken brands still exist
   const brandCount = (await query(`SELECT count(*)::int n FROM restaurants WHERE id IN (${chickenIdsSql})`))[0].n;
-  check(brandCount === 19, '1. Exactly 19 expected chicken brands still exist');
+  check(brandCount === 18, '1. Exactly 18 expected chicken brands still exist');
 
-  // 2. Exactly 75 existing branches remain
+  // 2. Exactly 73 existing branches remain
   const branchCount = (await query(`SELECT count(*)::int n FROM restaurant_branches WHERE restaurant_id IN (${chickenIdsSql})`))[0].n;
-  check(branchCount === 75, '2. Exactly 75 existing branches remain');
+  check(branchCount === 73, '2. Exactly 73 existing branches remain');
 
-  // 3. All 19 have primary_category = 'fried_chicken'
+  // 3. All 18 have primary_category = 'fried_chicken'
   const fcPrimaryBrands = (await query(`
     SELECT count(*)::int n FROM restaurants
     WHERE id IN (${chickenIdsSql})
       AND primary_category = 'fried_chicken'
   `))[0].n;
-  check(fcPrimaryBrands === 19, '3. All 19 have primary_category = \'fried_chicken\'');
+  check(fcPrimaryBrands === 18, '3. All 18 have primary_category = \'fried_chicken\'');
 
-  // 4. All 19 are eligible for fried_chicken
+  // 4. All 18 are eligible for fried_chicken
   const fcEligibleBrands = (await query(`
     SELECT count(*)::int n FROM restaurants
     WHERE id IN (${chickenIdsSql})
       AND 'fried_chicken' = ANY(categories)
   `))[0].n;
-  check(fcEligibleBrands === 19, '4. All 19 are eligible for fried_chicken');
+  check(fcEligibleBrands === 18, '4. All 18 are eligible for fried_chicken');
 
-  // 5. No restaurant among these 19 uses exact 'broast' as primary category
-  const broastPrimaryAmong19 = (await query(`
+  // 5. No restaurant among these 18 uses exact 'broast' as primary category
+  const broastPrimaryAmong18 = (await query(`
     SELECT count(*)::int n FROM restaurants
     WHERE id IN (${chickenIdsSql})
       AND primary_category = 'broast'
   `))[0].n;
-  check(broastPrimaryAmong19 === 0, '5. No restaurant among these 19 uses exact \'broast\' as primary category');
+  check(broastPrimaryAmong18 === 0, '5. No restaurant among these 18 uses exact \'broast\' as primary category');
 
   // 6. No active user-facing restaurant category eligibility depends on exact 'broast'
   const anyBroastEligibility = (await query(`
@@ -209,14 +212,20 @@ try {
   `))[0].n;
   check(anyBroastEligibility === 0, '6. No active user-facing restaurant category eligibility depends on exact \'broast\'');
 
-  // 7. Traditional Broast subtype intelligence remains present
+  // 7. Traditional Broast subtype intelligence remains present in 5 staple brands
   const traditionalBroastBrands = (await query(`
     SELECT count(*)::int n FROM restaurants
-    WHERE id IN ('albaik', 'rami_broast', 'chicken_mubeen', 'ktaykit', 'al_najah_broast', 'broast_hanoo')
+    WHERE id IN ('albaik', 'rami_broast', 'chicken_mubeen', 'ktaykit', 'broast_hanoo')
       AND 'traditional_broast' = ANY(secondary_categories)
       AND 'traditional_broast' = ANY(subcategories)
   `))[0].n;
-    check(traditionalBroastBrands === 6, '7a. Traditional Broast subtype intelligence remains present in 6 staple brands');
+  check(traditionalBroastBrands === 5, '7a. Traditional Broast subtype intelligence remains present in 5 staple brands');
+
+  // Al Najah is completely absent from database
+  const najahInDb = (await query(`SELECT count(*)::int n FROM restaurants WHERE id = 'al_najah_broast'`))[0].n;
+  check(najahInDb === 0, '7a-2. Al Najah Broast is completely absent from restaurants table');
+  const najahBranchesInDb = (await query(`SELECT count(*)::int n FROM restaurant_branches WHERE restaurant_id = 'al_najah_broast'`))[0].n;
+  check(najahBranchesInDb === 0, '7a-3. Al Najah Broast branches completely absent from restaurant_branches table');
 
   const musahabBrands = (await query(`
     SELECT count(*)::int n FROM restaurants
@@ -287,10 +296,10 @@ try {
   check(deckFC.restaurants.every(r => r.categories.includes('fried_chicken')), 'All restaurants in deck are eligible for fried_chicken');
   check(deckFC.restaurants.every(r => r.selectedBranch && r.selectedBranch.googleMapsUrl && r.selectedBranch.distanceKm !== null), 'Branches have maps URLs and distance');
 
-  const rotPool = ['rami_broast', 'al_najah_broast', 'broast_hanoo'];
+  const rotPool = ['rami_broast', 'broast_hanoo'];
   const rotInDeck = deckFC.restaurants.filter(r => rotPool.includes(r.id));
   const genInDeck = deckFC.restaurants.filter(r => !rotPool.includes(r.id));
-  check(rotInDeck.length === 1, `8b. Exactly 1 card from rotation pool [rami_broast, al_najah_broast, broast_hanoo] (found: ${rotInDeck.map(r=>r.id)})`);
+  check(rotInDeck.length === 1, `8b. Exactly 1 card from rotation pool [rami_broast, broast_hanoo] (found: ${rotInDeck.map(r=>r.id)})`);
   check(genInDeck.length === 6, '8c. Exactly 6 cards from general pool');
 
   // Multi-draw verification
@@ -338,10 +347,14 @@ try {
   const broastInFrontend = FOOD_CATEGORIES.some(c => c.id === 'broast');
   check(!broastInFrontend, '12. Frontend FOOD_CATEGORIES contains no Broast card');
 
-  // 13. Existing 75 Google Place IDs remain unchanged
+  // 13. Existing 73 Google Place IDs remain unchanged (75 minus 2 retired Al Najah branches)
   const jsonRaw = JSON.parse(readFileSync('docs/research/jeddah-broast-pass-d-corrected.json', 'utf8'));
-  const jsonPlaceIds = new Set(jsonRaw.brands.flatMap(b => b.branches.map(br => br.google_place_id)));
-  check(jsonPlaceIds.size === 75, 'Source JSON contains exactly 75 unique place IDs');
+  const jsonPlaceIds = new Set(
+    jsonRaw.brands
+      .filter(b => b.canonical_name !== 'Al Najah Broast')
+      .flatMap(b => b.branches.map(br => br.google_place_id))
+  );
+  check(jsonPlaceIds.size === 73, 'Source JSON minus Al Najah contains exactly 73 unique place IDs');
 
   const dbPlaceIdRows = await query(`
     SELECT google_place_id
@@ -361,17 +374,18 @@ try {
     JOIN restaurants r ON r.id = rb.restaurant_id
     WHERE r.primary_category = 'fried_chicken'
   `))[0].n;
-  check(totalChickenBranches === 75, '14. No branch loss (exactly 75 branches for fried_chicken primary brands)');
+  check(totalChickenBranches === 73, '14. No branch loss (exactly 73 branches for fried_chicken primary brands)');
 
   // 15. Migration is safe/idempotent where appropriate
-  console.log('5. Testing migration idempotence (re-applying 20261007000100 and 20261007000200)...');
+  console.log('5. Testing migration idempotence (re-applying 20261007000100, 20261007000200, and 20261007000300)...');
   await db.exec(migration('20261007000100_merge_broast_into_fried_chicken.sql'));
   await db.exec(migration('20261007000200_fried_chicken_deck_broast_rotation.sql'));
+  await db.exec(migration('20261007000300_retire_al_najah_broast.sql'));
 
   const reBrandCount = (await query(`SELECT count(*)::int n FROM restaurants WHERE id IN (${chickenIdsSql}) AND primary_category = 'fried_chicken'`))[0].n;
-  check(reBrandCount === 19, '15a. Idempotence: all 19 brands still fried_chicken');
+  check(reBrandCount === 18, '15a. Idempotence: all 18 brands still fried_chicken');
   const reBranchCount = (await query(`SELECT count(*)::int n FROM restaurant_branches WHERE restaurant_id IN (${chickenIdsSql})`))[0].n;
-  check(reBranchCount === 75, '15b. Idempotence: all 75 branches still intact');
+  check(reBranchCount === 73, '15b. Idempotence: all 73 branches still intact');
 
   // Additional integrity checks
   const dupPlaceIds = await query(`
@@ -395,7 +409,7 @@ try {
     FROM restaurant_branches
     WHERE restaurant_id IN (${chickenIdsSql}) AND district IS NULL
   `);
-  check(cautionBranches.length === 4, 'Exactly 4 caution branches with district IS NULL');
+  check(cautionBranches.length === 3, 'Exactly 3 caution branches with district IS NULL (4 minus retired Al Najah Al Ajaweed branch)');
 
   console.log('6. Regression check: Double-selection migration correctness...');
   // Participant A food choices after migration
