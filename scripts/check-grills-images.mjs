@@ -36,22 +36,21 @@ try {
     assert.equal(new Set(GRILLS_BRAND_IMAGES.map((b) => b.brandId)).size, 15);
   });
 
-  // 2. Verified 12 approved and 3 unresolved brands truthfully documented
-  check('Registry truthfully classifies 12 approved brands and 3 unresolved brands', () => {
+  // 2. Verified 13 approved and 2 unresolved brands truthfully documented
+  check('Registry truthfully classifies 13 approved brands and 2 unresolved brands', () => {
     const approved = GRILLS_BRAND_IMAGES.filter((b) => b.localPath !== null);
     const unresolved = GRILLS_BRAND_IMAGES.filter((b) => b.localPath === null);
 
-    assert.equal(approved.length, 12, 'Exactly 12 approved brands with local assets');
-    assert.equal(unresolved.length, 3, 'Exactly 3 unresolved brands without assets');
+    assert.equal(approved.length, 13, 'Exactly 13 approved brands with local assets');
+    assert.equal(unresolved.length, 2, 'Exactly 2 unresolved brands without assets');
 
     const unresolvedIds = new Set(unresolved.map((b) => b.brandId));
     assert.ok(unresolvedIds.has('skewers_grilled_restaurant'), 'Skewers is marked unresolved');
     assert.ok(unresolvedIds.has('at_beirut_jeddah'), 'At Beirut is marked unresolved');
-    assert.ok(unresolvedIds.has('istanbul_grill_restaurant'), 'Istanbul Grill is marked unresolved');
   });
 
-  // 3. Verified all 12 downloaded local image files exist on disk with valid magic bytes
-  check('All 12 approved brand images exist locally in public/images/restaurants/grills/', () => {
+  // 3. Verified all 13 downloaded local image files exist on disk with valid magic bytes
+  check('All 13 approved brand images exist locally in public/images/restaurants/grills/', () => {
     const approved = GRILLS_BRAND_IMAGES.filter((b) => b.localPath !== null);
 
     for (const b of approved) {
@@ -95,8 +94,8 @@ try {
     assert.equal(manifest.brand_count, 15);
     assert.equal(manifest.category, 'grills');
     assert.equal(manifest.brands.length, 15);
-    assert.equal(manifest.approved_image_count, 12);
-    assert.equal(manifest.unresolved_image_count, 3);
+    assert.equal(manifest.approved_image_count, 13);
+    assert.equal(manifest.unresolved_image_count, 2);
 
     for (const b of manifest.brands) {
       const reg = GRILLS_BRAND_IMAGES.find((item) => item.brandId === b.id);
@@ -121,10 +120,14 @@ try {
     assert.equal(getGrillsBrandImage('skewers_grilled_restaurant'), null, 'Skewers resolves to null');
     assert.equal(getGrillsBrandImage('at_beirut_jeddah'), null, 'At Beirut resolves to null');
     assert.equal(getGrillsBrandImage('at_beirut'), null, 'At Beirut alias resolves to null');
-    assert.equal(getGrillsBrandImage('istanbul_grill_restaurant'), null, 'Istanbul Grill resolves to null');
     assert.equal(getGrillsBrandImage('non_existent_grill'), null, 'Non-existent returns null');
     assert.equal(getGrillsBrandImage(null), null);
     assert.equal(getGrillsBrandImage(undefined), null);
+
+    // Alsheesh BBQ and legacy istanbul_grill_restaurant resolve to alsheesh-bbq.jpg
+    assert.equal(getGrillsBrandImage('alsheesh_bbq'), '/images/restaurants/grills/alsheesh-bbq.jpg');
+    assert.equal(getGrillsBrandImage('istanbul_grill_restaurant'), '/images/restaurants/grills/alsheesh-bbq.jpg');
+    assert.equal(getGrillsBrandImage('الشيش للمشويات'), '/images/restaurants/grills/alsheesh-bbq.jpg');
   });
 
   // 6. Deck normalization attaches local images to Grills candidates
@@ -170,6 +173,18 @@ try {
           categories: ['grills'],
         },
         {
+          id: 'alsheesh_bbq',
+          nameAr: 'الشيش للمشويات',
+          nameEn: 'Alsheesh BBQ',
+          categories: ['grills'],
+        },
+        {
+          id: 'istanbul_grill_restaurant',
+          nameAr: 'مطعم اسطنبول جريل',
+          nameEn: 'Istanbul Grill Restaurant',
+          categories: ['grills'],
+        },
+        {
           id: 'unknown_grill_spot',
           nameAr: 'مشاوي مجهولة',
           nameEn: 'Unknown Grill Spot',
@@ -180,7 +195,7 @@ try {
 
     const normDeck = normalizeRestaurantDeck(rawDeck);
     assert.ok(normDeck);
-    assert.equal(normDeck.restaurants.length, 7);
+    assert.equal(normDeck.restaurants.length, 9);
 
     const khayal = normDeck.restaurants.find((r) => r.id === 'khayal_restaurant');
     assert.equal(khayal.imageUrl, '/images/restaurants/grills/khayal.webp');
@@ -196,6 +211,12 @@ try {
 
     const texas = normDeck.restaurants.find((r) => r.id === 'texas_roadhouse');
     assert.equal(texas.imageUrl, '/images/restaurants/grills/texas-roadhouse.jpg');
+
+    const alsheesh = normDeck.restaurants.find((r) => r.id === 'alsheesh_bbq');
+    assert.equal(alsheesh.imageUrl, '/images/restaurants/grills/alsheesh-bbq.jpg');
+
+    const istanbul = normDeck.restaurants.find((r) => r.id === 'istanbul_grill_restaurant');
+    assert.equal(istanbul.imageUrl, '/images/restaurants/grills/alsheesh-bbq.jpg');
 
     const skewers = normDeck.restaurants.find((r) => r.id === 'skewers_grilled_restaurant');
     assert.equal(skewers.imageUrl, undefined, 'Unresolved Skewers does not have local image');

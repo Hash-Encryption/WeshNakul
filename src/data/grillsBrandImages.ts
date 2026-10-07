@@ -179,15 +179,15 @@ export const GRILLS_BRAND_IMAGES: GrillsBrandImageMetadata[] = [
     notes: 'Replaces Yildizlar as the premium steak/grill going-out option.',
   },
   {
-    brandId: 'istanbul_grill_restaurant',
-    canonicalName: 'Istanbul Grill Restaurant',
-    manifestName: 'Istanbul Grill Restaurant',
-    localPath: null,
-    status: 'unresolved',
-    sourceUrl: null,
-    source: 'Catalog Place ID ChIJpeROlxLawxURhEcynrnaKxY',
-    targetImage: null,
-    notes: 'Istanbul Grill image unresolved. Place ID verified in catalog, but no verified food image attached in research/catalog data.',
+    brandId: 'alsheesh_bbq',
+    canonicalName: 'Alsheesh BBQ',
+    manifestName: 'Alsheesh BBQ',
+    localPath: '/images/restaurants/grills/alsheesh-bbq.jpg',
+    status: 'approved',
+    sourceUrl: 'https://images.deliveryhero.io/image/hungerstation/menus/product/hsimg-467158?width=1920',
+    source: 'https://hungerstation.com/sa-en/restaurant/jeddah/al-sahifah/106471',
+    targetImage: 'Mixed Grill - 250 G',
+    notes: 'Exact approved Mixed Grill - 250 G for Alsheesh BBQ (resolves Place entity ChIJpeROlxLawxURhEcynrnaKxY).',
   },
 ];
 
@@ -210,8 +210,16 @@ export const GRILLS_BRAND_IMAGE_MAP: Record<string, string | null> = Object.from
   ['al-nakheel', '/images/restaurants/grills/al-nakheel.webp'],
   ['taksim_point', '/images/restaurants/grills/taksim-point.webp'],
   ['taksim-point', '/images/restaurants/grills/taksim-point.webp'],
-  ['istanbul_grill', null],
-  ['istanbul-grill', null],
+  // Legacy / entity aliases for Alsheesh BBQ / Istanbul Grill
+  ['istanbul_grill_restaurant', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['istanbul-grill-restaurant', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['Istanbul Grill Restaurant', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['istanbul_grill', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['istanbul-grill', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['alsheesh_bbq', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['alsheesh-bbq', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['Alsheesh BBQ', '/images/restaurants/grills/alsheesh-bbq.jpg'],
+  ['الشيش للمشويات', '/images/restaurants/grills/alsheesh-bbq.jpg'],
 ]);
 
 export function getGrillsBrandImage(idOrName?: string | null): string | null {
