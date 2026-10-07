@@ -10,6 +10,7 @@ import { logDeckError } from './observability';
 import { getBurgerBrandImage } from '../data/burgerBrandImages';
 import { getShawarmaBrandImage } from '../data/shawarmaBrandImages';
 import { getFriedChickenBrandImage } from '../data/friedChickenBrandImages';
+import { getPizzaBrandImage } from '../data/pizzaBrandImages';
 
 const VALID_PRICE_TIERS = new Set<PriceTier>(['$', '$$', '$$$']);
 const VALID_DINING_MODES = new Set<DiningMode>(['both', 'delivery_only', 'dine_in_only']);
@@ -326,6 +327,11 @@ export function normalizeRestaurantDeck(
           const friedChickenImage = getFriedChickenBrandImage(item.id) || getFriedChickenBrandImage(item.nameEn);
           if (friedChickenImage) {
             item.imageUrl = friedChickenImage;
+          } else {
+            const pizzaImage = getPizzaBrandImage(item.id) || getPizzaBrandImage(item.nameEn);
+            if (pizzaImage) {
+              item.imageUrl = pizzaImage;
+            }
           }
         }
       }
