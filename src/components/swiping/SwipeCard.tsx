@@ -162,7 +162,7 @@ export const SwipeCard = React.memo(function SwipeCard({
               src={restaurant.imageUrl}
               alt={name}
               className="w-full h-full object-cover pointer-events-none"
-              loading={isFront || stackIndex === 1 ? 'eager' : 'lazy'}
+              loading={isFront ? 'eager' : 'lazy'}
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />

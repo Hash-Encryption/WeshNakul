@@ -19,6 +19,8 @@ export interface PizzaBrandImageMetadata {
   sourceUrl: string;
   source: string;
   targetImage: string;
+  isCrossover?: boolean;
+  crossoverCategory?: string;
   notes: string;
 }
 
@@ -223,6 +225,15 @@ export const PIZZA_BRAND_IMAGES: PizzaBrandImageMetadata[] = [
   },
 ];
 
+/**
+ * Approved cross-category restaurants eligible for at most 1 crossover slot in a Pizza deck.
+ * Rule: Never assign one restaurant's food photo to another restaurant.
+ * Potential crossovers (including San Carlo Cicchetti) are preserved for future use,
+ * but excluded until an authentic food image from that specific restaurant is approved.
+ * When this array is empty, all 7 cards in every Pizza deck are drawn from the 18 primary Pizza brands.
+ */
+export const PIZZA_CROSSOVER_IMAGES: PizzaBrandImageMetadata[] = [];
+
 export const PIZZA_BRAND_IMAGE_MAP: Record<string, string | null> = Object.fromEntries([
   ...PIZZA_BRAND_IMAGES.map((b) => [b.brandId, b.localPath]),
   ...PIZZA_BRAND_IMAGES.map((b) => [b.canonicalName, b.localPath]),
@@ -230,6 +241,12 @@ export const PIZZA_BRAND_IMAGE_MAP: Record<string, string | null> = Object.fromE
   ...PIZZA_BRAND_IMAGES.map((b) => [b.canonicalName.toLowerCase(), b.localPath]),
   ...PIZZA_BRAND_IMAGES.map((b) => [b.manifestName.toLowerCase(), b.localPath]),
   ...PIZZA_BRAND_IMAGES.map((b) => [b.brandId.replace(/_/g, '-'), b.localPath]),
+  ...PIZZA_CROSSOVER_IMAGES.map((b) => [b.brandId, b.localPath]),
+  ...PIZZA_CROSSOVER_IMAGES.map((b) => [b.canonicalName, b.localPath]),
+  ...PIZZA_CROSSOVER_IMAGES.map((b) => [b.manifestName, b.localPath]),
+  ...PIZZA_CROSSOVER_IMAGES.map((b) => [b.canonicalName.toLowerCase(), b.localPath]),
+  ...PIZZA_CROSSOVER_IMAGES.map((b) => [b.manifestName.toLowerCase(), b.localPath]),
+  ...PIZZA_CROSSOVER_IMAGES.map((b) => [b.brandId.replace(/_/g, '-'), b.localPath]),
 ]);
 
 export function getPizzaBrandImage(idOrName?: string | null): string | null {
