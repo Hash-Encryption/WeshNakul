@@ -234,25 +234,25 @@ BEGIN
             WHEN eb.geo_tier IS NOT NULL AND eb.geo_tier <= (
               CASE
                 WHEN has_nearby_pref THEN
-                  CASE eb.use_case WHEN 'delivery' THEN 0 WHEN 'going_out' THEN 2 ELSE 1 END
-                ELSE
-                  CASE eb.use_case WHEN 'delivery' THEN 1 WHEN 'going_out' THEN 3 ELSE 2 END
-              END
-            ) THEN 0::smallint
-            -- Tier 1: Expanded adjacent districts
-            WHEN eb.geo_tier IS NOT NULL AND eb.geo_tier <= (
-              CASE
-                WHEN has_nearby_pref THEN
                   CASE eb.use_case WHEN 'delivery' THEN 1 WHEN 'going_out' THEN 3 ELSE 2 END
                 ELSE
                   CASE eb.use_case WHEN 'delivery' THEN 2 WHEN 'going_out' THEN 4 ELSE 3 END
               END
+            ) THEN 0::smallint
+            -- Tier 1: Expanded district proximity
+            WHEN eb.geo_tier IS NOT NULL AND eb.geo_tier <= (
+              CASE
+                WHEN has_nearby_pref THEN
+                  CASE eb.use_case WHEN 'delivery' THEN 3 WHEN 'going_out' THEN 5 ELSE 4 END
+                ELSE
+                  CASE eb.use_case WHEN 'delivery' THEN 4 WHEN 'going_out' THEN 6 ELSE 5 END
+              END
             ) THEN 1::smallint
-            -- Tier 2: Citywide fallback
+            -- Tier 2: Citywide verified fallback
             ELSE 2::smallint
           END
 
-        -- 3. No location context: all branches treated equally at Tier 0
+        -- 3. Citywide room with no district/GPS: all branches belong to Tier 0
         ELSE 0::smallint
       END AS proximity_tier
     FROM eligible_branches eb
