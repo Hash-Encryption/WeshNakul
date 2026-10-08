@@ -119,6 +119,11 @@ async function main() {
     await db.exec(migration('20261007000300_retire_al_najah_broast.sql'));
   }
 
+  if (fs.existsSync('supabase/migrations/20261008000100_curated_grills_catalog_followup.sql')) {
+    console.log('Applying 20261008000100_curated_grills_catalog_followup.sql...');
+    await db.exec(migration('20261008000100_curated_grills_catalog_followup.sql'));
+  }
+
   // Helper to test deck generation (15 real food categories, broast retired)
   const activeCategories = [
     'burger', 'shawarma', 'fried_chicken', 'rice', 'grill', 'pizza', 'sushi',
