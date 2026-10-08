@@ -124,6 +124,11 @@ async function main() {
     await db.exec(migration('20261008000100_curated_grills_catalog_followup.sql'));
   }
 
+  if (fs.existsSync('supabase/migrations/20261008000200_fix_texas_roadhouse_grill_taxonomy.sql')) {
+    console.log('Applying 20261008000200_fix_texas_roadhouse_grill_taxonomy.sql...');
+    await db.exec(migration('20261008000200_fix_texas_roadhouse_grill_taxonomy.sql'));
+  }
+
   // Helper to test deck generation (15 real food categories, broast retired)
   const activeCategories = [
     'burger', 'shawarma', 'fried_chicken', 'rice', 'grill', 'pizza', 'sushi',
