@@ -219,6 +219,93 @@ try {
     }
   });
 
+  // 10. Test Sizzling Skillet with total vs active participant status scenarios
+  check('10. Sizzling Skillet handles mixed participant statuses (active, away, disconnected)', () => {
+    const skillet = MINI_GAMES.find((g) => g.id === 'sizzling_skillet');
+    assert.ok(skillet);
+
+    const calcActive = (participants) => participants.filter((p) => p.status === 'active').length;
+
+    // 3 total participants with only 2 active, 1 away -> unavailable
+    const group1 = [
+      { id: 'p1', status: 'active' },
+      { id: 'p2', status: 'active' },
+      { id: 'p3', status: 'away' },
+    ];
+    assert.equal(calcActive(group1), 2);
+    const suitG1 = skillet.getSuitability({ tieCount: 2, activePlayerCount: calcActive(group1), tieType: 'restaurant' });
+    assert.equal(suitG1.state, 'unavailable', '3 total with 2 active is unavailable');
+
+    // 5 total participants with only 2 active, 2 away, 1 disconnected -> unavailable
+    const group2 = [
+      { id: 'p1', status: 'active' },
+      { id: 'p2', status: 'active' },
+      { id: 'p3', status: 'away' },
+      { id: 'p4', status: 'away' },
+      { id: 'p5', status: 'disconnected' },
+    ];
+    assert.equal(calcActive(group2), 2);
+    const suitG2 = skillet.getSuitability({ tieCount: 2, activePlayerCount: calcActive(group2), tieType: 'restaurant' });
+    assert.equal(suitG2.state, 'unavailable', '5 total with 2 active is unavailable');
+
+    // 3 total participants with all 3 active -> available
+    const group3 = [
+      { id: 'p1', status: 'active' },
+      { id: 'p2', status: 'active' },
+      { id: 'p3', status: 'active' },
+    ];
+    assert.equal(calcActive(group3), 3);
+    const suitG3 = skillet.getSuitability({ tieCount: 2, activePlayerCount: calcActive(group3), tieType: 'restaurant' });
+    assert.equal(suitG3.state, 'normal', '3 active is available');
+
+    // 5 total participants with 3 active, 2 disconnected -> available
+    const group4 = [
+      { id: 'p1', status: 'active' },
+      { id: 'p2', status: 'active' },
+      { id: 'p3', status: 'active' },
+      { id: 'p4', status: 'disconnected' },
+      { id: 'p5', status: 'disconnected' },
+    ];
+    assert.equal(calcActive(group4), 3);
+    const suitG4 = skillet.getSuitability({ tieCount: 2, activePlayerCount: calcActive(group4), tieType: 'restaurant' });
+    assert.equal(suitG4.state, 'normal', '5 total with 3 active is available');
+  });
+
+  // 11. Test MiniGamesDeckGrid renders Sizzling Skillet disabled badge based on active player count
+  check('11. MiniGamesDeckGrid renders Sizzling Skillet disabled/enabled based on activePlayerCount', () => {
+    store.set('wsh_locale', 'en');
+
+    // With 2 active players: should show "Needs 3+ players" badge
+    const html2Active = renderToStaticMarkup(
+      createElement(
+        LocaleProvider,
+        null,
+        createElement(MiniGamesDeckGrid, {
+          tieCount: 2,
+          activePlayerCount: 2,
+          tieType: 'restaurant',
+          onSelectGame: () => {},
+        })
+      )
+    );
+    assert.ok(html2Active.includes('Needs 3+ players'), '2 active players shows Needs 3+ players badge');
+
+    // With 3 active players: should NOT show "Needs 3+ players" badge
+    const html3Active = renderToStaticMarkup(
+      createElement(
+        LocaleProvider,
+        null,
+        createElement(MiniGamesDeckGrid, {
+          tieCount: 2,
+          activePlayerCount: 3,
+          tieType: 'restaurant',
+          onSelectGame: () => {},
+        })
+      )
+    );
+    assert.ok(!html3Active.includes('Needs 3+ players'), '3 active players enables Sizzling Skillet');
+  });
+
   console.log(`\nALL ${checks} MINI GAMES VERIFICATION CHECKS PASSED SUCCESSFULLY!\n`);
 } finally {
   await server.close();

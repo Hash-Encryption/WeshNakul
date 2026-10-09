@@ -63,6 +63,10 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
   const completedCount = participants.filter((p) => isParticipantDone(p.id)).length;
   const totalParticipants = participants.length || 1;
+  const activePlayerCount = useMemo(
+    () => participants.filter((p) => p.status === 'active').length,
+    [participants]
+  );
 
   // Rank restaurants: Likes (desc), then Rating (desc), then ID (asc)
   const rankedRestaurants = useMemo(() => {
@@ -230,7 +234,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
                 {isMiniGamesExpanded && (
                   <MiniGamesDeckGrid
                     tieCount={tiedRestaurants.length}
-                    activePlayerCount={participants.length}
+                    activePlayerCount={activePlayerCount}
                     tieType="restaurant"
                     contenderIds={tiedRestaurants.map((r) => r.id)}
                     onSelectGame={handleSelectMiniGame}
