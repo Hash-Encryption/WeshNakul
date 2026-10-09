@@ -1,9 +1,11 @@
-import React, { useMemo } from 'react';
-import { motion } from 'motion/react';
+import React, { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import type { RestaurantItem } from '../../types/restaurant';
 import type { Participant, RestaurantSummary } from '../../types/database';
 import { useLocale } from '../../context/LocaleContext';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
+import { MiniGamesDeckGrid } from '../minigames/MiniGamesDeckGrid';
+import type { MiniGameDefinition } from '../../config/miniGames';
 
 interface LeaderboardViewProps {
   restaurants: RestaurantItem[];
@@ -13,6 +15,7 @@ interface LeaderboardViewProps {
   onConfirmPick: (restaurant: RestaurantItem) => void;
   onTriggerSuddenDeath: (topTwo: [RestaurantItem, RestaurantItem]) => void;
   onTriggerRoulette: (topSpots: RestaurantItem[]) => void;
+  onSelectMiniGame?: (game: MiniGameDefinition) => void;
 }
 
 export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
@@ -23,8 +26,35 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
   onConfirmPick,
   onTriggerSuddenDeath,
   onTriggerRoulette,
+  onSelectMiniGame,
 }) => {
   const { t, locale } = useLocale();
+  const [isMiniGamesExpanded, setIsMiniGamesExpanded] = useState(false);
+  const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
+
+  const handleSelectMiniGame = (game: MiniGameDefinition) => {
+    if (game.id === 'sudden_death') {
+      if (tiedRestaurants.length >= 2) {
+        onTriggerSuddenDeath([tiedRestaurants[0], tiedRestaurants[1]]);
+      }
+      return;
+    }
+
+    if (!game.implemented) {
+      const name = t(game.nameKey);
+      const comingSoonText =
+        locale === 'ar'
+          ? `قريباً! جاري تحضير لعبة ${name} 🚧`
+          : `Coming soon! ${name} is in development 🚧`;
+      setNoticeMessage(comingSoonText);
+      setTimeout(() => setNoticeMessage(null), 3200);
+      return;
+    }
+
+    if (onSelectMiniGame) {
+      onSelectMiniGame(game);
+    }
+  };
 
   // Track who is finished swiping
   const isParticipantDone = (participantId: string) => {
@@ -159,26 +189,69 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
           </div>
 
           {isHost ? (
-            <div className="flex flex-col sm:flex-row items-center gap-2 pt-1">
+            <div className="flex flex-col items-center gap-2.5 pt-1 w-full">
+              {/* Food Roulette Button - Always on Top & Full Width */}
               <button
                 type="button"
                 onClick={() => onTriggerRoulette(tiedRestaurants)}
-                className="w-full sm:flex-1 py-3 px-3 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 transition-all font-alexandria font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full py-3 px-4 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 transition-all font-alexandria font-black text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span className="text-base">🎲</span>
                 <span>{t('gameSwiper.rouletteBtn')}</span>
               </button>
 
-              {tiedRestaurants.length >= 2 && (
-                <button
-                  type="button"
-                  onClick={() => onTriggerSuddenDeath([tiedRestaurants[0], tiedRestaurants[1]])}
-                  className="w-full sm:flex-1 py-3 px-3 rounded-2xl bg-white text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:bg-[#FFF0EE] transition-all font-alexandria font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+              {/* Mini Games Expandable Control - Full Width directly under Food Roulette */}
+              <button
+                type="button"
+                onClick={() => setIsMiniGamesExpanded((prev) => !prev)}
+                aria-expanded={isMiniGamesExpanded}
+                className="relative w-full py-3 px-4 rounded-2xl bg-white text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:bg-[#FFFDF8] transition-all font-alexandria font-black text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span className="text-base">🎮</span>
+                <span>{t('gameSwiper.miniGamesBtn')}</span>
+                <svg
+                  className={`absolute end-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#241B18] transition-transform duration-200 ${
+                    isMiniGamesExpanded ? 'rotate-180' : ''
+                  }`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  <span className="text-base">⚡</span>
-                  <span>{t('gameSwiper.suddenDeathBtn')}</span>
-                </button>
-              )}
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+
+              {/* Expandable Mini Games Deck Grid inside Showdown container */}
+              <AnimatePresence initial={false}>
+                {isMiniGamesExpanded && (
+                  <MiniGamesDeckGrid
+                    tieCount={tiedRestaurants.length}
+                    activePlayerCount={participants.length}
+                    tieType="restaurant"
+                    contenderIds={tiedRestaurants.map((r) => r.id)}
+                    onSelectGame={handleSelectMiniGame}
+                  />
+                )}
+              </AnimatePresence>
+
+              {/* Development Feedback Notice */}
+              <AnimatePresence>
+                {noticeMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-full py-2 px-3 rounded-xl bg-[#FFF0EE] border border-[#F0443E]/40 text-[#F0443E] font-alexandria font-bold text-xs text-center"
+                  >
+                    {noticeMessage}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ) : (
             <div className="rounded-xl border border-[#241B18]/15 bg-white p-2.5 text-center text-xs font-bold text-[#7A6E67]">
