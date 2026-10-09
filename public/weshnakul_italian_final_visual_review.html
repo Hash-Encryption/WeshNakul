@@ -1,0 +1,1467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WeshNakul — Italian Food Images Visual Review (16 Brands)</title>
+<style>
+  :root {
+    --bg-dark: #0f1115;
+    --bg-card: #181b21;
+    --bg-card-inner: #222630;
+    --border: #2d3342;
+    --border-accent: #f59e0b;
+    --brand-dark: #241B18;
+    --brand-cream: #FFF8F1;
+    --brand-yellow: #FFD75A;
+    --brand-green: #55B96A;
+    --brand-red: #F0443E;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --text-dim: #6b7280;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 28px 20px 80px;
+  }
+  .container { max-width: 1240px; margin: 0 auto; }
+  
+  /* Header */
+  .header {
+    background: linear-gradient(145deg, #181b21, #13151a);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .header-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  h1 { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+  .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 6px; max-width: 880px; line-height: 1.6; }
+  
+  /* Stats Grid */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .stat-card {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+  .stat-val { font-size: 22px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    position: sticky;
+    top: 12px;
+    z-index: 100;
+    background: rgba(15, 17, 21, 0.94);
+    backdrop-filter: blur(12px);
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+  }
+  .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .filter-btn:hover { color: #fff; border-color: #4b5563; }
+  .filter-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+  .filter-btn.active.pending-btn { background: #d97706; border-color: #d97706; }
+
+  /* Brand Cards List */
+  .cards-list { display: flex; flex-direction: column; gap: 24px; }
+  .review-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: border-color 0.2s;
+  }
+  .review-card.pending { border-color: #f59e0b; }
+
+  /* Card Head */
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .card-num-title { display: flex; align-items: center; gap: 12px; }
+  .brand-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .brand-num.pending-num { background: #d97706; }
+  .brand-name { font-size: 20px; font-weight: 800; color: #fff; }
+  .brand-id { font-size: 13px; color: var(--text-dim); font-family: monospace; }
+  
+  .badge {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-approved { background: #14532d; color: #86efac; border: 1px solid #166534; }
+  .badge-pending { background: #78350f; color: #fde68a; border: 1px solid #92400e; }
+
+  /* Main Visual Grid */
+  .visual-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .visual-grid { grid-template-columns: 1fr; }
+  }
+
+  /* WeshNakul Card Simulation */
+  .sim-col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .sim-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    text-align: center;
+  }
+  .card-shell {
+    width: 100%;
+    max-width: 320px;
+    background: #ffffff;
+    border: 2px solid #241B18;
+    box-shadow: 0px 4px 0px #241B18;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: #241B18;
+  }
+  .card-media {
+    width: 100%;
+    height: 220px;
+    position: relative;
+    background: #f3f4f6;
+    overflow: hidden;
+  }
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-body {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #241B18;
+  }
+  .card-tag {
+    font-size: 11px;
+    font-weight: 700;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+  .card-subject {
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  /* Info Column */
+  .info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+  }
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .meta-table tr { border-bottom: 1px solid #262b36; }
+  .meta-table tr:last-child { border-bottom: none; }
+  .meta-table td { padding: 8px 10px; vertical-align: top; }
+  .meta-key {
+    width: 140px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .meta-val {
+    color: var(--text-main);
+    word-break: break-all;
+    font-family: monospace;
+    font-size: 12px;
+  }
+  .meta-val a { color: #60a5fa; text-decoration: none; }
+  .meta-val a:hover { text-decoration: underline; }
+  .notes-box {
+    background: var(--bg-card-inner);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #d1d5db;
+  }
+  .notes-title { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Alternative comparisons for #15 */
+  .alt-container {
+    margin-top: 18px;
+    padding: 16px;
+    background: #1c212b;
+    border: 1px dashed #f59e0b;
+    border-radius: 14px;
+  }
+  .alt-title { font-size: 14px; font-weight: 700; color: #f59e0b; margin-bottom: 12px; }
+  .alt-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+  .alt-card { max-width: 220px; }
+  .alt-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; border: 1px solid #374151; }
+  .alt-desc { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title-row">
+      <div>
+        <h1>🍝 WeshNakul — Italian Food Images Gallery</h1>
+        <p class="subtitle">
+          Complete, verified local preview of all 16 Italian restaurant brands in Jeddah.
+          All images are stored locally under <code>public/images/restaurants/italian/</code> with zero external hotlinks.
+          100% of images are authenticated and fully approved for production swipe cards.
+        </p>
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-val">16 / 16</div>
+        <div class="stat-label">Total Brands</div>
+        <div class="stat-sub">100% mapped deterministically</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color: #4ade80;">16</div>
+        <div class="stat-label">Approved & Verified</div>
+        <div class="stat-sub">100% production ready</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color: #60a5fa;">0</div>
+        <div class="stat-label">Pending Approval</div>
+        <div class="stat-sub">All brands approved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color: #60a5fa;">0</div>
+        <div class="stat-label">External Hotlinks</div>
+        <div class="stat-sub">All 16 served from local files</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filter Controls -->
+  <div class="controls">
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="filterCards('all', this)">All 16 Brands</button>
+      <button class="filter-btn" onclick="filterCards('pizza', this)">Pizza Brands</button>
+      <button class="filter-btn" onclick="filterCards('pasta', this)">Pasta Brands</button>
+    </div>
+    <div style="font-size: 13px; color: var(--text-muted);">
+      Viewing <span id="visible-count">16</span> of 16 brands
+    </div>
+  </div>
+
+  <!-- Cards List -->
+  <div class="cards-list">
+
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">01</div>
+            <div>
+              <div class="brand-name">Jon & Vinny's</div>
+              <div class="brand-id">ID: jon_and_vinnys</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/jon-and-vinnys.jpg" alt="Jon & Vinny's food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Jon & Vinny's</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">pizza & berries bowl</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Time Out Jeddah verified feature of Jon & Vinny's Jeddah showing breakfast pizza and branded Jon & Vinny's bowl.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/jon-and-vinnys.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1024x768 (JPEG) · 85.8 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">01cb9fc30f092ca4868fd1ba0e64804dc91b5fe94368d6b9554897c72e9df294</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Editorial feature photo from Time Out Jeddah.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://www.timeoutjeddah.com/cloud/timeoutjeddah/2025/07/04/Jon-Vinnys-1-1024x768.jpg" target="_blank" rel="noopener">https://www.timeoutjeddah.com/cloud/timeoutjeddah/2025/07/04/Jon-Vinnys-1-1024x768.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://www.timeoutjeddah.com/restaurants/jon-vinnys" target="_blank" rel="noopener">https://www.timeoutjeddah.com/restaurants/jon-vinnys</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pasta">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">02</div>
+            <div>
+              <div class="brand-name">Noto</div>
+              <div class="brand-id">ID: noto</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/noto.jpg" alt="Noto food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Noto</span>
+                  <span class="card-tag">PASTA</span>
+                </div>
+                <div class="card-subject">penne all'arrabbiata pasta</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Time Out Jeddah feature of Noto Jeddah with penne pasta in bowl with NOTO engraved on rim.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/noto.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1024x768 (JPEG) · 41.0 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">47623d50186db6c4324211a25863a0038158f0fb0ad03f1dde61eeb452ca097f</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Editorial feature photo from Time Out Jeddah.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://www.timeoutjeddah.com/cloud/timeoutjeddah/2025/05/08/noto.ksa_-1024x768.jpg" target="_blank" rel="noopener">https://www.timeoutjeddah.com/cloud/timeoutjeddah/2025/05/08/noto.ksa_-1024x768.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://www.timeoutjeddah.com/food-drink/best-italian-restaurants-in-jeddah" target="_blank" rel="noopener">https://www.timeoutjeddah.com/food-drink/best-italian-restaurants-in-jeddah</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">03</div>
+            <div>
+              <div class="brand-name">San Carlo Cicchetti</div>
+              <div class="brand-id">ID: san_carlo_cicchetti</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/san-carlo-cicchetti.jpg" alt="San Carlo Cicchetti food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">San Carlo Cicchetti</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">burrata & artisanal pizza</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Official San Carlo Cicchetti KSA gallery showing guests sharing burrata and pizza on wood board (web-optimized to 1200x960 from 15MB 5816x4653 original).</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/san-carlo-cicchetti.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1200x960 (JPEG) · 149.5 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">a8a3351ca96a3bca5800364c3beac206a86abba8fdbb5b716075233db5946a2f</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Official restaurant website asset from sancarlocicchetti.sa.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://sancarlocicchetti.sa/assets/uploads/gallery/image1566989658.jpg" target="_blank" rel="noopener">https://sancarlocicchetti.sa/assets/uploads/gallery/image1566989658.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://sancarlocicchetti.sa/" target="_blank" rel="noopener">https://sancarlocicchetti.sa/</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">04</div>
+            <div>
+              <div class="brand-name">Piatto</div>
+              <div class="brand-id">ID: piatto</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/piatto.webp" alt="Piatto food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Piatto</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">chicken pizza with garlic swirl</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Official Ninja Saudi catalog item photo for Piatto chicken pizza on wood paddle.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/piatto.webp</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">800x800 (WEBP) · 96.7 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">d9ad0779817fb7018331776136c2bc4bc3f710da48ed7126a31bf3a5f95d9db1</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Delivery platform official catalog asset.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://img.ananinja.com/media/ninja-catalog-42/restaurants/conbd4g8xqnsvxos69ud7c0v08po/68b800e02848f812450d95ad.jpg" target="_blank" rel="noopener">https://img.ananinja.com/media/ninja-catalog-42/restaurants/conbd4g8xqnsvxos69ud7c0v08po/68b800e02848f812450d95ad.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://ananinja.com/sa/en/restaurants/piatto-5707" target="_blank" rel="noopener">https://ananinja.com/sa/en/restaurants/piatto-5707</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pasta">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">05</div>
+            <div>
+              <div class="brand-name">Olive Garden</div>
+              <div class="brand-id">ID: olive_garden</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/olive-garden.jpg" alt="Olive Garden food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Olive Garden</span>
+                  <span class="card-tag">PASTA</span>
+                </div>
+                <div class="card-subject">chicken alfredo fettuccine pasta</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Official Olive Garden press / brand high-res photo of signature Chicken Alfredo (optimized to 1200x800).</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/olive-garden.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1200x800 (JPEG) · 118.8 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">c052a4845207af0586600a06633f8dbfcabe2f8ebda63c996ffceb5d42ce457c</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Official press / brand media asset from MultiVu / Olive Garden.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://www.multivu.com/players/English/7303853-olive-garden-never-ending-pasta-bowl/image/chicken-alfredo-null-HR.jpg" target="_blank" rel="noopener">https://www.multivu.com/players/English/7303853-olive-garden-never-ending-pasta-bowl/image/chicken-alfredo-null-HR.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://www.olivegarden.com/alfredo-sauce" target="_blank" rel="noopener">https://www.olivegarden.com/alfredo-sauce</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">06</div>
+            <div>
+              <div class="brand-name">Eataly</div>
+              <div class="brand-id">ID: eataly</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/eataly.jpg" alt="Eataly food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Eataly</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">neapolitan pepperoni pizza</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Arab News feature of Eataly Jeddah showing authentic Neapolitan pepperoni pizza slice (optimized to 1052x1200).</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/eataly.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1052x1200 (JPEG) · 239.8 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">915f8a1261c48f0bb6ed3a517c426af93143ae2411ae32d8bfd6aad3b42430ed</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Editorial publication feature from Arab News.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2026/04/06/4700291-253239083.jpg?itok=K6SQoEIj" target="_blank" rel="noopener">https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2026/04/06/4700291-253239083.jpg?itok=K6SQoEIj</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://www.arabnews.com/node/2638984/food-health" target="_blank" rel="noopener">https://www.arabnews.com/node/2638984/food-health</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pasta">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">07</div>
+            <div>
+              <div class="brand-name">IL Vero</div>
+              <div class="brand-id">ID: il_vero</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/il-vero.webp" alt="IL Vero food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">IL Vero</span>
+                  <span class="card-tag">PASTA</span>
+                </div>
+                <div class="card-subject">seafood linguine pasta</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Hungerstation menu photo for IL Vero Jeddah showing fresh seafood pasta with mussels and shrimp.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/il-vero.webp</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1440x960 (WEBP) · 122.8 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">759ba9ce3b0943977765a1ffb8552fc46a3ac7a91a10a403717db776ef207167</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">HungerStation verified restaurant menu photograph.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://images.deliveryhero.io/image/hungerstation/menus/menuitem/hsimg-8031673?quality=75&webp=true&width=1440" target="_blank" rel="noopener">https://images.deliveryhero.io/image/hungerstation/menus/menuitem/hsimg-8031673?quality=75&webp=true&width=1440</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://hungerstation.com/sa-en/restaurant/jeddah/al-andalus/64559" target="_blank" rel="noopener">https://hungerstation.com/sa-en/restaurant/jeddah/al-andalus/64559</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">08</div>
+            <div>
+              <div class="brand-name">Portofino</div>
+              <div class="brand-id">ID: portofino</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/portofino.jpg" alt="Portofino food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Portofino</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">pepperoni & cheese pizza</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>TripAdvisor verified customer photograph of whole pizza served at Portofino Jeddah.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/portofino.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1200x1200 (JPEG) · 373.5 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">d6903b6b251f67cd0c1c0368f545dc057e17f59af2b78a42f13589800a91bf6f</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">TripAdvisor user review media CDN asset.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/0d/e6/52/photo4jpg.jpg?h=1200&s=1&w=1200" target="_blank" rel="noopener">https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/0d/e6/52/photo4jpg.jpg?h=1200&s=1&w=1200</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://www.tripadvisor.com/Restaurant_Review-g295419-d1519002-Reviews-Portofino-Jeddah_Makkah_Province.html" target="_blank" rel="noopener">https://www.tripadvisor.com/Restaurant_Review-g295419-d1519002-Reviews-Portofino-Jeddah_Makkah_Province.html</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">09</div>
+            <div>
+              <div class="brand-name">Vivaci</div>
+              <div class="brand-id">ID: vivaci</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/vivaci.jpg" alt="Vivaci food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Vivaci</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">neapolitan pizza slice with branded chef uniform</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Exact TripAdvisor direct reference photo i724353772 showing pizza chef in ViVACi embroidered uniform holding fresh baked pizza slice ("Every slice tells a story"). Approved candidate.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/vivaci.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1200x1200 (JPEG) · 139.2 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">6e429df9a118692e30e397cd4162df1b7647fb23406a238b63021d8f265c4f9b</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">TripAdvisor official restaurant photo CDN asset.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/2c/c2/ec/every-slice-tells-a-story.jpg?h=1200&s=1&w=1200" target="_blank" rel="noopener">https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/2c/c2/ec/every-slice-tells-a-story.jpg?h=1200&s=1&w=1200</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://www.tripadvisor.com/LocationPhotoDirectLink-g295419-d27110874-i724353772-ViVACi-Jeddah_Makkah_Province.html" target="_blank" rel="noopener">https://www.tripadvisor.com/LocationPhotoDirectLink-g295419-d27110874-i724353772-ViVACi-Jeddah_Makkah_Province.html</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">10</div>
+            <div>
+              <div class="brand-name">Napoli Blu</div>
+              <div class="brand-id">ID: napoli_blu</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/napoli-blu.webp" alt="Napoli Blu food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Napoli Blu</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">truffle pizza</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Single Napoli Blu truffle pizza on counter from official Magicpin Jeddah store listing.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/napoli-blu.webp</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">800x800 (WEBP) · 91.7 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">c0ad5cb3b5fe79bc4aaff656862eedb920ebb2c83178d2ead1ca6bf7755c21d6</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Magicpin store catalog asset.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://img.magicpin.com/10628132_store_images_2.webp" target="_blank" rel="noopener">https://img.magicpin.com/10628132_store_images_2.webp</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://magicpin.com/saudi-arabia/Jeddah/Al-Sabil/Restaurant/%D9%86%D8%A7%D8%A8%D9%88%D9%84%D9%8A-%D8%A8%D9%84%D9%88-Napoli-Blu/store/2281748" target="_blank" rel="noopener">https://magicpin.com/saudi-arabia/Jeddah/Al-Sabil/Restaurant/%D9%86%D8%A7%D8%A8%D9%88%D9%84%D9%8A-%D8%A8%D9%84%D9%88-Napoli-Blu/store/2281748</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">11</div>
+            <div>
+              <div class="brand-name">il Postino Pizzeria</div>
+              <div class="brand-id">ID: il_postino_pizzeria</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/il-postino.jpg" alt="il Postino Pizzeria food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">il Postino Pizzeria</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">neapolitan artisanal pizzas</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Time Out Jeddah feature photo of il Postino Pizzeria showing freshly baked pizzas served on table.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/il-postino.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1200x900 (JPEG) · 284.1 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">13c1df2b0adb0bc8775ea43ec67e6bf73b51ba19ab99224853f3e0edaf97dd25</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Editorial feature photo from Time Out Jeddah.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://www.timeoutjeddah.com/cloud/timeoutjeddah/2024/06/19/Il-Postino-Pizzeria-3.jpg" target="_blank" rel="noopener">https://www.timeoutjeddah.com/cloud/timeoutjeddah/2024/06/19/Il-Postino-Pizzeria-3.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://www.timeoutjeddah.com/restaurants/il-postino-pizzeria" target="_blank" rel="noopener">https://www.timeoutjeddah.com/restaurants/il-postino-pizzeria</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pasta">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">12</div>
+            <div>
+              <div class="brand-name">Pizza Lenuo</div>
+              <div class="brand-id">ID: wood_fire_pizza_lenuo</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/lenuo.webp" alt="Pizza Lenuo food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Pizza Lenuo</span>
+                  <span class="card-tag">PASTA</span>
+                </div>
+                <div class="card-subject">spinach tagliatelle pasta with shrimp</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Hungerstation menu photo showing fresh spinach pasta with shrimp and Pizza Lenuo logo printed on plate rim.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/lenuo.webp</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1440x960 (WEBP) · 56.0 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">bf68426701d2c563440b2b9904373f9550794ae35ec2ebc4fe83cd784a7651f4</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">HungerStation verified restaurant menu photograph.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://images.deliveryhero.io/image/hungerstation/menuitem/image/1222349?quality=75&webp=true&width=1440" target="_blank" rel="noopener">https://images.deliveryhero.io/image/hungerstation/menuitem/image/1222349?quality=75&webp=true&width=1440</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://hungerstation.com/sa-en/restaurant/lenuo-pizza/jeddah/ar-ruwais/23584" target="_blank" rel="noopener">https://hungerstation.com/sa-en/restaurant/lenuo-pizza/jeddah/ar-ruwais/23584</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">13</div>
+            <div>
+              <div class="brand-name">Vera Pizza / Verra</div>
+              <div class="brand-id">ID: verra_pizza</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/verra.webp" alt="Vera Pizza / Verra food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Vera Pizza / Verra</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">neapolitan pepperoni & ricotta pizza</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Official Ninja Saudi catalog item photo for Vera Pizza (Verra) Jeddah.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/verra.webp</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1610x1594 (WEBP) · 292.9 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">4ce9265a9073a4ce026f4bfd3d2ba6d3040e8b1718915c3c2203866b6c97302f</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Delivery platform official catalog asset.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://img.ananinja.com/media/ninja-catalog-42/restaurants/oiiypsgxgndxlmpkcg4p32f8ovue/mi100112.jpg" target="_blank" rel="noopener">https://img.ananinja.com/media/ninja-catalog-42/restaurants/oiiypsgxgndxlmpkcg4p32f8ovue/mi100112.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://ananinja.com/sa/en/restaurants/verra-pizza-22344" target="_blank" rel="noopener">https://ananinja.com/sa/en/restaurants/verra-pizza-22344</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">14</div>
+            <div>
+              <div class="brand-name">Salernoo</div>
+              <div class="brand-id">ID: salernoo</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/salernoo.webp" alt="Salernoo food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Salernoo</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">pepperoni pizza on wooden paddle</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Hungerstation verified menu photograph of Salernoo pepperoni pizza.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/salernoo.webp</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1440x1080 (WEBP) · 148.5 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">fd277e67a4ab71ca36d53ef103e76cada6b1ca83c2c6aa46cafe8710d982b695</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Delivery Hero global menu service photograph.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://images.deliveryhero.io/image/global-menu-service/hs_sa/vendor/79783/product/13505448/87ccb82c-09b9-403d-8f33-ffcdf5dec9c7.jpg?quality=75&webp=true&width=1440" target="_blank" rel="noopener">https://images.deliveryhero.io/image/global-menu-service/hs_sa/vendor/79783/product/13505448/87ccb82c-09b9-403d-8f33-ffcdf5dec9c7.jpg?quality=75&webp=true&width=1440</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://hungerstation.com/sa-en/restaurant/jeddah/az-zahra/31881" target="_blank" rel="noopener">https://hungerstation.com/sa-en/restaurant/jeddah/az-zahra/31881</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">15</div>
+            <div>
+              <div class="brand-name">IL Castello</div>
+              <div class="brand-id">ID: il_castello</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/il-castello.jpg" alt="IL Castello food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">IL Castello</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">chicken fettuccine alfredo on restaurant-branded table paper</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Restaurant Guru food gallery item from IL Castello Jeddah showing fettuccine alfredo with chicken, parmesan, on table paper reading "IL CASTELLO - PIZZA ITALIAN SPECIALITY". Option A approved.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/il-castello.jpg</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">1200x1600 (JPEG) · 368.2 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">4015a13c513846cf460a66c5dd4764383361149a6d55fabdabf47cb236c7512f</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Customer review photo from Google / Restaurant Guru.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://img05.restaurantguru.com/rfdc-IL-Castello-dishes-2025-11-3.jpg" target="_blank" rel="noopener">https://img05.restaurantguru.com/rfdc-IL-Castello-dishes-2025-11-3.jpg</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://restaurantguru.com/IL-Castello-Jeddah" target="_blank" rel="noopener">https://restaurantguru.com/IL-Castello-Jeddah</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+      <article class="review-card" data-status="approved" data-subject="pizza">
+        <div class="card-head">
+          <div class="card-num-title">
+            <div class="brand-num">16</div>
+            <div>
+              <div class="brand-name">Pizzalio</div>
+              <div class="brand-id">ID: pizzalio</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-approved">Verified & Approved</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <!-- Card Simulation -->
+          <div class="sim-col">
+            <div class="sim-label">WeshNakul Card Preview</div>
+            <div class="card-shell">
+              <div class="card-media">
+                <img src="./images/restaurants/italian/pizzalio.webp" alt="Pizzalio food" loading="lazy" />
+              </div>
+              <div class="card-body">
+                <div class="card-title-row">
+                  <span class="card-title">Pizzalio</span>
+                  <span class="card-tag">PIZZA</span>
+                </div>
+                <div class="card-subject">mushroom pizza on wooden peel</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="info-col">
+            <div class="notes-box">
+              <div class="notes-title">Visual Subject & Provenance</div>
+              <div>Pizzalio mushroom pizza from Magicpin Jeddah store listing.</div>
+            </div>
+
+            <table class="meta-table">
+              <tr>
+                <td class="meta-key">Local Path</td>
+                <td class="meta-val">/images/restaurants/italian/pizzalio.webp</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Dimensions & Size</td>
+                <td class="meta-val">800x585 (WEBP) · 113.9 KB</td>
+              </tr>
+              <tr>
+                <td class="meta-key">SHA-256 Hash</td>
+                <td class="meta-val">34a61df82bd66c8e19cbc58e6b96f372f2fe42ed8f87ede394c59994e5e5fa75</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Attribution / Source</td>
+                <td class="meta-val">Magicpin store catalog asset.</td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Image URL</td>
+                <td class="meta-val"><a href="https://img.magicpin.com/10624807_store_images_3.webp" target="_blank" rel="noopener">https://img.magicpin.com/10624807_store_images_3.webp</a></td>
+              </tr>
+              <tr>
+                <td class="meta-key">Source Page Reference</td>
+                <td class="meta-val"><a href="https://magicpin.com/saudi-arabia/Jeddah/Al-Sabil/Restaurant/Pizzalio-Restaurant-%D8%A8%D9%8A%D8%AA%D8%B2%D8%A7%D9%84%D9%8A%D9%88-%D9%84%D9%84%D9%85%D8%A3%D9%83%D9%88%D9%84%D8%A7%D8%AA-%D8%A7%D9%84%D8%A5%D9%8A%D8%B7%D8%A7%D9%84%D9%8A%D8%A9/store/228008b" target="_blank" rel="noopener">https://magicpin.com/saudi-arabia/Jeddah/Al-Sabil/Restaurant/Pizzalio-Restaurant-%D8%A8%D9%8A%D8%AA%D8%B2%D8%A7%D9%84%D9%8A%D9%88-%D9%84%D9%84%D9%85%D8%A3%D9%83%D9%88%D9%84%D8%A7%D8%AA-%D8%A7%D9%84%D8%A5%D9%8A%D8%B7%D8%A7%D9%84%D9%8A%D8%A9/store/228008b</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    
+    </div>
+  </div>
+
+  <script>
+  function filterCards(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.review-card');
+    let visible = 0;
+    cards.forEach(c => {
+      let show = false;
+      if (type === 'all') show = true;
+      else if (type === 'pending') show = c.dataset.status === 'pending';
+      else if (type === 'pizza') show = c.dataset.subject === 'pizza';
+      else if (type === 'pasta') show = c.dataset.subject === 'pasta';
+
+      c.style.display = show ? 'block' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('visible-count').textContent = visible;
+  }
+  </script>
+  </body>
+  </html>
+  

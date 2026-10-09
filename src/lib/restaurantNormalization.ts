@@ -12,6 +12,7 @@ import { getShawarmaBrandImage } from '../data/shawarmaBrandImages';
 import { getFriedChickenBrandImage } from '../data/friedChickenBrandImages';
 import { getPizzaBrandImage } from '../data/pizzaBrandImages';
 import { getGrillsBrandImage } from '../data/grillsBrandImages';
+import { getItalianBrandImage } from '../data/italianBrandImages';
 
 const VALID_PRICE_TIERS = new Set<PriceTier>(['$', '$$', '$$$']);
 const VALID_DINING_MODES = new Set<DiningMode>(['both', 'delivery_only', 'dine_in_only']);
@@ -317,25 +318,39 @@ export function normalizeRestaurantDeck(
     seenIds.add(item.id);
 
     if (!item.imageUrl) {
-      const burgerImage = getBurgerBrandImage(item.id) || getBurgerBrandImage(item.nameEn);
-      if (burgerImage) {
-        item.imageUrl = burgerImage;
-      } else {
-        const shawarmaImage = getShawarmaBrandImage(item.id) || getShawarmaBrandImage(item.nameEn);
-        if (shawarmaImage) {
-          item.imageUrl = shawarmaImage;
+      if (item.categories.includes('italian')) {
+        const italianImage = getItalianBrandImage(item.id) || getItalianBrandImage(item.nameEn);
+        if (italianImage) {
+          item.imageUrl = italianImage;
+        }
+      }
+
+      if (!item.imageUrl) {
+        const burgerImage = getBurgerBrandImage(item.id) || getBurgerBrandImage(item.nameEn);
+        if (burgerImage) {
+          item.imageUrl = burgerImage;
         } else {
-          const friedChickenImage = getFriedChickenBrandImage(item.id) || getFriedChickenBrandImage(item.nameEn);
-          if (friedChickenImage) {
-            item.imageUrl = friedChickenImage;
+          const shawarmaImage = getShawarmaBrandImage(item.id) || getShawarmaBrandImage(item.nameEn);
+          if (shawarmaImage) {
+            item.imageUrl = shawarmaImage;
           } else {
-            const pizzaImage = getPizzaBrandImage(item.id) || getPizzaBrandImage(item.nameEn);
-            if (pizzaImage) {
-              item.imageUrl = pizzaImage;
+            const friedChickenImage = getFriedChickenBrandImage(item.id) || getFriedChickenBrandImage(item.nameEn);
+            if (friedChickenImage) {
+              item.imageUrl = friedChickenImage;
             } else {
-              const grillsImage = getGrillsBrandImage(item.id) || getGrillsBrandImage(item.nameEn);
-              if (grillsImage) {
-                item.imageUrl = grillsImage;
+              const pizzaImage = getPizzaBrandImage(item.id) || getPizzaBrandImage(item.nameEn);
+              if (pizzaImage) {
+                item.imageUrl = pizzaImage;
+              } else {
+                const grillsImage = getGrillsBrandImage(item.id) || getGrillsBrandImage(item.nameEn);
+                if (grillsImage) {
+                  item.imageUrl = grillsImage;
+                } else {
+                  const italianImage = getItalianBrandImage(item.id) || getItalianBrandImage(item.nameEn);
+                  if (italianImage) {
+                    item.imageUrl = italianImage;
+                  }
+                }
               }
             }
           }
