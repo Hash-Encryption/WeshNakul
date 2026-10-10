@@ -42,14 +42,16 @@ CREATE INDEX IF NOT EXISTS idx_captain_events_room ON public.captain_events (roo
 ALTER TABLE public.captain_events ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow read captain events" ON public.captain_events FOR SELECT USING (true);
 
--- 3. Unbiased random uniform double in [0, 1) using cryptographic source
+-- 3. Unbiased random uniform double in [0, 1) using cryptographic entropy
 CREATE OR REPLACE FUNCTION private.crypto_random_double() RETURNS double precision
-LANGUAGE plpgsql VOLATILE SET search_path = pg_catalog, public, private AS $$
+LANGUAGE plpgsql VOLATILE SET search_path = pg_catalog, public, extensions, private AS $$
 DECLARE
+  v_hex text;
   v_num bigint;
 BEGIN
-  -- 4 bytes = 32 bits = 0 to 4294967295
-  v_num := ('x' || encode(gen_random_bytes(4), 'hex'))::bit(32)::bigint;
+  -- Extract 8 hex characters (32 bits = 4 bytes) from PostgreSQL native CSPRNG gen_random_uuid()
+  v_hex := substr(replace(gen_random_uuid()::text, '-', ''), 1, 8);
+  v_num := ('x' || v_hex)::bit(32)::bigint;
   RETURN v_num::double precision / 4294967296.0;
 END;
 $$;

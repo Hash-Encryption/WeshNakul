@@ -341,7 +341,16 @@ try {
     }
   });
 
-  await new Promise((r) => setTimeout(r, 2000));
+  let ready = false;
+  for (let i = 0; i < 40; i++) {
+    const isReady = await evalInBrowser('typeof window.__HOST_OPEN__ === "function"');
+    if (isReady) {
+      ready = true;
+      break;
+    }
+    await new Promise((r) => setTimeout(r, 250));
+  }
+  assert.ok(ready, 'React harness mounted successfully');
   const pageTitle = await evalInBrowser('document.title');
   assert.equal(pageTitle, 'Captain Roulette Browser Test');
   console.log('✓ Headless Chrome loaded test harness');

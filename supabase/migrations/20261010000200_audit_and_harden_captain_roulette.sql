@@ -19,6 +19,20 @@ DROP FUNCTION IF EXISTS public.create_room_authorized(text, text, text, text, te
 DROP FUNCTION IF EXISTS public.join_room_authorized(text, text, text);
 DROP FUNCTION IF EXISTS private.calculate_player_captain_weight(text);
 
+-- 2.b Hardened crypto_random_double with native gen_random_uuid CSPRNG
+CREATE OR REPLACE FUNCTION private.crypto_random_double() RETURNS double precision
+LANGUAGE plpgsql VOLATILE SET search_path = pg_catalog, public, extensions, private AS $$
+DECLARE
+  v_hex text;
+  v_num bigint;
+BEGIN
+  -- Extract 8 hex characters (32 bits = 4 bytes) from PostgreSQL native CSPRNG gen_random_uuid()
+  v_hex := substr(replace(gen_random_uuid()::text, '-', ''), 1, 8);
+  v_num := ('x' || v_hex)::bit(32)::bigint;
+  RETURN v_num::double precision / 4294967296.0;
+END;
+$$;
+
 -- 3. Update create_room_authorized to capture stable_player_id
 CREATE OR REPLACE FUNCTION public.create_room_authorized(
   p_code text,
@@ -160,7 +174,7 @@ CREATE OR REPLACE FUNCTION public.start_captain_selection(
   p_session_token text,
   p_stable_id text DEFAULT NULL
 ) RETURNS jsonb
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, private AS $$
+LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, extensions, private AS $$
 DECLARE
   v_caller RECORD;
   v_existing_ev RECORD;
@@ -312,7 +326,7 @@ CREATE OR REPLACE FUNCTION public.request_captain_reroll(
   p_event_id text,
   p_session_token text
 ) RETURNS jsonb
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, private AS $$
+LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, extensions, private AS $$
 DECLARE
   v_caller RECORD;
   v_ev RECORD;
@@ -401,7 +415,7 @@ CREATE OR REPLACE FUNCTION public.cast_captain_vote(
   p_session_token text,
   p_vote text -- 'approve' or 'reject'
 ) RETURNS jsonb
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, private AS $$
+LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, extensions, private AS $$
 DECLARE
   v_caller RECORD;
   v_ev RECORD;
@@ -608,7 +622,7 @@ CREATE OR REPLACE FUNCTION public.resolve_captain_event(
   p_event_id text,
   p_session_token text
 ) RETURNS jsonb
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, private AS $$
+LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = pg_catalog, public, extensions, private AS $$
 DECLARE
   v_caller_id uuid;
   v_ev RECORD;
@@ -836,7 +850,7 @@ CREATE OR REPLACE FUNCTION public.get_captain_event_state(
   p_room_id uuid,
   p_session_token text
 ) RETURNS jsonb
-LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path = pg_catalog, public, private AS $$
+LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path = pg_catalog, public, extensions, private AS $$
 DECLARE
   v_ev RECORD;
   v_voter_count int;
