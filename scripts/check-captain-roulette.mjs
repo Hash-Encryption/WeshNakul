@@ -538,6 +538,185 @@ try {
     assert.equal(concurrentCallRes.eventId, freshEventRes.eventId, 'Returns same active event without duplicating');
   });
 
+  // ==========================================
+  // Test Suite 7: Detailed Voting Scenarios (Early Rejection, Ties, Vote Timeout, Uncontested)
+  // ==========================================
+  console.log('\n7. Verifying Detailed Voting Scenarios (Rejection, Ties, Timeouts):');
+
+  // 7.1 Early Rejection when approval is mathematically impossible (N=4, threshold=3)
+  const rejRoomId = '70000000-0000-0000-0000-000000000007';
+  await db.exec(`
+    INSERT INTO public.rooms (id, code, eating_mode, city)
+    VALUES ('${rejRoomId}', 'REJ1', 'delivery', 'riyadh');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${rejRoomId}', 'rej-p1', 'stable-rej-1', 'RejP1', '#55B96A', 'circle', true, 'active'),
+      (gen_random_uuid(), '${rejRoomId}', 'rej-p2', 'stable-rej-2', 'RejP2', '#F0443E', 'circle', false, 'active'),
+      (gen_random_uuid(), '${rejRoomId}', 'rej-p3', 'stable-rej-3', 'RejP3', '#FFD75A', 'circle', false, 'active'),
+      (gen_random_uuid(), '${rejRoomId}', 'rej-p4', 'stable-rej-4', 'RejP4', '#73C8EA', 'circle', false, 'active');
+  `);
+
+  const rejStart = (await query(`SELECT public.start_captain_selection('${rejRoomId}', 'rej-p1') as res;`))[0].res;
+  const rejEvId = rejStart.eventId;
+
+  // p1 requests reroll -> 1 approval (needed: 3)
+  await query(`SELECT public.request_captain_reroll('${rejRoomId}', '${rejEvId}', 'rej-p1');`);
+
+  // p2 votes reject -> approvals: 1, rejections: 1, uncast: 2. (1 + 2 = 3 >= 3, still possible)
+  const voteP2 = (await query(`SELECT public.cast_captain_vote('${rejRoomId}', '${rejEvId}', 'rej-p2', 'reject') as res;`))[0].res;
+  check('7.1a Vote remains open while approval is still mathematically possible', () => {
+    assert.equal(voteP2.status, 'reroll_vote_open');
+  });
+
+  // p3 votes reject -> approvals: 1, rejections: 2, uncast: 1. (1 + 1 = 2 < 3! mathematically IMPOSSIBLE)
+  const voteP3 = (await query(`SELECT public.cast_captain_vote('${rejRoomId}', '${rejEvId}', 'rej-p3', 'reject') as res;`))[0].res;
+  check('7.1b Mathematical impossibility triggers early rejection and preserves provisional captain', () => {
+    assert.equal(voteP3.status, 'finalized');
+    assert.equal(voteP3.finalDecision, 'rejected');
+    assert.equal(voteP3.finalCaptainId, rejStart.provisionalCaptainId, 'Provisional captain retained');
+  });
+
+  // Exactly one history entry recorded for rejected vote
+  const rejHist = await query(`SELECT count(*) as cnt FROM private.captain_history WHERE event_id = '${rejEvId}';`);
+  check('7.1c Exactly one captain win recorded for provisional captain on rejection', () => {
+    assert.equal(Number(rejHist[0].cnt), 1);
+  });
+
+  // 7.2 Tie Outcome: N=4, 2 approve vs 2 reject at vote timeout
+  const tieRoomId = '80000000-0000-0000-0000-000000000008';
+  await db.exec(`
+    INSERT INTO public.rooms (id, code, eating_mode, city)
+    VALUES ('${tieRoomId}', 'TIE1', 'delivery', 'riyadh');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${tieRoomId}', 'tie-p1', 'stable-tie-1', 'TieP1', '#55B96A', 'circle', true, 'active'),
+      (gen_random_uuid(), '${tieRoomId}', 'tie-p2', 'stable-tie-2', 'TieP2', '#F0443E', 'circle', false, 'active'),
+      (gen_random_uuid(), '${tieRoomId}', 'tie-p3', 'stable-tie-3', 'TieP3', '#FFD75A', 'circle', false, 'active'),
+      (gen_random_uuid(), '${tieRoomId}', 'tie-p4', 'stable-tie-4', 'TieP4', '#73C8EA', 'circle', false, 'active');
+  `);
+
+  const tieStart = (await query(`SELECT public.start_captain_selection('${tieRoomId}', 'tie-p1') as res;`))[0].res;
+  const tieEvId = tieStart.eventId;
+
+  // p1 requests reroll -> 1 approval
+  await query(`SELECT public.request_captain_reroll('${tieRoomId}', '${tieEvId}', 'tie-p1');`);
+  // p2 votes approve -> 2 approvals
+  await query(`SELECT public.cast_captain_vote('${tieRoomId}', '${tieEvId}', 'tie-p2', 'approve');`);
+  // p3 votes reject -> 1 rejection
+  await query(`SELECT public.cast_captain_vote('${tieRoomId}', '${tieEvId}', 'tie-p3', 'reject');`);
+  // p4 does not vote in time, vote expires
+  await db.exec(`UPDATE public.captain_events SET vote_ends_at = now() - interval '1 second' WHERE id = '${tieEvId}';`);
+
+  // Resolution at timeout: approvals = 2, required = 3 -> strict majority fails!
+  const tieRes = (await query(`SELECT public.resolve_captain_event('${tieRoomId}', '${tieEvId}', 'tie-p1') as res;`))[0].res;
+  check('7.2 Tie / insufficient approval at timeout retains provisional captain', () => {
+    assert.equal(tieRes.status, 'finalized');
+    assert.equal(tieRes.finalDecision, 'rejected');
+    assert.equal(tieRes.finalCaptainId, tieStart.provisionalCaptainId);
+  });
+
+  // 7.3 Pure Uncontested Objection Expiry (no reroll requested, timer expires)
+  const uncontestedRoomId = '90000000-0000-0000-0000-000000000009';
+  await db.exec(`
+    INSERT INTO public.rooms (id, code, eating_mode, city)
+    VALUES ('${uncontestedRoomId}', 'UNC1', 'delivery', 'riyadh');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${uncontestedRoomId}', 'unc-p1', 'stable-unc-1', 'UncP1', '#55B96A', 'circle', true, 'active'),
+      (gen_random_uuid(), '${uncontestedRoomId}', 'unc-p2', 'stable-unc-2', 'UncP2', '#F0443E', 'circle', false, 'active');
+  `);
+
+  const uncStart = (await query(`SELECT public.start_captain_selection('${uncontestedRoomId}', 'unc-p1') as res;`))[0].res;
+  const uncEvId = uncStart.eventId;
+
+  // Let 10s objection window expire without any reroll request
+  await db.exec(`UPDATE public.captain_events SET objection_ends_at = now() - interval '1 second' WHERE id = '${uncEvId}';`);
+
+  const uncFinal = (await query(`SELECT public.resolve_captain_event('${uncontestedRoomId}', '${uncEvId}', 'unc-p2') as res;`))[0].res;
+  check('7.3 Uncontested objection expiration finalizes original provisional captain', () => {
+    assert.equal(uncFinal.status, 'finalized');
+    assert.equal(uncFinal.finalDecision, 'uncontested');
+    assert.equal(uncFinal.finalCaptainId, uncStart.provisionalCaptainId);
+    assert.equal(uncFinal.hasRerolled, false);
+  });
+
+  const uncHist = await query(`SELECT * FROM private.captain_history WHERE event_id = '${uncEvId}';`);
+  check('7.4 Uncontested history records exactly 1 win with was_reroll = false', () => {
+    assert.equal(uncHist.length, 1);
+    assert.equal(uncHist[0].was_reroll, false);
+    assert.equal(uncHist[0].participant_id, uncStart.provisionalCaptainId);
+  });
+
+  // ==========================================
+  // Test Suite 8: Security Boundary & Forged Tokens
+  // ==========================================
+  console.log('\n8. Verifying Security Boundary & Forged Session Tokens:');
+
+  const forgedToken = 'attacker-forged-session-token-999';
+
+  // 8.1 start_captain_selection rejects forged session token
+  let forgeStartFailed = false;
+  try {
+    await query(`SELECT public.start_captain_selection('${uncontestedRoomId}', '${forgedToken}') as res;`);
+  } catch (err) {
+    forgeStartFailed = err.message.includes('WSH_UNAUTHORIZED');
+  }
+  check('8.1 start_captain_selection rejects forged session token', () => {
+    assert.ok(forgeStartFailed, 'Must reject forged token');
+  });
+
+  // 8.2 request_captain_reroll rejects forged session token
+  let forgeRerollFailed = false;
+  try {
+    await query(`SELECT public.request_captain_reroll('${uncontestedRoomId}', '${uncEvId}', '${forgedToken}') as res;`);
+  } catch (err) {
+    forgeRerollFailed = err.message.includes('WSH_UNAUTHORIZED');
+  }
+  check('8.2 request_captain_reroll rejects forged session token', () => {
+    assert.ok(forgeRerollFailed, 'Must reject forged token');
+  });
+
+  // 8.3 cast_captain_vote rejects forged session token
+  let forgeVoteFailed = false;
+  try {
+    await query(`SELECT public.cast_captain_vote('${uncontestedRoomId}', '${uncEvId}', '${forgedToken}', 'approve') as res;`);
+  } catch (err) {
+    forgeVoteFailed = err.message.includes('WSH_UNAUTHORIZED');
+  }
+  check('8.3 cast_captain_vote rejects forged session token', () => {
+    assert.ok(forgeVoteFailed, 'Must reject forged token');
+  });
+
+  // 8.4 Concurrent duplicate vote race condition
+  // In tieRoomId, p1 already requested reroll. What if p2 sends two concurrent votes?
+  const raceRoomId = 'a1000000-0000-0000-0000-000000000010';
+  await db.exec(`
+    INSERT INTO public.rooms (id, code, eating_mode, city)
+    VALUES ('${raceRoomId}', 'RAC1', 'delivery', 'riyadh');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${raceRoomId}', 'rac-p1', 'stable-rac-1', 'RacP1', '#55B96A', 'circle', true, 'active'),
+      (gen_random_uuid(), '${raceRoomId}', 'rac-p2', 'stable-rac-2', 'RacP2', '#F0443E', 'circle', false, 'active'),
+      (gen_random_uuid(), '${raceRoomId}', 'rac-p3', 'stable-rac-3', 'RacP3', '#FFD75A', 'circle', false, 'active');
+  `);
+
+  const raceStart = (await query(`SELECT public.start_captain_selection('${raceRoomId}', 'rac-p1') as res;`))[0].res;
+  await query(`SELECT public.request_captain_reroll('${raceRoomId}', '${raceStart.eventId}', 'rac-p1');`);
+
+  // p2 attempts two simultaneous votes
+  const raceVotes = await Promise.allSettled([
+    query(`SELECT public.cast_captain_vote('${raceRoomId}', '${raceStart.eventId}', 'rac-p2', 'approve') as res;`),
+    query(`SELECT public.cast_captain_vote('${raceRoomId}', '${raceStart.eventId}', 'rac-p2', 'reject') as res;`),
+  ]);
+
+  const fulfilled = raceVotes.filter(r => r.status === 'fulfilled');
+  const rejected = raceVotes.filter(r => r.status === 'rejected');
+  check('8.4 Concurrent race of duplicate votes results in exactly one win and one rejection', () => {
+    assert.equal(fulfilled.length, 1, 'Exactly one vote accepted');
+    assert.equal(rejected.length, 1, 'Concurrent second vote rejected');
+    assert.ok(rejected[0].reason.message.includes('WSH_ALREADY_VOTED') || rejected[0].reason.message.includes('WSH_VOTE_CLOSED'));
+  });
+
   console.log(`\nPASS: All ${checks} Captain Roulette database and algorithm checks passed!`);
 } catch (error) {
   console.error('\nEXECUTION FAILED MESSAGE:', error.message);
