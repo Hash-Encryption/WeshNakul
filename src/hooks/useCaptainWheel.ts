@@ -134,6 +134,13 @@ export function useCaptainWheel({
 
       // 1. FREE-SPINNING PHASE
       if (!landingRef.current) {
+        // Safety ceiling: If spinning for > 8s without landing, abort cleanly to idle
+        if (elapsed > 8.0) {
+          console.warn('[useCaptainWheel] Safety ceiling reached without landing; stopping wheel.');
+          updatePhase('idle');
+          return;
+        }
+
         const speed = Math.min(720, 200 + elapsed * 500); // Accelerate up to 720 deg/s
         rotationRef.current = (rotationRef.current + speed * dt) % 360;
 

@@ -140,14 +140,20 @@ export const TiebreakerScreen: React.FC = () => {
                   {locale === 'ar' ? winner.ar : winner.en}
                 </div>
               </motion.div>
-            ) : hasError && isHost ? (
+            ) : hasError ? (
               <motion.div
                 key="error"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="rounded-xl border-2 border-brand-red bg-rose-50 p-2 text-xs font-black text-brand-red"
               >
-                {locale === 'ar' ? 'تعذر حسم التعادل تلقائياً. يرجى المحاولة مرة أخرى.' : 'Resolution timed out. Please try again.'}
+                {locale === 'ar'
+                  ? (isHost
+                      ? 'تعذر حسم التعادل تلقائياً. يرجى المحاولة مرة أخرى.'
+                      : 'تعذر حسم التعادل تلقائياً. بانتظار المضيف للمحاولة ثانية...')
+                  : (isHost
+                      ? 'Resolution timed out. Please try again.'
+                      : 'Resolution timed out. Waiting for host to retry...')}
               </motion.div>
             ) : spin ? (
               <motion.div

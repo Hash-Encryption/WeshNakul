@@ -120,6 +120,15 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
     let mounted = true;
     const init = async () => {
       setInitError(null);
+      const activeCount = (participants || []).filter((p) => p.status === 'active').length;
+      if (activeCount < 2) {
+        if (mounted) {
+          setInitError('min_players');
+          setIsSpinningWheel(false);
+        }
+        return;
+      }
+
       try {
         const existing = await getCaptainEventState(currentRoom.id, currentParticipant.session_token);
         // If an existing event is still in progress, resume it
@@ -130,15 +139,6 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
 
         // Host starts fresh selection if none exists or previous round was finalized
         if (isHost && (!existing || existing.status === 'finalized')) {
-          const activeCount = (participants || []).filter((p) => p.status === 'active').length;
-          if (activeCount < 2) {
-            if (mounted) {
-              setInitError('min_players');
-              setIsSpinningWheel(false);
-            }
-            return;
-          }
-
           if (isStartingRef.current) return;
           isStartingRef.current = true;
           if (mounted) setIsStartingSelection(true);

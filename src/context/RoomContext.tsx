@@ -873,6 +873,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       if (decisionSpinRef.current && !decisionSpinRef.current.winnerId) {
         applyDecisionSpin({ ...decisionSpinRef.current, error: 'WSH_TIMEOUT' });
+        void broadcastDecisionSpin(currentRoom.id, { ...decisionSpinRef.current, error: 'WSH_TIMEOUT' });
       }
     }, 20000);
 
@@ -911,10 +912,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       console.error('Error resolving tie RPC', error);
-      // ONLY HOST gets error state
       applyDecisionSpin({ ...spin, error: 'RPC_FAILED' });
       pendingResolvedRoomRef.current = null;
-      // Do not broadcast cancelled: true to guests, so guests remain in waiting state while host sees retry
+      void broadcastDecisionSpin(currentRoom.id, { ...spin, error: 'RPC_FAILED' });
     }
   }, [currentRoom, currentParticipant, applyDecisionSpin, reconcileDecisionSpinFromRoom]);
 

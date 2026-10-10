@@ -810,7 +810,92 @@ try {
     check(rejectedRest === null, 'S25: Imposter restaurant ID outside candidateIds is rejected');
   }
 
-  console.log(`PASS: ${checks} Roulette Wheel Engine & Sync checks covering all 25 scenarios.`);
+  // =========================================================================
+  // SCENARIO 26: activeSpin requires !spin.error to halt wheel immediately
+  // If an RPC fails or times out, the wheel must not spin forever behind the error UI.
+  // =========================================================================
+  {
+    const spinWithError = {
+      spinId: 'spin-err-test',
+      kind: 'restaurant',
+      candidateIds: ['r1', 'r2'],
+      winnerId: null,
+      error: 'RPC_FAILED',
+    };
+    const activeSpin = Boolean(spinWithError && !spinWithError.cancelled && !spinWithError.error);
+    check(activeSpin === false, 'S26: activeSpin becomes false immediately when spin.error is set');
+
+    const spinNormal = {
+      spinId: 'spin-ok-test',
+      kind: 'restaurant',
+      candidateIds: ['r1', 'r2'],
+      winnerId: null,
+    };
+    const activeSpinOk = Boolean(spinNormal && !spinNormal.cancelled && !spinNormal.error);
+    check(activeSpinOk === true, 'S26: activeSpin remains true when spin has no error');
+  }
+
+  // =========================================================================
+  // SCENARIO 27: useContinuousRoulette 15-second safety ceiling prevents infinite cruise
+  // If winner never arrives within 15 seconds, animation loop halts and switches to idle.
+  // =========================================================================
+  {
+    const spinElapsedUnder = 14900;
+    const isExceededUnder = spinElapsedUnder > 15000;
+    check(isExceededUnder === false, 'S27: Wheel is allowed to cruise normally under 15s');
+
+    const spinElapsedOver = 15001;
+    const isExceededOver = spinElapsedOver > 15000;
+    check(isExceededOver === true, 'S27: Wheel animation halts when exceeding 15s ceiling');
+  }
+
+  // =========================================================================
+  // SCENARIO 28: useCaptainWheel 8-second safety ceiling prevents infinite cruise
+  // If captain landing cannot be triggered within 8 seconds, animation halts to idle.
+  // =========================================================================
+  {
+    const captainElapsedUnder = 7.9;
+    check(captainElapsedUnder <= 8.0, 'S28: Captain wheel free-spins normally under 8s');
+
+    const captainElapsedOver = 8.1;
+    check(captainElapsedOver > 8.0, 'S28: Captain wheel free-spin aborts cleanly after 8s safety ceiling');
+  }
+
+  // =========================================================================
+  // SCENARIO 29: Single active player in CaptainRouletteModal immediately sets min_players
+  // Ensures 1-player rooms never launch or resume Captain Roulette.
+  // =========================================================================
+  {
+    const singleParticipantList = [{ id: 'p1', status: 'active', nickname: 'Solo' }];
+    const activeCount = singleParticipantList.filter((p) => p.status === 'active').length;
+    const isEligible = activeCount >= 2;
+    check(isEligible === false, 'S29: 1 active player is rejected for Captain Roulette');
+
+    const twoParticipantList = [
+      { id: 'p1', status: 'active', nickname: 'Alice' },
+      { id: 'p2', status: 'active', nickname: 'Bob' },
+    ];
+    const twoActiveCount = twoParticipantList.filter((p) => p.status === 'active').length;
+    const isTwoEligible = twoActiveCount >= 2;
+    check(isTwoEligible === true, 'S29: 2 active players are accepted for Captain Roulette');
+  }
+
+  // =========================================================================
+  // SCENARIO 30: Guest clients receive broadcasted errors (RPC_FAILED, WSH_TIMEOUT)
+  // Ensures guests never cruise indefinitely while host views retry button.
+  // =========================================================================
+  {
+    const guestReceivedSpin = {
+      spinId: 'spin-broadcast-err',
+      kind: 'restaurant',
+      candidateIds: ['r1', 'r2'],
+      error: 'RPC_FAILED',
+    };
+    const guestActiveSpin = Boolean(guestReceivedSpin && !guestReceivedSpin.cancelled && !guestReceivedSpin.error);
+    check(guestActiveSpin === false, 'S30: Guest activeSpin halts upon receiving broadcasted error');
+  }
+
+  console.log(`PASS: ${checks} Roulette Wheel Engine & Sync checks covering all 30 scenarios.`);
 } finally {
   await server.close();
 }

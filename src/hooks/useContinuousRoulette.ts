@@ -47,7 +47,7 @@ export function useContinuousRoulette({
   const [phase, setPhase] = useState<RoulettePhase>('idle');
 
   // Authoritative inputs derived from explicit props or legacy spin object
-  const activeSpin = explicitSpinning ?? Boolean(spin && !spin.cancelled);
+  const activeSpin = explicitSpinning ?? Boolean(spin && !spin.cancelled && !spin.error);
   const activeWinnerId = explicitWinnerId ?? (spin?.winnerId || null);
 
   const wheelRef = useRef<SVGGElement | null>(null);
@@ -178,6 +178,13 @@ export function useContinuousRoulette({
       const canStartLanding = Boolean(winnerSlice && spinElapsed >= MIN_CRUISE_MS);
 
       if (!canStartLanding || !winnerSlice) {
+        // Safety ceiling: If cruising for > 15 seconds without a winner, halt wheel animation
+        if (spinElapsed > 15000) {
+          console.warn('[useContinuousRoulette] Spin duration exceeded safety ceiling (15s); halting animation.');
+          updatePhase('idle');
+          return;
+        }
+
         // PHASE A: ACCELERATING & CRUISING
         const accelFactor = Math.min(1, Math.max(0.2, spinElapsed / ACCEL_DURATION_MS));
         const currentSpeed = CRUISING_SPEED_DEG_PER_MS * accelFactor;

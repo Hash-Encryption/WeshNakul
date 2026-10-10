@@ -74,14 +74,22 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
               {(locale === 'ar' ? winner.nameAr : winner.nameEn) || winner.nameAr || winner.nameEn || winner.id}
             </div>
           </motion.div>
-        ) : spin.error && isHost ? (
+        ) : spin.error ? (
           <div className="flex flex-col items-center gap-2 w-full mt-2">
             <div className="rounded-xl border-2 border-brand-red bg-rose-50 p-2 text-xs font-black text-brand-red w-full">
-              {locale === 'ar' ? 'تعذر حسم التعادل تلقائياً. يرجى المحاولة مرة أخرى.' : 'Resolution timed out. Please try again.'}
+              {locale === 'ar'
+                ? (isHost
+                    ? 'تعذر حسم التعادل تلقائياً. يرجى المحاولة مرة أخرى.'
+                    : 'تعذر حسم التعادل تلقائياً. بانتظار المضيف للمحاولة ثانية...')
+                : (isHost
+                    ? 'Resolution timed out. Please try again.'
+                    : 'Resolution timed out. Waiting for host to retry...')}
             </div>
-            <TactileButton onClick={retryDecisionSpin} variant="yellow" fullWidth size="md" icon="🔄">
-              {locale === 'ar' ? 'حاول مرة أخرى' : 'Try Again'}
-            </TactileButton>
+            {isHost && (
+              <TactileButton onClick={retryDecisionSpin} variant="yellow" fullWidth size="md" icon="🔄">
+                {locale === 'ar' ? 'حاول مرة أخرى' : 'Try Again'}
+              </TactileButton>
+            )}
           </div>
         ) : (
           <p className="min-h-10 font-alexandria text-sm font-black text-brand-red flex items-center justify-center gap-1.5">
