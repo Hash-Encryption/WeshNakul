@@ -44,6 +44,8 @@ export type CaptainRealtimeMessage =
       type: 'captain_spin_start';
       eventId: string;
       provisionalWinnerId: string;
+      finalWinnerId?: string;
+      status?: CaptainEventStatus;
       candidates: CaptainCandidate[];
       objectionEndsAt: string;
     }

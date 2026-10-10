@@ -47,16 +47,16 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     imageAsset: 'shuffle_cards',
     bgClass: 'bg-[#FFF1ED]',
     needsCaptain: true,
-    minPlayers: 3,
+    minPlayers: 2,
     implemented: false,
     idealTieCounts: [3],
     supportedTieCounts: [2, 3, 4],
     getSuitability: ({ tieCount, activePlayerCount }) => {
-      if (activePlayerCount < 3) {
+      if (activePlayerCount < 2) {
         return {
           state: 'unavailable',
           reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 3 },
+          reasonParams: { count: 2 },
         };
       }
       if (tieCount === 3) {
@@ -102,14 +102,14 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     imageAsset: 'food_brawl',
     bgClass: 'bg-[#EDFAF0]',
     needsCaptain: true,
-    minPlayers: 3,
+    minPlayers: 2,
     implemented: false,
     getSuitability: ({ activePlayerCount }) => {
-      if (activePlayerCount < 3) {
+      if (activePlayerCount < 2) {
         return {
           state: 'unavailable',
           reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 3 },
+          reasonParams: { count: 2 },
         };
       }
       return { state: 'normal' };
@@ -122,14 +122,14 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     imageAsset: 'food_race',
     bgClass: 'bg-[#EDF7FC]',
     needsCaptain: true,
-    minPlayers: 3,
+    minPlayers: 2,
     implemented: false,
     getSuitability: ({ activePlayerCount }) => {
-      if (activePlayerCount < 3) {
+      if (activePlayerCount < 2) {
         return {
           state: 'unavailable',
           reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 3 },
+          reasonParams: { count: 2 },
         };
       }
       return { state: 'normal' };
@@ -142,14 +142,14 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     imageAsset: 'pick_a_box',
     bgClass: 'bg-[#F6EEFD]',
     needsCaptain: true,
-    minPlayers: 3,
+    minPlayers: 2,
     implemented: false,
     getSuitability: ({ activePlayerCount }) => {
-      if (activePlayerCount < 3) {
+      if (activePlayerCount < 2) {
         return {
           state: 'unavailable',
           reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 3 },
+          reasonParams: { count: 2 },
         };
       }
       return { state: 'normal' };
@@ -162,14 +162,14 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     imageAsset: 'emoji_clash',
     bgClass: 'bg-[#FDEDF2]',
     needsCaptain: true,
-    minPlayers: 3,
+    minPlayers: 2,
     implemented: false,
     getSuitability: ({ activePlayerCount }) => {
-      if (activePlayerCount < 3) {
+      if (activePlayerCount < 2) {
         return {
           state: 'unavailable',
           reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 3 },
+          reasonParams: { count: 2 },
         };
       }
       return { state: 'normal' };

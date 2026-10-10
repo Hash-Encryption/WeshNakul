@@ -515,7 +515,7 @@ try {
       (gen_random_uuid(), '${minRoomId}', 'away-user', 'stable-away', 'AwayUser', '#F0443E', 'circle', false, 'away');
   `);
 
-  // 6.1 Less than 3 active players rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS
+  // 6.1 Exactly 1 active player (ignoring away) rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS
   let minPlayers1Failed = false;
   try {
     await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`);
@@ -526,33 +526,60 @@ try {
     assert.ok(minPlayers1Failed, 'Single active player must be rejected');
   });
 
-  // 6.1b Exactly 2 active players (with away/disconnected) also rejected
+  // 6.1b Exactly 2 active players: selection succeeds, becomes immediately final, and disables rerolls
   await db.exec(`
     INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
     VALUES
       (gen_random_uuid(), '${minRoomId}', 'user-2', 'stable-2', 'User2', '#3B82F6', 'circle', false, 'active'),
       (gen_random_uuid(), '${minRoomId}', 'disc-user', 'stable-disc', 'DiscUser', '#EAB308', 'circle', false, 'disconnected');
   `);
-  let minPlayers2Failed = false;
-  try {
-    await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`);
-  } catch (err) {
-    minPlayers2Failed = err.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS');
-  }
-  check('6.1b Exactly 2 active players throws WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
-    assert.ok(minPlayers2Failed, 'Two active players must be rejected');
+  const twoPlayerRes = (await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`))[0].res;
+  check('6.1b Exactly 2 active players succeeds and immediately finalizes without objection window', () => {
+    assert.ok(twoPlayerRes.eventId, 'Event created');
+    assert.equal(twoPlayerRes.status, 'finalized', 'Status must be finalized immediately');
+    assert.ok(twoPlayerRes.finalCaptainId, 'Final captain selected');
+    assert.equal(twoPlayerRes.objectionEndsAt, null, 'No objection window for 2 players');
+    assert.equal(twoPlayerRes.candidates.length, 2, 'Exactly 2 candidates');
   });
 
-  // 6.1c Adding third active player satisfies requirement and launches
+  // Exactly 2 players records win in captain_history immediately
+  const twoPlayerHist = await query(`SELECT * FROM private.captain_history WHERE event_id = '${twoPlayerRes.eventId}';`);
+  check('6.1c Two-player win recorded immediately in captain_history', () => {
+    assert.equal(twoPlayerHist.length, 1, 'Exactly one win recorded');
+    assert.equal(twoPlayerHist[0].participant_id, twoPlayerRes.finalCaptainId);
+    assert.equal(twoPlayerHist[0].was_reroll, false);
+  });
+
+  // Reroll is strictly disallowed for 2-player events
+  let rerollDisallowed = false;
+  try {
+    await query(`SELECT public.request_captain_reroll('${minRoomId}', '${twoPlayerRes.eventId}', 'solo-user') as res;`);
+  } catch (err) {
+    rerollDisallowed = err.message.includes('WSH_REROLL_NOT_ALLOWED') || err.message.includes('WSH_INVALID_EVENT_STAGE');
+  }
+  check('6.1d Reroll requests strictly disallowed for 2-player games', () => {
+    assert.ok(rerollDisallowed, 'Reroll must be rejected for 2-player events');
+  });
+
+  // 6.1e Adding third active player satisfies requirement for full provisional flow
   await db.exec(`
     INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
     VALUES
       (gen_random_uuid(), '${minRoomId}', 'user-3', 'stable-3', 'User3', '#8B5CF6', 'circle', false, 'active');
   `);
   const threePlayerRes = (await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`))[0].res;
-  check('6.1c Three active players successfully launches Captain Roulette', () => {
+  check('6.1e Three active players generates provisional selection with objection window', () => {
     assert.ok(threePlayerRes.eventId, '3 active players creates event');
+    assert.equal(threePlayerRes.status, 'initial_result_provisional', 'Status is provisional');
+    assert.ok(threePlayerRes.objectionEndsAt, 'Objection window is active');
     assert.equal(threePlayerRes.candidates.length, 3, 'Exactly 3 candidates');
+  });
+
+  // Reroll is allowed for 3-player provisional event
+  const threePlayerReroll = (await query(`SELECT public.request_captain_reroll('${minRoomId}', '${threePlayerRes.eventId}', 'user-2') as res;`))[0].res;
+  check('6.1f Three-player game allows reroll request and opens voting', () => {
+    assert.equal(threePlayerReroll.status, 'reroll_vote_open');
+    assert.equal(threePlayerReroll.approvals, 1);
   });
 
   // 6.2 Fresh round after finalized event generates new event with new event ID

@@ -307,7 +307,7 @@
     "alreadyRerolled": "Reroll already used for this round",
     "waitingForVote": "Waiting for squad votes...",
     "waitingForHost": "Waiting for host to start...",
-    "minPlayersRequired": "Captain Roulette requires at least 3 active players 👥",
+    "minPlayersRequired": "Captain Roulette requires at least 2 active players 👥",
     "connectionError": "Could not connect to Captain Roulette. Please try again.",
     "close": "Close"
   },

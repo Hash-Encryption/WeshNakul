@@ -91,15 +91,27 @@ try {
   if (joinResBob.error) throw new Error(`Bob join failed: ${joinResBob.error.message}`);
   guestPart1 = joinResBob.data.participant;
 
-  // 1.c Testing 2 active players is rejected on remote Supabase
+  // 1.c Testing 2 active players succeeds, finalizes immediately, and rejects reroll
   const duoRes = await supabase.rpc('start_captain_selection', {
     p_room_id: room1.id,
     p_session_token: hostToken1,
     p_stable_id: stableAlice,
   });
-  check('1.c Exactly 2 active players is strictly rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
-    assert.ok(duoRes.error, 'Two players must return error');
-    assert.ok(duoRes.error.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS'), 'Expected WSH_INSUFFICIENT_ACTIVE_PLAYERS');
+  if (duoRes.error) throw new Error(`Two-player start failed: ${duoRes.error.message}`);
+  check('1.c Exactly 2 active players succeeds and immediately finalizes', () => {
+    assert.equal(duoRes.data.status, 'finalized', '2-player event must be finalized');
+    assert.ok(duoRes.data.finalCaptainId, 'Final captain selected');
+    assert.equal(duoRes.data.objectionEndsAt, null, 'No objection window for 2 players');
+  });
+
+  // Attempting reroll with 2 players is rejected
+  const duoReroll = await supabase.rpc('request_captain_reroll', {
+    p_room_id: room1.id,
+    p_event_id: duoRes.data.eventId,
+    p_session_token: guestToken1,
+  });
+  check('1.d Reroll is strictly rejected for 2-player finalized event', () => {
+    assert.ok(duoReroll.error, 'Reroll on 2 players must fail');
   });
 
   // Voter Charlie joins room 1 (now 3 active players)

@@ -131,11 +131,11 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
   const handleTriggerCaptainRoulette = () => {
     const activeCount = participants.filter((p) => p.status === 'active').length;
-    if (activeCount < 3) {
+    if (activeCount < 2) {
       const msg =
         locale === 'ar'
-          ? 'روليت الكابتن يتطلب 3 لاعبين نشطين على الأقل! 👥'
-          : 'Captain Roulette requires at least 3 active players! 👥';
+          ? 'روليت الكابتن يتطلب لاعبين نشطين على الأقل! 👥'
+          : 'Captain Roulette requires at least 2 active players! 👥';
       setCaptainNotice(msg);
       setTimeout(() => setCaptainNotice(null), 3500);
       return;

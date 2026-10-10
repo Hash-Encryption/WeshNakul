@@ -131,7 +131,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
         // Host starts fresh selection if none exists or previous round was finalized
         if (isHost && (!existing || existing.status === 'finalized')) {
           const activeCount = (participants || []).filter((p) => p.status === 'active').length;
-          if (activeCount < 3) {
+          if (activeCount < 2) {
             if (mounted) {
               setInitError('min_players');
               setIsSpinningWheel(false);
@@ -148,13 +148,16 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
             const initiated = await startCaptainSelection(currentRoom.id, currentParticipant.session_token, stableId);
             if (mounted) {
               applyState(initiated);
-              setTargetWinnerId(initiated.provisionalCaptainId);
+              const targetId = initiated.finalCaptainId || initiated.provisionalCaptainId;
+              setTargetWinnerId(targetId);
               setIsSpinningWheel(true);
               // Broadcast start to squad
               void broadcastCaptainMessage(currentRoom.id, {
                 type: 'captain_spin_start',
                 eventId: initiated.eventId,
-                provisionalWinnerId: initiated.provisionalCaptainId,
+                provisionalWinnerId: initiated.provisionalCaptainId || targetId,
+                finalWinnerId: initiated.finalCaptainId || undefined,
+                status: initiated.status,
                 candidates: initiated.candidates,
                 objectionEndsAt: initiated.objectionEndsAt || '',
               });
@@ -189,16 +192,19 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
 
     const unsubscribe = subscribeToCaptainEvents(currentRoom.id, (msg) => {
       if (msg.type === 'captain_spin_start') {
-        if (msg.provisionalWinnerId) {
+        const winnerId = msg.finalWinnerId || msg.provisionalWinnerId;
+        if (winnerId) {
           setInitError(null);
-          setTargetWinnerId(msg.provisionalWinnerId);
+          setTargetWinnerId(winnerId);
           setIsSpinningWheel(true);
         }
         setEventState(() => ({
           eventId: msg.eventId,
-          status: 'initial_result_provisional',
-          provisionalCaptainId: msg.provisionalWinnerId,
-          provisionalCaptainNickname: msg.candidates.find((c) => c.id === msg.provisionalWinnerId)?.nickname || '',
+          status: msg.status || (msg.objectionEndsAt ? 'initial_result_provisional' : 'finalized'),
+          provisionalCaptainId: msg.provisionalWinnerId || winnerId,
+          provisionalCaptainNickname: msg.candidates.find((c) => c.id === (msg.provisionalWinnerId || winnerId))?.nickname || '',
+          finalCaptainId: msg.finalWinnerId,
+          finalCaptainNickname: msg.finalWinnerId ? msg.candidates.find((c) => c.id === msg.finalWinnerId)?.nickname : undefined,
           frozenVoterIds: msg.candidates.map((c) => c.id),
           votes: {},
           approvals: 0,
@@ -454,12 +460,12 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
             <span className="text-3xl">👥</span>
             <h3 className="font-alexandria font-black text-base text-[#241B18]">
               {initError === 'min_players'
-                ? (locale === 'ar' ? 'روليت الكابتن يتطلب 3 لاعبين نشطين على الأقل' : 'Captain Roulette requires at least 3 active players')
+                ? (locale === 'ar' ? 'روليت الكابتن يتطلب لاعبين اثنين نشطين على الأقل' : 'Captain Roulette requires at least 2 active players')
                 : (locale === 'ar' ? 'تعذر الاتصال بروليت الكابتن' : 'Could not connect to Captain Roulette')}
             </h3>
             <p className="font-alexandria font-bold text-xs text-[#7A6E67]">
               {initError === 'min_players'
-                ? (locale === 'ar' ? 'يتطلب وجود 3 لاعبين نشطين على الأقل في القروب لبدء السحب والتصويت.' : 'At least 3 active players are required in the squad to run selection and voting.')
+                ? (locale === 'ar' ? 'يتطلب وجود لاعبين اثنين نشطين على الأقل في القروب لبدء السحب.' : 'At least 2 active players are required in the squad to run selection.')
                 : (locale === 'ar' ? 'حدث خطأ في الاتصال بالسيرفر. تحقق من الشبكة وحاول ثانية.' : 'Failed to connect to the server. Check your connection and try again.')}
             </p>
             <div className="flex items-center gap-2 w-full mt-1">

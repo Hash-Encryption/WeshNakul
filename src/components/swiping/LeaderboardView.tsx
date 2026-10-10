@@ -47,12 +47,14 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       return;
     }
 
-    // 2. Revalidate player eligibility: games needing captain require at least 3 active players
-    const requiredPlayers = Math.max(game.minPlayers, game.needsCaptain ? 3 : 1);
+    // 2. Revalidate player eligibility: games needing captain require at least 2 active players
+    const requiredPlayers = Math.max(game.minPlayers, game.needsCaptain ? 2 : 1);
     if (activePlayerCount < requiredPlayers) {
       const msg =
         locale === 'ar'
-          ? `يتطلب ${requiredPlayers} لاعبين نشطين على الأقل للبدء! 👥`
+          ? (requiredPlayers === 2
+              ? 'يتطلب لاعبين اثنين نشطين على الأقل للبدء! 👥'
+              : `يتطلب ${requiredPlayers} لاعبين نشطين على الأقل للبدء! 👥`)
           : `Requires at least ${requiredPlayers} active players to launch! 👥`;
       setNoticeMessage(msg);
       setTimeout(() => setNoticeMessage(null), 3200);
@@ -67,11 +69,11 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
     }
 
     if (game.needsCaptain && onTriggerCaptainRoulette) {
-      if (activePlayerCount < 3) {
+      if (activePlayerCount < 2) {
         const msg =
           locale === 'ar'
-            ? 'روليت الكابتن يتطلب 3 لاعبين نشطين على الأقل! 👥'
-            : 'Captain Roulette requires at least 3 active players! 👥';
+            ? 'روليت الكابتن يتطلب لاعبين نشطين على الأقل! 👥'
+            : 'Captain Roulette requires at least 2 active players! 👥';
         setNoticeMessage(msg);
         setTimeout(() => setNoticeMessage(null), 3200);
         return;
