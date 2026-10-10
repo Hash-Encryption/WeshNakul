@@ -1,5 +1,13 @@
 -- 20261010000200_audit_and_harden_captain_roulette.sql
 -- Captain Roulette Security Hardening, Stable Cross-Room Identity, and Strict Timing Enforcement
+-- ARCHITECTURAL LIMITATION & SECURITY NOTICE:
+-- WeshNakul operates as a frictionless, anonymous group decision app without mandatory accounts or signed auth tokens.
+-- Stable identity (stable_player_id) is generated and stored locally in the browser (localStorage) to link captain history across rooms.
+-- Without cryptographic proof-of-possession (e.g. asymmetric signatures or server-issued JWTs), a client could theoretically submit an arbitrary string on initial room join.
+-- Authoritative security guarantees enforced:
+-- 1. Identity Immutability: Once a participant joins a room, their stable identity is locked permanently for that room.
+-- 2. Zero In-Game Reassignment: Neither re-joining nor captain selection RPCs can reassign an established stable identity.
+-- 3. Collision Isolation: Different players with identical nicknames maintain completely independent histories.
 
 -- 1. Ensure stable_player_id column exists on participants and room_mode on rooms
 ALTER TABLE public.participants ADD COLUMN IF NOT EXISTS stable_player_id text;
@@ -36,7 +44,10 @@ BEGIN
   THEN RAISE EXCEPTION 'WSH_INVALID_ROOM_INPUT' USING ERRCODE='22023'; END IF;
   IF (p_latitude IS NULL) <> (p_longitude IS NULL) THEN RAISE EXCEPTION 'WSH_INVALID_LOCATION' USING ERRCODE='22023'; END IF;
 
-  v_stable_id := coalesce(nullif(trim(p_stable_player_id), ''), p_session_token);
+  v_stable_id := nullif(trim(p_stable_player_id), '');
+  IF v_stable_id IS NULL OR length(v_stable_id) < 8 OR length(v_stable_id) > 64 THEN
+    v_stable_id := p_session_token;
+  END IF;
 
   INSERT INTO public.rooms(code,status,eating_mode,city,neighborhood,language,current_stage,stage)
   VALUES (p_code,'food_selection',p_eating_mode,trim(p_city),nullif(trim(p_neighborhood),''),p_language,'voting','voting') RETURNING * INTO room_row;
@@ -75,14 +86,15 @@ BEGIN
   IF NOT FOUND THEN RAISE EXCEPTION 'WSH_ROOM_NOT_FOUND' USING ERRCODE='22023'; END IF;
   IF room_row.created_at <= now()-interval '30 minutes' OR room_row.expires_at<=now() THEN RAISE EXCEPTION 'WSH_ROOM_EXPIRED' USING ERRCODE='PT409'; END IF;
 
-  v_stable_id := coalesce(nullif(trim(p_stable_player_id), ''), p_session_token);
-
+  -- Return immediately if participant already exists in room: established identity is strictly immutable
   SELECT * INTO participant_row FROM public.participants WHERE room_id=room_row.id AND session_token=p_session_token;
   IF FOUND THEN
-    IF participant_row.stable_player_id IS NULL AND v_stable_id IS NOT NULL THEN
-      UPDATE public.participants SET stable_player_id = v_stable_id WHERE id = participant_row.id RETURNING * INTO participant_row;
-    END IF;
     RETURN jsonb_build_object('room',to_jsonb(room_row),'participant',to_jsonb(participant_row));
+  END IF;
+
+  v_stable_id := nullif(trim(p_stable_player_id), '');
+  IF v_stable_id IS NULL OR length(v_stable_id) < 8 OR length(v_stable_id) > 64 THEN
+    v_stable_id := p_session_token;
   END IF;
 
   IF room_row.stage NOT IN ('lobby','voting') AND NOT (room_row.room_mode = 'cafes' AND room_row.stage = 'swiping') THEN
@@ -179,12 +191,7 @@ BEGIN
     RAISE EXCEPTION 'WSH_UNAUTHORIZED';
   END IF;
 
-  -- Ensure caller's stable identity is set if provided
-  IF p_stable_id IS NOT NULL AND length(trim(p_stable_id)) > 0 THEN
-    UPDATE public.participants
-    SET stable_player_id = trim(p_stable_id)
-    WHERE id = v_caller.id AND (stable_player_id IS NULL OR stable_player_id = session_token);
-  END IF;
+  -- Note: Participant identity is strictly immutable once joined. Client-supplied p_stable_id is ignored to prevent identity spoofing.
 
   -- Return active unfinalized event if one is in progress (prevents race conditions)
   SELECT * INTO v_existing_ev

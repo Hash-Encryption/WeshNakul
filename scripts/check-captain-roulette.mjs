@@ -222,6 +222,35 @@ try {
     assert.equal(Number(candidateAlice2.weight), 100.0, `Second Alice expected weight 100.0, got ${candidateAlice2.weight}`);
   });
 
+  // 2.4 Established participant identity cannot be altered via start_captain_selection
+  const originalStable = 'stable-device-token-alice';
+  await query(`
+    SELECT public.start_captain_selection('${roomAlphaId}', 'room-alpha-alice-token', 'stolen-victim-identity-override') as res;
+  `);
+
+  const aliceStableCheck = (await query(`
+    SELECT stable_player_id FROM public.participants WHERE id = '${aliceAlphaPartId}';
+  `))[0].stable_player_id;
+
+  check('2.4 Established participant identity cannot be altered via start_captain_selection', () => {
+    assert.equal(aliceStableCheck, originalStable, 'start_captain_selection must not overwrite stable_player_id');
+  });
+
+  // 2.5 Established participant identity cannot be altered by re-joining room with different stable ID
+  await query(`
+    SELECT public.join_room_authorized(
+      'ALPH', 'room-alpha-bob-token', 'Bob', 'attempted-fake-bob-stable-id'
+    ) as res;
+  `);
+
+  const bobStableCheck = (await query(`
+    SELECT stable_player_id FROM public.participants WHERE id = '${bobAlphaPartId}';
+  `))[0].stable_player_id;
+
+  check('2.5 Established participant identity cannot be altered by re-joining with different stable ID', () => {
+    assert.equal(bobStableCheck, stableBob, 'join_room_authorized must keep original established stable ID');
+  });
+
   // ==========================================
   // Test Suite 3: Voting Thresholds (floor(N/2) + 1) & Tie-Breaker
   // ==========================================
