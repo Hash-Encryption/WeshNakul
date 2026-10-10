@@ -6,6 +6,7 @@ import {
   type MiniGameSuitabilityContext,
   type TieType,
 } from '../../config/miniGames';
+import type { RoomSuggestion } from '../../types/database';
 import { MiniGameDeckCard } from './MiniGameDeckCard';
 
 interface MiniGamesDeckGridProps {
@@ -14,6 +15,9 @@ interface MiniGamesDeckGridProps {
   tieType?: TieType;
   contenderIds?: string[];
   onSelectGame: (game: MiniGameDefinition) => void;
+  suggestions?: RoomSuggestion[];
+  currentParticipantId?: string;
+  isHost?: boolean;
 }
 
 export const MiniGamesDeckGrid: React.FC<MiniGamesDeckGridProps> = ({
@@ -22,6 +26,9 @@ export const MiniGamesDeckGrid: React.FC<MiniGamesDeckGridProps> = ({
   tieType = 'restaurant',
   contenderIds,
   onSelectGame,
+  suggestions = [],
+  currentParticipantId,
+  isHost = true,
 }) => {
   const suitabilityContext = useMemo<MiniGameSuitabilityContext>(
     () => ({
@@ -53,6 +60,9 @@ export const MiniGamesDeckGrid: React.FC<MiniGamesDeckGridProps> = ({
               suitability={suitability}
               onSelect={onSelectGame}
               isWide={isWide}
+              suggestions={suggestions}
+              currentParticipantId={currentParticipantId}
+              isHost={isHost}
             />
           );
         })}

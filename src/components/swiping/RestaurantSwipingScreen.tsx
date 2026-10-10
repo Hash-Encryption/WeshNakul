@@ -39,6 +39,8 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     startRestaurantRoulette,
     resetRoomVoting,
     leaveRoom,
+    suggestions,
+    toggleSuggestion,
   } = useRoom();
   const { t, locale } = useLocale();
 
@@ -291,6 +293,9 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
               summary={summary}
               participants={participants}
               isHost={isHost}
+              suggestions={suggestions}
+              currentParticipantId={currentParticipant?.id}
+              onToggleSuggestion={toggleSuggestion}
               onConfirmPick={handleOpenConfirm}
               onTriggerSuddenDeath={handleTriggerSuddenDeath}
               onTriggerRoulette={handleTriggerRoulette}

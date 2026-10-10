@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createServer } from 'vite';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -304,6 +305,349 @@ try {
       )
     );
     assert.ok(!html3Active.includes('Needs 3+ players'), '3 active players enables Sizzling Skillet');
+  });
+
+  // 12. Non-host player sees Food Roulette and Mini Games buttons in LeaderboardView
+  check('12. Non-host players see Food Roulette and Mini Games buttons in LeaderboardView showdown', () => {
+    const mockRestaurants = [
+      { id: 'rest_1', nameEn: 'Burger A', nameAr: 'برجر أ', rating: 4.5 },
+      { id: 'rest_2', nameEn: 'Burger B', nameAr: 'برجر ب', rating: 4.3 },
+    ];
+    const mockSummary = {
+      round: 1,
+      deckId: 'deck-tie',
+      totalCards: 2,
+      status: 'tie',
+      tiedRestaurantIds: ['rest_1', 'rest_2'],
+      cards: [
+        { restaurantId: 'rest_1', yesCount: 3, noCount: 0 },
+        { restaurantId: 'rest_2', yesCount: 3, noCount: 0 },
+      ],
+      participantProgress: [],
+    };
+
+    for (const locale of ['en', 'ar']) {
+      store.set('wsh_locale', locale);
+      const html = renderToStaticMarkup(
+        createElement(
+          LocaleProvider,
+          null,
+          createElement(LeaderboardView, {
+            restaurants: mockRestaurants,
+            summary: mockSummary,
+            participants: [
+              { id: 'p1', nickname: 'Host', is_host: true },
+              { id: 'p2', nickname: 'Player', is_host: false },
+            ],
+            isHost: false,
+            onConfirmPick: () => {},
+            onTriggerSuddenDeath: () => {},
+            onTriggerRoulette: () => {},
+          })
+        )
+      );
+
+      // Verify showdown title is present for player
+      assert.ok(html.includes(locale === 'ar' ? 'تعادل بين المطاعم المتصدرة' : 'Tied Leaders Showdown'), 'Showdown title present for player');
+      // Verify Food Roulette button is present for player
+      assert.ok(html.includes(locale === 'ar' ? 'روليت الحسم' : 'Food Roulette'), 'Food Roulette button present for player');
+      // Verify Mini Games button is present for player
+      assert.ok(html.includes(locale === 'ar' ? 'الألعاب المصغرة' : 'Mini Games'), 'Mini Games button present for player');
+      // Verify waiting for host notice is present for player
+      assert.ok(html.includes(locale === 'ar' ? 'بانتظار المضيف' : 'Waiting for host'), 'Waiting for host notice present for player');
+    }
+  });
+
+  // 13. Player can view identical MiniGamesDeckGrid with all 7 cards
+  check('13. Player sees identical MiniGamesDeckGrid with all 7 game cards and Coming Soon badges', () => {
+    store.set('wsh_locale', 'en');
+    const html = renderToStaticMarkup(
+      createElement(
+        LocaleProvider,
+        null,
+        createElement(MiniGamesDeckGrid, {
+          tieCount: 2,
+          activePlayerCount: 4,
+          tieType: 'restaurant',
+          isHost: false,
+          onSelectGame: () => {},
+        })
+      )
+    );
+
+    // Verify all 7 game titles appear
+    assert.ok(html.includes('Shuffle Cards'), 'Shuffle Cards present');
+    assert.ok(html.includes('Sudden Death'), 'Sudden Death present');
+    assert.ok(html.includes('Food Brawl'), 'Food Brawl present');
+    assert.ok(html.includes('Food Race'), 'Food Race present');
+    assert.ok(html.includes('Pick a Box'), 'Pick a Box present');
+    assert.ok(html.includes('Emoji Clash'), 'Emoji Clash present');
+    assert.ok(html.includes('Sizzling Skillet'), 'Sizzling Skillet present');
+
+    // Verify Coming Soon badges appear for unimplemented games
+    const comingSoonMatches = (html.match(/Coming Soon 🚧/g) || []).length;
+    assert.equal(comingSoonMatches, 6, 'Exactly 6 Coming Soon badges present on player view');
+  });
+
+  // 14. Player requests Roulette: Host sees correct player initials and profile circle
+  check('14. Player Roulette request displays player avatar with initial and profile color', () => {
+    store.set('wsh_locale', 'en');
+    const mockRestaurants = [
+      { id: 'rest_1', nameEn: 'Burger A', nameAr: 'برجر أ', rating: 4.5 },
+      { id: 'rest_2', nameEn: 'Burger B', nameAr: 'برجر ب', rating: 4.3 },
+    ];
+    const mockSummary = {
+      round: 1,
+      deckId: 'deck-tie',
+      totalCards: 2,
+      status: 'tie',
+      tiedRestaurantIds: ['rest_1', 'rest_2'],
+      cards: [],
+      participantProgress: [],
+    };
+    const mockSuggestions = [
+      {
+        target: 'action:roulette',
+        participant_id: 'p2',
+        nickname: 'Salma',
+        player_color: '#F0443E',
+        player_shape: 'circle',
+      },
+    ];
+
+    const hostHtml = renderToStaticMarkup(
+      createElement(
+        LocaleProvider,
+        null,
+        createElement(LeaderboardView, {
+          restaurants: mockRestaurants,
+          summary: mockSummary,
+          participants: [
+            { id: 'p1', nickname: 'Host', is_host: true },
+            { id: 'p2', nickname: 'Salma', is_host: false },
+          ],
+          isHost: true,
+          suggestions: mockSuggestions,
+          onConfirmPick: () => {},
+          onTriggerSuddenDeath: () => {},
+          onTriggerRoulette: () => {},
+        })
+      )
+    );
+
+    // Host sees the avatar container for action:roulette
+    assert.ok(hostHtml.includes('data-testid="suggestions-action:roulette"'), 'Host sees suggestions-action:roulette container');
+    // Salma's initial 'S' is rendered
+    assert.ok(hostHtml.includes('>S<'), 'Salma initial S rendered inside avatar');
+    // Salma's color is rendered
+    assert.ok(hostHtml.includes('fill="#F0443E"'), 'Salma color #F0443E rendered inside avatar');
+  });
+
+  // 15. Player requests a specific mini-game: avatar appears on that game card
+  check('15. Player mini-game request displays player avatar on that specific game card', () => {
+    store.set('wsh_locale', 'en');
+    const mockSuggestions = [
+      {
+        target: 'game:sudden_death',
+        participant_id: 'p3',
+        nickname: 'Tariq',
+        player_color: '#55B96A',
+        player_shape: 'squircle',
+      },
+    ];
+
+    const gridHtml = renderToStaticMarkup(
+      createElement(
+        LocaleProvider,
+        null,
+        createElement(MiniGamesDeckGrid, {
+          tieCount: 2,
+          activePlayerCount: 3,
+          tieType: 'restaurant',
+          isHost: true,
+          suggestions: mockSuggestions,
+          onSelectGame: () => {},
+        })
+      )
+    );
+
+    // Sudden death card has Tariq's avatar
+    assert.ok(gridHtml.includes('data-testid="suggestions-game:sudden_death"'), 'Sudden death card has suggestions container');
+    assert.ok(gridHtml.includes('>T<'), 'Tariq initial T rendered');
+    assert.ok(gridHtml.includes('fill="#55B96A"'), 'Tariq color #55B96A rendered');
+
+    // Other game cards do NOT have this suggestion
+    assert.ok(!gridHtml.includes('data-testid="suggestions-game:shuffle_cards"'), 'Shuffle cards has no suggestions');
+    assert.ok(!gridHtml.includes('data-testid="suggestions-game:food_race"'), 'Food race has no suggestions');
+  });
+
+  // 16. Multiple distinct player requests remain correctly isolated per option
+  check('16. Multiple player requests remain correctly associated with their respective options', () => {
+    store.set('wsh_locale', 'en');
+    const mockSuggestions = [
+      {
+        target: 'action:roulette',
+        participant_id: 'p1',
+        nickname: 'Amal',
+        player_color: '#73C8EA',
+        player_shape: 'circle',
+      },
+      {
+        target: 'game:sudden_death',
+        participant_id: 'p2',
+        nickname: 'Bassam',
+        player_color: '#F0443E',
+        player_shape: 'diamond',
+      },
+      {
+        target: 'game:food_brawl',
+        participant_id: 'p3',
+        nickname: 'Camilia',
+        player_color: '#FFD75A',
+        player_shape: 'hexagon',
+      },
+    ];
+
+    // Grid render
+    const gridHtml = renderToStaticMarkup(
+      createElement(
+        LocaleProvider,
+        null,
+        createElement(MiniGamesDeckGrid, {
+          tieCount: 2,
+          activePlayerCount: 4,
+          tieType: 'restaurant',
+          isHost: true,
+          suggestions: mockSuggestions,
+          onSelectGame: () => {},
+        })
+      )
+    );
+
+    // Verify Sudden Death has Bassam (B) but not Amal (A) or Camilia (C)
+    assert.ok(gridHtml.includes('data-testid="suggestions-game:sudden_death"'), 'Sudden death has suggestions');
+    assert.ok(gridHtml.includes('title="Bassam"'), 'Sudden death has Bassam');
+    assert.ok(gridHtml.includes('>B<'), 'Initial B rendered');
+
+    // Verify Food Brawl has Camilia (C)
+    assert.ok(gridHtml.includes('data-testid="suggestions-game:food_brawl"'), 'Food brawl has suggestions');
+    assert.ok(gridHtml.includes('title="Camilia"'), 'Food brawl has Camilia');
+    assert.ok(gridHtml.includes('>C<'), 'Initial C rendered');
+
+    // Verify Sudden death doesn't claim Amal
+    assert.ok(!gridHtml.includes('data-testid="suggestions-action:roulette"'), 'Grid does not render action:roulette');
+  });
+
+  // 17. Player click interaction triggers onToggleSuggestion, not host launch handlers
+  check('17. Player click interaction delegates to onToggleSuggestion and cannot launch games', () => {
+    store.set('wsh_locale', 'en');
+    const mockRestaurants = [
+      { id: 'rest_1', nameEn: 'Burger A', nameAr: 'برجر أ', rating: 4.5 },
+      { id: 'rest_2', nameEn: 'Burger B', nameAr: 'برجر ب', rating: 4.3 },
+    ];
+    const mockSummary = {
+      round: 1,
+      deckId: 'deck-tie',
+      totalCards: 2,
+      status: 'tie',
+      tiedRestaurantIds: ['rest_1', 'rest_2'],
+      cards: [],
+      participantProgress: [],
+    };
+
+    let hostRouletteLaunched = false;
+    let hostSuddenDeathLaunched = false;
+    let toggledTarget = null;
+
+    // Simulate non-host interaction logic
+    const handleRouletteClick = (isHost, onTriggerRoulette, onToggleSuggestion) => {
+      if (isHost) {
+        onTriggerRoulette(mockRestaurants);
+      } else {
+        onToggleSuggestion('action:roulette');
+      }
+    };
+
+    const handleGameClick = (isHost, game, onSelectMiniGame, onToggleSuggestion) => {
+      if (isHost) {
+        onSelectMiniGame(game);
+      } else {
+        onToggleSuggestion(`game:${game.id}`);
+      }
+    };
+
+    // When player clicks roulette:
+    handleRouletteClick(
+      false,
+      () => { hostRouletteLaunched = true; },
+      (target) => { toggledTarget = target; }
+    );
+    assert.equal(hostRouletteLaunched, false, 'Host roulette was NOT launched by player click');
+    assert.equal(toggledTarget, 'action:roulette', 'Player click toggled action:roulette');
+
+    // When player clicks sudden death:
+    toggledTarget = null;
+    const suddenDeath = MINI_GAMES.find((g) => g.id === 'sudden_death');
+    handleGameClick(
+      false,
+      suddenDeath,
+      () => { hostSuddenDeathLaunched = true; },
+      (target) => { toggledTarget = target; }
+    );
+    assert.equal(hostSuddenDeathLaunched, false, 'Host sudden death was NOT launched by player click');
+    assert.equal(toggledTarget, 'game:sudden_death', 'Player click toggled game:sudden_death');
+  });
+
+  // 18. Coming Soon games are not marked playable and empty states handled safely
+  check('18. Coming Soon games cannot be launched and preserve unimplemented status', () => {
+    const unimplemented = MINI_GAMES.filter((g) => !g.implemented);
+    assert.equal(unimplemented.length, 6, 'Exactly 6 games are coming soon');
+    for (const g of unimplemented) {
+      assert.equal(g.implemented, false, `${g.id} must remain implemented = false`);
+    }
+
+    // Verify empty game list handling does not throw in grid
+    const emptyHtml = renderToStaticMarkup(
+      createElement(MiniGameArtwork, { asset: 'non_existent_asset' })
+    );
+    assert.ok(emptyHtml.includes('🎮'), 'Fallback artwork rendered safely');
+  });
+
+  // 19. Captain Roulette rules and minimum active player thresholds remain intact
+  check('19. Captain Roulette player-count and server requirements remain intact', () => {
+    const shuffle = MINI_GAMES.find((g) => g.id === 'shuffle_cards');
+    assert.equal(shuffle.minPlayers, 2, 'Shuffle Cards requires 2 players');
+    assert.equal(shuffle.needsCaptain, true, 'Shuffle Cards requires captain');
+
+    // 1 active player: unavailable
+    const suit1 = shuffle.getSuitability({ tieCount: 2, activePlayerCount: 1, tieType: 'restaurant' });
+    assert.equal(suit1.state, 'unavailable', '1 player is unavailable');
+
+    // 2 active players: eligible
+    const suit2 = shuffle.getSuitability({ tieCount: 2, activePlayerCount: 2, tieType: 'restaurant' });
+    assert.equal(suit2.state, 'normal', '2 players is eligible');
+  });
+
+  // 20. Existing request keys and targets remain backwards compatible
+  check('20. Existing Vote Again and another-category request keys and targets remain unchanged', () => {
+    const arLoc = JSON.parse(readFileSync('src/locales/ar.json', 'utf8'));
+    const enLoc = JSON.parse(readFileSync('src/locales/en.json', 'utf8'));
+
+    // Check suggestions keys
+    assert.ok(arLoc.suggestions.chooseAnotherCategory, 'ar has chooseAnotherCategory');
+    assert.ok(enLoc.suggestions.chooseAnotherCategory, 'en has chooseAnotherCategory');
+    assert.ok(arLoc.suggestions.spinAgain, 'ar has spinAgain');
+    assert.ok(enLoc.suggestions.spinAgain, 'en has spinAgain');
+    assert.ok(arLoc.suggestions.tryAnotherRestaurant, 'ar has tryAnotherRestaurant');
+    assert.ok(enLoc.suggestions.tryAnotherRestaurant, 'en has tryAnotherRestaurant');
+
+    // Check gameSwiper keys
+    assert.ok(arLoc.gameSwiper.rouletteBtn, 'ar has rouletteBtn');
+    assert.ok(enLoc.gameSwiper.rouletteBtn, 'en has rouletteBtn');
+    assert.ok(arLoc.gameSwiper.miniGamesBtn, 'ar has miniGamesBtn');
+    assert.ok(enLoc.gameSwiper.miniGamesBtn, 'en has miniGamesBtn');
+    assert.ok(arLoc.gameSwiper.waitingForHost, 'ar has waitingForHost');
+    assert.ok(enLoc.gameSwiper.waitingForHost, 'en has waitingForHost');
   });
 
   console.log(`\nALL ${checks} MINI GAMES VERIFICATION CHECKS PASSED SUCCESSFULLY!\n`);

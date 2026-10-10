@@ -86,6 +86,9 @@ try {
       .replace(/DO \$\$[\s\S]*?END \$\$;/m, '')
   );
 
+  // Apply the Expose Roulette and Mini Games suggestions migration!
+  await db.exec(migration('20261010000400_expose_roulette_and_minigame_suggestions.sql'));
+
   // Verify the legacy row was safely reconciled to is_submitted = false
   const legacyRows = await query(`SELECT is_submitted FROM public.food_choices WHERE room_id = '00000000-0000-0000-0000-000000000001'`);
   check(legacyRows.length === 1 && legacyRows[0].is_submitted === false, 'legacy non-compliant submitted choice reconciled cleanly without failing check constraint');
@@ -253,6 +256,42 @@ try {
   for (const removed of ['breakfast', 'healthy', 'coffee', 'dessert']) {
     check(!fw.room.tied_categories.includes(removed), `Food all-wildcard tiebreaker excludes ${removed}`);
   }
+
+  // Test 7: Food Roulette and Mini-Games suggestions via toggle_room_suggestion
+  let t7 = await create('TIE7', 'tie7-host-token-0001');
+  const t7Room = t7.room.id;
+  await joinRoom('TIE7', 'tie7-guest-tok-0001', 'GuestA');
+  await joinRoom('TIE7', 'tie7-guest-tok-0002', 'GuestB');
+
+  // GuestA suggests action:roulette
+  let t7State = await toggleSugg(t7Room, 'tie7-guest-tok-0001', 'action:roulette');
+  check(t7State.suggestions.some((s) => s.target === 'action:roulette' && s.nickname === 'GuestA'), 'GuestA can suggest action:roulette');
+
+  // GuestB suggests game:sudden_death
+  t7State = await toggleSugg(t7Room, 'tie7-guest-tok-0002', 'game:sudden_death');
+  check(t7State.suggestions.some((s) => s.target === 'game:sudden_death' && s.nickname === 'GuestB'), 'GuestB can suggest game:sudden_death');
+  // Toggle off to verify idempotent withdraw
+  t7State = await toggleSugg(t7Room, 'tie7-guest-tok-0002', 'game:sudden_death');
+  check(!t7State.suggestions.some((s) => s.target === 'game:sudden_death' && s.nickname === 'GuestB'), 'GuestB sudden_death toggled off cleanly');
+
+  // GuestA suggests game:shuffle_cards (multiple suggestions for distinct targets)
+  t7State = await toggleSugg(t7Room, 'tie7-guest-tok-0001', 'game:shuffle_cards');
+  check(t7State.suggestions.some((s) => s.target === 'game:shuffle_cards' && s.nickname === 'GuestA'), 'GuestA can suggest game:shuffle_cards');
+  check(t7State.suggestions.some((s) => s.target === 'action:roulette' && s.nickname === 'GuestA'), 'GuestA action:roulette remains intact');
+
+  // Verify all 7 mini games are valid targets
+  const allGames = ['shuffle_cards', 'sudden_death', 'food_brawl', 'food_race', 'pick_a_box', 'emoji_clash', 'sizzling_skillet'];
+  for (const g of allGames) {
+    const sCheck = await toggleSugg(t7Room, 'tie7-guest-tok-0002', `game:${g}`);
+    check(sCheck.suggestions.some((s) => s.target === `game:${g}`), `Target game:${g} is valid`);
+    // toggle off
+    await toggleSugg(t7Room, 'tie7-guest-tok-0002', `game:${g}`);
+  }
+
+  // Invalid targets are still rejected with 22023
+  await rejects(`SELECT public.toggle_room_suggestion('${t7Room}','tie7-guest-tok-0001','invalid:unknown')`, '22023');
+  await rejects(`SELECT public.toggle_room_suggestion('${t7Room}','tie7-guest-tok-0001','game:unlisted_game')`, '22023');
+  await rejects(`SELECT public.toggle_room_suggestion('${t7Room}','tie7-host-token-0001','action:roulette')`, '22023');
 
   await db.exec('RESET ROLE');
   console.log(`PASS: ${checks} Room Modes, Preferences, and Suggestions PostgreSQL checks.`);
