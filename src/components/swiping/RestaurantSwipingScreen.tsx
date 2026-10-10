@@ -17,9 +17,11 @@ import {
   broadcastSuddenDeath,
   subscribeToSuddenDeath,
   resolveRestaurantTie,
+  subscribeToCaptainEvents,
 } from '../../lib/supabase';
 import { CafeDeckScreen } from './CafeDeckScreen';
 import { DeckErrorBoundary } from '../common/ErrorBoundary';
+import { CaptainRouletteModal } from '../captain/CaptainRouletteModal';
 
 interface RestaurantSwipingScreenProps {
   onMatched?: (winnerId: string) => void;
@@ -110,6 +112,26 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
     return () => unsubscribe();
   }, [currentRoom?.id]);
+
+  const [isCaptainRouletteOpen, setIsCaptainRouletteOpen] = useState(false);
+  const [captainNotice, setCaptainNotice] = useState<string | null>(null);
+
+  // Subscribe to realtime captain roulette triggers
+  useEffect(() => {
+    if (!currentRoom?.id) return;
+
+    const unsubscribe = subscribeToCaptainEvents(currentRoom.id, (msg) => {
+      if (msg.type === 'captain_spin_start') {
+        setIsCaptainRouletteOpen(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentRoom?.id]);
+
+  const handleTriggerCaptainRoulette = () => {
+    setIsCaptainRouletteOpen(true);
+  };
 
   if (!currentRoom || !currentParticipant) return null;
 
@@ -262,6 +284,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
               onConfirmPick={handleOpenConfirm}
               onTriggerSuddenDeath={handleTriggerSuddenDeath}
               onTriggerRoulette={handleTriggerRoulette}
+              onTriggerCaptainRoulette={handleTriggerCaptainRoulette}
             />
           ) : isLoadingDeck && deck.length === 0 ? (
             <DecisionMachineLoading
@@ -285,6 +308,9 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
       {/* Auto-Restack Round Two Notification Toast */}
       <Toast message={showRoundTwoToast ? t('gameSwiper.roundTwoToast') : null} />
 
+      {/* Captain Roulette Feedback Toast */}
+      <Toast message={captainNotice} />
+
       {/* Host Safety Confirmation Modal ("Make Sure") */}
       <ConfirmWinnerModal
         isOpen={isConfirmOpen}
@@ -305,6 +331,22 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
           totalParticipants={participants.length}
           onSelectWinner={handleTieBreakerWinner}
           onClose={() => setIsSuddenDeathOpen(false)}
+        />
+      )}
+
+      {/* Captain Roulette Modal */}
+      {isCaptainRouletteOpen && (
+        <CaptainRouletteModal
+          isOpen={isCaptainRouletteOpen}
+          onClose={() => setIsCaptainRouletteOpen(false)}
+          onStartGame={(captain) => {
+            const msg =
+              locale === 'ar'
+                ? `تم اعتماد ${captain.nickname} كابتن للجولة! 👑`
+                : `${captain.nickname} is locked in as Captain! 👑`;
+            setCaptainNotice(msg);
+            setTimeout(() => setCaptainNotice(null), 4000);
+          }}
         />
       )}
 

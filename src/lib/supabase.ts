@@ -2,6 +2,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState, RoomMode, RoomSuggestion } from '../types/database';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';
+import type { CaptainEventState, CaptainRealtimeMessage } from '../types/captain';
 import { cacheDeckRestaurants } from './restaurantRepository';
 import { getOrCreateSessionToken, generateRoomCode } from './session';
 import { normalizeRestaurantDeck } from './restaurantNormalization';
@@ -861,3 +862,126 @@ export function subscribeToSuggestions(
   };
 }
 
+export async function startCaptainSelection(
+  roomId: string,
+  sessionToken: string,
+  stableId?: string
+): Promise<CaptainEventState> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('start_captain_selection', {
+    p_room_id: roomId,
+    p_session_token: sessionToken,
+    p_stable_id: stableId || null,
+  });
+  if (error) throw error;
+  return data as CaptainEventState;
+}
+
+export async function requestCaptainReroll(
+  roomId: string,
+  eventId: string,
+  sessionToken: string
+): Promise<CaptainEventState> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('request_captain_reroll', {
+    p_room_id: roomId,
+    p_event_id: eventId,
+    p_session_token: sessionToken,
+  });
+  if (error) throw error;
+  return data as CaptainEventState;
+}
+
+export async function castCaptainVote(
+  roomId: string,
+  eventId: string,
+  sessionToken: string,
+  vote: 'approve' | 'reject'
+): Promise<CaptainEventState> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('cast_captain_vote', {
+    p_room_id: roomId,
+    p_event_id: eventId,
+    p_session_token: sessionToken,
+    p_vote: vote,
+  });
+  if (error) throw error;
+  return data as CaptainEventState;
+}
+
+export async function resolveCaptainEvent(
+  roomId: string,
+  eventId: string
+): Promise<CaptainEventState> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('resolve_captain_event', {
+    p_room_id: roomId,
+    p_event_id: eventId,
+  });
+  if (error) throw error;
+  return data as CaptainEventState;
+}
+
+export async function getCaptainEventState(
+  roomId: string,
+  sessionToken: string
+): Promise<CaptainEventState | null> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('get_captain_event_state', {
+    p_room_id: roomId,
+    p_session_token: sessionToken,
+  });
+  if (error) throw error;
+  return data as CaptainEventState | null;
+}
+
+export async function broadcastCaptainMessage(
+  roomId: string,
+  message: CaptainRealtimeMessage
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`captain:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 300);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'captain_message',
+        payload: { roomId, message },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastCaptainMessage failed', e);
+    }
+  }
+}
+
+export function subscribeToCaptainEvents(
+  roomId: string,
+  callback: (msg: CaptainRealtimeMessage) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`captain:${roomId}`)
+      .on('broadcast', { event: 'captain_message' }, (payload: any) => {
+        const msg = payload?.payload?.message as CaptainRealtimeMessage | undefined;
+        if (msg && msg.type && msg.eventId) {
+          callback(msg);
+        }
+      })
+      .subscribe(reportRealtimeStatus);
+  }
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+  };
+}

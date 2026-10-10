@@ -16,6 +16,7 @@ interface LeaderboardViewProps {
   onTriggerSuddenDeath: (topTwo: [RestaurantItem, RestaurantItem]) => void;
   onTriggerRoulette: (topSpots: RestaurantItem[]) => void;
   onSelectMiniGame?: (game: MiniGameDefinition) => void;
+  onTriggerCaptainRoulette?: () => void;
 }
 
 export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
@@ -27,6 +28,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
   onTriggerSuddenDeath,
   onTriggerRoulette,
   onSelectMiniGame,
+  onTriggerCaptainRoulette,
 }) => {
   const { t, locale } = useLocale();
   const [isMiniGamesExpanded, setIsMiniGamesExpanded] = useState(false);
@@ -37,6 +39,11 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       if (tiedRestaurants.length >= 2) {
         onTriggerSuddenDeath([tiedRestaurants[0], tiedRestaurants[1]]);
       }
+      return;
+    }
+
+    if (game.needsCaptain && onTriggerCaptainRoulette) {
+      onTriggerCaptainRoulette();
       return;
     }
 
