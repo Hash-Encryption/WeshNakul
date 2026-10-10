@@ -178,6 +178,7 @@ export async function createRoom(input: CreateRoomInput): Promise<{ room: Room; 
       p_code: code, p_session_token: sessionToken, p_eating_mode: safeEatingMode,
       p_city: safeCity, p_neighborhood: input.neighborhood || null, p_language: safeLanguage,
       p_nickname: safeNickname, p_latitude: input.latitude ?? null, p_longitude: input.longitude ?? null,
+      p_stable_player_id: getOrCreateSessionToken(),
     });
 
     if (!error && data) {
@@ -218,6 +219,7 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
 
   const { data, error } = await supabase.rpc('join_room_authorized', {
     p_code: normalizedCode, p_session_token: sessionToken, p_nickname: input.nickname.trim(),
+    p_stable_player_id: getOrCreateSessionToken(),
   });
   if (error) {
     if (error.message?.includes('WSH_ROOM_FULL')) return { success: false, isFull: true, room };
@@ -911,12 +913,14 @@ export async function castCaptainVote(
 
 export async function resolveCaptainEvent(
   roomId: string,
-  eventId: string
+  eventId: string,
+  sessionToken: string
 ): Promise<CaptainEventState> {
   if (!supabase) throw new Error('Supabase is not configured');
   const { data, error } = await supabase.rpc('resolve_captain_event', {
     p_room_id: roomId,
     p_event_id: eventId,
+    p_session_token: sessionToken,
   });
   if (error) throw error;
   return data as CaptainEventState;

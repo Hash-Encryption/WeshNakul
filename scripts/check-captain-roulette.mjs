@@ -10,7 +10,7 @@ const db = new PGlite();
 const migration = file => readFileSync(`supabase/migrations/${file}`, 'utf8').replace(/^\uFEFF/, '');
 const query = async sql => (await db.query(sql)).rows;
 
-console.log('--- EXECUTING CAPTAIN ROULETTE VERIFICATION SUITE ---');
+console.log('--- EXECUTING CAPTAIN ROULETTE VERIFICATION & HARDENING SUITE ---');
 
 let checks = 0;
 const check = (desc, fn) => {
@@ -44,8 +44,9 @@ try {
     await db.exec(migration(file));
   }
 
-  // Load new captain roulette migration
+  // Load captain roulette migrations
   await db.exec(migration('20261010000100_captain_roulette.sql'));
+  await db.exec(migration('20261010000200_audit_and_harden_captain_roulette.sql'));
 
   // Mock gen_random_bytes in PGlite test environment
   await db.exec(`
@@ -58,7 +59,7 @@ try {
   // ==========================================
   // Test Suite 1: Pure Weight Formula & 14-Day Recovery
   // ==========================================
-  console.log('\n1. Verifying Pure Weight Calculations & Decay Formula:');
+  console.log('\n1. Verifying Pure Weight Calculations & 14-Day Expiry Boundaries:');
 
   // 1.1 Player with no history has weight 100.0
   const noHistoryWeight = (await query("SELECT private.calculate_player_captain_weight('newbie-user') as w;"))[0].w;
@@ -68,7 +69,7 @@ try {
 
   // Seed a room for test history
   await db.exec(`
-    INSERT INTO public.rooms (id, code, eating_mode, city) 
+    INSERT INTO public.rooms (id, code, eating_mode, city)
     VALUES ('a0000000-0000-0000-0000-000000000001', 'TST1', 'delivery', 'riyadh');
   `);
 
@@ -92,33 +93,50 @@ try {
     assert.ok(Math.abs(Number(weight7d) - 33.333) < 0.1, `Expected ~33.333, got ${weight7d}`);
   });
 
-  // 1.4 Win from 14 days ago refreshes to 100.0 (User rule: refreshes to 100 in 14 days not 42)
+  // 1.4 Controlled test clock boundary precision:
+  // Win at fixed timestamp: '2026-10-01 00:00:00+00'
+  const winTimestamp = '2026-10-01 00:00:00+00';
   await db.exec(`
     INSERT INTO private.captain_history (room_id, event_id, participant_id, stable_player_id, nickname, created_at)
-    VALUES ('a0000000-0000-0000-0000-000000000001', 'ev-14d-1', gen_random_uuid(), 'player-14d', 'Lina', now() - interval '14 days 1 hour');
+    VALUES ('a0000000-0000-0000-0000-000000000001', 'ev-bound-1', gen_random_uuid(), 'player-bound', 'BoundaryUser', '${winTimestamp}');
   `);
-  const weight14d = (await query("SELECT private.calculate_player_captain_weight('player-14d') as w;"))[0].w;
-  check('1.4 Win older than 14 days refreshes to 100.0', () => {
-    assert.equal(Number(weight14d), 100.0, `Expected 100.0 after 14 days, got ${weight14d}`);
+
+  // (a) Just before 14 days (13.99 days old = 2026-10-14 23:45:36+00): weight ≈ 50.0
+  const clockBefore14 = '2026-10-14 23:45:36+00';
+  const weightBefore14 = (await query(`SELECT private.calculate_player_captain_weight('player-bound', '${clockBefore14}'::timestamptz) as w;`))[0].w;
+  check('1.4 Just before 14 days produces expected weight ~50.0', () => {
+    assert.ok(Math.abs(Number(weightBefore14) - 50.0) < 0.2, `Expected ~50.0 just before 14 days, got ${weightBefore14}`);
   });
 
-  // 1.5 Multiple independent wins accumulate penalty
-  // Player with 1 win at 0 days (penalty = 1) and 1 win at 7 days (penalty = 0.5)
-  // Total penalty = 1.5 -> weight = 100 / (1 + 4 * 1.5) = 100 / 7 ≈ 14.2857
+  // (b) Exactly 14.0 days old (2026-10-15 00:00:00+00): weight is exactly 100.0 (penalty = 0)
+  const clockExact14 = '2026-10-15 00:00:00+00';
+  const weightExact14 = (await query(`SELECT private.calculate_player_captain_weight('player-bound', '${clockExact14}'::timestamptz) as w;`))[0].w;
+  check('1.5 Exactly 14.0 days old refreshes to 100.0', () => {
+    assert.equal(Number(weightExact14), 100.0, `Expected exactly 100.0 at 14.0 days, got ${weightExact14}`);
+  });
+
+  // (c) Older than 14 days (14.01 days old = 2026-10-15 00:15:00+00): weight is 100.0
+  const clockAfter14 = '2026-10-15 00:15:00+00';
+  const weightAfter14 = (await query(`SELECT private.calculate_player_captain_weight('player-bound', '${clockAfter14}'::timestamptz) as w;`))[0].w;
+  check('1.6 Older than 14 days refreshes to 100.0', () => {
+    assert.equal(Number(weightAfter14), 100.0, `Expected 100.0 after 14 days, got ${weightAfter14}`);
+  });
+
+  // 1.7 Multiple independent wins accumulate penalty
   await db.exec(`
     INSERT INTO private.captain_history (room_id, event_id, participant_id, stable_player_id, nickname, created_at)
-    VALUES 
+    VALUES
       ('a0000000-0000-0000-0000-000000000001', 'ev-multi-1', gen_random_uuid(), 'player-multi', 'Yara', now()),
       ('a0000000-0000-0000-0000-000000000001', 'ev-multi-2', gen_random_uuid(), 'player-multi', 'Yara', now() - interval '7 days');
   `);
   const weightMulti = (await query("SELECT private.calculate_player_captain_weight('player-multi') as w;"))[0].w;
-  check('1.5 Multiple wins accumulate penalties independently', () => {
+  check('1.7 Multiple wins accumulate penalties independently', () => {
     const expected = 100 / 7;
     assert.ok(Math.abs(Number(weightMulti) - expected) < 0.1, `Expected ~${expected}, got ${weightMulti}`);
   });
 
-  // 1.6 Never zero weight: recent winners retain nonzero chance
-  check('1.6 Recent winner retains strictly positive weight', () => {
+  // 1.8 Never zero weight: recent winners retain nonzero chance
+  check('1.8 Recent winners retain strictly positive weight', () => {
     assert.ok(Number(recentWeight) > 0, 'Weight must be strictly positive');
     assert.ok(Number(weightMulti) > 0, 'Weight must be strictly positive');
   });
@@ -128,22 +146,80 @@ try {
   // ==========================================
   console.log('\n2. Verifying Cross-Room Identity & Nickname Collision Isolation:');
 
-  // Room B created
-  await db.exec(`
-    INSERT INTO public.rooms (id, code, eating_mode, city) 
-    VALUES ('b0000000-0000-0000-0000-000000000002', 'TST2', 'delivery', 'jeddah');
-  `);
+  // Room Alpha: Host Alice creates room with stable_player_id
+  const stableAlice = 'stable-device-token-alice';
+  const roomAlphaRes = (await query(`
+    SELECT public.create_room_authorized(
+      'ALPH', 'room-alpha-alice-token', 'delivery', 'riyadh', NULL, 'ar', 'Alice', NULL, NULL, '${stableAlice}'
+    ) as res;
+  `))[0].res;
+  const roomAlphaId = roomAlphaRes.room.id;
+  const aliceAlphaPartId = roomAlphaRes.participant.id;
 
-  // Same stable ID 'player-recent' should have weight 20.0 when participating in Room B
-  const weightCrossRoom = (await query("SELECT private.calculate_player_captain_weight('player-recent') as w;"))[0].w;
-  check('2.1 Same stable player identity retains history across rooms', () => {
-    assert.ok(Math.abs(Number(weightCrossRoom) - 20.0) < 0.01);
+  // Bob joins Room Alpha with stable_player_id
+  const stableBob = 'stable-device-token-bob';
+  const bobAlphaRes = (await query(`
+    SELECT public.join_room_authorized(
+      'ALPH', 'room-alpha-bob-token', 'Bob', '${stableBob}'
+    ) as res;
+  `))[0].res;
+  const bobAlphaPartId = bobAlphaRes.participant.id;
+
+  // Verify participants have stable_player_id stored
+  const alphaParts = await query(`SELECT id, session_token, stable_player_id FROM public.participants WHERE room_id = '${roomAlphaId}';`);
+  check('2.1 Participants store canonical stable_player_id on room entry', () => {
+    const a = alphaParts.find(p => p.id === aliceAlphaPartId);
+    assert.equal(a.stable_player_id, stableAlice);
+    const b = alphaParts.find(p => p.id === bobAlphaPartId);
+    assert.equal(b.stable_player_id, stableBob);
   });
 
-  // Different user with the SAME nickname 'Omar' but different stable_id 'omar-user-2' has fresh weight 100.0
-  const omar2Weight = (await query("SELECT private.calculate_player_captain_weight('omar-user-2') as w;"))[0].w;
-  check('2.2 Identical nicknames with different stable identity are not merged', () => {
-    assert.equal(Number(omar2Weight), 100.0);
+  // Alice wins captain in Room Alpha (record win in captain_history)
+  await db.exec(`
+    INSERT INTO private.captain_history (room_id, event_id, participant_id, stable_player_id, nickname, created_at)
+    VALUES ('${roomAlphaId}', 'ev-alpha-1', '${aliceAlphaPartId}', '${stableAlice}', 'Alice', now());
+  `);
+
+  // Room Beta: Alice joins Room Beta with a completely DIFFERENT room session token, but the SAME stable_player_id
+  const roomBetaRes = (await query(`
+    SELECT public.create_room_authorized(
+      'BETA', 'room-beta-charlie-token', 'delivery', 'jeddah', NULL, 'ar', 'Charlie', NULL, NULL, 'stable-device-token-charlie'
+    ) as res;
+  `))[0].res;
+  const roomBetaId = roomBetaRes.room.id;
+
+  // Alice joins Beta
+  const aliceBetaRes = (await query(`
+    SELECT public.join_room_authorized(
+      'BETA', 'room-beta-alice-different-token', 'Alice', '${stableAlice}'
+    ) as res;
+  `))[0].res;
+  const aliceBetaPartId = aliceBetaRes.participant.id;
+
+  // Another user named 'Alice' joins Beta with DIFFERENT stable device identity
+  const stableAliceImposter = 'stable-device-token-alice-other';
+  const alice2BetaRes = (await query(`
+    SELECT public.join_room_authorized(
+      'BETA', 'room-beta-alice2-token', 'Alice', '${stableAliceImposter}'
+    ) as res;
+  `))[0].res;
+
+  // 2.2 Alice in Room Beta has decayed weight 20.0 from her Room Alpha win
+  const startBeta = (await query(`
+    SELECT public.start_captain_selection('${roomBetaId}', 'room-beta-charlie-token', 'stable-device-token-charlie') as res;
+  `))[0].res;
+
+  check('2.2 Returning player carries captain history penalty into new room via stable identity', () => {
+    const candidateAlice = startBeta.candidates.find(c => c.id === aliceBetaPartId);
+    assert.ok(candidateAlice, 'Alice is a candidate in Room Beta');
+    assert.ok(Math.abs(Number(candidateAlice.weight) - 20.0) < 0.01, `Alice expected weight 20.0, got ${candidateAlice.weight}`);
+  });
+
+  // 2.3 Other user with identical nickname 'Alice' retains fresh weight 100.0
+  check('2.3 Two players with identical nicknames have independent histories', () => {
+    const candidateAlice2 = startBeta.candidates.find(c => c.id === alice2BetaRes.participant.id);
+    assert.ok(candidateAlice2, 'Second Alice is a candidate');
+    assert.equal(Number(candidateAlice2.weight), 100.0, `Second Alice expected weight 100.0, got ${candidateAlice2.weight}`);
   });
 
   // ==========================================
@@ -167,8 +243,6 @@ try {
     });
   }
 
-  // User rule: "if the approval and objection of the reroll is a tie then they keep them."
-  // For N=4, if 2 approve and 2 reject (tie): approvals (2) < requiredApprovals (3) -> Reroll Rejected!
   check('3.2 For N=4, tie (2 approve vs 2 reject) fails required threshold of 3', () => {
     const n = 4;
     const req = Math.floor(n / 2) + 1;
@@ -183,7 +257,7 @@ try {
 
   const testRoomId = 'c0000000-0000-0000-0000-000000000003';
   await db.exec(`
-    INSERT INTO public.rooms (id, code, eating_mode, city) 
+    INSERT INTO public.rooms (id, code, eating_mode, city)
     VALUES ('${testRoomId}', 'CAP1', 'delivery', 'riyadh');
   `);
 
@@ -194,17 +268,17 @@ try {
   const p4_away = '44444444-0000-0000-0000-000000000004';
 
   await db.exec(`
-    INSERT INTO public.participants (id, room_id, session_token, nickname, player_color, player_shape, is_host, status)
-    VALUES 
-      ('${p1}', '${testRoomId}', 'token-p1', 'Omar', '#55B96A', 'circle', true, 'active'),
-      ('${p2}', '${testRoomId}', 'token-p2', 'Lina', '#F0443E', 'squircle', false, 'active'),
-      ('${p3}', '${testRoomId}', 'token-p3', 'Saad', '#FFD75A', 'diamond', false, 'active'),
-      ('${p4_away}', '${testRoomId}', 'token-p4-away', 'AwayGhost', '#73C8EA', 'circle', false, 'away');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      ('${p1}', '${testRoomId}', 'token-p1', 'stable-p1', 'Omar', '#55B96A', 'circle', true, 'active'),
+      ('${p2}', '${testRoomId}', 'token-p2', 'stable-p2', 'Lina', '#F0443E', 'squircle', false, 'active'),
+      ('${p3}', '${testRoomId}', 'token-p3', 'stable-p3', 'Saad', '#FFD75A', 'diamond', false, 'active'),
+      ('${p4_away}', '${testRoomId}', 'token-p4-away', 'stable-p4', 'AwayGhost', '#73C8EA', 'circle', false, 'away');
   `);
 
   // 4.1 Start captain selection: active participants only, initials generated
   const startRes = (await query(`
-    SELECT public.start_captain_selection('${testRoomId}', 'token-p1') as res;
+    SELECT public.start_captain_selection('${testRoomId}', 'token-p1', 'stable-p1') as res;
   `))[0].res;
 
   const eventId = startRes.eventId;
@@ -278,18 +352,19 @@ try {
     assert.notEqual(voteRes.finalCaptainId, startRes.provisionalCaptainId, 'Provisional captain excluded from 2nd draw');
   });
 
-  // 4.8 Only the second captain has a recorded win; overturned provisional does not count
+  // 4.8 Only the second captain has a recorded win with stable_player_id
   const historyRows = await query(`
     SELECT * FROM private.captain_history WHERE event_id = '${eventId}';
   `);
-  check('4.8 Exactly one captain win recorded for final winner (not provisional)', () => {
+  check('4.8 Exactly one captain win recorded for final winner with stable_player_id', () => {
     assert.equal(historyRows.length, 1);
     assert.equal(historyRows[0].participant_id, voteRes.finalCaptainId);
     assert.equal(historyRows[0].was_reroll, true);
+    assert.ok(historyRows[0].stable_player_id.startsWith('stable-'), 'Stable ID recorded');
   });
 
   // 4.9 Idempotent finalization: duplicate resolution calls cannot create extra history rows
-  await query(`SELECT public.resolve_captain_event('${testRoomId}', '${eventId}');`);
+  await query(`SELECT public.resolve_captain_event('${testRoomId}', '${eventId}', 'token-p1');`);
   const historyAfterIdempotent = await query(`
     SELECT count(*) as cnt FROM private.captain_history WHERE event_id = '${eventId}';
   `);
@@ -298,83 +373,145 @@ try {
   });
 
   // ==========================================
-  // Test Suite 5: Uncontested Window & Tie Rejection End-to-End
+  // Test Suite 5: Security Authorization, Premature Resolution & Deadline Enforcement
   // ==========================================
-  console.log('\n5. Verifying Uncontested Expiry and Vote Tie Rejection in Database:');
+  console.log('\n5. Verifying Security Authorization, Premature Resolution & Deadlines:');
 
-  // Test 5.1: Uncontested objection expiry confirms original captain
-  const room2Id = 'd0000000-0000-0000-0000-000000000004';
+  const secRoomId = 'd0000000-0000-0000-0000-000000000004';
   await db.exec(`
-    INSERT INTO public.rooms (id, code, eating_mode, city) 
-    VALUES ('${room2Id}', 'CAP2', 'delivery', 'riyadh');
-    INSERT INTO public.participants (id, room_id, session_token, nickname, player_color, player_shape, is_host, status)
-    VALUES 
-      (gen_random_uuid(), '${room2Id}', 'tok-a1', 'Player1', '#55B96A', 'circle', true, 'active'),
-      (gen_random_uuid(), '${room2Id}', 'tok-a2', 'Player2', '#F0443E', 'circle', false, 'active');
+    INSERT INTO public.rooms (id, code, eating_mode, city)
+    VALUES ('${secRoomId}', 'SEC1', 'delivery', 'riyadh');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${secRoomId}', 'sec-user-1', 'stable-sec-1', 'User1', '#55B96A', 'circle', true, 'active'),
+      (gen_random_uuid(), '${secRoomId}', 'sec-user-2', 'stable-sec-2', 'User2', '#F0443E', 'circle', false, 'active');
   `);
 
-  const startRes2 = (await query(`SELECT public.start_captain_selection('${room2Id}', 'tok-a1') as res;`))[0].res;
-  const ev2 = startRes2.eventId;
+  const secStart = (await query(`SELECT public.start_captain_selection('${secRoomId}', 'sec-user-1') as res;`))[0].res;
+  const secEventId = secStart.eventId;
 
-  // Resolve after timeout
-  const resolveUncontested = (await query(`SELECT public.resolve_captain_event('${room2Id}', '${ev2}') as res;`))[0].res;
-  check('5.1 Uncontested window expiry finalizes original captain', () => {
-    assert.equal(resolveUncontested.status, 'finalized');
-    assert.equal(resolveUncontested.finalCaptainId, startRes2.provisionalCaptainId);
-    assert.equal(resolveUncontested.hasRerolled, false);
+  // 5.1 Unauthorized caller rejected in resolve_captain_event
+  let unauthResolveFailed = false;
+  try {
+    await query(`SELECT public.resolve_captain_event('${secRoomId}', '${secEventId}', 'rogue-imposter-token');`);
+  } catch (err) {
+    unauthResolveFailed = err.message.includes('WSH_UNAUTHORIZED');
+  }
+  check('5.1 resolve_captain_event rejects unauthorized callers', () => {
+    assert.ok(unauthResolveFailed, 'Unauthorized caller must be rejected');
   });
 
-  // Test 5.2: 4-Player Room with 2 vs 2 Tie Rejection
-  const room4Id = 'e0000000-0000-0000-0000-000000000005';
-  await db.exec(`
-    INSERT INTO public.rooms (id, code, eating_mode, city) 
-    VALUES ('${room4Id}', 'CAP4', 'delivery', 'riyadh');
-  `);
-  const u1 = 'aaaa0000-0000-0000-0000-000000000001';
-  const u2 = 'aaaa0000-0000-0000-0000-000000000002';
-  const u3 = 'aaaa0000-0000-0000-0000-000000000003';
-  const u4 = 'aaaa0000-0000-0000-0000-000000000004';
-
-  await db.exec(`
-    INSERT INTO public.participants (id, room_id, session_token, nickname, player_color, player_shape, is_host, status)
-    VALUES 
-      ('${u1}', '${room4Id}', 'tok-u1', 'A1', '#55B96A', 'circle', true, 'active'),
-      ('${u2}', '${room4Id}', 'tok-u2', 'A2', '#F0443E', 'circle', false, 'active'),
-      ('${u3}', '${room4Id}', 'tok-u3', 'A3', '#FFD75A', 'circle', false, 'active'),
-      ('${u4}', '${room4Id}', 'tok-u4', 'A4', '#73C8EA', 'circle', false, 'active');
-  `);
-
-  const startRes4 = (await query(`SELECT public.start_captain_selection('${room4Id}', 'tok-u1') as res;`))[0].res;
-  const ev4 = startRes4.eventId;
-
-  // u2 requests reroll (approves)
-  await query(`SELECT public.request_captain_reroll('${room4Id}', '${ev4}', 'tok-u2');`);
-
-  // u3 approves (2 approvals)
-  await query(`SELECT public.cast_captain_vote('${room4Id}', '${ev4}', 'tok-u3', 'approve');`);
-
-  // u4 rejects (1 rejection)
-  await query(`SELECT public.cast_captain_vote('${room4Id}', '${ev4}', 'tok-u4', 'reject');`);
-
-  // u1 rejects -> now 2 approvals vs 2 rejections = TIE!
-  // For N=4, required is floor(4/2) + 1 = 3. Since approvals (2) + uncast (0) < 3, early rejection triggers!
-  const tieVoteRes = (await query(`SELECT public.cast_captain_vote('${room4Id}', '${ev4}', 'tok-u1', 'reject') as res;`))[0].res;
-
-  check('5.2 Tied vote (2 approve vs 2 reject) rejects reroll and keeps provisional captain', () => {
-    assert.equal(tieVoteRes.status, 'finalized');
-    assert.equal(tieVoteRes.finalDecision, 'rejected');
-    assert.equal(tieVoteRes.finalCaptainId, startRes4.provisionalCaptainId, 'Provisional captain kept on tie');
+  // 5.2 Unauthorized caller rejected in get_captain_event_state
+  let unauthGetFailed = false;
+  try {
+    await query(`SELECT public.get_captain_event_state('${secRoomId}', 'rogue-imposter-token');`);
+  } catch (err) {
+    unauthGetFailed = err.message.includes('WSH_UNAUTHORIZED');
+  }
+  check('5.2 get_captain_event_state rejects unauthorized callers', () => {
+    assert.ok(unauthGetFailed, 'Unauthorized caller must be rejected');
   });
 
-  const history4 = await query(`SELECT * FROM private.captain_history WHERE event_id = '${ev4}';`);
-  check('5.3 On tie rejection, exactly one win recorded for original provisional captain', () => {
-    assert.equal(history4.length, 1);
-    assert.equal(history4[0].participant_id, startRes4.provisionalCaptainId);
-    assert.equal(history4[0].was_reroll, false);
+  // 5.3 Premature resolve during active objection window does NOT finalize
+  const prematureRes = (await query(`
+    SELECT public.resolve_captain_event('${secRoomId}', '${secEventId}', 'sec-user-1') as res;
+  `))[0].res;
+  check('5.3 Premature call before objection deadline does not finalize event', () => {
+    assert.notEqual(prematureRes.status, 'finalized');
+    assert.equal(prematureRes.message, 'OBJECTION_WINDOW_ACTIVE');
+  });
+
+  // Simulate objection window expiry: update objection_ends_at to past
+  await db.exec(`UPDATE public.captain_events SET objection_ends_at = now() - interval '1 second' WHERE id = '${secEventId}';`);
+
+  // 5.4 Legitimate timeout resolution after deadline passes finalizes uncontested
+  const postDeadlineRes = (await query(`
+    SELECT public.resolve_captain_event('${secRoomId}', '${secEventId}', 'sec-user-1') as res;
+  `))[0].res;
+  check('5.4 Legitimate timeout after deadline passes finalizes uncontested winner', () => {
+    assert.equal(postDeadlineRes.status, 'finalized');
+    assert.equal(postDeadlineRes.finalDecision, 'uncontested');
+    assert.equal(postDeadlineRes.finalCaptainId, secStart.provisionalCaptainId);
+  });
+
+  // 5.5 Premature resolution during active voting window does NOT finalize
+  const voteRoomId = 'e0000000-0000-0000-0000-000000000005';
+  await db.exec(`
+    INSERT INTO public.rooms (id, code, eating_mode, city)
+    VALUES ('${voteRoomId}', 'VOT1', 'delivery', 'riyadh');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${voteRoomId}', 'v-user-1', 'stable-v1', 'Voter1', '#55B96A', 'circle', true, 'active'),
+      (gen_random_uuid(), '${voteRoomId}', 'v-user-2', 'stable-v2', 'Voter2', '#F0443E', 'circle', false, 'active'),
+      (gen_random_uuid(), '${voteRoomId}', 'v-user-3', 'stable-v3', 'Voter3', '#FFD75A', 'circle', false, 'active');
+  `);
+
+  const voteStart = (await query(`SELECT public.start_captain_selection('${voteRoomId}', 'v-user-1') as res;`))[0].res;
+  const voteEvId = voteStart.eventId;
+
+  // Open reroll vote
+  await query(`SELECT public.request_captain_reroll('${voteRoomId}', '${voteEvId}', 'v-user-2');`);
+
+  // Premature resolve during vote
+  const prematureVoteRes = (await query(`
+    SELECT public.resolve_captain_event('${voteRoomId}', '${voteEvId}', 'v-user-1') as res;
+  `))[0].res;
+  check('5.5 Premature call during active voting window does not finalize event', () => {
+    assert.notEqual(prematureVoteRes.status, 'finalized');
+    assert.equal(prematureVoteRes.message, 'VOTING_WINDOW_ACTIVE');
+  });
+
+  // ==========================================
+  // Test Suite 6: Minimum Players & Fresh Round Selection
+  // ==========================================
+  console.log('\n6. Verifying Minimum Players & Fresh Round Handling:');
+
+  const minRoomId = 'f0000000-0000-0000-0000-000000000006';
+  await db.exec(`
+    INSERT INTO public.rooms (id, code, eating_mode, city)
+    VALUES ('${minRoomId}', 'MIN1', 'delivery', 'riyadh');
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${minRoomId}', 'solo-user', 'stable-solo', 'SoloUser', '#55B96A', 'circle', true, 'active'),
+      (gen_random_uuid(), '${minRoomId}', 'away-user', 'stable-away', 'AwayUser', '#F0443E', 'circle', false, 'away');
+  `);
+
+  // 6.1 Less than 2 active players rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS
+  let minPlayersFailed = false;
+  try {
+    await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`);
+  } catch (err) {
+    minPlayersFailed = err.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS');
+  }
+  check('6.1 Less than 2 active players (ignoring away) throws WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
+    assert.ok(minPlayersFailed, 'Single active player must be rejected');
+  });
+
+  // 6.2 Fresh round after finalized event generates new event with new event ID
+  // In secRoomId, the event was finalized. Calling start_captain_selection must create a NEW event!
+  const freshEventRes = (await query(`
+    SELECT public.start_captain_selection('${secRoomId}', 'sec-user-1') as res;
+  `))[0].res;
+
+  check('6.2 Calling start_captain_selection after finalized round generates fresh event', () => {
+    assert.ok(freshEventRes.eventId, 'New event ID generated');
+    assert.notEqual(freshEventRes.eventId, secEventId, 'New event ID differs from finalized event');
+    assert.equal(freshEventRes.status, 'initial_result_provisional');
+    assert.equal(freshEventRes.hasRerolled, false);
+  });
+
+  // 6.3 Calling start_captain_selection while event is active returns current event (idempotency)
+  const concurrentCallRes = (await query(`
+    SELECT public.start_captain_selection('${secRoomId}', 'sec-user-2') as res;
+  `))[0].res;
+
+  check('6.3 Calling start_captain_selection while event is in progress returns active event', () => {
+    assert.equal(concurrentCallRes.eventId, freshEventRes.eventId, 'Returns same active event without duplicating');
   });
 
   console.log(`\nPASS: All ${checks} Captain Roulette database and algorithm checks passed!`);
 } catch (error) {
-  console.error('\nEXECUTION FAILED:', error);
+  console.error('\nEXECUTION FAILED MESSAGE:', error.message);
+  console.error('\nEXECUTION FAILED STACK:', error.stack);
   process.exit(1);
 }

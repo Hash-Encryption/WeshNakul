@@ -117,13 +117,14 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
     const init = async () => {
       try {
         const existing = await getCaptainEventState(currentRoom.id, currentParticipant.session_token);
-        if (mounted && existing) {
+        // If an existing event is still in progress, resume it
+        if (mounted && existing && existing.status !== 'finalized') {
           applyState(existing);
           return;
         }
 
-        // Host starts fresh selection if none exists
-        if (isHost && !existing) {
+        // Host starts fresh selection if none exists or previous round was finalized
+        if (isHost && (!existing || existing.status === 'finalized')) {
           setIsSpinningWheel(true);
           const stableId = getOrCreateSessionToken();
           const initiated = await startCaptainSelection(currentRoom.id, currentParticipant.session_token, stableId);
@@ -140,6 +141,8 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
               objectionEndsAt: initiated.objectionEndsAt || '',
             });
           }
+        } else if (mounted && existing) {
+          applyState(existing);
         }
       } catch (err) {
         console.error('Failed to init captain roulette', err);
@@ -245,8 +248,8 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
       // Timeout resolution
       if (seconds <= 0) {
         clearInterval(interval);
-        if (currentRoom?.id && eventState.eventId) {
-          void resolveCaptainEvent(currentRoom.id, eventState.eventId).then((resolved) => {
+        if (currentRoom?.id && eventState.eventId && currentParticipant?.session_token) {
+          void resolveCaptainEvent(currentRoom.id, eventState.eventId, currentParticipant.session_token).then((resolved) => {
             applyState(resolved);
             if (resolved.status === 'finalized' && resolved.finalCaptainId) {
               void broadcastCaptainMessage(currentRoom.id, {
@@ -264,7 +267,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
     }, 500);
 
     return () => clearInterval(interval);
-  }, [eventState?.status, eventState?.objectionEndsAt, eventState?.eventId, currentRoom?.id, applyState]);
+  }, [eventState?.status, eventState?.objectionEndsAt, eventState?.eventId, currentRoom?.id, currentParticipant?.session_token, applyState]);
 
   // 15s Vote countdown timer
   useEffect(() => {
@@ -278,8 +281,8 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
       // Vote expired resolution
       if (seconds <= 0) {
         clearInterval(interval);
-        if (currentRoom?.id && eventState.eventId) {
-          void resolveCaptainEvent(currentRoom.id, eventState.eventId).then((resolved) => {
+        if (currentRoom?.id && eventState.eventId && currentParticipant?.session_token) {
+          void resolveCaptainEvent(currentRoom.id, eventState.eventId, currentParticipant.session_token).then((resolved) => {
             applyState(resolved);
             if (resolved.status === 'finalized' && resolved.finalCaptainId) {
               void broadcastCaptainMessage(currentRoom.id, {
@@ -297,7 +300,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
     }, 500);
 
     return () => clearInterval(interval);
-  }, [eventState?.status, eventState?.voteEndsAt, eventState?.eventId, currentRoom?.id, applyState]);
+  }, [eventState?.status, eventState?.voteEndsAt, eventState?.eventId, currentRoom?.id, currentParticipant?.session_token, applyState]);
 
   // Handle Reroll Request
   const handleRequestReroll = async () => {
