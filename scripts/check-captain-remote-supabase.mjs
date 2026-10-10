@@ -69,7 +69,18 @@ try {
   assert.ok(hostPart1?.id, 'Host participant created');
   console.log(`  ✓ Remote test room created: ${room1.id}`);
 
-  // Guest Bob joins room 1
+  // 1.b Testing 1 active player is rejected on remote Supabase
+  const soloRes = await supabase.rpc('start_captain_selection', {
+    p_room_id: room1.id,
+    p_session_token: hostToken1,
+    p_stable_id: stableAlice,
+  });
+  check('1.b Single active player is strictly rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
+    assert.ok(soloRes.error, 'Single player must return error');
+    assert.ok(soloRes.error.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS'), 'Expected WSH_INSUFFICIENT_ACTIVE_PLAYERS');
+  });
+
+  // Guest Bob joins room 1 (now 2 active players)
   guestToken1 = `guest-session-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
   const joinResBob = await supabase.rpc('join_room_authorized', {
     p_code: code1,
@@ -80,7 +91,18 @@ try {
   if (joinResBob.error) throw new Error(`Bob join failed: ${joinResBob.error.message}`);
   guestPart1 = joinResBob.data.participant;
 
-  // Voter Charlie joins room 1
+  // 1.c Testing 2 active players is rejected on remote Supabase
+  const duoRes = await supabase.rpc('start_captain_selection', {
+    p_room_id: room1.id,
+    p_session_token: hostToken1,
+    p_stable_id: stableAlice,
+  });
+  check('1.c Exactly 2 active players is strictly rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
+    assert.ok(duoRes.error, 'Two players must return error');
+    assert.ok(duoRes.error.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS'), 'Expected WSH_INSUFFICIENT_ACTIVE_PLAYERS');
+  });
+
+  // Voter Charlie joins room 1 (now 3 active players)
   voterToken1 = `voter-session-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
   const joinResCharlie = await supabase.rpc('join_room_authorized', {
     p_code: code1,
@@ -91,7 +113,7 @@ try {
   if (joinResCharlie.error) throw new Error(`Charlie join failed: ${joinResCharlie.error.message}`);
   voterPart1 = joinResCharlie.data.participant;
 
-  console.log('\n2. Testing start_captain_selection on remote Supabase:');
+  console.log('\n2. Testing start_captain_selection with 3 active players on remote Supabase:');
   const startRes = await supabase.rpc('start_captain_selection', {
     p_room_id: room1.id,
     p_session_token: hostToken1,

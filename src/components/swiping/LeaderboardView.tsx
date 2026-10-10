@@ -35,18 +35,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
   const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
 
   const handleSelectMiniGame = (game: MiniGameDefinition) => {
-    if (game.id === 'sudden_death') {
-      if (tiedRestaurants.length >= 2) {
-        onTriggerSuddenDeath([tiedRestaurants[0], tiedRestaurants[1]]);
-      }
-      return;
-    }
-
-    if (game.needsCaptain && onTriggerCaptainRoulette) {
-      onTriggerCaptainRoulette();
-      return;
-    }
-
+    // 1. Implementation check: Never launch an unimplemented game
     if (!game.implemented) {
       const name = t(game.nameKey);
       const comingSoonText =
@@ -55,6 +44,39 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
           : `Coming soon! ${name} is in development 🚧`;
       setNoticeMessage(comingSoonText);
       setTimeout(() => setNoticeMessage(null), 3200);
+      return;
+    }
+
+    // 2. Revalidate player eligibility: games needing captain require at least 3 active players
+    const requiredPlayers = Math.max(game.minPlayers, game.needsCaptain ? 3 : 1);
+    if (activePlayerCount < requiredPlayers) {
+      const msg =
+        locale === 'ar'
+          ? `يتطلب ${requiredPlayers} لاعبين نشطين على الأقل للبدء! 👥`
+          : `Requires at least ${requiredPlayers} active players to launch! 👥`;
+      setNoticeMessage(msg);
+      setTimeout(() => setNoticeMessage(null), 3200);
+      return;
+    }
+
+    if (game.id === 'sudden_death') {
+      if (tiedRestaurants.length >= 2) {
+        onTriggerSuddenDeath([tiedRestaurants[0], tiedRestaurants[1]]);
+      }
+      return;
+    }
+
+    if (game.needsCaptain && onTriggerCaptainRoulette) {
+      if (activePlayerCount < 3) {
+        const msg =
+          locale === 'ar'
+            ? 'روليت الكابتن يتطلب 3 لاعبين نشطين على الأقل! 👥'
+            : 'Captain Roulette requires at least 3 active players! 👥';
+        setNoticeMessage(msg);
+        setTimeout(() => setNoticeMessage(null), 3200);
+        return;
+      }
+      onTriggerCaptainRoulette();
       return;
     }
 

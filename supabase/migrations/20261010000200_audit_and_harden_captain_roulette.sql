@@ -239,8 +239,8 @@ BEGIN
     v_cand_ids := array_append(v_cand_ids, v_part.id);
   END LOOP;
 
-  -- Require at least 2 active players for Captain Roulette
-  IF cardinality(v_cand_ids) < 2 THEN
+  -- Require at least 3 active players for Captain Roulette
+  IF cardinality(v_cand_ids) < 3 THEN
     RAISE EXCEPTION 'WSH_INSUFFICIENT_ACTIVE_PLAYERS';
   END IF;
 

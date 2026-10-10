@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { useLocale } from '../../context/LocaleContext';
@@ -42,6 +42,10 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
   const [voteSecondsLeft, setVoteSecondsLeft] = useState<number>(15);
   const [isActionSubmitting, setIsActionSubmitting] = useState(false);
   const [hasVotedLocally, setHasVotedLocally] = useState<CaptainVoteType | null>(null);
+  const [initError, setInitError] = useState<'min_players' | 'network_error' | null>(null);
+  const [isStartingSelection, setIsStartingSelection] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const isStartingRef = useRef(false);
 
   // Active participants list as candidates fallback
   const fallbackCandidates = useMemo<CaptainCandidate[]>(() => {
@@ -115,6 +119,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
 
     let mounted = true;
     const init = async () => {
+      setInitError(null);
       try {
         const existing = await getCaptainEventState(currentRoom.id, currentParticipant.session_token);
         // If an existing event is still in progress, resume it
@@ -125,27 +130,50 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
 
         // Host starts fresh selection if none exists or previous round was finalized
         if (isHost && (!existing || existing.status === 'finalized')) {
-          setIsSpinningWheel(true);
-          const stableId = getOrCreateSessionToken();
-          const initiated = await startCaptainSelection(currentRoom.id, currentParticipant.session_token, stableId);
-          if (mounted) {
-            applyState(initiated);
-            setIsSpinningWheel(true);
-            setTargetWinnerId(initiated.provisionalCaptainId);
-            // Broadcast start to squad
-            void broadcastCaptainMessage(currentRoom.id, {
-              type: 'captain_spin_start',
-              eventId: initiated.eventId,
-              provisionalWinnerId: initiated.provisionalCaptainId,
-              candidates: initiated.candidates,
-              objectionEndsAt: initiated.objectionEndsAt || '',
-            });
+          const activeCount = (participants || []).filter((p) => p.status === 'active').length;
+          if (activeCount < 3) {
+            if (mounted) {
+              setInitError('min_players');
+              setIsSpinningWheel(false);
+            }
+            return;
+          }
+
+          if (isStartingRef.current) return;
+          isStartingRef.current = true;
+          if (mounted) setIsStartingSelection(true);
+
+          try {
+            const stableId = getOrCreateSessionToken();
+            const initiated = await startCaptainSelection(currentRoom.id, currentParticipant.session_token, stableId);
+            if (mounted) {
+              applyState(initiated);
+              setTargetWinnerId(initiated.provisionalCaptainId);
+              setIsSpinningWheel(true);
+              // Broadcast start to squad
+              void broadcastCaptainMessage(currentRoom.id, {
+                type: 'captain_spin_start',
+                eventId: initiated.eventId,
+                provisionalWinnerId: initiated.provisionalCaptainId,
+                candidates: initiated.candidates,
+                objectionEndsAt: initiated.objectionEndsAt || '',
+              });
+            }
+          } finally {
+            isStartingRef.current = false;
+            if (mounted) setIsStartingSelection(false);
           }
         } else if (mounted && existing) {
           applyState(existing);
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to init captain roulette', err);
+        if (mounted) {
+          setIsStartingSelection(false);
+          setIsSpinningWheel(false);
+          const isMinPlayers = err?.message?.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS');
+          setInitError(isMinPlayers ? 'min_players' : 'network_error');
+        }
       }
     };
 
@@ -153,7 +181,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
     return () => {
       mounted = false;
     };
-  }, [isOpen, currentRoom?.id, currentParticipant?.session_token, isHost, applyState]);
+  }, [isOpen, currentRoom?.id, currentParticipant?.session_token, isHost, applyState, participants, retryCount]);
 
   // Realtime subscription across room
   useEffect(() => {
@@ -161,8 +189,11 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
 
     const unsubscribe = subscribeToCaptainEvents(currentRoom.id, (msg) => {
       if (msg.type === 'captain_spin_start') {
-        setIsSpinningWheel(true);
-        setTargetWinnerId(msg.provisionalWinnerId);
+        if (msg.provisionalWinnerId) {
+          setInitError(null);
+          setTargetWinnerId(msg.provisionalWinnerId);
+          setIsSpinningWheel(true);
+        }
         setEventState(() => ({
           eventId: msg.eventId,
           status: 'initial_result_provisional',
@@ -418,16 +449,59 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
           </p>
         </div>
 
-        {/* Ship-Wheel Roulette */}
-        <CaptainWheel
-          candidates={activeCandidates}
-          isSpinning={isSpinning || isSpinningWheel}
-          wheelRef={wheelRef}
-          needleRef={needleRef}
-        />
+        {initError ? (
+          <div className="my-6 p-4 rounded-2xl bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] text-center flex flex-col items-center gap-3">
+            <span className="text-3xl">👥</span>
+            <h3 className="font-alexandria font-black text-base text-[#241B18]">
+              {initError === 'min_players'
+                ? (locale === 'ar' ? 'روليت الكابتن يتطلب 3 لاعبين نشطين على الأقل' : 'Captain Roulette requires at least 3 active players')
+                : (locale === 'ar' ? 'تعذر الاتصال بروليت الكابتن' : 'Could not connect to Captain Roulette')}
+            </h3>
+            <p className="font-alexandria font-bold text-xs text-[#7A6E67]">
+              {initError === 'min_players'
+                ? (locale === 'ar' ? 'يتطلب وجود 3 لاعبين نشطين على الأقل في القروب لبدء السحب والتصويت.' : 'At least 3 active players are required in the squad to run selection and voting.')
+                : (locale === 'ar' ? 'حدث خطأ في الاتصال بالسيرفر. تحقق من الشبكة وحاول ثانية.' : 'Failed to connect to the server. Check your connection and try again.')}
+            </p>
+            <div className="flex items-center gap-2 w-full mt-1">
+              {initError !== 'min_players' && isHost && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInitError(null);
+                    setRetryCount((prev) => prev + 1);
+                  }}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] font-alexandria font-black text-xs shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 cursor-pointer"
+                >
+                  {locale === 'ar' ? 'إعادة المحاولة 🔄' : 'Try Again 🔄'}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex-1 py-2.5 px-4 rounded-xl bg-white text-[#241B18] border-2 border-[#241B18] font-alexandria font-black text-xs shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:bg-[#FFFDF8] cursor-pointer"
+              >
+                {t('captainRoulette.close')}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Ship-Wheel Roulette */}
+            <CaptainWheel
+              candidates={activeCandidates}
+              isSpinning={isSpinning || isSpinningWheel}
+              wheelRef={wheelRef}
+              needleRef={needleRef}
+            />
 
-        {/* Result & Objection / Voting Experience Card */}
-        <div className="flex flex-col gap-3 w-full mt-1">
+            {isStartingSelection && !eventState && (
+              <div className="py-2 text-center font-alexandria font-bold text-xs text-[#7A6E67] animate-pulse">
+                {locale === 'ar' ? 'جاري تجهيز القرعة... 🎲' : 'Setting up Captain Roulette... 🎲'}
+              </div>
+            )}
+
+            {/* Result & Objection / Voting Experience Card */}
+            <div className="flex flex-col gap-3 w-full mt-1">
           {/* Provisional Result / Final Winner Card */}
           <AnimatePresence mode="wait">
             {currentWinnerCandidate && (
@@ -586,6 +660,8 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
             )}
           </div>
         </div>
+          </>
+        )}
       </motion.div>
     </div>
   );

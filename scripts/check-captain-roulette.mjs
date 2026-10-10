@@ -47,6 +47,7 @@ try {
   // Load captain roulette migrations
   await db.exec(migration('20261010000100_captain_roulette.sql'));
   await db.exec(migration('20261010000200_audit_and_harden_captain_roulette.sql'));
+  await db.exec(migration('20261010000300_captain_roulette_minimum_players.sql'));
 
   // Mock gen_random_bytes in PGlite test environment
   await db.exec(`
@@ -164,6 +165,14 @@ try {
     ) as res;
   `))[0].res;
   const bobAlphaPartId = bobAlphaRes.participant.id;
+
+  // Carol joins Room Alpha to satisfy the 3-player minimum for captain selection
+  const stableCarol = 'stable-device-token-carol';
+  await query(`
+    SELECT public.join_room_authorized(
+      'ALPH', 'room-alpha-carol-token', 'Carol', '${stableCarol}'
+    ) as res;
+  `);
 
   // Verify participants have stable_player_id stored
   const alphaParts = await query(`SELECT id, session_token, stable_player_id FROM public.participants WHERE room_id = '${roomAlphaId}';`);
@@ -413,7 +422,8 @@ try {
     INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
     VALUES
       (gen_random_uuid(), '${secRoomId}', 'sec-user-1', 'stable-sec-1', 'User1', '#55B96A', 'circle', true, 'active'),
-      (gen_random_uuid(), '${secRoomId}', 'sec-user-2', 'stable-sec-2', 'User2', '#F0443E', 'circle', false, 'active');
+      (gen_random_uuid(), '${secRoomId}', 'sec-user-2', 'stable-sec-2', 'User2', '#F0443E', 'circle', false, 'active'),
+      (gen_random_uuid(), '${secRoomId}', 'sec-user-3', 'stable-sec-3', 'User3', '#FFD75A', 'circle', false, 'active');
   `);
 
   const secStart = (await query(`SELECT public.start_captain_selection('${secRoomId}', 'sec-user-1') as res;`))[0].res;
@@ -505,15 +515,44 @@ try {
       (gen_random_uuid(), '${minRoomId}', 'away-user', 'stable-away', 'AwayUser', '#F0443E', 'circle', false, 'away');
   `);
 
-  // 6.1 Less than 2 active players rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS
-  let minPlayersFailed = false;
+  // 6.1 Less than 3 active players rejected with WSH_INSUFFICIENT_ACTIVE_PLAYERS
+  let minPlayers1Failed = false;
   try {
     await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`);
   } catch (err) {
-    minPlayersFailed = err.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS');
+    minPlayers1Failed = err.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS');
   }
-  check('6.1 Less than 2 active players (ignoring away) throws WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
-    assert.ok(minPlayersFailed, 'Single active player must be rejected');
+  check('6.1 Single active player (ignoring away) throws WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
+    assert.ok(minPlayers1Failed, 'Single active player must be rejected');
+  });
+
+  // 6.1b Exactly 2 active players (with away/disconnected) also rejected
+  await db.exec(`
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${minRoomId}', 'user-2', 'stable-2', 'User2', '#3B82F6', 'circle', false, 'active'),
+      (gen_random_uuid(), '${minRoomId}', 'disc-user', 'stable-disc', 'DiscUser', '#EAB308', 'circle', false, 'disconnected');
+  `);
+  let minPlayers2Failed = false;
+  try {
+    await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`);
+  } catch (err) {
+    minPlayers2Failed = err.message.includes('WSH_INSUFFICIENT_ACTIVE_PLAYERS');
+  }
+  check('6.1b Exactly 2 active players throws WSH_INSUFFICIENT_ACTIVE_PLAYERS', () => {
+    assert.ok(minPlayers2Failed, 'Two active players must be rejected');
+  });
+
+  // 6.1c Adding third active player satisfies requirement and launches
+  await db.exec(`
+    INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
+    VALUES
+      (gen_random_uuid(), '${minRoomId}', 'user-3', 'stable-3', 'User3', '#8B5CF6', 'circle', false, 'active');
+  `);
+  const threePlayerRes = (await query(`SELECT public.start_captain_selection('${minRoomId}', 'solo-user') as res;`))[0].res;
+  check('6.1c Three active players successfully launches Captain Roulette', () => {
+    assert.ok(threePlayerRes.eventId, '3 active players creates event');
+    assert.equal(threePlayerRes.candidates.length, 3, 'Exactly 3 candidates');
   });
 
   // 6.2 Fresh round after finalized event generates new event with new event ID
@@ -623,7 +662,8 @@ try {
     INSERT INTO public.participants (id, room_id, session_token, stable_player_id, nickname, player_color, player_shape, is_host, status)
     VALUES
       (gen_random_uuid(), '${uncontestedRoomId}', 'unc-p1', 'stable-unc-1', 'UncP1', '#55B96A', 'circle', true, 'active'),
-      (gen_random_uuid(), '${uncontestedRoomId}', 'unc-p2', 'stable-unc-2', 'UncP2', '#F0443E', 'circle', false, 'active');
+      (gen_random_uuid(), '${uncontestedRoomId}', 'unc-p2', 'stable-unc-2', 'UncP2', '#F0443E', 'circle', false, 'active'),
+      (gen_random_uuid(), '${uncontestedRoomId}', 'unc-p3', 'stable-unc-3', 'UncP3', '#FFD75A', 'circle', false, 'active');
   `);
 
   const uncStart = (await query(`SELECT public.start_captain_selection('${uncontestedRoomId}', 'unc-p1') as res;`))[0].res;

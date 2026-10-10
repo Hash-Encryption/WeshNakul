@@ -80,8 +80,8 @@ export function useCaptainWheel({
   const sliceAngle = 360 / count;
 
   useEffect(() => {
-    // IDLE
-    if (!isSpinning && !winnerId) {
+    // IDLE: Wheel only spins when BOTH isSpinning is true and winnerId is present
+    if (!isSpinning || !winnerId) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
       lastTimestampRef.current = null;

@@ -152,8 +152,8 @@ BEGIN
     END LOOP;
   END IF;
 
-  IF cardinality(v_cand_ids) = 0 THEN
-    RAISE EXCEPTION 'WSH_NO_ELIGIBLE_PLAYERS';
+  IF cardinality(v_cand_ids) < 3 THEN
+    RAISE EXCEPTION 'WSH_INSUFFICIENT_ACTIVE_PLAYERS';
   END IF;
 
   -- Build candidates metadata and weights
