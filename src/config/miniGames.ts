@@ -47,16 +47,16 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     imageAsset: 'shuffle_cards',
     bgClass: 'bg-[#FFF1ED]',
     needsCaptain: true,
-    minPlayers: 2,
-    implemented: false,
+    minPlayers: 1,
+    implemented: true,
     idealTieCounts: [3],
-    supportedTieCounts: [2, 3, 4],
+    supportedTieCounts: [2, 3, 4, 5, 6, 7, 8, 9, 10],
     getSuitability: ({ tieCount, activePlayerCount }) => {
-      if (activePlayerCount < 2) {
+      if (activePlayerCount < 1) {
         return {
           state: 'unavailable',
           reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 2 },
+          reasonParams: { count: 1 },
         };
       }
       if (tieCount === 3) {

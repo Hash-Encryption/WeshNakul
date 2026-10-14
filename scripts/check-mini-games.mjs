@@ -72,7 +72,7 @@ try {
   check('3. Implemented status is accurate', () => {
     const byId = Object.fromEntries(MINI_GAMES.map((g) => [g.id, g]));
     assert.equal(byId.sudden_death.implemented, true, 'Sudden Death is implemented');
-    assert.equal(byId.shuffle_cards.implemented, false, 'Shuffle Cards is next');
+    assert.equal(byId.shuffle_cards.implemented, true, 'Shuffle Cards is implemented');
     assert.equal(byId.sizzling_skillet.implemented, false, 'Sizzling Skillet is future');
   });
 
@@ -384,9 +384,9 @@ try {
     assert.ok(html.includes('Emoji Clash'), 'Emoji Clash present');
     assert.ok(html.includes('Sizzling Skillet'), 'Sizzling Skillet present');
 
-    // Verify Coming Soon badges appear for unimplemented games
+    // Verify Coming Soon badges appear for unimplemented games (5 unimplemented games remain)
     const comingSoonMatches = (html.match(/Coming Soon 🚧/g) || []).length;
-    assert.equal(comingSoonMatches, 6, 'Exactly 6 Coming Soon badges present on player view');
+    assert.equal(comingSoonMatches, 5, 'Exactly 5 Coming Soon badges present on player view');
   });
 
   // 14. Player requests Roulette: Host sees correct player initials and profile circle
@@ -601,7 +601,7 @@ try {
   // 18. Coming Soon games are not marked playable and empty states handled safely
   check('18. Coming Soon games cannot be launched and preserve unimplemented status', () => {
     const unimplemented = MINI_GAMES.filter((g) => !g.implemented);
-    assert.equal(unimplemented.length, 6, 'Exactly 6 games are coming soon');
+    assert.equal(unimplemented.length, 5, 'Exactly 5 games are coming soon');
     for (const g of unimplemented) {
       assert.equal(g.implemented, false, `${g.id} must remain implemented = false`);
     }
@@ -616,12 +616,16 @@ try {
   // 19. Captain Roulette rules and minimum active player thresholds remain intact
   check('19. Captain Roulette player-count and server requirements remain intact', () => {
     const shuffle = MINI_GAMES.find((g) => g.id === 'shuffle_cards');
-    assert.equal(shuffle.minPlayers, 2, 'Shuffle Cards requires 2 players');
+    assert.equal(shuffle.minPlayers, 1, 'Shuffle Cards allows solo host (minPlayers: 1) or squad');
     assert.equal(shuffle.needsCaptain, true, 'Shuffle Cards requires captain');
 
-    // 1 active player: unavailable
+    // 0 active players: unavailable
+    const suit0 = shuffle.getSuitability({ tieCount: 2, activePlayerCount: 0, tieType: 'restaurant' });
+    assert.equal(suit0.state, 'unavailable', '0 players is unavailable');
+
+    // 1 active player: eligible (solo mode supported)
     const suit1 = shuffle.getSuitability({ tieCount: 2, activePlayerCount: 1, tieType: 'restaurant' });
-    assert.equal(suit1.state, 'unavailable', '1 player is unavailable');
+    assert.equal(suit1.state, 'normal', '1 player is eligible');
 
     // 2 active players: eligible
     const suit2 = shuffle.getSuitability({ tieCount: 2, activePlayerCount: 2, tieType: 'restaurant' });

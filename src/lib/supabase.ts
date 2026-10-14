@@ -3,6 +3,7 @@ import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, Roo
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';
 import type { CaptainEventState, CaptainRealtimeMessage } from '../types/captain';
+import type { ShuffleCardsRealtimeMessage } from '../types/shuffleCards';
 import { cacheDeckRestaurants } from './restaurantRepository';
 import { getOrCreateSessionToken, generateRoomCode } from './session';
 import { normalizeRestaurantDeck } from './restaurantNormalization';
@@ -977,6 +978,58 @@ export function subscribeToCaptainEvents(
       .on('broadcast', { event: 'captain_message' }, (payload: any) => {
         const msg = payload?.payload?.message as CaptainRealtimeMessage | undefined;
         if (msg && msg.type && msg.eventId) {
+          callback(msg);
+        }
+      })
+      .subscribe(reportRealtimeStatus);
+  }
+
+  return () => {
+    if (supabase && channel) {
+      supabase.removeChannel(channel);
+    }
+  };
+}
+
+
+export async function broadcastShuffleCards(
+  roomId: string,
+  message: ShuffleCardsRealtimeMessage
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`minigames:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 300);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'shuffle_cards_message',
+        payload: { roomId, message },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastShuffleCards failed', e);
+    }
+  }
+}
+
+export function subscribeToShuffleCards(
+  roomId: string,
+  callback: (msg: ShuffleCardsRealtimeMessage) => void
+): () => void {
+  let channel: any = null;
+
+  if (supabase) {
+    channel = supabase
+      .channel(`minigames:${roomId}`)
+      .on('broadcast', { event: 'shuffle_cards_message' }, (payload: any) => {
+        const msg = payload?.payload?.message as ShuffleCardsRealtimeMessage | undefined;
+        if (msg && msg.type) {
           callback(msg);
         }
       })

@@ -17,7 +17,7 @@ interface LeaderboardViewProps {
   onTriggerSuddenDeath: (topTwo: [RestaurantItem, RestaurantItem]) => void;
   onTriggerRoulette: (topSpots: RestaurantItem[]) => void;
   onSelectMiniGame?: (game: MiniGameDefinition) => void;
-  onTriggerCaptainRoulette?: () => void;
+  onTriggerCaptainRoulette?: (targetMiniGame?: import('../../config/miniGames').MiniGameId) => void;
   suggestions?: RoomSuggestion[];
   currentParticipantId?: string;
   onToggleSuggestion?: (target: string) => Promise<void> | void;
@@ -54,8 +54,8 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
       return;
     }
 
-    // 2. Revalidate player eligibility: games needing captain require at least 2 active players
-    const requiredPlayers = Math.max(game.minPlayers, game.needsCaptain ? 2 : 1);
+    // 2. Revalidate player eligibility: shuffle_cards supports solo (1) or squad (2+)
+    const requiredPlayers = game.id === 'shuffle_cards' ? 1 : Math.max(game.minPlayers, game.needsCaptain ? 2 : 1);
     if (activePlayerCount < requiredPlayers) {
       const msg =
         locale === 'ar'
@@ -76,7 +76,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
     }
 
     if (game.needsCaptain && onTriggerCaptainRoulette) {
-      if (activePlayerCount < 2) {
+      if (activePlayerCount < 2 && game.id !== 'shuffle_cards') {
         const msg =
           locale === 'ar'
             ? 'روليت الكابتن يتطلب لاعبين نشطين على الأقل! 👥'
@@ -85,7 +85,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
         setTimeout(() => setNoticeMessage(null), 3200);
         return;
       }
-      onTriggerCaptainRoulette();
+      onTriggerCaptainRoulette(game.id);
       return;
     }
 

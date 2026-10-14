@@ -355,5 +355,22 @@
     "spinAgain": "لفة ثانية",
     "chooseAnotherCategory": "صنف آخر",
     "tryAnotherRestaurant": "مطعم آخر"
+  },
+  "shuffleCards": {
+    "title": "اختر بطاقة!",
+    "subtitle": "اختر بطاقة لكشف الفائز",
+    "captainTurnBadge": "👑 دور الكابتن",
+    "captainTurnPrompt": "👑 دورك يا كابتن! اختر بطاقة لكشف الفائز!",
+    "spectatorWaitingPrompt": "👑 {{captain}} يختار بطاقة...",
+    "vortexStatus": "تصفية المتنافسين إلى ٣ مرشحين...",
+    "finalistsStatus": "المرشحون الـ ٣ النهائيون!",
+    "shufflingStatus": "جاري خلط البطاقات...",
+    "shuffleAgainTitle": "اخلط مرة أخرى!",
+    "shuffleAgainDesc": "جاري إعادة خلط البطاقات...",
+    "winnerCelebration": "🎉 الخيار الفائز!",
+    "contender": "المرشح",
+    "shuffleCardsAction": "اخلط البطاقات",
+    "reshuffleAction": "اخلط مرة أخرى!",
+    "winnerTitle": "الكابتن حسم الاختيار!"
   }
 }

@@ -72,6 +72,10 @@ interface RoomContextType {
   switchMode: (mode: RoomMode) => Promise<void>;
   setPreference: (key: string, enabled: boolean) => Promise<void>;
   toggleSuggestion: (target: string) => Promise<void>;
+  activeMiniGame: import('../config/miniGames').MiniGameId | null;
+  startMiniGameSession: (gameId: import('../config/miniGames').MiniGameId) => void;
+  completeMiniGame: () => void;
+  cancelMiniGameSession: () => void;
 }
 
 export const RoomContext = createContext<RoomContextType | null>(null);
@@ -307,6 +311,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
           if (reconcileDecisionSpinFromRoom(room)) {
             return;
           }
+          if (activeMiniGameRef.current && (room.stage === 'matched' || room.restaurant_state === 'decided')) {
+            pendingResolvedRoomRef.current = room;
+            return;
+          }
           if (room.version < (currentRoomRef.current?.version ?? -1)) return;
           currentRoomRef.current = room;
           setCurrentRoom(room);
@@ -459,6 +467,11 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
           reconcileDecisionSpinFromRoom(payload.new);
         }
 
+        if (payload?.new && activeMiniGameRef.current && (payload.new.stage === 'matched' || payload.new.restaurant_state === 'decided')) {
+          pendingResolvedRoomRef.current = payload.new;
+          return;
+        }
+
         // Rooms change: if incoming payload has a version and it's already <= our current version, ignore!
         if (payload?.new?.version !== undefined && payload.new.version <= (currentRoomRef.current?.version ?? -1)) {
           perf.increment('skipped_stale_realtime_events');
@@ -564,6 +577,34 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       refreshRoom();
     }
   }, [applyDecisionSpin, refreshRoom]);
+
+  const [activeMiniGame, setActiveMiniGame] = useState<import('../config/miniGames').MiniGameId | null>(null);
+  const activeMiniGameRef = useRef<import('../config/miniGames').MiniGameId | null>(null);
+  useEffect(() => {
+    activeMiniGameRef.current = activeMiniGame;
+  }, [activeMiniGame]);
+
+  const startMiniGameSession = useCallback((gameId: import('../config/miniGames').MiniGameId) => {
+    setActiveMiniGame(gameId);
+  }, []);
+
+  const completeMiniGame = useCallback(() => {
+    setActiveMiniGame(null);
+    if (pendingResolvedRoomRef.current) {
+      const resolved = pendingResolvedRoomRef.current;
+      pendingResolvedRoomRef.current = null;
+      currentRoomRef.current = resolved;
+      setCurrentRoom(resolved);
+    } else {
+      refreshRoom();
+    }
+  }, [refreshRoom]);
+
+  const cancelMiniGameSession = useCallback(() => {
+    setActiveMiniGame(null);
+    pendingResolvedRoomRef.current = null;
+    refreshRoom();
+  }, [refreshRoom]);
 
   // Guest authoritative watchdog: fetch room state at ~4.5s and ~10s if unresolved, never enter error
   useEffect(() => {
@@ -1021,6 +1062,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         switchMode,
         setPreference,
         toggleSuggestion,
+        activeMiniGame,
+        startMiniGameSession,
+        completeMiniGame,
+        cancelMiniGameSession,
       }}
     >
       {children}

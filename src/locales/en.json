@@ -355,5 +355,22 @@
     "spinAgain": "Spin again",
     "chooseAnotherCategory": "Another category",
     "tryAnotherRestaurant": "Another restaurant"
+  },
+  "shuffleCards": {
+    "title": "Choose a card!",
+    "subtitle": "Tap a card to reveal the winner",
+    "captainTurnBadge": "👑 CAPTAIN'S TURN",
+    "captainTurnPrompt": "👑 Your turn, Captain! Tap a card to reveal the winner!",
+    "spectatorWaitingPrompt": "👑 {{captain}} is picking a card...",
+    "vortexStatus": "Narrowing down to 3 finalists...",
+    "finalistsStatus": "The 3 Finalists!",
+    "shufflingStatus": "Shuffling cards...",
+    "shuffleAgainTitle": "Shuffle Again!",
+    "shuffleAgainDesc": "Reshuffling the cards...",
+    "winnerCelebration": "🎉 Winning Pick!",
+    "contender": "Contender",
+    "shuffleCardsAction": "Shuffle Cards",
+    "reshuffleAction": "Shuffle Again!",
+    "winnerTitle": "The Captain has chosen!"
   }
 }

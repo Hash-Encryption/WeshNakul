@@ -18,10 +18,14 @@ import {
   subscribeToSuddenDeath,
   resolveRestaurantTie,
   subscribeToCaptainEvents,
+  broadcastShuffleCards,
+  subscribeToShuffleCards,
 } from '../../lib/supabase';
 import { CafeDeckScreen } from './CafeDeckScreen';
 import { DeckErrorBoundary } from '../common/ErrorBoundary';
 import { CaptainRouletteModal } from '../captain/CaptainRouletteModal';
+import { ShuffleCardsModal } from '../minigames/shuffle_cards/ShuffleCardsModal';
+import type { MiniGameId } from '../../config/miniGames';
 
 interface RestaurantSwipingScreenProps {
   onMatched?: (winnerId: string) => void;
@@ -41,6 +45,9 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     leaveRoom,
     suggestions,
     toggleSuggestion,
+    startMiniGameSession,
+    completeMiniGame,
+    cancelMiniGameSession,
   } = useRoom();
   const { t, locale } = useLocale();
 
@@ -117,6 +124,14 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
   const [isCaptainRouletteOpen, setIsCaptainRouletteOpen] = useState(false);
   const [captainNotice, setCaptainNotice] = useState<string | null>(null);
+  const [pendingMiniGame, setPendingMiniGame] = useState<MiniGameId | null>(null);
+  const [isShuffleCardsOpen, setIsShuffleCardsOpen] = useState(false);
+  const [shuffleCardsState, setShuffleCardsState] = useState<{
+    captain: { id: string; nickname: string; player_color?: string };
+    winnerId: string;
+    restaurants: RestaurantItem[];
+    seed: string;
+  } | null>(null);
 
   // Subscribe to realtime captain roulette triggers
   useEffect(() => {
@@ -131,9 +146,47 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     return () => unsubscribe();
   }, [currentRoom?.id]);
 
-  const handleTriggerCaptainRoulette = () => {
+  // Subscribe to realtime shuffle cards triggers
+  useEffect(() => {
+    if (!currentRoom?.id) return;
+
+    const unsubscribe = subscribeToShuffleCards(currentRoom.id, (msg) => {
+      if (msg.type === 'shuffle_cards_start') {
+        const candidateItems = msg.contenderIds
+          .map((id) => deck.find((r) => r.id === id))
+          .filter(Boolean) as RestaurantItem[];
+        const finalCandidates = candidateItems.length >= 2 ? candidateItems : deck.slice(0, 3);
+
+        startMiniGameSession('shuffle_cards');
+        setShuffleCardsState({
+          captain: {
+            id: msg.captainId,
+            nickname: msg.captainNickname,
+            player_color: msg.captainColor,
+          },
+          winnerId: msg.winnerId,
+          restaurants: finalCandidates,
+          seed: msg.seed,
+        });
+        setIsCaptainRouletteOpen(false);
+        setIsShuffleCardsOpen(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentRoom?.id, deck, startMiniGameSession]);
+
+  const handleTriggerCaptainRoulette = (targetGame?: MiniGameId) => {
     const activeCount = participants.filter((p) => p.status === 'active').length;
     if (activeCount < 2) {
+      if (targetGame === 'shuffle_cards' && currentParticipant) {
+        void handleLaunchShuffleCards({
+          id: currentParticipant.id,
+          nickname: currentParticipant.nickname,
+          color: currentParticipant.player_color,
+        });
+        return;
+      }
       const msg =
         locale === 'ar'
           ? 'روليت الكابتن يتطلب لاعبين نشطين على الأقل! 👥'
@@ -142,7 +195,76 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
       setTimeout(() => setCaptainNotice(null), 3500);
       return;
     }
+    setPendingMiniGame(targetGame || null);
     setIsCaptainRouletteOpen(true);
+  };
+
+  const handleLaunchShuffleCards = async (captainCandidate: { id: string; nickname: string; color?: string }) => {
+    if (!currentRoom || !currentParticipant) return;
+    const tiedIds = summary?.tiedRestaurantIds || [];
+    const candidates = tiedIds.map((id) => deck.find((r) => r.id === id)).filter(Boolean) as RestaurantItem[];
+    const activeContenders = candidates.length >= 2 ? candidates : deck.slice(0, 3);
+
+    startMiniGameSession('shuffle_cards');
+    setIsCaptainRouletteOpen(false);
+
+    try {
+      const state = await resolveRestaurantTie(
+        currentRoom.id,
+        currentParticipant.session_token,
+        currentRoom.version,
+        'choose_for_us'
+      );
+      const serverWinnerId = state.room.winning_restaurant_id || activeContenders[0].id;
+      const seed = `${currentRoom.id}-${currentRoom.version}-${Date.now()}`;
+
+      setShuffleCardsState({
+        captain: {
+          id: captainCandidate.id,
+          nickname: captainCandidate.nickname,
+          player_color: captainCandidate.color,
+        },
+        winnerId: serverWinnerId,
+        restaurants: activeContenders,
+        seed,
+      });
+      setIsShuffleCardsOpen(true);
+
+      await broadcastShuffleCards(currentRoom.id, {
+        type: 'shuffle_cards_start',
+        captainId: captainCandidate.id,
+        captainNickname: captainCandidate.nickname,
+        captainColor: captainCandidate.color,
+        contenderIds: activeContenders.map((r) => r.id),
+        winnerId: serverWinnerId,
+        seed,
+      });
+    } catch (err) {
+      console.error('Error resolving tie for Shuffle Cards', err);
+      const fallbackWinner = currentRoom.winning_restaurant_id || activeContenders[0].id;
+      setShuffleCardsState({
+        captain: {
+          id: captainCandidate.id,
+          nickname: captainCandidate.nickname,
+          player_color: captainCandidate.color,
+        },
+        winnerId: fallbackWinner,
+        restaurants: activeContenders,
+        seed: 'fallback',
+      });
+      setIsShuffleCardsOpen(true);
+    }
+  };
+
+  const handleShuffleCardsWinnerConfirmed = async (_winner: RestaurantItem) => {
+    setIsShuffleCardsOpen(false);
+    completeMiniGame();
+    await refreshRoom();
+  };
+
+  const handleShuffleCardsClose = () => {
+    setIsShuffleCardsOpen(false);
+    cancelMiniGameSession();
   };
 
   if (!currentRoom || !currentParticipant) return null;
@@ -361,7 +483,27 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
                 : `${captain.nickname} is locked in as Captain! 👑`;
             setCaptainNotice(msg);
             setTimeout(() => setCaptainNotice(null), 4000);
+
+            if (pendingMiniGame === 'shuffle_cards') {
+              void handleLaunchShuffleCards(captain);
+            }
           }}
+        />
+      )}
+
+      {/* Shuffle Cards Mini-Game Modal */}
+      {isShuffleCardsOpen && shuffleCardsState && (
+        <ShuffleCardsModal
+          isOpen={isShuffleCardsOpen}
+          roomId={currentRoom.id}
+          currentParticipantId={currentParticipant.id}
+          isHost={isHost}
+          captain={shuffleCardsState.captain}
+          restaurants={shuffleCardsState.restaurants}
+          winnerId={shuffleCardsState.winnerId}
+          seed={shuffleCardsState.seed}
+          onWinnerConfirmed={handleShuffleCardsWinnerConfirmed}
+          onClose={handleShuffleCardsClose}
         />
       )}
 
