@@ -33,23 +33,26 @@ export const ShuffleCard: React.FC<ShuffleCardProps> = ({
 
   return (
     <div
-      className={`relative w-full aspect-[2/3] max-w-[130px] sm:max-w-[160px] md:max-w-[180px] mx-auto transition-opacity duration-300 ${
-        isMuted ? 'opacity-50' : 'opacity-100'
-      }`}
+      className={`relative w-full aspect-[2/3] max-w-[130px] sm:max-w-[160px] md:max-w-[180px] mx-auto transition-all duration-300 ${
+        isZoomed ? 'z-50' : 'z-10'
+      } ${isMuted ? 'opacity-40 filter blur-[0.5px]' : 'opacity-100'}`}
       style={{ perspective: 1000 }}
     >
       <motion.div
         animate={{
           rotateY: card.isFaceUp ? 0 : 180,
-          scale: isZoomed ? 1.12 : 1,
-          y: isZoomed ? -12 : 0,
+          scale: isZoomed ? 1.5 : 1,
+          y: isZoomed ? -20 : 0,
         }}
         transition={{
-          duration: 0.55,
+          duration: 0.52,
           ease: [0.22, 1, 0.36, 1],
         }}
         style={{
           transformStyle: 'preserve-3d',
+          filter: isZoomed
+            ? 'drop-shadow(0 20px 30px rgba(240, 68, 62, 0.45)) drop-shadow(0 0 20px rgba(255, 215, 90, 0.4))'
+            : undefined,
         }}
         onClick={() => {
           if (isClickable && !disabled && onClick) {

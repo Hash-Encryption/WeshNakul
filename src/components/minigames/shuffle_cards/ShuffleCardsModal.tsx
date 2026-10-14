@@ -4,8 +4,29 @@ import confetti from 'canvas-confetti';
 import type { RestaurantItem } from '../../../types/restaurant';
 import type { ShuffleCardItem, ShuffleCardsPhase } from '../../../types/shuffleCards';
 import { ShuffleCard } from './ShuffleCard';
+import { ShuffleSpeedLines } from './ShuffleSpeedLines';
 import { useLocale } from '../../../context/LocaleContext';
 import { broadcastShuffleCards, subscribeToShuffleCards } from '../../../lib/supabase';
+
+// 6 permutation steps for Three-Card Monte crossover (slots 0, 1, 2)
+const SHUFFLE_STEPS_3: number[][] = [
+  [1, 0, 2], // Step 1: Left (0) and Center (1) swap
+  [2, 0, 1], // Step 2: Center (now 0) and Right (2) swap
+  [0, 2, 1], // Step 3: Full cross: Left travels to Right, Right to Left!
+  [2, 1, 0], // Step 4: Rapid center cross
+  [1, 2, 0], // Step 5: Diagonal criss-cross
+  [0, 1, 2], // Step 6: Settle cleanly back to natural slots
+];
+
+// 6 permutation steps for 4-contender 2x2 grid (slots 0, 1, 2, 3)
+const SHUFFLE_STEPS_4: number[][] = [
+  [1, 0, 3, 2], // Step 1: Horizontal swap top and bottom
+  [2, 3, 0, 1], // Step 2: Vertical column swap
+  [3, 2, 1, 0], // Step 3: Full diagonal cross
+  [2, 3, 1, 0], // Step 4: Horizontal swap
+  [1, 0, 3, 2], // Step 5: Vertical swap
+  [0, 1, 2, 3], // Step 6: Settle back
+];
 
 interface ShuffleCardsModalProps {
   isOpen: boolean;
@@ -36,20 +57,33 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
   const reduceMotion = useReducedMotion();
   const isCaptain = currentParticipantId === captain.id;
 
+  // 1. Strict deduplication of input restaurants by ID (eliminates potential input duplicates)
+  const uniqueRestaurants = useMemo<RestaurantItem[]>(() => {
+    const seen = new Set<string>();
+    const list: RestaurantItem[] = [];
+    for (const r of restaurants) {
+      if (r && r.id && !seen.has(r.id)) {
+        seen.add(r.id);
+        list.push(r);
+      }
+    }
+    return list.length > 0 ? list : restaurants;
+  }, [restaurants]);
+
+  const totalContenders = uniqueRestaurants.length;
+
   // Authoritative server-selected winner
   const authoritativeWinner = useMemo<RestaurantItem>(() => {
-    const found = restaurants.find((r) => r.id === winnerId);
-    return found || restaurants[0];
-  }, [restaurants, winnerId]);
-
-  const totalContenders = restaurants.length;
+    const found = uniqueRestaurants.find((r) => r.id === winnerId);
+    return found || uniqueRestaurants[0];
+  }, [uniqueRestaurants, winnerId]);
 
   // Compute 3 finalists deterministically for 5+ contender vortex qualifier
   const finalists = useMemo<RestaurantItem[]>(() => {
-    if (totalContenders < 5) return restaurants;
+    if (totalContenders < 5) return uniqueRestaurants;
 
     // Must include the authoritative winner
-    const nonWinners = restaurants.filter((r) => r.id !== authoritativeWinner.id);
+    const nonWinners = uniqueRestaurants.filter((r) => r.id !== authoritativeWinner.id);
 
     // Deterministic sort using deterministic pseudo-hash of id + seed
     const sortedRunnersUp = [...nonWinners].sort((a, b) => {
@@ -62,7 +96,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     const runnerUp2 = sortedRunnersUp[1] || nonWinners[1];
 
     return [authoritativeWinner, runnerUp1, runnerUp2].filter(Boolean);
-  }, [restaurants, authoritativeWinner, totalContenders, seed]);
+  }, [uniqueRestaurants, authoritativeWinner, totalContenders, seed]);
 
   // Initial phase depends on contender count
   const [phase, setPhase] = useState<ShuffleCardsPhase>(
@@ -76,13 +110,12 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
   const [revealedWinner, setRevealedWinner] = useState<boolean>(false);
   const isFinalizingRef = useRef(false);
 
-  // Build table cards based on rules
+  // Build table cards based on rules (strictly unique items)
   const initTableCards = useCallback(
     (isReshuffle = false) => {
       if (totalContenders === 2) {
         // Case 1: Exactly 2 tied contenders -> 3-Card Monte with "Shuffle Again" card
-        const [cA, cB] = restaurants;
-        // In reshuffle or initial, ensure winner is present
+        const [cA, cB] = uniqueRestaurants;
         const cards: ShuffleCardItem[] = [
           {
             id: cA.id,
@@ -122,7 +155,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
 
       if (totalContenders === 3) {
         // Case 2: Exactly 3 tied contenders -> 3-Card table
-        return restaurants.map((r, idx) => ({
+        return uniqueRestaurants.map((r, idx) => ({
           id: r.id,
           isShuffleAgain: false,
           restaurant: r,
@@ -137,7 +170,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
 
       if (totalContenders === 4) {
         // Case 3: Exactly 4 tied contenders -> 2x2 grid
-        return restaurants.map((r, idx) => ({
+        return uniqueRestaurants.map((r, idx) => ({
           id: r.id,
           isShuffleAgain: false,
           restaurant: r,
@@ -151,21 +184,20 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       }
 
       // Case 4: 5+ contenders (Vortex qualifier narrowing down to 3 finalists)
-      // Display initial pool of cards (capped at 8 for safe DOM rendering)
-      const initialPool = restaurants.slice(0, 8);
+      const initialPool = uniqueRestaurants.slice(0, 8);
       return initialPool.map((r, idx) => ({
         id: r.id,
         isShuffleAgain: false,
         restaurant: r,
         contenderLabel: isRTL ? `المرشح ${idx + 1}` : `Contender ${idx + 1}`,
-        isFaceUp: false, // face down for sleek vortex orbit
+        isFaceUp: false,
         isZoomed: false,
         isWinner: r.id === authoritativeWinner.id,
         isEjected: false,
         slotIndex: idx,
       }));
     },
-    [totalContenders, restaurants, authoritativeWinner, isRTL]
+    [totalContenders, uniqueRestaurants, authoritativeWinner, isRTL]
   );
 
   // Active cards state on the table
@@ -184,16 +216,100 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     isFinalizingRef.current = false;
   }, [isOpen, totalContenders, winnerId, initTableCards]);
 
+  // Construct deterministic, 100% deduplicated revealed cards assignment
+  const buildRevealedCards = useCallback(
+    (pickedIndex: number) => {
+      let activeRunnersUp: RestaurantItem[] = [];
+      let includeShuffleAgain = false;
+
+      if (totalContenders === 2) {
+        const runner =
+          uniqueRestaurants.find((r) => r.id !== authoritativeWinner.id) ||
+          uniqueRestaurants[1] ||
+          uniqueRestaurants[0];
+        activeRunnersUp = [runner];
+        includeShuffleAgain = true;
+      } else if (totalContenders === 4) {
+        activeRunnersUp = uniqueRestaurants
+          .filter((r) => r.id !== authoritativeWinner.id)
+          .slice(0, 3);
+      } else {
+        const sourcePool = totalContenders >= 5 ? finalists : uniqueRestaurants;
+        activeRunnersUp = sourcePool
+          .filter((r) => r.id !== authoritativeWinner.id)
+          .slice(0, 2);
+      }
+
+      const unpickedItems: Array<
+        { type: 'restaurant'; item: RestaurantItem } | { type: 'shuffle_again' }
+      > = [];
+      for (const runner of activeRunnersUp) {
+        unpickedItems.push({ type: 'restaurant', item: runner });
+      }
+      if (includeShuffleAgain) {
+        unpickedItems.push({ type: 'shuffle_again' });
+      }
+
+      const slotCount = totalContenders === 4 ? 4 : 3;
+      const result: ShuffleCardItem[] = [];
+
+      for (let slot = 0; slot < slotCount; slot++) {
+        if (slot === pickedIndex) {
+          result.push({
+            id: authoritativeWinner.id,
+            isShuffleAgain: false,
+            restaurant: authoritativeWinner,
+            contenderLabel: isRTL ? 'الخيار الفائز' : 'Winning Pick',
+            isFaceUp: true,
+            isZoomed: true,
+            isWinner: true,
+            isEjected: false,
+            slotIndex: slot,
+          });
+        } else {
+          const next = unpickedItems.shift();
+          if (next?.type === 'shuffle_again') {
+            result.push({
+              id: 'shuffle_again',
+              isShuffleAgain: true,
+              contenderLabel: isRTL ? 'اخلط مرة أخرى' : 'Shuffle Again',
+              isFaceUp: false, // reveals after winner zoom
+              isZoomed: false,
+              isWinner: false,
+              isEjected: false,
+              slotIndex: slot,
+            });
+          } else if (next?.type === 'restaurant') {
+            result.push({
+              id: next.item.id,
+              isShuffleAgain: false,
+              restaurant: next.item,
+              contenderLabel: isRTL ? 'مرشح' : 'Contender',
+              isFaceUp: false, // reveals after winner zoom
+              isZoomed: false,
+              isWinner: false,
+              isEjected: false,
+              slotIndex: slot,
+            });
+          }
+        }
+      }
+
+      return result;
+    },
+    [authoritativeWinner, finalists, isRTL, totalContenders, uniqueRestaurants]
+  );
+
   // Handle phase transitions
   useEffect(() => {
     if (!isOpen) return;
 
     if (phase === 'initial_reveal') {
-      // Show cards face-up for 2 seconds, then flip face-down
+      // Show cards face-up for 1.8 seconds, then flip face-down
       const timer = setTimeout(() => {
         setTableCards((prev) => prev.map((c) => ({ ...c, isFaceUp: false })));
         setPhase('flipping_down');
-      }, 2000);
+      }, 1800);
       return () => clearTimeout(timer);
     }
 
@@ -201,28 +317,29 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       // Brief pause after flipping before shuffle starts
       const timer = setTimeout(() => {
         setPhase('shuffling');
-      }, 600);
+      }, 500);
       return () => clearTimeout(timer);
     }
 
     if (phase === 'shuffling') {
-      // Execute 3 smooth position swap cycles
+      // Execute 6 rapid, full-cross Three-Card Monte swaps
       let step = 0;
+      setSwapStep(1);
       const interval = setInterval(() => {
         step++;
         setSwapStep(step);
-        if (step >= 4) {
+        if (step >= 6) {
           clearInterval(interval);
           setSwapStep(0);
           setPhase('pick_ready');
         }
-      }, 420);
+      }, 250);
       return () => clearInterval(interval);
     }
 
     if (phase === 'vortex_qualifier') {
       // Orbiting vortex: eject non-finalists one by one
-      const nonFinalistIds = restaurants
+      const nonFinalistIds = uniqueRestaurants
         .map((r) => r.id)
         .filter((id) => !finalists.some((f) => f.id === id));
 
@@ -236,7 +353,6 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
           clearInterval(timer);
           // Transition to Finalists Reveal
           setTimeout(() => {
-            // Replace table cards with the 3 Finalists
             const finalistCards: ShuffleCardItem[] = finalists.map((r, idx) => ({
               id: r.id,
               isShuffleAgain: false,
@@ -250,9 +366,9 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
             }));
             setTableCards(finalistCards);
             setPhase('finalists_reveal');
-          }, 600);
+          }, 500);
         }
-      }, 400);
+      }, 350);
 
       return () => clearInterval(timer);
     }
@@ -265,7 +381,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       }, 1800);
       return () => clearTimeout(timer);
     }
-  }, [phase, isOpen, restaurants, finalists, authoritativeWinner, isRTL]);
+  }, [phase, isOpen, uniqueRestaurants, finalists, authoritativeWinner, isRTL]);
 
   // Reshuffle flow for "Shuffle Again"
   const executeReshuffle = useCallback(() => {
@@ -278,84 +394,83 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
   }, []);
 
   // Execute pick when Captain taps (or when received over realtime)
-  const handleExecutePick = useCallback((cardIndex: number, isShuffleAgainPick: boolean) => {
-    setTappedSlotIndex(cardIndex);
-    setPhase('revealing_pick');
+  const handleExecutePick = useCallback(
+    (cardIndex: number, isShuffleAgainPick: boolean) => {
+      setTappedSlotIndex(cardIndex);
+      setPhase('revealing_pick');
 
-    // Haptics & zoom
-    try {
-      navigator.vibrate?.(25);
-    } catch {}
+      // Haptics & feedback
+      try {
+        navigator.vibrate?.(25);
+      } catch {}
 
-    if (isShuffleAgainPick) {
-      // Tapped the "Shuffle Again" card!
-      setTableCards((prev) =>
-        prev.map((c, i) =>
-          i === cardIndex ? { ...c, isZoomed: true, isFaceUp: true } : c
-        )
-      );
+      if (isShuffleAgainPick) {
+        // Tapped the "Shuffle Again" card!
+        setTableCards((prev) =>
+          prev.map((c, i) =>
+            i === cardIndex ? { ...c, isZoomed: true, isFaceUp: true } : c
+          )
+        );
 
-      // Bounce pulse, flip back down, reshuffle
-      setTimeout(() => {
-        setPhase('shuffle_again_bounce');
+        // Bounce pulse, flip back down, reshuffle
         setTimeout(() => {
-          executeReshuffle();
-        }, 1200);
-      }, 1000);
-    } else {
-      // Winning card revealed!
-      // Guarantee the tapped card shows the server-authoritative winner
-      setTableCards((prev) =>
-        prev.map((c, i) => {
-          if (i === cardIndex) {
-            return {
+          setPhase('shuffle_again_bounce');
+          setTimeout(() => {
+            executeReshuffle();
+          }, 1100);
+        }, 900);
+      } else {
+        // Winning card revealed!
+        // 1. Immediately place authoritative winner at cardIndex with isFaceUp: true and isZoomed: true,
+        // while remaining unique runner-up cards are assigned to other slots (face-down initially).
+        const revealedDeck = buildRevealedCards(cardIndex);
+        setTableCards(revealedDeck);
+
+        // 2. Dramatic reveal: after 750ms focus on the big zoomed winner card, flip runners-up in the background
+        setTimeout(() => {
+          setTableCards((prev) =>
+            prev.map((c) => ({
               ...c,
-              restaurant: authoritativeWinner,
-              isWinner: true,
-              isZoomed: true,
               isFaceUp: true,
-            };
+            }))
+          );
+        }, 750);
+
+        // 3. Celebration confetti and celebration state
+        setTimeout(() => {
+          setRevealedWinner(true);
+          setPhase('winner_celebration');
+
+          if (typeof window !== 'undefined' && !reduceMotion) {
+            try {
+              confetti({
+                particleCount: 55,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#F0443E', '#FFD75A', '#55B96A', '#73C8EA'],
+              });
+            } catch {}
           }
-          // The remaining cards show runners-up
-          return {
-            ...c,
-            isZoomed: false,
-            isFaceUp: true,
-          };
-        })
-      );
+        }, 900);
 
-      setRevealedWinner(true);
-      setPhase('winner_celebration');
-
-      // Trigger celebration confetti
-      if (typeof window !== 'undefined' && !reduceMotion) {
-        try {
-          confetti({
-            particleCount: 55,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#F0443E', '#FFD75A', '#55B96A', '#73C8EA'],
-          });
-        } catch {}
+        // 4. Auto-finalize after celebration window (~2.8s)
+        setTimeout(() => {
+          if (!isFinalizingRef.current) {
+            isFinalizingRef.current = true;
+            setPhase('completed');
+            if (isHost) {
+              void broadcastShuffleCards(roomId, {
+                type: 'shuffle_cards_finalized',
+                winnerId: authoritativeWinner.id,
+              });
+            }
+            void onWinnerConfirmed(authoritativeWinner);
+          }
+        }, 2800);
       }
-
-      // Auto-finalize after celebration window (~2.8s)
-      setTimeout(() => {
-        if (!isFinalizingRef.current) {
-          isFinalizingRef.current = true;
-          setPhase('completed');
-          if (isHost) {
-            void broadcastShuffleCards(roomId, {
-              type: 'shuffle_cards_finalized',
-              winnerId: authoritativeWinner.id,
-            });
-          }
-          void onWinnerConfirmed(authoritativeWinner);
-        }
-      }, 2800);
-    }
-  }, [authoritativeWinner, executeReshuffle, isHost, onWinnerConfirmed, reduceMotion, roomId]);
+    },
+    [authoritativeWinner, buildRevealedCards, executeReshuffle, isHost, onWinnerConfirmed, reduceMotion, roomId]
+  );
 
   const handlersRef = useRef({ handleExecutePick, executeReshuffle });
   useEffect(() => {
@@ -429,8 +544,10 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       case 'revealing_pick':
       default:
         return isCaptain
-          ? t('shuffleCards.captainTurnPrompt')
-          : t('shuffleCards.spectatorWaitingPrompt', { captain: captain.nickname });
+          ? (isRTL ? 'اختر بطاقة لكشف الفائز!' : 'Tap a card to reveal the winner!')
+          : (isRTL
+              ? `الكابتن (${captain.nickname}) يختار بطاقة...`
+              : `${captain.nickname} is choosing a card...`);
     }
   };
 
@@ -438,28 +555,18 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#FFFDF8]/95 backdrop-blur-md px-3 sm:px-4 py-3 select-none overflow-y-auto"
       dir={isRTL ? 'rtl' : 'ltr'}
+      className="fixed inset-0 z-50 flex flex-col justify-between p-3 sm:p-5 bg-gradient-to-b from-[#FAF4ED] via-[#FFFDFB] to-[#F3ECE4] text-[#241B18] overflow-hidden select-none animate-fade-in"
     >
-      {/* Top Header Bar */}
-      <div className="flex items-center justify-between w-full max-w-lg mx-auto pt-1 pb-2">
-        {/* Back / Close button */}
+      {/* Top Bar */}
+      <div className="flex items-center justify-between w-full max-w-lg mx-auto">
         <button
-          type="button"
           onClick={onClose}
-          disabled={phase !== 'initial_reveal' && phase !== 'pick_ready'}
-          className="w-10 h-10 rounded-full bg-white border border-[#241B18]/15 flex items-center justify-center text-[#241B18] shadow-xs hover:bg-[#FFF5F2] active:scale-95 disabled:opacity-40 transition-all cursor-pointer"
-          aria-label={t('common.back')}
+          type="button"
+          aria-label="Close"
+          className="w-10 h-10 rounded-full border border-[#241B18]/15 bg-white/80 hover:bg-white text-base font-bold flex items-center justify-center transition-transform active:scale-90 shadow-xs"
         >
-          <svg
-            className={`w-5 h-5 text-[#241B18] ${isRTL ? '' : 'rotate-180'}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
+          ✕
         </button>
 
         {/* Centered Logo Emblem */}
@@ -478,7 +585,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         {/* Squad Counter */}
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF0EE] border border-[#F0443E]/20 text-[#F0443E] font-black text-xs font-alexandria shadow-xs">
           <span>👥</span>
-          <span>{restaurants.length}</span>
+          <span>{totalContenders}</span>
         </div>
       </div>
 
@@ -505,7 +612,10 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       </div>
 
       {/* CARD ARENA */}
-      <div className="flex-1 flex items-center justify-center w-full max-w-lg mx-auto py-3">
+      <div className="relative flex-1 flex items-center justify-center w-full max-w-lg mx-auto py-3">
+        {/* Cartoon Speed Lines while cards are crossing over */}
+        {phase === 'shuffling' && <ShuffleSpeedLines />}
+
         {/* Vortex Orbit Qualifier (for 5+ contenders) */}
         {phase === 'vortex_qualifier' ? (
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
@@ -566,12 +676,61 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
             }`}
           >
             {tableCards.map((card, idx) => {
-              // Position animation during criss-cross shuffle
-              let xOffset = 0;
-              if (phase === 'shuffling') {
-                if (swapStep === 1) xOffset = idx % 2 === 0 ? 30 : -30;
-                if (swapStep === 2) xOffset = idx % 2 === 0 ? -30 : 30;
-                if (swapStep === 3) xOffset = idx === 0 ? 50 : idx === 2 ? -50 : 0;
+              // Compute full-cross position translations during 3-Card Monte crossover
+              let xTransform = 0;
+              let yTransform = 0;
+              let rotTransform = 0;
+              let zIndexVal = 10;
+
+              if (phase === 'shuffling' && swapStep > 0 && swapStep <= 6) {
+                if (totalContenders === 4) {
+                  const targetSlot = SHUFFLE_STEPS_4[swapStep - 1]?.[idx] ?? idx;
+                  const origCol = idx % 2;
+                  const origRow = Math.floor(idx / 2);
+                  const targetCol = targetSlot % 2;
+                  const targetRow = Math.floor(targetSlot / 2);
+
+                  const deltaCol = targetCol - origCol;
+                  const deltaRow = targetRow - origRow;
+
+                  xTransform = deltaCol * 115;
+                  yTransform = deltaRow * 125;
+                  rotTransform = (idx % 2 === 0 ? 6 : -6) * (deltaCol !== 0 || deltaRow !== 0 ? 1 : 0);
+                  zIndexVal = (idx + swapStep) % 2 === 0 ? 25 : 12;
+                } else {
+                  // 3-card table: slots 0, 1, 2
+                  const targetSlot = SHUFFLE_STEPS_3[swapStep - 1]?.[idx] ?? idx;
+                  const delta = targetSlot - idx;
+
+                  if (delta === 1) {
+                    xTransform = 115;
+                    yTransform = idx % 2 === 0 ? -26 : 26;
+                    rotTransform = idx % 2 === 0 ? -7 : 7;
+                    zIndexVal = idx % 2 === 0 ? 25 : 12;
+                  } else if (delta === -1) {
+                    xTransform = -115;
+                    yTransform = idx % 2 === 0 ? -26 : 26;
+                    rotTransform = idx % 2 === 0 ? -7 : 7;
+                    zIndexVal = idx % 2 === 0 ? 25 : 12;
+                  } else if (delta === 2) {
+                    // Full cross from Left (0) all the way to Right (2)!
+                    xTransform = 230;
+                    yTransform = -34;
+                    rotTransform = -10;
+                    zIndexVal = 30;
+                  } else if (delta === -2) {
+                    // Full cross from Right (2) all the way to Left (0)!
+                    xTransform = -230;
+                    yTransform = 34;
+                    rotTransform = 10;
+                    zIndexVal = 10;
+                  } else {
+                    xTransform = 0;
+                    yTransform = 0;
+                    rotTransform = 0;
+                    zIndexVal = 15;
+                  }
+                }
               }
 
               const isTapped = tappedSlotIndex === idx;
@@ -582,13 +741,16 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
                 <motion.div
                   key={`${card.id}-${idx}`}
                   animate={{
-                    x: xOffset,
-                    scale: isTapped ? 1.08 : 1,
+                    x: xTransform ? `${xTransform}%` : 0,
+                    y: yTransform,
+                    rotate: rotTransform,
+                    scale: isTapped ? 1.05 : (isMuted ? 0.82 : 1),
+                    zIndex: isTapped ? 50 : zIndexVal,
                   }}
                   transition={{
                     type: 'spring',
-                    stiffness: 280,
-                    damping: 22,
+                    stiffness: 320,
+                    damping: 24,
                   }}
                   className="flex-1 max-w-[130px] sm:max-w-[160px]"
                 >
@@ -607,43 +769,52 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         )}
       </div>
 
-      {/* Bottom Status / Action Prompt */}
-      <div className="w-full max-w-md mx-auto pt-2 pb-1 text-center">
+      {/* Bottom Status / Instructional Guidance Prompt (NOT a button) */}
+      <div className="w-full max-w-md mx-auto pt-2 pb-1 text-center flex items-center justify-center">
         {phase === 'pick_ready' && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`w-full py-3.5 px-4 rounded-2xl border-2 border-[#241B18] font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 shadow-[0px_4px_0px_#241B18] ${
-              isCaptain
-                ? 'bg-[#F0443E] text-white animate-pulse'
-                : 'bg-white text-[#241B18]'
-            }`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/85 backdrop-blur-xs border border-dashed border-[#241B18]/30 shadow-xs font-alexandria font-bold text-xs sm:text-sm text-[#241B18]"
           >
-            <span>{isCaptain ? '👇' : '👑'}</span>
+            {isCaptain ? (
+              <motion.span
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
+                className="text-base select-none inline-block"
+              >
+                👆
+              </motion.span>
+            ) : (
+              <span className="text-base select-none">👀</span>
+            )}
             <span>
               {isCaptain
-                ? (isRTL ? 'اختر بطاقة لكشف الفائز!' : 'Tap a card to reveal the winner!')
-                : (isRTL
-                    ? `بانتظار الكابتن (${captain.nickname}) ليختار بطاقة...`
-                    : `Waiting for Captain (${captain.nickname}) to pick a card...`)}
+                ? t('shuffleCards.captainTurnPrompt')
+                : t('shuffleCards.spectatorWaitingPrompt', { captain: captain.nickname })}
             </span>
           </motion.div>
         )}
 
         {phase === 'shuffle_again_bounce' && (
-          <div className="w-full py-3.5 px-4 rounded-2xl bg-[#FFE4C4] border-2 border-[#241B18] text-[#241B18] font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 shadow-[0px_4px_0px_#241B18] animate-bounce">
-            <span>🔄</span>
-            <span>{isRTL ? 'اخلط مرة أخرى!' : 'Shuffle Again!'}</span>
-          </div>
+          <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: [1, 1.08, 1] }}
+            transition={{ repeat: Infinity, duration: 0.8 }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FFF5F2] border border-[#F0443E]/30 text-[#F0443E] font-alexandria font-black text-xs sm:text-sm shadow-xs"
+          >
+            <span className="text-base">🔄</span>
+            <span>{t('shuffleCards.shuffleAgainTitle')}</span>
+          </motion.div>
         )}
 
         {phase === 'winner_celebration' && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full py-3.5 px-4 rounded-2xl bg-[#55B96A] text-white border-2 border-[#241B18] font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 shadow-[0px_4px_0px_#241B18]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F0FDF4] border border-[#55B96A]/40 text-[#166534] font-alexandria font-black text-xs sm:text-sm shadow-xs"
           >
-            <span>🎉</span>
+            <span className="text-base">🎉</span>
             <span>
               {isRTL
                 ? `الفائز: ${authoritativeWinner.nameAr || authoritativeWinner.nameEn}!`

@@ -329,7 +329,7 @@ try {
   console.log('Waiting for initial reveal & shuffle animation...');
   let pickReady = false;
   for (let i = 0; i < 20; i++) {
-    pickReady = await evalInBrowser('Boolean(document.querySelector("#client-p2")?.textContent?.includes("Tap a card to reveal") || document.querySelector("#client-p2")?.textContent?.includes("اختر بطاقة"))');
+    pickReady = await evalInBrowser('Boolean(document.querySelector("#client-p2")?.textContent?.includes("Tap a card") || document.querySelector("#client-p2")?.textContent?.includes("اضغط على أي بطاقة") || document.querySelector("#client-p2")?.textContent?.includes("لكشف الفائز"))');
     if (pickReady) break;
     await new Promise((r) => setTimeout(r, 400));
   }
@@ -339,10 +339,15 @@ try {
   // Spectator sees Captain waiting prompt
   const spectatorPrompt = await evalInBrowser('document.querySelector("#client-p3")?.textContent || ""');
   assert.ok(
-    spectatorPrompt.includes('Lina is picking a card') ||
-    spectatorPrompt.includes('يختار بطاقة') ||
-    spectatorPrompt.includes('Waiting for Captain') ||
-    spectatorPrompt.includes('الكابتن'),
+    spectatorPrompt.includes('Lina') &&
+    (spectatorPrompt.includes('tap a card') ||
+     spectatorPrompt.includes('picking a card') ||
+     spectatorPrompt.includes('choosing a card') ||
+     spectatorPrompt.includes('Waiting') ||
+     spectatorPrompt.includes('بانتظار') ||
+     spectatorPrompt.includes('يختار بطاقة') ||
+     spectatorPrompt.includes('لاختيار بطاقة') ||
+     spectatorPrompt.includes('الكابتن')),
     'Spectator sees Captain waiting indicator'
   );
   console.log('✓ Spectators see live Captain status indicator');
@@ -398,7 +403,7 @@ try {
   let finalistsReady = false;
   for (let i = 0; i < 25; i++) {
     const text = await evalInBrowser('document.querySelector("#client-p1")?.textContent || ""');
-    if (text.includes('Finalists') || text.includes('النهائيون') || text.includes('Shuffling') || text.includes('خلط') || text.includes('Tap a card') || text.includes('اختر بطاقة')) {
+    if (text.includes('Finalists') || text.includes('النهائيون') || text.includes('Shuffling') || text.includes('خلط') || text.includes('Tap a card') || text.includes('لكشف الفائز')) {
       finalistsReady = true;
       break;
     }
@@ -408,7 +413,7 @@ try {
   console.log('✓ Vortex Qualifier successfully ejects non-finalists down to 3 Finalists');
 
   // ========================================================
-  // TEST 5: Realtime Synchronization Across Clients
+  // TEST 5: Realtime Synchronization Across Clients & Zero Duplicate Check
   // ========================================================
   console.log('\n--- TEST 5: Realtime Synchronization Across Host, Captain, and Spectators ---');
   await evalInBrowser('window.__SET_ALL_SCENARIOS__({ open: true, count: 3, captain: { id: "p2", nickname: "Lina" } })');
@@ -419,7 +424,7 @@ try {
     const cards = document.querySelectorAll("#client-p2 [style*=\\"perspective\\"]");
     if (cards[0]) cards[0].click();
   `);
-  await new Promise((r) => setTimeout(r, 1000));
+  await new Promise((r) => setTimeout(r, 1200));
 
   // All 3 clients must register reveal
   const p1Text = await evalInBrowser('document.querySelector("#client-p1")?.textContent || ""');
@@ -434,6 +439,16 @@ try {
     'Spectator synchronized on winner reveal'
   );
   console.log('✓ Host and Spectator synchronize live on Captain pick in real browser');
+
+  // CRITICAL: Verify all revealed cards on table have strictly 100% unique names (ZERO DUPLICATES)
+  const revealedH4s = await evalInBrowser(`
+    Array.from(document.querySelectorAll("#client-p2 h4")).map(h => h.textContent.trim()).filter(Boolean)
+  `);
+  if (revealedH4s && revealedH4s.length >= 2) {
+    const uniqueH4s = new Set(revealedH4s);
+    assert.equal(uniqueH4s.size, revealedH4s.length, `Revealed cards must have 100% unique names (got: ${revealedH4s.join(', ')})`);
+    console.log(`✓ Verified 100% unique cards on table after reveal: [${revealedH4s.join(', ')}] with zero duplicates`);
+  }
 
   // ========================================================
   // TEST 6: Mobile Viewport & Arabic (RTL) Layout
