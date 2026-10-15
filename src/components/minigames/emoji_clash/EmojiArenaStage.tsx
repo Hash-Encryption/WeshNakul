@@ -6,6 +6,7 @@ import type {
   EmojiClashPhase,
   EmojiSquad,
   SpiceItemType,
+  SquadFusionStage,
 } from '../../../types/emojiClash';
 import type { RestaurantItem } from '../../../types/restaurant';
 
@@ -29,6 +30,7 @@ interface ComicBurst {
 
 interface EmojiArenaStageProps {
   phase: EmojiClashPhase;
+  fusionStage?: SquadFusionStage;
   squads: EmojiSquad[];
   winningRestaurantId: string;
   battleSeed: number;
@@ -42,6 +44,7 @@ interface EmojiArenaStageProps {
 
 export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
   phase,
+  fusionStage,
   squads,
   winningRestaurantId,
   battleSeed,
@@ -98,6 +101,8 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
     if (phase !== 'brawl' && phase !== 'podium') return;
 
     if (phase === 'podium') {
+      setShockwaveRings([]);
+      setComicBursts([]);
       if (!confettiFiredRef.current) {
         confettiFiredRef.current = true;
         try {
@@ -392,6 +397,65 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
                 {locale === 'ar' ? '💥 انفجار قنبلة الخردل!' : '💥 Mustard Bomb Detonation!'}
               </span>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* PHASE 2 STAGED FUSION & BANNER DROP OVERLAYS */}
+      <AnimatePresence>
+        {phase === 'squad_fusion' && fusionStage === 'fusion_intro' && (
+          <motion.div
+            key="fusion_intro"
+            initial={{ scale: 0.7, opacity: 0, y: -10 }}
+            animate={{ scale: [0.7, 1.12, 1], opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="absolute z-50 pointer-events-none flex flex-col items-center justify-center bg-black/75 px-5 py-2.5 rounded-2xl border-2 border-amber-400 backdrop-blur-xs shadow-[0_6px_20px_rgba(245,158,11,0.6)]"
+          >
+            <span className="text-lg sm:text-xl font-black text-amber-300 font-alexandria uppercase tracking-wider drop-shadow-[0_2px_4px_#000]">
+              {locale === 'ar' ? '⚡ تجهيز المقاتلين!' : '⚡ FIGHTERS READY! ⚡'}
+            </span>
+            <span className="text-[11px] font-bold text-white/90 font-alexandria mt-0.5">
+              {locale === 'ar' ? 'تشكيل الفرق على الحلبة' : 'Squads assembling on the ring'}
+            </span>
+          </motion.div>
+        )}
+
+        {phase === 'squad_fusion' && fusionStage === 'banner_drop' && (
+          <motion.div
+            key="banner_drop"
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 15, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+            className="absolute top-6 z-50 pointer-events-none flex flex-col items-center bg-[#241B18]/90 px-4 py-1.5 rounded-full border-2 border-[#FFD700] shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
+          >
+            <span className="text-xs sm:text-sm font-black text-[#FFD700] font-alexandria tracking-wide flex items-center gap-1.5">
+              <span>🏷️</span>
+              <span>
+                {locale === 'ar'
+                  ? 'هبوط لافتات المطاعم المتنافسة!'
+                  : 'Tied Restaurant Banners Dropping!'}
+              </span>
+            </span>
+          </motion.div>
+        )}
+
+        {phase === 'squad_fusion' && fusionStage === 'fight_callout' && (
+          <motion.div
+            key="fight_callout"
+            initial={{ scale: 0.2, opacity: 0, rotate: -8 }}
+            animate={{ scale: [0.2, 1.35, 1], opacity: 1, rotate: -2 }}
+            exit={{ scale: 1.6, opacity: 0 }}
+            transition={{ duration: 0.45, ease: 'backOut' }}
+            className="absolute z-50 pointer-events-none flex flex-col items-center justify-center bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 px-8 py-3.5 rounded-3xl border-4 border-white shadow-[0_12px_32px_rgba(239,68,68,0.85)]"
+          >
+            <span className="text-3xl sm:text-4xl font-black text-white font-alexandria uppercase tracking-widest drop-shadow-[0_4px_6px_#000]">
+              FIGHT! 🥊
+            </span>
+            <span className="text-sm font-black text-yellow-200 font-alexandria drop-shadow-[0_1px_2px_#000]">
+              {locale === 'ar' ? 'ابدأ المعركة!' : 'LET THE BRAWL BEGIN!'}
+            </span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -734,7 +798,7 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
                 : winningSquad?.restaurant.nameEn || winningSquad?.restaurant.nameAr}
             </h3>
 
-            {isHost && onWinnerConfirmed && (
+            {isHost && onWinnerConfirmed ? (
               <button
                 type="button"
                 onClick={onWinnerConfirmed}
@@ -742,6 +806,15 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
               >
                 {locale === 'ar' ? 'اعتماد الفائز 🏆' : 'Lock in Winner 🏆'}
               </button>
+            ) : (
+              <div className="mt-2 w-full py-2.5 px-4 rounded-xl bg-amber-500/15 border-2 border-amber-400/50 text-amber-900 font-black text-xs font-alexandria flex items-center justify-center gap-2 animate-pulse">
+                <span>⏳</span>
+                <span>
+                  {locale === 'ar'
+                    ? 'جاري الانتقال لصفحة الطلب...'
+                    : 'Transitioning to order screen...'}
+                </span>
+              </div>
             )}
           </div>
         </motion.div>

@@ -2,9 +2,12 @@ import type { RestaurantItem } from './restaurant';
 
 export type EmojiClashPhase =
   | 'fighter_select' // 10s
-  | 'squad_fusion'   // 3s
-  | 'brawl'          // 9s
-  | 'podium';        // winner celebration
+  | 'squad_fusion'   // 5.5s staged
+  | 'brawl'          // 15s
+  | 'podium'         // winner celebration
+  | 'completed';     // finalized
+
+export type SquadFusionStage = 'fusion_intro' | 'banner_drop' | 'fight_callout';
 
 export type EmojiFighterId =
   | 'troll'       // 😂
@@ -85,4 +88,8 @@ export type EmojiClashRealtimeMessage =
       item: SpiceItemType;
       throwAngle: number;
       throwSeed: number;
+    }
+  | {
+      type: 'emoji_clash_finalized';
+      winnerRestaurantId: string;
     };

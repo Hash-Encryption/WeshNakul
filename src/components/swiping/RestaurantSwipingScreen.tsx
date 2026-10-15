@@ -227,11 +227,23 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
           battleSeed: msg.battleSeed,
         });
         setIsEmojiClashOpen(true);
+      } else if (msg.type === 'emoji_clash_finalized') {
+        setIsEmojiClashOpen(false);
+        completeMiniGame();
+        void refreshRoom();
       }
     });
 
     return () => unsubscribe();
-  }, [currentRoom?.id, deck, startMiniGameSession]);
+  }, [currentRoom?.id, deck, startMiniGameSession, completeMiniGame, refreshRoom]);
+
+  // Safety watchdog: If room reaches matched stage, guarantee Emoji Clash is cleanly closed
+  useEffect(() => {
+    if (currentRoom?.stage === 'matched' && isEmojiClashOpen) {
+      setIsEmojiClashOpen(false);
+      completeMiniGame();
+    }
+  }, [currentRoom?.stage, isEmojiClashOpen, completeMiniGame]);
 
   const handleLaunchEmojiClash = async () => {
     if (!currentRoom || !currentParticipant) return;
@@ -278,9 +290,19 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     }
   };
 
-  const handleEmojiClashWinnerConfirmed = async (_winner: RestaurantItem) => {
+  const handleEmojiClashWinnerConfirmed = async (winner: RestaurantItem) => {
     setIsEmojiClashOpen(false);
     completeMiniGame();
+    if (isHost && currentRoom) {
+      try {
+        await broadcastEmojiClash(currentRoom.id, {
+          type: 'emoji_clash_finalized',
+          winnerRestaurantId: winner.id,
+        });
+      } catch (err) {
+        console.warn('Failed to broadcast emoji_clash_finalized', err);
+      }
+    }
     await refreshRoom();
   };
 

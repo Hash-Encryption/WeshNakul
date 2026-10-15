@@ -9,6 +9,7 @@ interface MustardSackProps {
   onTap: () => void;
   isDetonated: boolean;
   isSackDropping: boolean;
+  isAlertActive?: boolean;
 }
 
 interface Droplet {
@@ -26,6 +27,7 @@ export const MustardSack: React.FC<MustardSackProps> = ({
   onTap,
   isDetonated,
   isSackDropping,
+  isAlertActive = false,
 }) => {
   const { locale } = useLocale();
   const [dodgeX, setDodgeX] = useState(0);
@@ -34,8 +36,8 @@ export const MustardSack: React.FC<MustardSackProps> = ({
   const [_squashTrigger, setSquashTrigger] = useState(0);
 
   const tapRatio = Math.min(1, currentTaps / Math.max(1, targetTaps));
-  // Scale progressively swells from 0.55 up to 1.95 as tapRatio reaches 100%
-  const currentScale = 0.55 + tapRatio * (1.95 - 0.55);
+  // Scale progressively swells from 0.85 up to 1.85 as tapRatio reaches 100%
+  const currentScale = 0.85 + tapRatio * (1.85 - 0.85);
 
   const handleTap = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
@@ -83,7 +85,7 @@ export const MustardSack: React.FC<MustardSackProps> = ({
           isSackDropping || isDetonated
             ? { height: 0, opacity: 0 }
             : {
-                height: 52,
+                height: isAlertActive ? 68 : 52,
                 x: dodgeX * 0.4,
               }
         }
@@ -97,6 +99,15 @@ export const MustardSack: React.FC<MustardSackProps> = ({
         {/* Rope fray knot at junction */}
         <div className="absolute -bottom-1 -left-1 w-4.5 h-3.5 bg-[#614322] rounded-md border border-[#241B18]" />
       </motion.div>
+
+      {/* Pulsing Shockwave Alert Ring around Sack */}
+      {isAlertActive && !isDetonated && !isSackDropping && (
+        <motion.div
+          animate={{ scale: [0.95, 1.45, 0.95], opacity: [0.85, 0.15, 0.85] }}
+          transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-14 w-36 h-36 rounded-full border-4 border-amber-400 pointer-events-none shadow-[0_0_24px_rgba(250,204,21,0.85)] z-20"
+        />
+      )}
 
       {/* Main Mustard Sack Container with Spring & Dodge Physics */}
       <motion.div
@@ -261,6 +272,34 @@ export const MustardSack: React.FC<MustardSackProps> = ({
                 {locale === 'ar' ? 'فجر!' : 'POP!'}
               </span>
             </motion.div>
+          </div>
+        )}
+
+        {/* Comic Warning Ribbon, Bouncing Neon Arrows & Live Tap Counter Badge */}
+        {isAlertActive && !isDetonated && !isSackDropping && (
+          <div className="absolute -bottom-16 inset-x-0 flex flex-col items-center pointer-events-none z-30">
+            <div className="flex items-center justify-center gap-2 mb-1">
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 0.45, repeat: Infinity, delay: i * 0.12, ease: 'easeInOut' }}
+                  className="text-lg filter drop-shadow-[0_0_8px_#FACC15]"
+                >
+                  👆
+                </motion.span>
+              ))}
+            </div>
+            <div className="bg-amber-400 text-[#241B18] px-2.5 py-0.5 rounded-full border-2 border-black font-black text-[10px] font-alexandria shadow-[0_3px_0_#000] flex items-center gap-1.5 whitespace-nowrap">
+              <span>
+                {locale === 'ar'
+                  ? '⚠️ اضغطوا على كيس الخردل لتفجيره! 👆'
+                  : '⚠️ TAP THE MUSTARD SACK TO EXPLODE IT! 👆'}
+              </span>
+              <span className="bg-black text-amber-300 px-1.5 py-0.5 rounded-full text-[9px] font-black tracking-wide">
+                💥 {currentTaps} / {targetTaps} {locale === 'ar' ? 'ضربة' : 'TAPS'}
+              </span>
+            </div>
           </div>
         )}
       </motion.div>
