@@ -1103,14 +1103,20 @@ export async function broadcastEmojiClash(
 ): Promise<void> {
   if (supabase) {
     try {
-      const existing = emojiClashChannels.get(roomId);
-      const channel = existing?.channel || supabase.channel(`minigames:${roomId}`);
+      let entry = emojiClashChannels.get(roomId);
+      let channel = entry?.channel;
+      if (!channel) {
+        channel = supabase.channel(`minigames:${roomId}`);
+        channel.subscribe();
+        entry = { channel, listeners: new Set() };
+        emojiClashChannels.set(roomId, entry);
+      }
       if (channel.state !== 'joined') {
         await new Promise<void>((resolve) => {
-          channel.subscribe((status: string) => {
+          channel!.subscribe((status: string) => {
             if (status === 'SUBSCRIBED') resolve();
           });
-          setTimeout(resolve, 300);
+          setTimeout(resolve, 200);
         });
       }
       await channel.send({
@@ -1119,7 +1125,8 @@ export async function broadcastEmojiClash(
         payload: { roomId, message },
       });
     } catch (e) {
-      console.warn('Supabase broadcastEmojiClash failed', e);
+      // Non-fatal broadcast warning; do not trigger global network error toast
+      console.warn('Supabase broadcastEmojiClash non-fatal:', e);
     }
   }
 }
@@ -1150,7 +1157,7 @@ export function subscribeToEmojiClash(
         }
       });
 
-    channel.subscribe(reportRealtimeStatus);
+    channel.subscribe();
     entry = { channel, listeners: new Set([callback]) };
     emojiClashChannels.set(roomId, entry);
   } else {

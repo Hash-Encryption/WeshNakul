@@ -28,6 +28,14 @@ interface ComicBurst {
   color: string;
 }
 
+interface ComicStar {
+  id: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+}
+
 interface EmojiArenaStageProps {
   phase: EmojiClashPhase;
   fusionStage?: SquadFusionStage;
@@ -61,6 +69,7 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
   const [isScreenShaking, setIsScreenShaking] = useState(false);
   const [shockwaveRings, setShockwaveRings] = useState<{ id: number; x: number; y: number }[]>([]);
   const [comicBursts, setComicBursts] = useState<ComicBurst[]>([]);
+  const [comicStars, setComicStars] = useState<ComicStar[]>([]);
 
   // Per-squad dynamic battle positions & effects
   const [squadOffsets, setSquadOffsets] = useState<Record<string, { x: number; y: number; rotate: number; jumpY: number; scale: number; statusEffect?: string }>>({});
@@ -94,6 +103,19 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
     setTimeout(() => {
       setComicBursts((prev) => prev.filter((b) => b.id !== burstId));
     }, 700);
+
+    // Spawn 3 flying yellow stars ⭐
+    const newStars: ComicStar[] = Array.from({ length: 3 }).map((_, i) => ({
+      id: burstId + i,
+      x,
+      y,
+      vx: (Math.random() - 0.5) * 50,
+      vy: -15 - Math.random() * 25,
+    }));
+    setComicStars((prev) => [...prev.slice(-6), ...newStars]);
+    setTimeout(() => {
+      setComicStars((prev) => prev.filter((s) => !newStars.some((ns) => ns.id === s.id)));
+    }, 550);
   };
 
   // Phase 3 Choreographed Arena Brawl animation loop driven deterministically by battleSeed
@@ -103,6 +125,7 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
     if (phase === 'podium') {
       setShockwaveRings([]);
       setComicBursts([]);
+      setComicStars([]);
       if (!confettiFiredRef.current) {
         confettiFiredRef.current = true;
         try {
@@ -460,103 +483,178 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
         )}
       </AnimatePresence>
 
-      {/* 2.5D OCTAGONAL BATTLE RING (Center-Lower Third) */}
-      <div className="relative w-[310px] sm:w-[350px] h-[190px] mt-12 flex items-center justify-center">
-        {/* Ring Corner Post Banners (Dropped from stadium ceiling in Phase 2) */}
-        {phase !== 'fighter_select' && (
+      {/* 2.5D OCTAGONAL BATTLE ARENA (Center-Lower Third) */}
+      <div className="relative w-[94%] max-w-[420px] h-[230px] mt-8 flex items-center justify-center">
+        {/* ANGLED CORNER RESTAURANT BILLBOARDS (Mounted on Octagon Back Corners) */}
+        {phase !== 'fighter_select' && phase !== 'podium' && phase !== 'completed' && (
           <>
-            {/* Left Post Banner (e.g., Contender 1) */}
+            {/* Left Corner Billboard (Contender 1 / Orange-Gold Trim) */}
             <motion.div
-              initial={{ y: -120, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 22, delay: 0.1 }}
-              className="absolute -top-7 left-1 z-20 flex flex-col items-center origin-top-left -rotate-6"
+              initial={{ y: -90, opacity: 0, rotate: -12 }}
+              animate={{ y: 0, opacity: 1, rotate: -4 }}
+              transition={{ type: 'spring', stiffness: 280, damping: 20, delay: 0.1 }}
+              className="absolute -top-3.5 left-0 z-20 flex flex-col items-center pointer-events-none"
             >
-              {/* Wooden post */}
-              <div className="w-2 h-14 bg-gradient-to-r from-[#8B5A2B] to-[#5C3A1E] border border-black/40" />
-              {/* Angled Banner matching reference image */}
-              <div className="absolute top-1 -left-2 bg-gradient-to-r from-[#F59E0B] to-[#D97706] text-white px-2.5 py-1 rounded-md border-2 border-[#241B18] shadow-[0_4px_0_#241B18] flex items-center gap-1 min-w-[90px] justify-center">
-                <span className="text-[10px] font-black font-alexandria truncate max-w-[80px]">
-                  {locale === 'ar'
-                    ? restaurants[0]?.nameAr || restaurants[0]?.nameEn
-                    : restaurants[0]?.nameEn || restaurants[0]?.nameAr}
-                </span>
+              {/* Top Ridge: Docked Supporting Player Avatar Badges */}
+              <div className="flex items-center -space-x-1.5 rtl:space-x-reverse mb-0.5 z-30">
+                {(squads[0]?.members || []).map((m) => (
+                  <div
+                    key={m.participantId}
+                    title={m.nickname}
+                    style={{ backgroundColor: m.playerColor || '#F59E0B' }}
+                    className="w-5 h-5 rounded-full border-2 border-black text-[9px] font-black flex items-center justify-center text-black shadow-md"
+                  >
+                    {m.nickname.slice(0, 1).toUpperCase()}
+                  </div>
+                ))}
+              </div>
+
+              {/* Billboard Signboard & Steel Strut */}
+              <div className="relative flex flex-col items-center">
+                {/* Waving Mini Corner Flag on Top Left */}
+                <div className="absolute -top-3 -left-2 text-xs filter drop-shadow-sm animate-bounce">
+                  🚩
+                </div>
+
+                {/* 3D Angled Slate Board with Orange Trim */}
+                <div className="bg-[#0F172A] border-2 border-[#F59E0B] px-2.5 py-1 rounded-lg shadow-[0_4px_0_#0F071E] flex items-center justify-center min-w-[96px] max-w-[125px]">
+                  <span className="text-[10px] sm:text-[11px] font-black text-white font-alexandria truncate">
+                    {locale === 'ar'
+                      ? restaurants[0]?.nameAr || restaurants[0]?.nameEn || squads[0]?.restaurant?.nameAr
+                      : restaurants[0]?.nameEn || restaurants[0]?.nameAr || squads[0]?.restaurant?.nameEn}
+                  </span>
+                </div>
+
+                {/* Steel Chain / Strut Anchoring to Octagon Corner */}
+                <div className="w-1.5 h-8 bg-gradient-to-b from-slate-400 via-slate-600 to-slate-800 border-x border-black/80 shadow-xs" />
               </div>
             </motion.div>
 
-            {/* Right Post Banner (e.g., Contender 2) */}
+            {/* Right Corner Billboard (Contender 2 / Crimson-Red Trim) */}
             <motion.div
-              initial={{ y: -120, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 22, delay: 0.2 }}
-              className="absolute -top-7 right-1 z-20 flex flex-col items-center origin-top-right rotate-6"
+              initial={{ y: -90, opacity: 0, rotate: 12 }}
+              animate={{ y: 0, opacity: 1, rotate: 4 }}
+              transition={{ type: 'spring', stiffness: 280, damping: 20, delay: 0.2 }}
+              className="absolute -top-3.5 right-0 z-20 flex flex-col items-center pointer-events-none"
             >
-              {/* Wooden post */}
-              <div className="w-2 h-14 bg-gradient-to-r from-[#8B5A2B] to-[#5C3A1E] border border-black/40" />
-              {/* Angled Banner matching reference image */}
-              <div className="absolute top-1 -right-2 bg-gradient-to-r from-[#EF4444] to-[#B91C1C] text-white px-2.5 py-1 rounded-md border-2 border-[#241B18] shadow-[0_4px_0_#241B18] flex items-center gap-1 min-w-[90px] justify-center">
-                <span className="text-[10px] font-black font-alexandria truncate max-w-[80px]">
-                  {locale === 'ar'
-                    ? restaurants[1]?.nameAr || restaurants[1]?.nameEn
-                    : restaurants[1]?.nameEn || restaurants[1]?.nameAr}
-                </span>
+              {/* Top Ridge: Docked Supporting Player Avatar Badges */}
+              <div className="flex items-center -space-x-1.5 rtl:space-x-reverse mb-0.5 z-30">
+                {(squads[1]?.members || []).map((m) => (
+                  <div
+                    key={m.participantId}
+                    title={m.nickname}
+                    style={{ backgroundColor: m.playerColor || '#EF4444' }}
+                    className="w-5 h-5 rounded-full border-2 border-black text-[9px] font-black flex items-center justify-center text-black shadow-md"
+                  >
+                    {m.nickname.slice(0, 1).toUpperCase()}
+                  </div>
+                ))}
+              </div>
+
+              {/* Billboard Signboard & Steel Strut */}
+              <div className="relative flex flex-col items-center">
+                {/* Waving Mini Corner Flag on Top Right */}
+                <div className="absolute -top-3 -right-2 text-xs filter drop-shadow-sm animate-bounce">
+                  🚩
+                </div>
+
+                {/* 3D Angled Slate Board with Red Trim */}
+                <div className="bg-[#0F172A] border-2 border-[#EF4444] px-2.5 py-1 rounded-lg shadow-[0_4px_0_#0F071E] flex items-center justify-center min-w-[96px] max-w-[125px]">
+                  <span className="text-[10px] sm:text-[11px] font-black text-white font-alexandria truncate">
+                    {locale === 'ar'
+                      ? restaurants[1]?.nameAr || restaurants[1]?.nameEn || squads[1]?.restaurant?.nameAr
+                      : restaurants[1]?.nameEn || restaurants[1]?.nameAr || squads[1]?.restaurant?.nameEn}
+                  </span>
+                </div>
+
+                {/* Steel Chain / Strut Anchoring to Octagon Corner */}
+                <div className="w-1.5 h-8 bg-gradient-to-b from-slate-400 via-slate-600 to-slate-800 border-x border-black/80 shadow-xs" />
               </div>
             </motion.div>
           </>
         )}
 
-        {/* 3D Perspective Octagon Ring SVG matching reference image */}
-        <div className="absolute inset-0 flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)]">
-          <svg viewBox="0 0 320 180" className="w-full h-full overflow-visible">
+        {/* 2.5D ISOMETRIC NEON OCTAGON SVG (viewBox="0 0 400 240") */}
+        <div className="absolute inset-0 flex items-center justify-center filter drop-shadow-[0_16px_36px_rgba(0,0,0,0.92)]">
+          <svg viewBox="0 0 400 240" className="w-full h-full overflow-visible">
             <defs>
-              {/* Floor dark navy gradient */}
-              <linearGradient id="ringFloor" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#1E293B" />
-                <stop offset="40%" stopColor="#0F172A" />
-                <stop offset="100%" stopColor="#0B0F19" />
+              {/* Dark indigo / slate floor mat gradient */}
+              <linearGradient id="matFloorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#1E1B4B" />
+                <stop offset="50%" stopColor="#17153B" />
+                <stop offset="100%" stopColor="#0F0E2A" />
               </linearGradient>
 
-              {/* Lower ring skirt gradient */}
-              <linearGradient id="ringSkirt" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#090D16" />
-                <stop offset="100%" stopColor="#030508" />
+              {/* 3D extruded front cliff gradient */}
+              <linearGradient id="bevelCenterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#311042" />
+                <stop offset="100%" stopColor="#1E0B29" />
               </linearGradient>
             </defs>
 
-            {/* 3D Base Skirt (depth height) */}
+            {/* 3D Extruded Front Base Bevel Wall (22px deep cliff) */}
+            {/* Left front facet */}
             <polygon
-              points="40,90 95,45 225,45 280,90 280,118 225,163 95,163 40,118"
-              fill="url(#ringSkirt)"
-              stroke="#030712"
+              points="40,135 125,180 125,202 40,157"
+              fill="#250C34"
+              stroke="#0F071E"
               strokeWidth="2"
+              strokeLinejoin="round"
+            />
+            {/* Center front facet */}
+            <polygon
+              points="125,180 275,180 275,202 125,202"
+              fill="url(#bevelCenterGrad)"
+              stroke="#0F071E"
+              strokeWidth="2"
+              strokeLinejoin="round"
+            />
+            {/* Right front facet */}
+            <polygon
+              points="275,180 360,135 360,157 275,202"
+              fill="#1E1035"
+              stroke="#0F071E"
+              strokeWidth="2"
+              strokeLinejoin="round"
             />
 
-            {/* Outer Glowing Neon Magenta/Purple Trim */}
+            {/* Outer Glowing Neon Magenta Rim (#EC4899) */}
             <polygon
-              points="40,105 95,50 225,50 280,105 225,150 95,150"
+              points="125,60 275,60 360,105 360,135 275,180 125,180 40,135 40,105"
               fill="none"
-              stroke="#BD00FF"
+              stroke="#EC4899"
               strokeWidth="5"
               strokeLinejoin="round"
-              className="filter drop-shadow-[0_0_12px_#BD00FF]"
+              className="filter drop-shadow-[0_0_12px_#EC4899]"
             />
 
-            {/* Octagonal Floor Plane */}
+            {/* Octagon Surface Floor Mat */}
             <polygon
-              points="48,100 100,56 220,56 272,100 220,144 100,144"
-              fill="url(#ringFloor)"
-              stroke="#1E293B"
-              strokeWidth="1.5"
+              points="125,60 275,60 360,105 360,135 275,180 125,180 40,135 40,105"
+              fill="url(#matFloorGrad)"
             />
 
-            {/* Inner Glowing Neon Cyan Trim matching reference image */}
+            {/* Inner Glowing Neon Cyan Rim (#22D3EE) */}
             <polygon
-              points="54,100 103,60 217,60 266,100 217,140 103,140"
+              points="133,67 267,67 348,107 348,133 267,173 133,173 52,133 52,107"
               fill="none"
-              stroke="#00F0FF"
+              stroke="#22D3EE"
               strokeWidth="3.5"
               strokeLinejoin="round"
-              className="filter drop-shadow-[0_0_10px_#00F0FF]"
+              className="filter drop-shadow-[0_0_10px_#22D3EE]"
+            />
+
+            {/* Subtle Center Arena Ring Emblem */}
+            <ellipse
+              cx="200"
+              cy="120"
+              rx="42"
+              ry="16"
+              fill="none"
+              stroke="#FFFFFF"
+              strokeWidth="1.5"
+              strokeDasharray="4 4"
+              opacity="0.18"
             />
           </svg>
         </div>
@@ -569,8 +667,28 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
             animate={{ scale: 2.2, opacity: 0 }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
             style={{ left: `calc(50% + ${r.x}px)`, top: `calc(55% + ${r.y}px)` }}
-            className="absolute -translate-x-1/2 -translate-y-1/2 w-28 h-14 rounded-full border-2 border-cyan-300 pointer-events-none filter drop-shadow-[0_0_8px_#00F0FF]"
+            className="absolute -translate-x-1/2 -translate-y-1/2 w-32 h-16 rounded-full border-2 border-cyan-300 pointer-events-none filter drop-shadow-[0_0_8px_#00F0FF]"
           />
+        ))}
+
+        {/* Flying Yellow Comic Stars on Hits */}
+        {comicStars.map((s) => (
+          <motion.div
+            key={s.id}
+            initial={{ x: s.x, y: s.y, scale: 0.4, opacity: 1, rotate: 0 }}
+            animate={{
+              x: s.x + s.vx,
+              y: s.y + s.vy,
+              scale: [0.4, 1.3, 0],
+              opacity: [1, 1, 0],
+              rotate: 180,
+            }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            style={{ left: `calc(50% + ${s.x}px)`, top: `calc(50% + ${s.y}px)` }}
+            className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none z-40 text-yellow-300 text-sm select-none filter drop-shadow-[0_0_6px_#FBBF24]"
+          >
+            ⭐
+          </motion.div>
         ))}
 
         {/* Comic Hit Popups (POW!, طراااخ!, BAM!, etc.) */}
@@ -585,7 +703,6 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
               style={{ left: `calc(50% + ${b.x}px)`, top: `calc(50% + ${b.y}px)` }}
               className="absolute -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none"
             >
-              {/* Comic sticker burst burst polygon */}
               <div
                 style={{ backgroundColor: b.color }}
                 className="px-3 py-1.5 rounded-xl border-3 border-black text-white font-black text-xs sm:text-sm font-alexandria shadow-[0_4px_0_#000] rotate-[-8deg] flex flex-col items-center leading-none"
@@ -601,7 +718,7 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
           ))}
         </AnimatePresence>
 
-        {/* FIGHTER EMOJI SQUADS ON THE OCTAGON RING */}
+        {/* FIGHTER EMOJI SQUADS ON THE 2.5D OCTAGON RING (Clean, No Duplicate Pills) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {squads.map((sq, idx) => {
             const isWinner = sq.restaurant.id === winningRestaurantId;
@@ -609,27 +726,27 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
             const isScreenGlass = screenGlassLandedIds.has(sq.squadId);
             const offset = squadOffsets[sq.squadId] || { x: 0, y: 0, rotate: 0, jumpY: 0, scale: 1 };
 
-            // Base position based on squad count
+            // Spaced cleanly across wide octagon
             let initialX = 0;
-            let initialY = 0;
+            let initialY = 10;
             if (squads.length === 2) {
-              initialX = idx === 0 ? -55 : 55;
-              initialY = 0;
+              initialX = idx === 0 ? -68 : 68;
+              initialY = 12;
             } else if (squads.length <= 4) {
-              const angles = [-135, -45, 45, 135];
+              const angles = [-140, -40, 40, 140];
               const a = (angles[idx] * Math.PI) / 180;
-              initialX = Math.cos(a) * 65;
-              initialY = Math.sin(a) * 32;
+              initialX = Math.cos(a) * 78;
+              initialY = Math.sin(a) * 30 + 10;
             } else {
               const a = ((idx * (360 / squads.length) - 90) * Math.PI) / 180;
-              initialX = Math.cos(a) * 75;
-              initialY = Math.sin(a) * 38;
+              initialX = Math.cos(a) * 88;
+              initialY = Math.sin(a) * 36 + 10;
             }
 
             // In podium phase, winning squad celebrates in the center!
             const isPodiumPhase = phase === 'podium';
             const targetX = isPodiumPhase ? (isWinner ? 0 : initialX * 2.5) : initialX + offset.x;
-            const targetY = isPodiumPhase ? (isWinner ? -5 : initialY * 2.5) : initialY + offset.y + offset.jumpY;
+            const targetY = isPodiumPhase ? (isWinner ? 0 : initialY * 2.5) : initialY + offset.y + offset.jumpY;
 
             return (
               <motion.div
@@ -663,25 +780,12 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 className="absolute flex flex-col items-center justify-center z-30"
               >
-                {/* Floating mini restaurant name pill tethered above fighter head */}
-                <div
-                  style={{
-                    backgroundColor: sq.ringColor,
-                    borderColor: '#241B18',
-                  }}
-                  className="px-2 py-0.5 rounded-full border border-black/60 text-white font-black text-[9px] font-alexandria truncate max-w-[76px] shadow-sm mb-1"
-                >
-                  {locale === 'ar'
-                    ? sq.restaurant.nameAr || sq.restaurant.nameEn
-                    : sq.restaurant.nameEn || sq.restaurant.nameAr}
-                </div>
-
-                {/* Golden Super-Aura (Winner KO Finale at 7.2s) */}
+                {/* Golden Super-Aura (Winner KO Finale at 2.0s) */}
                 {goldenKnockoutTriggered && isWinner && (
                   <motion.div
-                    animate={{ scale: [1, 1.35, 1], opacity: [0.7, 1, 0.7] }}
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.75, 1, 0.75] }}
                     transition={{ duration: 0.4, repeat: Infinity }}
-                    className="absolute inset-0 -m-3 rounded-full bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 filter blur-md opacity-80 pointer-events-none"
+                    className="absolute inset-0 -m-4 rounded-full bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 filter blur-md opacity-80 pointer-events-none"
                   />
                 )}
 
@@ -738,44 +842,22 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
                 <div
                   style={{
                     borderColor: sq.ringBorderColor,
-                    boxShadow: `0 0 10px ${sq.ringColor}`,
+                    boxShadow: `0 0 12px ${sq.ringColor}`,
                   }}
-                  className="w-12 sm:w-14 h-4 rounded-full border-2 bg-black/40 mt-1 pointer-events-none"
+                  className="w-14 sm:w-16 h-4.5 rounded-full border-2 bg-black/40 mt-1 pointer-events-none"
                 />
 
                 {/* Dark Oval Ground Shadow that shrinks when jumping and widens on landing */}
                 <motion.div
                   animate={{
                     scaleX: offset.jumpY < -5 ? 0.6 : 1.2,
-                    opacity: offset.jumpY < -5 ? 0.25 : 0.65,
+                    opacity: offset.jumpY < -5 ? 0.25 : 0.7,
                   }}
-                  className="w-10 sm:w-12 h-2.5 rounded-full bg-black/80 blur-[2px] -mt-2"
+                  className="w-12 sm:w-14 h-3 rounded-full bg-black/80 blur-[2px] -mt-2.5 pointer-events-none"
                 />
               </motion.div>
             );
           })}
-        </div>
-
-        {/* Contributor Player Avatar Badges docked along corresponding bottom ring corners */}
-        <div className="absolute -bottom-6 inset-x-2 flex items-center justify-between pointer-events-none z-20">
-          {squads.map((sq) => (
-            <div
-              key={sq.squadId}
-              className="flex items-center -space-x-1.5 rtl:space-x-reverse bg-black/60 px-2 py-0.5 rounded-full border border-white/20 backdrop-blur-xs"
-            >
-              <span className="text-xs me-1">{sq.emoji}</span>
-              {sq.members.map((m) => (
-                <div
-                  key={m.participantId}
-                  title={m.nickname}
-                  style={{ backgroundColor: m.playerColor || '#FFD75A' }}
-                  className="w-5 h-5 rounded-full border border-black text-[9px] font-black flex items-center justify-center text-black shadow-xs"
-                >
-                  {m.nickname.slice(0, 1).toUpperCase()}
-                </div>
-              ))}
-            </div>
-          ))}
         </div>
       </div>
 
@@ -784,15 +866,17 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/60 backdrop-blur-xs p-4 text-center pointer-events-auto"
+          className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/75 backdrop-blur-sm p-4 text-center pointer-events-auto"
         >
-          <div className="w-full max-w-xs bg-white rounded-3xl border-3 border-[#241B18] shadow-[0_8px_0_#241B18] p-4 flex flex-col items-center gap-2">
-            <span className="text-4xl">👑</span>
-            <span className="text-xs font-black text-amber-600 font-alexandria uppercase tracking-wider">
-              {locale === 'ar' ? 'البطل الفائز!' : 'Champion Squad!'}
+          <div className="w-full max-w-xs bg-gradient-to-b from-[#1E293B] to-[#0F172A] rounded-3xl border-3 border-[#FFD700] shadow-[0_10px_25px_rgba(0,0,0,0.85)] p-5 flex flex-col items-center gap-2">
+            <span className="text-4xl animate-bounce">👑</span>
+            <span className="text-xs font-black text-amber-400 font-alexandria uppercase tracking-wider">
+              {locale === 'ar' ? 'البطل الفائز!' : 'CHAMPION SQUAD!'}
             </span>
-            <div className="text-3xl my-1">{winningSquad?.emoji}</div>
-            <h3 className="text-lg font-black text-[#241B18] font-alexandria">
+            <div className="text-4xl my-1 filter drop-shadow-[0_4px_12px_rgba(255,215,0,0.5)]">
+              {winningSquad?.emoji}
+            </div>
+            <h3 className="text-lg font-black text-white font-alexandria">
               {locale === 'ar'
                 ? winningSquad?.restaurant.nameAr || winningSquad?.restaurant.nameEn
                 : winningSquad?.restaurant.nameEn || winningSquad?.restaurant.nameAr}
@@ -802,12 +886,12 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
               <button
                 type="button"
                 onClick={onWinnerConfirmed}
-                className="mt-2 w-full py-2.5 px-4 rounded-xl bg-[#55B96A] text-white border-2 border-[#241B18] shadow-[0_3px_0_#241B18] font-black text-xs font-alexandria active:translate-y-0.5 cursor-pointer hover:brightness-105"
+                className="mt-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 text-white border-2 border-emerald-400 shadow-[0_4px_0_#065F46] font-black text-xs font-alexandria active:translate-y-0.5 cursor-pointer hover:brightness-105"
               >
                 {locale === 'ar' ? 'اعتماد الفائز 🏆' : 'Lock in Winner 🏆'}
               </button>
             ) : (
-              <div className="mt-2 w-full py-2.5 px-4 rounded-xl bg-amber-500/15 border-2 border-amber-400/50 text-amber-900 font-black text-xs font-alexandria flex items-center justify-center gap-2 animate-pulse">
+              <div className="mt-2 w-full py-2.5 px-4 rounded-xl bg-amber-500/15 border-2 border-amber-400/50 text-amber-300 font-black text-xs font-alexandria flex items-center justify-center gap-2 animate-pulse">
                 <span>⏳</span>
                 <span>
                   {locale === 'ar'

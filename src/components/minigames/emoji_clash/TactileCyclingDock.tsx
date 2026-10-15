@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useLocale } from '../../../context/LocaleContext';
 import type { SpiceItemType } from '../../../types/emojiClash';
 
 interface TactileCyclingDockProps {
@@ -54,7 +53,6 @@ export const TactileCyclingDock: React.FC<TactileCyclingDockProps> = ({
   onThrow,
   disabled = false,
 }) => {
-  const { locale } = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isCooldown, setIsCooldown] = useState(false);
   const [progress, setProgress] = useState(1);
@@ -108,103 +106,108 @@ export const TactileCyclingDock: React.FC<TactileCyclingDockProps> = ({
 
   return (
     <div className="relative w-full max-w-sm mx-auto flex items-center justify-center py-2 select-none z-20">
-      {/* Throw Indicator Arc Text matching reference image */}
-      <div className="absolute -top-3.5 right-12 sm:right-16 text-[10px] font-black text-amber-300/80 tracking-wider pointer-events-none rotate-[-12deg]">
-        <span>{locale === 'ar' ? 'رمي الشطة ⤴' : 'spice particle throw ⤴'}</span>
-      </div>
-
-      <div className="flex items-center justify-center gap-4 sm:gap-6">
-        {/* Left Flanking Preview Icon (Garlic / ثوم with curved arrow) */}
-        <div className="flex flex-col items-center gap-1 opacity-85">
-          <div className="relative flex items-center justify-center">
-            {/* Curved rotation arrow pointing into main button */}
-            <svg
-              className="w-5 h-5 text-white/80 absolute -top-4 -right-2 transform rotate-45"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-              <polyline points="3 3 3 8 8 8" />
-            </svg>
-            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/30 backdrop-blur-xs flex items-center justify-center text-xl shadow-inner">
-              {leftItem.icon}
-            </div>
+      <div className="relative flex items-center justify-center gap-3 sm:gap-6">
+        {/* Left Flanking Glass Bubble: Fire / نار (or previous item in cycle) */}
+        <div className="flex flex-col items-center gap-1">
+          <div className="w-16 h-16 rounded-full bg-white/15 border-2 border-white/40 shadow-[0_4px_12px_rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center text-2xl transition-transform hover:scale-105">
+            {leftItem.icon}
           </div>
           <div className="text-center leading-none">
-            <span className="block text-[10px] font-black text-white/90">
+            <span className="block text-[11px] font-black text-white drop-shadow-[0_1px_2px_#000]">
               {leftItem.nameEn}
             </span>
-            <span className="block text-[9px] font-semibold text-white/70">
+            <span className="block text-[9px] font-bold text-white/80 drop-shadow-[0_1px_1px_#000]">
               {leftItem.nameAr}
             </span>
           </div>
         </div>
 
-        {/* Centerpiece 3D Circular Arcade Button */}
+        {/* 4 Curved Golden/White Comic Rotation Arrows */}
+        {/* Arrow 1: Top-Left (Left bubble -> Center button) */}
+        <svg
+          className="w-7 h-5 text-amber-200/90 absolute -top-1 left-[72px] sm:left-[82px] pointer-events-none drop-shadow-xs"
+          viewBox="0 0 28 20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M4 14 C10 4 20 4 26 8" />
+          <polyline points="20 4 26 8 24 14" />
+        </svg>
+
+        {/* Arrow 2: Bottom-Left (Center button -> Left bubble) */}
+        <svg
+          className="w-7 h-5 text-amber-200/90 absolute -bottom-1 left-[72px] sm:left-[82px] pointer-events-none drop-shadow-xs"
+          viewBox="0 0 28 20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M26 6 C20 16 10 16 4 12" />
+          <polyline points="10 16 4 12 6 6" />
+        </svg>
+
+        {/* Centerpiece 3D Red Circular Arcade Button (115px diameter) */}
         <motion.div
           animate={
             justUnlocked
-              ? { scale: [1, 1.22, 1] }
+              ? { scale: [1, 1.15, 1] }
               : isDepressed
-              ? { scale: 0.94, y: 6 }
+              ? { scale: 0.95, y: 6 }
               : { scale: 1, y: 0 }
           }
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="relative"
+          transition={{ duration: 0.18, ease: 'easeOut' }}
+          className="relative flex items-center justify-center"
         >
-          {/* Outer glowing golden ring */}
-          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1.5 bg-gradient-to-b from-[#FFE57F] via-[#FFD700] to-[#B38F00] shadow-[0_0_24px_rgba(255,215,0,0.45)] flex items-center justify-center">
-            {/* 3D Button Body with border-b-8 physical lip */}
+          {/* Thick 3D physical socket base (border-b-8) */}
+          <div className="w-[112px] h-[112px] sm:w-[118px] sm:h-[118px] rounded-full p-2 bg-[#3A2211] border-3 border-[#201208] border-b-8 border-b-[#1C0E05] shadow-[0_12px_24px_rgba(0,0,0,0.65)] flex items-center justify-center">
+            {/* The Clickable Glossy Red Dome */}
             <button
               type="button"
               disabled={disabled || isCooldown}
               onClick={handlePress}
-              style={{
-                borderColor: currentItem.borderColor,
-                boxShadow: `0 8px 0 ${currentItem.borderColor}, 0 12px 20px rgba(0,0,0,0.5)`,
-              }}
-              className={`relative w-full h-full rounded-full bg-gradient-to-b ${currentItem.bgGradient} border-3 active:translate-y-1.5 transition-all flex flex-col items-center justify-center overflow-hidden cursor-pointer ${
+              className={`relative w-full h-full rounded-full bg-gradient-to-b from-[#EF4444] via-[#DC2626] to-[#991B1B] border-3 border-[#5C0A0A] shadow-[inset_0_-6px_8px_rgba(0,0,0,0.5),0_4px_10px_rgba(239,68,68,0.4)] active:translate-y-1 transition-all flex flex-col items-center justify-center overflow-hidden cursor-pointer ${
                 isCooldown ? 'brightness-75 cursor-not-allowed' : 'hover:brightness-105'
               }`}
             >
+              {/* Top-Left Specular White Highlight Curve */}
+              <div className="absolute top-1.5 left-3 w-10 h-4 rounded-full bg-gradient-to-b from-white/70 via-white/30 to-transparent transform -rotate-12 pointer-events-none" />
+
               {/* Liquid Cooldown Fill Rising Inside */}
               {isCooldown && (
                 <motion.div
                   style={{ height: `${(1 - progress) * 100}%` }}
-                  className="absolute bottom-0 inset-x-0 bg-black/55 backdrop-blur-[1px] pointer-events-none transition-all"
+                  className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-[1px] pointer-events-none transition-all"
                 />
               )}
 
-              {/* Glossy top highlight curve */}
-              <div className="absolute top-1 inset-x-3 h-5 rounded-full bg-gradient-to-b from-white/45 to-transparent pointer-events-none" />
-
               {/* Item Icon */}
-              <span className="text-2xl sm:text-3xl filter drop-shadow-md z-10">
+              <span className="text-3xl filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] z-10 -mt-1">
                 {currentItem.icon}
               </span>
 
-              {/* Bilingual Label */}
+              {/* Stacked Bold Text: SPICE / شطة */}
               <div className="z-10 text-center leading-tight -mt-0.5">
-                <span className="block text-xs font-black text-white uppercase tracking-wider drop-shadow-[0_1px_2px_#000]">
+                <span className="block text-xs font-black text-white uppercase tracking-wider drop-shadow-[0_2px_2px_#000]">
                   {currentItem.nameEn}
                 </span>
-                <span className="block text-[10px] font-bold text-yellow-200 drop-shadow-[0_1px_1px_#000]">
+                <span className="block text-[10px] font-black text-yellow-200 drop-shadow-[0_1px_2px_#000]">
                   {currentItem.nameAr}
                 </span>
               </div>
 
-              {/* Ready flash overlay */}
+              {/* Ready Flash Overlay */}
               <AnimatePresence>
                 {justUnlocked && (
                   <motion.div
                     initial={{ opacity: 0.8 }}
                     animate={{ opacity: 0 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25 }}
                     className="absolute inset-0 bg-white rounded-full pointer-events-none"
                   />
                 )}
@@ -213,31 +216,44 @@ export const TactileCyclingDock: React.FC<TactileCyclingDockProps> = ({
           </div>
         </motion.div>
 
-        {/* Right Flanking Preview Icon (Fire / نار with rotation arrow) */}
-        <div className="flex flex-col items-center gap-1 opacity-85">
-          <div className="relative flex items-center justify-center">
-            {/* Curved rotation arrow showing upcoming cycle */}
-            <svg
-              className="w-5 h-5 text-white/80 absolute -top-4 -left-2 transform -rotate-45"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-              <polyline points="21 3 21 8 16 8" />
-            </svg>
-            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/30 backdrop-blur-xs flex items-center justify-center text-xl shadow-inner">
-              {rightItem.icon}
-            </div>
+        {/* Arrow 3: Top-Right (Center button -> Right bubble) */}
+        <svg
+          className="w-7 h-5 text-amber-200/90 absolute -top-1 right-[72px] sm:right-[82px] pointer-events-none drop-shadow-xs"
+          viewBox="0 0 28 20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M4 8 C10 4 20 4 26 14" />
+          <polyline points="22 14 26 14 28 8" />
+        </svg>
+
+        {/* Arrow 4: Bottom-Right (Right bubble -> Center button) */}
+        <svg
+          className="w-7 h-5 text-amber-200/90 absolute -bottom-1 right-[72px] sm:right-[82px] pointer-events-none drop-shadow-xs"
+          viewBox="0 0 28 20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M26 12 C20 16 10 16 4 6" />
+          <polyline points="8 6 4 6 2 12" />
+        </svg>
+
+        {/* Right Flanking Glass Bubble: Garlic / ثوم (or next item in cycle) */}
+        <div className="flex flex-col items-center gap-1">
+          <div className="w-16 h-16 rounded-full bg-white/15 border-2 border-white/40 shadow-[0_4px_12px_rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center text-2xl transition-transform hover:scale-105">
+            {rightItem.icon}
           </div>
           <div className="text-center leading-none">
-            <span className="block text-[10px] font-black text-white/90">
+            <span className="block text-[11px] font-black text-white drop-shadow-[0_1px_2px_#000]">
               {rightItem.nameEn}
             </span>
-            <span className="block text-[9px] font-semibold text-white/70">
+            <span className="block text-[9px] font-bold text-white/80 drop-shadow-[0_1px_1px_#000]">
               {rightItem.nameAr}
             </span>
           </div>

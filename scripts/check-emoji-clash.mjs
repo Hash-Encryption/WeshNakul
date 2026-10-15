@@ -138,23 +138,23 @@ try {
 
       // Main button: Spice
       assert.ok(html.includes('🌶️'), 'Main button has chili icon');
-      assert.ok(html.includes(loc === 'ar' ? 'شطة' : 'Spice'), 'Bilingual Spice label');
+      assert.ok(html.includes('Spice') && html.includes('شطة'), 'Stacked bilingual Spice labels');
 
       // Left preview: Garlic with rotation arrow
       assert.ok(html.includes('🧄'), 'Left flanking preview has garlic');
-      assert.ok(html.includes(loc === 'ar' ? 'ثوم' : 'Garlic'), 'Left garlic title');
+      assert.ok(html.includes('Garlic') && html.includes('ثوم'), 'Left garlic title');
 
       // Right preview: Fire with rotation arrow
       assert.ok(html.includes('🔥'), 'Right flanking preview has fire');
-      assert.ok(html.includes(loc === 'ar' ? 'نار' : 'Fire'), 'Right fire title');
+      assert.ok(html.includes('Fire') && html.includes('نار'), 'Right fire title');
 
-      // Throw indicator
-      assert.ok(html.includes(loc === 'ar' ? 'رمي الشطة' : 'spice particle throw'), 'Throw indicator text');
+      // Verified debug mockup text 'spice particle throw' is cleanly removed
+      assert.equal(html.includes('spice particle throw'), false, 'Mockup debug text removed');
     }
   });
 
   // 6. MustardSack Pressurized Sack & Dynamics
-  check('6. MustardSack renders bulging yellow sack, braided rope, nozzle, and biohazard emblem', () => {
+  check('6. MustardSack renders custom comic pear SVG, nozzle, belly label, and curved warning ribbon in Stage B', () => {
     for (const loc of ['ar', 'en']) {
       store.set('wsh_locale', loc);
       const html = renderToStaticMarkup(
@@ -168,13 +168,18 @@ try {
             onTap: () => {},
             isDetonated: false,
             isSackDropping: false,
+            timerSeconds: 10,
+            phase: 'brawl',
           })
         )
       );
 
-      assert.ok(html.includes('TAP!'), 'Mustard Sack has TAP! callout badge');
+      // Belly label & biohazard
+      assert.ok(html.includes('MUSTARD BOMB') || html.includes('قنبلة الخردل'), 'Mustard Sack has belly label');
       assert.ok(html.includes('polygon'), 'Has biohazard / triangle polygon');
-      assert.ok(html.includes('stroke-dashoffset') || html.includes('strokeDashoffset'), 'Has pressure arc gauge SVG');
+      assert.ok(html.includes('stroke-dashoffset') || html.includes('strokeDashoffset'), 'Has circular progress ring SVG');
+      // Arcade warning ribbon
+      assert.ok(html.includes('CLICK THE MUSTARD BOMB') || html.includes('اضغط لتفجير'), 'Has arcade warning ribbon');
     }
   });
 
@@ -305,8 +310,8 @@ try {
     );
 
     // Neon cyan & magenta trims
-    assert.ok(html.includes('#00F0FF'), 'Has cyan neon trim');
-    assert.ok(html.includes('#BD00FF'), 'Has magenta/purple neon trim');
+    assert.ok(html.includes('#22D3EE') || html.includes('#00F0FF'), 'Has cyan neon trim');
+    assert.ok(html.includes('#EC4899') || html.includes('#BD00FF'), 'Has magenta/purple neon trim');
 
     // Dropped Corner Banners
     assert.ok(html.includes('Burger A'), 'Left banner has Burger A');

@@ -68,7 +68,6 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
   // Phase management: fighter_select (10s) -> squad_fusion (5.5s) -> brawl (15s) -> podium -> completed
   const [phase, setPhase] = useState<EmojiClashPhase>('fighter_select');
   const [fusionStage, setFusionStage] = useState<SquadFusionStage>('fusion_intro');
-  const [isMustardAlertActive, setIsMustardAlertActive] = useState(false);
   const [timerSeconds, setTimerSeconds] = useState(10);
 
   // Participant emoji picks
@@ -241,21 +240,15 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
     };
   }, [phase]);
 
-  // Phase 3: The Brawl (15s) Countdown, Mustard Alert & Finale Choreography
+  // Phase 3: The Brawl (15s) Countdown & Finale Choreography
   useEffect(() => {
     if (phase !== 'brawl') return;
-
-    // Trigger Mustard Alert at 1.5s into brawl
-    const alertTimer = setTimeout(() => {
-      setIsMustardAlertActive(true);
-    }, 1500);
 
     const interval = setInterval(() => {
       setTimerSeconds((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
           // Transition to podium, clean up brawl particles
-          setIsMustardAlertActive(false);
           setProjectiles([]);
           setPhase('podium');
           return 0;
@@ -280,7 +273,6 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
     }, 1000);
 
     return () => {
-      clearTimeout(alertTimer);
       clearInterval(interval);
     };
   }, [phase, currentTaps, targetTaps]);
@@ -366,14 +358,19 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
   }, [participants, picksByParticipant, restaurants, winnerRestaurantId, battleSeed]);
 
   // Handle Mustard Sack Tap
+  const lastTapBroadcastRef = useRef<number>(0);
   const handleMustardTap = () => {
     if (phase !== 'brawl') return;
     setCurrentTaps((prev) => prev + 1);
-    void broadcastEmojiClash(roomId, {
-      type: 'mustard_tap',
-      participantId: currentParticipantId,
-      tapIndex: currentTaps + 1,
-    });
+    const now = Date.now();
+    if (now - lastTapBroadcastRef.current >= 250) {
+      lastTapBroadcastRef.current = now;
+      void broadcastEmojiClash(roomId, {
+        type: 'mustard_tap',
+        participantId: currentParticipantId,
+        tapIndex: currentTaps + 1,
+      });
+    }
   };
 
   // Handle Spice / Garlic / Fire Throw from 3D Ability Dock
@@ -446,35 +443,37 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
           transition={{ duration: 0.25 }}
           className="relative w-full max-w-[390px] h-[92dvh] max-h-[760px] bg-gradient-to-b from-[#101735] via-[#0D132D] to-[#070914] rounded-3xl border-3 border-[#241B18] shadow-[0_10px_0_#241B18] flex flex-col justify-between overflow-hidden"
         >
-          {/* TOP HEADER HUD: Bilingual Game Title + Bold Golden Countdown Timer + Connected Avatars */}
-          <div className="relative w-full px-3 pt-3 flex items-start justify-between z-40">
-            {/* Top-Left: Settings Gear Icon matching reference image */}
+          {/* TOP HEADER HUD: Matching Reference Mockup */}
+          <div className="relative w-full px-3 pt-3 flex items-center justify-between z-40">
+            {/* Top-Left: Blue Settings Gear Button matching reference */}
             <button
               type="button"
               onClick={onClose}
               title="Close / Exit"
-              className="w-9 h-9 rounded-full bg-[#4A90E2] border-2 border-[#1E3A8A] text-white flex items-center justify-center text-base shadow-[0_3px_0_#1E3A8A] active:translate-y-0.5 cursor-pointer hover:brightness-105"
+              className="w-9 h-9 rounded-full bg-[#4A90E2] border-2 border-[#1E3A8A] text-white flex items-center justify-center text-base shadow-[0_3px_0_#1E3A8A] active:translate-y-0.5 cursor-pointer hover:brightness-105 shrink-0"
             >
               ⚙️
             </button>
 
-            {/* Top-Center: Game Header & Big Golden Timer */}
-            <div className="flex flex-col items-center leading-none text-center">
-              <h2 className="text-base sm:text-lg font-black text-white font-alexandria tracking-tight drop-shadow-[0_2px_4px_#000]">
-                Emoji Clash
-              </h2>
-              <span className="text-xs font-bold text-cyan-300 font-alexandria drop-shadow-[0_1px_2px_#000]">
-                حرب الإيموجي
-              </span>
-
-              {/* Bold Golden Countdown Timer Digits (09, 08...) matching reference */}
-              <div className="mt-1 text-2xl sm:text-3xl font-black text-[#FFD700] font-alexandria tracking-widest drop-shadow-[0_2px_8px_rgba(255,215,0,0.6)]">
+            {/* Top-Center: Game Title & Golden Countdown Timer Side-by-Side per Reference */}
+            <div className="flex items-center gap-2 bg-black/55 px-3 py-1 rounded-2xl border border-white/20 backdrop-blur-xs shadow-md">
+              <div className="flex flex-col items-center leading-none">
+                <span className="text-xs sm:text-sm font-black text-white font-alexandria tracking-tight">
+                  Emoji Clash
+                </span>
+                <span className="text-[10px] font-bold text-cyan-300 font-alexandria">
+                  حرب الإيموجي
+                </span>
+              </div>
+              <span className="text-white/40 font-bold text-xs">&</span>
+              {/* Bold Golden Countdown Timer Box */}
+              <div className="min-w-[34px] px-1.5 py-0.5 rounded-lg bg-gradient-to-b from-amber-400 to-yellow-500 border border-amber-300 text-black font-black text-sm sm:text-base font-alexandria flex items-center justify-center shadow-[0_2px_0_#B45309]">
                 {String(timerSeconds).padStart(2, '0')}
               </div>
             </div>
 
-            {/* Top-Right: Cluster of Connected Circular Player Avatars matching reference image */}
-            <div className="grid grid-cols-2 gap-1 p-1 bg-black/40 rounded-2xl border border-white/20 backdrop-blur-xs">
+            {/* Top-Right: Cluster of Connected Circular Player Avatars */}
+            <div className="flex items-center -space-x-1.5 rtl:space-x-reverse p-1 bg-black/40 rounded-full border border-white/20 backdrop-blur-xs shrink-0">
               {participants.slice(0, 4).map((p) => (
                 <div
                   key={p.id}
@@ -512,7 +511,8 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
                   onTap={handleMustardTap}
                   isDetonated={mustardDetonated}
                   isSackDropping={isSackDropping}
-                  isAlertActive={isMustardAlertActive}
+                  timerSeconds={timerSeconds}
+                  phase={phase}
                 />
 
                 {/* 2.5D Octagonal Battle Ring Stage */}
