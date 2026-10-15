@@ -71,7 +71,7 @@ function ArenaViewer() {
   }, [
     React.createElement('div', {
       key: 'modal',
-      className: 'relative w-full max-w-[390px] h-[92dvh] max-h-[760px] bg-gradient-to-b from-[#101735] via-[#0D132D] to-[#070914] rounded-3xl border-3 border-[#241B18] shadow-[0_10px_0_#241B18] flex flex-col justify-between overflow-hidden'
+      className: 'relative w-full max-w-[410px] h-[100dvh] max-h-[840px] mx-auto bg-gradient-to-b from-[#101735] via-[#0D132D] to-[#070914] sm:rounded-3xl border-0 sm:border-3 sm:border-[#241B18] shadow-[0_10px_0_#241B18] flex flex-col justify-between overflow-hidden'
     }, [
       // Top Header HUD
       React.createElement('div', {
@@ -93,7 +93,6 @@ function ArenaViewer() {
             React.createElement('span', { key: 'en', className: 'text-xs sm:text-sm font-black text-white font-alexandria tracking-tight' }, 'Emoji Clash'),
             React.createElement('span', { key: 'ar', className: 'text-[10px] font-bold text-cyan-300 font-alexandria' }, 'حرب الإيموجي')
           ]),
-          React.createElement('span', { key: 'amp', className: 'text-white/40 font-bold text-xs' }, '&'),
           React.createElement('div', {
             key: 'timer-box',
             className: 'min-w-[34px] px-1.5 py-0.5 rounded-lg bg-gradient-to-b from-amber-400 to-yellow-500 border border-amber-300 text-black font-black text-sm sm:text-base font-alexandria flex items-center justify-center shadow-[0_2px_0_#B45309]'
@@ -134,7 +133,8 @@ function ArenaViewer() {
           projectiles: [],
           mustardDetonated: false,
           goldenKnockoutTriggered: false,
-          restaurants: mockRestaurants
+          restaurants: mockRestaurants,
+          isAct2: brawlTimer <= 6
         })
       ]),
 
@@ -145,7 +145,8 @@ function ArenaViewer() {
       }, [
         React.createElement(TactileCyclingDock, {
           key: 'dock',
-          onThrow: () => {}
+          onThrow: () => {},
+          disabled: brawlTimer <= 6
         })
       ])
     ])
@@ -298,8 +299,8 @@ try {
   writeFileSync(pathA, Buffer.from(shotA.data, 'base64'));
   console.log(`✓ Screenshot A captured: ${pathA}`);
 
-  // --- SCREENSHOT B: Mid Brawl at 10s (Stage B with dropped Mustard Bomb and Warning Ribbon) ---
-  await cdp.evaluate('window.__SET_TIMER__(10, 14)');
+  // --- SCREENSHOT B: Act 2 Brawl at 4s (Stage B with dropped Mustard Bomb and Warning Ribbon) ---
+  await cdp.evaluate('window.__SET_TIMER__(4, 12)');
   await new Promise((r) => setTimeout(r, 500));
 
   const shotB = await cdp.send('Page.captureScreenshot', { format: 'png' });

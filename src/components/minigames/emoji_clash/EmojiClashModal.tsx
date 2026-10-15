@@ -65,19 +65,18 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
 }) => {
   const { locale } = useLocale();
 
-  // Phase management: fighter_select (10s) -> squad_fusion (5.5s) -> brawl (15s) -> podium -> completed
+  // Phase management: fighter_select (6s) -> squad_fusion (5s) -> brawl (15s) -> podium (4s) -> completed
   const [phase, setPhase] = useState<EmojiClashPhase>('fighter_select');
   const [fusionStage, setFusionStage] = useState<SquadFusionStage>('fusion_intro');
-  const [timerSeconds, setTimerSeconds] = useState(10);
+  const [timerSeconds, setTimerSeconds] = useState(6);
 
   // Participant emoji picks
   const [picksByParticipant, setPicksByParticipant] = useState<Record<string, EmojiFighterId>>({});
   const [myFighterId, setMyFighterId] = useState<EmojiFighterId | null>(null);
 
-  // Mustard Sack Tap Mechanic
+  // Active participants & dynamic group tap target
   const activeParticipants = participants.filter((p) => p.status === 'active' || !p.status);
   const activePlayerCount = Math.max(1, activeParticipants.length);
-  // Dynamic Group Tap Target: Math.min(45, Math.max(12, activePlayerCount * 7))
   const targetTaps = useMemo(
     () => Math.min(45, Math.max(12, activePlayerCount * 7)),
     [activePlayerCount]
@@ -92,8 +91,74 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
   // Active projectiles in flight
   const [projectiles, setProjectiles] = useState<ProjectileVFX[]>([]);
 
-  // Prevent multiple confirmations
+  // Prevent multiple confirmations or duplicate detonations
   const isFinalizingRef = useRef(false);
+  const isDetonatedRef = useRef(false);
+  const currentTapsRef = useRef(0);
+  const targetTapsRef = useRef(targetTaps);
+  targetTapsRef.current = targetTaps;
+  const phaseRef = useRef<EmojiClashPhase>('fighter_select');
+  phaseRef.current = phase;
+  const phaseEndTimeRef = useRef<number>(Date.now() + 6000);
+  const lastTapBroadcastRef = useRef<number>(0);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
+  // Immediate 100% Detonation Trigger
+  const triggerDetonationFinale = useCallback(() => {
+    if (isDetonatedRef.current) return;
+    isDetonatedRef.current = true;
+    setIsSackDropping(true);
+    setMustardDetonated(true);
+
+    // Transition straight to Champion Podium after splatter impact without waiting for Act 2 clock
+    setTimeout(() => {
+      setProjectiles([]);
+      setPhase('podium');
+    }, 900);
+  }, []);
+
+  // Golden Super-Aura Knockout (if clock expires before 100% taps)
+  const triggerGoldenKnockout = useCallback(() => {
+    if (isDetonatedRef.current || goldenKnockoutTriggered) return;
+    setGoldenKnockoutTriggered(true);
+
+    setTimeout(() => {
+      setProjectiles([]);
+      setPhase('podium');
+    }, 800);
+  }, [goldenKnockoutTriggered]);
+
+  // Confirm Winner (Server Authoritative finalization - exactly once)
+  const handleConfirmWinnerClick = useCallback(async () => {
+    if (isFinalizingRef.current) return;
+    isFinalizingRef.current = true;
+    setPhase('completed');
+
+    const winningItem =
+      restaurants.find((r) => r.id === winnerRestaurantId) || restaurants[0];
+
+    if (isHost) {
+      try {
+        await broadcastEmojiClash(roomId, {
+          type: 'emoji_clash_finalized',
+          winnerRestaurantId: winningItem.id,
+        });
+      } catch (e) {
+        console.warn('Failed to broadcast emoji_clash_finalized', e);
+      }
+    }
+
+    void onWinnerConfirmed(winningItem);
+  }, [isHost, onWinnerConfirmed, restaurants, roomId, winnerRestaurantId]);
 
   // Subscribe to realtime messages across players
   useEffect(() => {
@@ -106,9 +171,13 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
           [msg.participantId]: msg.fighterId,
         }));
       } else if (msg.type === 'mustard_tap') {
-        setCurrentTaps((prev) => prev + 1);
+        const newTaps = currentTapsRef.current + 1;
+        currentTapsRef.current = newTaps;
+        setCurrentTaps(newTaps);
+        if (newTaps >= targetTapsRef.current && phaseRef.current === 'brawl') {
+          triggerDetonationFinale();
+        }
       } else if (msg.type === 'spice_throw') {
-        // Optimistic projectile from other players
         setProjectiles((prev) => [
           ...prev.slice(-4),
           {
@@ -134,7 +203,99 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
     });
 
     return () => unsubscribe();
-  }, [isOpen, roomId, restaurants, winnerRestaurantId, onWinnerConfirmed]);
+  }, [isOpen, roomId, restaurants, winnerRestaurantId, onWinnerConfirmed, triggerDetonationFinale]);
+
+  // Advance to Phase 2: Squad Fusion (5s total: 0-2.5s fusion_intro, 2.5-5.0s fight_callout)
+  const advanceToSquadFusion = useCallback(() => {
+    if (phaseRef.current !== 'fighter_select') return;
+
+    // Auto-pick fallback for any player who hasn't picked deterministically via battleSeed
+    setPicksByParticipant((prev) => {
+      const fallbackPicks = { ...prev };
+      participants.forEach((p, index) => {
+        if (!fallbackPicks[p.id]) {
+          const fallbackFighter = EMOJI_FIGHTERS[(battleSeed + index) % EMOJI_FIGHTERS.length];
+          fallbackPicks[p.id] = fallbackFighter.id;
+        }
+      });
+      return fallbackPicks;
+    });
+
+    setPhase('squad_fusion');
+    setFusionStage('fusion_intro');
+  }, [participants, battleSeed]);
+
+  // Phase 1 Early Lock-In Check (Auto-advances if all active players pick before 6s)
+  useEffect(() => {
+    if (phase !== 'fighter_select') return;
+
+    const allActivePicked =
+      activeParticipants.length > 0 &&
+      activeParticipants.every((p) =>
+        Boolean(picksByParticipant[p.id] || (p.id === currentParticipantId && myFighterId))
+      );
+
+    if (allActivePicked) {
+      advanceToSquadFusion();
+    }
+  }, [phase, activeParticipants, picksByParticipant, myFighterId, currentParticipantId, advanceToSquadFusion]);
+
+  // Wall-Clock Monotonic Timeline & Phase Orchestration
+  useEffect(() => {
+    if (!isOpen || phase === 'completed') return;
+
+    // Phase 1: 6s | Phase 2: 5s | Phase 3: 15s (Act 1: 9s, Act 2: 6s) | Phase 4: 4s
+    let durationMs = 6000;
+    if (phase === 'fighter_select') {
+      durationMs = 6000;
+    } else if (phase === 'squad_fusion') {
+      durationMs = 5000;
+      setFusionStage('fusion_intro');
+    } else if (phase === 'brawl') {
+      durationMs = 15000;
+    } else if (phase === 'podium') {
+      durationMs = 4000;
+    }
+
+    phaseEndTimeRef.current = Date.now() + durationMs;
+    setTimerSeconds(Math.ceil(durationMs / 1000));
+
+    let calloutTimeout: ReturnType<typeof setTimeout> | null = null;
+    if (phase === 'squad_fusion') {
+      calloutTimeout = setTimeout(() => {
+        setFusionStage('fight_callout');
+      }, 2500);
+    }
+
+    // 200ms lightweight poller comparing Date.now() against phaseEndTimeRef
+    // Zero reactive state dependencies inside poller, ensuring taps never delay or freeze the clock
+    const poller = setInterval(() => {
+      const remainingMs = phaseEndTimeRef.current - Date.now();
+      const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
+      setTimerSeconds(remainingSec);
+
+      if (remainingMs <= 0) {
+        clearInterval(poller);
+
+        if (phase === 'fighter_select') {
+          advanceToSquadFusion();
+        } else if (phase === 'squad_fusion') {
+          setPhase('brawl');
+        } else if (phase === 'brawl') {
+          if (!isDetonatedRef.current) {
+            triggerGoldenKnockout();
+          }
+        } else if (phase === 'podium') {
+          void handleConfirmWinnerClick();
+        }
+      }
+    }, 200);
+
+    return () => {
+      clearInterval(poller);
+      if (calloutTimeout) clearTimeout(calloutTimeout);
+    };
+  }, [isOpen, phase, advanceToSquadFusion, triggerGoldenKnockout, handleConfirmWinnerClick]);
 
   // Handle Fighter Selection
   const handleSelectFighter = (fighter: EmojiFighterOption) => {
@@ -156,133 +317,60 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
     });
   };
 
-  // Phase 1: 10s Countdown Timer
-  useEffect(() => {
-    if (phase !== 'fighter_select') return;
+  // Handle Mustard Bomb Tap
+  const handleMustardTap = () => {
+    if (phaseRef.current !== 'brawl' || isDetonatedRef.current) return;
+    const newTaps = currentTapsRef.current + 1;
+    currentTapsRef.current = newTaps;
+    setCurrentTaps(newTaps);
 
-    const interval = setInterval(() => {
-      setTimerSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
+    const now = Date.now();
+    if (now - lastTapBroadcastRef.current >= 200) {
+      lastTapBroadcastRef.current = now;
+      void broadcastEmojiClash(roomId, {
+        type: 'mustard_tap',
+        participantId: currentParticipantId,
+        tapIndex: newTaps,
       });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [phase]);
-
-  // Transition from Phase 1 to Phase 2 (Squad Fusion)
-  useEffect(() => {
-    if (phase !== 'fighter_select') return;
-
-    const allActivePicked =
-      activeParticipants.length > 0 &&
-      activeParticipants.every((p) => Boolean(picksByParticipant[p.id] || (p.id === currentParticipantId && myFighterId)));
-
-    if (timerSeconds === 0 || allActivePicked) {
-      // Auto-pick fallback for any player who hasn't picked deterministically via battleSeed
-      const fallbackPicks = { ...picksByParticipant };
-      participants.forEach((p, index) => {
-        if (!fallbackPicks[p.id]) {
-          const fallbackFighter = EMOJI_FIGHTERS[(battleSeed + index) % EMOJI_FIGHTERS.length];
-          fallbackPicks[p.id] = fallbackFighter.id;
-        }
-      });
-      setPicksByParticipant(fallbackPicks);
-
-      // Advance to Phase 2 (Squad Fusion - 5.5s staged)
-      setPhase('squad_fusion');
-      setFusionStage('fusion_intro');
-      setTimerSeconds(5);
     }
-  }, [
-    timerSeconds,
-    phase,
-    activeParticipants,
-    picksByParticipant,
-    myFighterId,
-    currentParticipantId,
-    participants,
-    battleSeed,
-  ]);
 
-  // Phase 2: Squad Fusion (5.5s total: 0-2.0s fusion_intro, 2.0-4.5s banner_drop, 4.5-5.5s fight_callout)
-  useEffect(() => {
-    if (phase !== 'squad_fusion') return;
+    if (newTaps >= targetTapsRef.current) {
+      triggerDetonationFinale();
+    }
+  };
 
-    setFusionStage('fusion_intro');
-    setTimerSeconds(5);
-
-    const t1 = setTimeout(() => {
-      setFusionStage('banner_drop');
-    }, 2000);
-
-    const t2 = setTimeout(() => {
-      setFusionStage('fight_callout');
-    }, 4500);
-
-    const t3 = setTimeout(() => {
-      setPhase('brawl');
-      setTimerSeconds(15); // 15-second arena brawl
-    }, 5500);
-
-    const countdownInterval = setInterval(() => {
-      setTimerSeconds((prev) => Math.max(0, prev - 1));
-    }, 1000);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearInterval(countdownInterval);
-    };
-  }, [phase]);
-
-  // Phase 3: The Brawl (15s) Countdown & Finale Choreography
-  useEffect(() => {
+  // Handle Spice / Garlic / Fire Throw from 3D Ability Dock
+  const handleSpiceThrow = (item: SpiceItemType) => {
     if (phase !== 'brawl') return;
 
-    const interval = setInterval(() => {
-      setTimerSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          // Transition to podium, clean up brawl particles
-          setProjectiles([]);
-          setPhase('podium');
-          return 0;
-        }
-
-        // At 2s remaining, evaluate strict binary finale
-        if (prev === 2) {
-          if (currentTaps >= targetTaps) {
-            // STRICT BINARY FINALE CASE 1: 100% REACHED -> MUSTARD SACK DETONATION
-            setIsSackDropping(true);
-            setTimeout(() => {
-              setMustardDetonated(true);
-            }, 300);
-          } else {
-            // STRICT BINARY FINALE CASE 2: < 100% -> GOLDEN SUPER-AURA KNOCKOUT
-            setGoldenKnockoutTriggered(true);
-          }
-        }
-
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
+    const throwSeed = Math.random();
+    const newProj: ProjectileVFX = {
+      id: Date.now() + Math.random(),
+      item,
+      startX: 0,
+      startY: 120,
+      targetX: (Math.random() - 0.5) * 60,
+      targetY: 0,
     };
-  }, [phase, currentTaps, targetTaps]);
+    setProjectiles((prev) => [...prev.slice(-4), newProj]);
+
+    void broadcastEmojiClash(roomId, {
+      type: 'spice_throw',
+      participantId: currentParticipantId,
+      item,
+      throwAngle: 45,
+      throwSeed,
+    });
+  };
 
   // Construct Active Emoji Squads with Multi-Emoji Scaling (2 to 8 squads)
   const squads = useMemo<EmojiSquad[]>(() => {
     const tiedRestaurants = restaurants.length >= 2 ? restaurants : restaurants.slice(0, 2);
 
-    // Group active picks by fighter ID
-    const grouped: Record<string, { fighterId: EmojiFighterId; members: { participantId: string; nickname: string; playerColor?: string }[] }> = {};
+    const grouped: Record<
+      string,
+      { fighterId: EmojiFighterId; members: { participantId: string; nickname: string; playerColor?: string }[] }
+    > = {};
     participants.forEach((p, idx) => {
       const fId = picksByParticipant[p.id] || EMOJI_FIGHTERS[(battleSeed + idx) % EMOJI_FIGHTERS.length].id;
       if (!grouped[fId]) {
@@ -297,8 +385,6 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
 
     let distinctFighterEntries = Object.values(grouped);
 
-    // Clone Edge Case: If all picked the exact same emoji or fewer unique emojis than tied restaurants,
-    // split/clone into rival squads so every tied restaurant has a distinct champion squad in the ring
     if (distinctFighterEntries.length < tiedRestaurants.length) {
       const clonesNeeded = tiedRestaurants.length - distinctFighterEntries.length;
       for (let i = 0; i < clonesNeeded; i++) {
@@ -316,14 +402,9 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
       }
     }
 
-    // Limit to max 8 squads for mobile screen sanity
     distinctFighterEntries = distinctFighterEntries.slice(0, 8);
     const squadCount = distinctFighterEntries.length;
 
-    // Multi-Emoji Scaling per requirements:
-    // 2 Squads: 72px (Mega: 88px)
-    // 3-4 Squads: 56px (Mega: 70px)
-    // 5-8 Squads: 46px (Mega: 58px)
     let normalSize = 56;
     let megaSize = 70;
     if (squadCount === 2) {
@@ -357,95 +438,24 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
     });
   }, [participants, picksByParticipant, restaurants, winnerRestaurantId, battleSeed]);
 
-  // Handle Mustard Sack Tap
-  const lastTapBroadcastRef = useRef<number>(0);
-  const handleMustardTap = () => {
-    if (phase !== 'brawl') return;
-    setCurrentTaps((prev) => prev + 1);
-    const now = Date.now();
-    if (now - lastTapBroadcastRef.current >= 250) {
-      lastTapBroadcastRef.current = now;
-      void broadcastEmojiClash(roomId, {
-        type: 'mustard_tap',
-        participantId: currentParticipantId,
-        tapIndex: currentTaps + 1,
-      });
-    }
-  };
-
-  // Handle Spice / Garlic / Fire Throw from 3D Ability Dock
-  const handleSpiceThrow = (item: SpiceItemType) => {
-    if (phase !== 'brawl') return;
-
-    const throwSeed = Math.random();
-    const newProj: ProjectileVFX = {
-      id: Date.now() + Math.random(),
-      item,
-      startX: 0,
-      startY: 120,
-      targetX: (Math.random() - 0.5) * 60,
-      targetY: 0,
-    };
-    setProjectiles((prev) => [...prev.slice(-4), newProj]);
-
-    void broadcastEmojiClash(roomId, {
-      type: 'spice_throw',
-      participantId: currentParticipantId,
-      item,
-      throwAngle: 45,
-      throwSeed,
-    });
-  };
-
-  // Confirm Winner (Server Authoritative finalization - exactly once)
-  const handleConfirmWinnerClick = useCallback(async () => {
-    if (isFinalizingRef.current) return;
-    isFinalizingRef.current = true;
-    setPhase('completed');
-
-    const winningItem =
-      restaurants.find((r) => r.id === winnerRestaurantId) || restaurants[0];
-
-    if (isHost) {
-      try {
-        await broadcastEmojiClash(roomId, {
-          type: 'emoji_clash_finalized',
-          winnerRestaurantId: winningItem.id,
-        });
-      } catch (e) {
-        console.warn('Failed to broadcast emoji_clash_finalized', e);
-      }
-    }
-
-    void onWinnerConfirmed(winningItem);
-  }, [isHost, onWinnerConfirmed, restaurants, roomId, winnerRestaurantId]);
-
-  // Phase 4: Championship Podium Auto-Advance after 3.5s
-  useEffect(() => {
-    if (phase !== 'podium') return;
-
-    const autoAdvanceTimer = setTimeout(() => {
-      void handleConfirmWinnerClick();
-    }, 3500);
-
-    return () => clearTimeout(autoAdvanceTimer);
-  }, [phase, handleConfirmWinnerClick]);
+  // Act 2 Boss Showdown begins at 6s remaining in Phase 3
+  const isAct2 = phase === 'brawl' && timerSeconds <= 6;
 
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md select-none overflow-hidden">
+      <div className="fixed inset-0 w-screen h-[100dvh] overflow-hidden touch-manipulation select-none z-[9999] bg-black/85 backdrop-blur-md flex items-center justify-center p-0 sm:p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.25 }}
-          className="relative w-full max-w-[390px] h-[92dvh] max-h-[760px] bg-gradient-to-b from-[#101735] via-[#0D132D] to-[#070914] rounded-3xl border-3 border-[#241B18] shadow-[0_10px_0_#241B18] flex flex-col justify-between overflow-hidden"
+          className="relative w-full max-w-[410px] h-[100dvh] max-h-[840px] mx-auto bg-gradient-to-b from-[#101735] via-[#0D132D] to-[#070914] sm:rounded-3xl border-0 sm:border-3 sm:border-[#241B18] shadow-[0_10px_0_#241B18] flex flex-col justify-between overflow-hidden"
         >
-          {/* TOP HEADER HUD: Matching Reference Mockup */}
+          {/* TOP HEADER HUD: Clean & Organized */}
           <div className="relative w-full px-3 pt-3 flex items-center justify-between z-40">
-            {/* Top-Left: Blue Settings Gear Button matching reference */}
+            {/* Top-Left: Blue Settings Gear Button */}
             <button
               type="button"
               onClick={onClose}
@@ -455,7 +465,7 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
               ⚙️
             </button>
 
-            {/* Top-Center: Game Title & Golden Countdown Timer Side-by-Side per Reference */}
+            {/* Top-Center: Game Title & Golden Countdown Timer Side-by-Side (No stray '&') */}
             <div className="flex items-center gap-2 bg-black/55 px-3 py-1 rounded-2xl border border-white/20 backdrop-blur-xs shadow-md">
               <div className="flex flex-col items-center leading-none">
                 <span className="text-xs sm:text-sm font-black text-white font-alexandria tracking-tight">
@@ -465,7 +475,6 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
                   حرب الإيموجي
                 </span>
               </div>
-              <span className="text-white/40 font-bold text-xs">&</span>
               {/* Bold Golden Countdown Timer Box */}
               <div className="min-w-[34px] px-1.5 py-0.5 rounded-lg bg-gradient-to-b from-amber-400 to-yellow-500 border border-amber-300 text-black font-black text-sm sm:text-base font-alexandria flex items-center justify-center shadow-[0_2px_0_#B45309]">
                 {String(timerSeconds).padStart(2, '0')}
@@ -528,6 +537,7 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
                   restaurants={restaurants}
                   onWinnerConfirmed={handleConfirmWinnerClick}
                   isHost={isHost}
+                  isAct2={isAct2}
                 />
               </>
             )}
@@ -536,7 +546,7 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
           {/* BOTTOM HUD LAYER: 3D CYCLING SPICE COOLDOWN DOCK */}
           <div className="w-full px-3 pb-3 z-40">
             {phase === 'brawl' ? (
-              <TactileCyclingDock onThrow={handleSpiceThrow} />
+              <TactileCyclingDock onThrow={handleSpiceThrow} disabled={isAct2} />
             ) : phase === 'fighter_select' ? (
               <div className="w-full text-center py-2 text-xs font-bold text-white/60 font-alexandria">
                 {locale === 'ar' ? 'النزال سيبدأ قريباً! 🔥' : 'Brawl starts in moments! 🔥'}
@@ -545,8 +555,6 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
               <div className="w-full text-center py-2 text-xs font-black text-amber-300 font-alexandria animate-pulse">
                 {fusionStage === 'fusion_intro'
                   ? (locale === 'ar' ? '⚡ تجهيز المقاتلين في ساحة النزال!' : '⚡ Assembling squads in the ring!')
-                  : fusionStage === 'banner_drop'
-                  ? (locale === 'ar' ? '🏷️ هبوط لافتات المطاعم المتنافسة!' : '🏷️ Restaurant Banners Dropping!')
                   : (locale === 'ar' ? '🥊 استعدوا لبدء المعركة!' : '🥊 GET READY TO BRAWL!')}
               </div>
             ) : (

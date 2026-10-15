@@ -168,7 +168,7 @@ try {
             onTap: () => {},
             isDetonated: false,
             isSackDropping: false,
-            timerSeconds: 10,
+            timerSeconds: 5,
             phase: 'brawl',
           })
         )
@@ -350,7 +350,7 @@ try {
 
     assert.ok(html.includes('Emoji Clash'), 'Header has Emoji Clash');
     assert.ok(html.includes('حرب الإيموجي'), 'Header has Arabic subtitle');
-    assert.ok(html.includes('10'), 'Countdown timer starts at 10');
+    assert.ok(html.includes('06'), 'Countdown timer starts at 06');
     assert.ok(html.includes('title="Host"'), 'Connected avatars include Host');
     assert.ok(html.includes('title="PlayerB"'), 'Connected avatars include PlayerB');
   });

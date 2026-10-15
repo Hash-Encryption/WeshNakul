@@ -105,7 +105,11 @@ export const TactileCyclingDock: React.FC<TactileCyclingDockProps> = ({
   }, []);
 
   return (
-    <div className="relative w-full max-w-sm mx-auto flex items-center justify-center py-2 select-none z-20">
+    <div
+      className={`relative w-full max-w-sm mx-auto flex items-center justify-center py-2 select-none z-20 transition-opacity duration-300 ${
+        disabled ? 'opacity-35 pointer-events-none' : 'opacity-100'
+      }`}
+    >
       <div className="relative flex items-center justify-center gap-3 sm:gap-6">
         {/* Left Flanking Glass Bubble: Fire / نار (or previous item in cycle) */}
         <div className="flex flex-col items-center gap-1">

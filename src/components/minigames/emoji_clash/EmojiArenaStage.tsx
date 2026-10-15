@@ -48,6 +48,7 @@ interface EmojiArenaStageProps {
   restaurants: RestaurantItem[];
   onWinnerConfirmed?: () => void;
   isHost?: boolean;
+  isAct2?: boolean;
 }
 
 export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
@@ -62,6 +63,7 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
   restaurants,
   onWinnerConfirmed,
   isHost = false,
+  isAct2 = false,
 }) => {
   const { locale } = useLocale();
 
@@ -343,6 +345,11 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
       <div className="absolute top-0 left-0 w-36 sm:w-48 h-full bg-gradient-to-br from-cyan-400/25 via-blue-500/10 to-transparent transform -skew-x-25 pointer-events-none blur-xs" />
       <div className="absolute top-0 right-0 w-36 sm:w-48 h-full bg-gradient-to-bl from-blue-400/25 via-indigo-500/10 to-transparent transform skew-x-25 pointer-events-none blur-xs" />
 
+      {/* Act 2 Boss Dimming Overlay */}
+      {isAct2 && !mustardDetonated && !goldenKnockoutTriggered && (
+        <div className="absolute inset-0 bg-black/40 pointer-events-none z-15 backdrop-blur-[0.5px] transition-opacity duration-700" />
+      )}
+
       {/* Floating Golden Ember Particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {Array.from({ length: 14 }).map((_, i) => (
@@ -440,26 +447,6 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
             </span>
             <span className="text-[11px] font-bold text-white/90 font-alexandria mt-0.5">
               {locale === 'ar' ? 'تشكيل الفرق على الحلبة' : 'Squads assembling on the ring'}
-            </span>
-          </motion.div>
-        )}
-
-        {phase === 'squad_fusion' && fusionStage === 'banner_drop' && (
-          <motion.div
-            key="banner_drop"
-            initial={{ y: -30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 15, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 22 }}
-            className="absolute top-6 z-50 pointer-events-none flex flex-col items-center bg-[#241B18]/90 px-4 py-1.5 rounded-full border-2 border-[#FFD700] shadow-[0_6px_16px_rgba(0,0,0,0.8)]"
-          >
-            <span className="text-xs sm:text-sm font-black text-[#FFD700] font-alexandria tracking-wide flex items-center gap-1.5">
-              <span>🏷️</span>
-              <span>
-                {locale === 'ar'
-                  ? 'هبوط لافتات المطاعم المتنافسة!'
-                  : 'Tied Restaurant Banners Dropping!'}
-              </span>
             </span>
           </motion.div>
         )}
@@ -719,7 +706,7 @@ export const EmojiArenaStage: React.FC<EmojiArenaStageProps> = ({
         </AnimatePresence>
 
         {/* FIGHTER EMOJI SQUADS ON THE 2.5D OCTAGON RING (Clean, No Duplicate Pills) */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
           {squads.map((sq, idx) => {
             const isWinner = sq.restaurant.id === winningRestaurantId;
             const isKnockedOut = knockedOutSquadIds.has(sq.squadId);
