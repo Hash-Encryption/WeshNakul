@@ -390,23 +390,20 @@ try {
   );
   console.log('✓ Winner strictly hidden during wheel spin across all clients');
 
-  // 2. Wait for wheel to complete rotation and land on winner's slice
+  // 2. Wait for wheel to complete rotation and land on winner's slice across both clients
   console.log('Waiting for wheel deceleration and landing...');
-  let landed = false;
-  for (let i = 0; i < 20; i++) {
-    const text = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
-    if (text.includes('Lina') || text.includes('لينة')) {
-      landed = true;
-      break;
-    }
+  let hostLanded = false;
+  let guestLanded = false;
+  for (let i = 0; i < 30; i++) {
+    const hostText = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
+    const guestText = await evalInBrowser('document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText || ""');
+    if (hostText.includes('Lina') || hostText.includes('لينة')) hostLanded = true;
+    if (guestText.includes('Lina') || guestText.includes('لينة')) guestLanded = true;
+    if (hostLanded && guestLanded) break;
     await new Promise((r) => setTimeout(r, 350));
   }
-  assert.ok(landed, 'Wheel completed landing and revealed winner on Host');
-
-  const hostBannerText = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
-  const guestBannerText = await evalInBrowser('document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText || ""');
-  assert.ok(hostBannerText.includes('Lina') || hostBannerText.includes('لينة'), 'Host displays provisional captain Lina after landing');
-  assert.ok(guestBannerText.includes('Lina') || guestBannerText.includes('لينة'), 'Guest displays same provisional captain Lina after landing');
+  assert.ok(hostLanded, 'Wheel completed landing and revealed winner on Host');
+  assert.ok(guestLanded, 'Wheel completed landing and revealed winner on Guest');
   console.log('✓ Connected clients synchronize on same provisional captain in real browser');
 
   // ========================================================

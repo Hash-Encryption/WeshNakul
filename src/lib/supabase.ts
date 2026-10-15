@@ -4,6 +4,7 @@ import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';
 import type { CaptainEventState, CaptainRealtimeMessage } from '../types/captain';
 import type { ShuffleCardsRealtimeMessage } from '../types/shuffleCards';
+import type { EmojiClashRealtimeMessage } from '../types/emojiClash';
 import { cacheDeckRestaurants } from './restaurantRepository';
 import { getOrCreateSessionToken, generateRoomCode } from './session';
 import { normalizeRestaurantDeck } from './restaurantNormalization';
@@ -644,7 +645,7 @@ export function subscribeToSuddenDeath(
 
 export async function broadcastSuddenDeathVote(
   roomId: string,
-  vote: { participantId: string; restaurantId: string }
+  vote: { participantId: string; restaurantId: string; timestamp?: number; roundIndex?: number }
 ): Promise<void> {
   if (supabase) {
     try {
@@ -666,12 +667,11 @@ export async function broadcastSuddenDeathVote(
       console.warn('Supabase broadcastSuddenDeathVote failed', e);
     }
   }
-
 }
 
 export function subscribeToSuddenDeathVote(
   roomId: string,
-  callback: (vote: { participantId: string; restaurantId: string }) => void
+  callback: (vote: { participantId: string; restaurantId: string; timestamp?: number; roundIndex?: number }) => void
 ): () => void {
   let channel: any = null;
 
@@ -683,6 +683,8 @@ export function subscribeToSuddenDeathVote(
           callback({
             participantId: payload.payload.participantId,
             restaurantId: payload.payload.restaurantId,
+            timestamp: payload.payload.timestamp,
+            roundIndex: payload.payload.roundIndex,
           });
         }
       })
@@ -940,13 +942,23 @@ export async function getCaptainEventState(
   return data as CaptainEventState | null;
 }
 
+interface MultiplexedChannel<T> {
+  channel: any;
+  listeners: Set<(msg: T) => void>;
+}
+
+const captainChannels = new Map<string, MultiplexedChannel<CaptainRealtimeMessage>>();
+const shuffleCardsChannels = new Map<string, MultiplexedChannel<ShuffleCardsRealtimeMessage>>();
+const emojiClashChannels = new Map<string, MultiplexedChannel<EmojiClashRealtimeMessage>>();
+
 export async function broadcastCaptainMessage(
   roomId: string,
   message: CaptainRealtimeMessage
 ): Promise<void> {
   if (supabase) {
     try {
-      const channel = supabase.channel(`captain:${roomId}`);
+      const existing = captainChannels.get(roomId);
+      const channel = existing?.channel || supabase.channel(`captain:${roomId}`);
       if (channel.state !== 'joined') {
         await new Promise<void>((resolve) => {
           channel.subscribe((status: string) => {
@@ -970,27 +982,47 @@ export function subscribeToCaptainEvents(
   roomId: string,
   callback: (msg: CaptainRealtimeMessage) => void
 ): () => void {
-  let channel: any = null;
+  if (!supabase) return () => {};
 
-  if (supabase) {
-    channel = supabase
+  let entry = captainChannels.get(roomId);
+  if (!entry) {
+    const channel = supabase
       .channel(`captain:${roomId}`)
       .on('broadcast', { event: 'captain_message' }, (payload: any) => {
         const msg = payload?.payload?.message as CaptainRealtimeMessage | undefined;
         if (msg && msg.type && msg.eventId) {
-          callback(msg);
+          const currentEntry = captainChannels.get(roomId);
+          if (currentEntry) {
+            currentEntry.listeners.forEach((listener) => {
+              try {
+                listener(msg);
+              } catch (err) {
+                console.error('[subscribeToCaptainEvents] listener error', err);
+              }
+            });
+          }
         }
-      })
-      .subscribe(reportRealtimeStatus);
+      });
+
+    channel.subscribe(reportRealtimeStatus);
+    entry = { channel, listeners: new Set([callback]) };
+    captainChannels.set(roomId, entry);
+  } else {
+    entry.listeners.add(callback);
   }
 
   return () => {
-    if (supabase && channel) {
-      supabase.removeChannel(channel);
+    const currentEntry = captainChannels.get(roomId);
+    if (!currentEntry) return;
+    currentEntry.listeners.delete(callback);
+    if (currentEntry.listeners.size === 0) {
+      captainChannels.delete(roomId);
+      if (supabase && currentEntry.channel) {
+        supabase.removeChannel(currentEntry.channel);
+      }
     }
   };
 }
-
 
 export async function broadcastShuffleCards(
   roomId: string,
@@ -998,7 +1030,8 @@ export async function broadcastShuffleCards(
 ): Promise<void> {
   if (supabase) {
     try {
-      const channel = supabase.channel(`minigames:${roomId}`);
+      const existing = shuffleCardsChannels.get(roomId);
+      const channel = existing?.channel || supabase.channel(`minigames:${roomId}`);
       if (channel.state !== 'joined') {
         await new Promise<void>((resolve) => {
           channel.subscribe((status: string) => {
@@ -1022,23 +1055,118 @@ export function subscribeToShuffleCards(
   roomId: string,
   callback: (msg: ShuffleCardsRealtimeMessage) => void
 ): () => void {
-  let channel: any = null;
+  if (!supabase) return () => {};
 
-  if (supabase) {
-    channel = supabase
+  let entry = shuffleCardsChannels.get(roomId);
+  if (!entry) {
+    const channel = supabase
       .channel(`minigames:${roomId}`)
       .on('broadcast', { event: 'shuffle_cards_message' }, (payload: any) => {
         const msg = payload?.payload?.message as ShuffleCardsRealtimeMessage | undefined;
         if (msg && msg.type) {
-          callback(msg);
+          const currentEntry = shuffleCardsChannels.get(roomId);
+          if (currentEntry) {
+            currentEntry.listeners.forEach((listener) => {
+              try {
+                listener(msg);
+              } catch (err) {
+                console.error('[subscribeToShuffleCards] listener error', err);
+              }
+            });
+          }
         }
-      })
-      .subscribe(reportRealtimeStatus);
+      });
+
+    channel.subscribe(reportRealtimeStatus);
+    entry = { channel, listeners: new Set([callback]) };
+    shuffleCardsChannels.set(roomId, entry);
+  } else {
+    entry.listeners.add(callback);
   }
 
   return () => {
-    if (supabase && channel) {
-      supabase.removeChannel(channel);
+    const currentEntry = shuffleCardsChannels.get(roomId);
+    if (!currentEntry) return;
+    currentEntry.listeners.delete(callback);
+    if (currentEntry.listeners.size === 0) {
+      shuffleCardsChannels.delete(roomId);
+      if (supabase && currentEntry.channel) {
+        supabase.removeChannel(currentEntry.channel);
+      }
     }
   };
 }
+
+export async function broadcastEmojiClash(
+  roomId: string,
+  message: EmojiClashRealtimeMessage
+): Promise<void> {
+  if (supabase) {
+    try {
+      const existing = emojiClashChannels.get(roomId);
+      const channel = existing?.channel || supabase.channel(`minigames:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 300);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'emoji_clash_message',
+        payload: { roomId, message },
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastEmojiClash failed', e);
+    }
+  }
+}
+
+export function subscribeToEmojiClash(
+  roomId: string,
+  callback: (msg: EmojiClashRealtimeMessage) => void
+): () => void {
+  if (!supabase) return () => {};
+
+  let entry = emojiClashChannels.get(roomId);
+  if (!entry) {
+    const channel = supabase
+      .channel(`minigames:${roomId}`)
+      .on('broadcast', { event: 'emoji_clash_message' }, (payload: any) => {
+        const msg = payload?.payload?.message as EmojiClashRealtimeMessage | undefined;
+        if (msg && msg.type) {
+          const currentEntry = emojiClashChannels.get(roomId);
+          if (currentEntry) {
+            currentEntry.listeners.forEach((listener) => {
+              try {
+                listener(msg);
+              } catch (err) {
+                console.error('[subscribeToEmojiClash] listener error', err);
+              }
+            });
+          }
+        }
+      });
+
+    channel.subscribe(reportRealtimeStatus);
+    entry = { channel, listeners: new Set([callback]) };
+    emojiClashChannels.set(roomId, entry);
+  } else {
+    entry.listeners.add(callback);
+  }
+
+  return () => {
+    const currentEntry = emojiClashChannels.get(roomId);
+    if (!currentEntry) return;
+    currentEntry.listeners.delete(callback);
+    if (currentEntry.listeners.size === 0) {
+      emojiClashChannels.delete(roomId);
+      if (supabase && currentEntry.channel) {
+        supabase.removeChannel(currentEntry.channel);
+      }
+    }
+  };
+}
+

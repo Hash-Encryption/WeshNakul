@@ -21,12 +21,15 @@ import {
   subscribeToCaptainEvents,
   broadcastShuffleCards,
   subscribeToShuffleCards,
+  broadcastEmojiClash,
+  subscribeToEmojiClash,
 } from '../../lib/supabase';
 import { CafeDeckScreen } from './CafeDeckScreen';
 import { DeckErrorBoundary } from '../common/ErrorBoundary';
 import { CaptainRouletteModal } from '../captain/CaptainRouletteModal';
 import { ShuffleCardsModal } from '../minigames/shuffle_cards/ShuffleCardsModal';
-import type { MiniGameId } from '../../config/miniGames';
+import { EmojiClashModal } from '../minigames/emoji_clash/EmojiClashModal';
+import type { MiniGameId, MiniGameDefinition } from '../../config/miniGames';
 
 interface RestaurantSwipingScreenProps {
   onMatched?: (winnerId: string) => void;
@@ -83,7 +86,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   const [selectedWinner, setSelectedWinner] = useState<RestaurantItem | null>(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-  const [suddenDeathRestaurants, setSuddenDeathRestaurants] = useState<[RestaurantItem, RestaurantItem] | null>(null);
+  const [suddenDeathRestaurants, setSuddenDeathRestaurants] = useState<RestaurantItem[] | null>(null);
   const [isSuddenDeathOpen, setIsSuddenDeathOpen] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
 
@@ -115,7 +118,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
     const unsubscribe = subscribeToSuddenDeath(currentRoom.id, (spots) => {
       if (spots && spots.length >= 2) {
-        setSuddenDeathRestaurants([spots[0], spots[1]]);
+        setSuddenDeathRestaurants(spots);
         setIsSuddenDeathOpen(true);
       }
     });
@@ -144,6 +147,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
         .then((existing) => {
           if (existing && existing.status !== 'finalized') {
             setPendingMiniGame('shuffle_cards');
+            startMiniGameSession('shuffle_cards');
             setIsCaptainRouletteOpen(true);
           }
         })
@@ -153,18 +157,25 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     const unsubscribe = subscribeToCaptainEvents(currentRoom.id, (msg) => {
       if (msg.type === 'captain_spin_start') {
         setPendingMiniGame('shuffle_cards');
+        startMiniGameSession('shuffle_cards');
         setIsCaptainRouletteOpen(true);
       }
     });
 
     return () => unsubscribe();
-  }, [currentRoom?.id, isHost, currentParticipant?.session_token]);
+  }, [currentRoom?.id, isHost, currentParticipant?.session_token, startMiniGameSession]);
 
   // Subscribe to realtime shuffle cards triggers
   useEffect(() => {
     if (!currentRoom?.id) return;
 
     const unsubscribe = subscribeToShuffleCards(currentRoom.id, (msg) => {
+      if (msg.type === 'shuffle_cards_pre_lock') {
+        startMiniGameSession('shuffle_cards');
+        setIsCaptainRouletteOpen(false);
+        return;
+      }
+
       if (msg.type === 'shuffle_cards_start') {
         const candidateItems = msg.contenderIds
           .map((id) => deck.find((r) => r.id === id))
@@ -190,6 +201,100 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     return () => unsubscribe();
   }, [currentRoom?.id, deck, startMiniGameSession]);
 
+  // Emoji Clash Mini-Game state
+  const [isEmojiClashOpen, setIsEmojiClashOpen] = useState(false);
+  const [emojiClashState, setEmojiClashState] = useState<{
+    winnerRestaurantId: string;
+    restaurants: RestaurantItem[];
+    battleSeed: number;
+  } | null>(null);
+
+  // Subscribe to realtime emoji clash triggers across all clients
+  useEffect(() => {
+    if (!currentRoom?.id) return;
+
+    const unsubscribe = subscribeToEmojiClash(currentRoom.id, (msg) => {
+      if (msg.type === 'emoji_clash_start') {
+        const candidateItems = msg.contenderIds
+          .map((id) => deck.find((r) => r.id === id))
+          .filter(Boolean) as RestaurantItem[];
+        const finalCandidates = candidateItems.length >= 2 ? candidateItems : deck.slice(0, 3);
+
+        startMiniGameSession('emoji_clash');
+        setEmojiClashState({
+          winnerRestaurantId: msg.winnerRestaurantId,
+          restaurants: finalCandidates,
+          battleSeed: msg.battleSeed,
+        });
+        setIsEmojiClashOpen(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentRoom?.id, deck, startMiniGameSession]);
+
+  const handleLaunchEmojiClash = async () => {
+    if (!currentRoom || !currentParticipant) return;
+    const tiedIds = summary?.tiedRestaurantIds || [];
+    const candidates = tiedIds.map((id) => deck.find((r) => r.id === id)).filter(Boolean) as RestaurantItem[];
+    const activeContenders = candidates.length >= 2 ? candidates : deck.slice(0, 3);
+
+    startMiniGameSession('emoji_clash');
+
+    try {
+      const state = await resolveRestaurantTie(
+        currentRoom.id,
+        currentParticipant.session_token,
+        currentRoom.version,
+        'choose_for_us'
+      );
+      const serverWinnerId = state.room.winning_restaurant_id || activeContenders[0].id;
+      const battleSeed = Math.floor(Math.random() * 1000000) + 1;
+
+      setEmojiClashState({
+        winnerRestaurantId: serverWinnerId,
+        restaurants: activeContenders,
+        battleSeed,
+      });
+      setIsEmojiClashOpen(true);
+
+      await broadcastEmojiClash(currentRoom.id, {
+        type: 'emoji_clash_start',
+        contenderIds: activeContenders.map((r) => r.id),
+        winnerRestaurantId: serverWinnerId,
+        battleSeed,
+        startedAt: Date.now(),
+      });
+    } catch (err) {
+      console.error('Error resolving tie for Emoji Clash', err);
+      const fallbackWinner = currentRoom.winning_restaurant_id || activeContenders[0].id;
+      const battleSeed = 123456;
+      setEmojiClashState({
+        winnerRestaurantId: fallbackWinner,
+        restaurants: activeContenders,
+        battleSeed,
+      });
+      setIsEmojiClashOpen(true);
+    }
+  };
+
+  const handleEmojiClashWinnerConfirmed = async (_winner: RestaurantItem) => {
+    setIsEmojiClashOpen(false);
+    completeMiniGame();
+    await refreshRoom();
+  };
+
+  const handleEmojiClashClose = () => {
+    setIsEmojiClashOpen(false);
+    cancelMiniGameSession();
+  };
+
+  const handleSelectMiniGame = (game: MiniGameDefinition) => {
+    if (game.id === 'emoji_clash') {
+      void handleLaunchEmojiClash();
+    }
+  };
+
   const handleTriggerCaptainRoulette = (targetGame?: MiniGameId) => {
     const activeCount = participants.filter((p) => p.status === 'active').length;
     if (activeCount < 2) {
@@ -210,6 +315,9 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
       return;
     }
     setPendingMiniGame(targetGame || null);
+    if (targetGame) {
+      startMiniGameSession(targetGame);
+    }
     setIsCaptainRouletteOpen(true);
   };
 
@@ -221,6 +329,13 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
     startMiniGameSession('shuffle_cards');
     setIsCaptainRouletteOpen(false);
+
+    // Pre-lock guest sessions BEFORE Postgres changes DB room stage to 'matched'
+    try {
+      await broadcastShuffleCards(currentRoom.id, {
+        type: 'shuffle_cards_pre_lock',
+      });
+    } catch {}
 
     try {
       const state = await resolveRestaurantTie(
@@ -373,10 +488,10 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     await refreshRoom();
   };
 
-  const handleTriggerSuddenDeath = (topTwo: [RestaurantItem, RestaurantItem]) => {
-    setSuddenDeathRestaurants(topTwo);
+  const handleTriggerSuddenDeath = (topContenders: RestaurantItem[]) => {
+    setSuddenDeathRestaurants(topContenders);
     setIsSuddenDeathOpen(true);
-    broadcastSuddenDeath(currentRoom.id, topTwo);
+    broadcastSuddenDeath(currentRoom.id, topContenders);
   };
 
   const handleTriggerRoulette = async (_topSpots: RestaurantItem[]) => {
@@ -436,6 +551,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
               onTriggerSuddenDeath={handleTriggerSuddenDeath}
               onTriggerRoulette={handleTriggerRoulette}
               onTriggerCaptainRoulette={handleTriggerCaptainRoulette}
+              onSelectMiniGame={handleSelectMiniGame}
             />
           ) : isLoadingDeck && deck.length === 0 ? (
             <DecisionMachineLoading
@@ -473,7 +589,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
       {/* Sudden Death Showdown Modal */}
       {isSuddenDeathOpen && suddenDeathRestaurants && (
         <SuddenDeathModal
-          key={`sd-${suddenDeathRestaurants[0]?.id}-${suddenDeathRestaurants[1]?.id}`}
+          key={`sd-${suddenDeathRestaurants.map((r) => r?.id).join('-')}`}
           isOpen={isSuddenDeathOpen}
           roomId={currentRoom.id}
           currentParticipantId={currentParticipant.id}
@@ -518,6 +634,22 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
           seed={shuffleCardsState.seed}
           onWinnerConfirmed={handleShuffleCardsWinnerConfirmed}
           onClose={handleShuffleCardsClose}
+        />
+      )}
+
+      {/* Emoji Clash Mini-Game Modal */}
+      {isEmojiClashOpen && emojiClashState && (
+        <EmojiClashModal
+          isOpen={isEmojiClashOpen}
+          roomId={currentRoom.id}
+          currentParticipantId={currentParticipant.id}
+          participants={participants}
+          isHost={isHost}
+          restaurants={emojiClashState.restaurants}
+          winnerRestaurantId={emojiClashState.winnerRestaurantId}
+          battleSeed={emojiClashState.battleSeed}
+          onWinnerConfirmed={handleEmojiClashWinnerConfirmed}
+          onClose={handleEmojiClashClose}
         />
       )}
 

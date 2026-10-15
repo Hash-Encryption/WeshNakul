@@ -26,6 +26,9 @@ export interface ShuffleCardItem {
 
 export type ShuffleCardsRealtimeMessage =
   | {
+      type: 'shuffle_cards_pre_lock';
+    }
+  | {
       type: 'shuffle_cards_start';
       captainId: string;
       captainNickname: string;

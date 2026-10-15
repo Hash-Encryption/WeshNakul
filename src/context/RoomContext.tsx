@@ -585,10 +585,12 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [activeMiniGame]);
 
   const startMiniGameSession = useCallback((gameId: import('../config/miniGames').MiniGameId) => {
+    activeMiniGameRef.current = gameId;
     setActiveMiniGame(gameId);
   }, []);
 
   const completeMiniGame = useCallback(() => {
+    activeMiniGameRef.current = null;
     setActiveMiniGame(null);
     if (pendingResolvedRoomRef.current) {
       const resolved = pendingResolvedRoomRef.current;
@@ -601,6 +603,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [refreshRoom]);
 
   const cancelMiniGameSession = useCallback(() => {
+    activeMiniGameRef.current = null;
     setActiveMiniGame(null);
     pendingResolvedRoomRef.current = null;
     refreshRoom();

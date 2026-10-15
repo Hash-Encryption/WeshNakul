@@ -190,7 +190,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         isShuffleAgain: false,
         restaurant: r,
         contenderLabel: isRTL ? `المرشح ${idx + 1}` : `Contender ${idx + 1}`,
-        isFaceUp: false,
+        isFaceUp: !isReshuffle,
         isZoomed: false,
         isWinner: r.id === authoritativeWinner.id,
         isEjected: false,
@@ -202,11 +202,24 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
 
   // Active cards state on the table
   const [tableCards, setTableCards] = useState<ShuffleCardItem[]>(() => initTableCards(false));
+  const hasPassedVortexRef = useRef<boolean>(false);
+  const initializedSeedRef = useRef<string | null>(null);
 
-  // Reset table cards and phase when modal opens or contender count / winner changes
+  // Reset table cards and phase when modal opens or session seed changes
   useEffect(() => {
-    if (!isOpen) return;
-    setPhase(totalContenders >= 5 ? 'vortex_qualifier' : 'initial_reveal');
+    if (!isOpen) {
+      initializedSeedRef.current = null;
+      return;
+    }
+
+    const currentKey = `${roomId}-${winnerId}-${seed}`;
+    if (initializedSeedRef.current === currentKey) {
+      return; // Already initialized for this round!
+    }
+    initializedSeedRef.current = currentKey;
+    hasPassedVortexRef.current = false;
+
+    setPhase('initial_reveal');
     setTableCards(initTableCards(false));
     setTappedSlotIndex(null);
     setShuffleAgainCount(0);
@@ -214,7 +227,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     setEjectedCardIds(new Set());
     setRevealedWinner(false);
     isFinalizingRef.current = false;
-  }, [isOpen, totalContenders, winnerId, initTableCards]);
+  }, [isOpen, roomId, winnerId, seed, initTableCards]);
 
   // Construct deterministic, 100% deduplicated revealed cards assignment
   const buildRevealedCards = useCallback(
@@ -300,29 +313,115 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     [authoritativeWinner, finalists, isRTL, totalContenders, uniqueRestaurants]
   );
 
+  const stateRef = useRef({
+    uniqueRestaurants,
+    finalists,
+    authoritativeWinner,
+    totalContenders,
+    isRTL,
+    seed,
+  });
+  stateRef.current = {
+    uniqueRestaurants,
+    finalists,
+    authoritativeWinner,
+    totalContenders,
+    isRTL,
+    seed,
+  };
+
   // Handle phase transitions
   useEffect(() => {
     if (!isOpen) return;
 
     if (phase === 'initial_reveal') {
-      // Show cards face-up for 1.8 seconds, then flip face-down
+      // Step 1: Show cards face-up for 2.0 seconds, then flip face-down
       const timer = setTimeout(() => {
         setTableCards((prev) => prev.map((c) => ({ ...c, isFaceUp: false })));
         setPhase('flipping_down');
-      }, 1800);
+      }, 2000);
       return () => clearTimeout(timer);
     }
 
     if (phase === 'flipping_down') {
-      // Brief pause after flipping before shuffle starts
+      // Step 2: Flip cards face-down into ring (0.8s for 5+ vortex) or before shuffle (0.7s)
+      const isPostFinalists = hasPassedVortexRef.current || stateRef.current.totalContenders < 5;
+      const duration = isPostFinalists ? 700 : 800;
+
       const timer = setTimeout(() => {
-        setPhase('shuffling');
-      }, 500);
+        if (stateRef.current.totalContenders >= 5 && !hasPassedVortexRef.current) {
+          setPhase('vortex_qualifier');
+        } else {
+          setPhase('shuffling');
+        }
+      }, duration);
+      return () => clearTimeout(timer);
+    }
+
+    if (phase === 'vortex_qualifier') {
+      // Step 3: Pure circular orbit for 2.2s with 0 cards ejected
+      const currentFinalists = stateRef.current.finalists;
+      const currentUnique = stateRef.current.uniqueRestaurants;
+      const currentAuthoritativeWinner = stateRef.current.authoritativeWinner;
+      const currentIsRTL = stateRef.current.isRTL;
+
+      const nonFinalistIds = currentUnique
+        .map((r) => r.id)
+        .filter((id) => !currentFinalists.some((f) => f.id === id));
+
+      let ejectIdx = 0;
+      let intervalTimer: ReturnType<typeof setInterval> | null = null;
+      let settleTimer: ReturnType<typeof setTimeout> | null = null;
+
+      // 2.2s pure orbit
+      const initialOrbitTimer = setTimeout(() => {
+        // Step 4: Staggered One-by-One Ejections (600ms per card)
+        intervalTimer = setInterval(() => {
+          if (ejectIdx < nonFinalistIds.length) {
+            const ejectId = nonFinalistIds[ejectIdx];
+            setEjectedCardIds((prev) => new Set([...prev, ejectId]));
+            ejectIdx++;
+          } else {
+            if (intervalTimer) clearInterval(intervalTimer);
+            // Step 5: Hold remaining 3 in circle (0.9s), then deal to row face-up
+            settleTimer = setTimeout(() => {
+              hasPassedVortexRef.current = true;
+              const finalistCards: ShuffleCardItem[] = currentFinalists.map((r, idx) => ({
+                id: r.id,
+                isShuffleAgain: false,
+                restaurant: r,
+                contenderLabel: currentIsRTL ? `مرشح نهائي ${idx + 1}` : `Finalist ${idx + 1}`,
+                isFaceUp: true,
+                isZoomed: false,
+                isWinner: r.id === currentAuthoritativeWinner.id,
+                isEjected: false,
+                slotIndex: idx,
+              }));
+              setTableCards(finalistCards);
+              setPhase('finalists_reveal');
+            }, 900);
+          }
+        }, 600);
+      }, 2200);
+
+      return () => {
+        clearTimeout(initialOrbitTimer);
+        if (intervalTimer) clearInterval(intervalTimer);
+        if (settleTimer) clearTimeout(settleTimer);
+      };
+    }
+
+    if (phase === 'finalists_reveal') {
+      // Step 5: Display the 3 finalists face-up for 2.2 seconds, then flip down
+      const timer = setTimeout(() => {
+        setTableCards((prev) => prev.map((c) => ({ ...c, isFaceUp: false })));
+        setPhase('flipping_down');
+      }, 2200);
       return () => clearTimeout(timer);
     }
 
     if (phase === 'shuffling') {
-      // Execute 6 rapid, full-cross Three-Card Monte swaps
+      // Step 6: 6 rapid, full-cross Three-Card Monte swaps (6 * 320ms = 1.92s)
       let step = 0;
       setSwapStep(1);
       const interval = setInterval(() => {
@@ -333,65 +432,10 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
           setSwapStep(0);
           setPhase('pick_ready');
         }
-      }, 250);
+      }, 320);
       return () => clearInterval(interval);
     }
-
-    if (phase === 'vortex_qualifier') {
-      // 1. Circle Formation & Full Orbit (~1.2s): all cards pull into circular ring together
-      const nonFinalistIds = uniqueRestaurants
-        .map((r) => r.id)
-        .filter((id) => !finalists.some((f) => f.id === id));
-
-      let ejectIdx = 0;
-      let intervalTimer: ReturnType<typeof setInterval> | null = null;
-      let settleTimer: ReturnType<typeof setTimeout> | null = null;
-
-      const initialOrbitTimer = setTimeout(() => {
-        // 2. Staggered One-by-One Ejections (350ms per card)
-        intervalTimer = setInterval(() => {
-          if (ejectIdx < nonFinalistIds.length) {
-            const ejectId = nonFinalistIds[ejectIdx];
-            setEjectedCardIds((prev) => new Set([...prev, ejectId]));
-            ejectIdx++;
-          } else {
-            if (intervalTimer) clearInterval(intervalTimer);
-            // 3. Settle to 3 Finalists (600ms pause to clearly see survivors in orbit)
-            settleTimer = setTimeout(() => {
-              const finalistCards: ShuffleCardItem[] = finalists.map((r, idx) => ({
-                id: r.id,
-                isShuffleAgain: false,
-                restaurant: r,
-                contenderLabel: isRTL ? `مرشح نهائي ${idx + 1}` : `Finalist ${idx + 1}`,
-                isFaceUp: true,
-                isZoomed: false,
-                isWinner: r.id === authoritativeWinner.id,
-                isEjected: false,
-                slotIndex: idx,
-              }));
-              setTableCards(finalistCards);
-              setPhase('finalists_reveal');
-            }, 600);
-          }
-        }, 350);
-      }, 1200);
-
-      return () => {
-        clearTimeout(initialOrbitTimer);
-        if (intervalTimer) clearInterval(intervalTimer);
-        if (settleTimer) clearTimeout(settleTimer);
-      };
-    }
-
-    if (phase === 'finalists_reveal') {
-      // Display the 3 finalists face-up for 1.8 seconds, then flip down and shuffle
-      const timer = setTimeout(() => {
-        setTableCards((prev) => prev.map((c) => ({ ...c, isFaceUp: false })));
-        setPhase('flipping_down');
-      }, 1800);
-      return () => clearTimeout(timer);
-    }
-  }, [phase, isOpen, uniqueRestaurants, finalists, authoritativeWinner, isRTL]);
+  }, [phase, isOpen]);
 
   // Reshuffle flow for "Shuffle Again"
   const executeReshuffle = useCallback(() => {
@@ -550,6 +594,13 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         return t('shuffleCards.shuffleAgainDesc');
       case 'winner_celebration':
         return t('shuffleCards.winnerCelebration');
+      case 'initial_reveal':
+        if (totalContenders >= 5) return t('shuffleCards.vortexStatus');
+        return isCaptain
+          ? (isRTL ? 'اختر بطاقة لكشف الفائز!' : 'Tap a card to reveal the winner!')
+          : (isRTL
+              ? `الكابتن (${captain.nickname}) يختار بطاقة...`
+              : `${captain.nickname} is choosing a card...`);
       case 'pick_ready':
       case 'revealing_pick':
       default:
@@ -627,12 +678,16 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         {phase === 'shuffling' && <ShuffleSpeedLines />}
 
         {/* Vortex Orbit Qualifier (for 5+ contenders) */}
-        {phase === 'vortex_qualifier' ? (
+        {totalContenders >= 5 && (phase === 'initial_reveal' || phase === 'flipping_down' || phase === 'vortex_qualifier') ? (
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
             {/* Spinning Orbit Ring */}
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 2.4, ease: 'linear' }}
+              animate={{ rotate: phase === 'vortex_qualifier' ? 360 : 0 }}
+              transition={
+                phase === 'vortex_qualifier'
+                  ? { repeat: Infinity, duration: 2.4, ease: 'linear' }
+                  : { duration: 0.5 }
+              }
               className="absolute inset-0 flex items-center justify-center"
             >
               {tableCards.map((card, idx) => {

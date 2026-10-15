@@ -145,8 +145,14 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
             hasSpunForEventIdRef.current = existing.eventId;
             setTargetWinnerId(targetId);
             setHasRevealedLocally(false);
-            // Auto-spin on join/reconnect so the user experiences the spin before reveal
-            setIsSpinningWheel(true);
+            setIsSpinningWheel(false); // Idle at rest for 1.1s countdown
+
+            if (spinTimerRef.current) clearTimeout(spinTimerRef.current);
+            spinTimerRef.current = setTimeout(() => {
+              if (mounted) {
+                setIsSpinningWheel(true);
+              }
+            }, 1100);
           }
           return;
         }
@@ -198,7 +204,16 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
             hasSpunForEventIdRef.current = existing.eventId;
             setTargetWinnerId(targetId);
             setHasRevealedLocally(false);
-            setIsSpinningWheel(true);
+            setIsSpinningWheel(false);
+
+            if (spinTimerRef.current) clearTimeout(spinTimerRef.current);
+            spinTimerRef.current = setTimeout(() => {
+              if (mounted) {
+                setIsSpinningWheel(true);
+              }
+            }, 1100);
+          } else if (existing.status === 'finalized') {
+            setHasRevealedLocally(true);
           }
         }
       } catch (err: any) {
@@ -303,7 +318,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
           // Spin smoothly to the new captain slice on approved reroll!
           setHasRevealedLocally(false);
           setIsSpinningWheel(true);
-        } else {
+        } else if (!isSpinning && !isSpinningWheel) {
           setHasRevealedLocally(true);
         }
 

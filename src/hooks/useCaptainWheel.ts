@@ -69,6 +69,9 @@ export function useCaptainWheel({
     callbacksRef.current = { onRevealed, onComplete };
   }, [onRevealed, onComplete]);
 
+  const candidatesRef = useRef(candidates);
+  candidatesRef.current = candidates;
+
   const updatePhase = (newPhase: CaptainWheelPhase) => {
     if (phaseRef.current !== newPhase) {
       phaseRef.current = newPhase;
@@ -76,10 +79,11 @@ export function useCaptainWheel({
     }
   };
 
-  const count = Math.max(1, candidates.length);
-  const sliceAngle = 360 / count;
-
   useEffect(() => {
+    const curCandidates = candidatesRef.current;
+    const count = Math.max(1, curCandidates.length);
+    const sliceAngle = 360 / count;
+
     // IDLE: Wheel only spins when BOTH isSpinning is true and winnerId is present
     if (!isSpinning || !winnerId) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -99,7 +103,7 @@ export function useCaptainWheel({
     // REDUCED MOTION
     if (reducedMotion) {
       if (winnerId) {
-        const winnerIndex = candidates.findIndex((c) => c.id === winnerId);
+        const winnerIndex = curCandidates.findIndex((c) => c.id === winnerId);
         const midAngle = (winnerIndex >= 0 ? winnerIndex + 0.5 : 0.5) * sliceAngle;
         const target = ((360 - midAngle) % 360 + 360) % 360;
         rotationRef.current = target;
@@ -123,8 +127,19 @@ export function useCaptainWheel({
       return;
     }
 
+    // Reset local start time for smooth full 4.0s spin
+    lastTimestampRef.current = null;
+    spinStartTimeRef.current = null;
+    landingRef.current = null;
+    revealedRef.current = false;
+    completedRef.current = false;
+
     // ANIMATION LOOP
     const animate = (timestamp: number) => {
+      const activeCandidates = candidatesRef.current;
+      const activeCount = Math.max(1, activeCandidates.length);
+      const activeSliceAngle = 360 / activeCount;
+
       if (!lastTimestampRef.current) lastTimestampRef.current = timestamp;
       const dt = Math.min((timestamp - lastTimestampRef.current) / 1000, 0.05);
       lastTimestampRef.current = timestamp;
@@ -150,7 +165,7 @@ export function useCaptainWheel({
         updatePhase('spinning');
 
         // Boundary tick sound/haptic needle kick
-        const currentSlice = getCaptainSliceIndexAtPointer(rotationRef.current, count);
+        const currentSlice = getCaptainSliceIndexAtPointer(rotationRef.current, activeCount);
         if (lastSliceIndexRef.current !== null && lastSliceIndexRef.current !== currentSlice) {
           needleAngleRef.current = -12; // kick needle
           try { navigator.vibrate?.(4); } catch {}
@@ -162,10 +177,10 @@ export function useCaptainWheel({
           if (needleRef.current) needleRef.current.style.transform = `rotate(${needleAngleRef.current}deg)`;
         }
 
-        // Check if winner is ready and min spin time reached (at least 1.5s spin)
-        if (winnerId && elapsed >= 1.5) {
-          const winnerIndex = candidates.findIndex((c) => c.id === winnerId);
-          const midAngle = (winnerIndex >= 0 ? winnerIndex + 0.5 : 0.5) * sliceAngle;
+        // Check if winner is ready and min spin time reached (1.8s free spin + 2.2s landing = 4.0s total)
+        if (winnerId && elapsed >= 1.8) {
+          const winnerIndex = activeCandidates.findIndex((c) => c.id === winnerId);
+          const midAngle = (winnerIndex >= 0 ? winnerIndex + 0.5 : 0.5) * activeSliceAngle;
           const targetAngle = calculateCaptainLandingTarget(rotationRef.current, midAngle, 720);
 
           landingRef.current = {
@@ -197,7 +212,7 @@ export function useCaptainWheel({
       }
 
       // Slower needle kick during deceleration
-      const currentSlice = getCaptainSliceIndexAtPointer(currentRot, count);
+      const currentSlice = getCaptainSliceIndexAtPointer(currentRot, activeCount);
       if (lastSliceIndexRef.current !== null && lastSliceIndexRef.current !== currentSlice) {
         needleAngleRef.current = -10 * (1 - progress);
         try { navigator.vibrate?.(progress > 0.8 ? 2 : 4); } catch {}
@@ -233,7 +248,7 @@ export function useCaptainWheel({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [isSpinning, winnerId, reducedMotion, candidates, count, sliceAngle]);
+  }, [isSpinning, winnerId, reducedMotion]);
 
   return {
     wheelRef,
