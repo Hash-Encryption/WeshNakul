@@ -7,6 +7,7 @@ import { ShuffleCard } from './ShuffleCard';
 import { ShuffleSpeedLines } from './ShuffleSpeedLines';
 import { useLocale } from '../../../context/LocaleContext';
 import { broadcastShuffleCards, subscribeToShuffleCards } from '../../../lib/supabase';
+import { trackMiniGameStarted, trackMiniGameCompleted } from '../../../lib/analytics';
 
 // 6 permutation steps for Three-Card Monte crossover (slots 0, 1, 2)
 const SHUFFLE_STEPS_3: number[][] = [
@@ -69,6 +70,16 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     }
     return list.length > 0 ? list : restaurants;
   }, [restaurants]);
+
+  useEffect(() => {
+    if (isOpen) {
+      trackMiniGameStarted({
+        roomId,
+        gameType: 'shuffle_cards',
+        participantCount: uniqueRestaurants.length,
+      });
+    }
+  }, [isOpen, roomId, uniqueRestaurants.length]);
 
   const totalContenders = uniqueRestaurants.length;
 
@@ -512,6 +523,12 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
           if (!isFinalizingRef.current) {
             isFinalizingRef.current = true;
             setPhase('completed');
+            trackMiniGameCompleted({
+              roomId,
+              gameType: 'shuffle_cards',
+              outcomeRestaurantId: authoritativeWinner.id,
+              isPresentationOnly: true,
+            });
             if (isHost) {
               void broadcastShuffleCards(roomId, {
                 type: 'shuffle_cards_finalized',

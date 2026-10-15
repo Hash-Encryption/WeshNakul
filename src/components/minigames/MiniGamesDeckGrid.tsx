@@ -49,9 +49,10 @@ export const MiniGamesDeckGrid: React.FC<MiniGamesDeckGridProps> = ({
       className="overflow-hidden w-full pt-1"
     >
       <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
-        {MINI_GAMES.map((game) => {
+        {MINI_GAMES.map((game, index) => {
           const suitability = game.getSuitability(suitabilityContext);
-          const isWide = game.id === 'sizzling_skillet';
+          // If total count is odd, make the last card span 2 columns so there is never an awkward empty half-row
+          const isWide = MINI_GAMES.length % 2 !== 0 && index === MINI_GAMES.length - 1;
 
           return (
             <MiniGameDeckCard

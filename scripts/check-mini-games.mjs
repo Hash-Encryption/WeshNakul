@@ -40,20 +40,19 @@ try {
 
   console.log('--- EXECUTING MINI GAMES TIE-BREAKER VERIFICATION SUITE ---');
 
-  // 1. Verify all 7 Mini Games exist with required IDs
-  check('1. Exactly 7 mini games defined in MINI_GAMES', () => {
-    assert.equal(MINI_GAMES.length, 7, 'Must have exactly 7 games');
+  // 1. Verify all 6 Mini Games exist with required IDs (Food Brawl retired)
+  check('1. Exactly 6 mini games defined in MINI_GAMES (Food Brawl removed)', () => {
+    assert.equal(MINI_GAMES.length, 6, 'Must have exactly 6 games');
     const ids = MINI_GAMES.map((g) => g.id);
     const expected = [
       'shuffle_cards',
       'sudden_death',
-      'food_brawl',
+      'emoji_clash',
       'food_race',
       'pick_a_box',
-      'emoji_clash',
       'sizzling_skillet',
     ];
-    assert.deepEqual(ids, expected, 'Exact 7 game IDs in order');
+    assert.deepEqual(ids, expected, 'Exact 6 game IDs in order');
   });
 
   // 2. Verify needsCaptain metadata per game
@@ -61,10 +60,9 @@ try {
     const byId = Object.fromEntries(MINI_GAMES.map((g) => [g.id, g]));
     assert.equal(byId.shuffle_cards.needsCaptain, true, 'Shuffle Cards needsCaptain');
     assert.equal(byId.sudden_death.needsCaptain, false, 'Sudden Death needsCaptain');
-    assert.equal(byId.food_brawl.needsCaptain, true, 'Food Brawl needsCaptain');
     assert.equal(byId.food_race.needsCaptain, true, 'Food Race needsCaptain');
     assert.equal(byId.pick_a_box.needsCaptain, true, 'Pick a Box needsCaptain');
-    assert.equal(byId.emoji_clash.needsCaptain, true, 'Emoji Clash needsCaptain');
+    assert.equal(byId.emoji_clash.needsCaptain, false, 'Emoji Clash does not need Captain');
     assert.equal(byId.sizzling_skillet.needsCaptain, false, 'Sizzling Skillet needsCaptain');
   });
 
@@ -73,6 +71,8 @@ try {
     const byId = Object.fromEntries(MINI_GAMES.map((g) => [g.id, g]));
     assert.equal(byId.sudden_death.implemented, true, 'Sudden Death is implemented');
     assert.equal(byId.shuffle_cards.implemented, true, 'Shuffle Cards is implemented');
+    assert.equal(byId.emoji_clash.implemented, true, 'Emoji Clash is implemented');
+    assert.equal(byId.pick_a_box.implemented, false, 'Pick a Box is V2 roadmap');
     assert.equal(byId.sizzling_skillet.implemented, false, 'Sizzling Skillet is future');
   });
 
@@ -358,8 +358,8 @@ try {
     }
   });
 
-  // 13. Player can view identical MiniGamesDeckGrid with all 7 cards
-  check('13. Player sees identical MiniGamesDeckGrid with all 7 game cards and Coming Soon badges', () => {
+  // 13. Player can view identical MiniGamesDeckGrid with 6 cards
+  check('13. Player sees identical MiniGamesDeckGrid with all 6 game cards and Coming Soon badges', () => {
     store.set('wsh_locale', 'en');
     const html = renderToStaticMarkup(
       createElement(
@@ -375,18 +375,18 @@ try {
       )
     );
 
-    // Verify all 7 game titles appear
+    // Verify all 6 game titles appear
     assert.ok(html.includes('Shuffle Cards'), 'Shuffle Cards present');
     assert.ok(html.includes('Sudden Death'), 'Sudden Death present');
-    assert.ok(html.includes('Food Brawl'), 'Food Brawl present');
+    assert.ok(!html.includes('Food Brawl'), 'Food Brawl is retired');
     assert.ok(html.includes('Food Race'), 'Food Race present');
     assert.ok(html.includes('Pick a Box'), 'Pick a Box present');
     assert.ok(html.includes('Emoji Clash'), 'Emoji Clash present');
     assert.ok(html.includes('Sizzling Skillet'), 'Sizzling Skillet present');
 
-    // Verify Coming Soon badges appear for unimplemented games (5 unimplemented games remain)
+    // Verify Coming Soon badges appear for unimplemented games (3 unimplemented games remain)
     const comingSoonMatches = (html.match(/Coming Soon 🚧/g) || []).length;
-    assert.equal(comingSoonMatches, 5, 'Exactly 5 Coming Soon badges present on player view');
+    assert.equal(comingSoonMatches, 3, 'Exactly 3 Coming Soon badges present on player view');
   });
 
   // 14. Player requests Roulette: Host sees correct player initials and profile circle
@@ -500,7 +500,7 @@ try {
         player_shape: 'diamond',
       },
       {
-        target: 'game:food_brawl',
+        target: 'game:food_race',
         participant_id: 'p3',
         nickname: 'Camilia',
         player_color: '#FFD75A',
@@ -529,9 +529,9 @@ try {
     assert.ok(gridHtml.includes('title="Bassam"'), 'Sudden death has Bassam');
     assert.ok(gridHtml.includes('>B<'), 'Initial B rendered');
 
-    // Verify Food Brawl has Camilia (C)
-    assert.ok(gridHtml.includes('data-testid="suggestions-game:food_brawl"'), 'Food brawl has suggestions');
-    assert.ok(gridHtml.includes('title="Camilia"'), 'Food brawl has Camilia');
+    // Verify Food Race has Camilia (C)
+    assert.ok(gridHtml.includes('data-testid="suggestions-game:food_race"'), 'Food race has suggestions');
+    assert.ok(gridHtml.includes('title="Camilia"'), 'Food race has Camilia');
     assert.ok(gridHtml.includes('>C<'), 'Initial C rendered');
 
     // Verify Sudden death doesn't claim Amal
@@ -601,7 +601,7 @@ try {
   // 18. Coming Soon games are not marked playable and empty states handled safely
   check('18. Coming Soon games cannot be launched and preserve unimplemented status', () => {
     const unimplemented = MINI_GAMES.filter((g) => !g.implemented);
-    assert.equal(unimplemented.length, 5, 'Exactly 5 games are coming soon');
+    assert.equal(unimplemented.length, 3, 'Exactly 3 games are coming soon (food_race, pick_a_box, sizzling_skillet)');
     for (const g of unimplemented) {
       assert.equal(g.implemented, false, `${g.id} must remain implemented = false`);
     }

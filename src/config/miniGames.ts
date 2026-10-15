@@ -96,20 +96,28 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     },
   },
   {
-    id: 'food_brawl',
-    nameKey: 'gameSwiper.gameFoodBrawl',
-    descriptionKey: 'gameSwiper.gameFoodBrawlDesc',
-    imageAsset: 'food_brawl',
-    bgClass: 'bg-[#EDFAF0]',
-    needsCaptain: true,
-    minPlayers: 2,
-    implemented: false,
-    getSuitability: ({ activePlayerCount }) => {
-      if (activePlayerCount < 2) {
+    id: 'emoji_clash',
+    nameKey: 'gameSwiper.gameEmojiClash',
+    descriptionKey: 'gameSwiper.gameEmojiClashDesc',
+    imageAsset: 'emoji_clash',
+    bgClass: 'bg-[#FDEDF2]',
+    needsCaptain: false,
+    minPlayers: 1,
+    implemented: true,
+    idealTieCounts: [2, 3, 4],
+    supportedTieCounts: [2, 3, 4, 5, 6, 7, 8],
+    getSuitability: ({ tieCount, activePlayerCount }) => {
+      if (activePlayerCount < 1) {
         return {
           state: 'unavailable',
           reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 2 },
+          reasonParams: { count: 1 },
+        };
+      }
+      if (tieCount >= 2 && tieCount <= 4) {
+        return {
+          state: 'recommended',
+          badgeKey: 'gameSwiper.badgeBestForTie',
         };
       }
       return { state: 'normal' };
@@ -141,26 +149,6 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     descriptionKey: 'gameSwiper.gamePickABoxDesc',
     imageAsset: 'pick_a_box',
     bgClass: 'bg-[#F6EEFD]',
-    needsCaptain: true,
-    minPlayers: 2,
-    implemented: false,
-    getSuitability: ({ activePlayerCount }) => {
-      if (activePlayerCount < 2) {
-        return {
-          state: 'unavailable',
-          reasonKey: 'gameSwiper.badgeNeedsPlayers',
-          reasonParams: { count: 2 },
-        };
-      }
-      return { state: 'normal' };
-    },
-  },
-  {
-    id: 'emoji_clash',
-    nameKey: 'gameSwiper.gameEmojiClash',
-    descriptionKey: 'gameSwiper.gameEmojiClashDesc',
-    imageAsset: 'emoji_clash',
-    bgClass: 'bg-[#FDEDF2]',
     needsCaptain: true,
     minPlayers: 2,
     implemented: false,

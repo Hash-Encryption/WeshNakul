@@ -253,19 +253,21 @@
     "gameShuffleCardsDesc": "اختر ورقة واكشف الفائز",
     "gameSuddenDeath": "رأس برأس",
     "gameSuddenDeathDesc": "تصويت سريع حتى يبقى فائز",
-    "gameFoodBrawl": "عراك الوجبات",
-    "gameFoodBrawlDesc": "شاهد الوجبات تتصارع",
+    "gameEmojiClash": "حرب الإيموجي",
+    "gameEmojiClashDesc": "معركة إيموجي حماسية لكسر التعادل",
     "gameFoodRace": "سباق الوجبات",
     "gameFoodRaceDesc": "سباق حتى خط النهاية",
     "gamePickABox": "صندوق الحظ",
     "gamePickABoxDesc": "صندوق الفائز الغامض",
-    "gameEmojiClash": "صدام الرياكشنات",
-    "gameEmojiClashDesc": "معركة ردود الأفعال",
     "gameSizzlingSkillet": "المقلاة المشتعلة",
     "gameSizzlingSkilletDesc": "مررها قبل لا تحترق",
     "badgeBestForTie": "الأنسب لهذا التعادل",
     "badgeNeedsPlayers": "يتطلب {{count}}+ لاعبين",
-    "gameComingSoonNotice": "قريباً! جاري تحضير اللعبة"
+    "gameComingSoonNotice": "قريباً! جاري تحضير اللعبة",
+    "suddenDeathRound": "الجولة {{current}} من {{total}}",
+    "suddenDeathSpeedWin": "⚡ حُسمت بالسرعة!",
+    "suddenDeathFailedZeroVotes": "فشل الموت المفاجئ لعدم التصويت! جربوا لعبة ثانية أو روليت المطاعم.",
+    "suddenDeathNextRound": "الجولة القادمة ⚔️"
   },
   "session": {
     "networkFailure": "شكل النت علّق شوي! شيك على اتصالك وجرب ثانية 🌐",
@@ -372,5 +374,36 @@
     "shuffleCardsAction": "اخلط البطاقات",
     "reshuffleAction": "اخلط مرة أخرى!",
     "winnerTitle": "الكابتن حسم الاختيار!"
+  },
+  "emojiClash": {
+    "title": "حرب الإيموجي",
+    "subtitle": "اختر مقاتلك وحطم خصومك!",
+    "fighterSelect": "اختر مقاتلك 🥊",
+    "fighterSelectDesc": "اضغط على الإيموجي لتثبيت اختيارك",
+    "fusionPhase": "اندماج الفرق! 🔥",
+    "brawlPhase": "بدأ النزال! 💥",
+    "tapMustard": "فجر الخردل!",
+    "mustardSack": "قنبلة الخردل",
+    "mustardDetonated": "انفجار قنبلة الخردل! 💥",
+    "goldenKnockout": "ضربة قاضية! ⚡",
+    "spice": "شطة",
+    "garlic": "ثوم",
+    "fire": "نار",
+    "spiceParticleThrow": "رمي الشطة",
+    "winnerTitle": "البطل المتوج! 👑",
+    "winnerSubtitle": "حسم المطعم الفائز بالجدارة",
+    "confirmWinner": "اعتماد الفائز 🏆",
+    "waitingForHost": "بانتظار المضيف للاعتماد 👑",
+    "waitingForPlayers": "بانتظار اختيار باقي اللاعبين...",
+    "fighters": {
+      "troll": "الضحوك",
+      "infernal": "المشتعل",
+      "mischief": "المشاكس",
+      "joker": "المهرج",
+      "heavyweight": "الملاكم",
+      "rex": "الديناصور",
+      "chili": "الحار",
+      "doom": "القاضي"
+    }
   }
 }

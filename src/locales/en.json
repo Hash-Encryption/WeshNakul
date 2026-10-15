@@ -253,19 +253,21 @@
     "gameShuffleCardsDesc": "Pick a card and reveal",
     "gameSuddenDeath": "Sudden Death",
     "gameSuddenDeathDesc": "One by one until one remains",
-    "gameFoodBrawl": "Food Brawl",
-    "gameFoodBrawlDesc": "Watch the foods fight",
+    "gameEmojiClash": "Emoji Clash",
+    "gameEmojiClashDesc": "Battle it out to break the tie",
     "gameFoodRace": "Food Race",
     "gameFoodRaceDesc": "Race to the finish",
     "gamePickABox": "Pick a Box",
     "gamePickABoxDesc": "Mystery winner",
-    "gameEmojiClash": "Emoji Clash",
-    "gameEmojiClashDesc": "Battle it out",
     "gameSizzlingSkillet": "Sizzling Skillet",
     "gameSizzlingSkilletDesc": "Pass it before it burns",
     "badgeBestForTie": "Best for this tie",
     "badgeNeedsPlayers": "Needs {{count}}+ players",
-    "gameComingSoonNotice": "Coming soon! Up next in our mini games"
+    "gameComingSoonNotice": "Coming soon! Up next in our mini games",
+    "suddenDeathRound": "Round {{current}} of {{total}}",
+    "suddenDeathSpeedWin": "⚡ Won by Speed!",
+    "suddenDeathFailedZeroVotes": "Sudden Death failed — no one voted! Try another mini-game or use Food Roulette.",
+    "suddenDeathNextRound": "Next Round ⚔️"
   },
   "session": {
     "networkFailure": "Lost connection for a moment! Check your internet and try again 🌐",
@@ -372,5 +374,36 @@
     "shuffleCardsAction": "Shuffle Cards",
     "reshuffleAction": "Shuffle Again!",
     "winnerTitle": "The Captain has chosen!"
+  },
+  "emojiClash": {
+    "title": "Emoji Clash",
+    "subtitle": "Pick your fighter and smash your rivals!",
+    "fighterSelect": "Pick Your Fighter 🥊",
+    "fighterSelectDesc": "Tap an emoji to lock in your champion",
+    "fusionPhase": "Squad Fusion! 🔥",
+    "brawlPhase": "Brawl Time! 💥",
+    "tapMustard": "TAP!",
+    "mustardSack": "Mustard Bomb",
+    "mustardDetonated": "Mustard Bomb Detonation! 💥",
+    "goldenKnockout": "KNOCKOUT! ⚡",
+    "spice": "Spice",
+    "garlic": "Garlic",
+    "fire": "Fire",
+    "spiceParticleThrow": "spice particle throw",
+    "winnerTitle": "Champion Squad! 👑",
+    "winnerSubtitle": "Winning restaurant locked in",
+    "confirmWinner": "Lock in Winner 🏆",
+    "waitingForHost": "Waiting for host to confirm 👑",
+    "waitingForPlayers": "Waiting for players to lock in...",
+    "fighters": {
+      "troll": "The Troll",
+      "infernal": "Infernal",
+      "mischief": "Mischief",
+      "joker": "The Joker",
+      "heavyweight": "Heavyweight",
+      "rex": "Rex",
+      "chili": "Hot Chili",
+      "doom": "Doom"
+    }
   }
 }

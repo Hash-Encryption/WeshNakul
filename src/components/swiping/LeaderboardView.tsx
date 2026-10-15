@@ -14,7 +14,7 @@ interface LeaderboardViewProps {
   participants: Participant[];
   isHost: boolean;
   onConfirmPick: (restaurant: RestaurantItem) => void;
-  onTriggerSuddenDeath: (topTwo: [RestaurantItem, RestaurantItem]) => void;
+  onTriggerSuddenDeath: (topSpots: RestaurantItem[]) => void;
   onTriggerRoulette: (topSpots: RestaurantItem[]) => void;
   onSelectMiniGame?: (game: MiniGameDefinition) => void;
   onTriggerCaptainRoulette?: (targetMiniGame?: import('../../config/miniGames').MiniGameId) => void;
@@ -70,7 +70,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
     if (game.id === 'sudden_death') {
       if (tiedRestaurants.length >= 2) {
-        onTriggerSuddenDeath([tiedRestaurants[0], tiedRestaurants[1]]);
+        onTriggerSuddenDeath(tiedRestaurants);
       }
       return;
     }
