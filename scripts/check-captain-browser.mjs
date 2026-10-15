@@ -373,16 +373,40 @@ try {
   console.log('✓ CaptainWheel renders with player initials and ship-helm styling');
 
   // ========================================================
-  // BROWSER TEST 2: Realtime synchronization across 2 clients
+  // BROWSER TEST 2: Realtime synchronization across 2 clients & Hidden Winner During Spin
   // ========================================================
-  console.log('\n--- BROWSER TEST 2: Realtime Synchronization Across Clients ---');
+  console.log('\n--- BROWSER TEST 2: Realtime Synchronization & Winner Hidden During Spin ---');
   await evalInBrowser('window.__GUEST_OPEN__(true)');
-  await new Promise((r) => setTimeout(r, 1000));
+  await new Promise((r) => setTimeout(r, 600));
 
-  const hostBannerText = await evalInBrowser('document.querySelector("#client-p1")?.innerText || ""');
-  const guestBannerText = await evalInBrowser('document.querySelector("#client-p2")?.innerText || ""');
-  assert.ok(hostBannerText.includes('Lina') || hostBannerText.includes('لينة'), 'Host displays provisional captain Lina');
-  assert.ok(guestBannerText.includes('Lina') || guestBannerText.includes('لينة'), 'Guest displays same provisional captain Lina');
+  // 1. Verify winner is STRICTLY HIDDEN while wheel is preparing / spinning
+  const spinHostText = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
+  const spinGuestText = await evalInBrowser('document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText || ""');
+  assert.ok(!spinHostText.includes('Lina') && !spinHostText.includes('لينة'), 'Host hides winner Lina while wheel is spinning');
+  assert.ok(!spinGuestText.includes('Lina') && !spinGuestText.includes('لينة'), 'Guest hides winner Lina while wheel is spinning');
+  assert.ok(
+    spinHostText.includes('Selecting a Captain') || spinHostText.includes('اختيار الكابتن') || spinHostText.includes('Preparing') || spinHostText.includes('نجهّز'),
+    'Host displays suspense status during wheel spin'
+  );
+  console.log('✓ Winner strictly hidden during wheel spin across all clients');
+
+  // 2. Wait for wheel to complete rotation and land on winner's slice
+  console.log('Waiting for wheel deceleration and landing...');
+  let landed = false;
+  for (let i = 0; i < 20; i++) {
+    const text = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
+    if (text.includes('Lina') || text.includes('لينة')) {
+      landed = true;
+      break;
+    }
+    await new Promise((r) => setTimeout(r, 350));
+  }
+  assert.ok(landed, 'Wheel completed landing and revealed winner on Host');
+
+  const hostBannerText = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
+  const guestBannerText = await evalInBrowser('document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText || ""');
+  assert.ok(hostBannerText.includes('Lina') || hostBannerText.includes('لينة'), 'Host displays provisional captain Lina after landing');
+  assert.ok(guestBannerText.includes('Lina') || guestBannerText.includes('لينة'), 'Guest displays same provisional captain Lina after landing');
   console.log('✓ Connected clients synchronize on same provisional captain in real browser');
 
   // ========================================================
@@ -391,7 +415,7 @@ try {
   console.log('\n--- BROWSER TEST 3: Reroll Request & Synchronized Voting UI ---');
   const rerollClicked = await evalInBrowser(`
     (() => {
-      const btns = Array.from(document.querySelectorAll("#client-p2 button"));
+      const btns = Array.from(document.querySelectorAll("#client-p2 [role=\\"dialog\\"] button"));
       const btn = btns.find(b => b.innerText.includes("Reroll") || b.innerText.includes("إعادة"));
       if (btn) { btn.click(); return true; }
       return false;
@@ -401,10 +425,10 @@ try {
   await new Promise((r) => setTimeout(r, 1000));
 
   const hostHasVoteButtons = await evalInBrowser(`
-    Boolean(document.querySelector("#client-p1")?.innerText.includes("👍") || document.querySelector("#client-p1")?.innerText.includes("Approve"))
+    Boolean(document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText.includes("👍") || document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText.includes("Approve"))
   `);
   const guestHasVotedApprove = await evalInBrowser(`
-    Boolean(document.querySelector("#client-p2")?.innerText.includes("Voted") || document.querySelector("#client-p2")?.innerText.includes("صوّتت") || document.querySelector("#client-p2")?.innerText.includes("1/2"))
+    Boolean(document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText.includes("Voted") || document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText.includes("صوّتت") || document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText.includes("1/2"))
   `);
   assert.ok(hostHasVoteButtons, 'Host UI displays active voting buttons');
   assert.ok(guestHasVotedApprove, 'Guest UI displays confirmed auto-approval for reroll requester');
@@ -416,17 +440,28 @@ try {
   console.log('\n--- BROWSER TEST 4: Majority Approval & Final Winner Display ---');
   const hostVotedApprove = await evalInBrowser(`
     (() => {
-      const btns = Array.from(document.querySelectorAll("#client-p1 button"));
+      const btns = Array.from(document.querySelectorAll("#client-p1 [role=\\"dialog\\"] button"));
       const approveBtn = btns.find(b => b.innerText.includes("👍") || b.innerText.includes("Approve"));
       if (approveBtn) { approveBtn.click(); return true; }
       return false;
     })()
   `);
   assert.ok(hostVotedApprove, 'Host voted Approve');
-  await new Promise((r) => setTimeout(r, 1000));
+  
+  // Wait for reroll wheel spin to settle and reveal new winner (Saad)
+  let rerollLanded = false;
+  for (let i = 0; i < 20; i++) {
+    const text = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
+    if (text.includes('Saad') || text.includes('سعد')) {
+      rerollLanded = true;
+      break;
+    }
+    await new Promise((r) => setTimeout(r, 350));
+  }
+  assert.ok(rerollLanded, 'Reroll wheel spin landed and revealed new captain');
 
-  const hostFinalText = await evalInBrowser('document.querySelector("#client-p1")?.innerText || ""');
-  const guestFinalText = await evalInBrowser('document.querySelector("#client-p2")?.innerText || ""');
+  const hostFinalText = await evalInBrowser('document.querySelector("#client-p1 [role=\\"dialog\\"]")?.innerText || ""');
+  const guestFinalText = await evalInBrowser('document.querySelector("#client-p2 [role=\\"dialog\\"]")?.innerText || ""');
   assert.ok(hostFinalText.includes('Saad'), 'Host sees final captain Saad after approved reroll');
   assert.ok(guestFinalText.includes('Saad'), 'Guest sees final captain Saad after approved reroll');
   console.log('✓ Approved reroll finalizes new captain (Saad) across all clients');

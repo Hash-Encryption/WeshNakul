@@ -338,39 +338,49 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     }
 
     if (phase === 'vortex_qualifier') {
-      // Orbiting vortex: eject non-finalists one by one
+      // 1. Circle Formation & Full Orbit (~1.2s): all cards pull into circular ring together
       const nonFinalistIds = uniqueRestaurants
         .map((r) => r.id)
         .filter((id) => !finalists.some((f) => f.id === id));
 
       let ejectIdx = 0;
-      const timer = setInterval(() => {
-        if (ejectIdx < nonFinalistIds.length) {
-          const ejectId = nonFinalistIds[ejectIdx];
-          setEjectedCardIds((prev) => new Set([...prev, ejectId]));
-          ejectIdx++;
-        } else {
-          clearInterval(timer);
-          // Transition to Finalists Reveal
-          setTimeout(() => {
-            const finalistCards: ShuffleCardItem[] = finalists.map((r, idx) => ({
-              id: r.id,
-              isShuffleAgain: false,
-              restaurant: r,
-              contenderLabel: isRTL ? `مرشح نهائي ${idx + 1}` : `Finalist ${idx + 1}`,
-              isFaceUp: true,
-              isZoomed: false,
-              isWinner: r.id === authoritativeWinner.id,
-              isEjected: false,
-              slotIndex: idx,
-            }));
-            setTableCards(finalistCards);
-            setPhase('finalists_reveal');
-          }, 500);
-        }
-      }, 350);
+      let intervalTimer: ReturnType<typeof setInterval> | null = null;
+      let settleTimer: ReturnType<typeof setTimeout> | null = null;
 
-      return () => clearInterval(timer);
+      const initialOrbitTimer = setTimeout(() => {
+        // 2. Staggered One-by-One Ejections (350ms per card)
+        intervalTimer = setInterval(() => {
+          if (ejectIdx < nonFinalistIds.length) {
+            const ejectId = nonFinalistIds[ejectIdx];
+            setEjectedCardIds((prev) => new Set([...prev, ejectId]));
+            ejectIdx++;
+          } else {
+            if (intervalTimer) clearInterval(intervalTimer);
+            // 3. Settle to 3 Finalists (600ms pause to clearly see survivors in orbit)
+            settleTimer = setTimeout(() => {
+              const finalistCards: ShuffleCardItem[] = finalists.map((r, idx) => ({
+                id: r.id,
+                isShuffleAgain: false,
+                restaurant: r,
+                contenderLabel: isRTL ? `مرشح نهائي ${idx + 1}` : `Finalist ${idx + 1}`,
+                isFaceUp: true,
+                isZoomed: false,
+                isWinner: r.id === authoritativeWinner.id,
+                isEjected: false,
+                slotIndex: idx,
+              }));
+              setTableCards(finalistCards);
+              setPhase('finalists_reveal');
+            }, 600);
+          }
+        }, 350);
+      }, 1200);
+
+      return () => {
+        clearTimeout(initialOrbitTimer);
+        if (intervalTimer) clearInterval(intervalTimer);
+        if (settleTimer) clearTimeout(settleTimer);
+      };
     }
 
     if (phase === 'finalists_reveal') {
@@ -622,7 +632,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
             {/* Spinning Orbit Ring */}
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 3.5, ease: 'linear' }}
+              transition={{ repeat: Infinity, duration: 2.4, ease: 'linear' }}
               className="absolute inset-0 flex items-center justify-center"
             >
               {tableCards.map((card, idx) => {
@@ -639,19 +649,25 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
                     animate={
                       isEjected
                         ? {
-                            x: x * 2.8,
-                            y: y * 2.8,
+                            x: x * 3.4,
+                            y: y * 3.4,
                             opacity: 0,
-                            scale: 0.3,
+                            scale: 0.25,
+                            rotate: (idx % 2 === 0 ? 1 : -1) * 75,
                           }
                         : {
                             x,
                             y,
                             opacity: 1,
                             scale: 0.75,
+                            rotate: 0,
                           }
                     }
-                    transition={{ duration: 0.45 }}
+                    transition={
+                      isEjected
+                        ? { duration: 0.45, ease: 'easeIn' }
+                        : { duration: 0.3 }
+                    }
                     className="absolute w-20 h-28"
                   >
                     <ShuffleCard card={card} disabled />

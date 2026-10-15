@@ -17,6 +17,7 @@ import {
   broadcastSuddenDeath,
   subscribeToSuddenDeath,
   resolveRestaurantTie,
+  getCaptainEventState,
   subscribeToCaptainEvents,
   broadcastShuffleCards,
   subscribeToShuffleCards,
@@ -137,14 +138,27 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   useEffect(() => {
     if (!currentRoom?.id) return;
 
+    // Check if captain event is currently active on mount for spectators
+    if (!isHost && currentParticipant?.session_token) {
+      void getCaptainEventState(currentRoom.id, currentParticipant.session_token)
+        .then((existing) => {
+          if (existing && existing.status !== 'finalized') {
+            setPendingMiniGame('shuffle_cards');
+            setIsCaptainRouletteOpen(true);
+          }
+        })
+        .catch(() => {});
+    }
+
     const unsubscribe = subscribeToCaptainEvents(currentRoom.id, (msg) => {
       if (msg.type === 'captain_spin_start') {
+        setPendingMiniGame('shuffle_cards');
         setIsCaptainRouletteOpen(true);
       }
     });
 
     return () => unsubscribe();
-  }, [currentRoom?.id]);
+  }, [currentRoom?.id, isHost, currentParticipant?.session_token]);
 
   // Subscribe to realtime shuffle cards triggers
   useEffect(() => {
