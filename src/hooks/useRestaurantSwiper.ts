@@ -3,6 +3,12 @@ import { fetchDeckRestaurants, getRoomDecisionState, submitRestaurantVote } from
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { RestaurantSummary } from '../types/database';
 import { logDeckError } from '../lib/observability';
+import {
+  trackDeckCandidatesReady,
+  trackRestaurantCardImpression,
+  trackRestaurantSwipe,
+  trackDecisionWinnerMatched,
+} from '../lib/analytics';
 
 interface SwiperProps {
   roomId: string;
@@ -129,6 +135,17 @@ export function useRestaurantSwiper({
 
         setDeckError(nextDeck?.restaurants?.length ? null : 'NO_ELIGIBLE_RESTAURANTS');
         setIsLoadingDeck(false);
+
+        if (nextDeck?.deckId && nextDeck?.restaurants?.length) {
+          trackDeckCandidatesReady({
+            roomId,
+            deckId: nextDeck.deckId,
+            generation: (state as any)?.generation || 0,
+            candidateCount: nextDeck.restaurants.length,
+            candidateIds: nextDeck.restaurants.map((r: any) => r.id),
+            category,
+          });
+        }
       })
       .catch((error) => {
         logDeckError({
@@ -150,7 +167,28 @@ export function useRestaurantSwiper({
     };
   }, [stage, category, roomId, participantId, sessionToken, summary?.deckId, reloadCounter]);
 
+  // Track card impressions as user traverses deck
+  const lastImpressionRef = useRef<string | null>(null);
 
+  useEffect(() => {
+    if (!deck || deck.length === 0 || !deckId) return;
+    const safeIndex = Number.isFinite(currentIndex) ? Math.max(0, Math.floor(currentIndex)) : 0;
+    if (safeIndex >= deck.length) return;
+    const currentCard = deck[safeIndex];
+    if (!currentCard || !currentCard.id) return;
+
+    const impressionKey = `${deckId}:${safeIndex}:${currentCard.id}`;
+    if (lastImpressionRef.current !== impressionKey) {
+      lastImpressionRef.current = impressionKey;
+      trackRestaurantCardImpression({
+        roomId,
+        deckId,
+        restaurantId: currentCard.id,
+        position: safeIndex,
+        category,
+      });
+    }
+  }, [deck, deckId, currentIndex, roomId, category]);
 
   const recordVote = useCallback(
     (vote: RestaurantVote) => {
@@ -163,6 +201,14 @@ export function useRestaurantSwiper({
 
       if (pendingItemsRef.current.has(item.id)) return Promise.resolve();
       pendingItemsRef.current.add(item.id);
+
+      trackRestaurantSwipe({
+        roomId,
+        deckId,
+        restaurantId: item.id,
+        vote,
+        position: safeIndex,
+      });
 
       const previousVote = myVotes[item.id];
       setMyVotes((current) => ({ ...current, [item.id]: vote }));
@@ -209,7 +255,15 @@ export function useRestaurantSwiper({
         const accept = async (state: Awaited<ReturnType<typeof submitRestaurantVote>>) => {
           versionRef.current = Math.max(versionRef.current, state.room.version);
           setMyVotes(state.myVotes || {});
-          if (state.room.stage === 'matched') onMatched?.(item);
+          if (state.room.stage === 'matched') {
+            trackDecisionWinnerMatched({
+              roomId,
+              restaurantId: item.id,
+              deckId,
+              resolutionMethod: 'normal_consensus',
+            });
+            onMatched?.(item);
+          }
           const nextDeckId = state.room.restaurant_summary?.deckId;
           if (nextDeckId && nextDeckId !== deckId) {
             setShowRoundTwoToast(true);

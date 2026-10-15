@@ -3,6 +3,7 @@ import type { RestaurantItem } from '../../types/restaurant';
 import type { OrderItem } from '../../types/database';
 import { useLocale } from '../../context/LocaleContext';
 import { Toast } from '../common/Toast';
+import { trackOutboundMapsClick, trackOutboundDeliveryClick } from '../../lib/analytics';
 
 export function formatWhatsAppOrder(
   restaurantName: string,
@@ -86,7 +87,19 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
   const rawBrandName = locale === 'ar' ? restaurant.nameAr : restaurant.nameEn;
   const brandName = extractBrandName(rawBrandName || restaurant.name || restaurant.nameAr || restaurant.nameEn || '');
 
-  const handleDeliveryClick = () => {
+  const handleMapsClick = () => {
+    trackOutboundMapsClick({
+      restaurantId: restaurant.id,
+      branchId: restaurant.selectedBranch?.id,
+      hasExactBranch: Boolean(restaurant.selectedBranch?.googleMapsUrl),
+    });
+  };
+
+  const handleDeliveryClick = (platform: 'hungerstation' | 'ninja' | 'keeta') => {
+    trackOutboundDeliveryClick({
+      restaurantId: restaurant.id,
+      platform,
+    });
     copyToClipboardSafe(brandName);
     setToastMessage(t('match.restaurant_name_copied'));
     setTimeout(() => {
@@ -95,7 +108,7 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
   };
 
   const handleKeetaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    handleDeliveryClick();
+    handleDeliveryClick('keeta');
 
     const isIOS = typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent);
     const isAndroid = typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent);
@@ -133,6 +146,10 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
   };
 
   const handleCopyWhatsApp = () => {
+    trackOutboundDeliveryClick({
+      restaurantId: restaurant.id,
+      platform: 'whatsapp',
+    });
     const text = formatWhatsAppOrder(brandName || fallbackSearchName, orders, roomCode);
     const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
 
@@ -153,6 +170,7 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
         href={googleMapsUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleMapsClick}
         className="w-full h-14 px-4 rounded-2xl bg-[#55B96A] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] hover:brightness-105 active:translate-y-1 active:shadow-[0px_1px_0px_#241B18] transition-all flex items-center justify-center gap-2.5 font-alexandria font-black text-base sm:text-lg select-none group"
       >
         <svg
@@ -182,7 +200,7 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
           href="https://hungerstation.go.link/?adj_t=18ca96f0_23cp1gxh"
           target="_blank"
           rel="noopener noreferrer"
-          onClick={handleDeliveryClick}
+          onClick={() => handleDeliveryClick('hungerstation')}
           className="h-12 px-2 rounded-2xl bg-[#EA1D2C] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-105 transition-all flex items-center justify-center gap-1 font-alexandria font-black text-xs sm:text-sm select-none"
         >
           <span>{locale === 'ar' ? 'هنقرستيشن' : 'HungerStation'}</span>
@@ -193,7 +211,7 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
           href="https://ananinja.com/app"
           target="_blank"
           rel="noopener noreferrer"
-          onClick={handleDeliveryClick}
+          onClick={() => handleDeliveryClick('ninja')}
           className="h-12 px-2 rounded-2xl bg-[#101828] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-110 transition-all flex items-center justify-center gap-1 font-alexandria font-black text-xs sm:text-sm select-none"
         >
           <span>{locale === 'ar' ? 'نينجا' : 'Ninja'}</span>

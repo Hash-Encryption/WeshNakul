@@ -18,6 +18,7 @@ import {
   subscribeToCaptainEvents,
 } from '../../lib/supabase';
 import { getOrCreateSessionToken } from '../../lib/session';
+import { trackMiniGameStarted, trackMiniGameCompleted } from '../../lib/analytics';
 
 interface CaptainRouletteModalProps {
   isOpen: boolean;
@@ -111,12 +112,19 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
       setTargetWinnerId(next.provisionalCaptainId);
     } else if (next.status === 'finalized' && next.finalCaptainId) {
       setTargetWinnerId(next.finalCaptainId);
+      trackMiniGameCompleted({
+        roomId: currentRoom?.id || '',
+        roomCode: currentRoom?.code,
+        gameType: 'captain_roulette',
+        outcomeRestaurantId: next.finalCaptainNickname || undefined,
+        isPresentationOnly: false,
+      });
     }
 
     if (currentParticipant?.id && next.votes?.[currentParticipant.id]) {
       setHasVotedLocally(next.votes[currentParticipant.id]);
     }
-  }, [currentParticipant]);
+  }, [currentParticipant, currentRoom?.id, currentRoom?.code]);
 
   // Load existing event state or initialize if host
   useEffect(() => {
@@ -166,6 +174,12 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
           try {
             const stableId = getOrCreateSessionToken();
             const initiated = await startCaptainSelection(currentRoom.id, currentParticipant.session_token, stableId);
+            trackMiniGameStarted({
+              roomId: currentRoom.id,
+              roomCode: currentRoom.code,
+              gameType: 'captain_roulette',
+              participantCount: initiated.candidates?.length,
+            });
             if (mounted) {
               applyState(initiated);
               const targetId = initiated.finalCaptainId || initiated.provisionalCaptainId;
@@ -233,7 +247,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
       mounted = false;
       if (spinTimerRef.current) clearTimeout(spinTimerRef.current);
     };
-  }, [isOpen, currentRoom?.id, currentParticipant?.session_token, isHost, applyState, participants, retryCount]);
+  }, [isOpen, currentRoom?.id, currentRoom?.code, currentParticipant?.session_token, isHost, applyState, participants, retryCount]);
 
   // Realtime subscription across room
   useEffect(() => {

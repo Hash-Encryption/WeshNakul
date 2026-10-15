@@ -33,6 +33,7 @@ import { useLocale } from './LocaleContext';
 import { normalizeCategorySelection } from '../lib/consensus';
 import type { DecisionSpin } from '../types/roulette';
 import { perf } from '../lib/perf';
+import { trackRoomStageChanged } from '../lib/analytics';
 
 interface RoomContextType {
   currentRoom: Room | null;
@@ -114,6 +115,24 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [modeTransition, setModeTransition] = useState<{ active: boolean; fromMode: RoomMode; toMode: RoomMode } | null>(null);
   const modeTransitionTimerRef = useRef<number | null>(null);
   const prevRoomModeRef = useRef<RoomMode | null>(null);
+  const prevStageRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!currentRoom) {
+      prevStageRef.current = null;
+      return;
+    }
+    if (prevStageRef.current && prevStageRef.current !== currentRoom.stage) {
+      trackRoomStageChanged({
+        roomId: currentRoom.id,
+        roomCode: currentRoom.code,
+        fromStage: prevStageRef.current,
+        toStage: currentRoom.stage,
+        version: currentRoom.version,
+      });
+    }
+    prevStageRef.current = currentRoom.stage;
+  }, [currentRoom]);
 
   const clearModeTransition = useCallback(() => {
     if (modeTransitionTimerRef.current) {

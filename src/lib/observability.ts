@@ -7,6 +7,20 @@ export type DeckErrorPhase =
   | 'consensus'
   | 'deck_recovery';
 
+type TechnicalFailureCallback = (options: {
+  errorPhase: string;
+  errorCode?: string;
+  messageClean?: string;
+  roomId?: string;
+  deckId?: string;
+}) => void;
+
+let technicalFailureListener: TechnicalFailureCallback | null = null;
+
+export function registerTechnicalFailureListener(listener: TechnicalFailureCallback | null): void {
+  technicalFailureListener = listener;
+}
+
 export interface StructuredDeckErrorEvent {
   event: 'deck_error' | 'deck_warning' | 'render_error' | 'restoration_fallback';
   eventPhase: DeckErrorPhase;
@@ -97,6 +111,17 @@ export function logDeckError(options: LogDeckErrorOptions): StructuredDeckErrorE
     console.warn(prefix, payload.errorMessage, payload);
   } else {
     console.error(prefix, payload.errorMessage, payload);
+    try {
+      technicalFailureListener?.({
+        errorPhase: options.eventPhase,
+        errorCode: payload.event,
+        messageClean: payload.errorMessage,
+        roomId: options.roomId,
+        deckId: options.deckId || undefined,
+      });
+    } catch {
+      // Non-blocking isolation
+    }
   }
 
   // Hook into window.__WESHNAKUL_LAST_ERROR__ for automated testing and client diagnostics

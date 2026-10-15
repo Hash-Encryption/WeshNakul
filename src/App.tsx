@@ -18,6 +18,14 @@ import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScr
 import { RESTAURANT_CATALOG } from './data/restaurants';
 import { getCachedRestaurant, getRoomByCode } from './lib/supabase';
 import { clearRoomSession } from './lib/session';
+import {
+  trackAppSessionStart,
+  trackRoomCreateSuccess,
+  trackRoomCreateFailed,
+  trackRoomJoinSuccess,
+  trackRoomJoinFailed,
+  trackRoomExplicitExit,
+} from './lib/analytics';
 import { Toast } from './components/common/Toast';
 import { DecisionMachineLoading } from './components/common/DecisionMachineLoading';
 import { RoomModeTransition } from './components/common/RoomModeTransition';
@@ -86,6 +94,11 @@ export const App: React.FC = () => {
     }
   }, [currentRoom, currentParticipant, participants.length, isLoading, step]);
 
+  // Track app session start on initial mount
+  useEffect(() => {
+    trackAppSessionStart({ locale: 'ar' });
+  }, []);
+
   // Handle URL path /r/:code on load or direct link
   useEffect(() => {
     const handleUrlRouting = async () => {
@@ -143,10 +156,26 @@ export const App: React.FC = () => {
         longitude,
       });
 
+      trackRoomCreateSuccess({
+        roomId: room.id,
+        roomCode: room.code,
+        eatingMode: selectedEatingMode,
+        roomMode: selectedRoomMode,
+        city,
+        hasDistrict: Boolean(neighborhood),
+      });
+
       window.history.pushState({}, '', `/r/${room.code}`);
       setStep('room');
     } catch (err) {
       console.error('Failed to create room', err);
+      trackRoomCreateFailed({
+        eatingMode: selectedEatingMode,
+        roomMode: selectedRoomMode,
+        city,
+        errorCode: (err as any)?.code,
+        reasonClean: (err as any)?.message,
+      });
       setStep('landing');
     } finally {
       setIsSubmitting(false);
@@ -161,11 +190,13 @@ export const App: React.FC = () => {
       const cleanCode = code.trim().toUpperCase();
       const { room, isExpired } = await getRoomByCode(cleanCode);
       if (isExpired) {
+        trackRoomJoinFailed({ roomCode: cleanCode, reason: 'room_expired' });
         setCodeModalError(t('session.expiredNotice'));
         setIsSubmitting(false);
         return;
       }
       if (!room) {
+        trackRoomJoinFailed({ roomCode: cleanCode, reason: 'room_not_found' });
         setCodeModalError(t('session.invalidCode'));
         setIsSubmitting(false);
         return;
@@ -179,6 +210,7 @@ export const App: React.FC = () => {
       window.history.pushState({}, '', `/r/${cleanCode}`);
     } catch (err) {
       console.error('Failed to join by code', err);
+      trackRoomJoinFailed({ roomCode: code, reason: 'network_error' });
       reportError(err);
     } finally {
       setIsSubmitting(false);
@@ -193,14 +225,18 @@ export const App: React.FC = () => {
     try {
       const res = await joinExistingRoom(currentRoom.code, nickname);
       if (res.success) {
+        trackRoomJoinSuccess({ roomId: currentRoom.id, roomCode: currentRoom.code, isRejoin: false });
         setStep('room');
       } else if (res.isFull) {
+        trackRoomJoinFailed({ roomCode: currentRoom.code, reason: 'room_full' });
         setStep('room-full');
       } else {
+        trackRoomJoinFailed({ roomCode: currentRoom.code, reason: 'invalid_input' });
         setGuestError(t('common.errorGeneric'));
       }
     } catch (err) {
       console.error('Guest join error', err);
+      trackRoomJoinFailed({ roomCode: currentRoom.code, reason: 'invalid_input' });
       setGuestError(t('common.errorGeneric'));
     } finally {
       setIsSubmitting(false);
@@ -208,6 +244,13 @@ export const App: React.FC = () => {
   };
 
   const handleLeave = async () => {
+    trackRoomExplicitExit({
+      roomId: currentRoom?.id,
+      roomCode: currentRoom?.code,
+      stage: currentRoom?.stage || 'unknown',
+      isHost: Boolean(currentParticipant?.is_host),
+      exitTrigger: 'leave_button',
+    });
     if (currentParticipant?.is_host && currentRoom) {
       await destroyRoom();
     } else {

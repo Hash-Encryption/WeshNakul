@@ -14,6 +14,7 @@ import { OrderScratchpad } from '../orders/OrderScratchpad';
 import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
 
 import { broadcastRevoteRequest, subscribeToRevoteRequests } from '../../lib/supabase';
+import { trackRevoteRequested } from '../../lib/analytics';
 
 const PILL_GRADIENTS = [
   'from-[#FF6B6B] to-[#FF8E53]',
@@ -101,6 +102,12 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   }, [activeRoomId]);
 
   const handleHostRestartVote = () => {
+    trackRevoteRequested({
+      roomId: activeRoomId,
+      roomCode,
+      isHost: true,
+      targetStage: 'voting',
+    });
     if (onRestartVote) {
       onRestartVote();
     } else if (onVoteAgain) {
@@ -114,6 +121,15 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
 
   const handleToggleRevoteRequest = () => {
     const nextActive = !isMyRevoteRequested;
+
+    if (nextActive) {
+      trackRevoteRequested({
+        roomId: activeRoomId,
+        roomCode,
+        isHost: false,
+        targetStage: 'voting',
+      });
+    }
 
     setRevoteVoters((prev) => {
       if (nextActive) {
