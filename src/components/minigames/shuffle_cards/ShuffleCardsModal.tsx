@@ -5,6 +5,7 @@ import type { RestaurantItem } from '../../../types/restaurant';
 import type { ShuffleCardItem, ShuffleCardsPhase } from '../../../types/shuffleCards';
 import { ShuffleCard } from './ShuffleCard';
 import { ShuffleSpeedLines } from './ShuffleSpeedLines';
+import { MiniGameIntroOverlay } from '../MiniGameIntroOverlay';
 import { useLocale } from '../../../context/LocaleContext';
 import { broadcastShuffleCards, subscribeToShuffleCards } from '../../../lib/supabase';
 import { trackMiniGameStarted, trackMiniGameCompleted } from '../../../lib/analytics';
@@ -211,7 +212,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     [totalContenders, uniqueRestaurants, authoritativeWinner, isRTL]
   );
 
-  // Active cards state on the table
+  const [showIntro, setShowIntro] = useState<boolean>(true);
   const [tableCards, setTableCards] = useState<ShuffleCardItem[]>(() => initTableCards(false));
   const hasPassedVortexRef = useRef<boolean>(false);
   const initializedSeedRef = useRef<string | null>(null);
@@ -230,6 +231,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     initializedSeedRef.current = currentKey;
     hasPassedVortexRef.current = false;
 
+    setShowIntro(true);
     setPhase('initial_reveal');
     setTableCards(initTableCards(false));
     setTappedSlotIndex(null);
@@ -343,7 +345,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
 
   // Handle phase transitions
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || showIntro) return;
 
     if (phase === 'initial_reveal') {
       // Step 1: Show cards face-up for 2.0 seconds, then flip face-down
@@ -446,7 +448,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       }, 320);
       return () => clearInterval(interval);
     }
-  }, [phase, isOpen]);
+  }, [phase, isOpen, showIntro]);
 
   // Reshuffle flow for "Shuffle Again"
   const executeReshuffle = useCallback(() => {
@@ -604,28 +606,35 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         return t('shuffleCards.vortexStatus');
       case 'finalists_reveal':
         return t('shuffleCards.finalistsStatus');
-      case 'shuffling':
-      case 'flipping_down':
-        return t('shuffleCards.shufflingStatus');
-      case 'shuffle_again_bounce':
-        return t('shuffleCards.shuffleAgainDesc');
-      case 'winner_celebration':
-        return t('shuffleCards.winnerCelebration');
       case 'initial_reveal':
-        if (totalContenders >= 5) return t('shuffleCards.vortexStatus');
-        return isCaptain
-          ? (isRTL ? 'اختر بطاقة لكشف الفائز!' : 'Tap a card to reveal the winner!')
-          : (isRTL
-              ? `الكابتن (${captain.nickname}) يختار بطاقة...`
-              : `${captain.nickname} is choosing a card...`);
+      case 'flipping_down':
+        if (isCaptain) {
+          return isRTL
+            ? '👀 هذه هي المطاعم المتعادلة قبل إخفائها...'
+            : '👀 Here are the tied restaurants before hiding...';
+        }
+        return isRTL
+          ? `👀 هذه هي المطاعم المتعادلة قبل إخفائها... (${captain.nickname} سيختار بطاقة الحظ)`
+          : `👀 Here are the tied restaurants before hiding... (${captain.nickname} is picking a card)`;
+      case 'shuffling':
+        return isRTL
+          ? '🔀 يتم خلط البطاقات الآن... ركّز جيداً!'
+          : '🔀 Shuffling cards now... watch closely!';
+      case 'shuffle_again_bounce':
+        return isRTL ? '🔄 إعادة خلط البطاقات!' : '🔄 Reshuffling cards!';
+      case 'winner_celebration':
+      case 'completed':
+        return isRTL
+          ? `🎉 الفائز: ${authoritativeWinner.nameAr || authoritativeWinner.nameEn}!`
+          : `🎉 Winner: ${authoritativeWinner.nameEn || authoritativeWinner.nameAr}!`;
       case 'pick_ready':
       case 'revealing_pick':
       default:
         return isCaptain
-          ? (isRTL ? 'اختر بطاقة لكشف الفائز!' : 'Tap a card to reveal the winner!')
+          ? (isRTL ? '👆 اختر بطاقة واحدة لكشف المطعم الفائز!' : '👆 Tap any card to reveal the winner!')
           : (isRTL
-              ? `الكابتن (${captain.nickname}) يختار بطاقة...`
-              : `${captain.nickname} is choosing a card...`);
+              ? `⏳ ${captain.nickname || 'القائد'} يختار بطاقة الحظ الآن...`
+              : `⏳ ${captain.nickname || 'Host'} is picking a card now...`);
     }
   };
 
@@ -634,60 +643,68 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       role="dialog"
       aria-modal="true"
       dir={isRTL ? 'rtl' : 'ltr'}
-      className="fixed inset-0 z-50 flex flex-col justify-between p-3 sm:p-5 bg-gradient-to-b from-[#FAF4ED] via-[#FFFDFB] to-[#F3ECE4] text-[#241B18] overflow-hidden select-none animate-fade-in"
+      className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center z-[9999] p-0 md:p-4 select-none animate-fade-in"
     >
-      {/* Top Bar */}
-      <div className="flex items-center justify-between w-full max-w-lg mx-auto">
-        <button
-          onClick={onClose}
-          type="button"
-          aria-label="Close"
-          className="w-10 h-10 rounded-full border border-[#241B18]/15 bg-white/80 hover:bg-white text-base font-bold flex items-center justify-center transition-transform active:scale-90 shadow-xs"
-        >
-          ✕
-        </button>
+      <div className="relative w-full h-[100dvh] md:h-auto md:max-h-[850px] max-w-[420px] md:my-auto md:rounded-[32px] md:border-4 md:border-white/15 md:shadow-[0_25px_70px_rgba(0,0,0,0.75)] mx-auto overflow-hidden flex flex-col justify-between p-3 sm:p-5 bg-gradient-to-b from-[#FAF4ED] via-[#FFFDFB] to-[#F3ECE4] text-[#241B18]">
+        {showIntro && (
+          <MiniGameIntroOverlay
+            gameId="shuffle_cards"
+            onComplete={() => setShowIntro(false)}
+          />
+        )}
 
-        {/* Centered Logo Emblem */}
-        <div className="relative flex items-center justify-center w-12 h-10">
-          <div className="absolute w-6 h-7 bg-[#FFD75A] rounded-lg transform -rotate-12 -translate-x-2.5 shadow-xs border border-black/5 flex items-center justify-center text-xs">
-            🍕
+        {/* Top Bar */}
+        <div className="flex items-center justify-between w-full max-w-lg mx-auto">
+          <button
+            onClick={onClose}
+            type="button"
+            aria-label="Close"
+            className="w-10 h-10 rounded-full border border-[#241B18]/15 bg-white/80 hover:bg-white text-base font-bold flex items-center justify-center transition-transform active:scale-90 shadow-xs"
+          >
+            ✕
+          </button>
+
+          {/* Centered Logo Emblem */}
+          <div className="relative flex items-center justify-center w-12 h-10">
+            <div className="absolute w-6 h-7 bg-[#FFD75A] rounded-lg transform -rotate-12 -translate-x-2.5 shadow-xs border border-black/5 flex items-center justify-center text-xs">
+              🍕
+            </div>
+            <div className="absolute w-6 h-7 bg-[#55B96A] rounded-lg transform rotate-12 translate-x-2.5 shadow-xs border border-black/5 flex items-center justify-center text-xs">
+              🍔
+            </div>
+            <div className="relative z-10 text-[#F0443E] font-black text-2xl filter drop-shadow-[0_2px_4px_rgba(240,68,62,0.35)] leading-none">
+              ؟
+            </div>
           </div>
-          <div className="absolute w-6 h-7 bg-[#55B96A] rounded-lg transform rotate-12 translate-x-2.5 shadow-xs border border-black/5 flex items-center justify-center text-xs">
-            🍔
-          </div>
-          <div className="relative z-10 text-[#F0443E] font-black text-2xl filter drop-shadow-[0_2px_4px_rgba(240,68,62,0.35)] leading-none">
-            ؟
+
+          {/* Squad Counter */}
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF0EE] border border-[#F0443E]/20 text-[#F0443E] font-black text-xs font-alexandria shadow-xs">
+            <span>👥</span>
+            <span>{totalContenders}</span>
           </div>
         </div>
 
-        {/* Squad Counter */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF0EE] border border-[#F0443E]/20 text-[#F0443E] font-black text-xs font-alexandria shadow-xs">
-          <span>👥</span>
-          <span>{totalContenders}</span>
+        {/* Main Title & Live Announcer Explainer Pill */}
+        <div className="flex flex-col items-center text-center my-1 sm:my-2 max-w-md mx-auto w-full">
+          <h2 className="text-2xl sm:text-3xl font-black text-[#241B18] font-alexandria tracking-tight">
+            {t('shuffleCards.title')}
+          </h2>
+
+          {/* What's Happening Now Live Announcer Pill */}
+          <div className="mt-1.5 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 border-2 border-[#241B18]/15 shadow-xs font-alexandria font-black text-xs sm:text-sm text-[#241B18] max-w-[95%]">
+            <span>{getPromptText()}</span>
+          </div>
+
+          {/* Captain Turn Badge */}
+          <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF8E6] border border-amber-300 shadow-xs font-alexandria font-black text-xs text-amber-900">
+            <span>👑</span>
+            <span>
+              {isRTL
+                ? `دور الكابتن (${captain.nickname})`
+                : `CAPTAIN'S TURN (${captain.nickname})`}
+            </span>
+          </div>
         </div>
-      </div>
-
-      {/* Main Title & Captain Status Indicator */}
-      <div className="flex flex-col items-center text-center my-1 sm:my-2 max-w-md mx-auto w-full">
-        <h2 className="text-2xl sm:text-3xl font-black text-[#241B18] font-alexandria tracking-tight">
-          {t('shuffleCards.title')}
-        </h2>
-
-        {/* Subtitle / Animated status prompt */}
-        <p className="text-xs sm:text-sm font-semibold text-[#7A6E67] font-alexandria mt-0.5">
-          {getPromptText()}
-        </p>
-
-        {/* Captain Turn Badge */}
-        <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF8E6] border border-amber-300 shadow-xs font-alexandria font-black text-xs text-amber-900">
-          <span>👑</span>
-          <span>
-            {isRTL
-              ? `دور الكابتن (${captain.nickname})`
-              : `CAPTAIN'S TURN (${captain.nickname})`}
-          </span>
-        </div>
-      </div>
 
       {/* CARD ARENA */}
       <div className="relative flex-1 flex items-center justify-center w-full max-w-lg mx-auto py-3">
@@ -912,5 +929,6 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         )}
       </div>
     </div>
+  </div>
   );
 };

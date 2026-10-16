@@ -29,6 +29,7 @@ export interface MiniGameDefinition {
   id: MiniGameId;
   nameKey: string;
   descriptionKey: string;
+  mechanicKey: string;
   imageAsset: string;
   bgClass: string;
   needsCaptain: boolean;
@@ -44,6 +45,7 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     id: 'shuffle_cards',
     nameKey: 'gameSwiper.gameShuffleCards',
     descriptionKey: 'gameSwiper.gameShuffleCardsDesc',
+    mechanicKey: 'gameSwiper.mechanicShuffleCards',
     imageAsset: 'shuffle_cards',
     bgClass: 'bg-[#FFF1ED]',
     needsCaptain: true,
@@ -78,6 +80,7 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     id: 'sudden_death',
     nameKey: 'gameSwiper.gameSuddenDeath',
     descriptionKey: 'gameSwiper.gameSuddenDeathDesc',
+    mechanicKey: 'gameSwiper.mechanicSuddenDeath',
     imageAsset: 'sudden_death',
     bgClass: 'bg-[#FFF6E6]',
     needsCaptain: false,
@@ -99,6 +102,7 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     id: 'emoji_clash',
     nameKey: 'gameSwiper.gameEmojiClash',
     descriptionKey: 'gameSwiper.gameEmojiClashDesc',
+    mechanicKey: 'gameSwiper.mechanicEmojiClash',
     imageAsset: 'emoji_clash',
     bgClass: 'bg-[#FDEDF2]',
     needsCaptain: false,
@@ -127,6 +131,7 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     id: 'food_race',
     nameKey: 'gameSwiper.gameFoodRace',
     descriptionKey: 'gameSwiper.gameFoodRaceDesc',
+    mechanicKey: 'gameSwiper.mechanicFoodRace',
     imageAsset: 'food_race',
     bgClass: 'bg-[#EDF7FC]',
     needsCaptain: true,
@@ -147,6 +152,7 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     id: 'pick_a_box',
     nameKey: 'gameSwiper.gamePickABox',
     descriptionKey: 'gameSwiper.gamePickABoxDesc',
+    mechanicKey: 'gameSwiper.mechanicPickABox',
     imageAsset: 'pick_a_box',
     bgClass: 'bg-[#F6EEFD]',
     needsCaptain: true,
@@ -167,6 +173,7 @@ export const MINI_GAMES: MiniGameDefinition[] = [
     id: 'sizzling_skillet',
     nameKey: 'gameSwiper.gameSizzlingSkillet',
     descriptionKey: 'gameSwiper.gameSizzlingSkilletDesc',
+    mechanicKey: 'gameSwiper.mechanicSizzlingSkillet',
     imageAsset: 'sizzling_skillet',
     bgClass: 'bg-[#F0FDF4]',
     needsCaptain: false,

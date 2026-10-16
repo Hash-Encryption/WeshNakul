@@ -17,6 +17,7 @@ import { MustardSack } from './MustardSack';
 import { TactileCyclingDock } from './TactileCyclingDock';
 import { EmojiArenaStage } from './EmojiArenaStage';
 import { broadcastEmojiClash, subscribeToEmojiClash } from '../../../lib/supabase';
+import { MiniGameIntroOverlay } from '../MiniGameIntroOverlay';
 
 interface EmojiClashModalProps {
   isOpen: boolean;
@@ -66,9 +67,30 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
   const { locale } = useLocale();
 
   // Phase management: fighter_select (6s) -> squad_fusion (5s) -> brawl (15s) -> podium (4s) -> completed
+  const [showIntro, setShowIntro] = useState(true);
   const [phase, setPhase] = useState<EmojiClashPhase>('fighter_select');
   const [fusionStage, setFusionStage] = useState<SquadFusionStage>('fusion_intro');
   const [timerSeconds, setTimerSeconds] = useState(6);
+
+  // Reset modal state on open
+  useEffect(() => {
+    if (isOpen) {
+      setShowIntro(true);
+      setPhase('fighter_select');
+      setFusionStage('fusion_intro');
+      setTimerSeconds(6);
+      setPicksByParticipant({});
+      setMyFighterId(null);
+      setCurrentTaps(0);
+      setMustardDetonated(false);
+      setIsSackDropping(false);
+      setGoldenKnockoutTriggered(false);
+      setProjectiles([]);
+      isFinalizingRef.current = false;
+      isDetonatedRef.current = false;
+      currentTapsRef.current = 0;
+    }
+  }, [isOpen]);
 
   // Participant emoji picks
   const [picksByParticipant, setPicksByParticipant] = useState<Record<string, EmojiFighterId>>({});
@@ -227,7 +249,7 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
 
   // Phase 1 Early Lock-In Check (Auto-advances if all active players pick before 6s)
   useEffect(() => {
-    if (phase !== 'fighter_select') return;
+    if (showIntro || phase !== 'fighter_select') return;
 
     const allActivePicked =
       activeParticipants.length > 0 &&
@@ -238,11 +260,11 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
     if (allActivePicked) {
       advanceToSquadFusion();
     }
-  }, [phase, activeParticipants, picksByParticipant, myFighterId, currentParticipantId, advanceToSquadFusion]);
+  }, [phase, activeParticipants, picksByParticipant, myFighterId, currentParticipantId, advanceToSquadFusion, showIntro]);
 
   // Wall-Clock Monotonic Timeline & Phase Orchestration
   useEffect(() => {
-    if (!isOpen || phase === 'completed') return;
+    if (!isOpen || phase === 'completed' || showIntro) return;
 
     // Phase 1: 6s | Phase 2: 5s | Phase 3: 15s (Act 1: 9s, Act 2: 6s) | Phase 4: 4s
     let durationMs = 6000;
@@ -295,7 +317,7 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
       clearInterval(poller);
       if (calloutTimeout) clearTimeout(calloutTimeout);
     };
-  }, [isOpen, phase, advanceToSquadFusion, triggerGoldenKnockout, handleConfirmWinnerClick]);
+  }, [isOpen, phase, advanceToSquadFusion, triggerGoldenKnockout, handleConfirmWinnerClick, showIntro]);
 
   // Handle Fighter Selection
   const handleSelectFighter = (fighter: EmojiFighterOption) => {
@@ -441,18 +463,51 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
   // Act 2 Boss Showdown begins at 6s remaining in Phase 3
   const isAct2 = phase === 'brawl' && timerSeconds <= 6;
 
+  const getAnnouncerPrompt = () => {
+    if (phase === 'fighter_select') {
+      return locale === 'ar'
+        ? '🥊 اختر مقاتلك! كل إيموجي سيدافع عن أحد المطاعم المتعادلة!'
+        : '🥊 Pick your fighter! Each emoji will champion a tied restaurant!';
+    }
+    if (phase === 'squad_fusion') {
+      return locale === 'ar'
+        ? '🏷️ كل إيموجي يحمل الآن راية مطعم في الحلبة!'
+        : '🏷️ Each emoji now fights for its assigned restaurant!';
+    }
+    if (phase === 'brawl') {
+      if (isAct2) {
+        return locale === 'ar'
+          ? '💥 قنبلة الخردل نزلت! اضغطوا عليها بسرعة لتفجيرها وحسم الفائز!'
+          : '💥 Mustard Bomb dropped! Tap it fast to explode & decide the winner!';
+      }
+      return locale === 'ar'
+        ? '🌶️ اضغط الزر الأحمر بالأسفل لرمي البهارات بالحلبة!'
+        : '🌶️ Tap the big red button below to throw spices into the ring!';
+    }
+    return locale === 'ar'
+      ? '🏆 حُسم النزال! المطعم البطل يتوّج الآن!'
+      : '🏆 Brawl decided! The champion restaurant is crowned!';
+  };
+
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 w-screen h-[100dvh] overflow-hidden touch-manipulation select-none z-[9999] bg-black/85 backdrop-blur-md flex items-center justify-center p-0 sm:p-4">
+      <div className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center z-[9999] p-0 md:p-4 select-none touch-manipulation overflow-hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.25 }}
-          className="relative w-full max-w-[410px] h-[100dvh] max-h-[840px] mx-auto bg-gradient-to-b from-[#101735] via-[#0D132D] to-[#070914] sm:rounded-3xl border-0 sm:border-3 sm:border-[#241B18] shadow-[0_10px_0_#241B18] flex flex-col justify-between overflow-hidden"
+          className="relative w-full max-w-[420px] h-[100dvh] md:max-h-[850px] md:my-auto md:rounded-[32px] md:border-4 md:border-white/15 md:shadow-[0_25px_70px_rgba(0,0,0,0.75)] mx-auto bg-gradient-to-b from-[#101735] via-[#0D132D] to-[#070914] flex flex-col justify-between overflow-hidden"
         >
+          {showIntro && (
+            <MiniGameIntroOverlay
+              gameId="emoji_clash"
+              onComplete={() => setShowIntro(false)}
+            />
+          )}
+
           {/* TOP HEADER HUD: Clean & Organized */}
           <div className="relative w-full px-3 pt-3 flex items-center justify-between z-40">
             {/* Top-Left: Blue Settings Gear Button */}
@@ -493,6 +548,13 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
                   {p.nickname.slice(0, 1).toUpperCase()}
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* LIVE ANNOUNCER PILL */}
+          <div className="relative w-full px-3 pt-1.5 pb-0.5 flex items-center justify-center z-40">
+            <div className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-black/60 border border-white/20 text-white font-alexandria font-bold text-[11px] sm:text-xs shadow-md text-center backdrop-blur-xs max-w-[95%] mx-auto">
+              <span>{getAnnouncerPrompt()}</span>
             </div>
           </div>
 

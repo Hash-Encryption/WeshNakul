@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import type { RestaurantItem } from '../../types/restaurant';
 import { useLocale } from '../../context/LocaleContext';
 import { broadcastSuddenDeathVote, subscribeToSuddenDeathVote } from '../../lib/supabase';
+import { MiniGameIntroOverlay } from '../minigames/MiniGameIntroOverlay';
 
 interface SuddenDeathModalProps {
   isOpen: boolean;
@@ -38,6 +39,7 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
   });
 
   // Per-round voting & timer state
+  const [showIntro, setShowIntro] = useState(true);
   const [timeLeft, setTimeLeft] = useState(10);
   const [votes, setVotes] = useState<Record<string, { restaurantId: string; timestamp: number }>>({});
   const [myVote, setMyVote] = useState<string | null>(null);
@@ -60,6 +62,7 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
       setIsSpeedWin(false);
       setIsFailedZeroVotes(false);
       setRoundWinner(null);
+      setShowIntro(true);
     }
   }, [restaurants]);
 
@@ -85,7 +88,7 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
 
   // 10-second countdown timer per round
   useEffect(() => {
-    if (!isOpen || !currentPair || roundWinner || isFailedZeroVotes) return;
+    if (!isOpen || !currentPair || roundWinner || isFailedZeroVotes || showIntro) return;
 
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
@@ -100,11 +103,11 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isOpen, currentPair, roundIndex, roundWinner, isFailedZeroVotes]);
+  }, [isOpen, currentPair, roundIndex, roundWinner, isFailedZeroVotes, showIntro]);
 
   // Handle round resolution
   useEffect(() => {
-    if (!isOpen || !currentPair || !isFinished || roundWinner || isFailedZeroVotes) return;
+    if (!isOpen || !currentPair || !isFinished || roundWinner || isFailedZeroVotes || showIntro) return;
 
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -171,6 +174,7 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
     restaurants,
     isHost,
     onSelectWinner,
+    showIntro,
   ]);
 
   if (!isOpen || !currentPair) return null;
@@ -200,14 +204,21 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md select-none">
+      <div className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center z-[9999] p-0 md:p-4 select-none">
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 15 }}
           transition={{ type: 'spring', stiffness: 320, damping: 25 }}
-          className="relative w-full max-w-sm bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] p-4 sm:p-5 text-center flex flex-col gap-3 overflow-hidden"
+          className="relative w-full max-w-[420px] md:max-h-[850px] md:my-auto md:rounded-[32px] md:border-4 md:border-white/15 md:shadow-[0_25px_70px_rgba(0,0,0,0.75)] mx-auto overflow-hidden bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] p-4 sm:p-5 text-center flex flex-col gap-3"
         >
+          {showIntro && (
+            <MiniGameIntroOverlay
+              gameId="sudden_death"
+              onComplete={() => setShowIntro(false)}
+            />
+          )}
+
           {/* Header & Round / Timer Badge */}
           <div className="flex items-center justify-between gap-2 border-b-2 border-[#241B18]/10 pb-2.5">
             <div className="flex items-center gap-1.5">
@@ -233,6 +244,18 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
             >
               <span>⏱️</span>
               <span>{timeLeft}s</span>
+            </div>
+          </div>
+
+          {/* Always-Visible Explainer Announcer Pill */}
+          <div className="w-full flex items-center justify-center -mt-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF0EE] border border-[#F0443E]/25 text-[#F0443E] font-alexandria font-black text-[11px] sm:text-xs shadow-xs text-center">
+              <span>⚔️</span>
+              <span>
+                {locale === 'ar'
+                  ? 'الفائز يستمر للجولة القادمة — الخاسر يخرج فوراً!'
+                  : 'Winner stays on — loser is eliminated!'}
+              </span>
             </div>
           </div>
 

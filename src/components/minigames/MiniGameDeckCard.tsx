@@ -125,6 +125,13 @@ export const MiniGameDeckCard: React.FC<MiniGameDeckCardProps> = ({
               />
             )}
           </div>
+          {game.mechanicKey && (
+            <div className="mt-1 mb-0.5">
+              <span className="inline-block px-1.5 py-0.5 rounded-md bg-[#241B18]/6 text-[#241B18] font-black text-[9px] sm:text-[10px] font-alexandria border border-[#241B18]/10 whitespace-nowrap">
+                {t(game.mechanicKey)}
+              </span>
+            </div>
+          )}
           <p className="font-alexandria font-bold text-[10px] sm:text-[11px] text-[#7A6E67] leading-snug mt-0.5 line-clamp-2">
             {t(game.descriptionKey)}
           </p>
