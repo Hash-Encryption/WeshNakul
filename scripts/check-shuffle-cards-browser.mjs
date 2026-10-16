@@ -118,6 +118,7 @@ function TestClient({ participant, onScenarioEnd }) {
         restaurants: restaurants,
         winnerId: winnerId,
         seed: 'seed-e2e-1',
+        skipIntro: true,
         onWinnerConfirmed: (w) => {
           setConfirmedWinner(w);
           if (onScenarioEnd) onScenarioEnd(participant.id, w);
@@ -231,9 +232,10 @@ try {
                   <head>
                     <meta charset="utf-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" href="/src/index.css">
                     <title>Shuffle Cards Browser Test</title>
                   </head>
-                  <body class="bg-[#FAF4ED] text-[#241B18]">
+                  <body class="m-0 p-0 overflow-hidden bg-[#FAF4ED] text-[#241B18]" style="margin: 0; padding: 0;">
                     <div id="root"></div>
                     <script type="module" src="/@id/__x00__virtual:shuffle-browser-harness.tsx"></script>
                   </body>
@@ -304,6 +306,14 @@ try {
   assert.ok(ready, 'React harness mounted successfully');
   console.log('✓ Headless Chrome loaded test harness');
 
+  // Set desktop viewport metrics (1280x800)
+  await cdpSend('Emulation.setDeviceMetricsOverride', {
+    width: 1280,
+    height: 800,
+    deviceScaleFactor: 1,
+    mobile: false,
+  });
+
   // Set initial locale to en
   await evalInBrowser('window.__SET_ALL_LOCALES__("en")');
   await new Promise((r) => setTimeout(r, 200));
@@ -318,6 +328,24 @@ try {
   // Check 3 cards rendered on table
   const p1Cards = await evalInBrowser('document.querySelectorAll("#client-p1 [style*=\\"perspective\\"]").length');
   assert.equal(p1Cards, 3, 'Client 1 renders exactly 3 cards on table');
+
+  // Verify Desktop Full-Page Dimensions (100% of viewport width and height)
+  const desktopBounds = await evalInBrowser(`
+    (() => {
+      const el = document.querySelector("#client-p1 [role='dialog']");
+      if (!el) return null;
+      return {
+        offsetWidth: el.offsetWidth,
+        offsetHeight: el.offsetHeight,
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+      };
+    })()
+  `);
+  assert.ok(desktopBounds, 'ShuffleCardsModal dialog found in DOM on desktop');
+  assert.equal(desktopBounds.offsetWidth, desktopBounds.innerWidth, 'Shuffle Cards occupies 100% of desktop viewport width');
+  assert.equal(desktopBounds.offsetHeight, desktopBounds.innerHeight, 'Shuffle Cards occupies 100% of desktop viewport height');
+  console.log(`✓ Desktop full-page experience verified: ${desktopBounds.offsetWidth}x${desktopBounds.offsetHeight} (100% viewport)`);
 
   // Verify Shuffle Again text exists on table
   const clientText = await evalInBrowser('document.querySelector("#client-p1")?.textContent');
@@ -468,6 +496,23 @@ try {
   const arText = await evalInBrowser('document.querySelector("#client-p2")?.textContent || ""');
   assert.ok(arText.includes('اختر بطاقة!'), 'Arabic title rendered correctly on mobile');
   assert.ok(arText.includes('سارة'), 'Arabic Captain name rendered');
+
+  const mobileBounds = await evalInBrowser(`
+    (() => {
+      const el = document.querySelector("#client-p2 [role='dialog']");
+      if (!el) return null;
+      return {
+        offsetWidth: el.offsetWidth,
+        offsetHeight: el.offsetHeight,
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+      };
+    })()
+  `);
+  assert.ok(mobileBounds, 'ShuffleCardsModal dialog found in DOM on mobile');
+  assert.equal(mobileBounds.offsetWidth, mobileBounds.innerWidth, 'Shuffle Cards container occupies 100% of mobile viewport width');
+  assert.equal(mobileBounds.offsetHeight, mobileBounds.innerHeight, 'Shuffle Cards container occupies 100% of mobile viewport height');
+  console.log(`✓ Mobile full-page experience verified: ${mobileBounds.offsetWidth}x${mobileBounds.offsetHeight} (100% viewport)`);
 
   const hasOverflow = await evalInBrowser(`
     const el = document.querySelector("#client-p2 [role='dialog']");

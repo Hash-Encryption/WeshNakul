@@ -39,6 +39,7 @@ interface ShuffleCardsModalProps {
   restaurants: RestaurantItem[];
   winnerId: string;
   seed?: string;
+  skipIntro?: boolean;
   onWinnerConfirmed: (winner: RestaurantItem) => Promise<void> | void;
   onClose: () => void;
 }
@@ -52,6 +53,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
   restaurants,
   winnerId,
   seed = 'weshnakul',
+  skipIntro = false,
   onWinnerConfirmed,
   onClose,
 }) => {
@@ -212,7 +214,8 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     [totalContenders, uniqueRestaurants, authoritativeWinner, isRTL]
   );
 
-  const [showIntro, setShowIntro] = useState<boolean>(true);
+  const shouldSkipIntro = skipIntro || (typeof window !== 'undefined' && Boolean((window as any).__SHUFFLE_HARNESS_READY__));
+  const [showIntro, setShowIntro] = useState<boolean>(() => !shouldSkipIntro);
   const [tableCards, setTableCards] = useState<ShuffleCardItem[]>(() => initTableCards(false));
   const hasPassedVortexRef = useRef<boolean>(false);
   const initializedSeedRef = useRef<string | null>(null);
@@ -231,8 +234,8 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     initializedSeedRef.current = currentKey;
     hasPassedVortexRef.current = false;
 
-    setShowIntro(true);
-    setPhase('initial_reveal');
+    setShowIntro(!shouldSkipIntro);
+    setPhase(totalContenders >= 5 ? 'vortex_qualifier' : 'initial_reveal');
     setTableCards(initTableCards(false));
     setTappedSlotIndex(null);
     setShuffleAgainCount(0);
@@ -240,7 +243,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
     setEjectedCardIds(new Set());
     setRevealedWinner(false);
     isFinalizingRef.current = false;
-  }, [isOpen, roomId, winnerId, seed, initTableCards]);
+  }, [isOpen, roomId, winnerId, seed, initTableCards, totalContenders, shouldSkipIntro]);
 
   // Construct deterministic, 100% deduplicated revealed cards assignment
   const buildRevealedCards = useCallback(
@@ -608,6 +611,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         return t('shuffleCards.finalistsStatus');
       case 'initial_reveal':
       case 'flipping_down':
+        if (totalContenders >= 5) return t('shuffleCards.vortexStatus');
         if (isCaptain) {
           return isRTL
             ? '👀 هذه هي المطاعم المتعادلة قبل إخفائها...'
@@ -643,23 +647,23 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       role="dialog"
       aria-modal="true"
       dir={isRTL ? 'rtl' : 'ltr'}
-      className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center z-[9999] p-0 md:p-4 select-none animate-fade-in"
+      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#FAF6F0] overflow-hidden min-h-dvh w-full text-[#241B18] select-none animate-fade-in"
     >
-      <div className="relative w-full h-[100dvh] md:h-auto md:max-h-[850px] max-w-[420px] md:my-auto md:rounded-[32px] md:border-4 md:border-white/15 md:shadow-[0_25px_70px_rgba(0,0,0,0.75)] mx-auto overflow-hidden flex flex-col justify-between p-3 sm:p-5 bg-gradient-to-b from-[#FAF4ED] via-[#FFFDFB] to-[#F3ECE4] text-[#241B18]">
-        {showIntro && (
-          <MiniGameIntroOverlay
-            gameId="shuffle_cards"
-            onComplete={() => setShowIntro(false)}
-          />
-        )}
+      {showIntro && (
+        <MiniGameIntroOverlay
+          gameId="shuffle_cards"
+          onComplete={() => setShowIntro(false)}
+        />
+      )}
 
-        {/* Top Bar */}
-        <div className="flex items-center justify-between w-full max-w-lg mx-auto">
+      {/* Top Header Area: Full-width top bar */}
+      <div className="w-full max-w-2xl mx-auto px-4 pt-3 sm:pt-4 flex flex-col gap-2 shrink-0">
+        <div className="flex items-center justify-between w-full">
           <button
             onClick={onClose}
             type="button"
             aria-label="Close"
-            className="w-10 h-10 rounded-full border border-[#241B18]/15 bg-white/80 hover:bg-white text-base font-bold flex items-center justify-center transition-transform active:scale-90 shadow-xs"
+            className="w-10 h-10 rounded-full border border-[#241B18]/15 bg-white/80 hover:bg-white text-base font-bold flex items-center justify-center transition-transform active:scale-90 shadow-xs cursor-pointer"
           >
             ✕
           </button>
@@ -685,18 +689,18 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         </div>
 
         {/* Main Title & Live Announcer Explainer Pill */}
-        <div className="flex flex-col items-center text-center my-1 sm:my-2 max-w-md mx-auto w-full">
+        <div className="flex flex-col items-center text-center max-w-md mx-auto w-full">
           <h2 className="text-2xl sm:text-3xl font-black text-[#241B18] font-alexandria tracking-tight">
             {t('shuffleCards.title')}
           </h2>
 
           {/* What's Happening Now Live Announcer Pill */}
-          <div className="mt-1.5 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 border-2 border-[#241B18]/15 shadow-xs font-alexandria font-black text-xs sm:text-sm text-[#241B18] max-w-[95%]">
+          <div className="mt-1.5 inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border-2 border-[#241B18]/15 shadow-xs font-alexandria font-black text-xs sm:text-sm text-[#241B18] max-w-[95%]">
             <span>{getPromptText()}</span>
           </div>
 
           {/* Captain Turn Badge */}
-          <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF8E6] border border-amber-300 shadow-xs font-alexandria font-black text-xs text-amber-900">
+          <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF8E6] border border-amber-300 shadow-xs font-alexandria font-black text-xs text-amber-900">
             <span>👑</span>
             <span>
               {isRTL
@@ -705,15 +709,16 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
             </span>
           </div>
         </div>
+      </div>
 
-      {/* CARD ARENA */}
-      <div className="relative flex-1 flex items-center justify-center w-full max-w-lg mx-auto py-3">
+      {/* Center Stage (Full-Height & Wide Play Area) */}
+      <div className="relative flex-1 w-full max-w-2xl mx-auto flex items-center justify-center px-4 py-2 overflow-visible">
         {/* Cartoon Speed Lines while cards are crossing over */}
         {phase === 'shuffling' && <ShuffleSpeedLines />}
 
         {/* Vortex Orbit Qualifier (for 5+ contenders) */}
         {totalContenders >= 5 && (phase === 'initial_reveal' || phase === 'flipping_down' || phase === 'vortex_qualifier') ? (
-          <div className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center">
+          <div className="relative w-72 h-72 sm:w-88 sm:h-88 md:w-96 md:h-96 flex items-center justify-center">
             {/* Spinning Orbit Ring */}
             <motion.div
               animate={{ rotate: phase === 'vortex_qualifier' ? 360 : 0 }}
@@ -768,7 +773,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
             {/* Center Vortex Pulse */}
             <div className="w-16 h-16 rounded-full bg-amber-400/20 border border-amber-400/40 flex items-center justify-center animate-ping pointer-events-none" />
             <div className="absolute font-alexandria font-black text-xs text-[#241B18] bg-white/90 px-2 py-1 rounded-full border border-[#241B18]/15 shadow-sm">
-              🌪️ {isRTL ? 'تصفية...' : 'Narrowing...'}
+              🌪️ {isRTL ? 'تصفية...' : 'Narrowing down...'}
             </div>
           </div>
         ) : (
@@ -857,7 +862,11 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
                     stiffness: 320,
                     damping: 24,
                   }}
-                  className="flex-1 max-w-[130px] sm:max-w-[160px]"
+                  className={
+                    totalContenders === 4
+                      ? 'w-full max-w-[150px] sm:max-w-[185px] md:max-w-[210px]'
+                      : 'flex-1 max-w-[145px] sm:max-w-[185px] md:max-w-[215px]'
+                  }
                 >
                   <ShuffleCard
                     card={card}
@@ -874,24 +883,24 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         )}
       </div>
 
-      {/* Bottom Status / Instructional Guidance Prompt (NOT a button) */}
-      <div className="w-full max-w-md mx-auto pt-2 pb-1 text-center flex items-center justify-center">
+      {/* Bottom Area: Clean full-width bottom zone with safe-area padding */}
+      <div className="w-full max-w-2xl mx-auto pt-2 pb-8 sm:pb-6 px-4 text-center flex items-center justify-center shrink-0">
         {phase === 'pick_ready' && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/85 backdrop-blur-xs border border-dashed border-[#241B18]/30 shadow-xs font-alexandria font-bold text-xs sm:text-sm text-[#241B18]"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/95 backdrop-blur-xs border-2 border-[#241B18]/20 shadow-md font-alexandria font-bold text-xs sm:text-sm text-[#241B18]"
           >
             {isCaptain ? (
               <motion.span
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
-                className="text-base select-none inline-block"
+                className="text-lg select-none inline-block"
               >
                 👆
               </motion.span>
             ) : (
-              <span className="text-base select-none">👀</span>
+              <span className="text-lg select-none">👀</span>
             )}
             <span>
               {isCaptain
@@ -906,9 +915,9 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
             initial={{ scale: 0.9 }}
             animate={{ scale: [1, 1.08, 1] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FFF5F2] border border-[#F0443E]/30 text-[#F0443E] font-alexandria font-black text-xs sm:text-sm shadow-xs"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFF5F2] border-2 border-[#F0443E]/30 text-[#F0443E] font-alexandria font-black text-xs sm:text-sm shadow-md"
           >
-            <span className="text-base">🔄</span>
+            <span className="text-lg">🔄</span>
             <span>{t('shuffleCards.shuffleAgainTitle')}</span>
           </motion.div>
         )}
@@ -917,9 +926,9 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F0FDF4] border border-[#55B96A]/40 text-[#166534] font-alexandria font-black text-xs sm:text-sm shadow-xs"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#F0FDF4] border-2 border-[#55B96A]/40 text-[#166534] font-alexandria font-black text-xs sm:text-sm shadow-md"
           >
-            <span className="text-base">🎉</span>
+            <span className="text-lg">🎉</span>
             <span>
               {isRTL
                 ? `الفائز: ${authoritativeWinner.nameAr || authoritativeWinner.nameEn}!`
@@ -929,6 +938,5 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
         )}
       </div>
     </div>
-  </div>
   );
 };

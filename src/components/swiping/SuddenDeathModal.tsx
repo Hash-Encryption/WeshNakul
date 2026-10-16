@@ -12,6 +12,7 @@ interface SuddenDeathModalProps {
   isHost: boolean;
   restaurants: RestaurantItem[] | [RestaurantItem, RestaurantItem] | null;
   totalParticipants: number;
+  skipIntro?: boolean;
   onSelectWinner: (winner: RestaurantItem, method: 'sudden_death') => void;
   onClose: () => void;
 }
@@ -23,6 +24,7 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
   isHost,
   restaurants,
   totalParticipants,
+  skipIntro = false,
   onSelectWinner,
   onClose,
 }) => {
@@ -39,7 +41,8 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
   });
 
   // Per-round voting & timer state
-  const [showIntro, setShowIntro] = useState(true);
+  const shouldSkipIntro = skipIntro || (typeof window !== 'undefined' && Boolean((window as any).__MINIGAME_HARNESS_READY__));
+  const [showIntro, setShowIntro] = useState(!shouldSkipIntro);
   const [timeLeft, setTimeLeft] = useState(10);
   const [votes, setVotes] = useState<Record<string, { restaurantId: string; timestamp: number }>>({});
   const [myVote, setMyVote] = useState<string | null>(null);
@@ -62,9 +65,9 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
       setIsSpeedWin(false);
       setIsFailedZeroVotes(false);
       setRoundWinner(null);
-      setShowIntro(true);
+      setShowIntro(!shouldSkipIntro);
     }
-  }, [restaurants]);
+  }, [restaurants, shouldSkipIntro]);
 
   // Subscribe to realtime votes
   useEffect(() => {
@@ -204,13 +207,13 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center z-[9999] p-0 md:p-4 select-none">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md select-none">
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 15 }}
           transition={{ type: 'spring', stiffness: 320, damping: 25 }}
-          className="relative w-full max-w-[420px] md:max-h-[850px] md:my-auto md:rounded-[32px] md:border-4 md:border-white/15 md:shadow-[0_25px_70px_rgba(0,0,0,0.75)] mx-auto overflow-hidden bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] p-4 sm:p-5 text-center flex flex-col gap-3"
+          className="relative w-full max-w-sm sm:max-w-md bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] p-4 sm:p-5 text-center flex flex-col gap-3 overflow-hidden"
         >
           {showIntro && (
             <MiniGameIntroOverlay
