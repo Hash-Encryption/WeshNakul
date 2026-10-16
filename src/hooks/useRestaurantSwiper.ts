@@ -48,6 +48,7 @@ export function useRestaurantSwiper({
   const versionRef = useRef(version);
   const queueRef = useRef<Promise<void>>(Promise.resolve());
   const pendingItemsRef = useRef(new Set<string>());
+  const swipedIdsRef = useRef(new Set<string>());
   const reloadTriggerRef = useRef(0);
   const [reloadCounter, setReloadCounter] = useState(0);
 
@@ -100,34 +101,37 @@ export function useRestaurantSwiper({
             : [];
 
           const sameDeck = current.deckId === nextDeck?.deckId;
-          const fresh = new Map(validNext.map((item) => [item.id, item]));
 
-          const ordered = sameDeck && current.deck.length > 0
-            ? [
-                ...current.deck.map((item) => fresh.get(item.id)).filter((item): item is RestaurantItem => Boolean(item)),
-                ...validNext.filter((item) => !current.deck.some((existing) => existing.id === item.id)),
-              ]
-            : validNext;
+          if (sameDeck && current.deck.length > 0) {
+            // Freeze deck: do not let network refetches reset deck order or regress index
+            let safeIdx = Number.isFinite(current.currentIndex) ? Math.max(0, Math.floor(current.currentIndex)) : 0;
+            while (safeIdx < current.deck.length && swipedIdsRef.current.has(current.deck[safeIdx]?.id)) {
+              safeIdx++;
+            }
+            if (safeIdx !== current.currentIndex) {
+              return { ...current, currentIndex: safeIdx };
+            }
+            return current;
+          }
 
-          if (ordered.length === 0) {
+          // New deckId or initial hydration: reset swipedIdsRef for fresh deck
+          swipedIdsRef.current = new Set();
+          Object.entries(serverVotes).forEach(([id, v]) => {
+            if (v === 'YES' || v === 'NO') {
+              swipedIdsRef.current.add(id);
+            }
+          });
+
+          if (validNext.length === 0) {
             return { deck: [], deckId: nextDeck?.deckId || null, currentIndex: 0 };
           }
 
-          const start = sameDeck && Number.isFinite(current.currentIndex)
-            ? Math.min(Math.max(0, Math.floor(current.currentIndex)), ordered.length)
-            : 0;
-
-          // Find first unvoted candidate starting from `start`
-          let pending = ordered.findIndex((item, index) => index >= start && !['YES', 'NO'].includes(serverVotes[item.id] || ''));
-          if (pending < 0) {
-            // Check earlier items (e.g. items placed LATER)
-            pending = ordered.findIndex((item) => !['YES', 'NO'].includes(serverVotes[item.id] || ''));
-          }
-
-          const resolvedIndex = pending < 0 ? ordered.length : pending;
+          // Find first unvoted candidate starting from 0 that is not swiped
+          let pending = validNext.findIndex((item) => !swipedIdsRef.current.has(item.id) && !['YES', 'NO'].includes(serverVotes[item.id] || ''));
+          const resolvedIndex = pending < 0 ? validNext.length : pending;
 
           return {
-            deck: ordered,
+            deck: validNext,
             deckId: nextDeck?.deckId || null,
             currentIndex: resolvedIndex,
           };
@@ -210,6 +214,10 @@ export function useRestaurantSwiper({
         position: safeIndex,
       });
 
+      if (vote === 'YES' || vote === 'NO') {
+        swipedIdsRef.current.add(item.id);
+      }
+
       const previousVote = myVotes[item.id];
       setMyVotes((current) => ({ ...current, [item.id]: vote }));
 
@@ -231,11 +239,14 @@ export function useRestaurantSwiper({
             currentIndex: Math.min(cIndex, Math.max(0, reordered.length - 1)),
           };
         } else {
-          const nextIndex = cIndex + 1;
+          let nextIndex = cIndex + 1;
+          while (nextIndex < current.deck.length && swipedIdsRef.current.has(current.deck[nextIndex]?.id)) {
+            nextIndex++;
+          }
           if (nextIndex >= current.deck.length) {
             // Find if any other cards still need a YES/NO vote (e.g. pushed with LATER)
             const unvotedIdx = current.deck.findIndex(
-              (card, i) => i !== cIndex && !['YES', 'NO'].includes(myVotes[card.id] || '')
+              (card, i) => i !== cIndex && !swipedIdsRef.current.has(card.id) && !['YES', 'NO'].includes(myVotes[card.id] || '')
             );
             if (unvotedIdx >= 0) {
               return {
@@ -306,7 +317,10 @@ export function useRestaurantSwiper({
             });
           }
 
-          // Rollback optimistic traversal
+          // Rollback swipedIdsRef and optimistic traversal
+          if (vote === 'YES' || vote === 'NO') {
+            swipedIdsRef.current.delete(item.id);
+          }
           setTraversal((current) => {
             const index = current.deck.findIndex((card) => card.id === item.id);
             if (index < 0) return current;

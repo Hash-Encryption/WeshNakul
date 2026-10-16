@@ -20,6 +20,7 @@ export const FoodVotingScreen: React.FC = () => {
     participants,
     myChoice,
     submitFoodChoices,
+    leaveRoom,
   } = useRoom();
 
   const { t, locale } = useLocale();
@@ -163,6 +164,8 @@ export const FoodVotingScreen: React.FC = () => {
           showMenu={false}
           participantCount={participants.length}
           showCount={true}
+          onLeave={() => leaveRoom(false)}
+          showLeave={true}
         />
 
         {/* Compact Invite & Room Share Bar */}

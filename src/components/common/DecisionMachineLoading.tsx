@@ -83,7 +83,7 @@ export const DecisionMachineLoading: React.FC<DecisionMachineLoadingProps> = ({
                 </div>
               </div>
               <span className="text-2xl font-black text-brand-red tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(240,68,62,0.2)]">
-                {isRTL ? 'وش نطلب؟' : 'WeshNakul?'}
+                {isRTL ? 'وش ناكل؟' : 'WeshNakul?'}
               </span>
             </div>
             <p className="text-[10px] font-bold text-brand-gray/80 mt-0.5">
@@ -273,7 +273,7 @@ export const DecisionMachineLoading: React.FC<DecisionMachineLoadingProps> = ({
                     ؟
                   </div>
                 </div>
-                <span className="text-xs font-black text-brand-red">{isRTL ? 'وش نطلب؟' : 'WeshNakul?'}</span>
+                <span className="text-xs font-black text-brand-red">{isRTL ? 'وش ناكل؟' : 'WeshNakul?'}</span>
               </div>
 
               {/* Grill with 6 scanning amber LEDs */}

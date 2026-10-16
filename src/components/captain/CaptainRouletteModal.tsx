@@ -226,8 +226,6 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
                 setIsSpinningWheel(true);
               }
             }, 1100);
-          } else if (existing.status === 'finalized') {
-            setHasRevealedLocally(true);
           }
         }
       } catch (err: any) {
@@ -728,23 +726,30 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
                   <div className="flex flex-col gap-2 w-full">
                     {/* Primary Action: Start Game (Active when finalized) */}
                     {isFinalized && (
-                      <motion.button
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        type="button"
-                        onClick={() => {
-                          if (currentWinnerCandidate && onStartGame) {
-                            onStartGame(currentWinnerCandidate);
-                          }
-                          onClose();
-                        }}
-                        className="w-full py-3.5 px-4 rounded-2xl bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 transition-all font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer"
-                      >
-                        <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                        <span>{t('captainRoulette.startGame')}</span>
-                      </motion.button>
+                      isHost ? (
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          type="button"
+                          onClick={() => {
+                            if (currentWinnerCandidate && onStartGame) {
+                              onStartGame(currentWinnerCandidate);
+                            }
+                            onClose();
+                          }}
+                          className="w-full py-3.5 px-4 rounded-2xl bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 transition-all font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                          <span>{t('captainRoulette.startGame')}</span>
+                        </motion.button>
+                      ) : (
+                        <div className="w-full py-3 px-4 rounded-2xl bg-white border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] text-center font-alexandria font-bold text-xs sm:text-sm text-[#7A6E67] flex items-center justify-center gap-2">
+                          <span className="text-sm animate-pulse">⏳</span>
+                          <span>{locale === 'ar' ? 'المؤسس يبدأ اللعبة...' : 'Host is starting the game...'}</span>
+                        </div>
+                      )
                     )}
 
                     {/* Secondary Action: Request Reroll during 10s objection window */}

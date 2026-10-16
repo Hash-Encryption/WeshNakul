@@ -318,6 +318,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   };
 
   const handleTriggerCaptainRoulette = (targetGame?: MiniGameId) => {
+    if (!isHost) return;
     const activeCount = participants.filter((p) => p.status === 'active').length;
     if (activeCount < 2) {
       if (targetGame === 'shuffle_cards' && currentParticipant) {
@@ -425,7 +426,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
     return (
       <div className="relative flex min-h-[92dvh] w-full flex-col px-4">
-        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} />
+        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} onLeave={() => leaveRoom(false)} showLeave={true} />
         <div role="alert" className="m-auto w-full max-w-sm rounded-2xl border-2 border-[#241B18] bg-white p-6 text-center font-alexandria shadow-[0_4px_0_#241B18]">
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF8F1] border border-[#241B18]/10 text-2xl">
             {isNoRestaurants ? '🍽️' : '⚠️'}
@@ -511,12 +512,14 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   };
 
   const handleTriggerSuddenDeath = (topContenders: RestaurantItem[]) => {
+    if (!isHost) return;
     setSuddenDeathRestaurants(topContenders);
     setIsSuddenDeathOpen(true);
     broadcastSuddenDeath(currentRoom.id, topContenders);
   };
 
   const handleTriggerRoulette = async (_topSpots: RestaurantItem[]) => {
+    if (!isHost) return;
     try { await startRestaurantRoulette(); }
     catch (error) { console.error('Error resolving restaurant tie', error); }
   };
@@ -536,7 +539,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-3 pb-16 selection:bg-[#FFF0EE]">
       <div>
         {/* Top Header */}
-        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} />
+        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} onLeave={() => leaveRoom(false)} showLeave={true} />
 
         {/* Live Squad Progress HUD (shown during swiping) */}
         {!isDeckFinished && (

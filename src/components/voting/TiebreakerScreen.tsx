@@ -22,6 +22,7 @@ export const TiebreakerScreen: React.FC = () => {
     retryDecisionSpin,
     suggestions,
     toggleSuggestion,
+    leaveRoom,
   } = useRoom();
   const { t, locale } = useLocale();
   const reduceMotion = useReducedMotion();
@@ -94,7 +95,7 @@ export const TiebreakerScreen: React.FC = () => {
   return (
     <div className="relative mx-auto flex min-h-[92dvh] w-full max-w-md flex-col justify-between px-4 pb-8">
       <div>
-        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount />
+        <Header showBack={false} showMenu={false} participantCount={participants.length} showCount onLeave={() => leaveRoom(false)} showLeave={true} />
         <div className="mb-2 mt-2 text-center">
           <h2 className="font-alexandria text-2xl font-extrabold text-brand-ink">{t('categoryRoulette.title')}</h2>
           <p className="text-xs font-medium text-brand-gray">

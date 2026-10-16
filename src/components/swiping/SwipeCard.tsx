@@ -125,8 +125,8 @@ export const SwipeCard = React.memo(function SwipeCard({
               },
       }}
       exit="exit"
-      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-pan-y ${
-        isFront ? 'cursor-grab active:cursor-grabbing will-change-transform' : 'pointer-events-none'
+      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-pan-y transform-gpu [transform:translate3d(0,0,0)] will-change-transform ${
+        isFront ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'
       }`}
     >
       {/* Visual Stamps for interactive front card */}

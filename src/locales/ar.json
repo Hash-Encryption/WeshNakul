@@ -122,7 +122,7 @@
   },
   "consensus": {
     "heading": "وصلنا لقرار! 🎉",
-    "subtitle": "القروب اتفق على وش نطلب اليوم",
+    "subtitle": "القروب اتفق على وش ناكل اليوم",
     "unanimousBadge": "إجماع تام 100% 🎯",
     "majorityBadge": "تصويت الأغلبية ⭐",
     "hostBadge": "اختيار المؤسس 👑",
@@ -162,12 +162,12 @@
     "picksSubmitted": "تم تثبيت خياراتك!"
   },
   "whatsapp": {
-    "shareMessage": "محتارين وش نطلب 😂 ادخل واختر معي: {url}"
+    "shareMessage": "محتارين وش ناكل 😂 ادخل واختر معي: {url}"
   },
   "common": {
     "back": "رجوع",
     "loading": "لحظة...",
-    "appName": "وش نطلب؟",
+    "appName": "Wesh Nakul | وش ناكل",
     "appTagline": "محرك قرارات الأكل للقروبات",
     "close": "إإغلاق",
     "errorGeneric": "حصل دروب بسيط! جرب مرة ثانية 🔄",
@@ -369,7 +369,7 @@
     "subtitle": "اختر بطاقة لكشف الفائز",
     "captainTurnBadge": "👑 دور الكابتن",
     "captainTurnPrompt": "👆 اضغط على أي بطاقة لكشف الفائز!",
-    "spectatorWaitingPrompt": "👀 بانتظار {{captain}} لاختيار بطاقة...",
+    "spectatorWaitingPrompt": "الكابتن يختار الكرت... ⏳",
     "vortexStatus": "تصفية المتنافسين إلى ٣ مرشحين...",
     "finalistsStatus": "المرشحون الـ ٣ النهائيون!",
     "shufflingStatus": "جاري خلط البطاقات...",

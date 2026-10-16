@@ -227,8 +227,10 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return true;
   }, [applyDecisionSpin]);
 
+  const isLeavingRef = useRef(false);
+
   const applyAuthoritativeRoomState = useCallback((state: import('../types/database').RoomDecisionState) => {
-    if (!state?.room) return;
+    if (isLeavingRef.current || !state?.room) return;
     const room = state.room;
     if (room.version < (currentRoomRef.current?.version ?? -1)) return;
 
@@ -264,12 +266,14 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [reconcileDecisionSpinFromRoom, triggerModeTransition]);
 
-  const leaveRoom = useCallback((preserveToken = true) => {
-    const code = currentRoomRef.current?.code;
-    if (preserveToken) {
+  const leaveRoom = useCallback((preserveToken = false) => {
+    isLeavingRef.current = true;
+    const code = currentRoomRef.current?.code || getActiveRoomCode();
+    if (preserveToken && code) {
       setActiveRoomCode(null);
     } else {
-      clearRoomSession(code);
+      clearRoomSession(code || undefined);
+      setActiveRoomCode(null);
     }
     currentRoomRef.current = null;
     currentParticipantRef.current = null;
@@ -281,25 +285,34 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setSuggestions([]);
     clearModeTransition();
     prevRoomModeRef.current = null;
-    setActiveRoomCode(null);
-    if (window.location.pathname.startsWith('/r/')) {
-      window.history.pushState({}, '', '/');
-    }
+
+    try {
+      window.history.replaceState({}, '', '/');
+    } catch {}
+
+    setTimeout(() => {
+      isLeavingRef.current = false;
+    }, 150);
   }, [clearModeTransition]);
 
   const destroyRoom = useCallback(async () => {
     const room = currentRoomRef.current;
-    if (room?.id) {
-      const participant = currentParticipantRef.current;
-      if (participant) await apiDeleteRoom(room.id, participant.session_token);
-    }
+    const participant = currentParticipantRef.current;
     leaveRoom(false);
+    if (room?.id && participant) {
+      try {
+        await apiDeleteRoom(room.id, participant.session_token);
+      } catch (err) {
+        console.warn('Background room deletion error', err);
+      }
+    }
   }, [leaveRoom]);
 
   const inFlightRefreshRef = useRef<Promise<void> | null>(null);
   const queuedRefreshRef = useRef<boolean>(false);
 
   const refreshRoom = useCallback(async (options?: { fetchParticipants?: boolean; fetchChoices?: boolean }) => {
+    if (isLeavingRef.current) return;
     const roomCode = currentRoomRef.current?.code;
     if (!roomCode) return;
 
@@ -313,7 +326,8 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const performRefresh = async () => {
       try {
         const { room, participants: parts, isExpired } = await getRoomByCode(roomCode);
-        if (isExpired) {
+        if (isLeavingRef.current) return;
+        if (isExpired || (room as any)?.stage === 'expired') {
           clearRoomSession(roomCode);
           setSessionNotice(t('session.expiredNotice'));
           leaveRoom(false);
@@ -378,6 +392,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
+    if (isLeavingRef.current) return false;
     const normalizedCode = code.trim().toUpperCase();
     setIsLoading(true);
     setError(null);
@@ -392,23 +407,34 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       const { room, participants: parts, isExpired } = await getRoomByCode(normalizedCode);
-      if (isExpired) {
+      if (isLeavingRef.current) {
+        setIsLoading(false);
+        return false;
+      }
+      if (isExpired || (room as any)?.stage === 'expired') {
         clearRoomSession(normalizedCode);
         setSessionNotice(t('session.expiredNotice'));
+        try {
+          window.history.replaceState({}, '', '/');
+        } catch {}
         leaveRoom(false);
         setIsLoading(false);
         return false;
       }
       if (!room) {
         setSessionNotice(t('session.invalidCode'));
+        try {
+          window.history.replaceState({}, '', '/');
+        } catch {}
+        leaveRoom(false);
         setIsLoading(false);
         return false;
       }
 
-      // If user is at root '/' without /r/:code in URL and the room was already matched,
+      // If user is at root '/' without /r/:code or /room/:code or ?room= in URL and the room was already matched,
       // clear the active room code so user can start fresh on the landing page!
       const isRoot = window.location.pathname === '/' || window.location.pathname === '';
-      const hasUrlCode = window.location.pathname.match(/\/r\/([A-Za-z0-9]{4})/i);
+      const hasUrlCode = window.location.pathname.match(/\/(?:r|room)\/([A-Za-z0-9]{4})/i) || new URLSearchParams(window.location.search).get('room');
       if (isRoot && !hasUrlCode && room.stage === 'matched') {
         setActiveRoomCode(null);
         setIsLoading(false);

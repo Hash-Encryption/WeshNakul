@@ -14,7 +14,7 @@ export function formatWhatsAppOrder(
   const header = `🍔 *طلب القروب من ${restaurantName}*\n${codeHeader}━━━━━━━━━━━━━━\n`;
 
   if (!orders || orders.length === 0) {
-    return `${header}⚠️ لم يسجل أحد طلبه بعد في القروب.\n━━━━━━━━━━━━━━\n📲 تم الترتيب عبر تطبيق "وش نطلب؟"`;
+    return `${header}⚠️ لم يسجل أحد طلبه بعد في القروب.\n━━━━━━━━━━━━━━\n📲 تم الترتيب عبر تطبيق "Wesh Nakul | وش ناكل"`;
   }
 
   const itemsList = orders
@@ -24,7 +24,7 @@ export function formatWhatsAppOrder(
     })
     .join('\n');
 
-  return `${header}${itemsList}\n━━━━━━━━━━━━━━\n📲 تم الترتيب عبر تطبيق "وش نطلب؟"`;
+  return `${header}${itemsList}\n━━━━━━━━━━━━━━\n📲 تم الترتيب عبر تطبيق "Wesh Nakul | وش ناكل"`;
 }
 
 function extractBrandName(rawName: string): string {

@@ -217,6 +217,8 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           onMenuClick={() => setShowMenuModal(true)}
           participantCount={participants.length}
           showCount={true}
+          onLeave={onGoHome}
+          showLeave={Boolean(onGoHome)}
         />
 
         {/* Heading with playful sparkles */}

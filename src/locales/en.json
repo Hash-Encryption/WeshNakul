@@ -167,7 +167,7 @@
   "common": {
     "back": "Back",
     "loading": "Loading...",
-    "appName": "Wsh N6lob?",
+    "appName": "Wesh Nakul",
     "appTagline": "Saudi Group Food Decision Engine",
     "close": "Close",
     "errorGeneric": "Quick hiccup! Please try again 🔄",
@@ -369,7 +369,7 @@
     "subtitle": "Tap a card to reveal the winner",
     "captainTurnBadge": "👑 CAPTAIN'S TURN",
     "captainTurnPrompt": "👆 Tap a card to reveal the winner!",
-    "spectatorWaitingPrompt": "👀 Waiting for {{captain}} to tap a card...",
+    "spectatorWaitingPrompt": "Captain is picking a card... ⏳",
     "vortexStatus": "Narrowing down to 3 finalists...",
     "finalistsStatus": "The 3 Finalists!",
     "shufflingStatus": "Shuffling cards...",

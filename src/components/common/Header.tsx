@@ -10,6 +10,8 @@ interface HeaderProps {
   showMenu?: boolean;
   onMenuClick?: () => void;
   showLangToggle?: boolean;
+  onLeave?: () => void;
+  showLeave?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,13 +22,15 @@ export const Header: React.FC<HeaderProps> = ({
   showMenu = false,
   onMenuClick,
   showLangToggle = false,
+  onLeave,
+  showLeave = false,
 }) => {
   const { isRTL, t } = useLocale();
 
   return (
     <header className="relative flex items-center justify-between w-full pt-4 pb-2 px-4 z-20">
       {/* Left / Start Action */}
-      <div className="w-12 flex items-center justify-start">
+      <div className="min-w-12 flex items-center justify-start gap-1.5">
         {showBack && onBack ? (
           <button
             onClick={onBack}
@@ -43,6 +47,17 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
+          </button>
+        ) : (showLeave || onLeave) ? (
+          <button
+            onClick={onLeave}
+            type="button"
+            className="h-10 px-3 rounded-full bg-white border border-[#241B18]/15 hover:bg-[#F0443E]/10 hover:border-[#F0443E]/30 text-[#241B18] hover:text-[#F0443E] active:scale-95 transition-all shadow-sm flex items-center gap-1.5 text-xs font-black font-alexandria"
+            aria-label={isRTL ? 'الخروج للرئيسية' : 'Leave to Home'}
+            title={isRTL ? 'الخروج للرئيسية' : 'Leave to Home'}
+          >
+            <span>🚪</span>
+            <span>{isRTL ? 'خروج' : 'Leave'}</span>
           </button>
         ) : showMenu ? (
           <button
@@ -77,7 +92,19 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Right / End Action */}
-      <div className="w-16 flex items-center justify-end gap-2">
+      <div className="min-w-16 flex items-center justify-end gap-2">
+        {showBack && (showLeave || onLeave) && (
+          <button
+            onClick={onLeave}
+            type="button"
+            className="h-8 px-2.5 rounded-full bg-white border border-[#241B18]/15 hover:bg-[#F0443E]/10 hover:border-[#F0443E]/30 text-[#241B18] hover:text-[#F0443E] active:scale-95 transition-all shadow-sm flex items-center gap-1 text-[11px] font-black font-alexandria"
+            aria-label={isRTL ? 'خروج' : 'Leave'}
+            title={isRTL ? 'الخروج للرئيسية' : 'Leave to Home'}
+          >
+            <span>🚪</span>
+            <span className="hidden sm:inline">{isRTL ? 'خروج' : 'Leave'}</span>
+          </button>
+        )}
         {showLangToggle && <LanguageToggle />}
         {showCount && (
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-redSoft border border-brand-red/15 text-brand-red text-xs font-bold shadow-sm">

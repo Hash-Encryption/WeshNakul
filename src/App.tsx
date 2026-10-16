@@ -99,12 +99,14 @@ export const App: React.FC = () => {
     trackAppSessionStart({ locale: 'ar' });
   }, []);
 
-  // Handle URL path /r/:code on load or direct link
+  // Handle URL path /r/:code, /room/:code, or ?room=:code on load or direct link
   useEffect(() => {
     const handleUrlRouting = async () => {
-      const match = window.location.pathname.match(/\/r\/([A-Za-z0-9]{4})/i);
-      if (match) {
-        const code = match[1].toUpperCase();
+      const pathMatch = window.location.pathname.match(/\/(?:r|room)\/([A-Za-z0-9]{4})/i);
+      const queryMatch = new URLSearchParams(window.location.search).get('room');
+      const rawCode = pathMatch ? pathMatch[1] : (queryMatch && queryMatch.trim().length === 4 ? queryMatch.trim() : null);
+      if (rawCode) {
+        const code = rawCode.toUpperCase();
         await loadRoom(code);
       }
     };
@@ -243,7 +245,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleLeave = async () => {
+  const handleLeave = () => {
     trackRoomExplicitExit({
       roomId: currentRoom?.id,
       roomCode: currentRoom?.code,
@@ -252,9 +254,9 @@ export const App: React.FC = () => {
       exitTrigger: 'leave_button',
     });
     if (currentParticipant?.is_host && currentRoom) {
-      await destroyRoom();
+      destroyRoom().catch(() => {});
     } else {
-      leaveRoom();
+      leaveRoom(false);
     }
     setStep('landing');
   };

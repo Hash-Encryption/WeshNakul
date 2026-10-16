@@ -61,8 +61,8 @@ export const ShuffleCard: React.FC<ShuffleCardProps> = ({
         }}
         className={`relative w-full h-full select-none ${
           isClickable && !disabled
-            ? 'cursor-pointer hover:-translate-y-1 hover:shadow-lg active:scale-95'
-            : 'cursor-default'
+            ? 'pointer-events-auto cursor-pointer hover:-translate-y-1 hover:shadow-lg active:scale-95'
+            : 'pointer-events-none cursor-default'
         }`}
       >
         {/* CARD FRONT (Face-Up) */}

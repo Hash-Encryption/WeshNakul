@@ -42,6 +42,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
   const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
 
   const handleSelectMiniGame = (game: MiniGameDefinition) => {
+    if (!isHost) return;
     // 1. Implementation check: Never launch an unimplemented game
     if (!game.implemented) {
       const name = t(game.nameKey);

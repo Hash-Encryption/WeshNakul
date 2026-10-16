@@ -39,8 +39,9 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
     : 0;
 
   const currentCardNumber = Math.min(safeIndex + 1, safeTotal);
+  // DOM Virtualization: Render strictly top 2 cards (activeCard and nextCard)
   const visibleCards = safeDeck
-    .slice(safeIndex, safeIndex + 3)
+    .slice(safeIndex, safeIndex + 2)
     .filter((item): item is RestaurantItem => Boolean(item && item.id));
 
   const isExhausted = safeDeck.length > 0 && safeIndex >= safeDeck.length;
@@ -63,7 +64,7 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
       </div>
 
       {/* 3. Interactive Swiping Cards Stage */}
-      <div className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center">
+      <div className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center transform-gpu [transform:translate3d(0,0,0)] will-change-transform">
         {isLoading && safeDeck.length === 0 ? (
           <div className="w-full h-[420px] bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] p-4 flex flex-col justify-between animate-pulse">
             <div className="h-52 bg-[#FFF8F1] rounded-2xl border-2 border-[#241B18]/10" />
@@ -88,7 +89,7 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
             </p>
           </div>
         ) : (
-          <div className="relative w-full h-[420px]">
+          <div className="relative w-full h-[420px] transform-gpu [transform:translate3d(0,0,0)] will-change-transform">
             <AnimatePresence initial={false} custom={exitVote}>
               {visibleCards
                 .map((item, idx) => ({ item, idx }))
