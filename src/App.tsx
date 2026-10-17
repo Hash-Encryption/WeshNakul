@@ -29,6 +29,7 @@ import {
 import { Toast } from './components/common/Toast';
 import { DecisionMachineLoading } from './components/common/DecisionMachineLoading';
 import { RoomModeTransition } from './components/common/RoomModeTransition';
+import { AdminView } from './components/admin/AdminView';
 
 type FlowStep = 'landing' | 'starting-mode' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
 
@@ -61,6 +62,18 @@ export const App: React.FC = () => {
   const [codeModalError, setCodeModalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [guestError, setGuestError] = useState<string | null>(null);
+  const [isAdminRoute, setIsAdminRoute] = useState<boolean>(() => {
+    return typeof window !== 'undefined' && window.location.pathname.startsWith('/admin');
+  });
+
+  // Listen to browser navigation popstate
+  useEffect(() => {
+    const handlePopState = () => {
+      setIsAdminRoute(window.location.pathname.startsWith('/admin'));
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Sync flow step with RoomContext state
   useEffect(() => {
@@ -261,6 +274,18 @@ export const App: React.FC = () => {
     setStep('landing');
   };
 
+  if (isAdminRoute) {
+    return (
+      <AdminView
+        onExit={() => {
+          window.history.pushState({}, '', '/');
+          setIsAdminRoute(false);
+          setStep('landing');
+        }}
+      />
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F7EFE6] flex items-center justify-center sm:py-6 selection:bg-brand-redSoft">
@@ -335,6 +360,10 @@ export const App: React.FC = () => {
           <LandingHero
             onStartGroup={handleStartGroup}
             onEnterCode={() => setIsCodeModalOpen(true)}
+            onOpenAdmin={() => {
+              window.history.pushState({}, '', '/admin');
+              setIsAdminRoute(true);
+            }}
           />
         )}
 

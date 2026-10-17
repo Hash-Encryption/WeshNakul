@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { ShieldCheck } from '@phosphor-icons/react';
 import { useLocale } from '../../context/LocaleContext';
 import { LanguageToggle } from '../common/LanguageToggle';
 import { TactileButton } from '../common/TactileButton';
@@ -8,11 +9,13 @@ import { SparkleRays, DoodleHeart, DoodleSquiggle } from '../common/DecorativeSp
 interface LandingHeroProps {
   onStartGroup: () => void;
   onEnterCode: () => void;
+  onOpenAdmin?: () => void;
 }
 
 export const LandingHero: React.FC<LandingHeroProps> = ({
   onStartGroup,
   onEnterCode,
+  onOpenAdmin,
 }) => {
   const { t } = useLocale();
 
@@ -135,6 +138,20 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <span>مناسب للقروبات</span>
           </div>
         </div>
+
+        {onOpenAdmin && (
+          <div className="flex justify-center pt-1">
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="text-[11px] text-stone-400 hover:text-stone-600 transition-colors flex items-center gap-1 cursor-pointer"
+              title="لوحة الإدارة والتحليلات"
+            >
+              <ShieldCheck size={13} />
+              <span>لوحة الإدارة</span>
+            </button>
+          </div>
+        )}
       </motion.div>
     </div>
   );

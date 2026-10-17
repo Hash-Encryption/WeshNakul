@@ -226,6 +226,21 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
   );
 
   if (existingParticipant) {
+    try {
+      const { data: reclaimData, error: reclaimError } = await supabase.rpc('reclaim_participant_session', {
+        p_code: normalizedCode,
+        p_nickname: input.nickname.trim(),
+        p_new_session_token: sessionToken,
+      });
+      if (!reclaimError && reclaimData?.success && reclaimData?.participant) {
+        const adopted = reclaimData.participant as Participant;
+        saveRoomSession(normalizedCode, adopted.id, adopted.session_token);
+        return { success: true, room: (reclaimData.room || room) as Room, participant: adopted };
+      }
+    } catch (e) {
+      console.warn('[joinRoom] reclaim_participant_session failed, falling back to local adoption:', e);
+    }
+
     const adoptedParticipant: Participant = {
       ...existingParticipant,
       session_token: existingParticipant.session_token || sessionToken,
