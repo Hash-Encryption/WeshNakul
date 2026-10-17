@@ -5,16 +5,19 @@ import type { RestaurantVote } from '../../types/restaurant';
 interface TactileActionDockProps {
   onVote: (vote: RestaurantVote) => void;
   disabled: boolean;
+  onInteract?: () => void;
 }
 
 export const TactileActionDock: React.FC<TactileActionDockProps> = ({
   onVote,
   disabled,
+  onInteract,
 }) => {
   const { t } = useLocale();
 
   const handlePick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    onInteract?.();
     if (disabled) return;
 
     onVote('YES');
@@ -22,18 +25,22 @@ export const TactileActionDock: React.FC<TactileActionDockProps> = ({
 
   const handlePass = (e: React.MouseEvent) => {
     e.stopPropagation();
+    onInteract?.();
     if (disabled) return;
     onVote('NO');
   };
 
   const handleSkip = (e: React.MouseEvent) => {
     e.stopPropagation();
+    onInteract?.();
     if (disabled) return;
     onVote('LATER');
   };
 
   return (
     <div
+      onPointerDownCapture={onInteract}
+      onTouchStartCapture={onInteract}
       className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] inset-x-0 flex justify-center items-center gap-3 sm:gap-4 z-30 pointer-events-auto px-4 max-w-sm mx-auto select-none"
     >
       {/* Pass Button - Red */}
@@ -41,6 +48,8 @@ export const TactileActionDock: React.FC<TactileActionDockProps> = ({
         type="button"
         disabled={disabled}
         onClick={handlePass}
+        onPointerDownCapture={onInteract}
+        onTouchStartCapture={onInteract}
         aria-label={t('gameSwiper.dislike')}
         className="flex-1 py-3 px-3 rounded-2xl bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none hover:brightness-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 font-alexandria font-black text-sm sm:text-base cursor-pointer"
       >
@@ -53,6 +62,8 @@ export const TactileActionDock: React.FC<TactileActionDockProps> = ({
         type="button"
         disabled={disabled}
         onClick={handleSkip}
+        onPointerDownCapture={onInteract}
+        onTouchStartCapture={onInteract}
         aria-label={t('gameSwiper.skip')}
         className="flex-1 py-3 px-3 rounded-2xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none hover:brightness-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 font-alexandria font-black text-sm sm:text-base cursor-pointer"
       >
@@ -65,6 +76,8 @@ export const TactileActionDock: React.FC<TactileActionDockProps> = ({
         type="button"
         disabled={disabled}
         onClick={handlePick}
+        onPointerDownCapture={onInteract}
+        onTouchStartCapture={onInteract}
         aria-label={t('gameSwiper.like')}
         className="flex-1 py-3 px-3 rounded-2xl bg-[#55B96A] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none hover:brightness-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 font-alexandria font-black text-sm sm:text-base cursor-pointer"
       >

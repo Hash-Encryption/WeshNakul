@@ -11,6 +11,8 @@ interface SwipingDeckProps {
   totalCards: number;
   isLoading: boolean;
   onVote: (vote: RestaurantVote) => void;
+  hasInteractedWithDeck?: boolean;
+  onInteract?: () => void;
 }
 
 export const SwipingDeck: React.FC<SwipingDeckProps> = ({
@@ -19,13 +21,26 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
   totalCards,
   isLoading,
   onVote,
+  hasInteractedWithDeck,
+  onInteract,
 }) => {
   const { t, locale } = useLocale();
+  const [internalInteracted, setInternalInteracted] = useState(false);
+  const isInteracted = hasInteractedWithDeck ?? internalInteracted;
+
+  const handleInteract = useCallback(() => {
+    if (!isInteracted) {
+      setInternalInteracted(true);
+      onInteract?.();
+    }
+  }, [isInteracted, onInteract]);
+
   const [exitVote, setExitVote] = useState<RestaurantVote>('LATER');
   const vote = useCallback((nextVote: RestaurantVote) => {
+    handleInteract();
     setExitVote(nextVote);
     onVote(nextVote);
-  }, [onVote]);
+  }, [handleInteract, onVote]);
 
   // Active-card and deck bounds safety
   const safeDeck = Array.isArray(deck)
@@ -45,9 +60,14 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
     .filter((item): item is RestaurantItem => Boolean(item && item.id));
 
   const isExhausted = safeDeck.length > 0 && safeIndex >= safeDeck.length;
+  const showSwipeHint = safeIndex === 0 && !isInteracted;
 
   return (
-    <div className="w-full flex flex-col items-center select-none">
+    <div
+      onPointerDownCapture={handleInteract}
+      onTouchStartCapture={handleInteract}
+      className="w-full flex flex-col items-center select-none"
+    >
       {/* 1. Top Edge Arcade Progress Bar */}
       <div className="fixed top-0 inset-x-0 z-50 h-2 bg-[#F2E8DF] border-b border-[#241B18]/15">
         <div
@@ -64,7 +84,11 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
       </div>
 
       {/* 3. Interactive Swiping Cards Stage */}
-      <div className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center transform-gpu [transform:translate3d(0,0,0)] will-change-transform">
+      <div
+        onPointerDownCapture={handleInteract}
+        onTouchStartCapture={handleInteract}
+        className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center transform-gpu [transform:translate3d(0,0,0)] will-change-transform"
+      >
         {isLoading && safeDeck.length === 0 ? (
           <div className="w-full h-[420px] bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] p-4 flex flex-col justify-between animate-pulse">
             <div className="h-52 bg-[#FFF8F1] rounded-2xl border-2 border-[#241B18]/10" />
@@ -100,6 +124,7 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
                     restaurant={item}
                     isFront={idx === 0}
                     stackIndex={idx}
+                    showSwipeHint={idx === 0 && showSwipeHint}
                     onVote={vote}
                   />
                 ))}
@@ -111,6 +136,7 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
       {/* 4. Tactile 3-Button Controller (Pass, Skip, Pick) */}
       <TactileActionDock
         onVote={vote}
+        onInteract={handleInteract}
         disabled={safeIndex >= safeTotal || isExhausted || visibleCards.length === 0}
       />
     </div>

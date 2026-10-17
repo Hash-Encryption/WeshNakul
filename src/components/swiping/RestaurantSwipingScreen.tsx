@@ -82,6 +82,16 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     },
   });
 
+  const [hasInteractedWithDeck, setHasInteractedWithDeck] = useState(false);
+  const handleDeckInteract = React.useCallback(() => {
+    setHasInteractedWithDeck(true);
+  }, []);
+
+  // Reset interaction state on room or category change
+  useEffect(() => {
+    setHasInteractedWithDeck(false);
+  }, [currentRoom?.id, currentRoom?.winning_category]);
+
   // Modal states
   const [selectedWinner, setSelectedWinner] = useState<RestaurantItem | null>(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -536,7 +546,11 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   };
 
   return (
-    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-3 pb-16 selection:bg-[#FFF0EE]">
+    <div
+      onPointerDownCapture={handleDeckInteract}
+      onTouchStartCapture={handleDeckInteract}
+      className="relative flex flex-col justify-between min-h-[92dvh] w-full px-3 pb-16 selection:bg-[#FFF0EE]"
+    >
       <div>
         {/* Top Header */}
         <Header showBack={false} showMenu={false} participantCount={participants.length} showCount={false} onLeave={() => leaveRoom(false)} showLeave={true} />
@@ -592,6 +606,8 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
               totalCards={totalCards}
               isLoading={isLoadingDeck}
               onVote={recordVote}
+              hasInteractedWithDeck={hasInteractedWithDeck}
+              onInteract={handleDeckInteract}
             />
           )}
         </DeckErrorBoundary>

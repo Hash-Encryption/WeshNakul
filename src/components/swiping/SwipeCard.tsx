@@ -8,6 +8,7 @@ interface SwipeCardProps {
   isFront: boolean;
   onVote: (vote: RestaurantVote) => void;
   stackIndex?: number; // 0 for front, 1 for second, 2 for third
+  showSwipeHint?: boolean;
 }
 
 
@@ -17,9 +18,11 @@ export const SwipeCard = React.memo(function SwipeCard({
   isFront,
   onVote,
   stackIndex = 0,
+  showSwipeHint = false,
 }: SwipeCardProps) {
   const { locale, t } = useLocale();
   const reduceMotion = useReducedMotion();
+  const [isDragging, setIsDragging] = React.useState(false);
 
   // Screen-absolute x drag position
   const x = useMotionValue(0);
@@ -88,17 +91,21 @@ export const SwipeCard = React.memo(function SwipeCard({
   };
 
   const stackStyle = getStackStyle();
-
-
+  const isPeeking = isFront && Boolean(showSwipeHint) && !isDragging && !reduceMotion;
+  const frontStyle = isPeeking ? { zIndex: 20 } : { x, rotate, zIndex: 20 };
 
   return (
     <motion.div
-      style={isFront ? { x, rotate, zIndex: 20 } : stackStyle}
+      style={isFront ? frontStyle : stackStyle}
       animate={!isFront ? stackStyle : undefined}
       drag={isFront ? 'x' : false}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.85}
+      onDragStart={() => {
+        setIsDragging(true);
+      }}
       onDragEnd={(_e, info) => {
+        setIsDragging(false);
         if (!isFront) return;
         const offset = info.offset.x;
         const velocity = info.velocity.x;
@@ -125,7 +132,11 @@ export const SwipeCard = React.memo(function SwipeCard({
               },
       }}
       exit="exit"
-      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-pan-y transform-gpu [transform:translate3d(0,0,0)] will-change-transform ${
+      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-pan-y ${
+        isPeeking
+          ? 'animate-card-peek'
+          : 'transform-gpu [transform:translate3d(0,0,0)] will-change-transform'
+      } ${
         isFront ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'
       }`}
     >
@@ -151,6 +162,35 @@ export const SwipeCard = React.memo(function SwipeCard({
               <span>{t('swiping.stamp_pass')}</span>
             </div>
           </motion.div>
+        </>
+      )}
+
+      {/* Synchronous Green and Red Accent Overlays for Onboarding Card Peek Hint */}
+      {isPeeking && (
+        <>
+          {/* Green Peek Accent: Emerald Glow + Subtle Green Tint + YES Stamp */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-30 rounded-3xl overflow-hidden animate-peek-green ring-2 ring-[#55B96A] shadow-[inset_0_0_24px_rgba(85,185,106,0.3)] bg-gradient-to-l from-[#55B96A]/15 via-[#55B96A]/5 to-transparent"
+          >
+            <div className="absolute top-6 end-6 transform rotate-12">
+              <div className="bg-[#55B96A] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-base sm:text-lg flex items-center gap-1.5">
+                <span>{t('swiping.stamp_like')}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Red Peek Accent: Rose Glow + Subtle Red Tint + NO Stamp */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-30 rounded-3xl overflow-hidden animate-peek-red ring-2 ring-[#F0443E] shadow-[inset_0_0_24px_rgba(240,68,62,0.3)] bg-gradient-to-r from-[#F0443E]/15 via-[#F0443E]/5 to-transparent"
+          >
+            <div className="absolute top-6 start-6 transform -rotate-12">
+              <div className="bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-base sm:text-lg flex items-center gap-1.5">
+                <span>{t('swiping.stamp_pass')}</span>
+              </div>
+            </div>
+          </div>
         </>
       )}
 

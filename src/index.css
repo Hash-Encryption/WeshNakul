@@ -47,3 +47,58 @@
   position: relative;
   box-shadow: 0 0 40px rgba(36, 27, 24, 0.05);
 }
+
+/* Card Peek Onboarding Animation (GPU Compositor Only) */
+@keyframes wn-card-peek {
+  0%, 15%, 65%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotate(0deg);
+  }
+  30% {
+    transform: translate3d(36px, -4px, 0px) rotate(5.5deg);
+  }
+  50% {
+    transform: translate3d(-36px, -4px, 0px) rotate(-5.5deg);
+  }
+}
+
+@keyframes wn-peek-green {
+  0%, 15%, 40%, 100% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes wn-peek-red {
+  0%, 38%, 65%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.animate-card-peek {
+  animation: wn-card-peek 3.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s infinite both;
+  will-change: transform;
+}
+
+.animate-peek-green {
+  animation: wn-peek-green 3.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s infinite both;
+  will-change: opacity;
+}
+
+.animate-peek-red {
+  animation: wn-peek-red 3.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s infinite both;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-card-peek,
+  .animate-peek-green,
+  .animate-peek-red {
+    animation: none !important;
+  }
+}
+
