@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '../../context/LocaleContext';
+import { clearRoomSession } from '../../lib/session';
 import type { Participant } from '../../types/database';
 
 interface DecisionMachineLoadingProps {
@@ -9,6 +10,9 @@ interface DecisionMachineLoadingProps {
   title?: string;
   subtitle?: string;
   tipText?: string;
+  onRetry?: () => void;
+  onLeave?: () => void;
+  isStalled?: boolean;
 }
 
 const DEFAULT_AVATAR_COLORS = ['#FFB3BA', '#FFE494', '#D7BDE2', '#A3E4D7', '#AED6F1', '#FAD7A0'];
@@ -35,13 +39,28 @@ export const DecisionMachineLoading: React.FC<DecisionMachineLoadingProps> = ({
   title,
   subtitle,
   tipText,
+  onRetry,
+  onLeave,
+  isStalled = false,
 }) => {
   const { locale } = useLocale();
   const isRTL = locale === 'ar';
   const reduceMotion = useReducedMotion();
 
   const [tipIndex, setTipIndex] = useState(0);
+  const [showEscapeActions, setShowEscapeActions] = useState(Boolean(isStalled));
   const tips = isRTL ? TIPS_AR : TIPS_EN;
+
+  useEffect(() => {
+    if (isStalled) {
+      setShowEscapeActions(true);
+      return;
+    }
+    const timer = setTimeout(() => {
+      setShowEscapeActions(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [isStalled]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -367,7 +386,44 @@ export const DecisionMachineLoading: React.FC<DecisionMachineLoadingProps> = ({
         </div>
       </div>
 
-      {/* 6. Bottom Tip Card */}
+      {/* 6. Bottom Escape Actions Bar (3s timeout or stalled) */}
+      {showEscapeActions && (
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-[320px] mb-2 flex items-center justify-center gap-2 z-50 pointer-events-auto"
+        >
+          <button
+            type="button"
+            onClick={() => {
+              if (onLeave) {
+                onLeave();
+              } else {
+                try {
+                  clearRoomSession();
+                } catch {}
+                window.location.replace('/');
+              }
+            }}
+            className="flex-1 py-2 px-3 rounded-xl bg-white border border-[#241B18]/20 text-[#241B18] font-bold text-xs hover:bg-gray-50 active:scale-95 transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <span>🚪</span>
+            <span>{isRTL ? 'خروج للرئيسية' : 'Leave to Home'}</span>
+          </button>
+          {onRetry && (
+            <button
+              type="button"
+              onClick={onRetry}
+              className="flex-1 py-2 px-3 rounded-xl bg-[#F0443E] text-white font-bold text-xs hover:bg-[#D93833] active:scale-95 transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <span>🔄</span>
+              <span>{isRTL ? 'تحديث الاتصال' : 'Retry'}</span>
+            </button>
+          )}
+        </motion.div>
+      )}
+
+      {/* 7. Bottom Tip Card */}
       <div className="w-full max-w-[320px] mb-2 z-10">
         <motion.div
           key={activeTip}

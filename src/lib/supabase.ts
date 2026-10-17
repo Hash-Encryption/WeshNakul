@@ -6,7 +6,7 @@ import type { CaptainEventState, CaptainRealtimeMessage } from '../types/captain
 import type { ShuffleCardsRealtimeMessage } from '../types/shuffleCards';
 import type { EmojiClashRealtimeMessage } from '../types/emojiClash';
 import { cacheDeckRestaurants } from './restaurantRepository';
-import { getOrCreateSessionToken, generateRoomCode } from './session';
+import { getOrCreateSessionToken, generateRoomCode, saveRoomSession } from './session';
 import { normalizeRestaurantDeck } from './restaurantNormalization';
 import { logDeckError } from './observability';
 
@@ -211,12 +211,27 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
 
   const normalizedCode = input.code.trim().toUpperCase();
   const sessionToken = getOrCreateSessionToken(normalizedCode);
-  const { room, isExpired } = await getRoomByCode(normalizedCode);
+  const { room, participants, isExpired } = await getRoomByCode(normalizedCode);
   if (isExpired) {
     return { success: false, error: 'ROOM_EXPIRED' };
   }
   if (!room) {
     return { success: false, error: 'ROOM_NOT_FOUND' };
+  }
+
+  // Anti-Clone deduplication: reclaim existing slot if participant name matches
+  const normalizedInputName = input.nickname.trim().toLowerCase();
+  const existingParticipant = participants?.find(
+    (p) => (p.nickname || '').trim().toLowerCase() === normalizedInputName
+  );
+
+  if (existingParticipant) {
+    const adoptedParticipant: Participant = {
+      ...existingParticipant,
+      session_token: existingParticipant.session_token || sessionToken,
+    };
+    saveRoomSession(normalizedCode, adoptedParticipant.id, adoptedParticipant.session_token);
+    return { success: true, room, participant: adoptedParticipant };
   }
 
   const { data, error } = await supabase.rpc('join_room_authorized', {
@@ -229,6 +244,9 @@ export async function joinRoom(input: JoinRoomInput): Promise<{
     throw error;
   }
   const result = data as { room: Room; participant: Participant };
+  if (result?.participant) {
+    saveRoomSession(normalizedCode, result.participant.id, result.participant.session_token);
+  }
   return { success: true, ...result };
 }
 

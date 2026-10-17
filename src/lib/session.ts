@@ -70,6 +70,36 @@ export function setActiveRoomCode(code: string | null): void {
 }
 
 /**
+ * Set session token specifically for a room.
+ */
+export function setRoomSessionToken(roomCode: string, token: string): void {
+  try {
+    const roomKey = `${PRIMARY_SESSION_KEY}_${roomCode.trim().toUpperCase()}`;
+    localStorage.setItem(roomKey, token);
+  } catch (e) {
+    console.error('Failed to set room session token in localStorage', e);
+  }
+}
+
+/**
+ * Persist room session and active participant data in localStorage.
+ */
+export function saveRoomSession(roomCode: string, participantId: string, sessionToken?: string): void {
+  try {
+    const cleanCode = roomCode.trim().toUpperCase();
+    setActiveRoomCode(cleanCode);
+    localStorage.setItem('wsh_room_code', cleanCode);
+    localStorage.setItem('wsh_participant_id', participantId);
+    if (sessionToken) {
+      setRoomSessionToken(cleanCode, sessionToken);
+    }
+  } catch (e) {
+    console.error('Failed to save room session in localStorage', e);
+  }
+}
+
+
+/**
  * Clear room session and storage keys.
  */
 export function clearRoomSession(code?: string): void {

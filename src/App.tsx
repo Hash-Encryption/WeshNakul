@@ -17,7 +17,7 @@ import { RestaurantSwipingScreen } from './components/swiping/RestaurantSwipingS
 import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScreen';
 import { RESTAURANT_CATALOG } from './data/restaurants';
 import { getCachedRestaurant, getRoomByCode } from './lib/supabase';
-import { clearRoomSession } from './lib/session';
+import { clearRoomSession, getActiveRoomCode } from './lib/session';
 import {
   trackAppSessionStart,
   trackRoomCreateSuccess,
@@ -265,7 +265,19 @@ export const App: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#F7EFE6] flex items-center justify-center sm:py-6 selection:bg-brand-redSoft">
         <main className="app-container flex flex-col justify-center sm:rounded-[36px] sm:overflow-y-auto sm:border sm:border-brand-border sm:shadow-2xl">
-          <DecisionMachineLoading participants={participants} currentStep={1} />
+          <DecisionMachineLoading
+            participants={participants}
+            currentStep={1}
+            onLeave={handleLeave}
+            onRetry={() => {
+              const code = getActiveRoomCode();
+              if (code) {
+                void loadRoom(code);
+              } else {
+                window.location.reload();
+              }
+            }}
+          />
         </main>
       </div>
     );

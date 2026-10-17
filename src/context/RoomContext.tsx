@@ -27,7 +27,8 @@ import {
   getActiveRoomCode, 
   setActiveRoomCode, 
   getOrCreateSessionToken,
-  clearRoomSession
+  clearRoomSession,
+  saveRoomSession
 } from '../lib/session';
 import { useLocale } from './LocaleContext';
 import { normalizeCategorySelection } from '../lib/consensus';
@@ -250,6 +251,12 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
+    // Preserve active animations: If a mini-game is active, buffer authoritative room state
+    if (activeMiniGameRef.current && (room.stage === 'matched' || room.restaurant_state === 'decided')) {
+      pendingResolvedRoomRef.current = room;
+      return;
+    }
+
     currentRoomRef.current = room;
     setCurrentRoom(room);
 
@@ -396,6 +403,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const normalizedCode = code.trim().toUpperCase();
     setIsLoading(true);
     setError(null);
+    const safetyTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 7000);
     try {
       // Guard against eviction loop: If room is already active in memory and fresh, keep it
       if (
@@ -449,7 +459,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       const roomToken = getOrCreateSessionToken(room.code);
       const legacyToken = getOrCreateSessionToken();
-      const me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
+      let me = parts.find((p) => p.session_token === roomToken || p.session_token === legacyToken);
+      if (!me) {
+        const savedPartId = typeof localStorage !== 'undefined' ? localStorage.getItem('wsh_participant_id') : null;
+        if (savedPartId) {
+          me = parts.find((p) => p.id === savedPartId);
+        }
+      }
       if (me) {
         currentParticipantRef.current = me;
         setCurrentParticipant(me);
@@ -481,6 +497,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError('FAILED_TO_LOAD');
       setIsLoading(false);
       return false;
+    } finally {
+      clearTimeout(safetyTimer);
+      setIsLoading(false);
     }
   }, [leaveRoom, t, reportError]);
 
@@ -498,6 +517,24 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsLoading(false);
     }
   }, [loadRoom]);
+
+  // Safe, silent WhatsApp tab-switch catch-up
+  const lastVisibilitySyncRef = useRef<number>(0);
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== 'visible') return;
+      if (!currentRoomRef.current?.code) return;
+      const now = Date.now();
+      if (now - lastVisibilitySyncRef.current < 2000) return;
+      lastVisibilitySyncRef.current = now;
+      void refreshRoom();
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [refreshRoom]);
 
   // Realtime subscription
   useEffect(() => {
@@ -755,13 +792,18 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const joinExistingRoom = async (code: string, nickname: string) => {
     setError(null);
+    const safetyTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 7000);
     try {
       const res = await apiJoinRoom({ code, nickname });
       if (res.success && res.room && res.participant) {
         const { participants: parts } = await getRoomByCode(res.room.code);
         setCurrentRoom(res.room);
+        currentParticipantRef.current = res.participant;
         setCurrentParticipant(res.participant);
         setActiveRoomCode(res.room.code);
+        saveRoomSession(res.room.code, res.participant.id, res.participant.session_token);
         setParticipants(parts);
 
         if (res.room.stage === 'voting') {
@@ -789,6 +831,9 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err: any) {
       reportError(err);
       return { success: false, error: err?.message || 'JOIN_FAILED' };
+    } finally {
+      clearTimeout(safetyTimer);
+      setIsLoading(false);
     }
   };
 

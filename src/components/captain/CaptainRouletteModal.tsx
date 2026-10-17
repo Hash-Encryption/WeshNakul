@@ -492,11 +492,60 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
     }
   };
 
-  if (!isOpen) return null;
-
   const isProvisional = eventState?.status === 'initial_result_provisional' || eventState?.status === 'objection_window';
   const isVoting = eventState?.status === 'reroll_vote_open';
   const isFinalized = eventState?.status === 'finalized';
+
+  const hasTriggeredStartRef = useRef(false);
+  const autoAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const triggerStartGameOnce = useCallback(() => {
+    if (autoAdvanceTimerRef.current) {
+      clearTimeout(autoAdvanceTimerRef.current);
+      autoAdvanceTimerRef.current = null;
+    }
+    if (hasTriggeredStartRef.current) return;
+    hasTriggeredStartRef.current = true;
+
+    if (currentWinnerCandidate && onStartGame) {
+      onStartGame(currentWinnerCandidate);
+    }
+    onClose();
+  }, [currentWinnerCandidate, onStartGame, onClose]);
+
+  // Reset guard when modal opens or closes
+  useEffect(() => {
+    if (isOpen) {
+      hasTriggeredStartRef.current = false;
+    } else if (autoAdvanceTimerRef.current) {
+      clearTimeout(autoAdvanceTimerRef.current);
+      autoAdvanceTimerRef.current = null;
+    }
+    return () => {
+      if (autoAdvanceTimerRef.current) {
+        clearTimeout(autoAdvanceTimerRef.current);
+        autoAdvanceTimerRef.current = null;
+      }
+    };
+  }, [isOpen]);
+
+  // Idempotent auto-advance from Captain Wheel to mini-game for Host after 1500ms
+  useEffect(() => {
+    if (isHost && isFinalized && hasRevealedLocally && currentWinnerCandidate && !hasTriggeredStartRef.current) {
+      if (autoAdvanceTimerRef.current) clearTimeout(autoAdvanceTimerRef.current);
+      autoAdvanceTimerRef.current = setTimeout(() => {
+        triggerStartGameOnce();
+      }, 1500);
+    }
+    return () => {
+      if (autoAdvanceTimerRef.current) {
+        clearTimeout(autoAdvanceTimerRef.current);
+        autoAdvanceTimerRef.current = null;
+      }
+    };
+  }, [isHost, isFinalized, hasRevealedLocally, currentWinnerCandidate, triggerStartGameOnce]);
+
+  if (!isOpen) return null;
 
   return (
     <div
@@ -731,12 +780,7 @@ export const CaptainRouletteModal: React.FC<CaptainRouletteModalProps> = ({
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           type="button"
-                          onClick={() => {
-                            if (currentWinnerCandidate && onStartGame) {
-                              onStartGame(currentWinnerCandidate);
-                            }
-                            onClose();
-                          }}
+                          onClick={triggerStartGameOnce}
                           className="w-full py-3.5 px-4 rounded-2xl bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 transition-all font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer"
                         >
                           <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
