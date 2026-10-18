@@ -26,6 +26,9 @@ export interface Env {
   ADMIN_EMAIL?: string;
   ADMIN_EMAILS?: string;
   ADMIN_USERNAME?: string;
+  RATE_LIMITER?: {
+    limit: (options: { key: string }) => Promise<{ success: boolean }>;
+  };
   [key: string]: unknown;
 }
 
@@ -70,12 +73,18 @@ function base64UrlDecode(str: string): Uint8Array {
 }
 
 export function getAdminSecret(env: Env): string {
-  return (
-    env.ADMIN_JWT_SECRET ||
-    env.SUPABASE_SERVICE_ROLE_KEY ||
-    env.TEST_ADMIN_SECRET ||
-    'weshnakul-admin-fallback-secret-2026'
-  );
+  const secret = (
+    (typeof env.ADMIN_JWT_SECRET === 'string' ? env.ADMIN_JWT_SECRET : '') ||
+    (typeof env.SUPABASE_SERVICE_ROLE_KEY === 'string' ? env.SUPABASE_SERVICE_ROLE_KEY : '') ||
+    (typeof env.TEST_ADMIN_SECRET === 'string' ? env.TEST_ADMIN_SECRET : '') ||
+    ''
+  ).trim();
+
+  if (!secret) {
+    throw new Error('WSH_MISSING_ADMIN_SECRET: No admin signing secret configured in server environment.');
+  }
+
+  return secret;
 }
 
 /**
@@ -121,6 +130,9 @@ export async function verifyAdminToken(
   secret: string
 ): Promise<{ valid: boolean; payload?: AdminTokenPayload; error?: string }> {
   try {
+    if (!token || !secret) {
+      return { valid: false, error: 'invalid_arguments' };
+    }
     const parts = token.split('.');
     if (parts.length !== 3) {
       return { valid: false, error: 'invalid_token_format' };
@@ -128,6 +140,13 @@ export async function verifyAdminToken(
     const [headerEncoded, payloadEncoded, signatureEncoded] = parts;
     const dataToVerify = new TextEncoder().encode(`${headerEncoded}.${payloadEncoded}`);
     const signatureBytes = base64UrlDecode(signatureEncoded);
+
+    // Verify token header structure & algorithm
+    const headerJson = new TextDecoder().decode(base64UrlDecode(headerEncoded));
+    const header = JSON.parse(headerJson) as { alg?: string; typ?: string };
+    if (header.alg !== 'HS256' || header.typ !== 'JWT') {
+      return { valid: false, error: 'invalid_token_header' };
+    }
 
     const key = await crypto.subtle.importKey(
       'raw',
@@ -146,7 +165,7 @@ export async function verifyAdminToken(
     const payload = JSON.parse(payloadJson) as AdminTokenPayload;
 
     const now = Math.floor(Date.now() / 1000);
-    if (payload.exp && payload.exp < now) {
+    if (!payload.exp || typeof payload.exp !== 'number' || payload.exp < now) {
       return { valid: false, error: 'token_expired' };
     }
 
@@ -192,7 +211,17 @@ export async function authenticateAdminRequest(request: Request, env: Env): Prom
     };
   }
 
-  const secret = getAdminSecret(env);
+  let secret: string;
+  try {
+    secret = getAdminSecret(env);
+  } catch {
+    return {
+      authenticated: false,
+      status: 401,
+      error: 'unauthorized',
+      message: 'Server authentication secret is not configured.',
+    };
+  }
 
   // 1. Verify our edge-issued HMAC-SHA256 token
   const edgeVerification = await verifyAdminToken(token, secret);

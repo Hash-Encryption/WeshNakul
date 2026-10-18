@@ -9,9 +9,15 @@ import {
   createAdminToken,
   verifyAdminToken,
   authenticateAdminRequest,
+  getAdminSecret,
 } from '../functions/api/admin/_auth.ts';
-import { handleAdminLogin } from '../functions/api/admin/login.ts';
+import {
+  handleAdminLogin,
+  checkLoginRateLimit,
+  _resetLoginRateLimitsForTesting,
+} from '../functions/api/admin/login.ts';
 import { handleAdminMe } from '../functions/api/admin/me.ts';
+import { handleAdminLogout } from '../functions/api/admin/logout.ts';
 import { handleAdminAnalytics, calculateDateRange } from '../functions/api/admin/analytics.ts';
 
 console.log('--- WESHNAKUL PHASE 2: ADMIN AUTHENTICATION & READ-ONLY DASHBOARD TEST SUITE ---');
@@ -38,29 +44,54 @@ const mockEnv = {
 // -------------------------------------------------------------
 console.log('\n1. Verifying Edge Cryptographic Token Security & Verification...');
 
-// 1a. Mint admin token
+// 1a. getAdminSecret precedence and strict refusal of hardcoded fallbacks
+assert.throws(() => getAdminSecret({}), /WSH_MISSING_ADMIN_SECRET/);
+check(true, 'getAdminSecret strictly refuses to fall back to hardcoded secrets when env is unconfigured');
+
+const jwtSecretEnv = { ADMIN_JWT_SECRET: 'explicit-jwt-secret' };
+check(getAdminSecret(jwtSecretEnv) === 'explicit-jwt-secret', 'getAdminSecret prefers ADMIN_JWT_SECRET');
+
+const srvRoleEnv = { SUPABASE_SERVICE_ROLE_KEY: 'explicit-service-role' };
+check(getAdminSecret(srvRoleEnv) === 'explicit-service-role', 'getAdminSecret falls back to SUPABASE_SERVICE_ROLE_KEY if ADMIN_JWT_SECRET absent');
+
+// 1b. Mint admin token
 const adminToken = await createAdminToken(
   { sub: 'admin-1', email: 'admin@weshnakul.com', role: 'admin' },
   TEST_SECRET
 );
 check(typeof adminToken === 'string' && adminToken.split('.').length === 3, 'Admin token is valid 3-part JWT');
 
-// 1b. Verify admin token
+// 1c. Verify admin token
 const verified = await verifyAdminToken(adminToken, TEST_SECRET);
 check(verified.valid === true && verified.payload?.role === 'admin', 'Valid token verifies successfully with role=admin');
 
-// 1c. Tampered token rejected
+// 1d. Tampered token rejected
 const tamperedToken = adminToken.slice(0, -6) + 'xxxxxx';
 const tamperedResult = await verifyAdminToken(tamperedToken, TEST_SECRET);
 check(tamperedResult.valid === false, 'Tampered signature is strictly rejected');
 
-// 1d. Expired token rejected
+// 1e. Expired token rejected
 const expiredToken = await createAdminToken(
   { sub: 'admin-1', email: 'admin@weshnakul.com', role: 'admin', exp: Math.floor(Date.now() / 1000) - 100 },
   TEST_SECRET
 );
 const expiredResult = await verifyAdminToken(expiredToken, TEST_SECRET);
 check(expiredResult.valid === false && expiredResult.error === 'token_expired', 'Expired token is strictly rejected');
+
+// 1f. Token forged with old static fallback secret is rejected
+const forgedOldToken = await createAdminToken(
+  { sub: 'admin-attacker', email: 'attacker@evil.com', role: 'admin' },
+  'weshnakul-admin-fallback-secret-2026'
+);
+const forgedResult = await verifyAdminToken(forgedOldToken, TEST_SECRET);
+check(forgedResult.valid === false && forgedResult.error === 'invalid_signature', 'Token signed with old static fallback is strictly rejected');
+
+// 1g. Token with invalid algorithm (e.g. none) is rejected
+const parts = adminToken.split('.');
+const badHeader = Buffer.from(JSON.stringify({ alg: 'none', typ: 'JWT' })).toString('base64url');
+const badAlgToken = `${badHeader}.${parts[1]}.${parts[2]}`;
+const badAlgResult = await verifyAdminToken(badAlgToken, TEST_SECRET);
+check(badAlgResult.valid === false && badAlgResult.error === 'invalid_token_header', 'Token with non-HS256 header algorithm is rejected');
 
 // -------------------------------------------------------------
 // SUITE 2: Strict Authentication & Authorization Boundaries
@@ -112,6 +143,13 @@ const malformedReq = new Request('https://weshnakul.com/api/admin/analytics', {
 const malformedRes = await handleAdminAnalytics(malformedReq, mockEnv);
 check(malformedRes.status === 401, 'Malformed bearer token returns HTTP 401');
 
+// 2f. Logout endpoint clears cookie
+const logoutReq = new Request('https://weshnakul.com/api/admin/logout', { method: 'POST' });
+const logoutRes = await handleAdminLogout(logoutReq, mockEnv);
+check(logoutRes.status === 200, 'Logout endpoint returns 200 OK');
+const cookieHeader = logoutRes.headers.get('set-cookie') || '';
+check(cookieHeader.includes('Max-Age=0') && cookieHeader.includes('HttpOnly'), 'Logout sets expired HttpOnly cookie');
+
 // -------------------------------------------------------------
 // SUITE 3: Admin Login Endpoint Verification
 // -------------------------------------------------------------
@@ -155,6 +193,59 @@ const meRes = await handleAdminMe(meReq, mockEnv);
 check(meRes.status === 200, '/api/admin/me returns 200 OK for verified admin');
 const meJson = await meRes.json();
 check(meJson.authenticated === true && meJson.user?.role === 'admin', 'Identity verified as authorized admin');
+
+// 3e. ADMIN_EMAIL enforcement: correct password with wrong email -> 401
+const wrongEmailReq = new Request('https://weshnakul.com/api/admin/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: 'attacker@evil.com', password: 'SuperSecretAdminPassword123!' }),
+});
+const wrongEmailRes = await handleAdminLogin(wrongEmailReq, mockEnv);
+check(wrongEmailRes.status === 401, 'Correct password with wrong email is rejected with 401');
+
+// 3f. ADMIN_EMAIL enforcement: correct password with empty email -> 401
+const emptyEmailReq = new Request('https://weshnakul.com/api/admin/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: '', password: 'SuperSecretAdminPassword123!' }),
+});
+const emptyEmailRes = await handleAdminLogin(emptyEmailReq, mockEnv);
+check(emptyEmailRes.status === 401, 'Correct password with empty email when ADMIN_EMAIL configured is rejected with 401');
+
+// 3g. Server-Side Rate Limiting against repeated password attempts
+_resetLoginRateLimitsForTesting();
+const ipAttack = '198.51.100.42';
+for (let i = 1; i <= 5; i++) {
+  const attemptReq = new Request('https://weshnakul.com/api/admin/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': ipAttack },
+    body: JSON.stringify({ email: 'admin@weshnakul.com', password: `Guess${i}` }),
+  });
+  const res = await handleAdminLogin(attemptReq, mockEnv);
+  check(res.status === 401, `Attempt ${i} within rate window fails with 401`);
+}
+
+// 6th attempt from same IP must receive HTTP 429 Too Many Requests
+const blockedReq = new Request('https://weshnakul.com/api/admin/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': ipAttack },
+  body: JSON.stringify({ email: 'admin@weshnakul.com', password: 'SuperSecretAdminPassword123!' }),
+});
+const blockedRes = await handleAdminLogin(blockedReq, mockEnv);
+check(blockedRes.status === 429, '6th login attempt from same IP is rate-limited with HTTP 429');
+check(blockedRes.headers.has('retry-after'), 'HTTP 429 response contains Retry-After header');
+const blockedJson = await blockedRes.json();
+check(blockedJson.error === 'rate_limit_exceeded', 'HTTP 429 response body contains rate_limit_exceeded error');
+
+// Different IP is not blocked
+const otherIpReq = new Request('https://weshnakul.com/api/admin/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.99' },
+  body: JSON.stringify({ email: 'admin@weshnakul.com', password: 'SuperSecretAdminPassword123!' }),
+});
+const otherIpRes = await handleAdminLogin(otherIpReq, mockEnv);
+check(otherIpRes.status === 200, 'Different client IP is allowed and succeeds with 200 OK');
+_resetLoginRateLimitsForTesting();
 
 // -------------------------------------------------------------
 // SUITE 4: Time Range Calculations

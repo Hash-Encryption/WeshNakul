@@ -11,12 +11,97 @@ interface LoginRequestBody {
   password?: string;
 }
 
+const LOGIN_RATE_LIMIT_WINDOW_MS = 60000; // 60 seconds
+const MAX_LOGIN_ATTEMPTS_PER_WINDOW = 5; // 5 attempts per minute per IP
+
+interface RateLimitRecord {
+  count: number;
+  resetAt: number;
+}
+const loginRateLimitMap = new Map<string, RateLimitRecord>();
+
+function pruneLoginRateLimitMap(now: number): void {
+  if (loginRateLimitMap.size > 1000) {
+    for (const [ip, record] of loginRateLimitMap.entries()) {
+      if (now > record.resetAt) {
+        loginRateLimitMap.delete(ip);
+      }
+    }
+  }
+}
+
+export function checkLoginRateLimit(clientIp: string, now = Date.now()): { allowed: boolean; retryAfter: number } {
+  pruneLoginRateLimitMap(now);
+
+  const existing = loginRateLimitMap.get(clientIp);
+  if (!existing || now > existing.resetAt) {
+    loginRateLimitMap.set(clientIp, {
+      count: 1,
+      resetAt: now + LOGIN_RATE_LIMIT_WINDOW_MS,
+    });
+    return { allowed: true, retryAfter: 0 };
+  }
+
+  if (existing.count >= MAX_LOGIN_ATTEMPTS_PER_WINDOW) {
+    const retryAfter = Math.max(1, Math.ceil((existing.resetAt - now) / 1000));
+    return { allowed: false, retryAfter };
+  }
+
+  existing.count += 1;
+  return { allowed: true, retryAfter: 0 };
+}
+
+export function getTrustedClientIp(request: Request): string {
+  const cfIp = request.headers.get('cf-connecting-ip');
+  if (cfIp && cfIp.trim().length > 0) {
+    return cfIp.trim();
+  }
+  return '127.0.0.1';
+}
+
+export function _resetLoginRateLimitsForTesting(): void {
+  loginRateLimitMap.clear();
+}
+
 export async function handleAdminLogin(request: Request, env: Env): Promise<Response> {
   if (request.method !== 'POST') {
     return jsonResponse(
       { error: 'method_not_allowed', message: 'Only POST requests are supported.' },
       405,
       { Allow: 'POST' }
+    );
+  }
+
+  // 1. Enforce server-side rate limiting on login attempts
+  const clientIp = getTrustedClientIp(request);
+
+  if (env.RATE_LIMITER && typeof env.RATE_LIMITER.limit === 'function') {
+    try {
+      const rlResult = await env.RATE_LIMITER.limit({ key: `admin_login_${clientIp}` });
+      if (!rlResult.success) {
+        return jsonResponse(
+          {
+            error: 'rate_limit_exceeded',
+            message: 'Too many login attempts. Please try again later.',
+          },
+          429,
+          { 'Retry-After': '60' }
+        );
+      }
+    } catch {
+      // Fall through to in-memory rate limiter
+    }
+  }
+
+  const memoryRateLimit = checkLoginRateLimit(clientIp);
+  if (!memoryRateLimit.allowed) {
+    return jsonResponse(
+      {
+        error: 'rate_limit_exceeded',
+        message: `Too many login attempts. Please try again in ${memoryRateLimit.retryAfter} seconds.`,
+      },
+      429,
+      { 'Retry-After': String(memoryRateLimit.retryAfter) }
     );
   }
 
@@ -34,19 +119,44 @@ export async function handleAdminLogin(request: Request, env: Env): Promise<Resp
     return jsonResponse({ error: 'missing_password', message: 'Password is required.' }, 400);
   }
 
-  const secret = getAdminSecret(env);
+  let secret: string;
+  try {
+    secret = getAdminSecret(env);
+  } catch {
+    return jsonResponse(
+      {
+        error: 'server_configuration_error',
+        message: 'Server authentication secret is not configured in environment.',
+      },
+      500
+    );
+  }
 
   // 1. Direct Edge Server-Side Admin Authentication (via environment variables)
   const configuredPassword = env.ADMIN_PASSWORD ? String(env.ADMIN_PASSWORD).trim() : '';
   const configuredEmail = env.ADMIN_EMAIL ? String(env.ADMIN_EMAIL).trim().toLowerCase() : '';
   const configuredUsername = env.ADMIN_USERNAME ? String(env.ADMIN_USERNAME).trim().toLowerCase() : '';
 
+  if (!configuredPassword) {
+    console.log('[AdminLogin] Direct admin evaluation bypassed: env.ADMIN_PASSWORD is missing or empty.');
+  }
+
   if (configuredPassword) {
     const passwordMatches = password === configuredPassword;
-    const identifierMatches =
+    const identifierMatches = Boolean(
       (!configuredEmail && !configuredUsername) ||
       (configuredEmail && email === configuredEmail) ||
-      (configuredUsername && email === configuredUsername);
+      (configuredUsername && email === configuredUsername)
+    );
+
+    console.log('[AdminLogin] Direct admin evaluation:', {
+      hasEmailInput: Boolean(email),
+      emailLength: email.length,
+      hasConfiguredEmail: Boolean(configuredEmail),
+      hasConfiguredUsername: Boolean(configuredUsername),
+      passwordMatches,
+      identifierMatches,
+    });
 
     if (passwordMatches && identifierMatches) {
       const userEmail = email || configuredEmail || 'admin@weshnakul.com';

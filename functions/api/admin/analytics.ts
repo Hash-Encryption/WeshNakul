@@ -125,7 +125,7 @@ export async function handleAdminAnalytics(request: Request, env: Env): Promise<
     }
 
     // 5. Resilient fallback: direct query via PostgREST if RPC is pending deployment
-    const tableUrl = `${supabaseUrl}/rest/v1/analytics_events?select=id,event_id,event_type,event_time,anonymous_id,room_code,category,eating_mode,room_mode,district,app_version,payload&event_time=gte.${startTime.toISOString()}&event_time=lte.${endTime.toISOString()}&order=event_time.desc&limit=1000`;
+    const tableUrl = `${supabaseUrl}/rest/v1/analytics_events?select=id,event_id,event_type,event_time,anonymous_id,room_code,category,eating_mode,room_mode,app_version,payload&event_time=gte.${startTime.toISOString()}&event_time=lte.${endTime.toISOString()}&order=event_time.desc&limit=1000`;
     const tableRes = await fetch(tableUrl, {
       headers: {
         apikey: supabaseKey,
@@ -153,7 +153,6 @@ export async function handleAdminAnalytics(request: Request, env: Env): Promise<
       category?: string;
       eating_mode?: string;
       room_mode?: string;
-      district?: string;
       app_version?: string;
       payload?: Record<string, unknown>;
     }>;
