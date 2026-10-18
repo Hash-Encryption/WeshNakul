@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldCheck, LockKey, Envelope, ArrowLeft, WarningCircle, CircleNotch } from '@phosphor-icons/react';
 import { adminLogin } from '../../services/adminService';
+import { useAdminLocale, AdminLanguageToggle } from '../../context/AdminLocaleContext';
 import type { AdminUser } from '../../types/admin';
 
 interface AdminLoginProps {
@@ -9,6 +10,7 @@ interface AdminLoginProps {
 }
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onExit }) => {
+  const { t, isRTL } = useAdminLocale();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,7 +19,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onExit }) => 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!password.trim()) {
-      setErrorMessage('الرجاء إدخال كلمة المرور / Please enter a password.');
+      setErrorMessage(t('errorEmptyPassword'));
       return;
     }
 
@@ -30,37 +32,43 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onExit }) => 
     if (result.success && result.user) {
       onSuccess(result.user);
     } else {
-      setErrorMessage(result.error || 'فشل تسجيل الدخول. يرجى التحقق من صحة البيانات.');
+      setErrorMessage(result.error || t('errorDefaultLogin'));
     }
   };
 
   return (
     <div className="min-h-screen bg-[#FFF8F1] flex flex-col justify-center items-center p-4 selection:bg-brand-redSoft">
       <div className="w-full max-w-md bg-white rounded-3xl border border-brand-border p-8 shadow-xl">
-        <div className="flex items-center justify-between mb-8">
+        {/* Top Controls: Back to App, Language Toggle, and Badge */}
+        <div className="flex items-center justify-between mb-8 gap-2 flex-wrap">
           <button
             type="button"
             onClick={onExit}
-            className="flex items-center gap-2 text-sm font-medium text-brand-gray hover:text-brand-ink transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-sm font-medium text-brand-gray hover:text-brand-ink transition-colors cursor-pointer"
           >
-            <ArrowLeft size={16} />
-            <span>العودة للتطبيق / Back to App</span>
+            <ArrowLeft size={16} className={isRTL ? 'rotate-180' : ''} />
+            <span>{t('backToApp')}</span>
           </button>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-redSoft text-brand-red text-xs font-semibold">
-            <ShieldCheck size={14} weight="bold" />
-            <span>Admin Gateway</span>
+
+          <div className="flex items-center gap-2">
+            <AdminLanguageToggle />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-redSoft text-brand-red text-xs font-semibold">
+              <ShieldCheck size={14} weight="bold" />
+              <span>{t('adminGateway')}</span>
+            </div>
           </div>
         </div>
 
+        {/* Brand Header */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-[#FFF0EE] text-brand-red rounded-2xl flex items-center justify-center mx-auto mb-4 border border-[#F2E8DF] shadow-sm">
             <LockKey size={32} weight="duotone" />
           </div>
           <h1 className="text-2xl font-bold text-brand-ink tracking-tight font-alexandria">
-            لوحة تحليلات وش ناكل
+            {t('portalTitle')}
           </h1>
           <p className="text-sm text-brand-gray mt-1">
-            WeshNakul Secure Admin Analytics & Operations Console
+            {t('portalSubtitle')}
           </p>
         </div>
 
@@ -74,36 +82,46 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onExit }) => 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="block text-xs font-semibold text-brand-ink uppercase tracking-wider mb-2">
-              البريد الإلكتروني أو اسم المستخدم / Email or Username
+              {t('emailOrUsernameLabel')}
             </label>
             <div className="relative">
               <input
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@weshnakul.com"
+                placeholder={t('emailOrUsernamePlaceholder')}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 pl-11 rounded-xl border border-brand-border bg-white text-brand-ink placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red text-sm transition-all"
+                className={`w-full py-3 rounded-xl border border-brand-border bg-white text-brand-ink placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red text-sm transition-all ${
+                  isRTL ? 'pr-11 pl-4' : 'pl-11 pr-4'
+                }`}
               />
-              <Envelope size={18} className="absolute left-3.5 top-3.5 text-brand-gray" />
+              <Envelope
+                size={18}
+                className={`absolute top-3.5 text-brand-gray ${isRTL ? 'right-3.5' : 'left-3.5'}`}
+              />
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-brand-ink uppercase tracking-wider mb-2">
-              كلمة المرور الإدارية / Admin Password
+              {t('passwordLabel')}
             </label>
             <div className="relative">
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
+                placeholder={t('passwordPlaceholder')}
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 pl-11 rounded-xl border border-brand-border bg-white text-brand-ink placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red text-sm transition-all"
+                className={`w-full py-3 rounded-xl border border-brand-border bg-white text-brand-ink placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red text-sm transition-all ${
+                  isRTL ? 'pr-11 pl-4' : 'pl-11 pr-4'
+                }`}
               />
-              <LockKey size={18} className="absolute left-3.5 top-3.5 text-brand-gray" />
+              <LockKey
+                size={18}
+                className={`absolute top-3.5 text-brand-gray ${isRTL ? 'right-3.5' : 'left-3.5'}`}
+              />
             </div>
           </div>
 
@@ -115,17 +133,17 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onExit }) => 
             {isSubmitting ? (
               <>
                 <CircleNotch size={18} className="animate-spin" />
-                <span>جاري التحقق من الصلاحيات...</span>
+                <span>{t('verifyingCredentials')}</span>
               </>
             ) : (
-              <span>تسجيل الدخول الإداري / Access Dashboard</span>
+              <span>{t('accessDashboard')}</span>
             )}
           </button>
         </form>
 
         <div className="mt-8 pt-6 border-t border-brand-border text-center text-xs text-brand-gray space-y-1">
-          <p className="font-medium text-stone-600">Strictly Restricted Access</p>
-          <p>Protected by server-side authorization and edge boundary rate-limiting.</p>
+          <p className="font-medium text-stone-600">{t('restrictedAccess')}</p>
+          <p>{t('restrictedAccessDesc')}</p>
         </div>
       </div>
     </div>

@@ -3,15 +3,17 @@ import { CircleNotch } from '@phosphor-icons/react';
 import { AdminLogin } from './AdminLogin';
 import { AdminDashboard } from './AdminDashboard';
 import { verifyAdminSession } from '../../services/adminService';
+import { AdminLocaleProvider, useAdminLocale } from '../../context/AdminLocaleContext';
 import type { AdminUser } from '../../types/admin';
 
 interface AdminViewProps {
   onExit: () => void;
 }
 
-export const AdminView: React.FC<AdminViewProps> = ({ onExit }) => {
+const AdminViewInner: React.FC<AdminViewProps> = ({ onExit }) => {
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
   const [isVerifying, setIsVerifying] = useState<boolean>(true);
+  const { t } = useAdminLocale();
 
   useEffect(() => {
     let isMounted = true;
@@ -43,7 +45,7 @@ export const AdminView: React.FC<AdminViewProps> = ({ onExit }) => {
       <div className="min-h-screen bg-[#FFF8F1] flex flex-col items-center justify-center p-4">
         <CircleNotch size={36} className="animate-spin text-brand-red mb-3" />
         <p className="text-sm font-semibold text-brand-ink font-alexandria">
-          جاري التحقق من هوية المشرف...
+          {t('verifyingAdmin')}
         </p>
       </div>
     );
@@ -64,5 +66,13 @@ export const AdminView: React.FC<AdminViewProps> = ({ onExit }) => {
       onLogout={() => setCurrentUser(null)}
       onExit={onExit}
     />
+  );
+};
+
+export const AdminView: React.FC<AdminViewProps> = (props) => {
+  return (
+    <AdminLocaleProvider>
+      <AdminViewInner {...props} />
+    </AdminLocaleProvider>
   );
 };

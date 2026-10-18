@@ -524,6 +524,77 @@ for (const file of srcFiles) {
 }
 check(true, 'Zero references to SUPABASE_SERVICE_ROLE_KEY in frontend client files');
 
+// -------------------------------------------------------------
+// SUITE 7: Admin Portal Localization & Isolation Verification
+// -------------------------------------------------------------
+console.log('\n7. Verifying Admin Localization, English Default & Storage Isolation...');
+
+// Setup minimal localStorage mock on globalThis for Node.js environment
+const memoryStore = new Map();
+const mockLocalStorage = {
+  getItem: (key) => memoryStore.get(key) ?? null,
+  setItem: (key, val) => memoryStore.set(key, String(val)),
+  removeItem: (key) => memoryStore.delete(key),
+  clear: () => memoryStore.clear(),
+};
+globalThis.window = { localStorage: mockLocalStorage };
+globalThis.localStorage = mockLocalStorage;
+
+const {
+  ADMIN_TRANSLATIONS,
+  ADMIN_LOCALE_KEY,
+  getStoredAdminLocale,
+  setStoredAdminLocale,
+} = await import('../src/locales/adminTranslations.ts');
+const { LOCALE_KEY = 'wsh_locale', getStoredLocale } = await import('../src/lib/session.ts');
+
+// 7a. English default when storage is empty
+mockLocalStorage.clear();
+check(getStoredAdminLocale() === 'en', 'Admin portal defaults strictly to English (en) when no preference is saved');
+
+// 7b. Storage key isolation: Admin uses wsh_admin_locale, not wsh_locale
+check(ADMIN_LOCALE_KEY === 'wsh_admin_locale', 'Admin storage key is strictly wsh_admin_locale');
+setStoredAdminLocale('ar');
+check(mockLocalStorage.getItem('wsh_admin_locale') === 'ar', 'setStoredAdminLocale persists to wsh_admin_locale');
+check(mockLocalStorage.getItem(LOCALE_KEY) === null, 'Changing admin locale does NOT pollute or touch public app wsh_locale');
+
+// 7c. Public app locale does not override admin locale
+mockLocalStorage.setItem(LOCALE_KEY, 'ar');
+mockLocalStorage.setItem('wsh_admin_locale', 'en');
+check(getStoredAdminLocale() === 'en', 'Admin locale remains English even if public app is configured to Arabic');
+check(getStoredLocale() === 'ar', 'Public app locale remains Arabic and independent');
+
+// 7d. Fallback on invalid locale value
+mockLocalStorage.setItem('wsh_admin_locale', 'unsupported_lang');
+check(getStoredAdminLocale() === 'en', 'Invalid stored admin locale gracefully falls back to en');
+
+// 7e. Complete parity between English and Arabic translations
+const enKeys = Object.keys(ADMIN_TRANSLATIONS.en);
+const arKeys = Object.keys(ADMIN_TRANSLATIONS.ar);
+check(enKeys.length > 30, `Comprehensive admin translation dictionary (${enKeys.length} keys)`);
+assert.deepEqual(enKeys.sort(), arKeys.sort(), 'English and Arabic dictionaries have exact 1:1 key parity');
+
+for (const key of enKeys) {
+  assert.ok(typeof ADMIN_TRANSLATIONS.en[key] === 'string' && ADMIN_TRANSLATIONS.en[key].length > 0, `English key ${key} is non-empty`);
+  assert.ok(typeof ADMIN_TRANSLATIONS.ar[key] === 'string' && ADMIN_TRANSLATIONS.ar[key].length > 0, `Arabic key ${key} is non-empty`);
+}
+check(true, 'All admin translation keys are fully translated and non-empty in both languages');
+
+// 7f. Verify presence of AdminLanguageToggle in AdminLogin and AdminDashboard
+const adminLoginSrc = readFileSync('src/components/admin/AdminLogin.tsx', 'utf8');
+assert.ok(adminLoginSrc.includes('AdminLanguageToggle'), 'AdminLogin renders AdminLanguageToggle');
+assert.ok(adminLoginSrc.includes('useAdminLocale'), 'AdminLogin uses useAdminLocale hook');
+assert.ok(adminLoginSrc.includes("t('backToApp')"), 'AdminLogin uses localized backToApp text');
+
+const adminDashboardSrc = readFileSync('src/components/admin/AdminDashboard.tsx', 'utf8');
+assert.ok(adminDashboardSrc.includes('AdminLanguageToggle'), 'AdminDashboard renders AdminLanguageToggle');
+assert.ok(adminDashboardSrc.includes('useAdminLocale'), 'AdminDashboard uses useAdminLocale hook');
+assert.ok(adminDashboardSrc.includes('formatSaudiTime'), 'AdminDashboard uses locale-aware formatSaudiTime');
+
+const adminViewSrc = readFileSync('src/components/admin/AdminView.tsx', 'utf8');
+assert.ok(adminViewSrc.includes('AdminLocaleProvider'), 'AdminView is wrapped with AdminLocaleProvider');
+check(true, 'Admin UI components properly wire AdminLocaleProvider and AdminLanguageToggle');
+
 console.log(`\n======================================================`);
 console.log(`PASS: All ${checks} Phase 2 Admin & Analytics checks passed successfully!`);
 console.log(`======================================================\n`);
