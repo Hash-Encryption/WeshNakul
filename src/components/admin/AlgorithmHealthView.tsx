@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Cpu,
   Warning,
@@ -6,6 +6,7 @@ import {
   Eye,
   Trophy,
   ChartBar,
+  Info,
 } from '@phosphor-icons/react';
 import { useAdminLocale } from '../../context/AdminLocaleContext';
 import type { BrandMetricRow, AlgorithmHealthSummary, ResolutionMethodCount } from '../../types/admin';
@@ -24,6 +25,7 @@ export const AlgorithmHealthView: React.FC<AlgorithmHealthViewProps> = ({
   isLoading,
 }) => {
   const { t } = useAdminLocale();
+  const [showWinsHelp, setShowWinsHelp] = useState(false);
 
   const summary = health?.summary;
   const brands = health?.brands || [];
@@ -188,6 +190,9 @@ export const AlgorithmHealthView: React.FC<AlgorithmHealthViewProps> = ({
             <p className="text-xs text-amber-700 font-medium mt-0.5">
               ⚠️ {t('brandTableDesc')}
             </p>
+            <p className="text-[11px] text-stone-500 font-normal mt-1 leading-relaxed">
+              ℹ️ <span className="font-semibold text-stone-700">{t('winsPerImpressionTitle')}:</span> {t('winsPerImpressionHelp')}
+            </p>
           </div>
         </div>
 
@@ -206,7 +211,49 @@ export const AlgorithmHealthView: React.FC<AlgorithmHealthViewProps> = ({
                   <th className="py-3 px-4">{t('colYesNoLater')}</th>
                   <th className="py-3 px-4">{t('colApprovalRate')}</th>
                   <th className="py-3 px-4">{t('colExposureRate')}</th>
-                  <th className="py-3 px-4">{t('colWins')}</th>
+                  <th className="py-3 px-4 relative">
+                    <div className="flex items-center gap-1.5 whitespace-nowrap">
+                      <span>{t('colWins')}</span>
+                      <span className="text-[10px] text-stone-400 font-normal">
+                        ({t('winsPerImpressionShort')})
+                      </span>
+                      <div className="relative inline-block">
+                        <button
+                          type="button"
+                          onClick={() => setShowWinsHelp((prev) => !prev)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') setShowWinsHelp(false);
+                          }}
+                          aria-label={t('winsPerImpressionTitle')}
+                          aria-expanded={showWinsHelp}
+                          className="w-4 h-4 rounded-full bg-stone-200/80 hover:bg-stone-300 text-stone-600 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1"
+                          title={t('winsPerImpressionHelp')}
+                        >
+                          <Info size={11} weight="bold" />
+                        </button>
+                        {showWinsHelp && (
+                          <>
+                            <div
+                              className="fixed inset-0 z-20 cursor-default"
+                              onClick={() => setShowWinsHelp(false)}
+                              aria-hidden="true"
+                            />
+                            <div
+                              role="tooltip"
+                              className="absolute z-30 top-full mt-1.5 start-0 w-64 sm:w-72 p-3 bg-white border border-stone-200 shadow-xl rounded-xl text-start font-normal normal-case tracking-normal"
+                            >
+                              <div className="text-xs font-bold text-stone-900 mb-1">
+                                {t('winsPerImpressionTitle')}
+                              </div>
+                              <p className="text-[11px] text-stone-600 leading-relaxed">
+                                {t('winsPerImpressionHelp')}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </th>
                   <th className="py-3 px-4">{t('colConfidence')}</th>
                 </tr>
               </thead>
@@ -247,14 +294,20 @@ export const AlgorithmHealthView: React.FC<AlgorithmHealthViewProps> = ({
                       </span>
                     </td>
 
-                    {/* Wins & Win Rate */}
-                    <td className="py-3 px-4 text-amber-700 font-bold">
-                      {b.match_wins}{' '}
-                      {b.win_rate_pct !== null && (
-                        <span className="text-[10px] text-stone-500 font-normal">
-                          ({b.win_rate_pct}%)
-                        </span>
-                      )}
+                    {/* Wins & Wins per 100 card impressions */}
+                    <td className="py-3 px-4 text-stone-800">
+                      <div className="flex items-center gap-1.5 whitespace-nowrap">
+                        <span className="text-amber-700 font-bold">{b.match_wins}</span>
+                        {b.win_rate_pct !== null && (
+                          <span
+                            className="text-[10px] text-stone-500 font-normal bg-stone-100 px-1.5 py-0.5 rounded cursor-help"
+                            title={`${t('winsPerImpressionTitle')}: ${t('winsPerImpressionHelp')}`}
+                            aria-label={`${b.match_wins} ${t('colWins')}, ${b.win_rate_pct}% ${t('winsPerImpressionTitle')}`}
+                          >
+                            ({b.win_rate_pct}%)
+                          </span>
+                        )}
+                      </div>
                     </td>
 
                     {/* Confidence Status Badge (< 20 check) */}

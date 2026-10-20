@@ -189,6 +189,9 @@ export interface AdminTranslations {
   colExposureRate: string;
   colWins: string;
   colWinRate: string;
+  winsPerImpressionTitle: string;
+  winsPerImpressionShort: string;
+  winsPerImpressionHelp: string;
   colConfidence: string;
   badgeLowConfidence: string;
   badgeSufficientSample: string;
@@ -377,7 +380,11 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     colApprovalRate: 'Approval Rate',
     colExposureRate: 'Exposure-to-YES',
     colWins: 'Wins',
-    colWinRate: 'Win Rate',
+    colWinRate: 'Wins per 100 card impressions',
+    winsPerImpressionTitle: 'Wins per 100 card impressions',
+    winsPerImpressionShort: 'per 100 impressions',
+    winsPerImpressionHelp:
+      'Descriptive ratio only. Not a win rate per eligible decision round. Card impressions may repeat across participants and re-queued cards.',
     colConfidence: 'Sample Status',
     badgeLowConfidence: 'Low Confidence (< 20)',
     badgeSufficientSample: 'Sufficient Sample',
@@ -565,7 +572,11 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     colApprovalRate: 'نسبة الموافقة',
     colExposureRate: 'التعرض إلى نعم',
     colWins: 'الفوز',
-    colWinRate: 'نسبة الفوز',
+    colWinRate: 'عدد مرات الفوز لكل 100 ظهور للبطاقة',
+    winsPerImpressionTitle: 'عدد مرات الفوز لكل 100 ظهور للبطاقة',
+    winsPerImpressionShort: 'لكل 100 ظهور',
+    winsPerImpressionHelp:
+      'مؤشر وصفي فقط، وليس نسبة الفوز لكل جولة قرار مؤهلة. قد يتكرر احتساب ظهور البطاقة بين المشاركين وعند إعادة البطاقة إلى المجموعة.',
     colConfidence: 'حالة العينة',
     badgeLowConfidence: 'عينة منخفضة (< 20)',
     badgeSufficientSample: 'عينة كافية',
