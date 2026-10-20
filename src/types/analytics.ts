@@ -62,6 +62,7 @@ export type RoomCreateSuccessEvent = BaseAnalyticsEvent<
     roomMode: string;
     city: string;
     hasDistrict: boolean;
+    districtSlug?: string;
   }
 >;
 
@@ -118,7 +119,9 @@ export type RestaurantCardImpressionEvent = BaseAnalyticsEvent<
   {
     deckId?: string;
     restaurantId: string;
+    branchId?: string;
     position: number;
+    category?: string;
   }
 >;
 
@@ -127,9 +130,11 @@ export type RestaurantSwipeEvent = BaseAnalyticsEvent<
   {
     deckId?: string;
     restaurantId: string;
+    branchId?: string;
     vote: 'YES' | 'NO' | 'LATER';
     position?: number;
     durationMs?: number;
+    category?: string;
   }
 >;
 
@@ -137,9 +142,11 @@ export type DecisionWinnerMatchedEvent = BaseAnalyticsEvent<
   'decision_winner_matched',
   {
     restaurantId: string;
+    branchId?: string;
     deckId?: string;
-    resolutionMethod: string; // normal_consensus, host_pick, choose_for_us, etc.
+    resolutionMethod: string; // normal_consensus, host_pick, choose_for_us, shuffle_cards, etc.
     isUnanimous?: boolean;
+    category?: string;
   }
 >;
 

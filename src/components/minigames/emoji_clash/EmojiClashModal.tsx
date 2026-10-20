@@ -18,6 +18,7 @@ import { TactileCyclingDock } from './TactileCyclingDock';
 import { EmojiArenaStage } from './EmojiArenaStage';
 import { broadcastEmojiClash, subscribeToEmojiClash } from '../../../lib/supabase';
 import { MiniGameIntroOverlay } from '../MiniGameIntroOverlay';
+import { trackMiniGameStarted, trackMiniGameCompleted } from '../../../lib/analytics';
 
 interface EmojiClashModalProps {
   isOpen: boolean;
@@ -72,9 +73,27 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
   const [fusionStage, setFusionStage] = useState<SquadFusionStage>('fusion_intro');
   const [timerSeconds, setTimerSeconds] = useState(6);
 
+  // Active participants & dynamic group tap target
+  const activeParticipants = participants.filter((p) => p.status === 'active' || !p.status);
+  const activePlayerCount = Math.max(1, activeParticipants.length);
+  const targetTaps = useMemo(
+    () => Math.min(45, Math.max(12, activePlayerCount * 7)),
+    [activePlayerCount]
+  );
+
+  // Participant emoji picks
+  const [picksByParticipant, setPicksByParticipant] = useState<Record<string, EmojiFighterId>>({});
+  const [myFighterId, setMyFighterId] = useState<EmojiFighterId | null>(null);
+  const [currentTaps, setCurrentTaps] = useState(0);
+
   // Reset modal state on open
   useEffect(() => {
     if (isOpen) {
+      trackMiniGameStarted({
+        roomId,
+        gameType: 'emoji_clash',
+        participantCount: activeParticipants.length,
+      });
       setShowIntro(true);
       setPhase('fighter_select');
       setFusionStage('fusion_intro');
@@ -90,20 +109,7 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
       isDetonatedRef.current = false;
       currentTapsRef.current = 0;
     }
-  }, [isOpen]);
-
-  // Participant emoji picks
-  const [picksByParticipant, setPicksByParticipant] = useState<Record<string, EmojiFighterId>>({});
-  const [myFighterId, setMyFighterId] = useState<EmojiFighterId | null>(null);
-
-  // Active participants & dynamic group tap target
-  const activeParticipants = participants.filter((p) => p.status === 'active' || !p.status);
-  const activePlayerCount = Math.max(1, activeParticipants.length);
-  const targetTaps = useMemo(
-    () => Math.min(45, Math.max(12, activePlayerCount * 7)),
-    [activePlayerCount]
-  );
-  const [currentTaps, setCurrentTaps] = useState(0);
+  }, [isOpen, roomId, activeParticipants.length]);
 
   // Binary Finale states
   const [mustardDetonated, setMustardDetonated] = useState(false);
@@ -167,6 +173,13 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
 
     const winningItem =
       restaurants.find((r) => r.id === winnerRestaurantId) || restaurants[0];
+
+    trackMiniGameCompleted({
+      roomId,
+      gameType: 'emoji_clash',
+      outcomeRestaurantId: winningItem.id,
+      isPresentationOnly: true,
+    });
 
     if (isHost) {
       try {

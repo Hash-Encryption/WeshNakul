@@ -34,7 +34,7 @@ import { useLocale } from './LocaleContext';
 import { normalizeCategorySelection } from '../lib/consensus';
 import type { DecisionSpin } from '../types/roulette';
 import { perf } from '../lib/perf';
-import { trackRoomStageChanged } from '../lib/analytics';
+import { trackRoomStageChanged, trackRevoteRequested } from '../lib/analytics';
 
 interface RoomContextType {
   currentRoom: Room | null;
@@ -1086,6 +1086,12 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setFoodChoices([]);
     try {
       if (!currentParticipant) return;
+      trackRevoteRequested({
+        roomId: currentRoom.id,
+        roomCode: currentRoom.code,
+        isHost: Boolean(currentParticipant.is_host),
+        targetStage,
+      });
       await apiResetRoomVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version, targetStage);
       await refreshRoom();
     } catch (err) {

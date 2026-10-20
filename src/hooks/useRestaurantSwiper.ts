@@ -17,6 +17,9 @@ interface SwiperProps {
   version: number;
   category: string;
   stage?: string;
+  eatingMode?: string;
+  roomMode?: string;
+  district?: string;
   summary?: RestaurantSummary;
   onRefresh: () => Promise<void>;
   onMatched?: (winner: RestaurantItem) => void;
@@ -30,6 +33,9 @@ export function useRestaurantSwiper({
   version,
   category,
   stage = 'swiping',
+  eatingMode,
+  roomMode,
+  district,
   summary,
   onRefresh,
   onMatched,
@@ -148,6 +154,9 @@ export function useRestaurantSwiper({
             candidateCount: nextDeck.restaurants.length,
             candidateIds: nextDeck.restaurants.map((r: any) => r.id),
             category,
+            district,
+            eatingMode,
+            roomMode,
           });
         }
       })
@@ -169,10 +178,12 @@ export function useRestaurantSwiper({
     return () => {
       active = false;
     };
-  }, [stage, category, roomId, participantId, sessionToken, summary?.deckId, reloadCounter]);
+  }, [stage, category, roomId, participantId, sessionToken, summary?.deckId, reloadCounter, district, eatingMode, roomMode]);
 
   // Track card impressions as user traverses deck
   const lastImpressionRef = useRef<string | null>(null);
+  const cardViewStartTimeRef = useRef<number>(Date.now());
+  const matchedWinnerTrackedRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!deck || deck.length === 0 || !deckId) return;
@@ -184,15 +195,20 @@ export function useRestaurantSwiper({
     const impressionKey = `${deckId}:${safeIndex}:${currentCard.id}`;
     if (lastImpressionRef.current !== impressionKey) {
       lastImpressionRef.current = impressionKey;
+      cardViewStartTimeRef.current = Date.now();
       trackRestaurantCardImpression({
         roomId,
         deckId,
         restaurantId: currentCard.id,
+        branchId: currentCard.selectedBranch?.id,
         position: safeIndex,
         category,
+        district,
+        eatingMode,
+        roomMode,
       });
     }
-  }, [deck, deckId, currentIndex, roomId, category]);
+  }, [deck, deckId, currentIndex, roomId, category, district, eatingMode, roomMode]);
 
   const recordVote = useCallback(
     (vote: RestaurantVote) => {
@@ -206,12 +222,20 @@ export function useRestaurantSwiper({
       if (pendingItemsRef.current.has(item.id)) return Promise.resolve();
       pendingItemsRef.current.add(item.id);
 
+      const durationMs = Math.max(0, Date.now() - cardViewStartTimeRef.current);
+
       trackRestaurantSwipe({
         roomId,
         deckId,
         restaurantId: item.id,
+        branchId: item.selectedBranch?.id,
         vote,
         position: safeIndex,
+        durationMs,
+        category,
+        district,
+        eatingMode,
+        roomMode,
       });
 
       if (vote === 'YES' || vote === 'NO') {
@@ -266,12 +290,18 @@ export function useRestaurantSwiper({
         const accept = async (state: Awaited<ReturnType<typeof submitRestaurantVote>>) => {
           versionRef.current = Math.max(versionRef.current, state.room.version);
           setMyVotes(state.myVotes || {});
-          if (state.room.stage === 'matched') {
+          if (state.room.stage === 'matched' && matchedWinnerTrackedRef.current !== item.id) {
+            matchedWinnerTrackedRef.current = item.id;
             trackDecisionWinnerMatched({
               roomId,
               restaurantId: item.id,
+              branchId: item.selectedBranch?.id,
               deckId,
               resolutionMethod: 'normal_consensus',
+              category,
+              district,
+              eatingMode,
+              roomMode,
             });
             onMatched?.(item);
           }

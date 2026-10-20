@@ -4,6 +4,7 @@ import type { RestaurantItem } from '../../types/restaurant';
 import { useLocale } from '../../context/LocaleContext';
 import { broadcastSuddenDeathVote, subscribeToSuddenDeathVote } from '../../lib/supabase';
 import { MiniGameIntroOverlay } from '../minigames/MiniGameIntroOverlay';
+import { trackMiniGameStarted, trackMiniGameCompleted } from '../../lib/analytics';
 
 interface SuddenDeathModalProps {
   isOpen: boolean;
@@ -51,11 +52,23 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
   const [roundWinner, setRoundWinner] = useState<RestaurantItem | null>(null);
 
   const timerRef = useRef<any>(null);
+  const hasTrackedStartRef = useRef(false);
   const votedCount = Object.keys(votes).length;
   const isFinished = timeLeft === 0 || (votedCount >= totalParticipants && totalParticipants > 0);
 
   // Initialize first pair when modal opens
   useEffect(() => {
+    if (isOpen && !hasTrackedStartRef.current) {
+      trackMiniGameStarted({
+        roomId,
+        gameType: 'sudden_death',
+        participantCount: totalParticipants,
+      });
+      hasTrackedStartRef.current = true;
+    } else if (!isOpen) {
+      hasTrackedStartRef.current = false;
+    }
+
     if (restaurants && restaurants.length >= 2) {
       setCurrentPair([restaurants[0], restaurants[1]]);
       setRoundIndex(0);
@@ -67,7 +80,7 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
       setRoundWinner(null);
       setShowIntro(!shouldSkipIntro);
     }
-  }, [restaurants, shouldSkipIntro]);
+  }, [isOpen, roomId, restaurants, shouldSkipIntro]);
 
   // Subscribe to realtime votes
   useEffect(() => {
@@ -161,6 +174,11 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
     } else if (isHost) {
       // Final champion determined! Host locks in winner
       const timer = setTimeout(() => {
+        trackMiniGameCompleted({
+          roomId,
+          gameType: 'sudden_death',
+          outcomeRestaurantId: winner.id,
+        });
         onSelectWinner(winner, 'sudden_death');
       }, wonBySpeed ? 2000 : 1500);
       return () => clearTimeout(timer);

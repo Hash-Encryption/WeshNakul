@@ -143,6 +143,75 @@ export interface AdminTranslations {
   colCategory: string;
   colEatingMode: string;
   colRoomMode: string;
+
+  // Phase 3 Tabs & Filters
+  tabOverview: string;
+  tabDeepAnalytics: string;
+  tabAlgorithmHealth: string;
+  tabCatalogHistory: string;
+  filterAllCategories: string;
+  filterAllDistricts: string;
+  filterAllEatingModes: string;
+  filterAllRoomModes: string;
+  filterApply: string;
+  filterReset: string;
+  exportCsv: string;
+  exporting: string;
+  exportTruncatedWarning: string;
+
+  // Phase 3 Deep Analytics KPIs
+  kpiApprovalRate: string;
+  kpiApprovalFormula: string;
+  kpiExposureToYes: string;
+  kpiExposureFormula: string;
+  kpiCardImpressions: string;
+  kpiCandidatesGenerated: string;
+  kpiMatches: string;
+  kpiTechnicalFailures: string;
+  kpiExplicitExits: string;
+
+  // Phase 3 Algorithm Health & Diagnostics
+  algoTitle: string;
+  algoSubtitle: string;
+  hhiIndex: string;
+  hhiHealthy: string;
+  hhiModerate: string;
+  hhiHigh: string;
+  topBrandShare: string;
+  distinctBrands: string;
+  brandPerformance: string;
+  brandTableDesc: string;
+  colRestaurant: string;
+  colCandidates: string;
+  colImpressions: string;
+  colYesNoLater: string;
+  colApprovalRate: string;
+  colExposureRate: string;
+  colWins: string;
+  colWinRate: string;
+  colConfidence: string;
+  badgeLowConfidence: string;
+  badgeSufficientSample: string;
+  noBrandsFound: string;
+
+  // Phase 3 Resolution Methods
+  resolutionBreakdown: string;
+  resolutionBreakdownDesc: string;
+
+  // Phase 3 Catalog History
+  catalogHistoryTitle: string;
+  catalogHistorySubtitle: string;
+  colEffectiveAt: string;
+  colEntityType: string;
+  colAction: string;
+  colChangedBy: string;
+  colSummary: string;
+  noHistoryFound: string;
+
+  // Phase 3 Pagination
+  pageShowing: string;
+  pagePrev: string;
+  pageNext: string;
 }
 
 export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
@@ -263,6 +332,75 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     colCategory: 'Category',
     colEatingMode: 'Eating Mode',
     colRoomMode: 'Mode',
+
+    // Phase 3 Tabs & Filters
+    tabOverview: 'Overview',
+    tabDeepAnalytics: 'Deep Analytics',
+    tabAlgorithmHealth: 'Algorithm Health',
+    tabCatalogHistory: 'Catalog History',
+    filterAllCategories: 'All Categories',
+    filterAllDistricts: 'All Districts',
+    filterAllEatingModes: 'All Eating Modes',
+    filterAllRoomModes: 'All Room Modes',
+    filterApply: 'Apply Filters',
+    filterReset: 'Reset',
+    exportCsv: 'Export CSV (Max 5,000)',
+    exporting: 'Exporting...',
+    exportTruncatedWarning: 'Export was truncated to 5,000 rows. Narrow your filters for complete slices.',
+
+    // Phase 3 Deep Analytics KPIs
+    kpiApprovalRate: 'Approval Rate',
+    kpiApprovalFormula: 'YES / (YES + NO + LATER)',
+    kpiExposureToYes: 'Exposure-to-YES',
+    kpiExposureFormula: 'YES / Card Impressions',
+    kpiCardImpressions: 'Card Impressions',
+    kpiCandidatesGenerated: 'Candidates Generated',
+    kpiMatches: 'Matches Resolved',
+    kpiTechnicalFailures: 'Technical Failures',
+    kpiExplicitExits: 'Explicit Exits',
+
+    // Phase 3 Algorithm Health & Diagnostics
+    algoTitle: 'Algorithm Health & Exposure Concentration',
+    algoSubtitle: 'Diagnostics for candidate exposure diversity, brand exposure distribution, and low sample flags.',
+    hhiIndex: 'HHI Concentration Index',
+    hhiHealthy: 'Healthy Diversity (< 1500)',
+    hhiModerate: 'Moderate Concentration (1500 - 2500)',
+    hhiHigh: 'High Concentration (> 2500)',
+    topBrandShare: 'Top Brand Impression Share',
+    distinctBrands: 'Distinct Brands Displayed',
+    brandPerformance: 'Brand Performance & Low-Confidence Flags',
+    brandTableDesc: 'Brands with fewer than 20 qualifying impressions are explicitly flagged as low-confidence.',
+    colRestaurant: 'Restaurant / Brand',
+    colCandidates: 'Candidates',
+    colImpressions: 'Impressions',
+    colYesNoLater: 'YES / NO / LATER',
+    colApprovalRate: 'Approval Rate',
+    colExposureRate: 'Exposure-to-YES',
+    colWins: 'Wins',
+    colWinRate: 'Win Rate',
+    colConfidence: 'Sample Status',
+    badgeLowConfidence: 'Low Confidence (< 20)',
+    badgeSufficientSample: 'Sufficient Sample',
+    noBrandsFound: 'No brand impressions match current filters',
+
+    // Phase 3 Resolution Methods
+    resolutionBreakdown: 'Winner Resolution Methods',
+    resolutionBreakdownDesc: 'Distribution of matches across consensus, host pick, and tie-breaker mini-games.',
+
+    // Phase 3 Catalog History
+    catalogHistoryTitle: 'Forward-Only Catalog Change History',
+    catalogHistorySubtitle: 'Auditable trail of catalog and algorithm updates starting from the Phase 3 baseline.',
+    colEffectiveAt: 'Effective Date (UTC)',
+    colEntityType: 'Entity Type',
+    colAction: 'Action',
+    colChangedBy: 'Changed By',
+    colSummary: 'Change Summary',
+    noHistoryFound: 'No catalog changes recorded since baseline',
+
+    // Phase 3 Pagination
+    pageShowing: 'Showing {from} - {to} of {total}',
+    pagePrev: 'Previous',
+    pageNext: 'Next',
   },
 
   ar: {
@@ -382,5 +520,74 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     colCategory: 'التصنيف',
     colEatingMode: 'طريقة الأكل',
     colRoomMode: 'النمط',
+
+    // Phase 3 Tabs & Filters
+    tabOverview: 'نظرة عامة',
+    tabDeepAnalytics: 'تحليلات تفصيلية',
+    tabAlgorithmHealth: 'صحة الخوارزمية',
+    tabCatalogHistory: 'سجل التغييرات',
+    filterAllCategories: 'جميع التصنيفات',
+    filterAllDistricts: 'جميع الأحياء',
+    filterAllEatingModes: 'جميع طرق الأكل',
+    filterAllRoomModes: 'جميع أنماط الغرف',
+    filterApply: 'تطبيق الفلاتر',
+    filterReset: 'إعادة ضبط',
+    exportCsv: 'تصدير CSV (حد أقصى 5,000)',
+    exporting: 'جاري التصدير...',
+    exportTruncatedWarning: 'تم تقليص التصدير إلى 5,000 سجل للحفاظ على استقرار الخادم. حدد فترة أو فلاتر أضيق للمزيد.',
+
+    // Phase 3 Deep Analytics KPIs
+    kpiApprovalRate: 'معدل الموافقة',
+    kpiApprovalFormula: 'نعم / (نعم + لا + لاحقاً)',
+    kpiExposureToYes: 'التعرض إلى نعم',
+    kpiExposureFormula: 'نعم / ظهور البطاقات',
+    kpiCardImpressions: 'مرات ظهور البطاقات',
+    kpiCandidatesGenerated: 'المرشحون المولدون',
+    kpiMatches: 'المطابقات المحسومة',
+    kpiTechnicalFailures: 'الأخطاء التقنية',
+    kpiExplicitExits: 'الخروج الصريح',
+
+    // Phase 3 Algorithm Health & Diagnostics
+    algoTitle: 'صحة الخوارزمية وتركيز التعرض',
+    algoSubtitle: 'تشخيص تنوع ترشيح المطاعم، توزيع الظهور، وعلامات انخفاض العينة.',
+    hhiIndex: 'مؤشر هيرفندال-هيرشمان (HHI)',
+    hhiHealthy: 'تنوع صحي (< 1500)',
+    hhiModerate: 'تركيز معتدل (1500 - 2500)',
+    hhiHigh: 'تركيز مرتفع (> 2500)',
+    topBrandShare: 'حصة المطعم الأعلى ظهوراً',
+    distinctBrands: 'عدد المطاعم الفريدة المعروضة',
+    brandPerformance: 'أداء المطاعم ومؤشرات انخفاض العينة',
+    brandTableDesc: 'المطاعم التي يقل ظهورها عن 20 مرة توصف صراحة بأنها منخفضة الثقة الإحصائية.',
+    colRestaurant: 'المطعم / العلامة',
+    colCandidates: 'الترشيحات',
+    colImpressions: 'الظهور',
+    colYesNoLater: 'نعم / لا / لاحقاً',
+    colApprovalRate: 'نسبة الموافقة',
+    colExposureRate: 'التعرض إلى نعم',
+    colWins: 'الفوز',
+    colWinRate: 'نسبة الفوز',
+    colConfidence: 'حالة العينة',
+    badgeLowConfidence: 'عينة منخفضة (< 20)',
+    badgeSufficientSample: 'عينة كافية',
+    noBrandsFound: 'لا توجد مطاعم مطابقة للفلاتر المختارة',
+
+    // Phase 3 Resolution Methods
+    resolutionBreakdown: 'طرق حسم الفائز',
+    resolutionBreakdownDesc: 'توزيع حسم المطابقات بين الإجماع، اختيار المضيف، والألعاب المصغرة.',
+
+    // Phase 3 Catalog History
+    catalogHistoryTitle: 'سجل تدقيق وتغييرات الكتالوج',
+    catalogHistorySubtitle: 'مسار تدقيق موثوق لتغييرات الكتالوج والخوارزمية بدءاً من الأساس المعتمد للمرحلة الثالثة.',
+    colEffectiveAt: 'تاريخ السريان (UTC)',
+    colEntityType: 'نوع الكيان',
+    colAction: 'الإجراء',
+    colChangedBy: 'بواسطة',
+    colSummary: 'ملخص التغيير',
+    noHistoryFound: 'لا توجد تغييرات مسجلة منذ الأساس',
+
+    // Phase 3 Pagination
+    pageShowing: 'عرض {from} - {to} من {total}',
+    pagePrev: 'السابق',
+    pageNext: 'التالي',
   },
 };

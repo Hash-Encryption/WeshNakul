@@ -16,6 +16,7 @@ import { ConsensusResultScreen } from './components/voting/ConsensusResultScreen
 import { RestaurantSwipingScreen } from './components/swiping/RestaurantSwipingScreen';
 import { MatchCelebrationScreen } from './components/swiping/MatchCelebrationScreen';
 import { RESTAURANT_CATALOG } from './data/restaurants';
+import { normalizeJeddahDistrict } from './data/jeddahDistricts';
 import { getCachedRestaurant, getRoomByCode } from './lib/supabase';
 import { clearRoomSession, getActiveRoomCode } from './lib/session';
 import {
@@ -171,6 +172,7 @@ export const App: React.FC = () => {
         longitude,
       });
 
+      const canonicalDistrict = normalizeJeddahDistrict(neighborhood) || undefined;
       trackRoomCreateSuccess({
         roomId: room.id,
         roomCode: room.code,
@@ -178,6 +180,7 @@ export const App: React.FC = () => {
         roomMode: selectedRoomMode,
         city,
         hasDistrict: Boolean(neighborhood),
+        districtSlug: canonicalDistrict,
       });
 
       window.history.pushState({}, '', `/r/${room.code}`);

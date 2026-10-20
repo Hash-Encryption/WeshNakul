@@ -16,13 +16,25 @@ import {
   Funnel,
   TrendUp,
 } from '@phosphor-icons/react';
-import { fetchAdminAnalytics, adminLogout } from '../../services/adminService';
+import {
+  fetchAdminAnalytics,
+  fetchAdminDeepAnalytics,
+  downloadAdminExport,
+  adminLogout,
+} from '../../services/adminService';
 import { useAdminLocale, AdminLanguageToggle } from '../../context/AdminLocaleContext';
+import { DeepAnalyticsView } from './DeepAnalyticsView';
+import { AlgorithmHealthView } from './AlgorithmHealthView';
+import { CatalogHistoryView } from './CatalogHistoryView';
 import type {
   AdminAnalyticsResponse,
+  AdminDeepAnalyticsResponse,
+  AdminDeepFilters,
   AdminUser,
   TimeRangeFilter,
 } from '../../types/admin';
+
+export type AdminDashboardTab = 'overview' | 'deep' | 'algorithm' | 'catalog';
 
 interface AdminDashboardProps {
   user: AdminUser;
@@ -36,10 +48,26 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onExit,
 }) => {
   const { t, isRTL, formatSaudiTime } = useAdminLocale();
+  const [activeTab, setActiveTab] = useState<AdminDashboardTab>('overview');
   const [range, setRange] = useState<TimeRangeFilter>('24h');
   const [data, setData] = useState<AdminAnalyticsResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Phase 3 Deep Analytics State
+  const [deepData, setDeepData] = useState<AdminDeepAnalyticsResponse | null>(null);
+  const [deepFilters, setDeepFilters] = useState<AdminDeepFilters>({
+    category: null,
+    district: null,
+    eating_mode: null,
+    room_mode: null,
+    offset: 0,
+    limit: 50,
+  });
+  const [isDeepLoading, setIsDeepLoading] = useState<boolean>(false);
+  const [deepError, setDeepError] = useState<string | null>(null);
+  const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [exportNotice, setExportNotice] = useState<string | null>(null);
 
   const loadData = useCallback(async (selectedRange: TimeRangeFilter) => {
     setIsLoading(true);
@@ -55,9 +83,76 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   }, []);
 
+  const loadDeepData = useCallback(
+    async (selectedRange: TimeRangeFilter, filters: AdminDeepFilters) => {
+      setIsDeepLoading(true);
+      setDeepError(null);
+      try {
+        const response = await fetchAdminDeepAnalytics({
+          range: selectedRange,
+          category: filters.category,
+          district: filters.district,
+          eating_mode: filters.eating_mode,
+          room_mode: filters.room_mode,
+          limit: filters.limit || 50,
+          offset: filters.offset || 0,
+        });
+        setDeepData(response);
+      } catch (err) {
+        console.error('Failed to load deep analytics', err);
+        setDeepError((err as Error).message || 'Failed to fetch deep analytics data.');
+      } finally {
+        setIsDeepLoading(false);
+      }
+    },
+    []
+  );
+
   useEffect(() => {
     loadData(range);
   }, [range, loadData]);
+
+  useEffect(() => {
+    if (activeTab !== 'overview') {
+      loadDeepData(range, deepFilters);
+    }
+  }, [activeTab, range, deepFilters, loadDeepData]);
+
+  const handleFilterChange = (newFilters: Partial<AdminDeepFilters>) => {
+    setDeepFilters((prev) => ({ ...prev, ...newFilters }));
+  };
+
+  const handleExport = async () => {
+    setIsExporting(true);
+    setExportNotice(null);
+    try {
+      const { filename, blob, isTruncated } = await downloadAdminExport({
+        range,
+        category: deepFilters.category || null,
+        district: deepFilters.district || null,
+        eating_mode: deepFilters.eating_mode || null,
+        room_mode: deepFilters.room_mode || null,
+      });
+
+      if (isTruncated) {
+        setExportNotice(t('exportTruncatedWarning'));
+      }
+
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.error('Failed to export CSV', err);
+      setExportNotice((err as Error).message || 'Export failed.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   const handleLogoutClick = async () => {
     await adminLogout();
@@ -172,18 +267,49 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
       </header>
 
+      {/* Sub-Navigation Tabs */}
+      <nav className="bg-white border-b border-stone-200 px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto flex items-center gap-1 sm:gap-4 overflow-x-auto">
+          {[
+            { id: 'overview', label: t('tabOverview') },
+            { id: 'deep', label: t('tabDeepAnalytics') },
+            { id: 'algorithm', label: t('tabAlgorithmHealth') },
+            { id: 'catalog', label: t('tabCatalogHistory') },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id as AdminDashboardTab)}
+              className={`py-3.5 px-3 border-b-2 font-bold text-xs sm:text-sm whitespace-nowrap transition-colors cursor-pointer ${
+                activeTab === tab.id
+                  ? 'border-brand-red text-brand-red'
+                  : 'border-transparent text-stone-500 hover:text-stone-800 hover:border-stone-300'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+
       {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8 space-y-8">
         {/* Error Notification */}
-        {error && (
+        {(error || (activeTab !== 'overview' && deepError)) && (
           <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 flex items-start gap-3">
             <WarningCircle size={24} className="shrink-0 mt-0.5 text-rose-600" weight="fill" />
             <div className="flex-1">
               <h3 className="font-bold text-sm">{t('errorTitle')}</h3>
-              <p className="text-xs text-rose-700 mt-1">{error}</p>
+              <p className="text-xs text-rose-700 mt-1">{error || deepError}</p>
               <button
                 type="button"
-                onClick={() => loadData(range)}
+                onClick={() => {
+                  if (activeTab === 'overview') {
+                    loadData(range);
+                  } else {
+                    loadDeepData(range, deepFilters);
+                  }
+                }}
                 className="mt-3 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold cursor-pointer transition-colors"
               >
                 {t('retry')}
@@ -192,8 +318,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
         )}
 
-        {/* Loading State Spinner */}
-        {isLoading && !data && (
+        {/* Loading State Spinner for Initial Overview */}
+        {activeTab === 'overview' && isLoading && !data && (
           <div className="py-24 text-center">
             <CircleNotch size={40} className="animate-spin text-brand-red mx-auto mb-4" />
             <p className="text-sm font-semibold text-stone-600 font-alexandria">
@@ -203,7 +329,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
         )}
 
-        {data && summary && breakdowns && (
+        {/* Loading State Spinner for Phase 3 Views */}
+        {activeTab !== 'overview' && isDeepLoading && !deepData && (
+          <div className="py-24 text-center">
+            <CircleNotch size={40} className="animate-spin text-brand-red mx-auto mb-4" />
+            <p className="text-sm font-semibold text-stone-600 font-alexandria">
+              {t('loadingTitle')}
+            </p>
+            <p className="text-xs text-stone-400 mt-1">{t('loadingSubtitle')}</p>
+          </div>
+        )}
+
+        {/* Overview Tab View */}
+        {activeTab === 'overview' && data && summary && breakdowns && (
           <>
             {/* Top KPI Metric Cards Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -656,6 +794,36 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               )}
             </section>
           </>
+        )}
+
+        {/* Phase 3 Deep Analytics Tab View */}
+        {activeTab === 'deep' && (
+          <DeepAnalyticsView
+            data={deepData}
+            isLoading={isDeepLoading}
+            filters={deepFilters}
+            onFilterChange={handleFilterChange}
+            onExport={handleExport}
+            isExporting={isExporting}
+            exportNotice={exportNotice}
+            onDismissNotice={() => setExportNotice(null)}
+          />
+        )}
+
+        {/* Phase 3 Algorithm Health Tab View */}
+        {activeTab === 'algorithm' && (
+          <AlgorithmHealthView
+            health={deepData?.algorithm_health || null}
+            isLoading={isDeepLoading}
+          />
+        )}
+
+        {/* Phase 3 Catalog Change History Tab View */}
+        {activeTab === 'catalog' && (
+          <CatalogHistoryView
+            history={deepData?.catalog_history || []}
+            isLoading={isDeepLoading}
+          />
         )}
       </main>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
 import { useRestaurantSwiper } from '../../hooks/useRestaurantSwiper';
@@ -29,6 +29,7 @@ import { DeckErrorBoundary } from '../common/ErrorBoundary';
 import { CaptainRouletteModal } from '../captain/CaptainRouletteModal';
 import { ShuffleCardsModal } from '../minigames/shuffle_cards/ShuffleCardsModal';
 import { EmojiClashModal } from '../minigames/emoji_clash/EmojiClashModal';
+import { trackDecisionWinnerMatched } from '../../lib/analytics';
 import type { MiniGameId, MiniGameDefinition } from '../../config/miniGames';
 
 interface RestaurantSwipingScreenProps {
@@ -74,6 +75,9 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     version: currentRoom?.version || 0,
     category: currentRoom?.winning_category || 'burger',
     stage: currentRoom?.stage,
+    eatingMode: currentRoom?.eating_mode,
+    roomMode: currentRoom?.room_mode,
+    district: currentRoom?.neighborhood || undefined,
     summary: currentRoom?.restaurant_summary,
     onRefresh: refreshRoom,
     onAuthoritativeState: applyAuthoritativeRoomState,
@@ -95,6 +99,39 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   // Modal states
   const [selectedWinner, setSelectedWinner] = useState<RestaurantItem | null>(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  // Prevent duplicate winner tracking across multiple clients or repeated callbacks
+  const trackedWinnerKeysRef = useRef<Set<string>>(new Set());
+
+  // Reset deduplication state when room voting resets or stage transitions out of matched
+  useEffect(() => {
+    if (currentRoom?.stage !== 'matched') {
+      trackedWinnerKeysRef.current.clear();
+    }
+  }, [currentRoom?.stage, currentRoom?.id, currentRoom?.winning_category]);
+
+  const trackWinnerOnce = React.useCallback(
+    (method: string, restaurant: RestaurantItem | null | undefined) => {
+      if (!isHost || !currentRoom || !restaurant?.id) return;
+      const roundId = currentRoom.restaurant_summary?.deckId || currentRoom.swiping_started_at || String(currentRoom.version);
+      const key = `${currentRoom.id}:${roundId}:${restaurant.id}:${method}`;
+      if (trackedWinnerKeysRef.current.has(key)) return;
+      trackedWinnerKeysRef.current.add(key);
+
+      trackDecisionWinnerMatched({
+        roomId: currentRoom.id,
+        roomCode: currentRoom.code,
+        restaurantId: restaurant.id,
+        branchId: restaurant.selectedBranch?.id,
+        resolutionMethod: method,
+        category: currentRoom.winning_category || undefined,
+        district: currentRoom.neighborhood || undefined,
+        eatingMode: currentRoom.eating_mode || undefined,
+        roomMode: currentRoom.room_mode || undefined,
+      });
+    },
+    [isHost, currentRoom]
+  );
 
   const [suddenDeathRestaurants, setSuddenDeathRestaurants] = useState<RestaurantItem[] | null>(null);
   const [isSuddenDeathOpen, setIsSuddenDeathOpen] = useState(false);
@@ -312,6 +349,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
       } catch (err) {
         console.warn('Failed to broadcast emoji_clash_finalized', err);
       }
+      trackWinnerOnce('emoji_clash', winner);
     }
     await refreshRoom();
   };
@@ -418,9 +456,10 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     }
   };
 
-  const handleShuffleCardsWinnerConfirmed = async (_winner: RestaurantItem) => {
+  const handleShuffleCardsWinnerConfirmed = async (winner: RestaurantItem) => {
     setIsShuffleCardsOpen(false);
     completeMiniGame();
+    trackWinnerOnce('shuffle_cards', winner);
     await refreshRoom();
   };
 
@@ -517,7 +556,8 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
   const handleConfirmWinner = async (restaurant: RestaurantItem) => {
     setIsConfirmOpen(false);
-    await resolveRestaurantTie(currentRoom.id,currentParticipant.session_token,currentRoom.version,'host_pick',restaurant.id);
+    await resolveRestaurantTie(currentRoom.id, currentParticipant.session_token, currentRoom.version, 'host_pick', restaurant.id);
+    trackWinnerOnce('host_pick', restaurant);
     await refreshRoom();
   };
 
@@ -538,6 +578,7 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     setIsSuddenDeathOpen(false);
     try {
       await resolveRestaurantTie(currentRoom.id, currentParticipant.session_token, currentRoom.version, method, winner.id);
+      trackWinnerOnce(method, winner);
       await refreshRoom();
     } catch (error) {
       console.error('Error resolving sudden death tie', error);

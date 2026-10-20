@@ -202,19 +202,22 @@ export function trackRoomCreateSuccess(options: {
   roomMode: string;
   city: string;
   hasDistrict: boolean;
+  districtSlug?: string;
 }): void {
+  const validDistrict = options.districtSlug?.trim() || (options.hasDistrict ? 'district_provided' : undefined);
   trackEvent({
     eventType: 'room_create_success',
     roomId: options.roomId,
     roomCode: options.roomCode,
     eatingMode: options.eatingMode,
     roomMode: options.roomMode,
-    district: options.hasDistrict ? 'district_provided' : undefined,
+    district: validDistrict,
     payload: {
       eatingMode: options.eatingMode,
       roomMode: options.roomMode,
       city: options.city,
       hasDistrict: options.hasDistrict,
+      districtSlug: validDistrict,
     },
   });
 }
@@ -299,12 +302,18 @@ export function trackDeckCandidatesReady(options: {
   candidateCount: number;
   candidateIds: string[];
   category: string;
+  district?: string;
+  eatingMode?: string;
+  roomMode?: string;
 }): void {
   trackEvent({
     eventType: 'deck_candidates_ready',
     roomId: options.roomId,
     roomCode: options.roomCode,
     category: options.category,
+    district: options.district,
+    eatingMode: options.eatingMode,
+    roomMode: options.roomMode,
     payload: {
       deckId: options.deckId,
       generation: options.generation,
@@ -320,17 +329,25 @@ export function trackRestaurantCardImpression(options: {
   roomCode?: string;
   deckId?: string;
   restaurantId: string;
+  branchId?: string;
   position: number;
   category?: string;
+  district?: string;
+  eatingMode?: string;
+  roomMode?: string;
 }): void {
   trackEvent({
     eventType: 'restaurant_card_impression',
     roomId: options.roomId,
     roomCode: options.roomCode,
     category: options.category,
+    district: options.district,
+    eatingMode: options.eatingMode,
+    roomMode: options.roomMode,
     payload: {
       deckId: options.deckId,
       restaurantId: options.restaurantId,
+      branchId: options.branchId,
       position: options.position,
     },
   });
@@ -341,17 +358,27 @@ export function trackRestaurantSwipe(options: {
   roomCode?: string;
   deckId?: string;
   restaurantId: string;
+  branchId?: string;
   vote: 'YES' | 'NO' | 'LATER';
   position?: number;
   durationMs?: number;
+  category?: string;
+  district?: string;
+  eatingMode?: string;
+  roomMode?: string;
 }): void {
   trackEvent({
     eventType: 'restaurant_swipe',
     roomId: options.roomId,
     roomCode: options.roomCode,
+    category: options.category,
+    district: options.district,
+    eatingMode: options.eatingMode,
+    roomMode: options.roomMode,
     payload: {
       deckId: options.deckId,
       restaurantId: options.restaurantId,
+      branchId: options.branchId,
       vote: options.vote,
       position: options.position,
       durationMs: options.durationMs,
@@ -363,16 +390,26 @@ export function trackDecisionWinnerMatched(options: {
   roomId: string;
   roomCode?: string;
   restaurantId: string;
+  branchId?: string;
   deckId?: string;
   resolutionMethod: string;
   isUnanimous?: boolean;
+  category?: string;
+  district?: string;
+  eatingMode?: string;
+  roomMode?: string;
 }): void {
   trackEvent({
     eventType: 'decision_winner_matched',
     roomId: options.roomId,
     roomCode: options.roomCode,
+    category: options.category,
+    district: options.district,
+    eatingMode: options.eatingMode,
+    roomMode: options.roomMode,
     payload: {
       restaurantId: options.restaurantId,
+      branchId: options.branchId,
       deckId: options.deckId,
       resolutionMethod: options.resolutionMethod,
       isUnanimous: Boolean(options.isUnanimous),

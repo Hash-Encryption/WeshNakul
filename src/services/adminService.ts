@@ -136,3 +136,83 @@ export async function fetchAdminAnalytics(
 
   return data;
 }
+
+export async function fetchAdminDeepAnalytics(
+  filters: import('../types/admin').AdminDeepFilters = {}
+): Promise<import('../types/admin').AdminDeepAnalyticsResponse> {
+  const token = getStoredAdminToken();
+  if (!token) {
+    throw new Error('Authentication required.');
+  }
+
+  const params = new URLSearchParams();
+  if (filters.range) params.set('range', filters.range);
+  if (filters.category) params.set('category', filters.category);
+  if (filters.district) params.set('district', filters.district);
+  if (filters.eating_mode) params.set('eating_mode', filters.eating_mode);
+  if (filters.room_mode) params.set('room_mode', filters.room_mode);
+  if (filters.limit) params.set('limit', String(filters.limit));
+  if (filters.offset !== undefined) params.set('offset', String(filters.offset));
+
+  const res = await fetch(`/api/admin/deep?${params.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = (await res.json()) as import('../types/admin').AdminDeepAnalyticsResponse;
+
+  if (res.status === 401 || res.status === 403) {
+    setStoredAdminToken(null);
+    throw Object.assign(new Error(data.message || 'Access denied.'), { status: res.status });
+  }
+
+  if (!res.ok) {
+    throw Object.assign(new Error(data.message || 'Failed to fetch deep analytics data.'), { status: res.status });
+  }
+
+  return data;
+}
+
+export async function downloadAdminExport(
+  filters: import('../types/admin').AdminDeepFilters = {}
+): Promise<{ filename: string; blob: Blob; isTruncated: boolean }> {
+  const token = getStoredAdminToken();
+  if (!token) {
+    throw new Error('Authentication required.');
+  }
+
+  const params = new URLSearchParams();
+  if (filters.range) params.set('range', filters.range);
+  if (filters.category) params.set('category', filters.category);
+  if (filters.district) params.set('district', filters.district);
+  if (filters.eating_mode) params.set('eating_mode', filters.eating_mode);
+  if (filters.room_mode) params.set('room_mode', filters.room_mode);
+
+  const res = await fetch(`/api/admin/export?${params.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (res.status === 401 || res.status === 403) {
+    setStoredAdminToken(null);
+    throw Object.assign(new Error('Access denied to export.'), { status: res.status });
+  }
+
+  if (!res.ok) {
+    throw Object.assign(new Error('Failed to generate CSV export.'), { status: res.status });
+  }
+
+  const isTruncated = res.headers.get('X-Truncated') === 'true';
+  const disposition = res.headers.get('Content-Disposition') || '';
+  let filename = `weshnakul-export-${filters.range || '24h'}.csv`;
+  const match = disposition.match(/filename="?([^"]+)"?/);
+  if (match && match[1]) {
+    filename = match[1];
+  }
+
+  const blob = await res.blob();
+  return { filename, blob, isTruncated };
+}
+
