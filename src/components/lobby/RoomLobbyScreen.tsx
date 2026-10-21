@@ -7,6 +7,7 @@ import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { TactileButton } from '../common/TactileButton';
 import { Toast } from '../common/Toast';
 import { SparkleRays, DoodleSquiggle } from '../common/DecorativeSparkles';
+import { MAX_ROOM_CAPACITY } from '../../config/room';
 
 interface RoomLobbyScreenProps {
   onStartPicking?: () => void;
@@ -205,7 +206,7 @@ export const RoomLobbyScreen: React.FC<RoomLobbyScreenProps> = ({
             </div>
           </div>
           <span className="font-bold text-brand-ink bg-white/70 px-2 py-1 rounded-full border border-brand-yellow/40">
-            {participants.length}/10
+            {participants.length}/{MAX_ROOM_CAPACITY}
           </span>
         </div>
 

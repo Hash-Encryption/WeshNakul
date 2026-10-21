@@ -54,7 +54,7 @@
     "copyLink": "Copy Link",
     "shareWhatsApp": "Share to WhatsApp",
     "startPicking": "Start Picking",
-    "maxMembersBadge": "Up to 10 people",
+    "maxMembersBadge": "Up to 20 people",
     "maxMembersDesc": "Everyone can join and pick what they like",
     "membersCount": "members",
     "hostBadge": "Host",
@@ -73,8 +73,8 @@
     "participantsCount": "Current Squad"
   },
   "roomFull": {
-    "title": "Room is packed! Max 10 people reached.",
-    "subtitle": "You can't join because this squad has reached its 10-player capacity.",
+    "title": "Room is packed! Max 20 people reached.",
+    "subtitle": "You can't join because this squad has reached its 20-player capacity.",
     "createNew": "Start a New Squad",
     "goHome": "Back to Home"
   },

@@ -10,6 +10,7 @@ import { RoomSetupScreen } from './components/wizard/RoomSetupScreen';
 import { RoomLobbyScreen } from './components/lobby/RoomLobbyScreen';
 import { GuestJoinScreen } from './components/guest/GuestJoinScreen';
 import { RoomFullView } from './components/guest/RoomFullView';
+import { MAX_ROOM_CAPACITY } from './config/room';
 import { FoodVotingScreen } from './components/voting/FoodVotingScreen';
 import { TiebreakerScreen } from './components/voting/TiebreakerScreen';
 import { ConsensusResultScreen } from './components/voting/ConsensusResultScreen';
@@ -94,7 +95,7 @@ export const App: React.FC = () => {
 
     // If currentRoom is loaded but participant hasn't joined yet
     if (currentRoom && !currentParticipant) {
-      if (participants.length >= 10) {
+      if (participants.length >= MAX_ROOM_CAPACITY) {
         setStep('room-full');
       } else {
         setStep('guest-join');
