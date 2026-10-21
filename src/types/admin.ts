@@ -246,3 +246,163 @@ export interface AdminDeepAnalyticsResponse {
   message?: string;
 }
 
+// -------------------------------------------------------------
+// Phase 4: Catalog Controls & Safe Change Sets Types
+// -------------------------------------------------------------
+
+export interface CatalogBrand {
+  id: string;
+  name_en: string;
+  name_ar: string;
+  categories: string[];
+  dining_mode?: string;
+  tier?: string;
+  price_tier?: string;
+  rating?: number | null;
+  operating_status?: string;
+  research_use?: string;
+  price_position?: string;
+  editorial_role?: string;
+  manual_review_required?: boolean;
+  manual_review_reasons?: string[];
+  updated_at?: string;
+}
+
+export interface CatalogBranch {
+  id: string;
+  restaurant_id: string;
+  branch_name_en?: string;
+  branch_name_ar?: string;
+  district?: string;
+  address_ar?: string;
+  address_en?: string;
+  latitude?: number | null;
+  longitude?: number | null;
+  google_maps_url?: string;
+  branch_status?: string;
+  branch_type?: string;
+  dine_in?: boolean;
+  takeaway?: boolean;
+  late_night?: boolean;
+  is_24_hours?: boolean;
+  last_verified_at?: string;
+  updated_at?: string;
+}
+
+export interface CatalogDraftItem {
+  entity_type: 'restaurant' | 'branch';
+  entity_id: string;
+  base_version?: string;
+  action?: 'update' | 'create';
+  changes: Record<string, unknown>;
+}
+
+export interface CatalogDraftChangeset {
+  id: string;
+  title: string;
+  status: 'draft' | 'validated' | 'published' | 'cancelled' | 'rejected';
+  change_type: 'edit' | 'bulk_edit' | 'emergency' | 'rollback' | 'restore';
+  target_entities: CatalogDraftItem[];
+  validation_results?: {
+    is_publishable: boolean;
+    error_count: number;
+    warning_count: number;
+    conflict_count: number;
+    validated_at: string;
+  };
+  reason?: string | null;
+  review_deadline?: string | null;
+  related_history_id?: string | null;
+  created_by: string;
+  published_by?: string | null;
+  published_at?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CatalogValidationError {
+  entity_type: 'restaurant' | 'branch';
+  entity_id: string;
+  field: string;
+  code: string;
+  message: string;
+  severity: 'error' | 'warning';
+}
+
+export interface CatalogEntityDiff {
+  entity_type: 'restaurant' | 'branch';
+  entity_id: string;
+  field: string;
+  previous_value: unknown;
+  proposed_value: unknown;
+}
+
+export interface CatalogReadinessImpact {
+  entity_id: string;
+  entity_type: string;
+  before: {
+    is_recommendation_eligible: boolean;
+    is_production_ready: boolean;
+    blockers: string[];
+    warnings: string[];
+  } | null;
+  after: {
+    is_recommendation_eligible: boolean;
+    is_production_ready: boolean;
+    blockers: string[];
+    warnings: string[];
+  };
+}
+
+export interface CatalogValidationResponse {
+  success: boolean;
+  draft_id?: string;
+  title: string;
+  change_type: string;
+  is_publishable: boolean;
+  errors: CatalogValidationError[];
+  warnings: CatalogValidationError[];
+  diffs: CatalogEntityDiff[];
+  concurrency_conflicts: Array<{
+    entity_type: string;
+    entity_id: string;
+    base_version: string;
+    current_version: string;
+  }>;
+  readiness_impact: CatalogReadinessImpact[];
+  affected_entities_count: number;
+  message?: string;
+  error?: string;
+}
+
+export interface CatalogItemsResponse {
+  success: boolean;
+  brands: CatalogBrand[];
+  branches: CatalogBranch[];
+  districts: string[];
+  pagination: {
+    total: number;
+    limit: number;
+    offset: number;
+    has_more: boolean;
+  };
+  warning?: string;
+  error?: string;
+  message?: string;
+}
+
+export interface CatalogDraftsResponse {
+  success: boolean;
+  drafts: CatalogDraftChangeset[];
+  emergency_reminders: CatalogDraftChangeset[];
+  pagination?: {
+    total: number;
+    limit: number;
+    offset: number;
+  };
+  warning?: string;
+  error?: string;
+  message?: string;
+}
+
+

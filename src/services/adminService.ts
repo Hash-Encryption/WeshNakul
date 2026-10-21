@@ -216,3 +216,235 @@ export async function downloadAdminExport(
   return { filename, blob, isTruncated };
 }
 
+// -------------------------------------------------------------
+// Phase 4: Catalog Controls Service Functions
+// -------------------------------------------------------------
+
+export async function fetchCatalogItems(params: {
+  search?: string;
+  category?: string;
+  district?: string;
+  status?: string;
+  limit?: number;
+  offset?: number;
+} = {}): Promise<import('../types/admin').CatalogItemsResponse> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const searchParams = new URLSearchParams();
+  if (params.search) searchParams.set('q', params.search);
+  if (params.category) searchParams.set('category', params.category);
+  if (params.district) searchParams.set('district', params.district);
+  if (params.status) searchParams.set('status', params.status);
+  if (params.limit) searchParams.set('limit', String(params.limit));
+  if (params.offset) searchParams.set('offset', String(params.offset));
+
+  const res = await fetch(`/api/admin/catalog/items?${searchParams.toString()}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const data = (await res.json()) as import('../types/admin').CatalogItemsResponse;
+  if (!res.ok) {
+    throw Object.assign(new Error(data.message || 'Failed to fetch catalog items.'), { status: res.status });
+  }
+  return data;
+}
+
+export async function fetchCatalogDrafts(status?: string): Promise<import('../types/admin').CatalogDraftsResponse> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const url = status ? `/api/admin/catalog/drafts?status=${encodeURIComponent(status)}` : '/api/admin/catalog/drafts';
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const data = (await res.json()) as import('../types/admin').CatalogDraftsResponse;
+  if (!res.ok) {
+    throw Object.assign(new Error(data.message || 'Failed to fetch catalog drafts.'), { status: res.status });
+  }
+  return data;
+}
+
+export async function saveCatalogDraft(draft: {
+  id?: string;
+  title: string;
+  change_type: string;
+  target_entities: import('../types/admin').CatalogDraftItem[];
+  reason?: string | null;
+  review_deadline?: string | null;
+}): Promise<import('../types/admin').CatalogDraftChangeset> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const res = await fetch('/api/admin/catalog/drafts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(draft),
+  });
+
+  const data = (await res.json()) as { success: boolean; draft: import('../types/admin').CatalogDraftChangeset; message?: string };
+  if (!res.ok || !data.draft) {
+    throw Object.assign(new Error(data.message || 'Failed to save catalog draft.'), { status: res.status });
+  }
+  return data.draft;
+}
+
+export async function discardCatalogDraft(draftId: string): Promise<void> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const res = await fetch(`/api/admin/catalog/drafts?id=${encodeURIComponent(draftId)}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw Object.assign(new Error((data as { message?: string }).message || 'Failed to discard draft.'), { status: res.status });
+  }
+}
+
+export async function validateCatalogDraft(payload: {
+  draft_id?: string;
+  title?: string;
+  change_type?: string;
+  target_entities?: import('../types/admin').CatalogDraftItem[];
+  reason?: string;
+}): Promise<import('../types/admin').CatalogValidationResponse> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const res = await fetch('/api/admin/catalog/validate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = (await res.json()) as import('../types/admin').CatalogValidationResponse;
+  if (!res.ok) {
+    throw Object.assign(new Error(data.message || 'Validation request failed.'), { status: res.status });
+  }
+  return data;
+}
+
+export async function publishCatalogChangeset(
+  changesetId: string,
+  reason?: string
+): Promise<{ success: boolean; outcome?: Record<string, unknown>; message?: string }> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const res = await fetch('/api/admin/catalog/publish', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      changeset_id: changesetId,
+      reason,
+    }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw Object.assign(new Error((data as { message?: string }).message || 'Publication failed.'), {
+      status: res.status,
+      detail: (data as { detail?: string }).detail,
+    });
+  }
+  return data as { success: boolean; outcome?: Record<string, unknown>; message?: string };
+}
+
+export async function applyEmergencyCatalogAction(
+  action: 'hide_brand' | 'hide_branch' | 'branch_unavailable' | 'restore_brand' | 'restore_branch',
+  entityId: string,
+  reason: string,
+  deadlineHours = 48
+): Promise<{ success: boolean; message: string }> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const res = await fetch('/api/admin/catalog/emergency', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      action,
+      entity_id: entityId,
+      reason,
+      deadline_hours: deadlineHours,
+    }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw Object.assign(new Error((data as { message?: string }).message || 'Emergency action failed.'), { status: res.status });
+  }
+  return data as { success: boolean; message: string };
+}
+
+export async function createRollbackDraft(
+  historyId: string
+): Promise<{ success: boolean; draft_id: string; title: string }> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const res = await fetch('/api/admin/catalog/rollback', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ history_id: historyId }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw Object.assign(new Error((data as { message?: string }).message || 'Failed to create rollback draft.'), { status: res.status });
+  }
+  return data as { success: boolean; draft_id: string; title: string };
+}
+
+export async function downloadCatalogCsv(params: {
+  category?: string;
+  district?: string;
+  status?: string;
+} = {}): Promise<{ filename: string; blob: Blob }> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const searchParams = new URLSearchParams();
+  if (params.category) searchParams.set('category', params.category);
+  if (params.district) searchParams.set('district', params.district);
+  if (params.status) searchParams.set('status', params.status);
+
+  const res = await fetch(`/api/admin/catalog/export?${searchParams.toString()}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    throw Object.assign(new Error('Failed to generate catalog CSV export.'), { status: res.status });
+  }
+
+  const disposition = res.headers.get('Content-Disposition') || '';
+  let filename = 'weshnakul-catalog-export.csv';
+  const match = disposition.match(/filename="?([^"]+)"?/);
+  if (match && match[1]) {
+    filename = match[1];
+  }
+
+  const blob = await res.blob();
+  return { filename, blob };
+}
+
+

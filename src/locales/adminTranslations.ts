@@ -215,6 +215,111 @@ export interface AdminTranslations {
   pageShowing: string;
   pagePrev: string;
   pageNext: string;
+
+  // Phase 4 Catalog Controls
+  tabCatalogControls: string;
+  catalogControlsTitle: string;
+  catalogControlsSubtitle: string;
+  btnNewDraft: string;
+  btnBulkEdit: string;
+  btnExportCatalogCsv: string;
+  tabBrandsBranches: string;
+  tabDrafts: string;
+  tabEmergencyReminders: string;
+  searchCatalogPlaceholder: string;
+  filterAllStatuses: string;
+  filterStatusOpen: string;
+  filterStatusTemporarilyClosed: string;
+  filterStatusPermanentlyClosed: string;
+  filterStatusUnknown: string;
+  colBrand: string;
+  colBranchesCount: string;
+  colPrimaryCategory: string;
+  colOperatingStatus: string;
+  colResearchUse: string;
+  colReadinessStatus: string;
+  colActions: string;
+  btnEditBrand: string;
+  btnViewBranches: string;
+  btnAddBranch: string;
+  btnEmergencyHide: string;
+  btnEmergencyUnavailable: string;
+  btnRestore: string;
+  colBranchName: string;
+  colDistrict: string;
+  colAddress: string;
+  colBranchStatus: string;
+  colMapsUrl: string;
+  colReadiness: string;
+  badgeEligible: string;
+  badgeBlocked: string;
+  badgeReady: string;
+  badgeNotReady: string;
+  badgeStaleConflict: string;
+  badgeDraft: string;
+  badgeValidated: string;
+  badgePublished: string;
+  badgeCancelled: string;
+  modalEditBrandTitle: string;
+  modalEditBranchTitle: string;
+  modalDraftPreviewTitle: string;
+  labelBrandNameEn: string;
+  labelBrandNameAr: string;
+  labelCategories: string;
+  labelDiningMode: string;
+  labelPriceTier: string;
+  labelEditorialRole: string;
+  labelResearchUse: string;
+  labelBranchNameEn: string;
+  labelBranchNameAr: string;
+  labelDistrict: string;
+  labelAddressEn: string;
+  labelAddressAr: string;
+  labelLatitude: string;
+  labelLongitude: string;
+  labelGoogleMapsUrl: string;
+  labelBranchStatus: string;
+  labelDineIn: string;
+  labelTakeaway: string;
+  label24Hours: string;
+  labelLateNight: string;
+  previewSummary: string;
+  previewAffectedEntities: string;
+  previewDiffTitle: string;
+  previewBefore: string;
+  previewAfter: string;
+  previewValidationErrors: string;
+  previewValidationWarnings: string;
+  previewReadinessImpact: string;
+  labelReasonOptional: string;
+  labelReasonRequired: string;
+  placeholderReason: string;
+  btnSaveDraft: string;
+  btnValidateDraft: string;
+  btnPublishNow: string;
+  btnDiscardDraft: string;
+  btnReconcileDraft: string;
+  confirmPublishPrompt: string;
+  publishingInProgress: string;
+  publishSuccessMessage: string;
+  publishFailedMessage: string;
+  emergencyModalTitle: string;
+  emergencyActionType: string;
+  emergencyHideBrandDesc: string;
+  emergencyHideBranchDesc: string;
+  emergencyUnavailableDesc: string;
+  emergencyReviewDeadline: string;
+  deadline24h: string;
+  deadline48h: string;
+  deadline7d: string;
+  deadline30d: string;
+  emergencyReminderNotice: string;
+  btnApplyEmergency: string;
+  btnRestoreEntity: string;
+  emergencyActiveBadge: string;
+  btnRollbackToSnapshot: string;
+  rollbackModalTitle: string;
+  rollbackWarningNotice: string;
 }
 
 export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
@@ -408,6 +513,111 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     pageShowing: 'Showing {from} - {to} of {total}',
     pagePrev: 'Previous',
     pageNext: 'Next',
+
+    // Phase 4 Catalog Controls
+    tabCatalogControls: 'Catalog Controls',
+    catalogControlsTitle: 'Catalog Controls & Change Sets',
+    catalogControlsSubtitle: 'Secure draft, validation, preview, and atomic publication workflow for Jeddah brands and branches.',
+    btnNewDraft: 'New Draft',
+    btnBulkEdit: 'Bulk Edit',
+    btnExportCatalogCsv: 'Export Catalog CSV',
+    tabBrandsBranches: 'Brands & Branches',
+    tabDrafts: 'Draft Change Sets',
+    tabEmergencyReminders: 'Emergency Reminders',
+    searchCatalogPlaceholder: 'Search brands, branches, or IDs...',
+    filterAllStatuses: 'All Statuses',
+    filterStatusOpen: 'Open',
+    filterStatusTemporarilyClosed: 'Temporarily Closed',
+    filterStatusPermanentlyClosed: 'Permanently Closed',
+    filterStatusUnknown: 'Unknown',
+    colBrand: 'Brand / Restaurant',
+    colBranchesCount: 'Branches',
+    colPrimaryCategory: 'Category',
+    colOperatingStatus: 'Operating Status',
+    colResearchUse: 'Research Use',
+    colReadinessStatus: 'Readiness',
+    colActions: 'Actions',
+    btnEditBrand: 'Edit Brand',
+    btnViewBranches: 'View Branches',
+    btnAddBranch: 'Add Branch',
+    btnEmergencyHide: 'Hide from Recommendations',
+    btnEmergencyUnavailable: 'Mark Unavailable',
+    btnRestore: 'Restore to Recommendations',
+    colBranchName: 'Branch Name',
+    colDistrict: 'District',
+    colAddress: 'Address',
+    colBranchStatus: 'Branch Status',
+    colMapsUrl: 'Maps Link',
+    colReadiness: 'Readiness',
+    badgeEligible: 'Eligible',
+    badgeBlocked: 'Blocked',
+    badgeReady: 'Ready',
+    badgeNotReady: 'Not Ready',
+    badgeStaleConflict: 'Stale Conflict',
+    badgeDraft: 'Draft',
+    badgeValidated: 'Validated',
+    badgePublished: 'Published',
+    badgeCancelled: 'Cancelled',
+    modalEditBrandTitle: 'Edit Brand Details',
+    modalEditBranchTitle: 'Edit Branch Details',
+    modalDraftPreviewTitle: 'Review Draft Change Set & Publish',
+    labelBrandNameEn: 'Brand Name (English)',
+    labelBrandNameAr: 'Brand Name (Arabic)',
+    labelCategories: 'Categories (comma-separated)',
+    labelDiningMode: 'Dining Mode',
+    labelPriceTier: 'Price Tier',
+    labelEditorialRole: 'Editorial Role',
+    labelResearchUse: 'Research Use & Eligibility',
+    labelBranchNameEn: 'Branch Name (English)',
+    labelBranchNameAr: 'Branch Name (Arabic)',
+    labelDistrict: 'Jeddah District (Canonical)',
+    labelAddressEn: 'Physical Address (English)',
+    labelAddressAr: 'Physical Address (Arabic)',
+    labelLatitude: 'Latitude (21.0 to 22.0)',
+    labelLongitude: 'Longitude (39.0 to 39.5)',
+    labelGoogleMapsUrl: 'Google Maps URL (https://)',
+    labelBranchStatus: 'Branch Operating Status',
+    labelDineIn: 'Dine-In Available',
+    labelTakeaway: 'Takeaway Available',
+    label24Hours: 'Open 24 Hours',
+    labelLateNight: 'Late Night Service',
+    previewSummary: 'Change Set Summary',
+    previewAffectedEntities: 'Affected Entities',
+    previewDiffTitle: 'Field Value Changes (Before vs After)',
+    previewBefore: 'Existing Value',
+    previewAfter: 'Proposed Value',
+    previewValidationErrors: 'Validation Errors (Publication Blocked)',
+    previewValidationWarnings: 'Validation Warnings & Readiness Impact',
+    previewReadinessImpact: 'Recommendation Eligibility Impact',
+    labelReasonOptional: 'Reason for Publication (Optional for routine edits)',
+    labelReasonRequired: 'Reason (Strictly required for emergency, rollback, or restore)',
+    placeholderReason: 'Explain why this change is being made...',
+    btnSaveDraft: 'Save as Isolated Draft',
+    btnValidateDraft: 'Validate Draft on Server',
+    btnPublishNow: 'Authorize & Publish Atomically',
+    btnDiscardDraft: 'Discard Draft',
+    btnReconcileDraft: 'Reload & Reconcile Stale Draft',
+    confirmPublishPrompt: 'Are you sure you want to publish these changes live? This operation is atomic and forward-audited.',
+    publishingInProgress: 'Publishing atomically...',
+    publishSuccessMessage: 'Change set published successfully and verified in audit history.',
+    publishFailedMessage: 'Publication failed. No live catalog records were modified.',
+    emergencyModalTitle: 'Emergency Catalog Control',
+    emergencyActionType: 'Action Type',
+    emergencyHideBrandDesc: 'Immediately excludes all branches of this brand from recommendation decks.',
+    emergencyHideBranchDesc: 'Immediately excludes this specific branch from recommendation decks.',
+    emergencyUnavailableDesc: 'Temporarily marks this branch closed or out of service.',
+    emergencyReviewDeadline: 'Review Deadline Reminder',
+    deadline24h: '24 Hours',
+    deadline48h: '48 Hours',
+    deadline7d: '7 Days',
+    deadline30d: '30 Days',
+    emergencyReminderNotice: 'Notice: Passing the review deadline sends a reminder but never restores records automatically. An administrator must explicitly authorize restoration.',
+    btnApplyEmergency: 'Apply Emergency Control',
+    btnRestoreEntity: 'Restore Entity',
+    emergencyActiveBadge: 'Active Emergency Control',
+    btnRollbackToSnapshot: 'Forward Rollback to Snapshot',
+    rollbackModalTitle: 'Forward Rollback Confirmation',
+    rollbackWarningNotice: 'Rollback creates a new forward audit entry restoring the prior state. It will not erase historical records.',
   },
 
   ar: {
@@ -600,5 +810,110 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     pageShowing: 'عرض {from} - {to} من {total}',
     pagePrev: 'السابق',
     pageNext: 'التالي',
+
+    // Phase 4 Catalog Controls
+    tabCatalogControls: 'إدارة الكتالوج',
+    catalogControlsTitle: 'إدارة الكتالوج ومجموعات التغيير',
+    catalogControlsSubtitle: 'مسار عمل آمن لإنشاء المسودات، الفحص، المعاينة، والنشر المتكامل للعلامات والفروع بجدة.',
+    btnNewDraft: 'مسودة جديدة',
+    btnBulkEdit: 'تعديل جماعي',
+    btnExportCatalogCsv: 'تصدير كتالوج CSV',
+    tabBrandsBranches: 'العلامات والفروع',
+    tabDrafts: 'مسودات التغيير',
+    tabEmergencyReminders: 'تنبيهات الطوارئ',
+    searchCatalogPlaceholder: 'ابحث باسم المطعم، الفرع، أو المعرف...',
+    filterAllStatuses: 'كافة الحالات',
+    filterStatusOpen: 'مفتوح',
+    filterStatusTemporarilyClosed: 'مغلق مؤقتاً',
+    filterStatusPermanentlyClosed: 'مغلق نهائياً',
+    filterStatusUnknown: 'غير محدد',
+    colBrand: 'المطعم / العلامة',
+    colBranchesCount: 'الفروع',
+    colPrimaryCategory: 'التصنيف',
+    colOperatingStatus: 'حالة التشغيل',
+    colResearchUse: 'استخدام البحث',
+    colReadinessStatus: 'الجاهزية',
+    colActions: 'الإجراءات',
+    btnEditBrand: 'تعديل العلامة',
+    btnViewBranches: 'عرض الفروع',
+    btnAddBranch: 'إضافة فرع',
+    btnEmergencyHide: 'إخفاء من الترشيحات',
+    btnEmergencyUnavailable: 'تعيين كغير متاح',
+    btnRestore: 'استعادة للترشيحات',
+    colBranchName: 'اسم الفرع',
+    colDistrict: 'الحي',
+    colAddress: 'العنوان',
+    colBranchStatus: 'حالة الفرع',
+    colMapsUrl: 'رابط الخريطة',
+    colReadiness: 'الجاهزية',
+    badgeEligible: 'مؤهل',
+    badgeBlocked: 'محجوب',
+    badgeReady: 'جاهز',
+    badgeNotReady: 'غير مكتمل',
+    badgeStaleConflict: 'تعارض مسودة قديمة',
+    badgeDraft: 'مسودة',
+    badgeValidated: 'تم الفحص',
+    badgePublished: 'منشور',
+    badgeCancelled: 'ملغي',
+    modalEditBrandTitle: 'تعديل بيانات العلامة',
+    modalEditBranchTitle: 'تعديل بيانات الفرع',
+    modalDraftPreviewTitle: 'معاينة مسودة التغيير والنشر',
+    labelBrandNameEn: 'اسم العلامة (إنجليزي)',
+    labelBrandNameAr: 'اسم العلامة (عربي)',
+    labelCategories: 'التصنيفات (مفصولة بفواصل)',
+    labelDiningMode: 'طريقة تناول الطعام',
+    labelPriceTier: 'فئة السعر',
+    labelEditorialRole: 'الدور التحريري',
+    labelResearchUse: 'استخدام البحث والأهلية',
+    labelBranchNameEn: 'اسم الفرع (إنجليزي)',
+    labelBranchNameAr: 'اسم الفرع (عربي)',
+    labelDistrict: 'حي جدة (المعتمد)',
+    labelAddressEn: 'العنوان الفعلي (إنجليزي)',
+    labelAddressAr: 'العنوان الفعلي (عربي)',
+    labelLatitude: 'خط العرض (21.0 إلى 22.0)',
+    labelLongitude: 'خط الطول (39.0 إلى 39.5)',
+    labelGoogleMapsUrl: 'رابط خرائط جوجل (https://)',
+    labelBranchStatus: 'حالة تشغيل الفرع',
+    labelDineIn: 'جلسات داخلية متاحة',
+    labelTakeaway: 'الطلب الخارجي متاح',
+    label24Hours: 'مفتوح 24 ساعة',
+    labelLateNight: 'خدمة ليلية متأخرة',
+    previewSummary: 'ملخص التغييرات',
+    previewAffectedEntities: 'الكيانات المتأثرة',
+    previewDiffTitle: 'مقارنة القيم (الحالي مقابل المقترح)',
+    previewBefore: 'القيمة الحالية',
+    previewAfter: 'القيمة المقترحة',
+    previewValidationErrors: 'أخطاء الفحص (يمنع النشر)',
+    previewValidationWarnings: 'تنبيهات الفحص وأثر الجاهزية',
+    previewReadinessImpact: 'أثر الأهلية للترشيح',
+    labelReasonOptional: 'سبب التعديل (اختياري للتعديلات العادية)',
+    labelReasonRequired: 'السبب (إلزامي لعمليات الطوارئ، التراجع، والاستعادة)',
+    placeholderReason: 'وضح سبب تطبيق هذا الإجراء...',
+    btnSaveDraft: 'حفظ كمسودة معزولة',
+    btnValidateDraft: 'فحص المسودة على الخادم',
+    btnPublishNow: 'اعتماد ونشر التغييرات',
+    btnDiscardDraft: 'حذف المسودة',
+    btnReconcileDraft: 'إعادة تحميل ومزامنة المسودة',
+    confirmPublishPrompt: 'هل أنت متأكد من رغبتك في نشر هذه التغييرات حياً؟ العملية ذرية ومسجلة في التدقيق.',
+    publishingInProgress: 'جاري النشر بشكل ذري...',
+    publishSuccessMessage: 'تم نشر التغييرات بنجاح وتوثيقها في سجل التدقيق.',
+    publishFailedMessage: 'فشلت عملية النشر. لم يتم تعديل أي سجل في الكتالوج الحي.',
+    emergencyModalTitle: 'إجراءات طوارئ الكتالوج',
+    emergencyActionType: 'نوع الإجراء',
+    emergencyHideBrandDesc: 'يستبعد كافة فروع هذه العلامة فوراً من بطاقات الترشيح.',
+    emergencyHideBranchDesc: 'يستبعد هذا الفرع تحديداً فوراً من بطاقات الترشيح.',
+    emergencyUnavailableDesc: 'يعين هذا الفرع كمغلق أو خارج الخدمة مؤقتاً.',
+    emergencyReviewDeadline: 'تذكير موعد المراجعة',
+    deadline24h: '24 ساعة',
+    deadline48h: '48 ساعة',
+    deadline7d: '7 أيام',
+    deadline30d: '30 يوماً',
+    emergencyReminderNotice: 'تنبيه: انقضاء موعد المراجعة يرسل تنبيهاً ولا يستعيد السجلات تلقائياً أبداً. الاستعادة تتطلب تدخلاً صريحاً من المشرف.',
+    btnApplyEmergency: 'تطبيق إجراء الطوارئ',
+    btnRestoreEntity: 'استعادة الكيان للترشيح',
+    emergencyActiveBadge: 'إجراء طوارئ نشط',
+    btnRollbackToSnapshot: 'تراجع للأمام إلى اللقطة',
+    rollbackModalTitle: 'تأكيد التراجع الأمامي',
+    rollbackWarningNotice: 'التراجع ينشئ حدث تدقيق أمامي جديد يستعيد الحالة السابقة ولا يمسح السجلات التاريخية.',
   },
 };

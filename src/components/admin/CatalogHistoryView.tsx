@@ -1,16 +1,18 @@
 import React from 'react';
-import { ClockCounterClockwise, ShieldCheck } from '@phosphor-icons/react';
+import { ClockCounterClockwise, ShieldCheck, ArrowUUpLeft } from '@phosphor-icons/react';
 import { useAdminLocale } from '../../context/AdminLocaleContext';
 import type { CatalogChangeRecord } from '../../types/admin';
 
 interface CatalogHistoryViewProps {
   history: CatalogChangeRecord[];
   isLoading: boolean;
+  onRollback?: (historyId: string) => void;
 }
 
 export const CatalogHistoryView: React.FC<CatalogHistoryViewProps> = ({
   history,
   isLoading,
+  onRollback,
 }) => {
   const { t, formatSaudiTime } = useAdminLocale();
 
@@ -54,6 +56,7 @@ export const CatalogHistoryView: React.FC<CatalogHistoryViewProps> = ({
                   <th className="py-3 px-4">{t('colAction')}</th>
                   <th className="py-3 px-4">{t('colChangedBy')}</th>
                   <th className="py-3 px-4">{t('colSummary')}</th>
+                  {onRollback && <th className="py-3 px-4 text-right">{t('colActions')}</th>}
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100 font-medium">
@@ -110,6 +113,21 @@ export const CatalogHistoryView: React.FC<CatalogHistoryViewProps> = ({
                           </div>
                         )}
                       </td>
+                      {onRollback && (
+                        <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                          {rec.previous_state && !isBaseline && (
+                            <button
+                              type="button"
+                              onClick={() => onRollback(rec.id)}
+                              className="flex items-center gap-1 ml-auto px-2.5 py-1 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-700 text-xs font-semibold transition-colors cursor-pointer"
+                              title={t('btnRollbackToSnapshot')}
+                            >
+                              <ArrowUUpLeft size={13} />
+                              <span>Rollback</span>
+                            </button>
+                          )}
+                        </td>
+                      )}
                     </tr>
                   );
                 })}

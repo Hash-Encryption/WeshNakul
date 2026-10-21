@@ -26,6 +26,7 @@ import { useAdminLocale, AdminLanguageToggle } from '../../context/AdminLocaleCo
 import { DeepAnalyticsView } from './DeepAnalyticsView';
 import { AlgorithmHealthView } from './AlgorithmHealthView';
 import { CatalogHistoryView } from './CatalogHistoryView';
+import { CatalogControlsView } from './CatalogControlsView';
 import type {
   AdminAnalyticsResponse,
   AdminDeepAnalyticsResponse,
@@ -34,7 +35,7 @@ import type {
   TimeRangeFilter,
 } from '../../types/admin';
 
-export type AdminDashboardTab = 'overview' | 'deep' | 'algorithm' | 'catalog';
+export type AdminDashboardTab = 'overview' | 'catalog_controls' | 'deep' | 'algorithm' | 'catalog';
 
 interface AdminDashboardProps {
   user: AdminUser;
@@ -272,6 +273,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="max-w-7xl mx-auto flex items-center gap-1 sm:gap-4 overflow-x-auto">
           {[
             { id: 'overview', label: t('tabOverview') },
+            { id: 'catalog_controls', label: t('tabCatalogControls') },
             { id: 'deep', label: t('tabDeepAnalytics') },
             { id: 'algorithm', label: t('tabAlgorithmHealth') },
             { id: 'catalog', label: t('tabCatalogHistory') },
@@ -808,6 +810,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             exportNotice={exportNotice}
             onDismissNotice={() => setExportNotice(null)}
           />
+        )}
+
+        {/* Phase 4 Catalog Controls Tab View */}
+        {activeTab === 'catalog_controls' && (
+          <CatalogControlsView />
         )}
 
         {/* Phase 3 Algorithm Health Tab View */}

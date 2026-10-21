@@ -13,15 +13,17 @@ const MAX_EXPORT_ROWS = 5000;
  */
 export function sanitizeCsvCell(val: unknown): string {
   if (val === null || val === undefined) return '';
-  let str = String(val);
+  let str = String(val).replace(/\0/g, '');
 
-  // Strip or neutralize formula injection characters: =, +, -, @, \t, \r
-  if (/^[=+\-@\t\r]/.test(str)) {
+  // Strip or neutralize formula injection characters: =, +, -, @, \t, \r, |, %
+  // Evaluates both trimmed and raw string to prevent leading whitespace evasion
+  const trimmed = str.trimStart();
+  if (/^[=+\-@\t\r|%]/.test(trimmed) || /^[=+\-@\t\r|%]/.test(str)) {
     str = "'" + str;
   }
 
-  // RFC 4180 escaping: wrap in double quotes if it contains comma, quote, or newline
-  if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+  // RFC 4180 escaping: wrap in double quotes if it contains comma, quote, newline, or tab
+  if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r') || str.includes('\t')) {
     str = '"' + str.replace(/"/g, '""') + '"';
   }
 
