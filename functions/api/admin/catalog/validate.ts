@@ -92,6 +92,85 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
     });
   }
 
+  // --- Bulk pre-fetch: replace per-entity N+1 fetches with 3 batched queries ---
+  // Collect entity IDs by type before the validation loop.
+  const restaurantIds: string[] = [];
+  const branchIds: string[] = [];
+  for (const item of targetEntities) {
+    const id = String(item.entity_id || '');
+    if (!id) continue;
+    if (String(item.entity_type || '') === 'restaurant') restaurantIds.push(id);
+    else if (String(item.entity_type || '') === 'branch') branchIds.push(id);
+  }
+
+  // Maps populated by bulk fetches; used in the validation loop below.
+  const restaurantMap = new Map<string, Record<string, unknown>>();
+  const branchMap = new Map<string, Record<string, unknown>>();
+  const parentBrandMap = new Map<string, Record<string, unknown>>();
+
+  if (supabaseUrl && supabaseKey) {
+    const dbHeaders = { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` };
+
+    // Query 1: bulk-fetch all restaurant-type target entities.
+    if (restaurantIds.length > 0) {
+      try {
+        const ids = restaurantIds.map(encodeURIComponent).join(',');
+        const rRes = await fetch(
+          `${supabaseUrl}/rest/v1/restaurants?id=in.(${ids})`,
+          { headers: dbHeaders }
+        );
+        if (rRes.ok) {
+          const rows = (await rRes.json()) as Array<Record<string, unknown>>;
+          for (const row of rows) restaurantMap.set(row.id as string, row);
+        }
+      } catch {
+        // Fallback to null currentRecord for these entities
+      }
+    }
+
+    // Query 2: bulk-fetch all branch-type target entities.
+    if (branchIds.length > 0) {
+      try {
+        const ids = branchIds.map(encodeURIComponent).join(',');
+        const bRes = await fetch(
+          `${supabaseUrl}/rest/v1/restaurant_branches?id=in.(${ids})`,
+          { headers: dbHeaders }
+        );
+        if (bRes.ok) {
+          const rows = (await bRes.json()) as Array<Record<string, unknown>>;
+          for (const row of rows) branchMap.set(row.id as string, row);
+        }
+      } catch {
+        // Fallback to null currentRecord for branch entities
+      }
+    }
+
+    // Query 3: bulk-fetch parent brands for all fetched branches (distinct restaurant_ids only).
+    if (branchMap.size > 0) {
+      const parentIds = [...new Set(
+        [...branchMap.values()]
+          .map((b) => b.restaurant_id as string)
+          .filter(Boolean)
+      )];
+      if (parentIds.length > 0) {
+        try {
+          const ids = parentIds.map(encodeURIComponent).join(',');
+          const pRes = await fetch(
+            `${supabaseUrl}/rest/v1/restaurants?id=in.(${ids})`,
+            { headers: dbHeaders }
+          );
+          if (pRes.ok) {
+            const rows = (await pRes.json()) as Array<Record<string, unknown>>;
+            for (const row of rows) parentBrandMap.set(row.id as string, row);
+          }
+        } catch {
+          // Fallback to null parentBrand for branch entities
+        }
+      }
+    }
+  }
+  // --- End bulk pre-fetch ---
+
   // Inspect each target entity
   for (const item of targetEntities) {
     const entityType = String(item.entity_type || '');
@@ -128,45 +207,17 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
       }
     }
 
+    // Resolve current record and parent brand from pre-fetched Maps (zero extra fetches).
     let currentRecord: Record<string, unknown> | null = null;
     let parentBrand: Record<string, unknown> | null = null;
 
-    if (supabaseUrl && supabaseKey) {
-      try {
-        if (entityType === 'restaurant') {
-          const rRes = await fetch(
-            `${supabaseUrl}/rest/v1/restaurants?id=eq.${encodeURIComponent(entityId)}`,
-            { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
-          );
-          if (rRes.ok) {
-            const rows = (await rRes.json()) as Array<Record<string, unknown>>;
-            if (rows.length > 0) currentRecord = rows[0];
-          }
-        } else if (entityType === 'branch') {
-          const bRes = await fetch(
-            `${supabaseUrl}/rest/v1/restaurant_branches?id=eq.${encodeURIComponent(entityId)}`,
-            { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
-          );
-          if (bRes.ok) {
-            const rows = (await bRes.json()) as Array<Record<string, unknown>>;
-            if (rows.length > 0) {
-              currentRecord = rows[0];
-              const restId = currentRecord.restaurant_id as string;
-              if (restId) {
-                const pRes = await fetch(
-                  `${supabaseUrl}/rest/v1/restaurants?id=eq.${encodeURIComponent(restId)}`,
-                  { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
-                );
-                if (pRes.ok) {
-                  const pRows = (await pRes.json()) as Array<Record<string, unknown>>;
-                  if (pRows.length > 0) parentBrand = pRows[0];
-                }
-              }
-            }
-          }
-        }
-      } catch {
-        // Fallback to local evaluation
+    if (entityType === 'restaurant') {
+      currentRecord = restaurantMap.get(entityId) ?? null;
+    } else if (entityType === 'branch') {
+      currentRecord = branchMap.get(entityId) ?? null;
+      if (currentRecord) {
+        const restId = currentRecord.restaurant_id as string;
+        if (restId) parentBrand = parentBrandMap.get(restId) ?? null;
       }
     }
 
