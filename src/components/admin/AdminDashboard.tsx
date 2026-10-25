@@ -27,6 +27,7 @@ import { DeepAnalyticsView } from './DeepAnalyticsView';
 import { AlgorithmHealthView } from './AlgorithmHealthView';
 import { CatalogHistoryView } from './CatalogHistoryView';
 import { CatalogControlsView } from './CatalogControlsView';
+import { AlgorithmControlsView } from './AlgorithmControlsView';
 import type {
   AdminAnalyticsResponse,
   AdminDeepAnalyticsResponse,
@@ -35,7 +36,7 @@ import type {
   TimeRangeFilter,
 } from '../../types/admin';
 
-export type AdminDashboardTab = 'overview' | 'catalog_controls' | 'deep' | 'algorithm' | 'catalog';
+export type AdminDashboardTab = 'overview' | 'catalog_controls' | 'algorithm_controls' | 'deep' | 'algorithm' | 'catalog';
 
 interface AdminDashboardProps {
   user: AdminUser;
@@ -274,6 +275,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           {[
             { id: 'overview', label: t('tabOverview') },
             { id: 'catalog_controls', label: t('tabCatalogControls') },
+            { id: 'algorithm_controls', label: t('tabAlgorithmControls') },
             { id: 'deep', label: t('tabDeepAnalytics') },
             { id: 'algorithm', label: t('tabAlgorithmHealth') },
             { id: 'catalog', label: t('tabCatalogHistory') },
@@ -815,6 +817,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* Phase 4 Catalog Controls Tab View */}
         {activeTab === 'catalog_controls' && (
           <CatalogControlsView />
+        )}
+
+        {/* Phase 5 Algorithm Controls Tab View */}
+        {activeTab === 'algorithm_controls' && (
+          <AlgorithmControlsView />
         )}
 
         {/* Phase 3 Algorithm Health Tab View */}

@@ -320,6 +320,64 @@ export interface AdminTranslations {
   btnRollbackToSnapshot: string;
   rollbackModalTitle: string;
   rollbackWarningNotice: string;
+
+  // Phase 5 Algorithm Controls
+  tabAlgorithmControls: string;
+  algoControlsTitle: string;
+  algoControlsSubtitle: string;
+  secRankingPriorities: string;
+  secGeographicRelevance: string;
+  secRepetitionDiversity: string;
+  secOverrides: string;
+  secDraftPreview: string;
+  secVersionHistory: string;
+  badgeActiveVersion: string;
+  badgeDraftModified: string;
+  badgeDraftSaved: string;
+  badgeDraftInSync: string;
+  btnSaveAlgoDraft: string;
+  btnDiscardAlgoDraft: string;
+  btnPublishAlgoConfig: string;
+  btnValidateConfig: string;
+  btnRunPreview: string;
+  labelCurrentPublished: string;
+  labelDraftValue: string;
+  labelAllowedRange: string;
+  labelPracticalEffect: string;
+  labelScopeGlobal: string;
+  labelScopeOverride: string;
+  labelScopeInherited: string;
+  btnAddOverride: string;
+  btnRemoveOverride: string;
+  selectScopePlaceholder: string;
+  previewScenarioTitle: string;
+  previewColPublishedDeck: string;
+  previewColProposedDeck: string;
+  previewNoChangesNotice: string;
+  previewChangesDetectedNotice: string;
+  previewAddedCards: string;
+  previewRemovedCards: string;
+  previewRankMoved: string;
+  previewScoreDelta: string;
+  colVersionNum: string;
+  colPublishedAt: string;
+  colPublishedBy: string;
+  colChangeSummary: string;
+  colRollbackOf: string;
+  colStatus: string;
+  badgeActive: string;
+  badgeHistoric: string;
+  btnRollbackToVersion: string;
+  rollbackConfirmTitle: string;
+  rollbackConfirmPrompt: string;
+  btnConfirmRollback: string;
+  publishConfirmTitle: string;
+  publishConfirmPrompt: string;
+  inputReasonPlaceholder: string;
+  validationPassed: string;
+  validationFailed: string;
+  resetToDefault: string;
+  resetToPublished: string;
 }
 
 export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
@@ -618,6 +676,64 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     btnRollbackToSnapshot: 'Forward Rollback to Snapshot',
     rollbackModalTitle: 'Forward Rollback Confirmation',
     rollbackWarningNotice: 'Rollback creates a new forward audit entry restoring the prior state. It will not erase historical records.',
+
+    // Phase 5 Algorithm Controls
+    tabAlgorithmControls: 'Algorithm Controls',
+    algoControlsTitle: 'Recommendation Algorithm Controls',
+    algoControlsSubtitle: 'Fine-tune ranking priorities, geographic relevance, and diversity with draft preview and rollback',
+    secRankingPriorities: 'Ranking Priorities',
+    secGeographicRelevance: 'Geographic Relevance',
+    secRepetitionDiversity: 'Repetition & Diversity',
+    secOverrides: 'Mode & Category Overrides',
+    secDraftPreview: 'Draft Validation & Preview',
+    secVersionHistory: 'Published Configuration & History',
+    badgeActiveVersion: 'Active Version',
+    badgeDraftModified: 'Unsaved Draft Changes',
+    badgeDraftSaved: 'Draft Saved',
+    badgeDraftInSync: 'Draft in Sync with Published',
+    btnSaveAlgoDraft: 'Save Draft',
+    btnDiscardAlgoDraft: 'Discard Draft',
+    btnPublishAlgoConfig: 'Publish Configuration',
+    btnValidateConfig: 'Validate Settings',
+    btnRunPreview: 'Run Live Preview',
+    labelCurrentPublished: 'Published',
+    labelDraftValue: 'Draft',
+    labelAllowedRange: 'Range',
+    labelPracticalEffect: 'Practical Effect',
+    labelScopeGlobal: 'Global Default',
+    labelScopeOverride: 'Override',
+    labelScopeInherited: 'Inherited',
+    btnAddOverride: 'Add Override',
+    btnRemoveOverride: 'Remove Override',
+    selectScopePlaceholder: 'Select Mode or Category...',
+    previewScenarioTitle: 'Evaluation Scenario',
+    previewColPublishedDeck: 'Current Published Deck',
+    previewColProposedDeck: 'Proposed Draft Deck',
+    previewNoChangesNotice: 'Both configurations yield identical candidate decks for this scenario.',
+    previewChangesDetectedNotice: 'Differences detected between published and proposed settings.',
+    previewAddedCards: 'New in Proposed',
+    previewRemovedCards: 'Dropped from Deck',
+    previewRankMoved: 'Position Changed',
+    previewScoreDelta: 'Score Delta',
+    colVersionNum: 'Version',
+    colPublishedAt: 'Published At',
+    colPublishedBy: 'Publisher',
+    colChangeSummary: 'Summary',
+    colRollbackOf: 'Restored From',
+    colStatus: 'Status',
+    badgeActive: 'Active',
+    badgeHistoric: 'Historic',
+    btnRollbackToVersion: 'Rollback',
+    rollbackConfirmTitle: 'Confirm Algorithm Rollback',
+    rollbackConfirmPrompt: 'Are you sure you want to restore settings from version v{targetVersion}? This will create a new immutable published version atomically.',
+    btnConfirmRollback: 'Restore & Activate',
+    publishConfirmTitle: 'Publish Algorithm Configuration',
+    publishConfirmPrompt: 'Publishing will immediately update live recommendation ranking for all customer rooms. Enter an optional reason or summary for the audit log:',
+    inputReasonPlaceholder: 'e.g., Increased geographic proximity weight for faster delivery',
+    validationPassed: 'All settings valid and within safety bounds',
+    validationFailed: 'Configuration contains validation errors',
+    resetToDefault: 'Default',
+    resetToPublished: 'Published',
   },
 
   ar: {
@@ -915,5 +1031,63 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     btnRollbackToSnapshot: 'تراجع للأمام إلى اللقطة',
     rollbackModalTitle: 'تأكيد التراجع الأمامي',
     rollbackWarningNotice: 'التراجع ينشئ حدث تدقيق أمامي جديد يستعيد الحالة السابقة ولا يمسح السجلات التاريخية.',
+
+    // Phase 5 Algorithm Controls
+    tabAlgorithmControls: 'إعدادات الخوارزمية',
+    algoControlsTitle: 'لوحة التحكم بخوارزمية التوصيات',
+    algoControlsSubtitle: 'ضبط أولويات الترتيب والقرب الجغرافي والتنوع مع معاينة المسودات وسجل الإصدارات',
+    secRankingPriorities: 'أولويات الترتيب',
+    secGeographicRelevance: 'الملاءمة والقرب الجغرافي',
+    secRepetitionDiversity: 'تجنب التكرار وتنوع الخيارات',
+    secOverrides: 'تخصيص الأوضاع والتصنيفات',
+    secDraftPreview: 'التحقق ومعاينة المسودة',
+    secVersionHistory: 'الإصدارات المنشورة وسجل التغييرات',
+    badgeActiveVersion: 'الإصدار النشط',
+    badgeDraftModified: 'مسودة معدلة غير محفوظة',
+    badgeDraftSaved: 'المسودة محفوظة',
+    badgeDraftInSync: 'المسودة متطابقة مع المنشور',
+    btnSaveAlgoDraft: 'حفظ المسودة',
+    btnDiscardAlgoDraft: 'تجاهل المسودة',
+    btnPublishAlgoConfig: 'نشر الإعدادات',
+    btnValidateConfig: 'التحقق من الإعدادات',
+    btnRunPreview: 'تشغيل المعاينة',
+    labelCurrentPublished: 'المنشور',
+    labelDraftValue: 'المسودة',
+    labelAllowedRange: 'النطاق المسموح',
+    labelPracticalEffect: 'الأثر العملي',
+    labelScopeGlobal: 'إعداد عام',
+    labelScopeOverride: 'تخصيص',
+    labelScopeInherited: 'موروث',
+    btnAddOverride: 'إضافة تخصيص',
+    btnRemoveOverride: 'إزالة التخصيص',
+    selectScopePlaceholder: 'اختر وضعاً أو تصنيفاً...',
+    previewScenarioTitle: 'سيناريو المعاينة',
+    previewColPublishedDeck: 'القائمة المنشورة حالياً',
+    previewColProposedDeck: 'القائمة المقترحة بالمسودة',
+    previewNoChangesNotice: 'كلا الإعدادين أنتجا نفس بطاقات المطاعم لهذا السيناريو.',
+    previewChangesDetectedNotice: 'تم رصد اختلافات بين الإعداد المنشور والمسودة المقترحة.',
+    previewAddedCards: 'جديد في المقترح',
+    previewRemovedCards: 'مستبعد من القائمة',
+    previewRankMoved: 'تغير الترتيب',
+    previewScoreDelta: 'فارق النقاط',
+    colVersionNum: 'الإصدار',
+    colPublishedAt: 'تاريخ النشر',
+    colPublishedBy: 'الناشر',
+    colChangeSummary: 'ملخص التغيير',
+    colRollbackOf: 'مسترجع من',
+    colStatus: 'الحالة',
+    badgeActive: 'نشط',
+    badgeHistoric: 'أرشيف',
+    btnRollbackToVersion: 'استرجاع',
+    rollbackConfirmTitle: 'تأكيد استرجاع إعدادات الخوارزمية',
+    rollbackConfirmPrompt: 'هل أنت متأكد من استرجاع إعدادات الإصدار v{targetVersion}؟ سيتم إنشاء إصدار منشور جديد فورياً وبشكل آمن.',
+    btnConfirmRollback: 'استرجاع وتفعيل',
+    publishConfirmTitle: 'نشر إعدادات الخوارزمية',
+    publishConfirmPrompt: 'النشر سيقوم فوراً بتطبيق الإعدادات الجديدة على جميع غرف العملاء. اكتب سبباً أو ملخصاً لسجل التدقيق (اختياري):',
+    inputReasonPlaceholder: 'مثال: رفع وزن القرب الجغرافي لتسريع التوصيل',
+    validationPassed: 'جميع الإعدادات صحيحة وضمن الحدود الآمنة',
+    validationFailed: 'توجد أخطاء في قيم الإعدادات',
+    resetToDefault: 'الافتراضي',
+    resetToPublished: 'المنشور',
   },
 };
