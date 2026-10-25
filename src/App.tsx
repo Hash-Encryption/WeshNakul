@@ -32,6 +32,8 @@ import { Toast } from './components/common/Toast';
 import { DecisionMachineLoading } from './components/common/DecisionMachineLoading';
 import { RoomModeTransition } from './components/common/RoomModeTransition';
 import { AdminView } from './components/admin/AdminView';
+import { FeedbackFloatingButton } from './components/feedback/FeedbackFloatingButton';
+import { FeedbackModal } from './components/feedback/FeedbackModal';
 
 type FlowStep = 'landing' | 'starting-mode' | 'mode' | 'setup' | 'room' | 'guest-join' | 'room-full';
 
@@ -64,6 +66,7 @@ export const App: React.FC = () => {
   const [codeModalError, setCodeModalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [guestError, setGuestError] = useState<string | null>(null);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState<boolean>(false);
   const [isAdminRoute, setIsAdminRoute] = useState<boolean>(() => {
     return typeof window !== 'undefined' && window.location.pathname.startsWith('/admin');
   });
@@ -430,6 +433,16 @@ export const App: React.FC = () => {
 
         {/* Global Session Toast (TTL Expiration, Host Room Deletion, Vote Reset) */}
         <Toast message={failureNotice || sessionNotice} onClose={failureNotice ? clearFailureNotice : clearSessionNotice} warning={Boolean(failureNotice)} />
+
+        {/* Floating Feedback Button & Modal */}
+        <FeedbackFloatingButton
+          onClick={() => setIsFeedbackModalOpen(true)}
+          isOpen={isFeedbackModalOpen}
+        />
+        <FeedbackModal
+          isOpen={isFeedbackModalOpen}
+          onClose={() => setIsFeedbackModalOpen(false)}
+        />
       </main>
     </div>
   );

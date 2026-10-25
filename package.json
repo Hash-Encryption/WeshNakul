@@ -27,7 +27,8 @@
     "test:fair-draw": "node scripts/check-fair-draw.mjs",
     "test:phase3": "node scripts/check-phase3-db.mjs",
     "test:decision-game": "node scripts/check-decision-game.mjs",
-    "test:browser": "node scripts/check-browser.mjs"
+    "test:browser": "node scripts/check-browser.mjs",
+    "test:feedback": "node scripts/check-feedback-operations.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

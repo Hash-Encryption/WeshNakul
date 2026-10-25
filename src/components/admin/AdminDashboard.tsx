@@ -28,6 +28,7 @@ import { AlgorithmHealthView } from './AlgorithmHealthView';
 import { CatalogHistoryView } from './CatalogHistoryView';
 import { CatalogControlsView } from './CatalogControlsView';
 import { AlgorithmControlsView } from './AlgorithmControlsView';
+import { FeedbackInboxView } from './FeedbackInboxView';
 import type {
   AdminAnalyticsResponse,
   AdminDeepAnalyticsResponse,
@@ -36,7 +37,7 @@ import type {
   TimeRangeFilter,
 } from '../../types/admin';
 
-export type AdminDashboardTab = 'overview' | 'catalog_controls' | 'algorithm_controls' | 'deep' | 'algorithm' | 'catalog';
+export type AdminDashboardTab = 'overview' | 'catalog_controls' | 'algorithm_controls' | 'feedback' | 'deep' | 'algorithm' | 'catalog';
 
 interface AdminDashboardProps {
   user: AdminUser;
@@ -276,6 +277,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             { id: 'overview', label: t('tabOverview') },
             { id: 'catalog_controls', label: t('tabCatalogControls') },
             { id: 'algorithm_controls', label: t('tabAlgorithmControls') },
+            { id: 'feedback', label: t('tabFeedbackInbox') },
             { id: 'deep', label: t('tabDeepAnalytics') },
             { id: 'algorithm', label: t('tabAlgorithmHealth') },
             { id: 'catalog', label: t('tabCatalogHistory') },
@@ -822,6 +824,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* Phase 5 Algorithm Controls Tab View */}
         {activeTab === 'algorithm_controls' && (
           <AlgorithmControlsView />
+        )}
+
+        {/* Phase 6 Feedback Inbox Tab View */}
+        {activeTab === 'feedback' && (
+          <FeedbackInboxView />
         )}
 
         {/* Phase 3 Algorithm Health Tab View */}

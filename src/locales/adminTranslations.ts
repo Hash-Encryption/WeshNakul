@@ -378,6 +378,48 @@ export interface AdminTranslations {
   validationFailed: string;
   resetToDefault: string;
   resetToPublished: string;
+  // Feedback Inbox (Phase 6)
+  tabFeedbackInbox: string;
+  feedbackTitle: string;
+  feedbackSubtitle: string;
+  filterAllTypes: string;
+  filterTypeBug: string;
+  filterTypeComment: string;
+  filterTypeBrand: string;
+  statusNew: string;
+  statusUnderReview: string;
+  statusResolved: string;
+  statusRejected: string;
+  colType: string;
+  colMessage: string;
+  colAuthorOrBrand: string;
+  colDate: string;
+  btnViewDetails: string;
+  detailTitle: string;
+  detailTypeLabel: string;
+  detailStatusLabel: string;
+  detailDateLabel: string;
+  detailOriginalText: string;
+  detailDiagnosticsTitle: string;
+  detailDiagnosticsRoute: string;
+  detailDiagnosticsError: string;
+  detailBrandTitle: string;
+  detailBrandName: string;
+  detailBrandLocation: string;
+  detailBrandDistrict: string;
+  detailBrandOwnerStatus: string;
+  detailBrandOwnerYes: string;
+  detailBrandOwnerNo: string;
+  detailBrandPhone: string;
+  detailBrandPhoneNotice: string;
+  detailAuditTitle: string;
+  detailAuditEmpty: string;
+  detailStatusChangePrompt: string;
+  detailStatusUpdating: string;
+  detailStatusUpdatedSuccess: string;
+  detailTranslationNotice: string;
+  emptyFeedbackTitle: string;
+  emptyFeedbackDesc: string;
 }
 
 export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
@@ -734,6 +776,48 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     validationFailed: 'Configuration contains validation errors',
     resetToDefault: 'Default',
     resetToPublished: 'Published',
+    // Feedback Inbox (Phase 6)
+    tabFeedbackInbox: 'Feedback Inbox',
+    feedbackTitle: 'Feedback & Operations Inbox',
+    feedbackSubtitle: 'Review incoming bug reports, comments, and brand suggestions from test users.',
+    filterAllTypes: 'All Types',
+    filterTypeBug: 'Bugs',
+    filterTypeComment: 'Comments',
+    filterTypeBrand: 'Brand Suggestions',
+    statusNew: 'New',
+    statusUnderReview: 'Under review',
+    statusResolved: 'Resolved',
+    statusRejected: 'Rejected',
+    colType: 'Type',
+    colMessage: 'Message / Details',
+    colAuthorOrBrand: 'Sender / Brand',
+    colDate: 'Submitted (Saudi Time)',
+    btnViewDetails: 'View Details',
+    detailTitle: 'Submission Details',
+    detailTypeLabel: 'Feedback Type',
+    detailStatusLabel: 'Current Status',
+    detailDateLabel: 'Submission Date',
+    detailOriginalText: 'Original Message',
+    detailDiagnosticsTitle: 'Safe Diagnostic Context',
+    detailDiagnosticsRoute: 'Sanitized Route',
+    detailDiagnosticsError: 'Recent Safe Error Event',
+    detailBrandTitle: 'Brand Proposal Information',
+    detailBrandName: 'Suggested Brand',
+    detailBrandLocation: 'Branch / Location',
+    detailBrandDistrict: 'District',
+    detailBrandOwnerStatus: 'Owner / Representative',
+    detailBrandOwnerYes: 'Yes (Authorized Representative)',
+    detailBrandOwnerNo: 'No (Regular Customer)',
+    detailBrandPhone: 'Contact Phone Number',
+    detailBrandPhoneNotice: 'Restricted contact data. Visible only to authorized administrators for follow-up.',
+    detailAuditTitle: 'Status Change History',
+    detailAuditEmpty: 'No status changes recorded yet.',
+    detailStatusChangePrompt: 'Update Status:',
+    detailStatusUpdating: 'Updating status...',
+    detailStatusUpdatedSuccess: 'Status updated successfully.',
+    detailTranslationNotice: 'Translation unavailable in this release. Displaying original submitted text.',
+    emptyFeedbackTitle: 'No feedback submissions found',
+    emptyFeedbackDesc: 'No feedback matches the selected filters.',
   },
 
   ar: {
@@ -1089,5 +1173,47 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     validationFailed: 'توجد أخطاء في قيم الإعدادات',
     resetToDefault: 'الافتراضي',
     resetToPublished: 'المنشور',
+    // Feedback Inbox (Phase 6)
+    tabFeedbackInbox: 'صندوق الملاحظات',
+    feedbackTitle: 'صندوق الملاحظات والعمليات',
+    feedbackSubtitle: 'مراجعة بلاغات المشاكل، والآراء، واقتراحات المطاعم من المستخدمين.',
+    filterAllTypes: 'جميع الأنواع',
+    filterTypeBug: 'المشاكل',
+    filterTypeComment: 'الملاحظات',
+    filterTypeBrand: 'اقتراحات المطاعم',
+    statusNew: 'جديد',
+    statusUnderReview: 'قيد المراجعة',
+    statusResolved: 'تم الحل',
+    statusRejected: 'مرفوض',
+    colType: 'النوع',
+    colMessage: 'الرسالة / التفاصيل',
+    colAuthorOrBrand: 'المرسل / المطعم',
+    colDate: 'تاريخ الإرسال (توقيت السعودية)',
+    btnViewDetails: 'عرض التفاصيل',
+    detailTitle: 'تفاصيل المشاركة',
+    detailTypeLabel: 'نوع المشاركة',
+    detailStatusLabel: 'الحالة الحالية',
+    detailDateLabel: 'تاريخ الإرسال',
+    detailOriginalText: 'النص الأصلي المرسل',
+    detailDiagnosticsTitle: 'سياق التشخيص الآمن',
+    detailDiagnosticsRoute: 'المسار المعقم',
+    detailDiagnosticsError: 'آخر حدث خطأ آمن',
+    detailBrandTitle: 'معلومات اقتراح المطعم',
+    detailBrandName: 'المطعم المقترح',
+    detailBrandLocation: 'الفرع / الموقع',
+    detailBrandDistrict: 'الحي',
+    detailBrandOwnerStatus: 'المالك / الممثل المعتمد',
+    detailBrandOwnerYes: 'نعم (ممثل معتمد)',
+    detailBrandOwnerNo: 'لا (مستخدم عادي)',
+    detailBrandPhone: 'رقم الجوال للتواصل',
+    detailBrandPhoneNotice: 'بيانات اتصال حساسة. تظهر فقط للمسؤولين المصرح لهم للمتابعة.',
+    detailAuditTitle: 'سجل تغييرات الحالة',
+    detailAuditEmpty: 'لا توجد تغييرات مسجلة على الحالة حتى الآن.',
+    detailStatusChangePrompt: 'تحديث الحالة:',
+    detailStatusUpdating: 'جاري تحديث الحالة...',
+    detailStatusUpdatedSuccess: 'تم تحديث الحالة بنجاح.',
+    detailTranslationNotice: 'الترجمة غير متوفرة في هذا الإصدار. يتم عرض النص الأصلي.',
+    emptyFeedbackTitle: 'لا توجد ملاحظات',
+    emptyFeedbackDesc: 'لا توجد ملاحظات تطابق معايير التصفية المحددة.',
   },
 };

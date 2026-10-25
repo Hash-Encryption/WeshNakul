@@ -411,5 +411,55 @@
       "chili": "Hot Chili",
       "doom": "Doom"
     }
+  },
+  "feedback": {
+    "buttonAria": "Send feedback or report an issue",
+    "modalTitle": "Help us make WeshNakul better!",
+    "modalSubtitle": "Something wrong, an idea, or a restaurant we're missing?",
+    "tabBug": "Report a bug",
+    "tabComment": "Leave a comment",
+    "tabBrand": "Suggest a brand",
+    "closeAria": "Close feedback dialog",
+    "bug": {
+      "descLabel": "What went wrong?",
+      "descPlaceholder": "Describe what happened...",
+      "stepsLabel": "What were you trying to do? (Optional)",
+      "stepsPlaceholder": "e.g. Swiping on burgers after spinning the wheel",
+      "submit": "Submit Bug Report"
+    },
+    "comment": {
+      "messageLabel": "Your Message",
+      "messagePlaceholder": "Thoughts, suggestions, complaints, or compliments...",
+      "nameLabel": "Your Name (Optional)",
+      "namePlaceholder": "Anonymous or your name",
+      "submit": "Submit Comment"
+    },
+    "brand": {
+      "nameLabel": "Brand or Restaurant Name",
+      "namePlaceholder": "e.g. Al Baik, Chef Burger...",
+      "locationLabel": "Branch or Location (Optional)",
+      "locationPlaceholder": "e.g. Al-Zahra, Tahlia St...",
+      "districtLabel": "District (Optional)",
+      "districtPlaceholder": "e.g. Al-Rawdah",
+      "contextLabel": "Additional Context (Optional)",
+      "contextPlaceholder": "Specialty dishes, operating hours, or why we should add it...",
+      "ownerQuestion": "Are you the owner or an authorized representative of this brand?",
+      "ownerYes": "Yes",
+      "ownerNo": "No",
+      "phoneLabel": "Contact Phone Number",
+      "phonePlaceholder": "+966 5X XXX XXXX",
+      "phoneNotice": "This number will be used by the WeshNakul team to follow up about your brand suggestion. It will not be displayed publicly.",
+      "submit": "Submit Brand Suggestion"
+    },
+    "status": {
+      "submitting": "Submitting...",
+      "successTitle": "Thank you!",
+      "successMessage": "Your feedback has been received and helps us make WeshNakul better for everyone.",
+      "done": "Done",
+      "errorGeneric": "Something went wrong while submitting your feedback. Please try again.",
+      "requiredField": "This field is required.",
+      "phoneRequired": "A valid phone number with country code is required for brand owners.",
+      "ownerChoiceRequired": "Please select whether you are the brand owner or representative."
+    }
   }
 }
