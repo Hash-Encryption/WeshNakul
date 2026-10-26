@@ -165,6 +165,9 @@ export const ALLOWED_BRAND_FIELDS = new Set([
   'manual_review_required',
   'manual_review_reasons',
   'last_verified_at',
+  'image_url',
+  'signature_dish_en',
+  'signature_dish_ar',
   'origin_city',
   'origin_country',
   'official_website',
@@ -176,6 +179,7 @@ export const ALLOWED_BRAND_FIELDS = new Set([
 ]);
 
 export const ALLOWED_BRANCH_FIELDS = new Set([
+  'restaurant_id',
   'branch_name_ar',
   'branch_name_en',
   'district',
@@ -248,6 +252,19 @@ export function validateBrandFields(
         field: key,
         code: 'UNKNOWN_FIELD',
         message: `Unrecognized brand field: '${key}'.`,
+        severity: 'error',
+      });
+    }
+  }
+
+  if (isNew) {
+    if (!brandId || typeof brandId !== 'string' || !/^[a-z0-9_-]{2,80}$/.test(brandId.trim())) {
+      errors.push({
+        entity_type: 'restaurant',
+        entity_id: brandId,
+        field: 'id',
+        code: 'INVALID_BRAND_ID',
+        message: 'New brand ID must be a lowercase alphanumeric slug between 2 and 80 characters.',
         severity: 'error',
       });
     }
@@ -405,6 +422,31 @@ export function validateBrandFields(
     }
   }
 
+  if (changes.image_url !== undefined && changes.image_url !== null) {
+    if (typeof changes.image_url !== 'string') {
+      errors.push({
+        entity_type: 'restaurant',
+        entity_id: brandId,
+        field: 'image_url',
+        code: 'INVALID_FIELD_TYPE',
+        message: 'Field image_url must be a string or null.',
+        severity: 'error',
+      });
+    } else {
+      const trimmed = changes.image_url.trim();
+      if (trimmed.length > 0 && !trimmed.startsWith('https://') && !trimmed.startsWith('/images/')) {
+        errors.push({
+          entity_type: 'restaurant',
+          entity_id: brandId,
+          field: 'image_url',
+          code: 'INVALID_IMAGE_URL',
+          message: 'Image URL must be a valid HTTPS URL or relative /images/ path.',
+          severity: 'error',
+        });
+      }
+    }
+  }
+
   return errors;
 }
 
@@ -418,6 +460,35 @@ export function validateBranchFields(
   isNew = false
 ): ValidationError[] {
   const errors: ValidationError[] = [];
+
+  if (isNew) {
+    if (
+      !branchId ||
+      typeof branchId !== 'string' ||
+      !/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(branchId.trim())
+    ) {
+      errors.push({
+        entity_type: 'branch',
+        entity_id: branchId,
+        field: 'id',
+        code: 'INVALID_BRANCH_ID',
+        message: 'New branch ID must be a valid UUID.',
+        severity: 'error',
+      });
+    }
+
+    const restId = typeof changes.restaurant_id === 'string' ? changes.restaurant_id.trim() : '';
+    if (!existingBranch && !restId) {
+      errors.push({
+        entity_type: 'branch',
+        entity_id: branchId,
+        field: 'restaurant_id',
+        code: 'REQUIRED_PARENT_BRAND_MISSING',
+        message: 'New branch requires a parent restaurant_id.',
+        severity: 'error',
+      });
+    }
+  }
 
   // Field validation and entity separation
   for (const key of Object.keys(changes)) {

@@ -205,7 +205,8 @@ export function normalizeRestaurantItem(
   }
 
   // 14. Image URL: verified URL or undefined, never a stock photo
-  const imageUrl = typeof record.imageUrl === 'string' && record.imageUrl.trim() ? record.imageUrl.trim() : undefined;
+  const rawImageUrl = record.imageUrl || record.image_url;
+  const imageUrl = typeof rawImageUrl === 'string' && rawImageUrl.trim() ? rawImageUrl.trim() : undefined;
 
   const result: RestaurantItem = {
     id,

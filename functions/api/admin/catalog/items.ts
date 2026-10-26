@@ -39,7 +39,7 @@ export async function onRequestGet(context: { request: Request; env: Env }): Pro
 
   try {
     // Fetch brands
-    let brandQuery = `${supabaseUrl}/rest/v1/restaurants?select=id,name_en,name_ar,categories,dining_mode,tier,price_tier,rating,operating_status,research_use,price_position,editorial_role,manual_review_required,manual_review_reasons,updated_at&order=name_en.asc&limit=${limit + 1}&offset=${offset}`;
+    let brandQuery = `${supabaseUrl}/rest/v1/restaurants?select=id,name_en,name_ar,categories,dining_mode,tier,price_tier,rating,operating_status,research_use,price_position,editorial_role,manual_review_required,manual_review_reasons,image_url,signature_dish_en,signature_dish_ar,updated_at&order=name_en.asc&limit=${limit + 1}&offset=${offset}`;
 
     if (category) {
       brandQuery += `&categories=cs.{${encodeURIComponent(category)}}`;

@@ -24,6 +24,7 @@ import {
   onRequestGet as handleCatalogExport,
   sanitizeCsvCell,
 } from '../functions/api/admin/catalog/export.ts';
+import { onRequestPost as handleCatalogUploadImage } from '../functions/api/admin/catalog/upload-image.ts';
 
 import {
   CANONICAL_JEDDAH_DISTRICT_IDS,
@@ -102,6 +103,7 @@ const endpoints = [
   { name: 'publish', fn: handleCatalogPublish, method: 'POST', url: 'https://weshnakul.com/api/admin/catalog/publish', body: {} },
   { name: 'emergency', fn: handleCatalogEmergency, method: 'POST', url: 'https://weshnakul.com/api/admin/catalog/emergency', body: {} },
   { name: 'rollback', fn: handleCatalogRollback, method: 'POST', url: 'https://weshnakul.com/api/admin/catalog/rollback', body: {} },
+  { name: 'upload-image', fn: handleCatalogUploadImage, method: 'POST', url: 'https://weshnakul.com/api/admin/catalog/upload-image', body: {} },
   { name: 'export', fn: handleCatalogExport, method: 'GET', url: 'https://weshnakul.com/api/admin/catalog/export' },
 ];
 
@@ -496,6 +498,10 @@ await db.exec(`
     manual_review_required boolean default false,
     manual_review_reasons text[] default '{}',
     official_phone text,
+    signature_dish_en text,
+    signature_dish_ar text,
+    image_url text,
+    created_at timestamptz default now(),
     updated_at timestamptz default now()
   );
 
@@ -517,6 +523,7 @@ await db.exec(`
     late_night boolean default false,
     is_24_hours boolean default false,
     last_verified_at timestamptz,
+    created_at timestamptz default now(),
     updated_at timestamptz default now()
   );
 
@@ -534,6 +541,29 @@ await db.exec(sqlPhase3);
 const sqlPhase4 = readFileSync('supabase/migrations/20261021000100_phase4_catalog_controls.sql', 'utf8').replace(/BEGIN;|COMMIT;/g, '');
 await db.exec(sqlPhase4);
 check(true, 'Phase 4 migration 20261021000100 applied cleanly to Postgres');
+
+// Provision storage schema & buckets table for storage provisioning in Brand Editor migration
+await db.exec(`
+  CREATE SCHEMA IF NOT EXISTS storage;
+  CREATE TABLE IF NOT EXISTS storage.buckets (
+    id text PRIMARY KEY,
+    name text NOT NULL,
+    public boolean DEFAULT false,
+    file_size_limit bigint,
+    allowed_mime_types text[]
+  );
+`);
+
+// Apply Brand Editor migration
+const sqlBrandEditor = readFileSync('supabase/migrations/20261027000100_brand_editor_image_and_creation.sql', 'utf8').replace(/BEGIN;|COMMIT;/g, '');
+await db.exec(sqlBrandEditor);
+check(true, 'Brand Editor migration 20261027000100 applied cleanly to Postgres');
+
+// Verify private staging and public published storage buckets
+const stagingBucket = await db.query(`SELECT id, public, file_size_limit FROM storage.buckets WHERE id = 'restaurant-staging';`);
+check(stagingBucket.rows.length === 1 && stagingBucket.rows[0].public === false, 'Storage bucket restaurant-staging is private (public = false)');
+const imagesBucket = await db.query(`SELECT id, public, file_size_limit FROM storage.buckets WHERE id = 'restaurant-images';`);
+check(imagesBucket.rows.length === 1 && imagesBucket.rows[0].public === true, 'Storage bucket restaurant-images is public (public = true)');
 
 // 4a. RLS enforcement on catalog_draft_changesets
 await db.exec('SET ROLE anon;');
@@ -1134,7 +1164,7 @@ const brandAfterAuditFail = await db.query("SELECT rating FROM public.restaurant
 check(Number(brandAfterAuditFail.rows[0].rating) === 4.9, 'All-or-nothing: audit failure rolled back all restaurant mutations');
 
 // ======================================================================
-// SUITE 8f: Blocker 1 Regression — Strict Canonical 30 Districts Enforcement
+// SUITE 8f: Blocker 1 Regression: Strict Canonical 30 Districts Enforcement
 // ======================================================================
 console.log('\n8f. Verifying Strict Canonical 30 Jeddah Districts Enforcement in SQL RPC...');
 
@@ -1276,7 +1306,7 @@ for (const distId of canonicalDistrictsArray) {
 check(allCanonicalPassed, 'All 30 canonical Jeddah districts pass district validation in publish_catalog_changeset');
 
 // ======================================================================
-// SUITE 8g: Blocker 2 Regression — Precise Audit History Attribution
+// SUITE 8g: Blocker 2 Regression: Precise Audit History Attribution
 // ======================================================================
 console.log('\n8g. Verifying Precise Transaction-Scoped Audit History Attribution in SQL RPC...');
 
@@ -2747,6 +2777,446 @@ check(emDashPhase4ArCount === 0, 'Zero em dashes (—) found in Phase 4 Arabic t
 // Anti-slop test: verify NO em dashes in newly created CatalogControlsView.tsx
 const catalogViewSrc = readFileSync('src/components/admin/CatalogControlsView.tsx', 'utf8');
 check(!catalogViewSrc.includes('—'), 'Zero em dashes (—) in CatalogControlsView.tsx');
+
+// ======================================================================
+// SUITE 13: Unified Brand Editor, Image Upload & Creation Capabilities
+// ======================================================================
+console.log('\n13. Verifying Unified Brand Editor, Image Upload & Creation Capabilities...');
+
+// 13a. Brand creation slug validation
+const newBrandValid = validateBrandFields('al_tazaj_2', { name_en: 'Al Tazaj 2' }, true);
+check(!newBrandValid.some(e => e.code === 'INVALID_BRAND_ID'), 'Valid slug passes new brand validation');
+
+const newBrandBadSlug = validateBrandFields('INVALID SLUG WITH SPACES', { name_en: 'Bad' }, true);
+check(newBrandBadSlug.some(e => e.code === 'INVALID_BRAND_ID'), 'Invalid slug with spaces rejected for new brand');
+
+const newBrandShortSlug = validateBrandFields('a', { name_en: 'Too Short' }, true);
+check(newBrandShortSlug.some(e => e.code === 'INVALID_BRAND_ID'), 'Single-character slug rejected for new brand');
+
+// 13b. Brand image_url and signature dish validation
+const brandImageHttps = validateBrandFields('brand_img', { image_url: 'https://images.weshnakul.com/brands/test.webp' });
+check(!brandImageHttps.some(e => e.field === 'image_url'), 'Valid HTTPS image_url passes validation');
+
+const brandImageRelative = validateBrandFields('brand_img', { image_url: '/images/brands/shawarma.png' });
+check(!brandImageRelative.some(e => e.field === 'image_url'), 'Valid relative /images/ path passes validation');
+
+const brandImageNull = validateBrandFields('brand_img', { image_url: null });
+check(!brandImageNull.some(e => e.field === 'image_url'), 'Null image_url (removal) passes validation');
+
+const brandImageInsecure = validateBrandFields('brand_img', { image_url: 'http://insecure-cdn.com/brand.jpg' });
+check(brandImageInsecure.some(e => e.code === 'INVALID_IMAGE_URL'), 'Insecure HTTP image URL rejected with INVALID_IMAGE_URL');
+
+const brandImageNonString = validateBrandFields('brand_img', { image_url: 12345 });
+check(brandImageNonString.some(e => e.code === 'INVALID_FIELD_TYPE'), 'Non-string image_url rejected with INVALID_FIELD_TYPE');
+
+const brandSignatureDishes = validateBrandFields('brand_sig', {
+  signature_dish_en: 'Double Truffle Burger',
+  signature_dish_ar: 'برجر ترفل دبل',
+});
+check(brandSignatureDishes.length === 0, 'Signature dishes in English and Arabic pass validation');
+
+// 13c. Branch creation validation
+const validBranchUuid = randomUUID();
+const newBranchValid = validateBranchFields(validBranchUuid, {
+  restaurant_id: 'al_tazaj',
+  district: 'al_rawdah',
+  address_en: 'Sari Branch',
+}, null, true);
+check(!newBranchValid.some(e => e.code === 'INVALID_BRANCH_ID'), 'Valid UUID passes new branch validation');
+check(!newBranchValid.some(e => e.code === 'REQUIRED_PARENT_BRAND_MISSING'), 'Provided restaurant_id passes new branch validation');
+
+const newBranchBadUuid = validateBranchFields('not-a-uuid', {
+  restaurant_id: 'al_tazaj',
+  district: 'al_rawdah',
+  address_en: 'Sari Branch',
+}, null, true);
+check(newBranchBadUuid.some(e => e.code === 'INVALID_BRANCH_ID'), 'Non-UUID ID rejected with INVALID_BRANCH_ID for new branch');
+
+const newBranchMissingParent = validateBranchFields(validBranchUuid, {
+  district: 'al_rawdah',
+  address_en: 'Sari Branch',
+}, null, true);
+check(newBranchMissingParent.some(e => e.code === 'REQUIRED_PARENT_BRAND_MISSING'), 'Missing restaurant_id rejected with REQUIRED_PARENT_BRAND_MISSING for new branch');
+
+// 13d. Image upload endpoint security & validation
+// 13d.1: Unauthenticated request -> 401
+const reqUploadUnauth = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+});
+const resUploadUnauth = await handleCatalogUploadImage({ request: reqUploadUnauth, env: mockEnv });
+check(resUploadUnauth.status === 401, 'Unauthenticated image upload rejected with 401 Unauthorized');
+
+// 13d.2: Non-admin request -> 403
+const reqUploadNonAdmin = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${nonAdminToken}` },
+});
+const resUploadNonAdmin = await handleCatalogUploadImage({ request: reqUploadNonAdmin, env: mockEnv });
+check(resUploadNonAdmin.status === 403, 'Non-admin image upload rejected with 403 Forbidden');
+
+// 13d.3: Non-multipart request (JSON body) -> 400
+const reqUploadNoFile = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${adminToken}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({}),
+});
+const resUploadNoFile = await handleCatalogUploadImage({ request: reqUploadNoFile, env: mockEnv });
+check(resUploadNoFile.status === 400, 'Image upload without multipart form data rejected with 400 Bad Request');
+
+// 13d.4: Missing brand_id -> 400 brand_id_required
+const jpegSampleBytes = new Uint8Array([0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46]);
+const formNoBrand = new FormData();
+formNoBrand.append('file', new Blob([jpegSampleBytes], { type: 'image/jpeg' }), 'test.jpg');
+const reqUploadNoBrand = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formNoBrand,
+});
+const resUploadNoBrand = await handleCatalogUploadImage({ request: reqUploadNoBrand, env: mockEnv });
+check(resUploadNoBrand.status === 400, 'Image upload without brand_id rejected with 400 Bad Request');
+const jsonUploadNoBrand = await resUploadNoBrand.json();
+check(jsonUploadNoBrand.error === 'brand_id_required', 'Error code is brand_id_required');
+
+// 13d.5: Invalid brand_id (only invalid symbols) -> 400 invalid_brand_id
+const formBadBrand = new FormData();
+formBadBrand.append('brand_id', '$$$@@@###');
+formBadBrand.append('file', new Blob([jpegSampleBytes], { type: 'image/jpeg' }), 'test.jpg');
+const reqUploadBadBrand = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formBadBrand,
+});
+const resUploadBadBrand = await handleCatalogUploadImage({ request: reqUploadBadBrand, env: mockEnv });
+check(resUploadBadBrand.status === 400, 'Image upload with symbol-only brand_id rejected with 400 Bad Request');
+const jsonUploadBadBrand = await resUploadBadBrand.json();
+check(jsonUploadBadBrand.error === 'invalid_brand_id', 'Error code is invalid_brand_id');
+
+// 13d.6: Missing file in form data -> 400 file_required
+const formNoFile = new FormData();
+formNoFile.append('brand_id', 'test_brand');
+const reqUploadMissingFile = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formNoFile,
+});
+const resUploadMissingFile = await handleCatalogUploadImage({ request: reqUploadMissingFile, env: mockEnv });
+check(resUploadMissingFile.status === 400, 'Image upload without file field rejected with 400 Bad Request');
+const jsonUploadMissingFile = await resUploadMissingFile.json();
+check(jsonUploadMissingFile.error === 'file_required', 'Error code is file_required');
+
+// 13d.7: Empty file (0 bytes) -> 400 empty_file
+const formEmptyFile = new FormData();
+formEmptyFile.append('brand_id', 'test_brand');
+formEmptyFile.append('file', new Blob([], { type: 'image/jpeg' }), 'empty.jpg');
+const reqUploadEmptyFile = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formEmptyFile,
+});
+const resUploadEmptyFile = await handleCatalogUploadImage({ request: reqUploadEmptyFile, env: mockEnv });
+check(resUploadEmptyFile.status === 400, 'Empty image file (0 bytes) rejected with 400 Bad Request');
+const jsonUploadEmptyFile = await resUploadEmptyFile.json();
+check(jsonUploadEmptyFile.error === 'empty_file', 'Error code is empty_file');
+
+// 13d.8: File exceeding 5 MB limit -> 400 file_too_large
+const oversizedBytes = new Uint8Array(5 * 1024 * 1024 + 1024); // 5 MB + 1 KB
+oversizedBytes[0] = 0xFF; oversizedBytes[1] = 0xD8; oversizedBytes[2] = 0xFF;
+const formOversized = new FormData();
+formOversized.append('brand_id', 'test_brand');
+formOversized.append('file', new Blob([oversizedBytes], { type: 'image/jpeg' }), 'large.jpg');
+const reqUploadOversized = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formOversized,
+});
+const resUploadOversized = await handleCatalogUploadImage({ request: reqUploadOversized, env: mockEnv });
+check(resUploadOversized.status === 400, 'Oversized file (>5 MB) rejected with 400 Bad Request');
+const jsonUploadOversized = await resUploadOversized.json();
+check(jsonUploadOversized.error === 'file_too_large', 'Error code is file_too_large');
+
+// 13d.9: MIME spoofing - HTML file claiming image/jpeg -> 400 unsupported_file_type
+const htmlSpoofBytes = new TextEncoder().encode('<!DOCTYPE html><html><head><script>alert("xss")</script></head><body><h1>Fake</h1></body></html>');
+const formHtmlSpoof = new FormData();
+formHtmlSpoof.append('brand_id', 'test_brand');
+formHtmlSpoof.append('file', new Blob([htmlSpoofBytes], { type: 'image/jpeg' }), 'innocent.jpg');
+const reqUploadHtmlSpoof = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formHtmlSpoof,
+});
+const resUploadHtmlSpoof = await handleCatalogUploadImage({ request: reqUploadHtmlSpoof, env: mockEnv });
+check(resUploadHtmlSpoof.status === 400, 'HTML MIME spoof claiming image/jpeg rejected with 400 Bad Request');
+const jsonUploadHtmlSpoof = await resUploadHtmlSpoof.json();
+check(jsonUploadHtmlSpoof.error === 'unsupported_file_type', 'Error code is unsupported_file_type for HTML MIME spoof');
+
+// 13d.10: MIME spoofing - Executable DOS MZ header claiming image/png -> 400 unsupported_file_type
+const exeSpoofBytes = new Uint8Array([0x4D, 0x5A, 0x90, 0x00, 0x03, 0x00, 0x00, 0x00, 0x04, 0x00]);
+const formExeSpoof = new FormData();
+formExeSpoof.append('brand_id', 'test_brand');
+formExeSpoof.append('file', new Blob([exeSpoofBytes], { type: 'image/png' }), 'setup.png');
+const reqUploadExeSpoof = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formExeSpoof,
+});
+const resUploadExeSpoof = await handleCatalogUploadImage({ request: reqUploadExeSpoof, env: mockEnv });
+check(resUploadExeSpoof.status === 400, 'Executable MIME spoof claiming image/png rejected with 400 Bad Request');
+const jsonUploadExeSpoof = await resUploadExeSpoof.json();
+check(jsonUploadExeSpoof.error === 'unsupported_file_type', 'Error code is unsupported_file_type for EXE MIME spoof');
+
+// 13d.11: Corrupted WebP header magic bytes -> 400 unsupported_file_type
+const corruptedWebpBytes = new Uint8Array([0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x42, 0x41, 0x44, 0x21]); // 'RIFF....BAD!'
+const formBadWebp = new FormData();
+formBadWebp.append('brand_id', 'test_brand');
+formBadWebp.append('file', new Blob([corruptedWebpBytes], { type: 'image/webp' }), 'corrupted.webp');
+const reqUploadBadWebp = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formBadWebp,
+});
+const resUploadBadWebp = await handleCatalogUploadImage({ request: reqUploadBadWebp, env: mockEnv });
+check(resUploadBadWebp.status === 400, 'Corrupted WebP header rejected with 400 Bad Request');
+const jsonUploadBadWebp = await resUploadBadWebp.json();
+check(jsonUploadBadWebp.error === 'unsupported_file_type', 'Error code is unsupported_file_type for bad WebP');
+
+// 13d.12: Valid JPEG upload with deterministic mocks -> 200 OK
+const formValidJpeg = new FormData();
+formValidJpeg.append('brand_id', 'test_brand_jpeg');
+formValidJpeg.append('file', new Blob([jpegSampleBytes], { type: 'image/jpeg' }), 'test.jpg');
+const reqUploadValidJpeg = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formValidJpeg,
+});
+const resUploadValidJpeg = await handleCatalogUploadImage({ request: reqUploadValidJpeg, env: mockEnv });
+check(resUploadValidJpeg.status === 200, 'Authenticated JPEG upload returns 200 OK');
+const jsonUploadValidJpeg = await resUploadValidJpeg.json();
+check(jsonUploadValidJpeg.success === true, 'JPEG upload response indicates success: true');
+check(jsonUploadValidJpeg.bucket === 'restaurant-staging', 'JPEG upload targeted private restaurant-staging bucket');
+check(jsonUploadValidJpeg.url.includes('restaurant-staging/staging/test_brand_jpeg/'), 'Staging URL points to restaurant-staging');
+check(jsonUploadValidJpeg.mime_type === 'image/jpeg', 'MIME type verified as image/jpeg');
+
+// 13d.13: Valid PNG upload with authentic magic bytes -> 200 OK
+const pngValidBytes = new Uint8Array([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D]);
+const formValidPng = new FormData();
+formValidPng.append('brand_id', 'test_brand_png');
+formValidPng.append('file', new Blob([pngValidBytes], { type: 'image/png' }), 'test.png');
+const reqUploadValidPng = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formValidPng,
+});
+const resUploadValidPng = await handleCatalogUploadImage({ request: reqUploadValidPng, env: mockEnv });
+check(resUploadValidPng.status === 200, 'Authenticated PNG upload returns 200 OK');
+const jsonUploadValidPng = await resUploadValidPng.json();
+check(jsonUploadValidPng.success === true, 'PNG upload response indicates success: true');
+check(jsonUploadValidPng.bucket === 'restaurant-staging', 'PNG upload targeted private restaurant-staging bucket');
+check(jsonUploadValidPng.mime_type === 'image/png', 'MIME type verified as image/png');
+
+// 13d.14: Valid WebP upload with authentic magic bytes -> 200 OK
+const webpValidBytes = new Uint8Array([0x52, 0x49, 0x46, 0x46, 0x24, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50]); // 'RIFF$..WEBP'
+const formValidWebp = new FormData();
+formValidWebp.append('brand_id', 'test_brand_webp');
+formValidWebp.append('file', new Blob([webpValidBytes], { type: 'image/webp' }), 'test.webp');
+const reqUploadValidWebp = new Request('https://weshnakul.com/api/admin/catalog/upload-image', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${adminToken}` },
+  body: formValidWebp,
+});
+const resUploadValidWebp = await handleCatalogUploadImage({ request: reqUploadValidWebp, env: mockEnv });
+check(resUploadValidWebp.status === 200, 'Authenticated WebP upload returns 200 OK');
+const jsonUploadValidWebp = await resUploadValidWebp.json();
+check(jsonUploadValidWebp.success === true, 'WebP upload response indicates success: true');
+check(jsonUploadValidWebp.bucket === 'restaurant-staging', 'WebP upload targeted private restaurant-staging bucket');
+check(jsonUploadValidWebp.mime_type === 'image/webp', 'MIME type verified as image/webp');
+
+// 13e. Brand Editor translation parity and anti-slop
+const brandEditorSampleKeys = [
+  'btnAddBrand',
+  'modalAddBrandTitle',
+  'sectionBrandInfo',
+  'sectionBrandImage',
+  'sectionBranches',
+  'labelBrandSlug',
+  'labelSignatureDishEn',
+  'labelSignatureDishAr',
+  'dropzoneImagePrompt',
+  'imageFormatsHint',
+  'btnReplaceImage',
+  'btnRemoveImage',
+  'btnRevertImage',
+  'badgePendingRemoval',
+  'badgeStagedImage',
+  'labelUnsavedChanges',
+  'confirmDiscardTitle',
+  'confirmDiscardDesc',
+  'btnDiscardChanges',
+  'btnKeepEditing',
+  'errorOversizedImage',
+  'errorInvalidImageType',
+  'btnSaveAndPreview',
+];
+
+for (const k of brandEditorSampleKeys) {
+  check(Boolean(ADMIN_TRANSLATIONS.en[k]), `Brand Editor key '${k}' present in English dictionary`);
+  check(Boolean(ADMIN_TRANSLATIONS.ar[k]), `Brand Editor key '${k}' present in Arabic dictionary`);
+  check(!ADMIN_TRANSLATIONS.en[k].includes('—'), `Zero em dashes in EN key '${k}'`);
+  check(!ADMIN_TRANSLATIONS.ar[k].includes('—'), `Zero em dashes in AR key '${k}'`);
+}
+
+// 13f. BrandEditorModal component validation
+const brandEditorModalSrc = readFileSync('src/components/admin/BrandEditorModal.tsx', 'utf8');
+check(brandEditorModalSrc.includes('export const BrandEditorModal'), 'BrandEditorModal.tsx exports BrandEditorModal component');
+check(!brandEditorModalSrc.includes('—'), 'Zero em dashes (—) in BrandEditorModal.tsx');
+
+// 13g. Regression Tests: Brand-before-branch creation ordering & parent brand checks
+console.log('\nVerifying brand-before-branch creation ordering & missing parent checks...');
+
+// Test 1: Brand listed before its branch in changeset -> succeeds
+const brand1Id = 'order_test_brand_1';
+const branch1Id = randomUUID();
+const draftOrder1 = await db.query(`
+  INSERT INTO public.catalog_draft_changesets (
+    title, created_by, reason, change_type, target_entities, status
+  ) VALUES (
+    'Order Test 1',
+    'admin@weshnakul.com',
+    'Brand before branch ordering test',
+    'edit',
+    $1::jsonb,
+    'draft'
+  ) RETURNING id;
+`, [JSON.stringify([
+  {
+    entity_type: 'restaurant',
+    entity_id: brand1Id,
+    action: 'create',
+    changes: {
+      name_en: 'Order Test Brand 1',
+      name_ar: 'براند ترتيب 1',
+      categories: ['shawarma'],
+      operating_status: 'open',
+      image_url: 'https://images.weshnakul.com/published/order_1.webp',
+    },
+  },
+  {
+    entity_type: 'branch',
+    entity_id: branch1Id,
+    action: 'create',
+    changes: {
+      restaurant_id: brand1Id,
+      district: 'al_rawdah',
+      address_en: 'Prince Sultan St Branch',
+      branch_status: 'open',
+    },
+  },
+])]);
+
+const pubOrder1Res = await db.query(`SELECT public.publish_catalog_changeset('${draftOrder1.rows[0].id}'::uuid, 'admin@weshnakul.com');`);
+const pubOrder1Outcome = pubOrder1Res.rows[0].publish_catalog_changeset;
+check(pubOrder1Outcome.success === true, 'Changeset with brand listed before branch published successfully');
+check(pubOrder1Outcome.published_entities_count === 2, 'Published exactly 2 entities (brand + branch)');
+
+const verifyBrand1 = await db.query(`SELECT id, name_en, image_url FROM public.restaurants WHERE id = '${brand1Id}';`);
+check(verifyBrand1.rows.length === 1 && verifyBrand1.rows[0].name_en === 'Order Test Brand 1', 'Created brand 1 exists in restaurants table');
+const verifyBranch1 = await db.query(`SELECT id, restaurant_id, district FROM public.restaurant_branches WHERE id = '${branch1Id}'::uuid;`);
+check(verifyBranch1.rows.length === 1 && verifyBranch1.rows[0].restaurant_id === brand1Id, 'Created branch 1 linked to parent brand 1');
+
+// Test 2: Branch listed BEFORE its brand in changeset -> succeeds due to Pass 2 ordering fix
+const brand2Id = 'order_test_brand_2';
+const branch2Id = randomUUID();
+const draftOrder2 = await db.query(`
+  INSERT INTO public.catalog_draft_changesets (
+    title, created_by, reason, change_type, target_entities, status
+  ) VALUES (
+    'Order Test 2',
+    'admin@weshnakul.com',
+    'Branch before brand ordering fix test',
+    'edit',
+    $1::jsonb,
+    'draft'
+  ) RETURNING id;
+`, [JSON.stringify([
+  // Branch is intentionally placed first at index 0
+  {
+    entity_type: 'branch',
+    entity_id: branch2Id,
+    action: 'create',
+    changes: {
+      restaurant_id: brand2Id,
+      district: 'al_zahra',
+      address_en: 'Al Batterjee St Branch',
+      branch_status: 'open',
+    },
+  },
+  // Brand is placed second at index 1
+  {
+    entity_type: 'restaurant',
+    entity_id: brand2Id,
+    action: 'create',
+    changes: {
+      name_en: 'Order Test Brand 2',
+      name_ar: 'براند ترتيب 2',
+      categories: ['burger'],
+      operating_status: 'open',
+    },
+  },
+])]);
+
+const pubOrder2Res = await db.query(`SELECT public.publish_catalog_changeset('${draftOrder2.rows[0].id}'::uuid, 'admin@weshnakul.com');`);
+const pubOrder2Outcome = pubOrder2Res.rows[0].publish_catalog_changeset;
+check(pubOrder2Outcome.success === true, 'Changeset with branch listed BEFORE brand published successfully via Pass 2 ordering');
+check(pubOrder2Outcome.published_entities_count === 2, 'Published exactly 2 entities despite branch-first array ordering');
+
+const verifyBrand2 = await db.query(`SELECT id, name_en FROM public.restaurants WHERE id = '${brand2Id}';`);
+check(verifyBrand2.rows.length === 1 && verifyBrand2.rows[0].name_en === 'Order Test Brand 2', 'Created brand 2 exists in restaurants table');
+const verifyBranch2 = await db.query(`SELECT id, restaurant_id, district FROM public.restaurant_branches WHERE id = '${branch2Id}'::uuid;`);
+check(verifyBranch2.rows.length === 1 && verifyBranch2.rows[0].restaurant_id === brand2Id, 'Created branch 2 linked to parent brand 2');
+
+// Test 3: Branch whose parent brand does NOT exist in DB and is NOT in changeset -> rejected
+const branchOrphanId = randomUUID();
+const missingParentBrandId = 'genuinely_missing_brand_999';
+const draftOrphan = await db.query(`
+  INSERT INTO public.catalog_draft_changesets (
+    title, created_by, reason, change_type, target_entities, status
+  ) VALUES (
+    'Order Test Orphan',
+    'admin@weshnakul.com',
+    'Missing parent brand rejection test',
+    'edit',
+    $1::jsonb,
+    'draft'
+  ) RETURNING id;
+`, [JSON.stringify([
+  {
+    entity_type: 'branch',
+    entity_id: branchOrphanId,
+    action: 'create',
+    changes: {
+      restaurant_id: missingParentBrandId,
+      district: 'al_hamra',
+      address_en: 'Corniche St Branch',
+      branch_status: 'open',
+    },
+  },
+])]);
+
+try {
+  await db.query(`SELECT public.publish_catalog_changeset('${draftOrphan.rows[0].id}'::uuid, 'admin@weshnakul.com');`);
+  assert.fail('Publishing branch with missing parent brand must throw exception');
+} catch (err) {
+  check(err.code === 'P0002', 'Publishing branch with non-existent parent brand rejected with SQLSTATE P0002');
+  check(err.message.includes('WSH_BRAND_NOT_FOUND'), 'Error message contains WSH_BRAND_NOT_FOUND');
+}
+
+const verifyOrphanDraft = await db.query(`SELECT status FROM public.catalog_draft_changesets WHERE id = '${draftOrphan.rows[0].id}'::uuid;`);
+check(verifyOrphanDraft.rows[0].status === 'draft', 'Failed changeset remains in draft status');
+const verifyOrphanBranch = await db.query(`SELECT id FROM public.restaurant_branches WHERE id = '${branchOrphanId}'::uuid;`);
+check(verifyOrphanBranch.rows.length === 0, 'No branch row created when parent brand is missing');
+
 
 console.log('\n======================================================');
 console.log(`PASS: All ${checks} Phase 4 verification checks passed successfully!`);

@@ -265,6 +265,9 @@ export interface CatalogBrand {
   editorial_role?: string;
   manual_review_required?: boolean;
   manual_review_reasons?: string[];
+  image_url?: string | null;
+  signature_dish_en?: string | null;
+  signature_dish_ar?: string | null;
   updated_at?: string;
 }
 

@@ -321,6 +321,31 @@ export interface AdminTranslations {
   rollbackModalTitle: string;
   rollbackWarningNotice: string;
 
+  // Unified Brand Editor
+  btnAddBrand: string;
+  modalAddBrandTitle: string;
+  sectionBrandInfo: string;
+  sectionBrandImage: string;
+  sectionBranches: string;
+  labelBrandSlug: string;
+  labelSignatureDishEn: string;
+  labelSignatureDishAr: string;
+  dropzoneImagePrompt: string;
+  imageFormatsHint: string;
+  btnReplaceImage: string;
+  btnRemoveImage: string;
+  btnRevertImage: string;
+  badgePendingRemoval: string;
+  badgeStagedImage: string;
+  labelUnsavedChanges: string;
+  confirmDiscardTitle: string;
+  confirmDiscardDesc: string;
+  btnDiscardChanges: string;
+  btnKeepEditing: string;
+  errorOversizedImage: string;
+  errorInvalidImageType: string;
+  btnSaveAndPreview: string;
+
   // Phase 5 Algorithm Controls
   tabAlgorithmControls: string;
   algoControlsTitle: string;
@@ -719,6 +744,31 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     rollbackModalTitle: 'Forward Rollback Confirmation',
     rollbackWarningNotice: 'Rollback creates a new forward audit entry restoring the prior state. It will not erase historical records.',
 
+    // Unified Brand Editor
+    btnAddBrand: 'Add Brand',
+    modalAddBrandTitle: 'Add New Brand',
+    sectionBrandInfo: 'Brand Information',
+    sectionBrandImage: 'Brand Image',
+    sectionBranches: 'Branches (Optional)',
+    labelBrandSlug: 'Brand Slug ID (lowercase, hyphens)',
+    labelSignatureDishEn: 'Signature Dish (English)',
+    labelSignatureDishAr: 'Signature Dish (Arabic)',
+    dropzoneImagePrompt: 'Drag and drop an image, paste from clipboard, or click to browse',
+    imageFormatsHint: 'Supports JPEG, PNG, WebP up to 5 MB',
+    btnReplaceImage: 'Replace Image',
+    btnRemoveImage: 'Remove Image',
+    btnRevertImage: 'Revert to Original',
+    badgePendingRemoval: 'Pending Removal',
+    badgeStagedImage: 'Staged for Draft',
+    labelUnsavedChanges: 'Unsaved Changes',
+    confirmDiscardTitle: 'Discard Unsaved Changes?',
+    confirmDiscardDesc: 'You have unsaved changes in this brand editor. Closing will discard them.',
+    btnDiscardChanges: 'Discard Changes',
+    btnKeepEditing: 'Keep Editing',
+    errorOversizedImage: 'Image size exceeds maximum limit of 5 MB.',
+    errorInvalidImageType: 'Unsupported file type. Please upload JPEG, PNG, or WebP.',
+    btnSaveAndPreview: 'Save & Review Draft',
+
     // Phase 5 Algorithm Controls
     tabAlgorithmControls: 'Algorithm Controls',
     algoControlsTitle: 'Recommendation Algorithm Controls',
@@ -1115,6 +1165,31 @@ export const ADMIN_TRANSLATIONS: Record<AdminLocale, AdminTranslations> = {
     btnRollbackToSnapshot: 'تراجع للأمام إلى اللقطة',
     rollbackModalTitle: 'تأكيد التراجع الأمامي',
     rollbackWarningNotice: 'التراجع ينشئ حدث تدقيق أمامي جديد يستعيد الحالة السابقة ولا يمسح السجلات التاريخية.',
+
+    // Unified Brand Editor
+    btnAddBrand: 'إضافة علامة تجارية',
+    modalAddBrandTitle: 'إضافة علامة تجارية جديدة',
+    sectionBrandInfo: 'بيانات العلامة التجارية',
+    sectionBrandImage: 'صورة العلامة',
+    sectionBranches: 'الفروع (اختياري)',
+    labelBrandSlug: 'معرف العلامة (أحرف صغيرة وشرطات)',
+    labelSignatureDishEn: 'الطبق المميز (إنجليزي)',
+    labelSignatureDishAr: 'الطبق المميز (عربي)',
+    dropzoneImagePrompt: 'اسحب وأفلت الصورة، أو الصق من الحافظة، أو انقر للاختيار',
+    imageFormatsHint: 'يدعم JPEG و PNG و WebP حتى 5 ميجابايت',
+    btnReplaceImage: 'استبدال الصورة',
+    btnRemoveImage: 'إزالة الصورة',
+    btnRevertImage: 'استعادة الأصلية',
+    badgePendingRemoval: 'معلق للإزالة',
+    badgeStagedImage: 'جاهزة للمسودة',
+    labelUnsavedChanges: 'تغييرات غير محفوظة',
+    confirmDiscardTitle: 'تجاهل التغييرات غير المحفوظة؟',
+    confirmDiscardDesc: 'لديك تعديلات غير محفوظة في المحرر. الإغلاق سيؤدي إلى فقدانها.',
+    btnDiscardChanges: 'تجاهل التغييرات',
+    btnKeepEditing: 'متابعة التعديل',
+    errorOversizedImage: 'حجم الصورة يتجاوز الحد الأقصى المسموح (5 ميجابايت).',
+    errorInvalidImageType: 'نوع الملف غير مدعوم. يرجى اختيار JPEG أو PNG أو WebP.',
+    btnSaveAndPreview: 'حفظ ومعاينة المسودة',
 
     // Phase 5 Algorithm Controls
     tabAlgorithmControls: 'إعدادات الخوارزمية',

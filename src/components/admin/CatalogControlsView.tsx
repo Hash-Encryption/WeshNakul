@@ -15,8 +15,10 @@ import {
   X,
   Buildings,
   Storefront,
+  Plus,
 } from '@phosphor-icons/react';
 import { useAdminLocale } from '../../context/AdminLocaleContext';
+import { BrandEditorModal } from './BrandEditorModal';
 import {
   fetchCatalogItems,
   fetchCatalogDrafts,
@@ -67,12 +69,8 @@ export const CatalogControlsView: React.FC = () => {
   const [isDraftsLoading, setIsDraftsLoading] = useState<boolean>(false);
 
   // Modals state
-  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-  const [editingEntity, setEditingEntity] = useState<{
-    type: 'restaurant' | 'branch';
-    brand?: CatalogBrand;
-    branch?: CatalogBranch;
-  } | null>(null);
+  const [isBrandEditorOpen, setIsBrandEditorOpen] = useState<boolean>(false);
+  const [selectedBrandForEdit, setSelectedBrandForEdit] = useState<CatalogBrand | null>(null);
 
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState<boolean>(false);
   const [activeChangesetId, setActiveChangesetId] = useState<string | null>(null);
@@ -171,16 +169,20 @@ export const CatalogControlsView: React.FC = () => {
     });
   };
 
-  // Open brand edit modal
+  // Open unified Brand Editor modal
   const handleOpenBrandEdit = (brand: CatalogBrand) => {
-    setEditingEntity({ type: 'restaurant', brand });
-    setIsEditModalOpen(true);
+    setSelectedBrandForEdit(brand);
+    setIsBrandEditorOpen(true);
   };
 
-  // Open branch edit modal
-  const handleOpenBranchEdit = (branch: CatalogBranch, parentBrand: CatalogBrand) => {
-    setEditingEntity({ type: 'branch', branch, brand: parentBrand });
-    setIsEditModalOpen(true);
+  const handleOpenAddBrand = () => {
+    setSelectedBrandForEdit(null);
+    setIsBrandEditorOpen(true);
+  };
+
+  const handleOpenBranchEdit = (_branch: CatalogBranch, parentBrand: CatalogBrand) => {
+    setSelectedBrandForEdit(parentBrand);
+    setIsBrandEditorOpen(true);
   };
 
   // Trigger Validation & Preview
@@ -379,6 +381,15 @@ export const CatalogControlsView: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={handleOpenAddBrand}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-brand-red text-white hover:bg-brand-red/90 text-xs font-semibold transition-colors shadow-sm cursor-pointer"
+            >
+              <Plus size={14} weight="bold" />
+              <span>{t('btnAddBrand')}</span>
+            </button>
+
             {selectedEntityKeys.size > 0 && (
               <button
                 type="button"
@@ -549,26 +560,34 @@ export const CatalogControlsView: React.FC = () => {
                     className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden transition-all"
                   >
                     {/* Brand Row */}
-                    <div className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:bg-stone-50/50">
-                      <div className="flex items-start gap-2.5">
+                    <div className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:bg-stone-50/70 transition-colors">
+                      <div className="flex items-start gap-2.5 flex-1 min-w-0">
                         <input
                           type="checkbox"
                           checked={selectedEntityKeys.has(`brand:${brand.id}`)}
                           onChange={() => toggleSelectEntity(`brand:${brand.id}`)}
+                          onClick={(e) => e.stopPropagation()}
                           className="mt-1.5 rounded text-brand-red focus:ring-brand-red/20 cursor-pointer"
                         />
 
                         <button
                           type="button"
-                          onClick={() => toggleBrandExpand(brand.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleBrandExpand(brand.id);
+                          }}
                           className="mt-1 p-1 text-stone-400 hover:text-stone-700 transition-colors cursor-pointer"
+                          title={isExpanded ? 'Collapse branches' : 'Expand branches'}
                         >
                           {isExpanded ? <CaretDown size={16} /> : <CaretRight size={16} />}
                         </button>
 
-                        <div>
+                        <div
+                          onClick={() => handleOpenBrandEdit(brand)}
+                          className="flex-1 cursor-pointer group"
+                        >
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="font-bold text-sm text-stone-900 font-alexandria">
+                            <span className="font-bold text-sm text-stone-900 font-alexandria group-hover:text-brand-red transition-colors">
                               {brand.name_en || brand.name_ar}
                             </span>
                             {brand.name_ar && brand.name_en && (
@@ -579,6 +598,11 @@ export const CatalogControlsView: React.FC = () => {
                             <span className="font-mono text-[10px] text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">
                               {brand.id}
                             </span>
+                            {brand.image_url && (
+                              <span className="text-[10px] text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-medium">
+                                Has Image
+                              </span>
+                            )}
                           </div>
 
                           <div className="flex flex-wrap items-center gap-2 mt-1.5">
@@ -607,7 +631,10 @@ export const CatalogControlsView: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 self-end md:self-center">
+                      <div
+                        className="flex items-center gap-2 self-end md:self-center"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <span className="text-xs font-semibold text-stone-500">
                           {brandBranches.length} {t('colBranchesCount')}
                         </span>
@@ -1311,400 +1338,27 @@ export const CatalogControlsView: React.FC = () => {
         </div>
       )}
 
-      {/* Brand / Branch Edit Drawer / Modal */}
-      {isEditModalOpen && editingEntity && (
-        <EditDraftModal
-          editingEntity={editingEntity}
+      {/* Unified Brand Editor Modal */}
+      {isBrandEditorOpen && (
+        <BrandEditorModal
+          brand={selectedBrandForEdit}
+          existingBranches={
+            selectedBrandForEdit ? branchesByBrand.get(selectedBrandForEdit.id) || [] : []
+          }
           districts={districts}
-          onClose={() => setIsEditModalOpen(false)}
+          onClose={() => {
+            setIsBrandEditorOpen(false);
+            setSelectedBrandForEdit(null);
+          }}
           onSaved={async (draftId) => {
-            setIsEditModalOpen(false);
+            setIsBrandEditorOpen(false);
+            setSelectedBrandForEdit(null);
+            await loadCatalog();
             await loadDraftsAndReminders();
             handlePreviewDraft(draftId);
           }}
         />
       )}
-    </div>
-  );
-};
-
-// ----------------------------------------------------------------------
-// Sub-Component: Edit Draft Modal
-// ----------------------------------------------------------------------
-interface EditDraftModalProps {
-  editingEntity: {
-    type: 'restaurant' | 'branch';
-    brand?: CatalogBrand;
-    branch?: CatalogBranch;
-  };
-  districts: string[];
-  onClose: () => void;
-  onSaved: (draftId: string) => void;
-}
-
-const EditDraftModal: React.FC<EditDraftModalProps> = ({
-  editingEntity,
-  districts,
-  onClose,
-  onSaved,
-}) => {
-  const { t } = useAdminLocale();
-  const isBrand = editingEntity.type === 'restaurant';
-  const brand = editingEntity.brand;
-  const branch = editingEntity.branch;
-
-  // Form State: Brand
-  const [brandNameEn, setBrandNameEn] = useState<string>(brand?.name_en || '');
-  const [brandNameAr, setBrandNameAr] = useState<string>(brand?.name_ar || '');
-  const [categories, setCategories] = useState<string>(brand?.categories?.join(', ') || '');
-  const [diningMode, setDiningMode] = useState<string>(brand?.dining_mode || 'both');
-  const [rating, setRating] = useState<string>(String(brand?.rating ?? 4.5));
-  const [operatingStatus, setOperatingStatus] = useState<string>(brand?.operating_status || 'open');
-  const [researchUse, setResearchUse] = useState<string>(brand?.research_use || 'production_ready');
-
-  // Form State: Branch
-  const [branchNameEn, setBranchNameEn] = useState<string>(branch?.branch_name_en || '');
-  const [branchNameAr, setBranchNameAr] = useState<string>(branch?.branch_name_ar || '');
-  const [district, setDistrict] = useState<string>(branch?.district || districts[0] || 'al_rawdah');
-  const [addressEn, setAddressEn] = useState<string>(branch?.address_en || '');
-  const [addressAr, setAddressAr] = useState<string>(branch?.address_ar || '');
-  const [latitude, setLatitude] = useState<string>(branch?.latitude ? String(branch.latitude) : '');
-  const [longitude, setLongitude] = useState<string>(branch?.longitude ? String(branch.longitude) : '');
-  const [mapsUrl, setMapsUrl] = useState<string>(branch?.google_maps_url || '');
-  const [branchStatus, setBranchStatus] = useState<string>(branch?.branch_status || 'open');
-  const [dineIn, setDineIn] = useState<boolean>(branch?.dine_in ?? true);
-  const [takeaway, setTakeaway] = useState<boolean>(branch?.takeaway ?? true);
-
-  const [isSaving, setIsSaving] = useState<boolean>(false);
-
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSaving(true);
-    try {
-      let targetItem: CatalogDraftItem;
-
-      if (isBrand && brand) {
-        targetItem = {
-          entity_type: 'restaurant',
-          entity_id: brand.id,
-          base_version: brand.updated_at,
-          changes: {
-            name_en: brandNameEn.trim(),
-            name_ar: brandNameAr.trim(),
-            categories: categories
-              .split(',')
-              .map((c) => c.trim().toLowerCase())
-              .filter(Boolean),
-            dining_mode: diningMode,
-            rating: Number(rating) || 4.5,
-            operating_status: operatingStatus,
-            research_use: researchUse,
-          },
-        };
-      } else if (branch) {
-        targetItem = {
-          entity_type: 'branch',
-          entity_id: branch.id,
-          base_version: branch.updated_at,
-          changes: {
-            branch_name_en: branchNameEn.trim(),
-            branch_name_ar: branchNameAr.trim(),
-            district: district.trim(),
-            address_en: addressEn.trim(),
-            address_ar: addressAr.trim(),
-            latitude: latitude ? Number(latitude) : null,
-            longitude: longitude ? Number(longitude) : null,
-            google_maps_url: mapsUrl.trim() || null,
-            branch_status: branchStatus,
-            dine_in: dineIn,
-            takeaway: takeaway,
-          },
-        };
-      } else {
-        return;
-      }
-
-      const draftTitle = isBrand
-        ? `Edit Brand: ${brand?.name_en || brand?.id}`
-        : `Edit Branch: ${branchNameEn || district} (${branch?.id})`;
-
-      const savedDraft = await saveCatalogDraft({
-        title: draftTitle,
-        change_type: 'edit',
-        target_entities: [targetItem],
-      });
-
-      onSaved(savedDraft.id);
-    } catch (err) {
-      alert((err as Error).message || 'Failed to save draft.');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-        <div className="p-5 border-b border-stone-200 flex items-center justify-between">
-          <h3 className="text-base font-bold text-stone-900 font-alexandria">
-            {isBrand ? t('modalEditBrandTitle') : t('modalEditBranchTitle')}
-          </h3>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-1 rounded-xl text-stone-400 hover:text-stone-700 cursor-pointer"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
-          {isBrand ? (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelBrandNameEn')}</label>
-                  <input
-                    type="text"
-                    value={brandNameEn}
-                    onChange={(e) => setBrandNameEn(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelBrandNameAr')}</label>
-                  <input
-                    type="text"
-                    value={brandNameAr}
-                    onChange={(e) => setBrandNameAr(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelCategories')}</label>
-                  <input
-                    type="text"
-                    value={categories}
-                    onChange={(e) => setCategories(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelDiningMode')}</label>
-                  <select
-                    value={diningMode}
-                    onChange={(e) => setDiningMode(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer"
-                  >
-                    <option value="both">Both (Dine-in & Delivery)</option>
-                    <option value="delivery_only">Delivery Only</option>
-                    <option value="dine_in_only">Dine-in Only</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('colOperatingStatus')}</label>
-                  <select
-                    value={operatingStatus}
-                    onChange={(e) => setOperatingStatus(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer"
-                  >
-                    <option value="open">Open</option>
-                    <option value="temporarily_closed">Temporarily Closed</option>
-                    <option value="permanently_closed">Permanently Closed</option>
-                  </select>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('colResearchUse')}</label>
-                  <select
-                    value={researchUse}
-                    onChange={(e) => setResearchUse(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer"
-                  >
-                    <option value="production_ready">Production Ready</option>
-                    <option value="usable_with_caution">Usable with Caution</option>
-                    <option value="manual_review_only">Manual Review Only</option>
-                    <option value="rejected">Rejected</option>
-                  </select>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">Rating (0 - 5)</label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    min="0"
-                    max="5"
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelBranchNameEn')}</label>
-                  <input
-                    type="text"
-                    value={branchNameEn}
-                    onChange={(e) => setBranchNameEn(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelBranchNameAr')}</label>
-                  <input
-                    type="text"
-                    value={branchNameAr}
-                    onChange={(e) => setBranchNameAr(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelDistrict')}</label>
-                  <select
-                    value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer"
-                  >
-                    {districts.map((d) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelBranchStatus')}</label>
-                  <select
-                    value={branchStatus}
-                    onChange={(e) => setBranchStatus(e.target.value)}
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl cursor-pointer"
-                  >
-                    <option value="open">Open</option>
-                    <option value="temporarily_closed">Temporarily Closed</option>
-                    <option value="permanently_closed">Permanently Closed</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-bold text-stone-800">{t('labelAddressEn')}</label>
-                <input
-                  type="text"
-                  value={addressEn}
-                  onChange={(e) => setAddressEn(e.target.value)}
-                  placeholder="Street name, building..."
-                  className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-bold text-stone-800">{t('labelAddressAr')}</label>
-                <input
-                  type="text"
-                  value={addressAr}
-                  onChange={(e) => setAddressAr(e.target.value)}
-                  placeholder="الشارع، رقم المبنى..."
-                  className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelLatitude')}</label>
-                  <input
-                    type="number"
-                    step="0.000001"
-                    value={latitude}
-                    onChange={(e) => setLatitude(e.target.value)}
-                    placeholder="21.5432"
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl font-mono"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block font-bold text-stone-800">{t('labelLongitude')}</label>
-                  <input
-                    type="number"
-                    step="0.000001"
-                    value={longitude}
-                    onChange={(e) => setLongitude(e.target.value)}
-                    placeholder="39.1728"
-                    className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl font-mono"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="block font-bold text-stone-800">{t('labelGoogleMapsUrl')}</label>
-                <input
-                  type="url"
-                  value={mapsUrl}
-                  onChange={(e) => setMapsUrl(e.target.value)}
-                  placeholder="https://maps.google.com/..."
-                  className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl font-mono"
-                />
-              </div>
-
-              <div className="flex items-center gap-4 pt-1">
-                <label className="flex items-center gap-1.5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={dineIn}
-                    onChange={(e) => setDineIn(e.target.checked)}
-                    className="rounded text-brand-red"
-                  />
-                  <span>{t('labelDineIn')}</span>
-                </label>
-                <label className="flex items-center gap-1.5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={takeaway}
-                    onChange={(e) => setTakeaway(e.target.checked)}
-                    className="rounded text-brand-red"
-                  />
-                  <span>{t('labelTakeaway')}</span>
-                </label>
-              </div>
-            </>
-          )}
-
-          <div className="p-4 bg-stone-50 border border-stone-100 rounded-xl text-stone-500 text-[11px] leading-relaxed">
-            Saving will create an isolated draft change set. The live catalog will not be modified until you preview and explicitly publish.
-          </div>
-
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 rounded-xl border border-stone-200 text-xs font-semibold text-stone-700 hover:bg-stone-50 cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSaving}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-red text-white text-xs font-bold hover:bg-brand-red/90 shadow-sm cursor-pointer disabled:opacity-50"
-            >
-              {isSaving ? <CircleNotch size={14} className="animate-spin" /> : <Check size={14} />}
-              <span>{t('btnSaveDraft')}</span>
-            </button>
-          </div>
-        </form>
-      </div>
     </div>
   );
 };

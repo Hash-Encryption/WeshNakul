@@ -447,4 +447,30 @@ export async function downloadCatalogCsv(params: {
   return { filename, blob };
 }
 
+export async function uploadCatalogImage(
+  brandId: string,
+  file: File,
+  draftId?: string
+): Promise<{ success: boolean; url: string; path?: string; warning?: string }> {
+  const token = getStoredAdminToken();
+  if (!token) throw new Error('Authentication required.');
+
+  const formData = new FormData();
+  formData.append('brand_id', brandId);
+  formData.append('file', file);
+  if (draftId) formData.append('draft_id', draftId);
+
+  const res = await fetch('/api/admin/catalog/upload-image', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !(data as { success?: boolean }).success) {
+    throw Object.assign(new Error((data as { message?: string }).message || 'Image upload failed.'), { status: res.status });
+  }
+  return data as { success: boolean; url: string; path?: string; warning?: string };
+}
+
 

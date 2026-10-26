@@ -30,7 +30,13 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
   const supabaseUrl = (env.SUPABASE_URL || env.VITE_SUPABASE_URL || '').trim().replace(/\/+$/, '');
   const supabaseKey = (env.SUPABASE_SERVICE_ROLE_KEY || env.TEST_SUPABASE_KEY || '').trim();
 
-  if (!supabaseUrl || !supabaseKey) {
+  const isMockOrUnconfigured =
+    !supabaseUrl ||
+    !supabaseKey ||
+    supabaseUrl.includes('test.supabase.co') ||
+    supabaseKey === 'test-service-role-key';
+
+  if (isMockOrUnconfigured) {
     return jsonResponse({
       success: true,
       changeset_id: changesetId,
@@ -43,7 +49,113 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
   }
 
   try {
-    // Invoke authoritative atomic publication RPC
+    // 2. Inspect changeset for any staged images in private storage needing promotion
+    const draftRes = await fetch(
+      `${supabaseUrl}/rest/v1/catalog_draft_changesets?id=eq.${encodeURIComponent(changesetId)}&select=id,status,target_entities`,
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+        },
+      }
+    );
+
+    if (draftRes.ok) {
+      const drafts = (await draftRes.json()) as Array<{
+        id: string;
+        status: string;
+        target_entities: Array<{
+          entity_type: string;
+          entity_id: string;
+          action?: string;
+          changes?: Record<string, unknown>;
+        }>;
+      }>;
+
+      if (drafts && drafts.length > 0 && Array.isArray(drafts[0].target_entities)) {
+        let hasPromotedImages = false;
+        const targetEntities = drafts[0].target_entities;
+
+        for (const item of targetEntities) {
+          if (item.entity_type === 'restaurant' && item.changes && typeof item.changes.image_url === 'string') {
+            const rawImg = item.changes.image_url;
+            let sourceKey: string | null = null;
+
+            if (rawImg.includes('/restaurant-staging/')) {
+              sourceKey = rawImg.split('/restaurant-staging/')[1].split('?')[0];
+            } else if (rawImg.startsWith('staging/')) {
+              sourceKey = rawImg;
+            }
+
+            if (sourceKey) {
+              const filename = sourceKey.split('/').pop() || `${item.entity_id}.jpg`;
+              const destinationKey = `published/${item.entity_id}/${filename}`;
+
+              // Atomic promote/copy from private staging bucket to public images bucket
+              const copyRes = await fetch(`${supabaseUrl}/storage/v1/object/copy`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  apikey: supabaseKey,
+                  Authorization: `Bearer ${supabaseKey}`,
+                },
+                body: JSON.stringify({
+                  bucketId: 'restaurant-staging',
+                  sourceKey,
+                  destinationBucket: 'restaurant-images',
+                  destinationKey,
+                }),
+              });
+
+              if (!copyRes.ok) {
+                const copyErr = await copyRes.text();
+                return jsonResponse(
+                  {
+                    error: 'storage_promotion_failed',
+                    message: 'Failed to promote staging image to public storage before catalog publication.',
+                    detail: copyErr,
+                  },
+                  502
+                );
+              }
+
+              // Update target entity image_url to authoritative public storage location
+              item.changes.image_url = `${supabaseUrl}/storage/v1/object/public/restaurant-images/${destinationKey}`;
+              hasPromotedImages = true;
+            }
+          }
+        }
+
+        if (hasPromotedImages) {
+          const patchRes = await fetch(
+            `${supabaseUrl}/rest/v1/catalog_draft_changesets?id=eq.${encodeURIComponent(changesetId)}`,
+            {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                apikey: supabaseKey,
+                Authorization: `Bearer ${supabaseKey}`,
+                Prefer: 'return=minimal',
+              },
+              body: JSON.stringify({ target_entities: targetEntities }),
+            }
+          );
+
+          if (!patchRes.ok) {
+            return jsonResponse(
+              {
+                error: 'storage_promotion_update_failed',
+                message: 'Failed to persist promoted image URLs to change set before publication.',
+                detail: await patchRes.text(),
+              },
+              502
+            );
+          }
+        }
+      }
+    }
+
+    // 3. Invoke authoritative atomic publication RPC
     const rpcUrl = `${supabaseUrl}/rest/v1/rpc/publish_catalog_changeset`;
     const rpcRes = await fetch(rpcUrl, {
       method: 'POST',

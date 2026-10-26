@@ -218,11 +218,26 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
       if (currentRecord) {
         const restId = currentRecord.restaurant_id as string;
         if (restId) parentBrand = parentBrandMap.get(restId) ?? null;
+      } else if (isNew && changes.restaurant_id) {
+        const restId = String(changes.restaurant_id);
+        parentBrand = parentBrandMap.get(restId) ?? restaurantMap.get(restId) ?? null;
       }
     }
 
+    // Check duplicate if creating
+    if (isNew && currentRecord) {
+      errors.push({
+        entity_type: entityType as 'restaurant' | 'branch',
+        entity_id: entityId,
+        field: 'id',
+        code: 'DUPLICATE_ENTITY',
+        message: `${entityType === 'restaurant' ? 'Brand' : 'Branch'} with ID '${entityId}' already exists in the catalog.`,
+        severity: 'error',
+      });
+    }
+
     // Check concurrency
-    if (currentRecord && baseVersion) {
+    if (!isNew && currentRecord && baseVersion) {
       const currentUpdated = currentRecord.updated_at ? new Date(String(currentRecord.updated_at)).getTime() : 0;
       const baseUpdated = new Date(baseVersion).getTime();
       if (currentUpdated > baseUpdated) {
