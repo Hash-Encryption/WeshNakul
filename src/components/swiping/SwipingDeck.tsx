@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AnimatePresence } from 'motion/react';
 import type { RestaurantItem, RestaurantVote } from '../../types/restaurant';
 import { SwipeCard } from './SwipeCard';
@@ -87,7 +87,7 @@ export const SwipingDeck: React.FC<SwipingDeckProps> = ({
       <div
         onPointerDownCapture={handleInteract}
         onTouchStartCapture={handleInteract}
-        className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center transform-gpu [transform:translate3d(0,0,0)] will-change-transform"
+        className="relative w-full max-w-[360px] mx-auto min-h-[420px] flex items-center justify-center transform-gpu [transform:translate3d(0,0,0)] will-change-transform touch-none select-none"
       >
         {isLoading && safeDeck.length === 0 ? (
           <div className="w-full h-[420px] bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] p-4 flex flex-col justify-between animate-pulse">

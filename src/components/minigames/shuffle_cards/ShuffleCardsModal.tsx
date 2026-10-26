@@ -10,6 +10,7 @@ import { useLocale } from '../../../context/LocaleContext';
 import { broadcastShuffleCards, subscribeToShuffleCards } from '../../../lib/supabase';
 import { trackMiniGameStarted, trackMiniGameCompleted } from '../../../lib/analytics';
 import { triggerHaptic, playTactilePop } from '../../../lib/haptics';
+import { MiniGameSettingsPopover } from '../MiniGameSettingsPopover';
 
 // 6 permutation steps for Three-Card Monte crossover (slots 0, 1, 2)
 const SHUFFLE_STEPS_3: number[][] = [
@@ -217,6 +218,7 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
 
   const shouldSkipIntro = skipIntro || (typeof window !== 'undefined' && Boolean((window as any).__SHUFFLE_HARNESS_READY__));
   const [showIntro, setShowIntro] = useState<boolean>(() => !shouldSkipIntro);
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [tableCards, setTableCards] = useState<ShuffleCardItem[]>(() => initTableCards(false));
   const hasPassedVortexRef = useRef<boolean>(false);
   const initializedSeedRef = useRef<string | null>(null);
@@ -662,13 +664,24 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
       <div className="w-full max-w-2xl mx-auto px-4 pt-3 sm:pt-4 flex flex-col gap-2 shrink-0">
         <div className="flex items-center justify-between w-full">
           <button
-            onClick={onClose}
+            onClick={() => setIsSettingsOpen(true)}
             type="button"
-            aria-label="Close"
-            className="w-10 h-10 rounded-full border border-[#241B18]/15 bg-white/80 hover:bg-white text-base font-bold flex items-center justify-center transition-transform active:scale-90 shadow-xs cursor-pointer"
+            aria-label="Settings"
+            className="w-10 h-10 rounded-full border-2 border-[#241B18] bg-white hover:bg-neutral-50 text-base font-bold flex items-center justify-center transition-transform active:scale-90 shadow-[0_2px_0_#241B18] cursor-pointer"
           >
-            ✕
+            ⚙️
           </button>
+
+          {/* Non-Blocking Local Settings Popover */}
+          <MiniGameSettingsPopover
+            isOpen={isSettingsOpen}
+            onClose={() => setIsSettingsOpen(false)}
+            onLeaveGame={onClose}
+            gameTitle="Shuffle Cards"
+            gameTitleAr="أوراق الحظ"
+            ruleReminder="Track the cards as they shuffle across the table, then pick the winning card!"
+            ruleReminderAr="راقب البطاقات وهي تتخلط على الطاولة، واختر البطاقة لكشف المطعم الفائز!"
+          />
 
           {/* Centered Logo Emblem */}
           <div className="relative flex items-center justify-center w-12 h-10">

@@ -41,7 +41,7 @@ export const TactileButton: React.FC<TactileButtonProps> = ({
   };
 
   const disabledClasses = disabled || isLoading
-    ? 'opacity-50 cursor-not-allowed transform-none shadow-none pointer-events-none'
+    ? '!bg-[#E6CFC2] !text-[#7A6E67] !border-2 !border-brand-ink/30 !opacity-100 cursor-not-allowed transform-none shadow-none pointer-events-none'
     : '';
 
   return (

@@ -29,10 +29,10 @@ export const SwipeCard = React.memo(function SwipeCard({
   const rotate = useTransform(x, [-160, 0, 160], [-18, 0, 18]);
 
   // Screen-absolute stamp opacity:
-  // x >= 40px: Green stamp (Like)
-  // x <= -40px: Red stamp (Pass)
-  const likeOpacity = useTransform(x, [40, 120], [0, 1]);
-  const passOpacity = useTransform(x, [-40, -120], [0, 1]);
+  // x >= 15px: Green stamp (Like)
+  // x <= -15px: Red stamp (Pass)
+  const likeOpacity = useTransform(x, [15, 80], [0, 1]);
+  const passOpacity = useTransform(x, [-15, -80], [0, 1]);
 
   if (!restaurant || !restaurant.id) {
     return null;
@@ -121,9 +121,9 @@ export const SwipeCard = React.memo(function SwipeCard({
         const velocity = info.velocity.x;
 
         // Swiping right = Like (يمشي), Swiping left = Pass (تخطي)
-        if (offset >= 120 || (offset > 40 && velocity > 450)) {
+        if (offset >= 75 || (offset > 30 && velocity > 350)) {
           onVote('YES');
-        } else if (offset <= -120 || (offset < -40 && velocity < -450)) {
+        } else if (offset <= -75 || (offset < -30 && velocity < -350)) {
           onVote('NO');
         }
       }}
@@ -142,7 +142,7 @@ export const SwipeCard = React.memo(function SwipeCard({
               },
       }}
       exit="exit"
-      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-pan-y ${
+      className={`absolute inset-x-0 mx-auto w-full max-w-[360px] bg-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-3xl overflow-hidden select-none touch-none ${
         isPeeking
           ? 'animate-card-peek'
           : 'transform-gpu [transform:translate3d(0,0,0)] will-change-transform'

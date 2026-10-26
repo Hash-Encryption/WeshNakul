@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
 import { useRestaurantSwiper } from '../../hooks/useRestaurantSwiper';
@@ -641,15 +641,17 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
               subtitle={locale === 'ar' ? 'الخوارزمية تبحث عن أفضل الخيارات المطابقة' : 'Algorithm is finding the best matching restaurants'}
             />
           ) : (
-            <SwipingDeck
-              deck={deck}
-              currentIndex={currentIndex}
-              totalCards={totalCards}
-              isLoading={isLoadingDeck}
-              onVote={recordVote}
-              hasInteractedWithDeck={hasInteractedWithDeck}
-              onInteract={handleDeckInteract}
-            />
+            <div className="w-full touch-none select-none">
+              <SwipingDeck
+                deck={deck}
+                currentIndex={currentIndex}
+                totalCards={totalCards}
+                isLoading={isLoadingDeck}
+                onVote={recordVote}
+                hasInteractedWithDeck={hasInteractedWithDeck}
+                onInteract={handleDeckInteract}
+              />
+            </div>
           )}
         </DeckErrorBoundary>
       </div>

@@ -2,6 +2,28 @@ import confetti from 'canvas-confetti';
 
 let audioCtx: AudioContext | null = null;
 let switchEl: HTMLInputElement | null = null;
+let isMutedInternal = false;
+
+export function setHapticsMuted(muted: boolean): void {
+  isMutedInternal = muted;
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('wsh_sound_muted', muted ? 'true' : 'false');
+    } catch {}
+  }
+}
+
+export function isHapticsMuted(): boolean {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem('wsh_sound_muted');
+      if (stored !== null) {
+        isMutedInternal = stored === 'true';
+      }
+    } catch {}
+  }
+  return isMutedInternal;
+}
 
 function getAudioContext(): AudioContext | null {
   if (typeof window === 'undefined') return null;
@@ -27,6 +49,7 @@ function getAudioContext(): AudioContext | null {
  * 15ms sine/triangle oscillator ramp for crisp mechanical feel without external files.
  */
 export function playTactilePop(freq = 180): void {
+  if (isHapticsMuted()) return;
   try {
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -56,6 +79,7 @@ export function playTactilePop(freq = 180): void {
  * with standard navigator.vibrate fallback on Android/Chrome.
  */
 export function triggerHaptic(duration = 12): void {
+  if (isHapticsMuted()) return;
   // 1. iOS 18+ WebKit Switch Taptic impact
   try {
     if (typeof document !== 'undefined') {

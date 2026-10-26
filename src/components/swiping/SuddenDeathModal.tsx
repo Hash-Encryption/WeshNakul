@@ -1,9 +1,10 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { RestaurantItem } from '../../types/restaurant';
 import { useLocale } from '../../context/LocaleContext';
 import { broadcastSuddenDeathVote, subscribeToSuddenDeathVote } from '../../lib/supabase';
 import { MiniGameIntroOverlay } from '../minigames/MiniGameIntroOverlay';
+import { MiniGameSettingsPopover } from '../minigames/MiniGameSettingsPopover';
 import { trackMiniGameStarted, trackMiniGameCompleted } from '../../lib/analytics';
 
 interface SuddenDeathModalProps {
@@ -44,6 +45,7 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
   // Per-round voting & timer state
   const shouldSkipIntro = skipIntro || (typeof window !== 'undefined' && Boolean((window as any).__MINIGAME_HARNESS_READY__));
   const [showIntro, setShowIntro] = useState(!shouldSkipIntro);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState(10);
   const [votes, setVotes] = useState<Record<string, { restaurantId: string; timestamp: number }>>({});
   const [myVote, setMyVote] = useState<string | null>(null);
@@ -258,15 +260,37 @@ export const SuddenDeathModal: React.FC<SuddenDeathModalProps> = ({
               </div>
             </div>
 
-            <div
-              className={`px-2.5 py-1 rounded-xl border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] text-xs font-black font-alexandria flex items-center gap-1 ${
-                timeLeft <= 3 ? 'bg-[#F0443E] text-white animate-pulse' : 'bg-[#FFD75A] text-[#241B18]'
-              }`}
-            >
-              <span>⏱️</span>
-              <span>{timeLeft}s</span>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsSettingsOpen(true)}
+                title="Settings"
+                className="w-8 h-8 rounded-full border-2 border-[#241B18] bg-white hover:bg-neutral-50 text-xs font-bold flex items-center justify-center transition-transform active:scale-90 shadow-[0_2px_0_#241B18] cursor-pointer"
+              >
+                ⚙️
+              </button>
+
+              <div
+                className={`px-2.5 py-1 rounded-xl border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] text-xs font-black font-alexandria flex items-center gap-1 ${
+                  timeLeft <= 3 ? 'bg-[#F0443E] text-white animate-pulse' : 'bg-[#FFD75A] text-[#241B18]'
+                }`}
+              >
+                <span>⏱️</span>
+                <span>{timeLeft}s</span>
+              </div>
             </div>
           </div>
+
+          {/* Non-Blocking Local Settings Popover */}
+          <MiniGameSettingsPopover
+            isOpen={isSettingsOpen}
+            onClose={() => setIsSettingsOpen(false)}
+            onLeaveGame={onClose}
+            gameTitle="Sudden Death"
+            gameTitleAr="رأس برأس"
+            ruleReminder="1v1 face-off between tied restaurants. Fastest votes win the showdown!"
+            ruleReminderAr="مواجهة 1 ضد 1 بين مطعمين متعادلين، التصويت الأسرع يحسم النتيجة فوراً!"
+          />
 
           {/* Always-Visible Explainer Announcer Pill */}
           <div className="w-full flex items-center justify-center -mt-1">

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLocale } from '../../../context/LocaleContext';
 import type { RestaurantItem } from '../../../types/restaurant';
@@ -18,6 +18,7 @@ import { TactileCyclingDock } from './TactileCyclingDock';
 import { EmojiArenaStage } from './EmojiArenaStage';
 import { broadcastEmojiClash, subscribeToEmojiClash } from '../../../lib/supabase';
 import { MiniGameIntroOverlay } from '../MiniGameIntroOverlay';
+import { MiniGameSettingsPopover } from '../MiniGameSettingsPopover';
 import { trackMiniGameStarted, trackMiniGameCompleted } from '../../../lib/analytics';
 
 interface EmojiClashModalProps {
@@ -69,6 +70,7 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
 
   // Phase management: fighter_select (6s) -> squad_fusion (5s) -> brawl (15s) -> podium (4s) -> completed
   const [showIntro, setShowIntro] = useState(true);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [phase, setPhase] = useState<EmojiClashPhase>('fighter_select');
   const [fusionStage, setFusionStage] = useState<SquadFusionStage>('fusion_intro');
   const [timerSeconds, setTimerSeconds] = useState(6);
@@ -526,12 +528,23 @@ export const EmojiClashModal: React.FC<EmojiClashModalProps> = ({
             {/* Top-Left: Blue Settings Gear Button */}
             <button
               type="button"
-              onClick={onClose}
-              title="Close / Exit"
+              onClick={() => setIsSettingsOpen(true)}
+              title="Settings"
               className="w-9 h-9 rounded-full bg-[#4A90E2] border-2 border-[#1E3A8A] text-white flex items-center justify-center text-base shadow-[0_3px_0_#1E3A8A] active:translate-y-0.5 cursor-pointer hover:brightness-105 shrink-0"
             >
               ⚙️
             </button>
+
+            {/* Non-Blocking Local Settings Popover */}
+            <MiniGameSettingsPopover
+              isOpen={isSettingsOpen}
+              onClose={() => setIsSettingsOpen(false)}
+              onLeaveGame={onClose}
+              gameTitle="Emoji Clash"
+              gameTitleAr="حرب الإيموجي"
+              ruleReminder="Pick your fighter, throw spices to weaken rivals, and detonate the mustard bomb to win!"
+              ruleReminderAr="اختر مقاتلك، ارمِ الشطة والتوابل لإضعاف المنافسين، واضغط قنبلة الخردل للفوز!"
+            />
 
             {/* Top-Center: Game Title & Golden Countdown Timer Side-by-Side (No stray '&') */}
             <div className="flex items-center gap-2 bg-black/55 px-3 py-1 rounded-2xl border border-white/20 backdrop-blur-xs shadow-md">

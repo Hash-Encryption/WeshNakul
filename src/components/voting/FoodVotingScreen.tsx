@@ -12,7 +12,7 @@ import { SparkleRays } from '../common/DecorativeSparkles';
 import { DecisionMachineLoading } from '../common/DecisionMachineLoading';
 import { RoomModeSelector } from '../common/RoomModeSelector';
 import { RoomPreferencesBar } from '../common/RoomPreferencesBar';
-import { triggerSelectionFeedback } from '../../lib/haptics';
+import { triggerSelectionFeedback, triggerHaptic, playTactilePop } from '../../lib/haptics';
 
 export const FoodVotingScreen: React.FC = () => {
   const {
@@ -29,6 +29,7 @@ export const FoodVotingScreen: React.FC = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const mode = currentRoom?.room_mode || 'food';
@@ -120,8 +121,14 @@ export const FoodVotingScreen: React.FC = () => {
         document.execCommand('copy');
         document.body.removeChild(textArea);
       }
+      setIsCopied(true);
+      triggerHaptic(12);
+      playTactilePop(220);
       setToastMessage(t('toast.linkCopied'));
-      setTimeout(() => setToastMessage(null), 2000);
+      setTimeout(() => {
+        setIsCopied(false);
+        setToastMessage(null);
+      }, 2000);
       try {
         confetti({
           particleCount: 30,
@@ -134,6 +141,8 @@ export const FoodVotingScreen: React.FC = () => {
       }
     } catch (e) {
       console.error('Failed to copy link', e);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
       setToastMessage(t('toast.linkCopied'));
       setTimeout(() => setToastMessage(null), 2000);
     }
@@ -170,38 +179,46 @@ export const FoodVotingScreen: React.FC = () => {
           showLeave={true}
         />
 
-        {/* High-Contrast Invite & Room Share Bar */}
-        <div className="max-w-md mx-auto mt-1 mb-3 px-3.5 py-2.5 flex items-center justify-between gap-2 bg-white rounded-2xl border-2 border-brand-ink shadow-[0_3px_0_#241B18]">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="text-[11px] font-black text-brand-ink uppercase tracking-wider shrink-0">
-              {t('lobby.roomCodeLabel')}:
+        {/* High-Contrast Invite & Room Share Bar (Zero Overlap on all screens) */}
+        <div className="max-w-md mx-auto mt-1 mb-3 px-3 py-2 flex items-center justify-between gap-2 bg-white rounded-2xl border-2 border-brand-ink shadow-[0_3px_0_#241B18]">
+          {/* Combined Code & Copy Button Pill */}
+          <button
+            type="button"
+            onClick={handleCopyLink}
+            className="flex items-center gap-2 bg-[#FFF4E5] hover:bg-[#FFE8CC] active:scale-95 border-2 border-brand-ink rounded-xl px-2.5 py-1.5 shadow-[0_2px_0_#241B18] transition-all cursor-pointer shrink-0 select-none"
+            title={t('lobby.copyLinkBtn')}
+          >
+            <span className="text-[10px] font-black uppercase text-brand-ink/70 tracking-wider">
+              {locale === 'ar' ? 'رمز:' : 'CODE:'}
             </span>
-            <span className="font-mono font-black text-base sm:text-lg text-brand-red bg-[#FFF4E5] px-2.5 py-0.5 rounded-xl border border-brand-ink/20 tracking-widest select-all">
+            <span className="font-mono font-black text-base sm:text-lg text-brand-red tracking-widest leading-none">
               {currentRoom.code}
             </span>
-          </div>
+            <span className="inline-flex items-center gap-1 bg-white border border-brand-ink/30 rounded-lg px-2 py-0.5 text-[11px] font-black text-brand-ink shadow-2xs leading-none">
+              {isCopied ? (
+                <>
+                  <span>✅</span>
+                  <span>{locale === 'ar' ? 'تم النسخ!' : 'Copied!'}</span>
+                </>
+              ) : (
+                <>
+                  <span>📋</span>
+                  <span>{locale === 'ar' ? 'نسخ' : 'Copy'}</span>
+                </>
+              )}
+            </span>
+          </button>
 
-          <div className="flex items-center gap-1.5 shrink-0">
-            <button
-              type="button"
-              onClick={handleCopyLink}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-brand-cream border-2 border-brand-ink/20 text-xs font-bold text-brand-ink shadow-sm hover:bg-brand-yellow/30 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
-              title={t('lobby.copyLinkBtn')}
-            >
-              <span>🔗</span>
-              <span className="text-[11px] font-black">{locale === 'ar' ? 'نسخ' : 'Copy'}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleShareWhatsApp}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#25D366] text-white border-2 border-[#1EBE5D] text-xs font-black shadow-sm hover:brightness-105 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
-              title={t('lobby.shareWhatsAppBtn')}
-            >
-              <span>💬</span>
-              <span className="text-[11px] font-black">{locale === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
-            </button>
-          </div>
+          {/* WhatsApp Share Button */}
+          <button
+            type="button"
+            onClick={handleShareWhatsApp}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#25D366] text-white border-2 border-brand-ink text-xs font-black shadow-[0_2px_0_#241B18] hover:brightness-105 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer font-alexandria shrink-0"
+            title={t('lobby.shareWhatsAppBtn')}
+          >
+            <span className="text-sm">💬</span>
+            <span className="text-xs font-black">{locale === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
+          </button>
         </div>
 
         {/* Room Mode Selector & Preferences Bar */}
@@ -379,8 +396,8 @@ export const FoodVotingScreen: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating Sticky Bottom Submission Bar with Gradient Backdrop Mask */}
-      <div className="sticky bottom-0 max-w-md w-full mx-auto bg-gradient-to-t from-[#F7EFE6] via-[#F7EFE6]/95 to-transparent pt-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] px-1 z-30">
+      {/* Floating Sticky Bottom Submission Bar with Solid Backdrop (Zero Bleed) */}
+      <div className="sticky bottom-0 max-w-md w-full mx-auto bg-[#F7EFE6] pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] px-1 z-30 border-t border-brand-ink/10 shadow-[0_-8px_16px_#F7EFE6]">
         {isSubmitted ? (
           <div className="flex flex-col gap-2">
             <div className="py-3 px-4 rounded-2xl bg-brand-green/15 border-2 border-brand-green text-center">
