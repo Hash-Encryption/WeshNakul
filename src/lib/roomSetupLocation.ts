@@ -1,4 +1,4 @@
-import type { Coordinates } from './useGeolocation';
+﻿import type { Coordinates } from './useGeolocation';
 
 export type LocationStatus = 'idle' | 'locating' | 'success' | 'error';
 

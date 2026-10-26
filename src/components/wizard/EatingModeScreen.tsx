@@ -3,8 +3,8 @@ import { motion } from 'motion/react';
 import type { EatingMode } from '../../types/database';
 import { useLocale } from '../../context/LocaleContext';
 import { Header } from '../common/Header';
-import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart } from '../common/DecorativeSparkles';
+import { triggerSelectionFeedback } from '../../lib/haptics';
 
 interface EatingModeScreenProps {
   onNext: (mode: EatingMode) => void;
@@ -38,21 +38,19 @@ export const EatingModeScreen: React.FC<EatingModeScreenProps> = ({
     },
   ];
 
-  const handleSelect = (mode: EatingMode) => {
+  const handleSelect = (mode: EatingMode, e?: React.MouseEvent) => {
     setSelectedMode(mode);
-  };
-
-  const handleProceed = () => {
-    if (selectedMode) {
-      onNext(selectedMode);
-    }
+    triggerSelectionFeedback(e, 220);
+    setTimeout(() => {
+      onNext(mode);
+    }, 180);
   };
 
   return (
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-6">
       {/* Header */}
       <div>
-        <Header onBack={onBack} participantCount={1} showCount={true} />
+        <Header onBack={onBack} stepIndicator="2/3" showCount={false} />
 
         {/* Heading and Subtitle */}
         <div className="text-center mt-3 mb-6 px-2">
@@ -76,8 +74,8 @@ export const EatingModeScreen: React.FC<EatingModeScreenProps> = ({
             return (
               <motion.button
                 key={opt.mode}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleSelect(opt.mode)}
+                whileTap={{ scale: 0.96 }}
+                onClick={(e) => handleSelect(opt.mode, e)}
                 type="button"
                 className={`
                   relative flex flex-col items-center justify-center py-5 px-6 rounded-3xl
@@ -113,21 +111,6 @@ export const EatingModeScreen: React.FC<EatingModeScreenProps> = ({
             );
           })}
         </div>
-      </div>
-
-      {/* Bottom Sticky Action */}
-      <div className="relative max-w-sm w-full mx-auto mt-6 pt-2">
-        <SparkleRays className="absolute top-0 end-1 transform rotate-12 scale-75" color="#FFD75A" />
-        <SparkleRays className="absolute bottom-2 start-1 transform -rotate-12 scale-75" color="#FFD75A" />
-
-        <TactileButton
-          onClick={handleProceed}
-          variant="primary"
-          fullWidth
-          size="lg"
-        >
-          {t('mode.next')}
-        </TactileButton>
       </div>
     </div>
   );

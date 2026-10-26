@@ -8,6 +8,7 @@ import { TactileButton } from '../common/TactileButton';
 import { Toast } from '../common/Toast';
 import { SparkleRays, DoodleSquiggle } from '../common/DecorativeSparkles';
 import { MAX_ROOM_CAPACITY } from '../../config/room';
+import { triggerHaptic, playTactilePop } from '../../lib/haptics';
 
 interface RoomLobbyScreenProps {
   onStartPicking?: () => void;
@@ -31,7 +32,8 @@ export const RoomLobbyScreen: React.FC<RoomLobbyScreenProps> = ({
     if (isStarting) return;
     if (onStartPicking) {
       setIsStarting(true);
-      navigator.vibrate?.(10);
+      triggerHaptic(14);
+      playTactilePop(220);
       try {
         await onStartPicking();
       } catch {

@@ -1,4 +1,4 @@
-export type MiniGameId =
+﻿export type MiniGameId =
   | 'shuffle_cards'
   | 'sudden_death'
   | 'food_brawl'

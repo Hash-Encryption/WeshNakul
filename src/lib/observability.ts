@@ -1,4 +1,4 @@
-export type DeckErrorPhase =
+﻿export type DeckErrorPhase =
   | 'restoration'
   | 'deck_generation'
   | 'deck_traversal'

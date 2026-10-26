@@ -45,11 +45,21 @@ export const SwipeCard = React.memo(function SwipeCard({
     restaurant.name ||
     (locale === 'ar' ? 'مطعم' : 'Restaurant');
 
-  const signatureDish =
+  const rawDish =
     (locale === 'ar' ? restaurant.signatureDishAr : restaurant.signatureDishEn) ||
     restaurant.signatureDishAr ||
     restaurant.signatureDishEn ||
     '';
+
+  const cleanDish = rawDish.trim();
+  const cleanName = (name || '').trim().toLowerCase();
+  const isRedundantDish =
+    !cleanDish ||
+    cleanDish.toLowerCase() === cleanName ||
+    cleanDish.toLowerCase() === (restaurant.nameAr || '').trim().toLowerCase() ||
+    cleanDish.toLowerCase() === (restaurant.nameEn || '').trim().toLowerCase();
+
+  const signatureDish = isRedundantDish ? '' : cleanDish;
 
   const rawVibeTags = locale === 'ar' ? restaurant.vibeTagsAr : restaurant.vibeTagsEn;
   const vibeTags = Array.isArray(rawVibeTags)
@@ -146,9 +156,9 @@ export const SwipeCard = React.memo(function SwipeCard({
           {/* Like Stamp (Green) - Swiping Right */}
           <motion.div
             style={{ opacity: likeOpacity }}
-            className="absolute top-6 end-6 z-30 pointer-events-none transform rotate-12"
+            className="absolute top-6 end-6 z-30 pointer-events-none transform rotate-12 select-none"
           >
-            <div className="bg-[#55B96A] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-base sm:text-lg flex items-center gap-1.5">
+            <div className="bg-[#55B96A] text-white border-3 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-lg sm:text-xl uppercase tracking-wide flex items-center gap-1.5">
               <span>{t('swiping.stamp_like')}</span>
             </div>
           </motion.div>
@@ -156,9 +166,9 @@ export const SwipeCard = React.memo(function SwipeCard({
           {/* Pass Stamp (Red) - Swiping Left */}
           <motion.div
             style={{ opacity: passOpacity }}
-            className="absolute top-6 start-6 z-30 pointer-events-none transform -rotate-12"
+            className="absolute top-6 start-6 z-30 pointer-events-none transform -rotate-12 select-none"
           >
-            <div className="bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-base sm:text-lg flex items-center gap-1.5">
+            <div className="bg-[#F0443E] text-white border-3 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-lg sm:text-xl uppercase tracking-wide flex items-center gap-1.5">
               <span>{t('swiping.stamp_pass')}</span>
             </div>
           </motion.div>
@@ -174,7 +184,7 @@ export const SwipeCard = React.memo(function SwipeCard({
             className="pointer-events-none absolute inset-0 z-30 rounded-3xl overflow-hidden animate-peek-green ring-2 ring-[#55B96A] shadow-[inset_0_0_24px_rgba(85,185,106,0.3)] bg-gradient-to-l from-[#55B96A]/15 via-[#55B96A]/5 to-transparent"
           >
             <div className="absolute top-6 end-6 transform rotate-12">
-              <div className="bg-[#55B96A] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-base sm:text-lg flex items-center gap-1.5">
+              <div className="bg-[#55B96A] text-white border-3 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-lg sm:text-xl uppercase tracking-wide flex items-center gap-1.5">
                 <span>{t('swiping.stamp_like')}</span>
               </div>
             </div>
@@ -186,7 +196,7 @@ export const SwipeCard = React.memo(function SwipeCard({
             className="pointer-events-none absolute inset-0 z-30 rounded-3xl overflow-hidden animate-peek-red ring-2 ring-[#F0443E] shadow-[inset_0_0_24px_rgba(240,68,62,0.3)] bg-gradient-to-r from-[#F0443E]/15 via-[#F0443E]/5 to-transparent"
           >
             <div className="absolute top-6 start-6 transform -rotate-12">
-              <div className="bg-[#F0443E] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-base sm:text-lg flex items-center gap-1.5">
+              <div className="bg-[#F0443E] text-white border-3 border-[#241B18] shadow-[0px_4px_0px_#241B18] rounded-2xl px-4 py-1.5 font-alexandria font-black text-lg sm:text-xl uppercase tracking-wide flex items-center gap-1.5">
                 <span>{t('swiping.stamp_pass')}</span>
               </div>
             </div>

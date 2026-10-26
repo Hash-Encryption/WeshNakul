@@ -1,4 +1,4 @@
-import type { RestaurantItem } from './restaurant';
+﻿import type { RestaurantItem } from './restaurant';
 
 export type EmojiClashPhase =
   | 'fighter_select' // 10s

@@ -1,5 +1,7 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import type { FoodCategoryDef } from '../../lib/consensus';
+import { triggerSelectionFeedback } from '../../lib/haptics';
 
 interface CategoryCardProps {
   category: FoodCategoryDef;
@@ -25,14 +27,16 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   const isWildcard = Boolean(category.isWildcard);
   const name = locale === 'ar' ? category.ar : category.en;
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
     if (!disabled) {
+      triggerSelectionFeedback(e, isWildcard ? 260 : 200, false);
       onToggle(category.id);
     }
   };
 
   return (
-    <button
+    <motion.button
+      whileTap={disabled ? undefined : { scale: 0.93 }}
       type="button"
       onClick={handleClick}
       disabled={disabled}
@@ -40,7 +44,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
         relative flex flex-col items-center justify-between p-3.5 rounded-2xl
         border-2 border-brand-ink text-center transition-all duration-150 select-none
         w-full min-h-[110px]
-        ${disabled ? 'cursor-default opacity-85' : 'cursor-pointer active:translate-y-1'}
+        ${disabled ? 'cursor-default opacity-85' : 'cursor-pointer'}
         ${
           isSelected
             ? isWildcard
@@ -102,6 +106,6 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           )}
         </div>
       )}
-    </button>
+    </motion.button>
   );
 };

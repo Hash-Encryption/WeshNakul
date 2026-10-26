@@ -1,4 +1,4 @@
-import type { DiningMode, RestaurantLinks, RestaurantPlatforms, PriceTier, TierType, TimeSlot } from './restaurant';
+﻿import type { DiningMode, RestaurantLinks, RestaurantPlatforms, PriceTier, TierType, TimeSlot } from './restaurant';
 
 export type Confidence = 'high' | 'medium' | 'low' | 'unknown';
 export type EditorialRole = 'staple' | 'popular' | 'discovery';

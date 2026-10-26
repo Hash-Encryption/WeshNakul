@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
 import { SocialSuggestionAvatars } from './SocialSuggestionAvatars';
+import { triggerHaptic, playTactilePop } from '../../lib/haptics';
+import { getHostCoordinates } from '../../lib/useGeolocation';
+import { Toast } from './Toast';
 
 const PREFERENCES = [
   { id: 'healthy', icon: '🥗' },
@@ -10,8 +13,9 @@ const PREFERENCES = [
 
 export const RoomPreferencesBar: React.FC<{ className?: string }> = ({ className = '' }) => {
   const { currentRoom, currentParticipant, isHost, setPreference, toggleSuggestion, suggestions } = useRoom();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   if (!currentRoom) return null;
 
@@ -19,6 +23,32 @@ export const RoomPreferencesBar: React.FC<{ className?: string }> = ({ className
 
   const handlePrefClick = async (prefId: string) => {
     const isEnabled = activePreferences.includes(prefId);
+    playTactilePop(220);
+    triggerHaptic(12);
+
+    // If enabling 'nearby' and room has neither district nor neighborhood:
+    if (prefId === 'nearby' && !isEnabled) {
+      const hasSpecificLocation =
+        Boolean(
+          currentRoom.district &&
+          currentRoom.district !== 'all' &&
+          currentRoom.district !== 'all_jeddah' &&
+          currentRoom.district !== 'any'
+        ) || Boolean(currentRoom.neighborhood);
+
+      if (!hasSpecificLocation) {
+        try {
+          await getHostCoordinates();
+        } catch {
+          setToastMessage(
+            locale === 'ar'
+              ? 'يرجى تفعيل خدمة الموقع لتفعيل خيار القريب 📍'
+              : 'Please enable location services to activate the Nearby filter 📍'
+          );
+          return;
+        }
+      }
+    }
 
     if (isHost) {
       if (isUpdating) return;
@@ -88,6 +118,8 @@ export const RoomPreferencesBar: React.FC<{ className?: string }> = ({ className
           </button>
         );
       })}
+
+      <Toast message={toastMessage} onClose={() => setToastMessage(null)} warning={true} />
     </div>
   );
 };

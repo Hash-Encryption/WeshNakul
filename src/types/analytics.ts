@@ -171,7 +171,7 @@ export type OutboundDeliveryClickEvent = BaseAnalyticsEvent<
   'outbound_delivery_click',
   {
     restaurantId: string;
-    platform: 'keeta' | 'hungerstation' | 'ninja' | 'whatsapp';
+    platform: 'keeta' | 'hungerstation' | 'ninja' | 'whatsapp' | 'jahez';
   }
 >;
 

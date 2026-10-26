@@ -62,9 +62,17 @@ export const EnterCodeModal: React.FC<EnterCodeModalProps> = ({
                   maxLength={4}
                   value={code}
                   onChange={(e) => {
-                    setCode(e.target.value.trim().toUpperCase());
+                    const clean = e.target.value.replace(/[^A-Za-z]/g, '').toUpperCase();
+                    setCode(clean);
                     setLocalError(null);
+                    if (clean.length === 4 && !isLoading) {
+                      void onSubmit(clean);
+                    }
                   }}
+                  autoCapitalize="characters"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  spellCheck={false}
                   placeholder={t('enterCodeModal.placeholder')}
                   autoFocus
                   className="w-full text-center text-3xl font-mono font-bold tracking-widest py-3 px-4 rounded-2xl border-2 border-brand-border bg-brand-cream/50 focus:border-brand-red focus:bg-white focus:outline-none transition-all uppercase placeholder:text-brand-gray/40 text-brand-ink"

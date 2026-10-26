@@ -454,7 +454,7 @@ export function trackOutboundMapsClick(options: {
 export function trackOutboundDeliveryClick(options: {
   roomId?: string;
   restaurantId: string;
-  platform: 'keeta' | 'hungerstation' | 'ninja' | 'whatsapp';
+  platform: 'keeta' | 'hungerstation' | 'ninja' | 'whatsapp' | 'jahez';
 }): void {
   trackEvent({
     eventType: 'outbound_delivery_click',

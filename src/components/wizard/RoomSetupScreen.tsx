@@ -5,7 +5,6 @@ import {
   CheckCircle,
   MapPin,
   NavigationArrow,
-  Sparkle,
   UserCircle,
 } from '@phosphor-icons/react';
 import type { EatingMode } from '../../types/database';
@@ -79,7 +78,7 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
       onSubmit={handleSubmit}
       className="relative flex min-h-[92dvh] w-full flex-col px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
     >
-      <Header onBack={onBack} participantCount={1} showCount />
+      <Header onBack={onBack} stepIndicator="3/3" showCount={false} />
 
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col">
         <div className="mb-2 mt-1 px-2 text-center">
@@ -129,11 +128,11 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5 font-alexandria text-sm sm:text-base font-extrabold text-emerald-950">
-                    <span>{t('setup.locationDetected')}</span>
+                    <span>{locale === 'ar' ? '📍 تم تثبيت موقعك في جدة!' : '📍 Location locked in Jeddah!'}</span>
                     <CheckCircle aria-hidden size={18} weight="fill" />
                   </div>
                   <p className="mt-0.5 text-xs font-medium leading-4 text-emerald-800">
-                    {t('setup.locationDetectedHelper')}
+                    {locale === 'ar' ? 'سنقترح المطاعم الأقرب لموقعك وللقروب' : 'Prioritizing restaurants nearest to your squad'}
                   </p>
                   <button
                     type="button"
@@ -176,7 +175,9 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
               </button>
               {location.status === 'error' && (
                 <p id="location-error" role="alert" className="mt-1.5 px-2 text-xs font-semibold leading-4 text-brand-red">
-                  {t('setup.locationError')}
+                  {locale === 'ar'
+                    ? '⚠️ تعذر تحديد الموقع بدقة. اختر الحي يدوياً من القائمة أدناه.'
+                    : '⚠️ Location unavailable. Please select your Jeddah district below.'}
                 </p>
               )}
             </div>
@@ -201,11 +202,15 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
                   onChange={(event) => dispatchLocation({ type: 'selectCity', cityId: event.target.value })}
                   className="min-h-10 w-full appearance-none rounded-xl bg-transparent py-1.5 pe-7 ps-2 text-end text-xs sm:text-sm font-extrabold text-brand-ink outline-none transition focus-visible:ring-2 focus-visible:ring-brand-red"
                 >
-                  {SAUDI_CITIES.map((city) => (
-                    <option key={city.id} value={city.id}>
-                      {locale === 'ar' ? city.nameAr : city.nameEn}
-                    </option>
-                  ))}
+                  {SAUDI_CITIES.map((city) => {
+                    const isJeddah = city.id === 'jeddah';
+                    const label = locale === 'ar' ? city.nameAr : city.nameEn;
+                    return (
+                      <option key={city.id} value={city.id} disabled={!isJeddah}>
+                        {label} {!isJeddah ? (locale === 'ar' ? '(قريباً)' : '(Coming Soon)') : ''}
+                      </option>
+                    );
+                  })}
                 </select>
                 <CaretDown aria-hidden size={15} weight="bold" className="pointer-events-none absolute end-1.5 top-1/2 -translate-y-1/2 text-brand-ink" />
               </div>
@@ -240,11 +245,6 @@ export const RoomSetupScreen: React.FC<RoomSetupScreenProps> = ({
                 {t('setup.districtGpsHelper')}
               </p>
             )}
-          </div>
-
-          <div className="flex min-h-9 items-center justify-center gap-2 rounded-full bg-brand-yellow/15 px-3 py-1 text-center text-xs font-bold text-brand-ink/80 ring-1 ring-inset ring-brand-yellow/40">
-            <Sparkle aria-hidden size={15} weight="fill" className="text-brand-yellowPressed" />
-            <span>{t('setup.canChangeLater')}</span>
           </div>
         </div>
 

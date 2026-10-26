@@ -1,4 +1,4 @@
-import { FOOD_CATEGORIES, normalizeCategorySelection, toggleCategorySelection } from '../consensus';
+﻿import { FOOD_CATEGORIES, normalizeCategorySelection, toggleCategorySelection } from '../consensus';
 
 const ids=FOOD_CATEGORIES.map(category=>category.id),wildcards=FOOD_CATEGORIES.filter(category=>category.isWildcard);
 if(new Set(ids).size!==ids.length)throw new Error('Category identifiers must be unique');

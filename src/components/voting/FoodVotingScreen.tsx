@@ -12,6 +12,7 @@ import { SparkleRays } from '../common/DecorativeSparkles';
 import { DecisionMachineLoading } from '../common/DecisionMachineLoading';
 import { RoomModeSelector } from '../common/RoomModeSelector';
 import { RoomPreferencesBar } from '../common/RoomPreferencesBar';
+import { triggerSelectionFeedback } from '../../lib/haptics';
 
 export const FoodVotingScreen: React.FC = () => {
   const {
@@ -52,6 +53,7 @@ export const FoodVotingScreen: React.FC = () => {
   const canSubmit = hasSelectedWildcard || selectedIds.length >= 2;
 
   const toggleCategory = (id: string) => {
+    triggerSelectionFeedback(undefined, id === wildcardId ? 260 : 200, false);
     setSelectedIds((prev) => toggleCategorySelection(prev, id, currentRoom?.room_mode));
   };
 
@@ -168,36 +170,36 @@ export const FoodVotingScreen: React.FC = () => {
           showLeave={true}
         />
 
-        {/* Compact Invite & Room Share Bar */}
-        <div className="max-w-md mx-auto mt-1 mb-3 px-3 py-2 flex items-center justify-between gap-2 bg-white rounded-2xl border-2 border-brand-ink shadow-[0_2px_0_#241B18]">
-          <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-extrabold text-brand-muted uppercase tracking-wider">
+        {/* High-Contrast Invite & Room Share Bar */}
+        <div className="max-w-md mx-auto mt-1 mb-3 px-3.5 py-2.5 flex items-center justify-between gap-2 bg-white rounded-2xl border-2 border-brand-ink shadow-[0_3px_0_#241B18]">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-[11px] font-black text-brand-ink uppercase tracking-wider shrink-0">
               {t('lobby.roomCodeLabel')}:
             </span>
-            <span className="font-alexandria font-extrabold text-base text-brand-red bg-brand-cream px-2.5 py-0.5 rounded-xl border border-brand-ink/15 tracking-wider select-all">
+            <span className="font-mono font-black text-base sm:text-lg text-brand-red bg-[#FFF4E5] px-2.5 py-0.5 rounded-xl border border-brand-ink/20 tracking-widest select-all">
               {currentRoom.code}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-brand-cream border border-brand-ink/20 text-xs font-bold text-brand-ink shadow-sm hover:bg-brand-yellow/30 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-brand-cream border-2 border-brand-ink/20 text-xs font-bold text-brand-ink shadow-sm hover:bg-brand-yellow/30 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
               title={t('lobby.copyLinkBtn')}
             >
               <span>🔗</span>
-              <span className="text-[11px] font-bold">{locale === 'ar' ? 'نسخ الرابط' : 'Copy'}</span>
+              <span className="text-[11px] font-black">{locale === 'ar' ? 'نسخ' : 'Copy'}</span>
             </button>
 
             <button
               type="button"
               onClick={handleShareWhatsApp}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-brand-whatsapp text-white border border-brand-ink/20 text-xs font-bold shadow-sm hover:brightness-105 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#25D366] text-white border-2 border-[#1EBE5D] text-xs font-black shadow-sm hover:brightness-105 active:translate-y-0.5 transition-all cursor-pointer font-alexandria"
               title={t('lobby.shareWhatsAppBtn')}
             >
               <span>💬</span>
-              <span className="text-[11px] font-bold">{locale === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
+              <span className="text-[11px] font-black">{locale === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
             </button>
           </div>
         </div>
@@ -206,12 +208,8 @@ export const FoodVotingScreen: React.FC = () => {
         <RoomModeSelector className="mt-1 mb-2" />
         <RoomPreferencesBar className="mb-3" />
 
-        {/* Heading and Squad Instructions */}
+        {/* Heading and Squad Instructions (without redundant instruction pill) */}
         <div className="text-center mt-1 mb-4 px-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-yellow/30 border border-brand-ink/10 text-xs font-bold text-brand-ink mb-2">
-            <span>{t('voting.minSelectionHint', { count: selectedIds.length })}</span>
-          </div>
-
           <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-ink mb-1 font-alexandria tracking-tight">
             {mode === 'breakfast' ? t('voting.breakfastHeading') : t('voting.heading')}
           </h2>
@@ -236,7 +234,21 @@ export const FoodVotingScreen: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 overflow-x-auto py-1 scrollbar-none">
+          <div className="flex items-center gap-3 overflow-x-auto pt-3.5 pb-1.5 scrollbar-none">
+            {/* Prominent Invite Button in Squad Status */}
+            <button
+              type="button"
+              onClick={handleShareWhatsApp}
+              className="flex flex-col items-center flex-shrink-0 group cursor-pointer focus:outline-none"
+              title={t('lobby.shareWhatsAppBtn')}
+            >
+              <div className="w-8 h-8 rounded-full border-2 border-dashed border-[#55B96A] bg-[#55B96A]/10 text-[#2E7D32] flex items-center justify-center text-base font-black hover:bg-[#55B96A]/25 transition-all">
+                +
+              </div>
+              <span className="text-[10px] font-extrabold text-[#2E7D32] mt-1 truncate max-w-[55px]">
+                {locale === 'ar' ? 'دعوة' : '+ Invite'}
+              </span>
+            </button>
             {participants.map((p) => {
               const pSubmitted = Boolean(categorySummary?.submittedParticipantIds?.includes(p.id));
               const isMe = p.id === currentParticipant.id;
@@ -367,8 +379,8 @@ export const FoodVotingScreen: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating Sticky Bottom Submission Bar */}
-      <div className="sticky bottom-2 max-w-md w-full mx-auto pt-2 bg-[#FFF8F1]/90 backdrop-blur-sm">
+      {/* Floating Sticky Bottom Submission Bar with Gradient Backdrop Mask */}
+      <div className="sticky bottom-0 max-w-md w-full mx-auto bg-gradient-to-t from-[#F7EFE6] via-[#F7EFE6]/95 to-transparent pt-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] px-1 z-30">
         {isSubmitted ? (
           <div className="flex flex-col gap-2">
             <div className="py-3 px-4 rounded-2xl bg-brand-green/15 border-2 border-brand-green text-center">
@@ -405,7 +417,9 @@ export const FoodVotingScreen: React.FC = () => {
               size="lg"
             >
               {canSubmit
-                ? `${t('voting.submitPicks')} (${selectedIds.length})`
+                ? hasSelectedWildcard
+                  ? `${t('voting.submitPicks')} (${locale === 'ar' ? 'جاهز ✨' : 'Ready ✨'})`
+                  : `${t('voting.submitPicks')} (${selectedIds.length})`
                 : t('voting.minSelectionHint', { count: selectedIds.length })}
             </TactileButton>
           </div>

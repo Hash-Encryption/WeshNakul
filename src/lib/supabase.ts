@@ -1,4 +1,4 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+﻿import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState, RoomMode, RoomSuggestion } from '../types/database';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';

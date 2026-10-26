@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Participant, RestaurantSummary } from '../../types/database';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { useLocale } from '../../context/LocaleContext';

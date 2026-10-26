@@ -7,6 +7,7 @@ interface HeaderProps {
   showBack?: boolean;
   participantCount?: number;
   showCount?: boolean;
+  stepIndicator?: string;
   showMenu?: boolean;
   onMenuClick?: () => void;
   showLangToggle?: boolean;
@@ -19,6 +20,7 @@ export const Header: React.FC<HeaderProps> = ({
   showBack = true,
   participantCount = 1,
   showCount = true,
+  stepIndicator,
   showMenu = false,
   onMenuClick,
   showLangToggle = false,
@@ -28,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
   const { isRTL, t } = useLocale();
 
   return (
-    <header className="relative flex items-center justify-between w-full pt-4 pb-2 px-4 z-20">
+    <header className="sticky top-0 z-30 bg-[#F7EFE6]/90 backdrop-blur-md pt-[max(0.75rem,env(safe-area-inset-top))] pb-2 px-4 flex items-center justify-between w-full">
       {/* Left / Start Action */}
       <div className="min-w-12 flex items-center justify-start gap-1.5">
         {showBack && onBack ? (
@@ -106,12 +108,16 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         )}
         {showLangToggle && <LanguageToggle />}
-        {showCount && (
+        {stepIndicator ? (
+          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-brand-ink/15 text-brand-ink text-xs font-black font-alexandria shadow-xs">
+            <span>{stepIndicator}</span>
+          </div>
+        ) : showCount ? (
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-redSoft border border-brand-red/15 text-brand-red text-xs font-bold shadow-sm">
             <span className="text-sm">👥</span>
             <span>{participantCount}</span>
           </div>
-        )}
+        ) : null}
       </div>
     </header>
   );

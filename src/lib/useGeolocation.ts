@@ -1,4 +1,4 @@
-﻿export interface Coordinates {
+export interface Coordinates {
   lat: number;
   lng: number;
 }
@@ -25,7 +25,7 @@ export function getHostCoordinates(): Promise<Coordinates> {
             : 'geolocation_unavailable';
         reject(new Error(reason));
       },
-      { enableHighAccuracy: true, timeout: 6000, maximumAge: 60000 }
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
     );
   });
 }

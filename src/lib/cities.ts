@@ -1,4 +1,4 @@
-import { JEDDAH_DISTRICT_LIST } from '../data/jeddahDistricts';
+﻿import { JEDDAH_DISTRICT_LIST } from '../data/jeddahDistricts';
 
 export interface CityData {
   id: string;

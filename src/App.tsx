@@ -117,6 +117,20 @@ export const App: React.FC = () => {
     trackAppSessionStart({ locale: 'ar' });
   }, []);
 
+  // Scroll to top and blur active input on step or stage transition
+  useEffect(() => {
+    try {
+      if (typeof document !== 'undefined') {
+        (document.activeElement as HTMLElement)?.blur?.();
+      }
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+    } catch {
+      // safe fallback
+    }
+  }, [step, currentRoom?.stage]);
+
   // Handle URL path /r/:code, /room/:code, or ?room=:code on load or direct link
   useEffect(() => {
     const handleUrlRouting = async () => {
@@ -361,8 +375,8 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7EFE6] flex items-center justify-center sm:py-6 selection:bg-brand-redSoft">
-      <main className="app-container flex flex-col justify-center sm:rounded-[36px] sm:overflow-y-auto sm:border sm:border-brand-border sm:shadow-2xl">
+    <div className="min-h-screen bg-[#F7EFE6] flex justify-center sm:py-6 selection:bg-brand-redSoft">
+      <main className="app-container flex flex-col justify-start sm:rounded-[36px] sm:overflow-y-auto sm:border sm:border-brand-border sm:shadow-2xl">
         {step === 'landing' && (
           <LandingHero
             onStartGroup={handleStartGroup}
@@ -434,11 +448,13 @@ export const App: React.FC = () => {
         {/* Global Session Toast (TTL Expiration, Host Room Deletion, Vote Reset) */}
         <Toast message={failureNotice || sessionNotice} onClose={failureNotice ? clearFailureNotice : clearSessionNotice} warning={Boolean(failureNotice)} />
 
-        {/* Floating Feedback Button & Modal */}
-        <FeedbackFloatingButton
-          onClick={() => setIsFeedbackModalOpen(true)}
-          isOpen={isFeedbackModalOpen}
-        />
+        {/* Floating Feedback Button & Modal (only on landing) */}
+        {step === 'landing' && (
+          <FeedbackFloatingButton
+            onClick={() => setIsFeedbackModalOpen(true)}
+            isOpen={isFeedbackModalOpen}
+          />
+        )}
         <FeedbackModal
           isOpen={isFeedbackModalOpen}
           onClose={() => setIsFeedbackModalOpen(false)}

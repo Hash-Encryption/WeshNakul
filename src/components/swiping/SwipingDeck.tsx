@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+﻿import React, { useCallback, useState } from 'react';
 import { AnimatePresence } from 'motion/react';
 import type { RestaurantItem, RestaurantVote } from '../../types/restaurant';
 import { SwipeCard } from './SwipeCard';

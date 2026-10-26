@@ -7,6 +7,7 @@ import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart, DoodleSquiggle } from '../common/DecorativeSparkles';
 import { getCategoryById, getCategoriesForMode } from '../../lib/consensus';
 import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
+import { triggerHaptic, playTactilePop } from '../../lib/haptics';
 
 export const ConsensusResultScreen: React.FC = () => {
   const { currentRoom, currentParticipant, isHost, resetToLobby, startSwiping, participants, suggestions, toggleSuggestion } = useRoom();
@@ -16,7 +17,8 @@ export const ConsensusResultScreen: React.FC = () => {
   const handleStartPicking = async () => {
     if (isStarting) return;
     setIsStarting(true);
-    navigator.vibrate?.(10);
+    triggerHaptic(14);
+    playTactilePop(220);
     try {
       await startSwiping();
     } catch (err) {
@@ -57,6 +59,8 @@ export const ConsensusResultScreen: React.FC = () => {
   const totalVoters = currentRoom.category_summary?.eligibleParticipantCount || participants.length || 1;
   const winnerVoteCount = tally[winnerId] || 0;
   const agreementPercentage = Math.round((winnerVoteCount / totalVoters) * 100);
+
+  const isRandomTie = consensusType === 'random_picked';
 
   // Runner-up contenders
   const runnerUps = Object.entries(tally)
@@ -104,7 +108,7 @@ export const ConsensusResultScreen: React.FC = () => {
   const badge = getConsensusBadge();
 
   return (
-    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-6 selection:bg-brand-redSoft">
+    <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] selection:bg-brand-redSoft">
       <div>
         {/* Header */}
         <Header
@@ -116,8 +120,8 @@ export const ConsensusResultScreen: React.FC = () => {
 
         {/* Heading and Sparkles */}
         <div className="text-center mt-2 mb-4 px-2 relative">
-          <DoodleHeart className="absolute -top-2 start-4 transform -rotate-12" color="#55B96A" />
-          <SparkleRays className="absolute -top-3 end-4 transform rotate-12 scale-90" color="#FFD75A" />
+          <DoodleHeart className="absolute -top-4 start-1 transform -rotate-12 pointer-events-none opacity-80" color="#55B96A" />
+          <SparkleRays className="absolute -top-3 end-4 transform rotate-12 scale-90 pointer-events-none" color="#FFD75A" />
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-ink mb-1 font-alexandria tracking-tight">
             {t('consensus.heading')}
@@ -151,11 +155,15 @@ export const ConsensusResultScreen: React.FC = () => {
             </h1>
 
             <p className="text-xs sm:text-sm font-bold text-brand-muted">
-              {t('consensus.votesCount', {
-                count: winnerVoteCount,
-                total: totalVoters,
-                percentage: agreementPercentage,
-              })}
+              {isRandomTie
+                ? (locale === 'ar'
+                    ? '🎲 فاز بالقرعة بعد تعادل الأصوات بالتساوي'
+                    : '🎲 Decided by random roll after equal squad votes')
+                : t('consensus.votesCount', {
+                    count: winnerVoteCount,
+                    total: totalVoters,
+                    percentage: agreementPercentage,
+                  })}
             </p>
           </div>
         </div>
@@ -191,7 +199,9 @@ export const ConsensusResultScreen: React.FC = () => {
                       <span>{locale === 'ar' ? item.def?.ar : item.def?.en}</span>
                     </span>
                     <span className="text-brand-muted font-bold text-[11px]">
-                      {item.count} ({item.percentage}%)
+                      {item.count === winnerVoteCount && (isRandomTie || agreementPercentage === 100)
+                        ? (locale === 'ar' ? 'تعادل (قرعة)' : 'Tied (Rolled)')
+                        : `${item.count} (${item.percentage}%)`}
                     </span>
                   </div>
                 ))}

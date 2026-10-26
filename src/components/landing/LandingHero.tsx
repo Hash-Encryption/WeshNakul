@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck } from '@phosphor-icons/react';
 import { useLocale } from '../../context/LocaleContext';
 import { LanguageToggle } from '../common/LanguageToggle';
 import { TactileButton } from '../common/TactileButton';
@@ -15,7 +14,6 @@ interface LandingHeroProps {
 export const LandingHero: React.FC<LandingHeroProps> = ({
   onStartGroup,
   onEnterCode,
-  onOpenAdmin,
 }) => {
   const { t } = useLocale();
 
@@ -24,9 +22,6 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       {/* Top Bar with Language Toggle */}
       <div className="w-full flex items-center justify-between pt-2">
         <LanguageToggle />
-        <div className="text-xs text-brand-gray font-medium opacity-70">
-          9:41
-        </div>
       </div>
 
       {/* Center Artwork & Copy */}
@@ -131,27 +126,9 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           <SparkleRays className="absolute -right-2 top-0 transform rotate-45 scale-75" color="#FFD75A" />
           
           <div className="flex items-center gap-1.5 text-xs text-brand-gray/90 font-semibold bg-white/40 px-3 py-1.5 rounded-full border border-brand-border/40">
-            <span>بدون تسجيل</span>
-            <span className="text-brand-red text-xs">•</span>
-            <span>سريع</span>
-            <span className="text-brand-green text-xs">•</span>
-            <span>مناسب للقروبات</span>
+            <span>{t('landing.badge')}</span>
           </div>
         </div>
-
-        {onOpenAdmin && (
-          <div className="flex justify-center pt-1">
-            <button
-              type="button"
-              onClick={onOpenAdmin}
-              className="text-[11px] text-stone-400 hover:text-stone-600 transition-colors flex items-center gap-1 cursor-pointer"
-              title="لوحة الإدارة والتحليلات"
-            >
-              <ShieldCheck size={13} />
-              <span>لوحة الإدارة</span>
-            </button>
-          </div>
-        )}
       </motion.div>
     </div>
   );

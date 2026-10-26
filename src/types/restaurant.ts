@@ -1,4 +1,4 @@
-export type PriceTier = '$' | '$$' | '$$$';
+﻿export type PriceTier = '$' | '$$' | '$$$';
 export type TimeSlot = 'breakfast' | 'lunch' | 'dinner' | 'late_night';
 export type DiningMode = 'both' | 'delivery_only' | 'dine_in_only';
 export type TierType = 'staple' | 'trend';

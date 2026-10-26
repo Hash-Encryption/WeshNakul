@@ -1,4 +1,4 @@
-import { isRoomExpired } from '../supabase';
+﻿import { isRoomExpired } from '../supabase';
 import { clearRoomSession, getOrCreateSessionToken, setActiveRoomCode, getActiveRoomCode } from '../session';
 import arDict from '../../locales/ar.json';
 import enDict from '../../locales/en.json';

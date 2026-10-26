@@ -9,6 +9,7 @@ import { ArcadeWheel, type ArcadeWheelSlice } from '../common/ArcadeWheel';
 import { getCategoryById, NEO_BRUTALIST_PALETTE } from '../../lib/consensus';
 import { useContinuousRoulette } from '../../hooks/useContinuousRoulette';
 import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
+import { triggerHaptic, playTactilePop } from '../../lib/haptics';
 
 export const TiebreakerScreen: React.FC = () => {
   const {
@@ -66,7 +67,8 @@ export const TiebreakerScreen: React.FC = () => {
     reducedMotion: Boolean(reduceMotion),
     onRevealed: () => {
       if (!reduceMotion) {
-        navigator.vibrate?.(15);
+        triggerHaptic(20);
+        playTactilePop(260);
         confetti({ particleCount: 35, spread: 55, origin: { y: 0.55 }, colors: ['#FFD75A', '#55B96A', '#F0443E'] });
       }
     },
@@ -80,7 +82,8 @@ export const TiebreakerScreen: React.FC = () => {
   const choose = async () => {
     if (!isHost || spin || isStarting) return;
     setIsStarting(true);
-    navigator.vibrate?.(8);
+    triggerHaptic(12);
+    playTactilePop(200);
     try {
       await startCategoryRoulette();
     } catch (error) {

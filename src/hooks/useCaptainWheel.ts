@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { CaptainCandidate } from '../types/captain';
+import { triggerHaptic, playTactilePop } from '../lib/haptics';
 
 export type CaptainWheelPhase = 'idle' | 'spinning' | 'landing' | 'revealed' | 'complete';
 
@@ -112,6 +113,10 @@ export function useCaptainWheel({
         }
         if (!revealedRef.current) {
           revealedRef.current = true;
+          try {
+            triggerHaptic(18);
+            playTactilePop(320);
+          } catch {}
           updatePhase('revealed');
           callbacksRef.current.onRevealed?.(winnerId);
         }
@@ -168,7 +173,10 @@ export function useCaptainWheel({
         const currentSlice = getCaptainSliceIndexAtPointer(rotationRef.current, activeCount);
         if (lastSliceIndexRef.current !== null && lastSliceIndexRef.current !== currentSlice) {
           needleAngleRef.current = -12; // kick needle
-          try { navigator.vibrate?.(4); } catch {}
+          try {
+            triggerHaptic(6);
+            playTactilePop(280);
+          } catch {}
         }
         lastSliceIndexRef.current = currentSlice;
 
@@ -215,7 +223,10 @@ export function useCaptainWheel({
       const currentSlice = getCaptainSliceIndexAtPointer(currentRot, activeCount);
       if (lastSliceIndexRef.current !== null && lastSliceIndexRef.current !== currentSlice) {
         needleAngleRef.current = -10 * (1 - progress);
-        try { navigator.vibrate?.(progress > 0.8 ? 2 : 4); } catch {}
+        try {
+          triggerHaptic(progress > 0.8 ? 8 : 6);
+          playTactilePop(progress > 0.8 ? 200 : 250);
+        } catch {}
       }
       lastSliceIndexRef.current = currentSlice;
 

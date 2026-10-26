@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+﻿import { useEffect, useState, useCallback, useRef } from 'react';
 import { fetchDeckRestaurants, getRoomDecisionState, submitRestaurantVote } from '../lib/supabase';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { RestaurantSummary } from '../types/database';

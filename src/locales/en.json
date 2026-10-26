@@ -4,7 +4,7 @@
     "subtitle": "Let the group settle it in 60 seconds.",
     "createGroup": "Start a Group",
     "enterCode": "Join with Code",
-    "badge": "No sign-up • Fast • Built for the squad"
+    "badge": "Built for groups • 60s • No sign-up"
   },
   "startingMode": {
     "heading": "What are we feeling?",
@@ -177,8 +177,8 @@
   "swiping": {
     "title": "Swipe & Match",
     "subtitle": "Swipe right to approve, left to pass",
-    "stamp_like": "MATCH 🔥",
-    "stamp_pass": "PASS ❌",
+    "stamp_like": "YUM! 🔥",
+    "stamp_pass": "NOPE ❌",
     "signature_dish_label": "Signature Squad Pick:",
     "hud_status": "{{completed}} of {{total}} done swiping",
     "waiting_title": "You've cleared the deck! 🫡",
@@ -225,7 +225,7 @@
   "gameSwiper": {
     "counter": "🍔 Restaurant {{current}} of {{total}}",
     "dislike": "Pass",
-    "skip": "Later ⏭️",
+    "skip": "Later",
     "like": "Pick",
     "roundTwoToast": "Didn't like anything? Quick round 2! 🔄",
     "waitingForHost": "👑 Waiting for host to lock the pick...",

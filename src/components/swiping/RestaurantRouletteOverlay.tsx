@@ -7,6 +7,7 @@ import { NEO_BRUTALIST_PALETTE } from '../../lib/consensus';
 import { useLocale } from '../../context/LocaleContext';
 import { useRoom } from '../../context/RoomContext';
 import { useContinuousRoulette } from '../../hooks/useContinuousRoulette';
+import { triggerHaptic, playTactilePop } from '../../lib/haptics';
 import type { DecisionSpin } from '../../types/roulette';
 import type { RestaurantItem } from '../../types/restaurant';
 
@@ -47,7 +48,8 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
     reducedMotion: Boolean(reduceMotion),
     onRevealed: () => {
       if (!reduceMotion) {
-        navigator.vibrate?.(15);
+        triggerHaptic(20);
+        playTactilePop(260);
         confetti({ particleCount: 35, spread: 55, origin: { y: 0.55 }, colors: ['#FFD75A', '#55B96A', '#F0443E'] });
       }
     },

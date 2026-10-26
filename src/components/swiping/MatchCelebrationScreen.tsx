@@ -15,6 +15,8 @@ import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
 
 import { broadcastRevoteRequest, subscribeToRevoteRequests } from '../../lib/supabase';
 import { trackRevoteRequested } from '../../lib/analytics';
+import { generateReceiptFile } from '../../lib/receiptGenerator';
+import { playTactilePop, triggerHaptic } from '../../lib/haptics';
 
 const PILL_GRADIENTS = [
   'from-[#FF6B6B] to-[#FF8E53]',
@@ -76,12 +78,94 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [revoteVoters, setRevoteVoters] = useState<Array<{ id: string; name: string }>>([]);
+  const [isGeneratingReceipt, setIsGeneratingReceipt] = useState(false);
+  const [receiptModal, setReceiptModal] = useState<{
+    file: File;
+    previewUrl: string;
+  } | null>(null);
 
   const activeRoomId = roomId || currentRoom?.id || '';
   const activeParticipantId = currentParticipantId || currentParticipant?.id || '';
   const activeParticipantName = currentParticipantName || currentParticipant?.nickname || '';
   const activeIsHost = isHost !== undefined ? isHost : roomIsHost;
   const roomCode = currentRoom?.code || '';
+
+  const name =
+    (locale === 'ar' ? restaurant.nameAr : restaurant.nameEn) ||
+    restaurant.nameAr ||
+    restaurant.nameEn ||
+    restaurant.name ||
+    (locale === 'ar' ? 'مطعم' : 'Restaurant');
+
+  const handleOpenReceiptPreview = async () => {
+    if (isGeneratingReceipt) return;
+    setIsGeneratingReceipt(true);
+    playTactilePop(220);
+    triggerHaptic(12);
+    try {
+      const file = await generateReceiptFile({
+        restaurant,
+        participants,
+        orders,
+        roomCode,
+        districtName: currentRoom?.district || undefined,
+        cityName: currentRoom?.city || undefined,
+        isUnanimous,
+        locale,
+      });
+
+      const previewUrl = URL.createObjectURL(file);
+      setReceiptModal({ file, previewUrl });
+
+      confetti({
+        particleCount: 25,
+        spread: 60,
+        origin: { y: 0.8 },
+      });
+    } catch (err) {
+      console.warn('Generate receipt preview failed:', err);
+    } finally {
+      setIsGeneratingReceipt(false);
+    }
+  };
+
+  const handleCloseReceiptModal = () => {
+    if (receiptModal) {
+      URL.revokeObjectURL(receiptModal.previewUrl);
+      setReceiptModal(null);
+    }
+  };
+
+  const handleModalShare = async () => {
+    if (!receiptModal) return;
+    playTactilePop(240);
+    triggerHaptic(16);
+    try {
+      if (typeof navigator !== 'undefined' && navigator.canShare && navigator.canShare({ files: [receiptModal.file] })) {
+        await navigator.share({
+          title: `${name} - Wesh Nakul`,
+          text: locale === 'ar' ? `اخترنا ${name} عبر وش ناكل! 🍔` : `We picked ${name} on Wesh Nakul! 🍔`,
+          files: [receiptModal.file],
+        });
+      } else {
+        handleModalSave();
+      }
+    } catch (err) {
+      console.warn('Share modal failed:', err);
+    }
+  };
+
+  const handleModalSave = () => {
+    if (!receiptModal) return;
+    playTactilePop(180);
+    triggerHaptic(12);
+    const a = document.createElement('a');
+    a.href = receiptModal.previewUrl;
+    a.download = receiptModal.file.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
   // Realtime subscription for squad revote requests
   useEffect(() => {
@@ -181,12 +265,6 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
     }
   }, []);
 
-  const name =
-    (locale === 'ar' ? restaurant?.nameAr : restaurant?.nameEn) ||
-    restaurant?.nameAr ||
-    restaurant?.nameEn ||
-    restaurant?.name ||
-    (locale === 'ar' ? 'المطعم الفائز' : 'Winning Restaurant');
   const signatureDish =
     (locale === 'ar' ? restaurant?.signatureDishAr : restaurant?.signatureDishEn) ||
     restaurant?.signatureDishAr ||
@@ -330,8 +408,6 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
         {/* Phase 4: Delivery App Launcher */}
         <DeliveryLauncher
           restaurant={restaurant}
-          orders={orders}
-          roomCode={roomCode}
         />
 
         {/* Phase 4: Squad Order Scratchpad */}
@@ -342,11 +418,27 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
           isHost={activeIsHost}
           orders={orders}
           onOrdersChange={setOrders}
+          restaurantName={name}
+          roomCode={roomCode}
         />
       </div>
 
       {/* Action Buttons */}
       <div className="max-w-md w-full mx-auto flex flex-col gap-2.5 pt-2 pb-6">
+        {/* Share to IG Story (Thermal Receipt) */}
+        <button
+          type="button"
+          onClick={handleOpenReceiptPreview}
+          disabled={isGeneratingReceipt}
+          className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCB045] text-white border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-1 active:shadow-none font-alexandria font-black text-sm sm:text-base flex items-center justify-center gap-2 hover:brightness-105 transition-all select-none cursor-pointer disabled:opacity-60"
+        >
+          <span className="text-base sm:text-lg">📸</span>
+          <span>
+            {isGeneratingReceipt
+              ? (locale === 'ar' ? 'جاري تحضير الفاتورة...' : 'Generating Receipt...')
+              : (locale === 'ar' ? 'مشاركة ستوري إنستقرام (فاتورة حرارية)' : 'Share to IG Story (Receipt)')}
+          </span>
+        </button>
         {/* Re-Vote Section with Avatar Badges */}
         <div className="w-full flex flex-col gap-1.5">
           {revoteVoters.length > 0 && (
@@ -474,6 +566,63 @@ export const MatchCelebrationScreen: React.FC<MatchCelebrationScreenProps> = ({
                 className="py-2 text-xs font-semibold text-[#7A6E67]"
               >
                 {t('common.close')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 9:16 Receipt Preview Modal */}
+      {receiptModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md select-none animate-fade-in"
+        >
+          <div className="relative w-full max-w-sm bg-[#1A1412] text-white rounded-3xl border-2 border-[#241B18] shadow-[0_20px_50px_rgba(0,0,0,0.85)] p-4 sm:p-5 flex flex-col gap-3.5 max-h-[92vh] overflow-hidden">
+            {/* Modal Top Bar */}
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFD75A]/20 border border-[#FFD75A]/40 text-[#FFD75A] font-alexandria font-black text-xs">
+                <span>🧾</span>
+                <span>{locale === 'ar' ? 'معاينة الفاتورة الحرارية' : 'Receipt Preview'}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleCloseReceiptModal}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/80 hover:text-white flex items-center justify-center transition-all cursor-pointer text-sm font-black"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Receipt 9:16 Image Preview */}
+            <div className="w-full flex-1 min-h-0 flex items-center justify-center overflow-hidden rounded-2xl bg-black/40 border border-white/10 p-2">
+              <img
+                src={receiptModal.previewUrl}
+                alt="Wesh Nakul Receipt"
+                className="max-h-[55vh] w-auto object-contain rounded-xl shadow-lg border border-white/10"
+              />
+            </div>
+
+            {/* Action Buttons: Synchronous One-Tap on the pre-built File */}
+            <div className="flex flex-col gap-2 w-full pt-1">
+              <button
+                type="button"
+                onClick={handleModalShare}
+                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCB045] text-white font-alexandria font-black text-xs sm:text-sm border-2 border-white/20 shadow-md active:translate-y-0.5 hover:brightness-105 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span className="text-base">📲</span>
+                <span>{locale === 'ar' ? 'مشاركة في إنستقرام / ستوري' : 'Share to Instagram / Stories'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleModalSave}
+                className="w-full py-2.5 px-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-alexandria font-black text-xs sm:text-sm border border-white/20 active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span className="text-base">💾</span>
+                <span>{locale === 'ar' ? 'حفظ صورة الفاتورة للصور' : 'Save Receipt Image to Photos'}</span>
               </button>
             </div>
           </div>

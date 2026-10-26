@@ -33,7 +33,7 @@ function extractBrandName(rawName: string): string {
   return parts[0].trim();
 }
 
-function copyToClipboardSafe(text: string): void {
+export function copyToClipboardSafe(text: string): void {
   if (!text) return;
   if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
     navigator.clipboard.writeText(text).catch(() => {
@@ -63,19 +63,14 @@ function execFallbackCopy(text: string): void {
 
 interface DeliveryLauncherProps {
   restaurant: RestaurantItem;
-  orders: OrderItem[];
-  roomCode: string;
   className?: string;
 }
 
 export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
   restaurant,
-  orders,
-  roomCode,
   className = '',
 }) => {
   const { locale, t } = useLocale();
-  const [copied, setCopied] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const fallbackSearchName = (locale === 'ar' ? restaurant.nameAr : restaurant.nameEn) || restaurant.name || '';
@@ -95,7 +90,7 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
     });
   };
 
-  const handleDeliveryClick = (platform: 'hungerstation' | 'ninja' | 'keeta') => {
+  const handleDeliveryClick = (platform: 'hungerstation' | 'ninja' | 'keeta' | 'jahez') => {
     trackOutboundDeliveryClick({
       restaurantId: restaurant.id,
       platform,
@@ -145,24 +140,6 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
     // On desktop, default anchor target="_blank" navigates to https://www.keeta.com/
   };
 
-  const handleCopyWhatsApp = () => {
-    trackOutboundDeliveryClick({
-      restaurantId: restaurant.id,
-      platform: 'whatsapp',
-    });
-    const text = formatWhatsAppOrder(brandName || fallbackSearchName, orders, roomCode);
-    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-
-    // 1. Launch WhatsApp immediately on user gesture to prevent popup blocking
-    window.open(waUrl, '_blank');
-
-    // 2. Perform clipboard write in the background
-    copyToClipboardSafe(text);
-
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
   return (
     <div className={`w-full max-w-md mx-auto flex flex-col gap-2.5 mb-3 ${className}`}>
       {/* Primary CTA: Google Maps */}
@@ -193,28 +170,28 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
         <div className="flex-1 h-px bg-[#241B18]/15" />
       </div>
 
-      {/* Delivery Platforms: 3-column Grid (HungerStation, Ninja, Keeta) */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* Delivery Platforms: 4-column Grid (HungerStation, Jahez, Keeta, Ninja) */}
+      <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
         {/* HungerStation */}
         <a
           href="https://hungerstation.go.link/?adj_t=18ca96f0_23cp1gxh"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => handleDeliveryClick('hungerstation')}
-          className="h-12 px-2 rounded-2xl bg-[#EA1D2C] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-105 transition-all flex items-center justify-center gap-1 font-alexandria font-black text-xs sm:text-sm select-none"
+          className="h-12 px-1 rounded-2xl bg-[#EA1D2C] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-105 transition-all flex items-center justify-center font-alexandria font-black text-[11px] sm:text-xs select-none"
         >
           <span>{locale === 'ar' ? 'هنقرستيشن' : 'HungerStation'}</span>
         </a>
 
-        {/* Ninja */}
+        {/* Jahez */}
         <a
-          href="https://ananinja.com/app"
+          href={`https://jahez.net/search?q=${encodeURIComponent(brandName)}`}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => handleDeliveryClick('ninja')}
-          className="h-12 px-2 rounded-2xl bg-[#101828] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-110 transition-all flex items-center justify-center gap-1 font-alexandria font-black text-xs sm:text-sm select-none"
+          onClick={() => handleDeliveryClick('jahez')}
+          className="h-12 px-1 rounded-2xl bg-[#E31B23] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-105 transition-all flex items-center justify-center font-alexandria font-black text-[11px] sm:text-xs select-none"
         >
-          <span>{locale === 'ar' ? 'نينجا' : 'Ninja'}</span>
+          <span>{locale === 'ar' ? 'جاهز' : 'Jahez'}</span>
         </a>
 
         {/* Keeta */}
@@ -223,38 +200,22 @@ export const DeliveryLauncher: React.FC<DeliveryLauncherProps> = ({
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleKeetaClick}
-          className="h-12 px-2 rounded-2xl bg-[#FFD600] text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-105 transition-all flex items-center justify-center gap-1 font-alexandria font-black text-xs sm:text-sm select-none"
+          className="h-12 px-1 rounded-2xl bg-[#FFD600] text-[#241B18] border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-105 transition-all flex items-center justify-center font-alexandria font-black text-[11px] sm:text-xs select-none"
         >
           <span>{locale === 'ar' ? 'كيتا' : 'Keeta'}</span>
         </a>
-      </div>
 
-      {/* WhatsApp Copy Action Button */}
-      <button
-        type="button"
-        onClick={handleCopyWhatsApp}
-        className={`w-full h-12 px-4 rounded-2xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] transition-all font-alexandria font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 select-none ${
-          copied
-            ? 'bg-[#55B96A] text-white'
-            : 'bg-[#25D366] text-white hover:brightness-105'
-        }`}
-      >
-        {copied ? (
-          <>
-            <span className="text-base">✅</span>
-            <span>{t('scratchpad.whatsappCopied')}</span>
-          </>
-        ) : (
-          <>
-            <span className="text-base">📋</span>
-            <span>
-              {locale === 'ar'
-                ? `نسخ طلبات القروب للواتساب (${orders.length})`
-                : `Copy Squad Order to WhatsApp (${orders.length})`}
-            </span>
-          </>
-        )}
-      </button>
+        {/* Ninja */}
+        <a
+          href="https://ananinja.com/app"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => handleDeliveryClick('ninja')}
+          className="h-12 px-1 rounded-2xl bg-[#101828] text-white border-2 border-[#241B18] shadow-[0px_3px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] hover:brightness-110 transition-all flex items-center justify-center font-alexandria font-black text-[11px] sm:text-xs select-none"
+        >
+          <span>{locale === 'ar' ? 'نينجا' : 'Ninja'}</span>
+        </a>
+      </div>
 
       {/* Toast Notification */}
       <Toast message={toastMessage} onClose={() => setToastMessage(null)} />

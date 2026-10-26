@@ -290,7 +290,14 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-2.5 pt-1 w-full">
+          <div className="flex flex-col items-center gap-2 pt-1 w-full">
+            {/* Quick Way micro-label */}
+            <div className="w-full flex items-center justify-start px-1">
+              <span className="text-[10px] font-black text-[#7A6E67] font-alexandria uppercase tracking-wider">
+                {locale === 'ar' ? '⚡ الطريقة السريعة • لفة فورية' : '⚡ Quick Way • Instant Spin'}
+              </span>
+            </div>
+
             {/* Food Roulette Button - Always on Top & Full Width */}
             <button
               type="button"
@@ -313,6 +320,22 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
                 className="ms-1"
               />
             </button>
+
+            {/* Visual Divider: OR / أو */}
+            <div className="w-full flex items-center gap-3 my-0.5 select-none">
+              <div className="flex-1 h-px bg-[#241B18]/15" />
+              <span className="text-[11px] font-black text-[#7A6E67] font-alexandria uppercase tracking-widest px-1">
+                {locale === 'ar' ? '─────── أو ───────' : '─────── OR ───────'}
+              </span>
+              <div className="flex-1 h-px bg-[#241B18]/15" />
+            </div>
+
+            {/* Fun Way micro-label */}
+            <div className="w-full flex items-center justify-start px-1">
+              <span className="text-[10px] font-black text-[#7A6E67] font-alexandria uppercase tracking-wider">
+                {locale === 'ar' ? '🔥 طريقة الحماس • تحدي باللعب' : '🔥 Fun Way • Battle it out'}
+              </span>
+            </div>
 
             {/* Mini Games Expandable Control - Full Width directly under Food Roulette */}
             <button
@@ -451,7 +474,7 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
                     <span>❤️</span>
                     <span>{likes}</span>
                   </div>
-                  {isHost && isTie && tiedIds.has(restaurant.id) && (
+                  {isHost && isTie && tiedIds.has(restaurant.id) && participants.length === 1 && (
                     <button
                       type="button"
                       onClick={() => onConfirmPick(restaurant)}

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WeshNakul First-Party Anonymous Analytics Identity
  *
  * Implements a random, first-party anonymous browser ID using cryptographically

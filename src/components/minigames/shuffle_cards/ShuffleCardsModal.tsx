@@ -9,6 +9,7 @@ import { MiniGameIntroOverlay } from '../MiniGameIntroOverlay';
 import { useLocale } from '../../../context/LocaleContext';
 import { broadcastShuffleCards, subscribeToShuffleCards } from '../../../lib/supabase';
 import { trackMiniGameStarted, trackMiniGameCompleted } from '../../../lib/analytics';
+import { triggerHaptic, playTactilePop } from '../../../lib/haptics';
 
 // 6 permutation steps for Three-Card Monte crossover (slots 0, 1, 2)
 const SHUFFLE_STEPS_3: number[][] = [
@@ -471,7 +472,8 @@ export const ShuffleCardsModal: React.FC<ShuffleCardsModalProps> = ({
 
       // Haptics & feedback
       try {
-        navigator.vibrate?.(25);
+        triggerHaptic(20);
+        playTactilePop(220);
       } catch {}
 
       if (isShuffleAgainPick) {

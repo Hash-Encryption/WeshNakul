@@ -4,6 +4,8 @@ import { fetchOrderItems, addOrderItem, deleteOrderItem, subscribeToOrderItems }
 import { extractInitial } from '../../lib/tokenGenerator';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
+import { formatWhatsAppOrder, copyToClipboardSafe } from './DeliveryLauncher';
+import { trackOutboundDeliveryClick } from '../../lib/analytics';
 
 interface OrderScratchpadProps {
   roomId: string;
@@ -13,6 +15,8 @@ interface OrderScratchpadProps {
   orders?: OrderItem[];
   onOrdersChange?: (orders: OrderItem[]) => void;
   className?: string;
+  restaurantName?: string;
+  roomCode?: string;
 }
 
 export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
@@ -23,8 +27,10 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
   orders: controlledOrders,
   onOrdersChange,
   className = '',
+  restaurantName = '',
+  roomCode = '',
 }) => {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const { reportError } = useRoom();
 
   const [internalItems, setInternalItems] = useState<OrderItem[]>([]);
@@ -32,6 +38,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
   const [notes, setNotes] = useState('');
   const [showNotes, setShowNotes] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const items = controlledOrders !== undefined ? controlledOrders : internalItems;
 
@@ -64,16 +71,18 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
 
     if (!roomId) return;
 
-    fetchOrderItems(roomId).then((loaded) => {
-      if (isMounted) {
-        if (controlledOrders !== undefined) {
-          notifyChange(loaded);
-        } else {
-          setInternalItems(loaded);
-          notifyChange(loaded);
+    fetchOrderItems(roomId)
+      .then((loaded) => {
+        if (isMounted) {
+          if (controlledOrders !== undefined) {
+            notifyChange(loaded);
+          } else {
+            setInternalItems(loaded);
+            notifyChange(loaded);
+          }
         }
-      }
-    }).catch(reportError);
+      })
+      .catch(reportError);
 
     const unsubscribe = subscribeToOrderItems(
       roomId,
@@ -130,11 +139,26 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
     }
   };
 
+  const handleCopyWhatsApp = () => {
+    trackOutboundDeliveryClick({
+      restaurantId: roomId,
+      platform: 'whatsapp',
+    });
+    const text = formatWhatsAppOrder(restaurantName || 'المطعم', items, roomCode);
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+
+    window.open(waUrl, '_blank');
+    copyToClipboardSafe(text);
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <div
       className={`w-full max-w-md mx-auto bg-white rounded-3xl border-2 border-[#241B18] shadow-[0px_6px_0px_#241B18] p-4 sm:p-5 mb-4 select-none ${className}`}
     >
-      {/* Header */}
+      {/* 1. Header */}
       <div className="flex items-center justify-between pb-3 border-b-2 border-[#241B18]/10 mb-3">
         <div>
           <h3 className="text-base sm:text-lg font-black text-[#241B18] font-alexandria flex items-center gap-1.5">
@@ -151,7 +175,59 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
         </div>
       </div>
 
-      {/* Item Card List */}
+      {/* 2. Order Entry Form at TOP */}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 pb-3 mb-3 border-b-2 border-[#241B18]/10">
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            placeholder={t('scratchpad.placeholderItem')}
+            disabled={isSubmitting}
+            className="flex-1 min-w-0 h-11 px-3 rounded-xl bg-[#FFF8F1] border-2 border-[#241B18] text-[#241B18] placeholder:text-[#7A6E67]/70 font-alexandria text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#FFD75A] shadow-[inset_0px_2px_4px_rgba(0,0,0,0.04)]"
+          />
+
+          {/* Toggle Notes Button */}
+          <button
+            type="button"
+            onClick={() => setShowNotes((prev) => !prev)}
+            aria-label="Toggle notes input"
+            title="ملاحظات خاصة"
+            className={`h-11 w-11 rounded-xl border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none font-alexandria font-bold text-sm flex items-center justify-center transition-colors shrink-0 cursor-pointer ${
+              showNotes || notes.trim().length > 0
+                ? 'bg-[#FFD75A] text-[#241B18]'
+                : 'bg-white text-[#7A6E67] hover:text-[#241B18]'
+            }`}
+          >
+            <span>📝</span>
+          </button>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={!itemName.trim() || isSubmitting}
+            className="h-11 px-3.5 rounded-xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 font-alexandria font-black text-xs sm:text-sm flex items-center justify-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed shrink-0 transition-all cursor-pointer"
+          >
+            <span>{t('scratchpad.addButton')}</span>
+          </button>
+        </div>
+
+        {/* Expandable Notes Input */}
+        {showNotes && (
+          <div className="pt-0.5">
+            <input
+              type="text"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder={t('scratchpad.placeholderNotes')}
+              disabled={isSubmitting}
+              className="w-full h-10 px-3.5 rounded-xl bg-[#FFF8F1] border-2 border-[#241B18] text-[#241B18] placeholder:text-[#7A6E67]/70 font-alexandria text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFD75A]"
+            />
+          </div>
+        )}
+      </form>
+
+      {/* 3. Item Card List */}
       <div className="flex flex-col gap-2.5 max-h-72 overflow-y-auto pr-0.5 mb-3.5">
         {items.length === 0 ? (
           <div className="py-5 px-4 text-center rounded-2xl bg-[#FFF8F1]/80 border border-dashed border-[#241B18]/25 text-[#7A6E67] text-xs sm:text-sm font-medium font-alexandria">
@@ -209,7 +285,7 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
                     type="button"
                     onClick={() => handleDelete(item.id)}
                     aria-label="Delete order item"
-                    className="w-8 h-8 rounded-xl bg-white hover:bg-[#FFF0EE] text-[#7A6E67] hover:text-[#F0443E] border-2 border-[#241B18] shadow-[0px_1.5px_0px_#241B18] active:translate-y-0.5 active:shadow-none flex items-center justify-center transition-colors shrink-0"
+                    className="w-8 h-8 rounded-xl bg-white hover:bg-[#FFF0EE] text-[#7A6E67] hover:text-[#F0443E] border-2 border-[#241B18] shadow-[0px_1.5px_0px_#241B18] active:translate-y-0.5 active:shadow-none flex items-center justify-center transition-colors shrink-0 cursor-pointer"
                   >
                     <span className="text-xs font-black">✕</span>
                   </button>
@@ -220,57 +296,32 @@ export const OrderScratchpad: React.FC<OrderScratchpadProps> = ({
         )}
       </div>
 
-      {/* Order Entry Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 pt-2.5 border-t-2 border-[#241B18]/10">
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
-            placeholder={t('scratchpad.placeholderItem')}
-            disabled={isSubmitting}
-            className="flex-1 min-w-0 h-11 px-3 rounded-xl bg-[#FFF8F1] border-2 border-[#241B18] text-[#241B18] placeholder:text-[#7A6E67]/70 font-alexandria text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#FFD75A] shadow-[inset_0px_2px_4px_rgba(0,0,0,0.04)]"
-          />
-
-          {/* Toggle Notes Button */}
-          <button
-            type="button"
-            onClick={() => setShowNotes((prev) => !prev)}
-            aria-label="Toggle notes input"
-            title="ملاحظات خاصة"
-            className={`h-11 w-11 rounded-xl border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none font-alexandria font-bold text-sm flex items-center justify-center transition-colors shrink-0 ${
-              showNotes || notes.trim().length > 0
-                ? 'bg-[#FFD75A] text-[#241B18]'
-                : 'bg-white text-[#7A6E67] hover:text-[#241B18]'
-            }`}
-          >
-            <span>📝</span>
-          </button>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={!itemName.trim() || isSubmitting}
-            className="h-11 px-3.5 rounded-xl bg-[#FFD75A] text-[#241B18] border-2 border-[#241B18] shadow-[0px_2px_0px_#241B18] active:translate-y-0.5 active:shadow-none hover:brightness-105 font-alexandria font-black text-xs sm:text-sm flex items-center justify-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed shrink-0 transition-all"
-          >
-            <span>{t('scratchpad.addButton')}</span>
-          </button>
-        </div>
-
-        {/* Expandable Notes Input */}
-        {showNotes && (
-          <div className="pt-0.5">
-            <input
-              type="text"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder={t('scratchpad.placeholderNotes')}
-              disabled={isSubmitting}
-              className="w-full h-10 px-3.5 rounded-xl bg-[#FFF8F1] border-2 border-[#241B18] text-[#241B18] placeholder:text-[#7A6E67]/70 font-alexandria text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFD75A]"
-            />
-          </div>
+      {/* 4. WhatsApp Copy Action Button at BOTTOM of scratchpad */}
+      <button
+        type="button"
+        onClick={handleCopyWhatsApp}
+        className={`w-full h-12 px-4 rounded-2xl border-2 border-[#241B18] shadow-[0px_4px_0px_#241B18] active:translate-y-0.5 active:shadow-[0px_1px_0px_#241B18] transition-all font-alexandria font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 select-none cursor-pointer ${
+          copied
+            ? 'bg-[#55B96A] text-white'
+            : 'bg-[#25D366] text-white hover:brightness-105'
+        }`}
+      >
+        {copied ? (
+          <>
+            <span className="text-base">✅</span>
+            <span>{t('scratchpad.whatsappCopied')}</span>
+          </>
+        ) : (
+          <>
+            <span className="text-base">📋</span>
+            <span>
+              {locale === 'ar'
+                ? `نسخ طلبات القروب للواتساب (${items.length})`
+                : `Copy Squad Order to WhatsApp (${items.length})`}
+            </span>
+          </>
         )}
-      </form>
+      </button>
     </div>
   );
 };

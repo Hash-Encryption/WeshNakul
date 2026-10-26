@@ -3,8 +3,8 @@ import { motion } from 'motion/react';
 import type { RoomMode } from '../../types/database';
 import { useLocale } from '../../context/LocaleContext';
 import { Header } from '../common/Header';
-import { TactileButton } from '../common/TactileButton';
 import { SparkleRays, DoodleHeart } from '../common/DecorativeSparkles';
+import { triggerSelectionFeedback } from '../../lib/haptics';
 
 interface StartingModeScreenProps {
   onNext: (mode: RoomMode) => void;
@@ -22,10 +22,12 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
     initialMode === 'breakfast' || initialMode === 'cafes' ? initialMode : 'food'
   );
 
-  const handleProceed = () => {
-    if (selectedMode) {
-      onNext(selectedMode);
-    }
+  const handleSelectMode = (mode: RoomMode, e?: React.MouseEvent) => {
+    setSelectedMode(mode);
+    triggerSelectionFeedback(e, 220);
+    setTimeout(() => {
+      onNext(mode);
+    }, 180);
   };
 
   const isFood = selectedMode === 'food';
@@ -36,7 +38,7 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
     <div className="relative flex flex-col justify-between min-h-[92dvh] w-full px-4 pb-6">
       {/* Top Header */}
       <div>
-        <Header onBack={onBack} participantCount={1} showCount={true} />
+        <Header onBack={onBack} stepIndicator="1/3" showCount={false} />
 
         {/* Headline and Subtitle */}
         <div className="text-center mt-3 mb-6 px-2">
@@ -56,8 +58,8 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
 
           {/* MAIN OPTION: FOOD (Full-width, large dominant card) */}
           <motion.button
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setSelectedMode('food')}
+            whileTap={{ scale: 0.96 }}
+            onClick={(e) => handleSelectMode('food', e)}
             type="button"
             className={`
               relative flex flex-col items-center justify-center p-6 sm:p-7 rounded-3xl
@@ -95,8 +97,8 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
           <div className="grid grid-cols-2 gap-3 sm:gap-3.5 w-full [direction:ltr]">
             {/* BREAKFAST (Left card) */}
             <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedMode('breakfast')}
+              whileTap={{ scale: 0.96 }}
+              onClick={(e) => handleSelectMode('breakfast', e)}
               type="button"
               className={`
                 relative flex flex-col items-center justify-center py-4 px-3 sm:py-5 sm:px-4 rounded-2xl sm:rounded-3xl
@@ -131,8 +133,8 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
 
             {/* CAFES (Right card) */}
             <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedMode('cafes')}
+              whileTap={{ scale: 0.96 }}
+              onClick={(e) => handleSelectMode('cafes', e)}
               type="button"
               className={`
                 relative flex flex-col items-center justify-center py-4 px-3 sm:py-5 sm:px-4 rounded-2xl sm:rounded-3xl
@@ -166,21 +168,6 @@ export const StartingModeScreen: React.FC<StartingModeScreenProps> = ({
             </motion.button>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Sticky Action: Red Next CTA */}
-      <div className="relative max-w-sm w-full mx-auto mt-6 pt-2">
-        <SparkleRays className="absolute top-0 end-1 transform rotate-12 scale-75 pointer-events-none" color="#FFD75A" />
-        <SparkleRays className="absolute bottom-2 start-1 transform -rotate-12 scale-75 pointer-events-none" color="#FFD75A" />
-
-        <TactileButton
-          onClick={handleProceed}
-          variant="primary"
-          fullWidth
-          size="lg"
-        >
-          {t('startingMode.next')}
-        </TactileButton>
       </div>
     </div>
   );

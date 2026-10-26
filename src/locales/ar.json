@@ -177,8 +177,8 @@
   "swiping": {
     "title": "قلّب وافرز المطاعم",
     "subtitle": "يمين توافق، يسار تمشي للي بعده",
-    "stamp_like": "يمشي 💚",
-    "stamp_pass": "تخطي 🙅‍♂️",
+    "stamp_like": "يمشي! 🔥",
+    "stamp_pass": "ما ودي ❌",
     "signature_dish_label": "الطلب المعتمد عندهم:",
     "hud_status": "{{completed}} من {{total}} خلصوا تقليب",
     "waiting_title": "ما قصّرت، فرزت كل القائمة! 🫡",
@@ -225,7 +225,7 @@
   "gameSwiper": {
     "counter": "🍔 المطعم {{current}} من {{total}}",
     "dislike": "ما ودي",
-    "skip": "بعدين ⏭️",
+    "skip": "بعدين",
     "like": "تم",
     "roundTwoToast": "ما عجبك شي؟ لفة ثانية على السريع! 🔄",
     "waitingForHost": "👑 بانتظار المضيف يعتمد الفائز...",

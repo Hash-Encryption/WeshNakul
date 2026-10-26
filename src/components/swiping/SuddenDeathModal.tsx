@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { RestaurantItem } from '../../types/restaurant';
 import { useLocale } from '../../context/LocaleContext';

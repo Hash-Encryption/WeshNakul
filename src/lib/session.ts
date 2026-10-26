@@ -153,14 +153,15 @@ export function getStoredLocale(): Locale {
 }
 
 /**
- * Generate a clean 4-character uppercase squad code (e.g. A7K2).
- * Excludes ambiguous characters like 0, O, 1, I.
+ * Generate a clean, pronounceable 4-letter uppercase squad code (e.g. TACO, KAFU, ZATA).
+ * Strictly uppercase letters with zero numbers in CVCV pattern.
  */
 export function generateRoomCode(): string {
-  const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
-  let code = '';
-  for (let i = 0; i < 4; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return code;
+  const C = 'BCDFGHJKLMNPRSTVZ';
+  const V = 'AEIOU';
+  const c1 = C.charAt(Math.floor(Math.random() * C.length));
+  const v1 = V.charAt(Math.floor(Math.random() * V.length));
+  const c2 = C.charAt(Math.floor(Math.random() * C.length));
+  const v2 = V.charAt(Math.floor(Math.random() * V.length));
+  return `${c1}${v1}${c2}${v2}`;
 }

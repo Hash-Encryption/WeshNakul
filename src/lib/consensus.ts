@@ -1,4 +1,4 @@
-export interface FoodCategoryDef {
+﻿export interface FoodCategoryDef {
   id: string;
   icon: string;
   ar: string;

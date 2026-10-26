@@ -1,4 +1,4 @@
-export type Locale = 'ar' | 'en';
+﻿export type Locale = 'ar' | 'en';
 
 export type EatingMode = 'delivery' | 'dine_in' | 'any';
 

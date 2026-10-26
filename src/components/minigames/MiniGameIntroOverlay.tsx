@@ -107,9 +107,11 @@ export const MiniGameIntroOverlay: React.FC<MiniGameIntroOverlayProps> = ({
   onComplete,
   durationMs = 3500,
 }) => {
-  const { isRTL } = useLocale();
+  const { isRTL, locale } = useLocale();
   const config = INTRO_CONFIGS[gameId];
   const [completed, setCompleted] = useState(false);
+  const totalSeconds = Math.max(1, Math.ceil(durationMs / 1000));
+  const [secondsLeft, setSecondsLeft] = useState(totalSeconds);
 
   const handleFinish = () => {
     if (completed) return;
@@ -122,8 +124,17 @@ export const MiniGameIntroOverlay: React.FC<MiniGameIntroOverlayProps> = ({
       handleFinish();
     }, durationMs);
 
-    return () => clearTimeout(timer);
+    const interval = setInterval(() => {
+      setSecondsLeft((prev) => (prev > 1 ? prev - 1 : 1));
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+    };
   }, [durationMs]);
+
+  const activeTitle = locale === 'ar' ? config.titleAr : config.titleEn;
 
   return (
     <div
@@ -144,7 +155,7 @@ export const MiniGameIntroOverlay: React.FC<MiniGameIntroOverlayProps> = ({
           {/* Glowing HOW TO PLAY badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/50 text-amber-300 font-alexandria font-black text-[10px] tracking-wider uppercase shadow-[0_0_12px_rgba(251,191,36,0.35)]">
             <span>💡</span>
-            <span>{isRTL ? 'كيف تلعب؟' : 'HOW TO PLAY'}</span>
+            <span>{isRTL ? 'كيف نلعب؟' : 'HOW TO PLAY'}</span>
           </div>
 
           {/* Skip button */}
@@ -158,22 +169,22 @@ export const MiniGameIntroOverlay: React.FC<MiniGameIntroOverlayProps> = ({
           </button>
         </div>
 
-        {/* Game Icon & Title */}
-        <div className="flex items-center gap-2.5 px-1">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400/20 to-orange-500/20 border border-white/15 flex items-center justify-center text-2xl shadow-inner shrink-0">
+        {/* Game Icon & Single Language Title */}
+        <div className="flex items-center gap-3 px-1">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400/20 to-orange-500/20 border border-white/15 flex items-center justify-center text-2xl shadow-inner shrink-0">
             {config.icon}
           </div>
           <div className="flex flex-col text-start">
-            <h3 className="font-alexandria font-black text-base sm:text-lg text-white leading-tight">
-              {isRTL ? config.titleAr : config.titleEn}
+            <h3 className="font-alexandria font-black text-lg text-white leading-tight">
+              {activeTitle}
             </h3>
             <span className="font-alexandria font-semibold text-xs text-amber-300/80 leading-tight">
-              {isRTL ? config.titleEn : config.titleAr}
+              {isRTL ? 'تحدي الحسم بين المطاعم' : 'Tiebreaker Showdown'}
             </span>
           </div>
         </div>
 
-        {/* 3 Step Rows */}
+        {/* 3 Step Rows (Strictly Single Language) */}
         <div className="flex flex-col gap-2 w-full">
           {config.steps.map((step, idx) => (
             <motion.div
@@ -181,7 +192,7 @@ export const MiniGameIntroOverlay: React.FC<MiniGameIntroOverlayProps> = ({
               initial={{ opacity: 0, x: isRTL ? 10 : -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.08 * (idx + 1), duration: 0.2 }}
-              className="flex items-center gap-2.5 p-2 sm:p-2.5 rounded-2xl bg-white/[0.06] border border-white/10 text-start"
+              className="flex items-center gap-2.5 p-2.5 rounded-2xl bg-white/[0.06] border border-white/10 text-start"
             >
               <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-base shrink-0 shadow-xs">
                 {step.icon}
@@ -192,19 +203,26 @@ export const MiniGameIntroOverlay: React.FC<MiniGameIntroOverlayProps> = ({
                     {step.badge}
                   </span>
                   <span className="font-alexandria font-bold text-xs text-white leading-snug">
-                    {isRTL ? step.ar : step.en}
+                    {locale === 'ar' ? step.ar : step.en}
                   </span>
                 </div>
-                <span className="block font-alexandria text-[10px] text-white/55 leading-tight mt-0.5 truncate">
-                  {isRTL ? step.en : step.ar}
-                </span>
               </div>
             </motion.div>
           ))}
         </div>
 
+        {/* Action Button: Start Now with Countdown */}
+        <button
+          type="button"
+          onClick={handleFinish}
+          className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-[#241B18] font-alexandria font-black text-xs sm:text-sm border border-white/30 shadow-[0_4px_12px_rgba(251,191,36,0.35)] active:scale-98 hover:brightness-105 transition-all flex items-center justify-center gap-2 cursor-pointer mt-0.5"
+        >
+          <span>🚀</span>
+          <span>{locale === 'ar' ? `يلا نبدأ (${secondsLeft}ث)` : `Start Now (${secondsLeft}s)`}</span>
+        </button>
+
         {/* Auto-Advance Progress Bar at Bottom */}
-        <div className="w-full pt-1 flex flex-col gap-1.5">
+        <div className="w-full pt-0.5 flex flex-col gap-1.5">
           <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
             <motion.div
               initial={{ width: '0%' }}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { useRoom } from '../../context/RoomContext';
 import { useLocale } from '../../context/LocaleContext';
 import { useRestaurantSwiper } from '../../hooks/useRestaurantSwiper';
