@@ -203,7 +203,6 @@ export async function handleAdminLogin(request: Request, env: Env): Promise<Resp
             id: string;
             email?: string;
             app_metadata?: { role?: string; is_admin?: boolean };
-            user_metadata?: { role?: string; is_admin?: boolean };
           };
         };
 
@@ -216,9 +215,7 @@ export async function handleAdminLogin(request: Request, env: Env): Promise<Resp
 
         const isAdmin =
           user.app_metadata?.role === 'admin' ||
-          user.user_metadata?.role === 'admin' ||
           user.app_metadata?.is_admin === true ||
-          user.user_metadata?.is_admin === true ||
           (configuredEmail && userEmail === configuredEmail) ||
           (configuredAdminEmails.length > 0 && configuredAdminEmails.includes(userEmail));
 

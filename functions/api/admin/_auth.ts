@@ -264,7 +264,6 @@ export async function authenticateAdminRequest(request: Request, env: Env): Prom
           id: string;
           email?: string;
           app_metadata?: { role?: string; is_admin?: boolean };
-          user_metadata?: { role?: string; is_admin?: boolean };
         };
 
         const email = (user.email || '').toLowerCase().trim();
@@ -276,9 +275,7 @@ export async function authenticateAdminRequest(request: Request, env: Env): Prom
 
         const isAdmin =
           user.app_metadata?.role === 'admin' ||
-          user.user_metadata?.role === 'admin' ||
           user.app_metadata?.is_admin === true ||
-          user.user_metadata?.is_admin === true ||
           (configuredAdminEmail && email === configuredAdminEmail) ||
           (configuredAdminEmails.length > 0 && configuredAdminEmails.includes(email));
 
