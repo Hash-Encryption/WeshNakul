@@ -13,15 +13,19 @@ CREATE TABLE IF NOT EXISTS private.room_lookup_attempts (
   blocked_until timestamptz
 );
 
+CREATE INDEX IF NOT EXISTS idx_room_lookup_attempts_last_failed
+  ON private.room_lookup_attempts (last_failed_at);
+
 REVOKE ALL ON private.room_lookup_attempts FROM PUBLIC, anon, authenticated;
 
 -- 2. Create secure, enumeration-resistant lookup RPC function
 -- Allows looking up a single room by its exact 4-character code without
 -- exposing table-level scanning, code enumeration, or internal sensitive room state.
+-- Function is VOLATILE because it records failed attempts and clears attempt counters.
 CREATE OR REPLACE FUNCTION public.get_room_by_code(p_code text)
 RETURNS jsonb
 LANGUAGE plpgsql
-STABLE
+VOLATILE
 SECURITY DEFINER
 SET search_path = pg_catalog, public, private
 AS $$
@@ -40,19 +44,29 @@ BEGIN
     RETURN NULL;
   END IF;
 
-  -- 2b. Extract client IP from PostgREST request headers if present
+  -- 2b. Extract and strictly validate client IP from PostgREST request headers
   v_headers_raw := current_setting('request.headers', true);
   IF v_headers_raw IS NOT NULL AND length(v_headers_raw) > 0 THEN
     BEGIN
       v_headers := v_headers_raw::jsonb;
+      -- Precedence: Cloudflare edge header, then reverse proxy header, then first forwarded header
       v_client_ip := coalesce(
         nullif(trim(v_headers->>'cf-connecting-ip'), ''),
-        nullif(trim(v_headers->>'x-forwarded-for'), ''),
-        nullif(trim(v_headers->>'x-real-ip'), '')
+        nullif(trim(v_headers->>'x-real-ip'), ''),
+        nullif(trim(split_part(v_headers->>'x-forwarded-for', ',', 1)), '')
       );
+      -- Validate and normalize as valid IPv4 or IPv6 host address to prevent key poisoning
+      IF v_client_ip IS NOT NULL THEN
+        v_client_ip := host(v_client_ip::inet);
+      END IF;
     EXCEPTION WHEN OTHERS THEN
       v_client_ip := NULL;
     END;
+
+    -- Fail-closed for HTTP calls lacking trusted client IP to prevent unthrottled header-stripping attacks
+    IF v_client_ip IS NULL THEN
+      RETURN NULL;
+    END IF;
   END IF;
 
   -- 2c. Abuse control: Check if client IP is currently blocked
@@ -100,20 +114,27 @@ BEGIN
           END) >= 10 THEN now() + interval '10 minutes'
           ELSE NULL
         END;
+
+      -- 2f. Opportunistic lifecycle cleanup: prune stale attempts older than 1 hour
+      IF random() < 0.1 THEN
+        DELETE FROM private.room_lookup_attempts
+        WHERE last_failed_at < now() - interval '1 hour'
+          AND (blocked_until IS NULL OR blocked_until < now());
+      END IF;
     END IF;
     RETURN NULL;
   END IF;
 
-  -- 2f. Successful lookup: Clear failed attempts for this client IP
+  -- 2g. Successful lookup: Clear failed attempts for this client IP if any existed
   IF v_client_ip IS NOT NULL THEN
     UPDATE private.room_lookup_attempts
     SET failed_attempts = 0, blocked_until = NULL, last_failed_at = now()
-    WHERE client_key = v_client_ip;
+    WHERE client_key = v_client_ip AND failed_attempts > 0;
   END IF;
 
-  -- 2g. Minimal response: Construct explicit JSON containing ONLY join/reconnect essentials.
+  -- 2h. Minimal response: Construct explicit JSON containing ONLY join/reconnect essentials.
   -- Strictly excludes: category_summary (participant votes), restaurant_summary (algorithm weights),
-  -- last_mode_changed_by_* (internal participant UUIDs), winning_deck_id, coordinates, and unneeded state.
+  -- participant UUIDs (host_participant_id, last_mode_changed_by_*), winning_deck_id, and coordinates.
   RETURN jsonb_build_object(
     'id', v_room_row.id,
     'code', v_room_row.code,
@@ -125,7 +146,6 @@ BEGIN
     'city', v_room_row.city,
     'neighborhood', v_room_row.neighborhood,
     'language', v_room_row.language,
-    'host_participant_id', v_room_row.host_participant_id,
     'version', v_room_row.version,
     'created_at', v_room_row.created_at,
     'expires_at', v_room_row.expires_at,
@@ -147,40 +167,16 @@ GRANT EXECUTE ON FUNCTION public.get_room_by_code(text) TO anon, authenticated, 
 -- Revoke full-table SELECT from anonymous and authenticated roles
 REVOKE SELECT ON public.rooms FROM anon, authenticated;
 
--- Grant column-level SELECT on operational columns EXCLUDING 'code'
--- This completely prevents anonymous clients from executing `SELECT * FROM rooms`
--- or `SELECT code FROM rooms` to scrape active room codes, while preserving
--- Realtime updates by room id and connection health checks.
+-- Grant column-level SELECT strictly on the 5 safe operational columns
+-- necessary for client connection health checks (select id) and Realtime filters.
+-- Table scanning, code enumeration, participant data, voting summaries,
+-- and recommendation algorithm state are strictly inaccessible to direct SELECT.
 GRANT SELECT (
   id,
   status,
   stage,
   eating_mode,
-  room_mode,
-  preferences,
-  last_mode_changed_by_participant_id,
-  last_mode_changed_by_nickname,
-  last_mode_changed_at,
-  city,
-  neighborhood,
-  language,
-  host_participant_id,
-  current_stage,
-  winning_category,
-  consensus_type,
-  tied_categories,
-  winning_restaurant_id,
-  swiping_started_at,
-  version,
-  category_summary,
-  restaurant_state,
-  restaurant_summary,
-  winning_deck_id,
-  winning_branch_id,
-  winning_resolution_method,
-  finalized_at,
-  created_at,
-  expires_at
+  room_mode
 ) ON public.rooms TO anon, authenticated;
 
 COMMIT;
