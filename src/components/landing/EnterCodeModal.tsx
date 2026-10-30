@@ -22,11 +22,26 @@ export const EnterCodeModal: React.FC<EnterCodeModalProps> = ({
   const [code, setCode] = useState('');
   const [localError, setLocalError] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    if (!isOpen) {
+      setCode('');
+      setLocalError(null);
+      return;
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanCode = code.trim().toUpperCase();
-    if (cleanCode.length !== 4) {
-      setLocalError(t('enterCodeModal.subtitle'));
+    if (cleanCode.length !== 4 || /[^A-Z]/.test(cleanCode)) {
+      setLocalError(cleanCode.length === 0 ? t('enterCodeModal.subtitle') : t('enterCodeModal.lettersOnly'));
       return;
     }
     setLocalError(null);
@@ -62,10 +77,18 @@ export const EnterCodeModal: React.FC<EnterCodeModalProps> = ({
                   maxLength={4}
                   value={code}
                   onChange={(e) => {
-                    const clean = e.target.value.replace(/[^A-Za-z]/g, '').toUpperCase();
+                    const raw = e.target.value;
+                    const hasInvalid = /[^A-Za-z]/.test(raw);
+                    const clean = raw.replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 4);
                     setCode(clean);
+
+                    if (hasInvalid) {
+                      setLocalError(t('enterCodeModal.lettersOnly'));
+                      return;
+                    }
+
                     setLocalError(null);
-                    if (clean.length === 4 && !isLoading) {
+                    if (/^[A-Za-z]{4}$/.test(raw) && !isLoading) {
                       void onSubmit(clean);
                     }
                   }}
@@ -91,7 +114,7 @@ export const EnterCodeModal: React.FC<EnterCodeModalProps> = ({
                   fullWidth
                   size="md"
                   isLoading={isLoading}
-                  disabled={code.trim().length !== 4}
+                  disabled={code.trim().length !== 4 || Boolean(localError)}
                 >
                   {t('enterCodeModal.submit')}
                 </TactileButton>

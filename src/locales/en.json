@@ -81,7 +81,8 @@
   "enterCodeModal": {
     "title": "Join with Code",
     "subtitle": "Enter the 4-character squad code",
-    "placeholder": "e.g. A7K2",
+    "placeholder": "e.g. TACO",
+    "lettersOnly": "Squad code must be 4 English letters only (no numbers)",
     "submit": "Enter",
     "cancel": "Cancel",
     "errorNotFound": "Can't find that squad code or time ran out 🔍"

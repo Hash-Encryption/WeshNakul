@@ -81,7 +81,8 @@
   "enterCodeModal": {
     "title": "ادخل برمز القروب",
     "subtitle": "اكتب الرمز المكون من 4 خانات",
-    "placeholder": "مثلاً A7K2",
+    "placeholder": "مثلاً TACO",
+    "lettersOnly": "الرمز يتكون من 4 أحرف إنجليزية فقط (بدون أرقام)",
     "submit": "دخول",
     "cancel": "إلغاء",
     "errorNotFound": "الرمز مو راكب أو القروب وقته انتهى 🔍"

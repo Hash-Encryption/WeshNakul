@@ -60,6 +60,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.3 }}
             className="relative z-10 flex flex-col items-center justify-center filter drop-shadow-[0_8px_16px_rgba(240,68,62,0.4)]"
+            aria-hidden="true"
           >
             {/* 3D Custom Rendered Arabic Question Mark */}
             <div className="relative font-alexandria font-extrabold text-7xl text-brand-red leading-none select-none tracking-tight">
