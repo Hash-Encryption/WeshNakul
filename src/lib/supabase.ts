@@ -1,4 +1,4 @@
-﻿import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState, RoomMode, RoomSuggestion } from '../types/database';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';
@@ -109,20 +109,39 @@ export async function getRoomByCode(
   const cleanCode = code.trim().toUpperCase();
   console.log('[getRoomByCode] Searching Supabase for code:', cleanCode);
 
-  let { data: room, error } = await supabase
-    .from('rooms')
-    .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
-    .eq('code', cleanCode)
-    .maybeSingle();
+  let room: Room | null = null;
+  let error: unknown = null;
 
-  if (!room && !error) {
-    const retry = await supabase
-      .from('rooms')
-      .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
-      .ilike('code', cleanCode)
-      .maybeSingle();
-    room = retry.data;
-    error = retry.error;
+  // Primary secure path: RPC get_room_by_code avoids public table enumeration
+  const rpcResult = await supabase.rpc('get_room_by_code', { p_code: cleanCode });
+  if (!rpcResult.error) {
+    room = (rpcResult.data as Room) || null;
+  } else {
+    // If RPC does not exist (pre-migration fallback), try direct query
+    const rpcErrMsg = (rpcResult.error as { message?: string })?.message || '';
+    const rpcErrCode = (rpcResult.error as { code?: string })?.code || '';
+    if (rpcErrCode === 'PGRST202' || rpcErrMsg.includes('get_room_by_code')) {
+      const fallback = await supabase
+        .from('rooms')
+        .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
+        .eq('code', cleanCode)
+        .maybeSingle();
+
+      if (!fallback.data && !fallback.error) {
+        const retry = await supabase
+          .from('rooms')
+          .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
+          .ilike('code', cleanCode)
+          .maybeSingle();
+        room = retry.data;
+        error = retry.error;
+      } else {
+        room = fallback.data;
+        error = fallback.error;
+      }
+    } else {
+      error = rpcResult.error;
+    }
   }
 
   console.log('[getRoomByCode] Result:', { room, error });
