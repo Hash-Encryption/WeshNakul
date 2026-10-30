@@ -98,6 +98,40 @@ export function isRoomExpired(createdAt: string | null | undefined): boolean {
   return (now - createdTime) > thirtyMinutesMs;
 }
 
+let failedLookupAttempts = 0;
+let lastFailedLookupTime = 0;
+let clientLookupBlockedUntil = 0;
+
+export function _resetClientLookupThrottlingForTesting(): void {
+  failedLookupAttempts = 0;
+  lastFailedLookupTime = 0;
+  clientLookupBlockedUntil = 0;
+}
+
+function isClientLookupThrottled(): boolean {
+  const now = Date.now();
+  return clientLookupBlockedUntil > now;
+}
+
+function recordFailedLookup(): void {
+  const now = Date.now();
+  if (now - lastFailedLookupTime > 30000) {
+    failedLookupAttempts = 1;
+  } else {
+    failedLookupAttempts += 1;
+  }
+  lastFailedLookupTime = now;
+  if (failedLookupAttempts >= 5) {
+    clientLookupBlockedUntil = now + 15000; // 15s backoff after 5 sequential failures
+  }
+}
+
+function recordSuccessfulLookup(): void {
+  failedLookupAttempts = 0;
+  lastFailedLookupTime = 0;
+  clientLookupBlockedUntil = 0;
+}
+
 /**
  * Fetch a room by its 4-character code (case-insensitive).
  */
@@ -106,52 +140,40 @@ export async function getRoomByCode(
 ): Promise<{ room: Room | null; participants: Participant[]; isExpired?: boolean }> {
   if (!supabase) throw new Error('Supabase is not configured');
 
-  const cleanCode = code.trim().toUpperCase();
+  const cleanCode = (code || '').trim().toUpperCase();
   console.log('[getRoomByCode] Searching Supabase for code:', cleanCode);
 
-  let room: Room | null = null;
-  let error: unknown = null;
-
-  // Primary secure path: RPC get_room_by_code avoids public table enumeration
-  const rpcResult = await supabase.rpc('get_room_by_code', { p_code: cleanCode });
-  if (!rpcResult.error) {
-    room = (rpcResult.data as Room) || null;
-  } else {
-    // If RPC does not exist (pre-migration fallback), try direct query
-    const rpcErrMsg = (rpcResult.error as { message?: string })?.message || '';
-    const rpcErrCode = (rpcResult.error as { code?: string })?.code || '';
-    if (rpcErrCode === 'PGRST202' || rpcErrMsg.includes('get_room_by_code')) {
-      const fallback = await supabase
-        .from('rooms')
-        .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
-        .eq('code', cleanCode)
-        .maybeSingle();
-
-      if (!fallback.data && !fallback.error) {
-        const retry = await supabase
-          .from('rooms')
-          .select('id,code,status,stage,eating_mode,room_mode,preferences,last_mode_changed_by_participant_id,last_mode_changed_by_nickname,last_mode_changed_at,city,neighborhood,language,host_participant_id,current_stage,winning_category,consensus_type,tied_categories,winning_restaurant_id,swiping_started_at,version,category_summary,restaurant_state,restaurant_summary,winning_deck_id,winning_branch_id,winning_resolution_method,finalized_at,created_at,expires_at')
-          .ilike('code', cleanCode)
-          .maybeSingle();
-        room = retry.data;
-        error = retry.error;
-      } else {
-        room = fallback.data;
-        error = fallback.error;
-      }
-    } else {
-      error = rpcResult.error;
-    }
+  // 1. Strict input validation: must be exactly 4 uppercase alphanumeric characters
+  if (!/^[A-Z0-9]{4}$/.test(cleanCode)) {
+    console.warn('[getRoomByCode] Malformed room code rejected:', cleanCode);
+    return { room: null, participants: [], isExpired: false };
   }
 
-  console.log('[getRoomByCode] Result:', { room, error });
+  // 2. Client-side abuse throttling against rapid brute-force attempts
+  if (isClientLookupThrottled()) {
+    console.warn('[getRoomByCode] Client-side lookup throttled due to repeated failures');
+    return { room: null, participants: [], isExpired: false };
+  }
 
-  if (error) throw error;
+  // 3. Primary secure path: RPC get_room_by_code avoids public table enumeration
+  const { data: rpcData, error } = await supabase.rpc('get_room_by_code', { p_code: cleanCode });
 
-  if (!room) {
+  if (error) {
+    recordFailedLookup();
+    console.error('[getRoomByCode] RPC error:', error);
+    throw error;
+  }
+
+  if (!rpcData || typeof rpcData !== 'object') {
+    recordFailedLookup();
     console.warn('[getRoomByCode] Room not found:', cleanCode);
     return { room: null, participants: [], isExpired: false };
   }
+
+  recordSuccessfulLookup();
+  const room: Room = { ...(rpcData as Room), code: cleanCode };
+
+  console.log('[getRoomByCode] Result:', { room });
 
   if (isRoomExpired(room.created_at)) {
     console.warn('[getRoomByCode] Room expired:', cleanCode, room.created_at);

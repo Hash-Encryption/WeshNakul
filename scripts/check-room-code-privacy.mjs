@@ -20,13 +20,34 @@ check(existsSync(migrationPath), 'Migration file exists');
 
 const migrationSql = readFileSync(migrationPath, 'utf8');
 
+check(migrationSql.includes('CREATE TABLE IF NOT EXISTS private.room_lookup_attempts'), 'Creates private.room_lookup_attempts tracking table');
+check(migrationSql.includes('REVOKE ALL ON private.room_lookup_attempts FROM PUBLIC, anon, authenticated'), 'Revokes access to lookup attempts from anon and authenticated');
 check(migrationSql.includes('CREATE OR REPLACE FUNCTION public.get_room_by_code(p_code text)'), 'Creates get_room_by_code RPC function');
 check(migrationSql.includes('SECURITY DEFINER'), 'Function is marked SECURITY DEFINER');
-check(migrationSql.includes('SET search_path = pg_catalog, public'), 'Function sets safe search_path');
+check(migrationSql.includes('SET search_path = pg_catalog, public, private'), 'Function sets safe search_path including private schema');
+
+// Format validation check in SQL
+check(migrationSql.includes("^[A-Z0-9]{4}$"), 'SQL function validates exact 4-character uppercase alphanumeric regex ^[A-Z0-9]{4}$');
+
+// Enumeration resistance checks in SQL
+check(migrationSql.includes('blocked_until > now()'), 'SQL function checks if caller client IP is currently blocked');
+check(migrationSql.includes('failed_attempts + 1'), 'SQL function increments failed attempts counter on missing room');
+check(migrationSql.includes("interval '10 minutes'"), 'SQL function enforces 10-minute block after threshold exceeded');
+
+// Minimal response verification (NO to_jsonb)
+check(!migrationSql.includes('to_jsonb(r)') && !migrationSql.includes('to_jsonb(v_room_row)'), 'SQL function strictly avoids to_jsonb serialization of entire row');
+check(migrationSql.includes('jsonb_build_object('), 'SQL function explicitly constructs minimal JSON response');
+
+// Exclusion of sensitive internal metadata
+check(!migrationSql.includes("'category_summary'"), 'Public response strictly EXCLUDES category_summary (participant votes)');
+check(!migrationSql.includes("'restaurant_summary'"), 'Public response strictly EXCLUDES restaurant_summary (algorithm weights/scores)');
+check(!migrationSql.includes("'last_mode_changed_by_participant_id'"), 'Public response strictly EXCLUDES internal participant UUIDs');
+check(!migrationSql.includes("'winning_deck_id'"), 'Public response strictly EXCLUDES winning_deck_id');
+
+// Permissions check on rooms table
 check(migrationSql.includes('REVOKE SELECT ON public.rooms FROM anon, authenticated'), 'Revokes full table SELECT on rooms from anon and authenticated');
 check(migrationSql.includes('GRANT SELECT ('), 'Grants column-level SELECT on rooms');
 
-// Extract the granted columns
 const match = migrationSql.match(/GRANT SELECT \(([\s\S]*?)\)\s+ON public\.rooms TO anon, authenticated;/i);
 check(!!match, 'Found column-level GRANT SELECT statement');
 const grantedCols = match[1].split(',').map(c => c.trim().toLowerCase());
@@ -37,15 +58,20 @@ check(grantedCols.includes('status'), 'Granted columns include "status"');
 check(grantedCols.includes('stage'), 'Granted columns include "stage"');
 check(grantedCols.includes('eating_mode'), 'Granted columns include "eating_mode"');
 check(grantedCols.includes('room_mode'), 'Granted columns include "room_mode"');
-check(grantedCols.includes('created_at'), 'Granted columns include "created_at"');
-check(grantedCols.includes('expires_at'), 'Granted columns include "expires_at"');
 
 // 2. Verify Frontend getRoomByCode Wiring
 console.log('\n2. Verifying Frontend src/lib/supabase.ts getRoomByCode Implementation...');
 const supabaseTs = readFileSync('src/lib/supabase.ts', 'utf8');
 
-check(supabaseTs.includes("supabase.rpc('get_room_by_code', { p_code: cleanCode })"), 'getRoomByCode calls RPC get_room_by_code first');
-check(supabaseTs.includes("PGRST202") || supabaseTs.includes("get_room_by_code"), 'getRoomByCode contains pre-migration fallback');
+const getRoomByCodeBody = supabaseTs.slice(
+  supabaseTs.indexOf('export async function getRoomByCode'),
+  supabaseTs.indexOf('export async function createRoom')
+);
+
+check(getRoomByCodeBody.includes("supabase.rpc('get_room_by_code', { p_code: cleanCode })"), 'getRoomByCode calls RPC get_room_by_code');
+check(!getRoomByCodeBody.includes(".from('rooms')"), 'getRoomByCode does NOT contain fallback query to rooms table');
+check(getRoomByCodeBody.includes('/^[A-Z0-9]{4}$/'), 'Frontend validates 4-character alphanumeric format client-side');
+check(supabaseTs.includes('isClientLookupThrottled'), 'Frontend implements client-side abuse throttling against rapid brute force');
 
 // 3. Behavioral Simulation in PGlite if available
 console.log('\n3. Verifying PostgreSQL Isolation in PGlite (if available)...');
@@ -56,7 +82,7 @@ if (!existsSync(runtime)) {
   const { PGlite } = await import(pathToFileURL(runtime).href);
   const db = new PGlite();
 
-  await db.exec('CREATE ROLE anon; CREATE ROLE authenticated; CREATE ROLE service_role BYPASSRLS; CREATE PUBLICATION supabase_realtime;');
+  await db.exec('CREATE ROLE anon; CREATE ROLE authenticated; CREATE ROLE service_role BYPASSRLS; CREATE SCHEMA IF NOT EXISTS private; CREATE PUBLICATION supabase_realtime;');
 
   // Apply base schema
   const initSql = readFileSync('supabase/migrations/20260902_initial_schema.sql', 'utf8')
@@ -97,7 +123,15 @@ if (!existsSync(runtime)) {
 
   // anon CAN execute get_room_by_code RPC
   const rpcRows = (await db.query("SELECT public.get_room_by_code('TEST') as val;")).rows;
-  check(rpcRows.length === 1 && rpcRows[0].val?.code === 'TEST', 'get_room_by_code returns full room data when correct code provided');
+  const returnedObj = rpcRows[0]?.val;
+  check(rpcRows.length === 1 && returnedObj?.code === 'TEST', 'get_room_by_code returns minimal room data when correct code provided');
+  check(!('category_summary' in returnedObj), 'Minimal room object does not contain category_summary');
+  check(!('restaurant_summary' in returnedObj), 'Minimal room object does not contain restaurant_summary');
+  check(!('last_mode_changed_by_participant_id' in returnedObj), 'Minimal room object does not contain participant UUIDs');
+
+  // Malformed input returns null
+  const rpcMalformed = (await db.query("SELECT public.get_room_by_code('TOO_LONG_CODE') as val;")).rows;
+  check(rpcMalformed[0]?.val === null, 'Malformed code is rejected before query and returns null');
 
   const rpcNotFound = (await db.query("SELECT public.get_room_by_code('NOPE') as val;")).rows;
   check(rpcNotFound.length === 1 && rpcNotFound[0].val === null, 'get_room_by_code returns null for non-existent code');
