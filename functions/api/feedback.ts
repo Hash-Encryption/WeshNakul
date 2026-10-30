@@ -131,6 +131,25 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
 
   // 3. Rate limiting check
   const clientIp = getTrustedClientIp(request);
+
+  if (env.RATE_LIMITER && typeof env.RATE_LIMITER.limit === 'function') {
+    try {
+      const bindingResult = await env.RATE_LIMITER.limit({ key: `feedback_${clientIp}` });
+      if (!bindingResult.success) {
+        return jsonResponse(
+          {
+            error: 'rate_limit_exceeded',
+            message: 'Too many feedback submissions. Please try again later.',
+          },
+          429,
+          { 'Retry-After': '600' }
+        );
+      }
+    } catch {
+      // Gracefully fall through to in-memory rate limiter
+    }
+  }
+
   const rateCheck = checkFeedbackRateLimit(clientIp);
   if (!rateCheck.allowed) {
     return jsonResponse(
