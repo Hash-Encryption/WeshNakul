@@ -129,33 +129,53 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
     return jsonResponse({ error: 'payload_too_large', message: 'Request exceeds maximum size limit.' }, 413);
   }
 
-  // 3. Rate limiting check
-  const clientIp = getTrustedClientIp(request);
-
-  if (env.RATE_LIMITER && typeof env.RATE_LIMITER.limit === 'function') {
-    try {
-      const bindingResult = await env.RATE_LIMITER.limit({ key: `feedback_${clientIp}` });
-      if (!bindingResult.success) {
-        return jsonResponse(
-          {
-            error: 'rate_limit_exceeded',
-            message: 'Too many feedback submissions. Please try again later.',
-          },
-          429,
-          { 'Retry-After': '600' }
-        );
-      }
-    } catch {
-      // Gracefully fall through to in-memory rate limiter
-    }
+  // 3. Distributed Rate Limiting (Strict Fail-Closed)
+  // Protection must be distributed across Cloudflare isolates; fail-open in-memory bypass is strictly forbidden.
+  if (!env.RATE_LIMITER || typeof env.RATE_LIMITER.limit !== 'function') {
+    return jsonResponse(
+      {
+        error: 'service_unavailable',
+        message: 'Feedback service is temporarily unavailable. Please try again later.',
+      },
+      503,
+      { 'Retry-After': '60' }
+    );
   }
 
-  const rateCheck = checkFeedbackRateLimit(clientIp);
-  if (!rateCheck.allowed) {
+  const clientIp = getTrustedClientIp(request);
+  let bindingResult: { success: boolean };
+  try {
+    bindingResult = await env.RATE_LIMITER.limit({ key: `feedback_${clientIp}` });
+  } catch {
     return jsonResponse(
-      { error: 'rate_limit_exceeded', message: 'Too many feedback submissions. Please try again later.' },
+      {
+        error: 'service_unavailable',
+        message: 'Feedback service is temporarily unavailable. Please try again later.',
+      },
+      503,
+      { 'Retry-After': '60' }
+    );
+  }
+
+  if (!bindingResult || typeof bindingResult.success !== 'boolean') {
+    return jsonResponse(
+      {
+        error: 'service_unavailable',
+        message: 'Feedback service is temporarily unavailable. Please try again later.',
+      },
+      503,
+      { 'Retry-After': '60' }
+    );
+  }
+
+  if (!bindingResult.success) {
+    return jsonResponse(
+      {
+        error: 'rate_limit_exceeded',
+        message: 'Too many feedback submissions. Please try again later.',
+      },
       429,
-      { 'Retry-After': String(rateCheck.retryAfter) }
+      { 'Retry-After': '600' }
     );
   }
 

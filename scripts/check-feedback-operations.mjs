@@ -44,6 +44,9 @@ const mockEnv = {
   ADMIN_EMAIL: 'admin@weshnakul.com',
   SUPABASE_SERVICE_ROLE_KEY: 'test-service-role-key',
   VITE_SUPABASE_URL: 'https://test.supabase.co',
+  RATE_LIMITER: {
+    limit: async () => ({ success: true }),
+  },
 };
 
 const adminToken = await createAdminToken(
@@ -203,33 +206,131 @@ _resetFeedbackRateLimitsForTesting();
   check(data.submission?.contact_phone === null, 'Non-owner submissions strictly force contact_phone to null');
 }
 
-// 1i. Rate limiting: 5 submissions allowed, 6th rate-limited with HTTP 429
+// 1i. SEC-02: Fail-Closed Distributed Rate Limiting & Zero-Database-Write Verification
 {
-  _resetFeedbackRateLimitsForTesting();
-  const testIp = '198.51.100.42';
+  const testIp = '198.51.100.99';
 
-  for (let i = 1; i <= 5; i++) {
-    const res = await postFeedback(
-      { submission_type: 'comment', user_message: `Allowed message ${i}` },
-      { 'cf-connecting-ip': testIp }
-    );
-    check(res.status === 200, `Submission ${i} within rate window is allowed with HTTP 200`);
+  // 1. Permitted request (success: true) -> Continues to validation and returns HTTP 200
+  let bindingCalled = false;
+  const envWithSuccess = {
+    ...mockEnv,
+    RATE_LIMITER: {
+      limit: async ({ key }) => {
+        bindingCalled = true;
+        check(key === `feedback_${testIp}`, 'RATE_LIMITER called with exact key format feedback_<ip>');
+        return { success: true };
+      },
+    },
+  };
+  const req1 = new Request('https://weshnakul.pages.dev/api/feedback', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
+    body: JSON.stringify({ submission_type: 'comment', user_message: 'Allowed feedback message' }),
+  });
+  const res1 = await handleFeedbackPublicPost({ request: req1, env: envWithSuccess });
+  check(bindingCalled, 'Distributed RATE_LIMITER was invoked');
+  check(res1.status === 200, 'Permitted request proceeds and succeeds with HTTP 200');
+
+  // 2. Rejected request (success: false) -> Returns HTTP 429
+  const envWithRejection = {
+    ...mockEnv,
+    RATE_LIMITER: {
+      limit: async () => ({ success: false }),
+    },
+  };
+  const req2 = new Request('https://weshnakul.pages.dev/api/feedback', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
+    body: JSON.stringify({ submission_type: 'comment', user_message: 'Rejected feedback message' }),
+  });
+  const res2 = await handleFeedbackPublicPost({ request: req2, env: envWithRejection });
+  check(res2.status === 429, 'Rejected request returns HTTP 429');
+  const data2 = await res2.json();
+  check(data2.error === 'rate_limit_exceeded', 'HTTP 429 response body contains error: rate_limit_exceeded');
+  check(res2.headers.get('retry-after') === '600', 'HTTP 429 response contains Retry-After: 600');
+
+  // 3. Missing binding (RATE_LIMITER undefined) -> Returns HTTP 503 (Fail-Closed)
+  const envMissing = { ...mockEnv, RATE_LIMITER: undefined };
+  const req3 = new Request('https://weshnakul.pages.dev/api/feedback', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
+    body: JSON.stringify({ submission_type: 'comment', user_message: 'Missing binding test' }),
+  });
+  const res3 = await handleFeedbackPublicPost({ request: req3, env: envMissing });
+  check(res3.status === 503, 'Missing RATE_LIMITER binding strictly fails closed with HTTP 503');
+  const data3 = await res3.json();
+  check(data3.error === 'service_unavailable', 'HTTP 503 response body contains error: service_unavailable');
+  check(res3.headers.get('retry-after') === '60', 'HTTP 503 response contains Retry-After: 60');
+
+  // 4. Missing limit method (RATE_LIMITER not a function) -> Returns HTTP 503
+  const envInvalidMethod = { ...mockEnv, RATE_LIMITER: { limit: 'invalid' } };
+  const req4 = new Request('https://weshnakul.pages.dev/api/feedback', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
+    body: JSON.stringify({ submission_type: 'comment', user_message: 'Invalid method test' }),
+  });
+  const res4 = await handleFeedbackPublicPost({ request: req4, env: envInvalidMethod });
+  check(res4.status === 503, 'Non-callable RATE_LIMITER binding fails closed with HTTP 503');
+
+  // 5. Thrown runtime error from binding -> Returns HTTP 503
+  const envThrowing = {
+    ...mockEnv,
+    RATE_LIMITER: {
+      limit: async () => {
+        throw new Error('Cloudflare internal KV/RateLimiter timeout');
+      },
+    },
+  };
+  const req5 = new Request('https://weshnakul.pages.dev/api/feedback', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
+    body: JSON.stringify({ submission_type: 'comment', user_message: 'Throwing binding test' }),
+  });
+  const res5 = await handleFeedbackPublicPost({ request: req5, env: envThrowing });
+  check(res5.status === 503, 'Thrown error from RATE_LIMITER binding fails closed with HTTP 503');
+  const data5 = await res5.json();
+  check(data5.error === 'service_unavailable', 'Error does not leak internal Cloudflare details');
+
+  // 6. Malformed limiter result -> Returns HTTP 503
+  const envMalformed = {
+    ...mockEnv,
+    RATE_LIMITER: {
+      limit: async () => ({ success: undefined }),
+    },
+  };
+  const req6 = new Request('https://weshnakul.pages.dev/api/feedback', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
+    body: JSON.stringify({ submission_type: 'comment', user_message: 'Malformed result test' }),
+  });
+  const res6 = await handleFeedbackPublicPost({ request: req6, env: envMalformed });
+  check(res6.status === 503, 'Malformed/ambiguous RATE_LIMITER result fails closed with HTTP 503');
+
+  // 7. Database write prevention: Verify fetch is NEVER invoked on 503 or 429
+  const originalFetch = globalThis.fetch;
+  let fetchCallCount = 0;
+  globalThis.fetch = async () => {
+    fetchCallCount++;
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  };
+  try {
+    await handleFeedbackPublicPost({ request: req2, env: envWithRejection });
+    await handleFeedbackPublicPost({ request: req3, env: envMissing });
+    await handleFeedbackPublicPost({ request: req5, env: envThrowing });
+    await handleFeedbackPublicPost({ request: req6, env: envMalformed });
+    check(fetchCallCount === 0, 'Zero database calls made during 429 or 503 rate-limiter outcomes');
+  } finally {
+    globalThis.fetch = originalFetch;
   }
 
-  const blockedRes = await postFeedback(
-    { submission_type: 'comment', user_message: 'Rate limited message' },
-    { 'cf-connecting-ip': testIp }
-  );
-  check(blockedRes.status === 429, '6th submission from same IP is rate-limited with HTTP 429');
-  const blockedData = await blockedRes.json();
-  check(blockedData.error === 'rate_limit_exceeded', 'Rate limit error code is returned');
-  check(blockedRes.headers.get('retry-after') !== null, 'Retry-After header is returned');
-
-  const differentIpRes = await postFeedback(
-    { submission_type: 'comment', user_message: 'Different IP message' },
-    { 'cf-connecting-ip': '203.0.113.88' }
-  );
-  check(differentIpRes.status === 200, 'Different IP is allowed immediately with HTTP 200');
+  // 8. Confirm in-memory fallback cannot silently permit submissions
+  const req8 = new Request('https://weshnakul.pages.dev/api/feedback', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
+    body: JSON.stringify({ submission_type: 'comment', user_message: 'In-memory bypass probe' }),
+  });
+  const res8 = await handleFeedbackPublicPost({ request: req8, env: envMissing });
+  check(res8.status === 503, 'In-memory fallback cannot silently permit submissions when binding is absent');
 }
 
 // 1j. Request size limits (rejection of oversized payloads)
@@ -240,70 +341,6 @@ _resetFeedbackRateLimitsForTesting();
     { 'content-length': '20050' }
   );
   check(res.status === 413, 'Oversized payload exceeding 16KB is rejected with HTTP 413');
-}
-
-// 1k. SEC-02: Cloudflare Distributed RATE_LIMITER binding enforcement
-{
-  const testIp = '198.51.100.99';
-
-  // 1. RATE_LIMITER binding rejects -> HTTP 429
-  const envWithRejection = {
-    ...mockEnv,
-    RATE_LIMITER: {
-      limit: async ({ key }) => {
-        check(key === `feedback_${testIp}`, 'RATE_LIMITER called with correct key format feedback_<ip>');
-        return { success: false };
-      },
-    },
-  };
-  const req1 = new Request('https://weshnakul.pages.dev/api/feedback', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', 'cf-connecting-ip': testIp },
-    body: JSON.stringify({ submission_type: 'comment', user_message: 'Distributed rate limit test' }),
-  });
-  const res1 = await handleFeedbackPublicPost({ request: req1, env: envWithRejection });
-  check(res1.status === 429, 'Distributed RATE_LIMITER rejection returns HTTP 429');
-  const data1 = await res1.json();
-  check(data1.error === 'rate_limit_exceeded', 'Rejection response contains error: rate_limit_exceeded');
-  check(res1.headers.get('retry-after') === '600', 'Retry-After header matches 600 seconds');
-
-  // 2. RATE_LIMITER binding allows -> HTTP 200
-  let bindingCalled = false;
-  const envWithSuccess = {
-    ...mockEnv,
-    RATE_LIMITER: {
-      limit: async () => {
-        bindingCalled = true;
-        return { success: true };
-      },
-    },
-  };
-  const req2 = new Request('https://weshnakul.pages.dev/api/feedback', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', 'cf-connecting-ip': '198.51.100.100' },
-    body: JSON.stringify({ submission_type: 'comment', user_message: 'Distributed rate limit allowed' }),
-  });
-  const res2 = await handleFeedbackPublicPost({ request: req2, env: envWithSuccess });
-  check(bindingCalled, 'Distributed RATE_LIMITER was invoked');
-  check(res2.status === 200, 'Distributed RATE_LIMITER success proceeds to HTTP 200');
-
-  // 3. RATE_LIMITER binding error -> graceful fallback to memory rate limiter
-  _resetFeedbackRateLimitsForTesting();
-  const envWithError = {
-    ...mockEnv,
-    RATE_LIMITER: {
-      limit: async () => {
-        throw new Error('Cloudflare KV / Rate Limiter internal error');
-      },
-    },
-  };
-  const req3 = new Request('https://weshnakul.pages.dev/api/feedback', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', 'cf-connecting-ip': '198.51.100.101' },
-    body: JSON.stringify({ submission_type: 'comment', user_message: 'Fallback test' }),
-  });
-  const res3 = await handleFeedbackPublicPost({ request: req3, env: envWithError });
-  check(res3.status === 200, 'When RATE_LIMITER binding throws, gracefully falls back to memory limiter and succeeds');
 }
 
 // ============================================================================
