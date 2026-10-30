@@ -49,12 +49,8 @@ BEGIN
   IF v_headers_raw IS NOT NULL AND length(v_headers_raw) > 0 THEN
     BEGIN
       v_headers := v_headers_raw::jsonb;
-      -- Precedence: Cloudflare edge header, then reverse proxy header, then first forwarded header
-      v_client_ip := coalesce(
-        nullif(trim(v_headers->>'cf-connecting-ip'), ''),
-        nullif(trim(v_headers->>'x-real-ip'), ''),
-        nullif(trim(split_part(v_headers->>'x-forwarded-for', ',', 1)), '')
-      );
+      -- Trust Cloudflare edge header exclusively; client-supplied forwarded headers are untrusted
+      v_client_ip := nullif(trim(v_headers->>'cf-connecting-ip'), '');
       -- Validate and normalize as valid IPv4 or IPv6 host address to prevent key poisoning
       IF v_client_ip IS NOT NULL THEN
         v_client_ip := host(v_client_ip::inet);
@@ -163,20 +159,11 @@ $$;
 REVOKE ALL ON FUNCTION public.get_room_by_code(text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.get_room_by_code(text) TO anon, authenticated, service_role;
 
--- 3. Restrict SELECT privileges on public.rooms
--- Revoke full-table SELECT from anonymous and authenticated roles
-REVOKE SELECT ON public.rooms FROM anon, authenticated;
-
--- Grant column-level SELECT strictly on the 5 safe operational columns
--- necessary for client connection health checks (select id) and Realtime filters.
--- Table scanning, code enumeration, participant data, voting summaries,
--- and recommendation algorithm state are strictly inaccessible to direct SELECT.
-GRANT SELECT (
-  id,
-  status,
-  stage,
-  eating_mode,
-  room_mode
-) ON public.rooms TO anon, authenticated;
+-- 3. Eliminate direct table access and room enumeration on public.rooms
+-- Revoke all table and column privileges from PUBLIC, anon, and authenticated roles.
+-- Direct table queries via PostgREST are completely blocked.
+-- Room lookups must proceed through the rate-limited, enumeration-resistant get_room_by_code RPC.
+REVOKE ALL ON public.rooms FROM PUBLIC, anon, authenticated;
+GRANT ALL ON public.rooms TO service_role;
 
 COMMIT;

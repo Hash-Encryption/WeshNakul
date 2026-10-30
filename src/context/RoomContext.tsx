@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import type { Room, Participant, CreateRoomInput, FoodChoice, ConsensusType, RoomMode, RoomSuggestion } from '../types/database';
 import { 
   getRoomByCode, 
@@ -21,6 +21,7 @@ import {
   toggleRoomSuggestion,
   broadcastSuggestions,
   subscribeToSuggestions,
+  broadcastRoomUpdate,
   getRoomDecisionState,
 } from '../lib/supabase';
 import { 
@@ -259,6 +260,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     currentRoomRef.current = room;
     setCurrentRoom(room);
+    void broadcastRoomUpdate(room.id, { new: room });
 
     if (state.myCategorySelection) {
       setFoodChoices((prev) => {

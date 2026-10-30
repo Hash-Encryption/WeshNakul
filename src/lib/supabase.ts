@@ -66,7 +66,7 @@ export const supabase: SupabaseClient | null = isSupabaseConfigured
 export async function checkSupabaseConnection(): Promise<{ ok: boolean; error?: string }> {
   try {
     if (!supabase) throw new Error('Supabase is not configured');
-    const { error } = await supabase.from('rooms').select('id', { count: 'exact', head: true });
+    const { error } = await supabase.from('restaurants').select('id', { count: 'exact', head: true }).limit(1);
     if (error) return { ok: false, error: error.message };
     return { ok: true };
   } catch (error) {
@@ -384,6 +384,9 @@ export function subscribeToRoom(
         }
       }
     )
+    .on('broadcast', { event: 'room_update' }, (payload: any) => {
+      onUpdate(payload?.payload || payload);
+    })
     .on('broadcast', { event: 'room_deleted' }, () => {
       onRoomDeleted?.();
     })
@@ -395,6 +398,35 @@ export function subscribeToRoom(
   return () => {
     supabase.removeChannel(channel);
   };
+}
+
+/**
+ * Broadcast room state updates to squad participants.
+ */
+export async function broadcastRoomUpdate(
+  roomId: string,
+  payload: { new: Partial<Room> }
+): Promise<void> {
+  if (supabase) {
+    try {
+      const channel = supabase.channel(`room:${roomId}`);
+      if (channel.state !== 'joined') {
+        await new Promise<void>((resolve) => {
+          channel.subscribe((status: string) => {
+            if (status === 'SUBSCRIBED') resolve();
+          });
+          setTimeout(resolve, 250);
+        });
+      }
+      await channel.send({
+        type: 'broadcast',
+        event: 'room_update',
+        payload,
+      });
+    } catch (e) {
+      console.warn('Supabase broadcastRoomUpdate failed', e);
+    }
+  }
 }
 
 /**

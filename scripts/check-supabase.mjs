@@ -37,8 +37,10 @@ try {
   globalThis.fetch = async (url,init) => (String(url).includes('/participants') || String(url).includes('/rpc/get_room_participants')) ? (init?.method === 'POST' ? network() : reply([])) : reply(room);
   await assert.rejects(() => api.joinRoom({code:'ABCD',nickname:'Guest'}), error => api.isSupabaseNetworkError(error));
   let calls = 0;
-  globalThis.fetch = async () => ++calls === 1 ? reply(null) : network();
-  await assert.rejects(() => api.getRoomByCode('ABCD'), error => api.isSupabaseNetworkError(error));
+  globalThis.fetch = async () => { ++calls; return reply(null); };
+  const missingRoom = await api.getRoomByCode('ABCD');
+  assert.equal(calls, 1);
+  assert.equal(missingRoom.room, null);
   const queryError = { message: 'permission denied', code: '42501' };
   globalThis.fetch = async () => reply(queryError,403);
   await assert.rejects(() => api.getRoomByCode('ABCD'), error => error.code === '42501' && !api.isSupabaseNetworkError(error));

@@ -39,6 +39,7 @@ check(migrationSql.includes("interval '10 minutes'"), 'SQL function enforces 10-
 
 // IP validation and header security
 check(migrationSql.includes('cf-connecting-ip'), 'SQL function prioritizes cf-connecting-ip from Cloudflare');
+check(!migrationSql.includes('x-forwarded-for') && !migrationSql.includes('x-real-ip'), 'SQL function strictly excludes client-spoofable x-forwarded-for and x-real-ip headers');
 check(migrationSql.includes('host(v_client_ip::inet)'), 'SQL function strictly normalizes and validates IP format using inet type');
 check(migrationSql.includes('IF v_client_ip IS NULL THEN\n      RETURN NULL;'), 'SQL function fails closed for HTTP requests with missing or unresolvable IP');
 
@@ -53,29 +54,13 @@ check(!migrationSql.includes("'last_mode_changed_by_participant_id'"), 'Public r
 check(!migrationSql.includes("'host_participant_id'"), 'Public response strictly EXCLUDES host_participant_id UUID');
 check(!migrationSql.includes("'winning_deck_id'"), 'Public response strictly EXCLUDES winning_deck_id');
 
-// Permissions check on rooms table
-check(migrationSql.includes('REVOKE SELECT ON public.rooms FROM anon, authenticated'), 'Revokes full table SELECT on rooms from anon and authenticated');
-check(migrationSql.includes('GRANT SELECT ('), 'Grants column-level SELECT on rooms');
+// Permissions check on rooms table - direct SELECT is completely eliminated
+check(migrationSql.includes('REVOKE ALL ON public.rooms FROM PUBLIC, anon, authenticated;'), 'Revokes all table and column privileges on public.rooms from PUBLIC, anon, and authenticated');
+check(migrationSql.includes('GRANT ALL ON public.rooms TO service_role;'), 'Grants full privileges on public.rooms exclusively to service_role');
+check(!migrationSql.includes('GRANT SELECT') || !migrationSql.includes('TO anon'), 'No direct SELECT privileges granted on public.rooms to anon or authenticated');
 
-const match = migrationSql.match(/GRANT SELECT \(([\s\S]*?)\)\s+ON public\.rooms TO anon, authenticated;/i);
-check(!!match, 'Found column-level GRANT SELECT statement');
-const grantedCols = match[1].split(',').map(c => c.trim().toLowerCase());
-
-check(!grantedCols.includes('code'), 'Granted columns strictly EXCLUDE room "code"');
-check(!grantedCols.includes('category_summary'), 'Granted columns strictly EXCLUDE "category_summary"');
-check(!grantedCols.includes('restaurant_summary'), 'Granted columns strictly EXCLUDE "restaurant_summary"');
-check(!grantedCols.includes('preferences'), 'Granted columns strictly EXCLUDE "preferences"');
-check(!grantedCols.includes('host_participant_id'), 'Granted columns strictly EXCLUDE "host_participant_id"');
-check(!grantedCols.includes('winning_deck_id'), 'Granted columns strictly EXCLUDE "winning_deck_id"');
-check(grantedCols.includes('id'), 'Granted columns include "id" for realtime filter and health check');
-check(grantedCols.includes('status'), 'Granted columns include "status"');
-check(grantedCols.includes('stage'), 'Granted columns include "stage"');
-check(grantedCols.includes('eating_mode'), 'Granted columns include "eating_mode"');
-check(grantedCols.includes('room_mode'), 'Granted columns include "room_mode"');
-check(grantedCols.length === 5, 'Granted columns list is strictly minimized to exactly 5 safe operational fields');
-
-// 2. Verify Frontend getRoomByCode Wiring
-console.log('\n2. Verifying Frontend src/lib/supabase.ts getRoomByCode Implementation...');
+// 2. Verify Frontend Realtime Broadcast Wiring
+console.log('\n2. Verifying Frontend src/lib/supabase.ts and RoomContext Realtime Broadcast Wiring...');
 const supabaseTs = readFileSync('src/lib/supabase.ts', 'utf8');
 
 const getRoomByCodeBody = supabaseTs.slice(
@@ -87,6 +72,12 @@ check(getRoomByCodeBody.includes("supabase.rpc('get_room_by_code', { p_code: cle
 check(!getRoomByCodeBody.includes(".from('rooms')"), 'getRoomByCode does NOT contain fallback query to rooms table');
 check(getRoomByCodeBody.includes('/^[A-Z0-9]{4}$/'), 'Frontend validates 4-character alphanumeric format client-side');
 check(supabaseTs.includes('isClientLookupThrottled'), 'Frontend implements client-side abuse throttling against rapid brute force');
+check(supabaseTs.includes('export async function broadcastRoomUpdate'), 'supabase.ts exports broadcastRoomUpdate');
+check(supabaseTs.includes(".on('broadcast', { event: 'room_update' }"), 'subscribeToRoom listens to room_update broadcast event');
+
+const roomContextTs = readFileSync('src/context/RoomContext.tsx', 'utf8');
+check(roomContextTs.includes('broadcastRoomUpdate(room.id, { new: room })'), 'RoomContext broadcasts authoritative room update on state mutations');
+check(supabaseTs.includes(".from('restaurants').select('id'"), 'checkSupabaseConnection queries restaurants instead of rooms');
 
 // 3. Behavioral Simulation in PGlite
 console.log('\n3. Verifying PostgreSQL Isolation in PGlite...');
@@ -249,12 +240,57 @@ if (!existsSync(runtime)) {
   }
   check(blockedAuthCatSummary, 'authenticated cannot SELECT category_summary (42501 permission denied)');
 
-  // 25. anon CAN SELECT id and safe operational fields for Realtime & health checks
+  // 25. anon cannot SELECT any column or count from public.rooms
   await db.exec('SET ROLE anon;');
-  const idRows = (await db.query(`SELECT id, status, stage, eating_mode, room_mode FROM public.rooms WHERE id = '${testRoomId}';`)).rows;
-  check(idRows.length === 1 && idRows[0].status === 'lobby', 'anon CAN SELECT safe operational fields (id, status, stage, eating_mode, room_mode)');
+  let blockedAnonId = false;
+  try {
+    await db.query(`SELECT id FROM public.rooms WHERE id = '${testRoomId}';`);
+  } catch (err) {
+    blockedAnonId = err.code === '42501';
+  }
+  check(blockedAnonId, 'anon cannot SELECT rooms.id (42501 permission denied - no direct table access)');
 
-  // 26. anon and authenticated CAN execute get_room_by_code RPC
+  let blockedAnonCount = false;
+  try {
+    await db.query('SELECT count(*) FROM public.rooms;');
+  } catch (err) {
+    blockedAnonCount = err.code === '42501';
+  }
+  check(blockedAnonCount, 'anon cannot SELECT count(*) FROM public.rooms (42501 permission denied)');
+
+  let blockedAnonCols = false;
+  try {
+    await db.query(`SELECT id, status, stage, eating_mode, room_mode FROM public.rooms WHERE id = '${testRoomId}';`);
+  } catch (err) {
+    blockedAnonCols = err.code === '42501';
+  }
+  check(blockedAnonCols, 'anon cannot SELECT safe operational fields directly (42501 permission denied)');
+
+  // 26. authenticated cannot SELECT any column or count from public.rooms
+  await db.exec('SET ROLE authenticated;');
+  let blockedAuthId = false;
+  try {
+    await db.query(`SELECT id FROM public.rooms WHERE id = '${testRoomId}';`);
+  } catch (err) {
+    blockedAuthId = err.code === '42501';
+  }
+  check(blockedAuthId, 'authenticated cannot SELECT rooms.id (42501 permission denied)');
+
+  let blockedAuthCount = false;
+  try {
+    await db.query('SELECT count(*) FROM public.rooms;');
+  } catch (err) {
+    blockedAuthCount = err.code === '42501';
+  }
+  check(blockedAuthCount, 'authenticated cannot SELECT count(*) FROM public.rooms (42501 permission denied)');
+
+  // 27. service_role CAN SELECT from public.rooms
+  await db.exec('SET ROLE service_role;');
+  const serviceRows = (await db.query(`SELECT id FROM public.rooms WHERE id = '${testRoomId}';`)).rows;
+  check(serviceRows.length === 1, 'service_role CAN SELECT from public.rooms');
+
+  // 28. anon and authenticated CAN execute get_room_by_code RPC
+  await db.exec('SET ROLE anon;');
   const anonRpcResult = (await db.query("SELECT public.get_room_by_code('TEST') as val;")).rows;
   check(anonRpcResult.length === 1 && anonRpcResult[0]?.val?.code === 'TEST', 'anon CAN execute public.get_room_by_code');
 
@@ -262,7 +298,7 @@ if (!existsSync(runtime)) {
   const authRpcResult = (await db.query("SELECT public.get_room_by_code('TEST') as val;")).rows;
   check(authRpcResult.length === 1 && authRpcResult[0]?.val?.code === 'TEST', 'authenticated CAN execute public.get_room_by_code');
 
-  // 27. anon and authenticated CANNOT read private attempt table
+  // 29. anon and authenticated CANNOT read private attempt table
   let blockedAnonAttempts = false;
   try {
     await db.query('SELECT * FROM private.room_lookup_attempts;');
@@ -324,7 +360,17 @@ if (!existsSync(runtime)) {
   const invalidIpResult = (await db.query("SELECT public.get_room_by_code('TEST') as val;")).rows[0].val;
   check(invalidIpResult === null, 'HTTP request with invalid/spoofed IP string fails closed (returns null)');
 
-  // Case B: HTTP request with missing IP header -> fail closed (returns null)
+  // Case B: HTTP request with only x-forwarded-for header -> fail closed (returns null)
+  await db.exec(`SET "request.headers" = '{"x-forwarded-for": "198.51.100.99"}';`);
+  const xffResult = (await db.query("SELECT public.get_room_by_code('TEST') as val;")).rows[0].val;
+  check(xffResult === null, 'HTTP request with only x-forwarded-for (missing cf-connecting-ip) fails closed (returns null)');
+
+  // Case C: HTTP request with only x-real-ip header -> fail closed (returns null)
+  await db.exec(`SET "request.headers" = '{"x-real-ip": "198.51.100.99"}';`);
+  const xRealIpResult = (await db.query("SELECT public.get_room_by_code('TEST') as val;")).rows[0].val;
+  check(xRealIpResult === null, 'HTTP request with only x-real-ip (missing cf-connecting-ip) fails closed (returns null)');
+
+  // Case D: HTTP request with missing IP header -> fail closed (returns null)
   await db.exec(`SET "request.headers" = '{"user-agent": "malicious-bot"}';`);
   const missingIpResult = (await db.query("SELECT public.get_room_by_code('TEST') as val;")).rows[0].val;
   check(missingIpResult === null, 'HTTP request lacking trusted client IP fails closed (returns null)');
