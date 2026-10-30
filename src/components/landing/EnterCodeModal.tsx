@@ -79,7 +79,7 @@ export const EnterCodeModal: React.FC<EnterCodeModalProps> = ({
                   onChange={(e) => {
                     const raw = e.target.value;
                     const hasInvalid = /[^A-Za-z]/.test(raw);
-                    const clean = raw.replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 4);
+                    const clean = raw.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 4);
                     setCode(clean);
 
                     if (hasInvalid) {
@@ -92,7 +92,7 @@ export const EnterCodeModal: React.FC<EnterCodeModalProps> = ({
                       void onSubmit(clean);
                     }
                   }}
-                  autoCapitalize="characters"
+                  autoCapitalize="none"
                   autoComplete="off"
                   autoCorrect="off"
                   spellCheck={false}

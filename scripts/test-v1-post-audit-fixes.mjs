@@ -79,10 +79,16 @@ try {
   });
 
   // 4. EnterCodeModal Logic Tests
+  const enterCodeModalSource = readFileSync('src/components/landing/EnterCodeModal.tsx', 'utf8');
+  check('EnterCodeModal input has autoCapitalize="none" for natural mobile keyboard presentation', () => {
+    assert.ok(enterCodeModalSource.includes('autoCapitalize="none"'), 'Must have autoCapitalize="none"');
+    assert.ok(!enterCodeModalSource.includes('autoCapitalize="characters"'), 'Must not force uppercase mode on mobile keyboard');
+  });
+
   // Simulate the exact input handling logic implemented in EnterCodeModal
   const simulateInput = (rawInput, isLoading = false) => {
     const hasInvalid = /[^A-Za-z]/.test(rawInput);
-    const clean = rawInput.replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 4);
+    const clean = rawInput.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 4);
     let error = null;
     let autoSubmitted = null;
 
@@ -119,31 +125,34 @@ try {
     assert.equal(res.autoSubmitted, 'ZATA');
   });
 
-  check('Input with digits immediately sets lettersOnly error and NEVER auto-submits', () => {
+  check('Input with digits remains visible, sets lettersOnly error and NEVER auto-submits', () => {
     for (const testCase of ['1', 'A7', 'A7K2', '1234', 'TACO1']) {
       const res = simulateInput(testCase);
       assert.equal(res.error, enDict.enterCodeModal.lettersOnly, `Expected error for ${testCase}`);
       assert.equal(res.autoSubmitted, null, `Should never auto-submit for ${testCase}`);
+      assert.equal(res.clean, testCase.slice(0, 4), `Digits must remain visible for ${testCase}`);
     }
   });
 
-  check('Input with Arabic characters immediately sets lettersOnly error and NEVER auto-submits', () => {
+  check('Input with Arabic characters is rejected from code, sets lettersOnly error and NEVER auto-submits', () => {
     for (const testCase of ['ش', 'شاورما', 'غرفة']) {
       const res = simulateInput(testCase);
       assert.equal(res.error, enDict.enterCodeModal.lettersOnly, `Expected error for ${testCase}`);
       assert.equal(res.autoSubmitted, null, `Should never auto-submit for ${testCase}`);
+      assert.equal(res.clean, '', `Arabic characters must be rejected from code for ${testCase}`);
     }
   });
 
-  check('Input with symbols immediately sets lettersOnly error and NEVER auto-submits', () => {
+  check('Input with symbols is rejected from code, sets lettersOnly error and NEVER auto-submits', () => {
     for (const testCase of ['@', 'TACO!', '#456', 'AB-C']) {
       const res = simulateInput(testCase);
       assert.equal(res.error, enDict.enterCodeModal.lettersOnly, `Expected error for ${testCase}`);
       assert.equal(res.autoSubmitted, null, `Should never auto-submit for ${testCase}`);
+      assert.ok(!/[^A-Za-z0-9]/.test(res.clean), `Symbols must be rejected from code for ${testCase}`);
     }
   });
 
-  check('Input with spaces immediately sets lettersOnly error and NEVER auto-submits', () => {
+  check('Input with spaces is rejected from code, sets lettersOnly error and NEVER auto-submits', () => {
     for (const testCase of [' ', 'TA CO', ' TACO', 'TACO ']) {
       const res = simulateInput(testCase);
       assert.equal(res.error, enDict.enterCodeModal.lettersOnly, `Expected error for ${testCase}`);
@@ -164,6 +173,18 @@ try {
       assert.equal(res.autoSubmitted, null);
       assert.equal(res.clean, testCase);
     }
+  });
+
+  check('Invalid input can be corrected to TACO: error clears and submission succeeds', () => {
+    const invalid = simulateInput('A7K2');
+    assert.equal(invalid.clean, 'A7K2');
+    assert.equal(invalid.error, enDict.enterCodeModal.lettersOnly);
+    assert.equal(invalid.autoSubmitted, null);
+
+    const corrected = simulateInput('TACO');
+    assert.equal(corrected.clean, 'TACO');
+    assert.equal(corrected.error, null);
+    assert.equal(corrected.autoSubmitted, 'TACO');
   });
 
   console.log(`\n🎉 ALL ${checks} TARGETED POST-AUDIT FIX CHECKS PASSED PERFECTLY!\n`);
