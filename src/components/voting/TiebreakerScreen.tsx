@@ -10,6 +10,7 @@ import { getCategoryById, NEO_BRUTALIST_PALETTE } from '../../lib/consensus';
 import { useContinuousRoulette } from '../../hooks/useContinuousRoulette';
 import { SocialSuggestionAvatars } from '../common/SocialSuggestionAvatars';
 import { triggerHaptic, playTactilePop } from '../../lib/haptics';
+import type { DecisionSpin } from '../../types/roulette';
 
 export const TiebreakerScreen: React.FC = () => {
   const {
@@ -24,6 +25,7 @@ export const TiebreakerScreen: React.FC = () => {
     suggestions,
     toggleSuggestion,
     leaveRoom,
+    advanceFunnelStage,
   } = useRoom();
   const { t, locale } = useLocale();
   const reduceMotion = useReducedMotion();
@@ -32,8 +34,40 @@ export const TiebreakerScreen: React.FC = () => {
 
   const spin = decisionSpin?.kind === 'category' ? decisionSpin : null;
 
+  // Read authoritative server consensus & tie state from persisted room columns
+  const serverConsensus = currentRoom?.consensus_summary;
+  const serverWinnerId = serverConsensus?.winner || currentRoom?.winning_category || (currentRoom?.category_summary as any)?.winner || null;
+  const serverTiedIds: string[] = useMemo(() => {
+    if (currentRoom?.tied_categories && currentRoom.tied_categories.length > 0) {
+      return currentRoom.tied_categories;
+    }
+    const catSummaryTied = (currentRoom?.category_summary as any)?.tiedCategories;
+    if (Array.isArray(catSummaryTied) && catSummaryTied.length > 0) {
+      return catSummaryTied;
+    }
+    const summaryContenders = serverConsensus?.contenders || serverConsensus?.runnerUps || (serverConsensus as any)?.runner_ups;
+    if (Array.isArray(summaryContenders) && summaryContenders.length > 0) {
+      return serverWinnerId ? Array.from(new Set([...summaryContenders, serverWinnerId])) : summaryContenders;
+    }
+    return [];
+  }, [currentRoom?.tied_categories, currentRoom?.category_summary, serverConsensus, serverWinnerId]);
+
+  const activeSpin: DecisionSpin | null = useMemo(() => {
+    if (spin) return spin;
+    // Auto-synthesize active synchronized spin from persisted room state if status is roulette or tiebreaker with winner
+    if ((currentRoom?.status === 'roulette' || currentRoom?.stage === 'tiebreaker') && serverWinnerId && serverTiedIds.length >= 2) {
+      return {
+        spinId: serverConsensus?.spinStartedAt || (serverConsensus as any)?.spin_started_at || currentRoom.id,
+        kind: 'category',
+        candidateIds: serverTiedIds,
+        winnerId: serverWinnerId,
+      };
+    }
+    return null;
+  }, [spin, currentRoom?.status, currentRoom?.stage, currentRoom?.id, serverWinnerId, serverTiedIds, serverConsensus]);
+
   React.useEffect(() => {
-    if (!spin || spin.winnerId || spin.error) {
+    if (!activeSpin || activeSpin.winnerId || activeSpin.error) {
       setIsSpinningLong(false);
       return;
     }
@@ -41,16 +75,16 @@ export const TiebreakerScreen: React.FC = () => {
       setIsSpinningLong(true);
     }, 4500);
     return () => window.clearTimeout(timer);
-  }, [spin]);
+  }, [activeSpin]);
 
   const contenders = useMemo(
-    () => (spin?.candidateIds || currentRoom?.tied_categories || []).map((id) => getCategoryById(id, currentRoom?.room_mode)).filter(Boolean),
-    [spin?.candidateIds, currentRoom?.tied_categories, currentRoom?.room_mode]
+    () => (activeSpin?.candidateIds || serverTiedIds).map((id: string) => getCategoryById(id, currentRoom?.room_mode)).filter((c): c is NonNullable<typeof c> => Boolean(c)),
+    [activeSpin?.candidateIds, serverTiedIds, currentRoom?.room_mode]
   );
-  const slices = useMemo<ArcadeWheelSlice[]>(() => contenders.map((category, index) => ({
-    id: category!.id,
-    name: locale === 'ar' ? category!.ar : category!.en,
-    emoji: category!.icon,
+  const slices = useMemo<ArcadeWheelSlice[]>(() => contenders.map((category, index: number) => ({
+    id: category.id,
+    name: locale === 'ar' ? category.ar : category.en,
+    emoji: category.icon,
     votes: 1,
     color: NEO_BRUTALIST_PALETTE[index % NEO_BRUTALIST_PALETTE.length],
     startAngle: (index * 360) / contenders.length,
@@ -59,10 +93,12 @@ export const TiebreakerScreen: React.FC = () => {
     angle: 360 / contenders.length,
   })), [contenders, locale]);
 
-  const winner = spin?.winnerId ? getCategoryById(spin.winnerId, currentRoom?.room_mode) : undefined;
+  const winner = (activeSpin?.winnerId || serverWinnerId)
+    ? getCategoryById(activeSpin?.winnerId || serverWinnerId!, currentRoom?.room_mode)
+    : undefined;
 
   const { wheelRef, needleRef, isSpinning, revealed } = useContinuousRoulette({
-    spin,
+    spin: activeSpin,
     slices,
     reducedMotion: Boolean(reduceMotion),
     onRevealed: () => {
@@ -74,6 +110,9 @@ export const TiebreakerScreen: React.FC = () => {
     },
     onComplete: () => {
       completeDecisionSpin();
+      if (isHost && (currentRoom?.status === 'roulette' || currentRoom?.status === 'tiebreaker')) {
+        void advanceFunnelStage('consensus');
+      }
     },
   });
 

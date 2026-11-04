@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { fetchDeckRestaurants, getRoomDecisionState, submitRestaurantVote } from '../lib/supabase';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { RestaurantSummary } from '../types/database';
@@ -397,10 +397,14 @@ export function useRestaurantSwiper({
   );
 
   const hasDeck = Array.isArray(deck) && deck.length > 0;
-  const allVoted = hasDeck && deck.every((item) => Boolean(item && item.id && ['YES', 'NO'].includes(myVotes[item.id] || '')));
-  const boundsReached = hasDeck && currentIndex >= deck.length;
+  const votedCountInDeck = hasDeck
+    ? deck.filter((item) => Boolean(item && item.id && ['YES', 'NO'].includes(myVotes[item.id] || ''))).length
+    : 0;
+  const hasVotedAny = votedCountInDeck > 0;
+  const allVoted = hasDeck && hasVotedAny && deck.every((item) => Boolean(item && item.id && ['YES', 'NO'].includes(myVotes[item.id] || '')));
+  const boundsReached = hasDeck && hasVotedAny && currentIndex >= deck.length;
   const hasUnvotedCandidate = hasDeck && deck.some((item) => Boolean(item && item.id && !['YES', 'NO'].includes(myVotes[item.id] || '')));
-  const isDeckFinished = hasDeck && (allVoted || (boundsReached && !hasUnvotedCandidate));
+  const isDeckFinished = hasDeck && hasVotedAny && (allVoted || (boundsReached && !hasUnvotedCandidate));
 
   return {
     deck,

@@ -14,6 +14,13 @@ export const ConsensusResultScreen: React.FC = () => {
   const { t, locale } = useLocale();
   const [isStarting, setIsStarting] = useState(false);
 
+  // Auto-advance countdown timer based on rooms.phase_ends_at
+  const [secondsRemaining, setSecondsRemaining] = useState<number | null>(() => {
+    if (!currentRoom?.phase_ends_at) return null;
+    const diff = Math.ceil((Date.parse(currentRoom.phase_ends_at) - Date.now()) / 1000);
+    return Math.max(0, diff);
+  });
+
   const handleStartPicking = async () => {
     if (isStarting) return;
     setIsStarting(true);
@@ -27,7 +34,29 @@ export const ConsensusResultScreen: React.FC = () => {
     }
   };
 
-  const winnerId = currentRoom?.winning_category || 'burger';
+  useEffect(() => {
+    if (!currentRoom?.phase_ends_at) {
+      setSecondsRemaining(null);
+      return;
+    }
+
+    const updateTimer = () => {
+      const endsAt = Date.parse(currentRoom.phase_ends_at!);
+      const remaining = Math.max(0, Math.ceil((endsAt - Date.now()) / 1000));
+      setSecondsRemaining(remaining);
+      if (remaining <= 0) {
+        // Auto-advance squad to restaurant swiping when countdown hits 0
+        void handleStartPicking();
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 500);
+    return () => clearInterval(interval);
+  }, [currentRoom?.phase_ends_at]);
+
+  const consensusSummary = currentRoom?.consensus_summary;
+  const winnerId = consensusSummary?.winner || currentRoom?.winning_category || 'burger';
 
   useEffect(() => {
     try {
@@ -58,22 +87,38 @@ export const ConsensusResultScreen: React.FC = () => {
   const tally = currentRoom.category_summary?.tally || {};
   const totalVoters = currentRoom.category_summary?.eligibleParticipantCount || participants.length || 1;
   const winnerVoteCount = tally[winnerId] || 0;
-  const agreementPercentage = Math.round((winnerVoteCount / totalVoters) * 100);
+  // Parity check: Read authoritative agreement percentage calculated by Postgres RPC in rooms.consensus_summary
+  const agreementPercentage =
+    consensusSummary?.agreementPercent ??
+    consensusSummary?.agreement_percent ??
+    Math.round((winnerVoteCount / totalVoters) * 100);
 
-  const isRandomTie = consensusType === 'random_picked';
+  const isRandomTie = consensusType === 'random_picked' || consensusSummary?.targetAngle !== undefined || consensusSummary?.target_angle !== undefined;
 
-  // Runner-up contenders
-  const runnerUps = Object.entries(tally)
-    .filter(([id]) => id !== winnerId)
-    .map(([id, count]) => ({
-      id,
-      count,
-      percentage: Math.round((count / totalVoters) * 100),
-      def: categories.find((c) => c.id === id),
-    }))
-    .filter((item) => item.def && item.count > 0)
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 3);
+  // Runner-up contenders (server-authoritative summary prioritized)
+  const serverRunnerUps = consensusSummary?.runnerUps || consensusSummary?.runner_ups;
+  const runnerUps = (serverRunnerUps && serverRunnerUps.length > 0)
+    ? serverRunnerUps
+        .filter((id) => id !== winnerId)
+        .map((id) => ({
+          id,
+          count: tally[id] || 0,
+          percentage: Math.round(((tally[id] || 0) / totalVoters) * 100),
+          def: categories.find((c) => c.id === id),
+        }))
+        .filter((item) => item.def)
+        .slice(0, 3)
+    : Object.entries(tally)
+        .filter(([id]) => id !== winnerId)
+        .map(([id, count]) => ({
+          id,
+          count,
+          percentage: Math.round((count / totalVoters) * 100),
+          def: categories.find((c) => c.id === id),
+        }))
+        .filter((item) => item.def && item.count > 0)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 3);
 
   const getConsensusBadge = () => {
     switch (consensusType) {
@@ -209,6 +254,23 @@ export const ConsensusResultScreen: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Auto-Advance Countdown Pill */}
+        {secondsRemaining !== null && secondsRemaining > 0 && (
+          <div className="max-w-md mx-auto w-full mb-3">
+            <div className={`flex items-center justify-between px-3.5 py-2 rounded-2xl border-2 border-brand-ink text-xs font-black shadow-[2px_2px_0px_#241B18] ${
+              secondsRemaining <= 5 ? 'bg-brand-red text-white animate-pulse' : 'bg-brand-yellow/30 text-brand-ink'
+            }`}>
+              <div className="flex items-center gap-1.5">
+                <span>⏱️</span>
+                <span>
+                  {locale === 'ar' ? 'الانتقال للمطاعم تلقائياً خلال:' : 'Auto-advancing to restaurants in:'}
+                </span>
+              </div>
+              <span className="font-mono text-sm font-extrabold">{secondsRemaining}s</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Action Controls */}

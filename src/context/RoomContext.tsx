@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
-import type { Room, Participant, CreateRoomInput, FoodChoice, ConsensusType, RoomMode, RoomSuggestion } from '../types/database';
+import type { Room, Participant, CreateRoomInput, FoodChoice, ConsensusType, RoomMode, RoomSuggestion, RoomStatus, RoomMember } from '../types/database';
 import { 
   getRoomByCode, 
   createRoom as apiCreateRoom, 
@@ -23,6 +23,13 @@ import {
   subscribeToSuggestions,
   broadcastRoomUpdate,
   getRoomDecisionState,
+  advanceRoomStage,
+  submitAndTallyCategorySwiping,
+  updateMemberHeartbeat,
+  checkAndElectHost,
+  recordMemberSwipeProgress,
+  resolveCategoryFunnelConsensus,
+  fetchRoomMembers,
 } from '../lib/supabase';
 import { 
   getActiveRoomCode, 
@@ -79,6 +86,12 @@ interface RoomContextType {
   startMiniGameSession: (gameId: import('../config/miniGames').MiniGameId) => void;
   completeMiniGame: () => void;
   cancelMiniGameSession: () => void;
+  roomMembers: RoomMember[];
+  advanceFunnelStage: (targetStatus: RoomStatus) => Promise<void>;
+  recordSwipeProgress: (swipeCount: number, isDone: boolean) => Promise<void>;
+  resolveCategoryConsensusFunnel: (winner: string, agreementPercent: number, runnerUps: string[], targetAngle?: number, spinStartedAt?: string) => Promise<void>;
+  hostToast: string | null;
+  clearHostToast: () => void;
 }
 
 export const RoomContext = createContext<RoomContextType | null>(null);
@@ -88,10 +101,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
   const [currentParticipant, setCurrentParticipant] = useState<Participant | null>(null);
   const [participants, setParticipants] = useState<Participant[]>([]);
+  const [roomMembers, setRoomMembers] = useState<RoomMember[]>([]);
   const [foodChoices, setFoodChoices] = useState<FoodChoice[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [sessionNotice, setSessionNotice] = useState<string | null>(null);
+  const [hostToast, setHostToast] = useState<string | null>(null);
+  const clearHostToast = useCallback(() => setHostToast(null), []);
   const [decisionSpin, setDecisionSpin] = useState<DecisionSpin | null>(null);
   const decisionSpinRef = useRef<DecisionSpin | null>(null);
   const applyDecisionSpin = useCallback((spin: DecisionSpin | null) => {
@@ -320,6 +336,30 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const inFlightRefreshRef = useRef<Promise<void> | null>(null);
   const queuedRefreshRef = useRef<boolean>(false);
 
+  const checkHostFailoverLocally = useCallback((members: RoomMember[], hostId?: string | null) => {
+    if (!members || members.length === 0) return;
+    const now = Date.now();
+    const currentHost = members.find((m) => m.is_host || m.user_id === hostId);
+
+    // If host's last_seen is older than 15 seconds (or host is missing)
+    const hostLastSeen = currentHost?.last_seen ? Date.parse(currentHost.last_seen) : 0;
+    if (!currentHost || (now - hostLastSeen > 15000)) {
+      // Deterministic host election rule: select oldest active member in the room based on joined_at where last_seen > NOW() - 15s
+      const activeCandidates = members
+        .filter((m) => m.last_seen && (now - Date.parse(m.last_seen) <= 15000) && (!currentHost || m.user_id !== currentHost.user_id))
+        .sort((a, b) => (Date.parse(a.joined_at || '0') - Date.parse(b.joined_at || '0')));
+
+      const newHost = activeCandidates[0];
+      if (newHost && currentRoomRef.current?.id) {
+        void checkAndElectHost(currentRoomRef.current.id).then((res) => {
+          if (res?.elected && res.new_host_name) {
+            setHostToast(`👑 Host disconnected. ${res.new_host_name} is now the host!`);
+          }
+        });
+      }
+    }
+  }, []);
+
   const refreshRoom = useCallback(async (options?: { fetchParticipants?: boolean; fetchChoices?: boolean }) => {
     if (isLeavingRef.current) return;
     const roomCode = currentRoomRef.current?.code;
@@ -381,6 +421,16 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
               console.warn('Error fetching room decision state on refresh', e);
             }
           }
+
+          try {
+            const members = await fetchRoomMembers(room.id);
+            if (members && members.length > 0) {
+              setRoomMembers(members);
+              checkHostFailoverLocally(members, room.host_id);
+            }
+          } catch {
+            // non-fatal member fetch
+          }
         }
       } catch (err) {
         console.error('Error refreshing room', err);
@@ -397,7 +447,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     inFlightRefreshRef.current = performRefresh();
     return inFlightRefreshRef.current;
-  }, [leaveRoom, t, reportError, triggerModeTransition, reconcileDecisionSpinFromRoom]);
+  }, [leaveRoom, t, reportError, triggerModeTransition, reconcileDecisionSpinFromRoom, checkHostFailoverLocally]);
 
   // Load a room by code
   const loadRoom = useCallback(async (code: string): Promise<boolean> => {
@@ -854,13 +904,20 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!currentRoom || !currentParticipant) return;
     const endPerf = perf.start('submitFoodChoices');
     try {
-      const state = await submitCategorySelection(
-        currentRoom.id,
-        currentParticipant.session_token,
-        currentRoom.version,
-        normalizeCategorySelection(selectedCategories, currentRoom.room_mode || 'food')
-      );
-      applyAuthoritativeRoomState(state);
+      const normalized = normalizeCategorySelection(selectedCategories, currentRoom.room_mode || 'food');
+      try {
+        await submitAndTallyCategorySwiping(currentRoom.id, currentParticipant.id, normalized);
+      } catch (rpcErr) {
+        console.warn('[submitFoodChoices] Server tally RPC fallback to submitCategorySelection', rpcErr);
+        const state = await submitCategorySelection(
+          currentRoom.id,
+          currentParticipant.session_token,
+          currentRoom.version,
+          normalized
+        );
+        applyAuthoritativeRoomState(state);
+      }
+      void refreshRoom();
     } finally {
       endPerf();
     }
@@ -1111,12 +1168,94 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!currentRoom || !currentParticipant) return;
     const endPerf = perf.start('startSwiping');
     try {
-      const state = await beginRestaurantVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
-      applyAuthoritativeRoomState(state);
+      try {
+        await advanceRoomStage(currentRoom.id, 'restaurant_swiping');
+        setCurrentRoom((prev) => (prev ? { ...prev, status: 'restaurant_swiping', stage: 'swiping' } : null));
+      } catch (rpcErr) {
+        console.warn('[startSwiping] advanceRoomStage RPC fallback to beginRestaurantVoting', rpcErr);
+        const state = await beginRestaurantVoting(currentRoom.id, currentParticipant.session_token, currentRoom.version);
+        applyAuthoritativeRoomState(state);
+      }
+      void refreshRoom();
     } finally {
       endPerf();
     }
   };
+
+  // Heartbeat protocol: Every connected client updates room_members.last_seen = NOW() every 10 seconds.
+  useEffect(() => {
+    if (!currentRoom?.id || !currentParticipant?.id) return;
+    const roomId = currentRoom.id;
+    const userId = currentParticipant.id;
+
+    const doHeartbeat = async () => {
+      try {
+        const res = await updateMemberHeartbeat(roomId, userId);
+        if (res?.failover?.elected && res.failover.new_host_name) {
+          setHostToast(`👑 Host disconnected. ${res.failover.new_host_name} is now the host!`);
+          void refreshRoom();
+        }
+      } catch {
+        // non-fatal heartbeat failure
+      }
+    };
+
+    void doHeartbeat();
+    const interval = setInterval(doHeartbeat, 10000);
+    return () => clearInterval(interval);
+  }, [currentRoom?.id, currentParticipant?.id, refreshRoom]);
+
+  // Atomic state transition through advance_room_stage PostgreSQL RPC
+  const advanceFunnelStage = useCallback(async (targetStatus: RoomStatus) => {
+    const room = currentRoomRef.current;
+    if (!room?.id) return;
+    try {
+      const res = await advanceRoomStage(room.id, targetStatus);
+      if (res?.success) {
+        setCurrentRoom((prev) => (prev ? { ...prev, status: targetStatus } : null));
+        void refreshRoom();
+      }
+    } catch (err) {
+      console.error('[advanceFunnelStage] Error advancing stage', err);
+      reportError(err);
+    }
+  }, [refreshRoom, reportError]);
+
+  const recordSwipeProgress = useCallback(async (swipeCount: number, isDone: boolean) => {
+    const room = currentRoomRef.current;
+    const participant = currentParticipantRef.current;
+    if (!room?.id || !participant?.id) return;
+    try {
+      await recordMemberSwipeProgress(room.id, participant.id, swipeCount, isDone);
+    } catch (err) {
+      console.warn('[recordSwipeProgress] Error', err);
+    }
+  }, []);
+
+  const resolveCategoryConsensusFunnel = useCallback(async (
+    winner: string,
+    agreementPercent: number,
+    runnerUps: string[],
+    targetAngle?: number,
+    spinStartedAt?: string
+  ) => {
+    const room = currentRoomRef.current;
+    if (!room?.id) return;
+    try {
+      await resolveCategoryFunnelConsensus(
+        room.id,
+        winner,
+        agreementPercent,
+        runnerUps,
+        targetAngle,
+        spinStartedAt
+      );
+      void refreshRoom();
+    } catch (err) {
+      console.error('[resolveCategoryConsensusFunnel] Error', err);
+      reportError(err);
+    }
+  }, [refreshRoom, reportError]);
 
   const isHost = Boolean(currentParticipant?.is_host);
   const myChoice = currentParticipant
@@ -1129,6 +1268,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         currentRoom,
         currentParticipant,
         participants,
+        roomMembers,
         foodChoices,
         myChoice,
         isLoading,
@@ -1152,6 +1292,11 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
         resetToLobby,
         resetRoomVoting,
         startSwiping,
+        advanceFunnelStage,
+        recordSwipeProgress,
+        resolveCategoryConsensusFunnel,
+        hostToast,
+        clearHostToast,
         decisionSpin,
         startCategoryRoulette,
         startRestaurantRoulette,

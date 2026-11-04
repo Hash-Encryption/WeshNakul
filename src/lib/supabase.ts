@@ -1,5 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState, RoomMode, RoomSuggestion } from '../types/database';
+import type { Room, Participant, CreateRoomInput, JoinRoomInput, FoodChoice, RoomStage, OrderItem, RoomDecisionState, RoomMode, RoomSuggestion, RoomStatus, RoomMember } from '../types/database';
 import type { RestaurantItem, RestaurantVote } from '../types/restaurant';
 import type { DecisionSpin } from '../types/roulette';
 import type { CaptainEventState, CaptainRealtimeMessage } from '../types/captain';
@@ -23,9 +23,14 @@ export const isSupabaseConfigured = Boolean(
 );
 
 export function isSupabaseNetworkError(error: unknown): boolean {
-  const err = error as { message?: string; name?: string; status?: number } | null;
-  return err?.name === 'TypeError' || err?.status === 0 ||
-    /failed to fetch|fetch failed|network|load failed|ssl|certificate/i.test(err?.message || '') ||
+  if (!error || typeof error !== 'object') return false;
+  const err = error as { message?: string; name?: string; status?: number; code?: string };
+  // PostgreSQL / PostgREST application errors (PGRST*, 4xx, 5xx with DB codes) are not offline network errors
+  if (err.code && typeof err.code === 'string' && (err.code.startsWith('P') || err.code.startsWith('23') || err.code.startsWith('42'))) {
+    return false;
+  }
+  return err.status === 0 ||
+    /failed to fetch|fetch failed|net::err|ssl|certificate_error/i.test(err.message || '') ||
     (typeof navigator !== 'undefined' && navigator.onLine === false);
 }
 
@@ -42,7 +47,9 @@ function reportNetworkFailure(error: unknown) {
 
 function reportRealtimeStatus(status: string, error?: Error) {
   if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-    reportNetworkFailure({ name: 'TypeError', message: error?.message || 'Network realtime connection failed' });
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      reportNetworkFailure({ message: error?.message || 'Network realtime connection failed' });
+    }
   }
 }
 
@@ -343,6 +350,178 @@ export const setRoomPreference = (roomId: string, sessionToken: string, version:
 export const toggleRoomSuggestion = (roomId: string, sessionToken: string, target: string) =>
   decisionRpc('toggle_room_suggestion', { p_room_id: roomId, p_session_token: sessionToken, p_target: target });
 
+/**
+ * Atomic state transition RPC (advance_room_stage).
+ * All room funnel transitions route strictly through this PostgreSQL function.
+ */
+export async function advanceRoomStage(
+  roomId: string,
+  targetStatus: RoomStatus
+): Promise<{ success: boolean; new_status: string }> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('advance_room_stage', {
+    p_room_id: roomId,
+    p_target_status: targetStatus,
+  });
+  if (error) {
+    console.error('[advanceRoomStage] PostgREST RPC error:', {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
+    if (isSupabaseNetworkError(error)) {
+      reportNetworkFailure(error);
+    }
+    throw error;
+  }
+  return data;
+}
+
+/**
+ * Atomic category vote submission and server-side tally.
+ */
+export async function submitAndTallyCategorySwiping(
+  roomId: string,
+  userId: string,
+  categories: string[]
+): Promise<any> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('submit_and_tally_category_swiping', {
+    p_room_id: roomId,
+    p_user_id: userId,
+    p_categories: categories,
+  });
+  if (error) {
+    console.error('[submitAndTallyCategorySwiping] PostgREST RPC error:', {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
+    if (isSupabaseNetworkError(error)) {
+      reportNetworkFailure(error);
+    }
+    throw error;
+  }
+  return data;
+}
+
+/**
+ * Updates member heartbeat and evaluates host failover.
+ */
+export async function updateMemberHeartbeat(
+  roomId: string,
+  userId: string
+): Promise<{ success: boolean; failover?: any }> {
+  if (!supabase) return { success: false };
+  try {
+    const { data, error } = await supabase.rpc('update_member_heartbeat', {
+      p_room_id: roomId,
+      p_user_id: userId,
+    });
+    if (error) return { success: false };
+    return data || { success: true };
+  } catch {
+    return { success: false };
+  }
+}
+
+/**
+ * Checks if current host is inactive and elects oldest member by joined_at.
+ */
+export async function checkAndElectHost(
+  roomId: string
+): Promise<{ elected: boolean; old_host_id?: string; new_host_id?: string; new_host_name?: string }> {
+  if (!supabase) return { elected: false };
+  try {
+    const { data, error } = await supabase.rpc('check_and_elect_host', {
+      p_room_id: roomId,
+    });
+    if (error) return { elected: false };
+    return data || { elected: false };
+  } catch {
+    return { elected: false };
+  }
+}
+
+/**
+ * Records member swipe progress (count and done status).
+ */
+export async function recordMemberSwipeProgress(
+  roomId: string,
+  userId: string,
+  swipeCount: number,
+  isDone: boolean
+): Promise<{ success: boolean }> {
+  if (!supabase) return { success: false };
+  try {
+    const { data, error } = await supabase.rpc('record_member_swipe_progress', {
+      p_room_id: roomId,
+      p_user_id: userId,
+      p_swipe_count: swipeCount,
+      p_is_done: isDone,
+    });
+    if (error) return { success: false };
+    return data || { success: true };
+  } catch {
+    return { success: false };
+  }
+}
+
+/**
+ * Server calculation resolution for category consensus / roulette.
+ */
+export async function resolveCategoryFunnelConsensus(
+  roomId: string,
+  winner: string,
+  agreementPercent: number,
+  runnerUps: string[],
+  targetAngle?: number,
+  spinStartedAt?: string
+): Promise<any> {
+  if (!supabase) throw new Error('Supabase is not configured');
+  const { data, error } = await supabase.rpc('resolve_category_funnel_consensus', {
+    p_room_id: roomId,
+    p_winner: winner,
+    p_agreement_percent: agreementPercent,
+    p_runner_ups: runnerUps,
+    p_target_angle: targetAngle ?? null,
+    p_spin_started_at: spinStartedAt ?? null,
+  });
+  if (error) {
+    console.error('[resolveCategoryFunnelConsensus] PostgREST RPC error:', {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
+    if (isSupabaseNetworkError(error)) {
+      reportNetworkFailure(error);
+    }
+    throw error;
+  }
+  return data;
+}
+
+/**
+ * Fetch room members list with swiping and heartbeat status.
+ */
+export async function fetchRoomMembers(roomId: string): Promise<RoomMember[]> {
+  if (!supabase) return [];
+  try {
+    const { data, error } = await supabase
+      .from('room_members')
+      .select('*')
+      .eq('room_id', roomId)
+      .order('joined_at', { ascending: true });
+    if (error || !data) return [];
+    return data as RoomMember[];
+  } catch {
+    return [];
+  }
+}
+
 export async function getFoodChoices(roomId: string, sessionToken: string): Promise<FoodChoice[]> {
   const state = await getRoomDecisionState(roomId, sessionToken);
   return state.myCategorySelection ? [state.myCategorySelection] : [];
@@ -365,6 +544,17 @@ export function subscribeToRoom(
     .on(
       'postgres_changes',
       { event: '*', schema: 'public', table: 'participants', filter: `room_id=eq.${roomId}` },
+      () => {
+        if (onParticipantsUpdate) {
+          onParticipantsUpdate();
+        } else {
+          onUpdate();
+        }
+      }
+    )
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'room_members', filter: `room_id=eq.${roomId}` },
       () => {
         if (onParticipantsUpdate) {
           onParticipantsUpdate();
@@ -504,7 +694,9 @@ export async function fetchDeckRestaurants(
     cacheDeckRestaurants(normalized.restaurants);
     return normalized;
   } catch (err) {
-    reportNetworkFailure(err);
+    if (isSupabaseNetworkError(err)) {
+      reportNetworkFailure(err);
+    }
     throw err;
   }
 }

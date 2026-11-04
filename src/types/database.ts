@@ -1,8 +1,16 @@
-﻿export type Locale = 'ar' | 'en';
+export type Locale = 'ar' | 'en';
 
 export type EatingMode = 'delivery' | 'dine_in' | 'any';
 
-export type RoomStatus = 'lobby' | 'food_selection' | 'restaurant_selection' | 'completed' | 'expired';
+export type RoomStatus = 
+  | 'lobby' 
+  | 'category_swiping' 
+  | 'tallying_categories'
+  | 'tiebreaker'
+  | 'roulette' 
+  | 'consensus' 
+  | 'restaurant_swiping' 
+  | 'final_consensus';
 
 export type RoomStage = 'lobby' | 'voting' | 'tiebreaker' | 'consensus' | 'swiping' | 'matched';
 
@@ -21,6 +29,34 @@ export type PlayerColor =
 
 export type RoomMode = 'food' | 'breakfast' | 'cafes';
 
+export interface ConsensusSummary {
+  winner?: string | null;
+  agreementPercent?: number;
+  agreement_percent?: number;
+  runnerUps?: string[];
+  runner_ups?: string[];
+  contenders?: string[];
+  targetAngle?: number;
+  target_angle?: number;
+  spinStartedAt?: string;
+  spin_started_at?: string;
+}
+
+export interface RoomMember {
+  user_id: string;
+  id?: string;
+  room_id: string;
+  session_token: string;
+  nickname: string;
+  player_color: string;
+  player_shape: PlayerShape;
+  is_host: boolean;
+  is_done_swiping: boolean;
+  swipe_count: number;
+  last_seen: string;
+  joined_at: string;
+}
+
 export interface Room {
   id: string;
   code: string;
@@ -37,6 +73,9 @@ export interface Room {
   district?: string | null;
   language: Locale;
   host_participant_id?: string | null;
+  host_id?: string | null;
+  phase_ends_at?: string | null;
+  consensus_summary?: ConsensusSummary;
   current_stage: string;
   winning_category?: string | null;
   consensus_type?: ConsensusType;

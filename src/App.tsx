@@ -7,10 +7,10 @@ import { EnterCodeModal } from './components/landing/EnterCodeModal';
 import { StartingModeScreen } from './components/wizard/StartingModeScreen';
 import { EatingModeScreen } from './components/wizard/EatingModeScreen';
 import { RoomSetupScreen } from './components/wizard/RoomSetupScreen';
-import { RoomLobbyScreen } from './components/lobby/RoomLobbyScreen';
 import { GuestJoinScreen } from './components/guest/GuestJoinScreen';
 import { RoomFullView } from './components/guest/RoomFullView';
 import { MAX_ROOM_CAPACITY } from './config/room';
+import { RoomLobbyScreen } from './components/lobby/RoomLobbyScreen';
 import { FoodVotingScreen } from './components/voting/FoodVotingScreen';
 import { TiebreakerScreen } from './components/voting/TiebreakerScreen';
 import { ConsensusResultScreen } from './components/voting/ConsensusResultScreen';
@@ -55,6 +55,8 @@ export const App: React.FC = () => {
     destroyRoom,
     startVoting,
     resetRoomVoting,
+    hostToast,
+    clearHostToast,
   } = useRoom();
 
   const { t } = useLocale();
@@ -332,15 +334,23 @@ export const App: React.FC = () => {
   const renderRoomContent = () => {
     if (!currentRoom || !currentParticipant) return null;
 
-    switch (currentRoom.stage) {
+    // Strict funnel routing based on room.status (with fallback to room.stage for backwards compatibility)
+    const activeStage: string = currentRoom.status || currentRoom.stage;
+
+    switch (activeStage) {
+      case 'category_swiping':
       case 'voting':
         return <FoodVotingScreen />;
+      case 'roulette':
       case 'tiebreaker':
         return <TiebreakerScreen />;
       case 'consensus':
         return <ConsensusResultScreen />;
+      case 'restaurant_swiping':
       case 'swiping':
         return <RestaurantSwipingScreen />;
+      case 'final_consensus':
+      case 'completed':
       case 'matched': {
         const winner =
           getCachedRestaurant(currentRoom.winning_restaurant_id || '') ||
@@ -357,9 +367,7 @@ export const App: React.FC = () => {
             onVoteAgain={() => resetRoomVoting('voting')}
             onRestartVote={() => resetRoomVoting('voting')}
             onGoHome={handleLeave}
-            onProceed={() => {
-              // Prepares Phase 4 transition
-            }}
+            onProceed={() => {}}
           />
         );
       }
@@ -445,8 +453,12 @@ export const App: React.FC = () => {
         {/* Global Room Mode Transition Overlay */}
         <RoomModeTransition />
 
-        {/* Global Session Toast (TTL Expiration, Host Room Deletion, Vote Reset) */}
-        <Toast message={failureNotice || sessionNotice} onClose={failureNotice ? clearFailureNotice : clearSessionNotice} warning={Boolean(failureNotice)} />
+        {/* Global Session Toast (TTL Expiration, Host Failover, Room Deletion, Vote Reset) */}
+        <Toast
+          message={hostToast || failureNotice || sessionNotice}
+          onClose={hostToast ? clearHostToast : (failureNotice ? clearFailureNotice : clearSessionNotice)}
+          warning={Boolean(failureNotice && !hostToast)}
+        />
 
         {/* Floating Feedback Button & Modal (only on landing) */}
         {step === 'landing' && (
