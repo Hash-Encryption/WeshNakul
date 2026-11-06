@@ -496,8 +496,14 @@ BEGIN
   END IF;
 
   -- When transitioning to restaurant_swiping, clear previous restaurant swipes in DB so deck starts fresh
+  -- and ensure swiping_started_at, winning_category, and restaurant_state are properly committed
   IF p_target_status = 'restaurant_swiping' THEN
     DELETE FROM public.restaurant_swipes WHERE room_id = p_room_id;
+    UPDATE public.rooms
+    SET swiping_started_at = COALESCE(swiping_started_at, v_now),
+        winning_category = COALESCE(winning_category, consensus_summary->>'winner', (category_summary->>'winner'), 'burger'),
+        restaurant_state = 'voting'
+    WHERE id = p_room_id;
   END IF;
 
   -- Reset member swiping flags so subsequent phases start completely clean
@@ -592,6 +598,224 @@ BEGIN
     WHEN undefined_object THEN NULL;
   END;
 END $$;
+
+-- 8. Enhanced get_or_create_restaurant_deck with category fallback & swiping transition
+DROP FUNCTION IF EXISTS public.get_or_create_restaurant_deck(uuid, uuid, text, uuid);
+
+CREATE OR REPLACE FUNCTION public.get_or_create_restaurant_deck(
+  p_room_id uuid,
+  p_participant_id uuid,
+  p_session_token text,
+  p_after_deck_id uuid DEFAULT NULL,
+  p_category text DEFAULT NULL
+) RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, public, private AS $$
+DECLARE
+  actual_participant uuid;
+BEGIN
+  actual_participant := private.room_participant(p_room_id, p_session_token, false);
+  IF actual_participant <> p_participant_id THEN
+    RAISE EXCEPTION 'WSH_UNAUTHORIZED_PARTICIPANT' USING ERRCODE = '42501';
+  END IF;
+  IF p_after_deck_id IS NOT NULL THEN
+    RAISE EXCEPTION 'WSH_GENERATION_NOT_AUTHORIZED' USING ERRCODE = 'PT409';
+  END IF;
+
+  -- Ensure room is ready for swiping: initialize swiping_started_at and winning_category if missing
+  UPDATE public.rooms
+  SET stage = 'swiping',
+      current_stage = 'swiping',
+      swiping_started_at = COALESCE(swiping_started_at, now()),
+      winning_category = COALESCE(NULLIF(p_category, ''), winning_category, consensus_summary->>'winner', (category_summary->>'winner'), 'burger')
+  WHERE id = p_room_id
+    AND (stage <> 'swiping' OR swiping_started_at IS NULL OR winning_category IS NULL OR winning_category = '');
+
+  RETURN private.create_restaurant_deck(p_room_id, actual_participant, p_session_token, NULL);
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.get_or_create_restaurant_deck(uuid, uuid, text, uuid, text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.get_or_create_restaurant_deck(uuid, uuid, text, uuid, text) TO anon, authenticated;
+
+-- 9. Resilient, Idempotent submit_restaurant_vote with Funnel Stage & State Awareness
+CREATE OR REPLACE FUNCTION public.submit_restaurant_vote(
+  p_room_id uuid,
+  p_session_token text,
+  p_expected_version bigint,
+  p_deck_id uuid,
+  p_restaurant_id text,
+  p_vote text
+) RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, public, private AS $$
+DECLARE
+  current_participant_id uuid;
+  room_row public.rooms%ROWTYPE;
+  deck_row private.room_restaurant_decks%ROWTYPE;
+  card_position smallint;
+  active_count int;
+  card_count int;
+  decided_count int;
+  max_yes int;
+  top_ids text[];
+  state jsonb;
+  next_deck jsonb;
+BEGIN
+  current_participant_id := private.room_participant(p_room_id, p_session_token, false);
+  SELECT * INTO room_row FROM public.rooms WHERE id = p_room_id FOR UPDATE;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Room not found' USING ERRCODE = '22023';
+  END IF;
+
+  -- 1. Idempotency Check: if this exact vote is already recorded, return canonical state cleanly
+  IF EXISTS (
+    SELECT 1 FROM public.restaurant_swipes
+    WHERE room_id = p_room_id
+      AND participant_id = current_participant_id
+      AND deck_id = p_deck_id
+      AND restaurant_id = p_restaurant_id
+      AND vote = p_vote
+  ) THEN
+    RETURN private.room_state(p_room_id, current_participant_id);
+  END IF;
+
+  -- 2. Concurrency Check: If version is stale, verify if this vote is already persisted
+  IF room_row.version <> p_expected_version THEN
+    IF EXISTS (
+      SELECT 1 FROM public.restaurant_swipes
+      WHERE room_id = p_room_id
+        AND participant_id = current_participant_id
+        AND deck_id = p_deck_id
+        AND restaurant_id = p_restaurant_id
+    ) THEN
+      RETURN private.room_state(p_room_id, current_participant_id);
+    END IF;
+  END IF;
+
+  -- 3. Room Status & Stage Verification (accepts both stage = 'swiping' or status = 'restaurant_swiping')
+  IF room_row.stage <> 'swiping' AND room_row.status <> 'restaurant_swiping' THEN
+    RAISE EXCEPTION 'WSH_VOTE_CLOSED' USING ERRCODE = 'PT409';
+  END IF;
+
+  IF room_row.finalized_at IS NOT NULL THEN
+    RAISE EXCEPTION 'WSH_VOTE_CLOSED' USING ERRCODE = 'PT409';
+  END IF;
+
+  -- Self-heal restaurant_state to 'voting' if idle, uninitialized, or missing
+  IF room_row.restaurant_state IS NULL OR room_row.restaurant_state = 'idle' THEN
+    room_row.restaurant_state := 'voting';
+    UPDATE public.rooms SET restaurant_state = 'voting' WHERE id = p_room_id;
+  END IF;
+
+  IF room_row.restaurant_state <> 'voting' THEN
+    RAISE EXCEPTION 'WSH_VOTE_CLOSED' USING ERRCODE = 'PT409';
+  END IF;
+
+  IF p_vote NOT IN ('YES', 'NO', 'LATER') THEN
+    RAISE EXCEPTION 'WSH_INVALID_VOTE' USING ERRCODE = '22023';
+  END IF;
+
+  -- 4. Verify Deck belongs to room and matches active generation
+  SELECT * INTO deck_row FROM private.room_restaurant_decks d
+  WHERE d.id = p_deck_id AND d.room_id = p_room_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'WSH_OLD_GENERATION' USING ERRCODE = 'PT409';
+  END IF;
+
+  IF deck_row.generation < (
+    SELECT coalesce(max(x.generation), 0)
+    FROM private.room_restaurant_decks x
+    WHERE x.room_id = p_room_id
+      AND (x.round_started_at = room_row.swiping_started_at OR room_row.swiping_started_at IS NULL)
+  ) THEN
+    RAISE EXCEPTION 'WSH_OLD_GENERATION' USING ERRCODE = 'PT409';
+  END IF;
+
+  SELECT position INTO card_position FROM private.room_restaurant_deck_items
+  WHERE deck_id = p_deck_id AND restaurant_id = p_restaurant_id;
+  IF card_position IS NULL THEN
+    RAISE EXCEPTION 'WSH_INVALID_RECOMMENDATION_CARD' USING ERRCODE = '22023';
+  END IF;
+
+  -- 5. Record Swipe Idempotently
+  INSERT INTO public.restaurant_swipes (
+    room_id, participant_id, restaurant_id, liked, deck_id, deck_position, vote, created_at, updated_at
+  ) VALUES (
+    p_room_id, current_participant_id, p_restaurant_id,
+    CASE p_vote WHEN 'YES' THEN true WHEN 'NO' THEN false ELSE NULL END,
+    p_deck_id, card_position, p_vote, now(), now()
+  )
+  ON CONFLICT (room_id, participant_id, restaurant_id)
+  DO UPDATE SET
+    liked = excluded.liked,
+    deck_id = excluded.deck_id,
+    deck_position = excluded.deck_position,
+    vote = excluded.vote,
+    updated_at = now();
+
+  UPDATE public.rooms SET version = version + 1 WHERE id = p_room_id;
+
+  SELECT count(*)::int INTO card_count FROM private.room_restaurant_deck_items WHERE deck_id = p_deck_id;
+
+  -- Keep room_members completion in sync
+  UPDATE public.room_members
+  SET swipe_count = (SELECT count(*) FROM public.restaurant_swipes WHERE room_id = p_room_id AND participant_id = current_participant_id AND vote IN ('YES', 'NO')),
+      is_done_swiping = ((SELECT count(*) FROM public.restaurant_swipes WHERE room_id = p_room_id AND participant_id = current_participant_id AND vote IN ('YES', 'NO')) >= card_count)
+  WHERE room_id = p_room_id AND (user_id = current_participant_id OR id = current_participant_id);
+
+  SELECT count(*)::int INTO active_count FROM public.participants WHERE room_id = p_room_id AND status = 'active';
+  SELECT count(*)::int INTO decided_count FROM public.restaurant_swipes s
+  JOIN public.participants p ON p.id = s.participant_id
+  WHERE s.deck_id = p_deck_id AND p.status = 'active' AND s.vote IN ('YES', 'NO');
+
+  state := private.restaurant_state(p_room_id, p_deck_id);
+
+  IF card_count > 0 AND decided_count = active_count * card_count THEN
+    SELECT max(yes_count), array_agg(restaurant_id ORDER BY position) FILTER (WHERE yes_count = (
+      SELECT max(x.yes_count) FROM (
+        SELECT count(*) FILTER (WHERE s.vote = 'YES')::int AS yes_count
+        FROM private.room_restaurant_deck_items i
+        LEFT JOIN public.restaurant_swipes s ON s.deck_id = i.deck_id AND s.restaurant_id = i.restaurant_id
+        WHERE i.deck_id = p_deck_id GROUP BY i.restaurant_id
+      ) x
+    )) INTO max_yes, top_ids FROM (
+      SELECT i.position, i.restaurant_id, count(*) FILTER (WHERE s.vote = 'YES')::int AS yes_count
+      FROM private.room_restaurant_deck_items i
+      LEFT JOIN public.restaurant_swipes s ON s.deck_id = i.deck_id AND s.restaurant_id = i.restaurant_id
+      WHERE i.deck_id = p_deck_id GROUP BY i.position, i.restaurant_id
+    ) ranked;
+
+    IF max_yes = 0 THEN
+      IF deck_row.generation = 0 THEN
+        next_deck := private.create_restaurant_deck(p_room_id, current_participant_id, p_session_token, p_deck_id);
+        IF jsonb_array_length(next_deck->'restaurants') = 0 THEN
+          UPDATE public.rooms SET restaurant_state = 'no_match' WHERE id = p_room_id;
+          state := private.restaurant_state(p_room_id, (next_deck->>'deckId')::uuid) || jsonb_build_object('status', 'no_match');
+        ELSE
+          state := private.restaurant_state(p_room_id, (next_deck->>'deckId')::uuid);
+        END IF;
+      ELSE
+        UPDATE public.rooms SET restaurant_state = 'no_match' WHERE id = p_room_id;
+        state := state || jsonb_build_object('status', 'no_match');
+      END IF;
+    ELSIF cardinality(top_ids) = 1 THEN
+      PERFORM private.finalize_restaurant(p_room_id, p_deck_id, top_ids[1], 'normal_consensus');
+      RETURN private.room_state(p_room_id, current_participant_id);
+    ELSE
+      UPDATE public.rooms
+      SET restaurant_state = 'tie',
+          restaurant_summary = state || jsonb_build_object('status', 'tie', 'tiedRestaurantIds', to_jsonb(top_ids))
+      WHERE id = p_room_id;
+      RETURN private.room_state(p_room_id, current_participant_id);
+    END IF;
+  END IF;
+
+  UPDATE public.rooms SET restaurant_summary = state WHERE id = p_room_id;
+  RETURN private.room_state(p_room_id, current_participant_id);
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.submit_restaurant_vote(uuid, text, bigint, uuid, text, text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.submit_restaurant_vote(uuid, text, bigint, uuid, text, text) TO anon, authenticated;
 
 COMMIT;
 

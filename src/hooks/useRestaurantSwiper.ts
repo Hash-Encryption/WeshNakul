@@ -88,11 +88,12 @@ export function useRestaurantSwiper({
 
   // Fetch and hydrate deck
   useEffect(() => {
-    if (stage !== 'swiping' || !category || !roomId || !participantId || !sessionToken) return;
+    const effectiveCategory = category || (summary as any)?.category || 'burger';
+    if (stage !== 'swiping' || !roomId || !participantId || !sessionToken) return;
     let active = true;
 
     Promise.all([
-      fetchDeckRestaurants(roomId, participantId, sessionToken),
+      fetchDeckRestaurants(roomId, participantId, sessionToken, undefined, effectiveCategory),
       getRoomDecisionState(roomId, sessionToken),
     ])
       .then(([nextDeck, state]) => {
@@ -164,7 +165,7 @@ export function useRestaurantSwiper({
         logDeckError({
           roomId,
           sessionToken,
-          category,
+          category: effectiveCategory,
           eventPhase: 'restoration',
           error,
           message: 'Failed to load authoritative decision state or deck',
@@ -219,6 +220,7 @@ export function useRestaurantSwiper({
       const item = deck[safeIndex];
       if (!item || !item.id) return Promise.resolve();
 
+      if (swipedIdsRef.current.has(item.id)) return Promise.resolve();
       if (pendingItemsRef.current.has(item.id)) return Promise.resolve();
       pendingItemsRef.current.add(item.id);
 
@@ -325,7 +327,14 @@ export function useRestaurantSwiper({
             try {
               const canonical = await getRoomDecisionState(roomId, sessionToken);
               versionRef.current = Math.max(versionRef.current, canonical.room.version);
-              if (canonical.room.stage === 'swiping' && canonical.room.restaurant_summary?.deckId === deckId) {
+              // If the vote is already recorded in authoritative state, treat as idempotent success
+              if (canonical.myVotes && canonical.myVotes[item.id]) {
+                setMyVotes(canonical.myVotes);
+                if (onAuthoritativeState) onAuthoritativeState(canonical);
+                else await onRefresh();
+                return;
+              }
+              if ((canonical.room.stage === 'swiping' || (canonical.room as any).status === 'restaurant_swiping') && canonical.room.restaurant_summary?.deckId === deckId) {
                 await accept(await submitRestaurantVote(roomId, sessionToken, versionRef.current, deckId, item.id, vote));
                 return;
               }
@@ -347,19 +356,37 @@ export function useRestaurantSwiper({
             });
           }
 
-          // Rollback swipedIdsRef and optimistic traversal
+          // If 409 conflict occurred and the vote was already persisted, do not roll back
+          if (isStale) {
+            try {
+              const canonical = await getRoomDecisionState(roomId, sessionToken);
+              versionRef.current = Math.max(versionRef.current, canonical.room.version);
+              if (canonical.myVotes && canonical.myVotes[item.id]) {
+                setMyVotes(canonical.myVotes);
+                if (onAuthoritativeState) onAuthoritativeState(canonical);
+                else await onRefresh();
+                return;
+              }
+            } catch {
+              /* ignore background sync failure */
+            }
+          }
+
+          // Rollback swipedIdsRef and optimistic traversal only if user hasn't already swiped ahead
           if (vote === 'YES' || vote === 'NO') {
             swipedIdsRef.current.delete(item.id);
           }
           setTraversal((current) => {
-            const index = current.deck.findIndex((card) => card.id === item.id);
+            const index = (current.deck ?? []).findIndex((card) => card.id === item.id);
             if (index < 0) return current;
-            const remaining = current.deck.filter((card) => card.id !== item.id);
+            const remaining = (current.deck ?? []).filter((card) => card.id !== item.id);
             const insertAt = Math.min(safeIndex, remaining.length);
+            // Never slam the user back to Card 1 if they have already moved further into the deck
+            const nextIdx = current.currentIndex > safeIndex + 1 ? current.currentIndex - 1 : insertAt;
             return {
               ...current,
               deck: [...remaining.slice(0, insertAt), item, ...remaining.slice(insertAt)],
-              currentIndex: insertAt,
+              currentIndex: Math.max(0, nextIdx),
             };
           });
 

@@ -28,7 +28,7 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
     return () => window.clearTimeout(timer);
   }, [spin]);
 
-  const candidates = useMemo(() => spin.candidateIds.map((id) => restaurants.find((item) => item.id === id)).filter(Boolean) as RestaurantItem[], [spin.candidateIds, restaurants]);
+  const candidates = useMemo(() => (spin.candidateIds ?? []).map((id) => (restaurants ?? []).find((item) => item?.id === id)).filter(Boolean) as RestaurantItem[], [spin.candidateIds, restaurants]);
   const slices = useMemo<ArcadeWheelSlice[]>(() => candidates.map((restaurant, index) => ({
     id: restaurant.id,
     name: (locale === 'ar' ? restaurant.nameAr : restaurant.nameEn) || restaurant.nameAr || restaurant.nameEn || restaurant.id,
@@ -40,7 +40,7 @@ export const RestaurantRouletteOverlay: React.FC<{ spin: DecisionSpin; restauran
     midAngle: ((index + 0.5) * 360) / candidates.length,
     angle: 360 / candidates.length,
   })), [candidates, locale]);
-  const winner = spin.winnerId ? candidates.find((item) => item.id === spin.winnerId) : undefined;
+  const winner = spin.winnerId ? (candidates ?? []).find((item) => item?.id === spin.winnerId) : undefined;
 
   const { wheelRef, needleRef, isSpinning, revealed } = useContinuousRoulette({
     spin,

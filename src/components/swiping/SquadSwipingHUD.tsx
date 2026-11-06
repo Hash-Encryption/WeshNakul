@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import type { Participant, RestaurantSummary } from '../../types/database';
 import { ProceduralAvatar } from '../common/ProceduralAvatar';
 import { useLocale } from '../../context/LocaleContext';
@@ -15,11 +15,11 @@ export const SquadSwipingHUD: React.FC<SquadSwipingHUDProps> = ({
   const { t } = useLocale();
 
   const isParticipantDone = (participantId: string) => {
-    return Boolean(summary?.participantProgress.find((item) => item.participantId === participantId)?.complete);
+    return Boolean((summary?.participantProgress ?? []).find((item) => item?.participantId === participantId)?.complete);
   };
 
-  const completedCount = participants.filter((p) => isParticipantDone(p.id)).length;
-  const totalCount = participants.length;
+  const completedCount = (participants ?? []).filter((p) => isParticipantDone(p.id)).length;
+  const totalCount = participants?.length ?? 0;
 
   return (
     <header className="w-full max-w-[360px] mx-auto pt-2 pb-3 px-2 z-20">

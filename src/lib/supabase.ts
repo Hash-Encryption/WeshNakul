@@ -139,16 +139,19 @@ function recordSuccessfulLookup(): void {
   clientLookupBlockedUntil = 0;
 }
 
+// In-flight deduplication cache to prevent burst queries for the same room code
+const inFlightRoomLookups = new Map<string, Promise<{ room: Room | null; participants: Participant[]; isExpired?: boolean }>>();
+
 /**
  * Fetch a room by its 4-character code (case-insensitive).
  */
 export async function getRoomByCode(
-  code: string
+  code: string,
+  bypassDedupe = false
 ): Promise<{ room: Room | null; participants: Participant[]; isExpired?: boolean }> {
   if (!supabase) throw new Error('Supabase is not configured');
 
   const cleanCode = (code || '').trim().toUpperCase();
-  console.log('[getRoomByCode] Searching Supabase for code:', cleanCode);
 
   // 1. Strict input validation: must be exactly 4 uppercase alphanumeric characters
   if (!/^[A-Z0-9]{4}$/.test(cleanCode)) {
@@ -156,56 +159,81 @@ export async function getRoomByCode(
     return { room: null, participants: [], isExpired: false };
   }
 
-  // 2. Client-side abuse throttling against rapid brute-force attempts
-  if (isClientLookupThrottled()) {
-    console.warn('[getRoomByCode] Client-side lookup throttled due to repeated failures');
-    return { room: null, participants: [], isExpired: false };
+  // Deduplicate concurrent in-flight requests for the exact same room code
+  if (!bypassDedupe) {
+    const existingPromise = inFlightRoomLookups.get(cleanCode);
+    if (existingPromise) {
+      return existingPromise;
+    }
   }
 
-  // 3. Primary secure path: RPC get_room_by_code avoids public table enumeration
-  const { data: rpcData, error } = await supabase.rpc('get_room_by_code', { p_code: cleanCode });
+  const performLookup = async () => {
+    console.log('[getRoomByCode] Searching Supabase for code:', cleanCode);
 
-  if (error) {
-    recordFailedLookup();
-    console.error('[getRoomByCode] RPC error:', error);
-    throw error;
-  }
+    // 2. Client-side abuse throttling against rapid brute-force attempts
+    if (isClientLookupThrottled()) {
+      console.warn('[getRoomByCode] Client-side lookup throttled due to repeated failures');
+      return { room: null, participants: [], isExpired: false };
+    }
 
-  if (!rpcData || typeof rpcData !== 'object') {
-    recordFailedLookup();
-    console.warn('[getRoomByCode] Room not found:', cleanCode);
-    return { room: null, participants: [], isExpired: false };
-  }
+    // 3. Primary secure path: RPC get_room_by_code avoids public table enumeration
+    const { data: rpcData, error } = await supabase.rpc('get_room_by_code', { p_code: cleanCode });
 
-  recordSuccessfulLookup();
-  const room: Room = { ...(rpcData as Room), code: cleanCode };
+    if (error) {
+      recordFailedLookup();
+      console.error('[getRoomByCode] RPC error:', error);
+      throw error;
+    }
 
-  console.log('[getRoomByCode] Result:', { room });
+    if (!rpcData || typeof rpcData !== 'object') {
+      recordFailedLookup();
+      console.warn('[getRoomByCode] Room not found:', cleanCode);
+      return { room: null, participants: [], isExpired: false };
+    }
 
-  if (isRoomExpired(room.created_at)) {
-    console.warn('[getRoomByCode] Room expired:', cleanCode, room.created_at);
-    return { room: null, participants: [], isExpired: true };
-  }
+    recordSuccessfulLookup();
+    const room: Room = { ...(rpcData as Room), code: cleanCode };
 
-  const { data: partData, error: partError } = await supabase.rpc('get_room_participants', {
-    p_room_id: room.id,
-    p_session_token: getOrCreateSessionToken(cleanCode),
-    p_legacy_session_token: getOrCreateSessionToken(),
-  });
+    console.log('[getRoomByCode] Result:', { room });
 
-  if (partError) throw partError;
+    if (isRoomExpired(room.created_at)) {
+      console.warn('[getRoomByCode] Room expired:', cleanCode, room.created_at);
+      return { room: null, participants: [], isExpired: true };
+    }
 
-  return {
-    room: {
-      ...room,
-      room_mode: (room.room_mode || 'food') as RoomMode,
-      preferences: room.preferences || [],
-      stage: room.stage || room.current_stage || room.status || 'lobby',
-      tied_categories: room.tied_categories || [],
-    } as Room,
-    participants: (partData || []) as Participant[],
-    isExpired: false,
+    const { data: partData, error: partError } = await supabase.rpc('get_room_participants', {
+      p_room_id: room.id,
+      p_session_token: getOrCreateSessionToken(cleanCode),
+      p_legacy_session_token: getOrCreateSessionToken(),
+    });
+
+    if (partError) throw partError;
+
+    return {
+      room: {
+        ...room,
+        room_mode: (room.room_mode || 'food') as RoomMode,
+        preferences: room.preferences || [],
+        stage: room.stage || room.current_stage || room.status || 'lobby',
+        tied_categories: room.tied_categories || [],
+      } as Room,
+      participants: (partData || []) as Participant[],
+      isExpired: false,
+    };
   };
+
+  const lookupPromise = (async () => {
+    try {
+      return await performLookup();
+    } finally {
+      inFlightRoomLookups.delete(cleanCode);
+    }
+  })();
+
+  if (!bypassDedupe) {
+    inFlightRoomLookups.set(cleanCode, lookupPromise);
+  }
+  return lookupPromise;
 }
 
 /**
@@ -335,8 +363,27 @@ export const resolveCategoryTie = (roomId: string, sessionToken: string, version
 export const beginRestaurantVoting = (roomId: string, sessionToken: string, version: number) =>
   decisionRpc('begin_restaurant_voting', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version });
 
-export const submitRestaurantVote = (roomId: string, sessionToken: string, version: number, deckId: string, restaurantId: string, vote: RestaurantVote) =>
-  decisionRpc('submit_restaurant_vote', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_deck_id: deckId, p_restaurant_id: restaurantId, p_vote: vote });
+const inFlightRestaurantVotes = new Map<string, Promise<RoomDecisionState>>();
+
+export const submitRestaurantVote = (roomId: string, sessionToken: string, version: number, deckId: string, restaurantId: string, vote: RestaurantVote) => {
+  const voteKey = `${roomId}:${sessionToken}:${deckId}:${restaurantId}:${vote}`;
+  const existing = inFlightRestaurantVotes.get(voteKey);
+  if (existing) return existing;
+
+  const promise = decisionRpc('submit_restaurant_vote', {
+    p_room_id: roomId,
+    p_session_token: sessionToken,
+    p_expected_version: version,
+    p_deck_id: deckId,
+    p_restaurant_id: restaurantId,
+    p_vote: vote,
+  }).finally(() => {
+    inFlightRestaurantVotes.delete(voteKey);
+  });
+
+  inFlightRestaurantVotes.set(voteKey, promise);
+  return promise;
+};
 
 export const resolveRestaurantTie = (roomId: string, sessionToken: string, version: number, method: 'host_pick' | 'choose_for_us' | 'sudden_death', restaurantId?: string) =>
   decisionRpc('resolve_restaurant_tie', { p_room_id: roomId, p_session_token: sessionToken, p_expected_version: version, p_method: method, p_restaurant_id: restaurantId ?? null });
@@ -662,19 +709,25 @@ export async function fetchDeckRestaurants(
   participantId: string,
   sessionToken: string,
   afterDeckId?: string,
+  category?: string,
 ): Promise<import('../types/restaurant').RestaurantDeck> {
   if (!supabase) throw new Error('Supabase is not configured');
   try {
-    const { data, error } = await supabase.rpc('get_or_create_restaurant_deck', {
+    const rpcParams: Record<string, any> = {
       p_room_id: roomId,
       p_participant_id: participantId,
       p_session_token: sessionToken,
       p_after_deck_id: afterDeckId ?? null,
-    });
+    };
+    if (category !== undefined) {
+      rpcParams.p_category = category ?? null;
+    }
+    const { data, error } = await supabase.rpc('get_or_create_restaurant_deck', rpcParams);
     if (error) {
       logDeckError({
         roomId,
         sessionToken,
+        category: category ?? undefined,
         eventPhase: 'deck_generation',
         error,
         message: 'RPC get_or_create_restaurant_deck failed',
@@ -686,6 +739,7 @@ export async function fetchDeckRestaurants(
       logDeckError({
         roomId,
         sessionToken,
+        category: category ?? undefined,
         eventPhase: 'deck_generation',
         message: 'Failed to normalize deck payload from database RPC',
       });

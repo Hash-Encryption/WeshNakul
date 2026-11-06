@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { useRoom } from '../../context/RoomContext';
@@ -26,17 +26,28 @@ export const TiebreakerScreen: React.FC = () => {
     toggleSuggestion,
     leaveRoom,
     advanceFunnelStage,
+    applyAuthoritativeRoomState,
+    resolveCategoryConsensusFunnel,
   } = useRoom();
   const { t, locale } = useLocale();
   const reduceMotion = useReducedMotion();
   const [isStarting, setIsStarting] = useState(false);
   const [isSpinningLong, setIsSpinningLong] = useState(false);
+  const [isSpinTriggered, setIsSpinTriggered] = useState(false);
+  const [hasCompletedSpin, setHasCompletedSpin] = useState(false);
 
   const spin = decisionSpin?.kind === 'category' ? decisionSpin : null;
 
   // Read authoritative server consensus & tie state from persisted room columns
   const serverConsensus = currentRoom?.consensus_summary;
-  const serverWinnerId = serverConsensus?.winner || currentRoom?.winning_category || (currentRoom?.category_summary as any)?.winner || null;
+  const serverWinnerId =
+    serverConsensus?.winner ||
+    currentRoom?.winning_category ||
+    (currentRoom as any)?.selected_category ||
+    (currentRoom as any)?.category ||
+    (currentRoom as any)?.tiebreaker_winner ||
+    (currentRoom?.category_summary as any)?.winner ||
+    null;
   const serverTiedIds: string[] = useMemo(() => {
     if (currentRoom?.tied_categories && currentRoom.tied_categories.length > 0) {
       return currentRoom.tied_categories;
@@ -52,19 +63,26 @@ export const TiebreakerScreen: React.FC = () => {
     return [];
   }, [currentRoom?.tied_categories, currentRoom?.category_summary, serverConsensus, serverWinnerId]);
 
+  const resolvedTarget = spin?.winnerId || serverWinnerId || '';
+  const spinGuardKey = `${currentRoom?.id || ''}-${currentRoom?.stage || currentRoom?.status || ''}-${resolvedTarget}`;
+  const spinExecutionGuardRef = useRef<{ [key: string]: 'idle' | 'spinning' | 'completed' }>({});
+
+  const isSpinGuarded = spinExecutionGuardRef.current[spinGuardKey] === 'completed' || hasCompletedSpin;
+  const isSpinTriggeredOrActive = (isSpinTriggered || Boolean(spin)) && !isSpinGuarded;
+
   const activeSpin: DecisionSpin | null = useMemo(() => {
     if (spin) return spin;
-    // Auto-synthesize active synchronized spin from persisted room state if status is roulette or tiebreaker with winner
-    if ((currentRoom?.status === 'roulette' || currentRoom?.stage === 'tiebreaker') && serverWinnerId && serverTiedIds.length >= 2) {
+    // Only synthesize active spin if spin animation has been explicitly triggered
+    if (isSpinTriggeredOrActive && serverWinnerId && serverTiedIds.length >= 2) {
       return {
-        spinId: serverConsensus?.spinStartedAt || (serverConsensus as any)?.spin_started_at || currentRoom.id,
+        spinId: serverConsensus?.spinStartedAt || (serverConsensus as any)?.spin_started_at || currentRoom?.id || 'spin',
         kind: 'category',
         candidateIds: serverTiedIds,
         winnerId: serverWinnerId,
       };
     }
     return null;
-  }, [spin, currentRoom?.status, currentRoom?.stage, currentRoom?.id, serverWinnerId, serverTiedIds, serverConsensus]);
+  }, [spin, isSpinTriggeredOrActive, serverWinnerId, serverTiedIds, serverConsensus, currentRoom?.id]);
 
   React.useEffect(() => {
     if (!activeSpin || activeSpin.winnerId || activeSpin.error) {
@@ -98,7 +116,9 @@ export const TiebreakerScreen: React.FC = () => {
     : undefined;
 
   const { wheelRef, needleRef, isSpinning, revealed } = useContinuousRoulette({
+    isSpinning: isSpinTriggeredOrActive,
     spin: activeSpin,
+    winnerId: activeSpin?.winnerId || serverWinnerId || null,
     slices,
     reducedMotion: Boolean(reduceMotion),
     onRevealed: () => {
@@ -108,9 +128,39 @@ export const TiebreakerScreen: React.FC = () => {
         confetti({ particleCount: 35, spread: 55, origin: { y: 0.55 }, colors: ['#FFD75A', '#55B96A', '#F0443E'] });
       }
     },
-    onComplete: () => {
+    onComplete: async (completedWinnerId?: string) => {
+      setHasCompletedSpin(true);
+      spinExecutionGuardRef.current[spinGuardKey] = 'completed';
+      const winnerToCommit = completedWinnerId || activeSpin?.winnerId || serverWinnerId || winner?.id || null;
+      if (winnerToCommit && currentRoom) {
+        const updatedRoom = {
+          ...currentRoom,
+          winning_category: winnerToCommit,
+          category_summary: {
+            ...(currentRoom.category_summary as any),
+            status: 'decided',
+            winner: winnerToCommit,
+          },
+          consensus_summary: {
+            ...currentRoom.consensus_summary,
+            winner: winnerToCommit,
+          },
+        };
+        applyAuthoritativeRoomState({ room: updatedRoom } as any);
+      }
       completeDecisionSpin();
-      if (isHost && (currentRoom?.status === 'roulette' || currentRoom?.status === 'tiebreaker')) {
+      if (isHost && (currentRoom?.status === 'roulette' || currentRoom?.status === 'tiebreaker' || currentRoom?.stage === 'tiebreaker')) {
+        if (winnerToCommit && currentRoom?.id) {
+          try {
+            await resolveCategoryConsensusFunnel(
+              winnerToCommit,
+              currentRoom.consensus_summary?.agreementPercent ?? 100,
+              currentRoom.consensus_summary?.runnerUps ?? []
+            );
+          } catch (e) {
+            console.warn('[TiebreakerScreen] Non-fatal error resolving consensus on tie complete', e);
+          }
+        }
         void advanceFunnelStage('consensus');
       }
     },
@@ -119,20 +169,25 @@ export const TiebreakerScreen: React.FC = () => {
   if (!currentRoom) return null;
 
   const choose = async () => {
-    if (!isHost || spin || isStarting) return;
+    if (!isHost || isSpinTriggered || spin || isStarting || hasCompletedSpin) return;
     setIsStarting(true);
+    setIsSpinTriggered(true);
+    spinExecutionGuardRef.current[spinGuardKey] = 'spinning';
     triggerHaptic(12);
     playTactilePop(200);
     try {
       await startCategoryRoulette();
     } catch (error) {
       console.error('Error resolving category tie', error);
+      setIsSpinTriggered(false);
+      spinExecutionGuardRef.current[spinGuardKey] = 'idle';
     } finally {
       setIsStarting(false);
     }
   };
 
   const hasError = Boolean(spin?.error);
+  const isSpinActive = isSpinTriggeredOrActive || isSpinning || Boolean(spin);
 
   return (
     <div className="relative mx-auto flex min-h-[92dvh] w-full max-w-md flex-col justify-between px-4 pb-8">
@@ -198,7 +253,7 @@ export const TiebreakerScreen: React.FC = () => {
                       ? 'Resolution timed out. Please try again.'
                       : 'Resolution timed out. Waiting for host to retry...')}
               </motion.div>
-            ) : spin ? (
+            ) : isSpinActive ? (
               <motion.div
                 key={isSpinningLong ? 'spinning-long' : 'spinning'}
                 initial={{ opacity: 0 }}
@@ -226,41 +281,43 @@ export const TiebreakerScreen: React.FC = () => {
             </TactileButton>
           </div>
         ) : isHost ? (
-          <div className="flex flex-col items-center gap-2">
-            <TactileButton
-              onClick={choose}
-              disabled={isStarting || Boolean(spin) || slices.length < 2}
-              isLoading={isStarting}
-              variant="yellow"
-              fullWidth
-              size="lg"
-              icon="🎯"
-            >
-              {t('categoryRoulette.spinBtn')}
-            </TactileButton>
-            <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />
-          </div>
+          !hasCompletedSpin && (
+            <div className="flex flex-col items-center gap-2">
+              <TactileButton
+                onClick={choose}
+                disabled={isStarting || isSpinActive || hasCompletedSpin || slices.length < 2}
+                isLoading={isStarting}
+                variant="yellow"
+                fullWidth
+                size="lg"
+                icon="🎯"
+              >
+                {t('categoryRoulette.spinBtn')}
+              </TactileButton>
+              {!isSpinActive && <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />}
+            </div>
+          )
         ) : (
           <div className="flex flex-col items-center gap-2">
             <button
               type="button"
-              disabled={Boolean(spin)}
+              disabled={isSpinActive || hasCompletedSpin}
               onClick={() => toggleSuggestion('action:spin_again')}
               className={`w-full rounded-2xl border-2 p-3 text-center text-xs font-black font-alexandria transition-all ${
-                spin ? 'cursor-default opacity-80' : 'cursor-pointer'
+                isSpinActive || hasCompletedSpin ? 'cursor-default opacity-80' : 'cursor-pointer'
               } ${
                 suggestions.some((s) => s.target === 'action:spin_again' && s.participant_id === currentParticipant?.id)
                   ? 'bg-amber-100 text-brand-ink border-amber-400'
                   : 'bg-white border-brand-ink/20 text-brand-gray hover:bg-stone-50'
               }`}
             >
-              {spin
+              {isSpinActive
                 ? (isSpinningLong
                     ? (locale === 'ar' ? '⏳ جاري الحسم...' : '⏳ Still deciding...')
                     : (locale === 'ar' ? '🎯 جاري اختيار الفائز للجميع...' : t('gameSwiper.rouletteSpinning')))
                 : `${t('categoryRoulette.waitingHost')} • ${t('suggestions.spinAgain')} 🎯`}
             </button>
-            {!spin && <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />}
+            {!isSpinActive && !hasCompletedSpin && <SocialSuggestionAvatars suggestions={suggestions} target="action:spin_again" className="justify-center" />}
           </div>
         )}
       </div>

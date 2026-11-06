@@ -398,8 +398,20 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
             return;
           }
           if (room.version < (currentRoomRef.current?.version ?? -1)) return;
+          const prev = currentRoomRef.current;
+          const hasRoomChanged =
+            !prev ||
+            prev.version !== room.version ||
+            prev.stage !== room.stage ||
+            prev.status !== room.status ||
+            prev.winning_category !== room.winning_category ||
+            prev.winning_restaurant_id !== room.winning_restaurant_id ||
+            (prev.tied_categories || []).join(',') !== (room.tied_categories || []).join(',');
+
           currentRoomRef.current = room;
-          setCurrentRoom(room);
+          if (hasRoomChanged) {
+            setCurrentRoom(room);
+          }
           if (options?.fetchParticipants !== false) {
             setParticipants(parts);
           }
@@ -701,12 +713,22 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [currentRoom?.id, applyDecisionSpin]);
 
   const completeDecisionSpin = useCallback(() => {
+    const currentSpin = decisionSpinRef.current;
     applyDecisionSpin(null);
     if (pendingResolvedRoomRef.current) {
       const resolved = pendingResolvedRoomRef.current;
       pendingResolvedRoomRef.current = null;
       currentRoomRef.current = resolved;
       setCurrentRoom(resolved);
+    } else if (currentSpin?.winnerId && currentRoomRef.current) {
+      const current = currentRoomRef.current;
+      const updated = {
+        ...current,
+        winning_category: currentSpin.kind === 'category' ? currentSpin.winnerId : current.winning_category,
+        winning_restaurant_id: currentSpin.kind === 'restaurant' ? currentSpin.winnerId : current.winning_restaurant_id,
+      };
+      currentRoomRef.current = updated;
+      setCurrentRoom(updated);
     } else {
       refreshRoom();
     }

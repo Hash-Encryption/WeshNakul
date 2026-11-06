@@ -73,7 +73,14 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
     participantId: currentParticipant?.id || '',
     sessionToken: currentParticipant?.session_token || '',
     version: currentRoom?.version || 0,
-    category: currentRoom?.winning_category || 'burger',
+    category:
+      currentRoom?.winning_category ||
+      (currentRoom as any)?.selected_category ||
+      (currentRoom as any)?.category ||
+      (currentRoom as any)?.tiebreaker_winner ||
+      currentRoom?.consensus_summary?.winner ||
+      (currentRoom?.category_summary as any)?.winner ||
+      'burger',
     stage: currentRoom?.stage,
     eatingMode: currentRoom?.eating_mode,
     roomMode: currentRoom?.room_mode,
@@ -224,10 +231,10 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
       }
 
       if (msg.type === 'shuffle_cards_start') {
-        const candidateItems = msg.contenderIds
-          .map((id) => deck.find((r) => r.id === id))
+        const candidateItems = (msg.contenderIds ?? [])
+          .map((id) => (deck ?? []).find((r) => r.id === id))
           .filter(Boolean) as RestaurantItem[];
-        const finalCandidates = candidateItems.length >= 2 ? candidateItems : deck.slice(0, 3);
+        const finalCandidates = candidateItems.length >= 2 ? candidateItems : (deck ?? []).slice(0, 3);
 
         startMiniGameSession('shuffle_cards');
         setShuffleCardsState({
@@ -262,10 +269,10 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
 
     const unsubscribe = subscribeToEmojiClash(currentRoom.id, (msg) => {
       if (msg.type === 'emoji_clash_start') {
-        const candidateItems = msg.contenderIds
-          .map((id) => deck.find((r) => r.id === id))
+        const candidateItems = (msg.contenderIds ?? [])
+          .map((id) => (deck ?? []).find((r) => r.id === id))
           .filter(Boolean) as RestaurantItem[];
-        const finalCandidates = candidateItems.length >= 2 ? candidateItems : deck.slice(0, 3);
+        const finalCandidates = candidateItems.length >= 2 ? candidateItems : (deck ?? []).slice(0, 3);
 
         startMiniGameSession('emoji_clash');
         setEmojiClashState({
@@ -295,8 +302,8 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   const handleLaunchEmojiClash = async () => {
     if (!currentRoom || !currentParticipant) return;
     const tiedIds = summary?.tiedRestaurantIds || [];
-    const candidates = tiedIds.map((id) => deck.find((r) => r.id === id)).filter(Boolean) as RestaurantItem[];
-    const activeContenders = candidates.length >= 2 ? candidates : deck.slice(0, 3);
+    const candidates = (tiedIds ?? []).map((id) => (deck ?? []).find((r) => r.id === id)).filter(Boolean) as RestaurantItem[];
+    const activeContenders = candidates.length >= 2 ? candidates : (deck ?? []).slice(0, 3);
 
     startMiniGameSession('emoji_clash');
 
@@ -395,8 +402,8 @@ const FoodRestaurantSwipingScreen: React.FC<RestaurantSwipingScreenProps> = () =
   const handleLaunchShuffleCards = async (captainCandidate: { id: string; nickname: string; color?: string }) => {
     if (!currentRoom || !currentParticipant) return;
     const tiedIds = summary?.tiedRestaurantIds || [];
-    const candidates = tiedIds.map((id) => deck.find((r) => r.id === id)).filter(Boolean) as RestaurantItem[];
-    const activeContenders = candidates.length >= 2 ? candidates : deck.slice(0, 3);
+    const candidates = (tiedIds ?? []).map((id) => (deck ?? []).find((r) => r.id === id)).filter(Boolean) as RestaurantItem[];
+    const activeContenders = candidates.length >= 2 ? candidates : (deck ?? []).slice(0, 3);
 
     startMiniGameSession('shuffle_cards');
     setIsCaptainRouletteOpen(false);

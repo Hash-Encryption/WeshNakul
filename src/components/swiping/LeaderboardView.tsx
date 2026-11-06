@@ -156,13 +156,13 @@ export const LeaderboardView: React.FC<LeaderboardViewProps> = ({
 
   // Track who is finished swiping
   const isParticipantDone = (participantId: string) => {
-    return Boolean(summary?.participantProgress.find((item) => item.participantId === participantId)?.complete);
+    return Boolean((summary?.participantProgress ?? []).find((item) => item?.participantId === participantId)?.complete);
   };
 
-  const completedCount = participants.filter((p) => isParticipantDone(p.id)).length;
-  const totalParticipants = participants.length || 1;
+  const completedCount = (participants ?? []).filter((p) => isParticipantDone(p.id)).length;
+  const totalParticipants = participants?.length || 1;
   const activePlayerCount = useMemo(
-    () => participants.filter((p) => p.status === 'active').length,
+    () => (participants ?? []).filter((p) => p.status === 'active').length,
     [participants]
   );
 

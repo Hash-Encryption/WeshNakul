@@ -887,6 +887,16 @@ BEGIN
     LIMIT 7;
   END IF;
 
+  IF (SELECT count(*)::int FROM _chosen_cards) = 0 THEN
+    INSERT INTO _chosen_cards (restaurant_id, branch_id, distance_km, core_status)
+    SELECT r.id, b.id, 0.0, 'core'
+    FROM public.restaurants r
+    JOIN public.restaurant_branches b ON b.restaurant_id = r.id
+    WHERE r.is_citywide_staple = true
+       OR r.editorial_role = 'staple'
+    LIMIT 7;
+  END IF;
+
   SELECT coalesce(jsonb_agg(jsonb_build_object(
     'id', ch.restaurant_id,
     'nameAr', can.name_ar,
@@ -1023,8 +1033,23 @@ BEGIN
 
   PERFORM pg_advisory_xact_lock(hashtextextended(p_room_id::text, 0));
   SELECT * INTO room_row FROM public.rooms WHERE id = p_room_id FOR UPDATE;
-  IF NOT FOUND OR room_row.stage <> 'swiping' OR room_row.winning_category IS NULL OR room_row.swiping_started_at IS NULL THEN
-    RAISE EXCEPTION 'Room is not ready for restaurant swiping' USING ERRCODE = '22023';
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Room not found' USING ERRCODE = '22023';
+  END IF;
+
+  IF room_row.swiping_started_at IS NULL THEN
+    room_row.swiping_started_at := now();
+    UPDATE public.rooms SET swiping_started_at = room_row.swiping_started_at WHERE id = p_room_id;
+  END IF;
+
+  IF room_row.winning_category IS NULL OR room_row.winning_category = '' THEN
+    room_row.winning_category := COALESCE(room_row.consensus_summary->>'winner', (room_row.category_summary->>'winner'), 'burger');
+    UPDATE public.rooms SET winning_category = room_row.winning_category WHERE id = p_room_id;
+  END IF;
+
+  IF room_row.stage <> 'swiping' THEN
+    room_row.stage := 'swiping';
+    UPDATE public.rooms SET stage = 'swiping' WHERE id = p_room_id;
   END IF;
 
   SELECT * INTO latest_deck
@@ -1520,6 +1545,16 @@ BEGIN
     SELECT r.restaurant_id, r.selected_branch_id, r.distance_km, r.core_status
     FROM ranked r
     ORDER BY r.proximity_tier ASC, r.repeat_tier ASC, r.diverse_key ASC
+    LIMIT 7;
+  END IF;
+
+  IF (SELECT count(*)::int FROM _chosen_cards) = 0 THEN
+    INSERT INTO _chosen_cards (restaurant_id, branch_id, distance_km, core_status)
+    SELECT r.id, b.id, 0.0, 'core'
+    FROM public.restaurants r
+    JOIN public.restaurant_branches b ON b.restaurant_id = r.id
+    WHERE r.is_citywide_staple = true
+       OR r.editorial_role = 'staple'
     LIMIT 7;
   END IF;
 

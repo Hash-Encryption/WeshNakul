@@ -21,7 +21,7 @@ export const WaitingForSquadCard: React.FC<WaitingForSquadCardProps> = ({
 
   const isParticipantDone = (participantId: string) => {
     if (totalCards === 0) return false;
-    const count = swipes.filter((s) => s.participantId === participantId).length;
+    const count = (swipes ?? []).filter((s) => s?.participantId === participantId).length;
     return count >= totalCards;
   };
 
